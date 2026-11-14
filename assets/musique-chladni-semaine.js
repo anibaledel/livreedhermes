@@ -14,7 +14,9 @@
 // illisible : le bloc entier reste masqué, sans exception.
 import { texte as T } from './musique-chladni-textes.js';
 
-const FICHIER = 'data/musique-chladni/semaine.json';
+const RACINE = new URL('../', import.meta.url); // la page peut vivre dans un sous-dossier (en/see-your-music/) : les fichiers se lisent depuis la racine du site
+const FICHIER = new URL('data/musique-chladni/semaine.json', RACINE).href;
+const ton = (t) => (T('tonalites') || {})[t] || t; // la tonalité (donnée en français) dans la langue de la page
 const el = (tag, attrs = {}, ...enfants) => {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v); }
@@ -41,16 +43,16 @@ function carte(jour) {
   const yt = ID_YOUTUBE.test(jour.youtube || '') ? jour.youtube : null, tk = urlSure(jour.tiktok);
   const jr = { ...jour, youtube: yt, tiktok: tk };
   const zone = el('div', { class: 'vm-jour-zone' });
-  const img = el('img', { src: jour.affiche, alt: T('afficheAlt', { n: jour.n, tonalite: jour.tonalite }), width: 360, height: 640, loading: 'lazy' });
+  const img = el('img', { src: new URL(jour.affiche, RACINE).href, alt: T('afficheAlt', { n: jour.n, tonalite: ton(jour.tonalite) }), width: 360, height: 640, loading: 'lazy' });
   const date = dateFr(jour.date);
   const liens = el('p', { class: 'vm-jour-liens', hidden: true }, yt ? el('a', { href: `https://www.youtube.com/watch?v=${yt}`, rel: 'noopener noreferrer', target: '_blank' }, T('voirYoutube')) : null, tk ? el('a', { href: tk, rel: 'noopener noreferrer', target: '_blank' }, T('voirTiktok')) : null);
   const lancer = (service) => { (service === 'tiktok' ? lecteurTiktok : lecteurYoutube)(zone, jr); liens.hidden = false; zone.classList.add('vm-jour-lu'); };
-  if (yt || tk) zone.append(el('button', { type: 'button', class: 'vm-jour-aff', 'aria-label': T('lire', { n: jour.n, tonalite: jour.tonalite }), onclick: () => lancer(yt ? 'youtube' : 'tiktok') }, img));
+  if (yt || tk) zone.append(el('button', { type: 'button', class: 'vm-jour-aff', 'aria-label': T('lire', { n: jour.n, tonalite: ton(jour.tonalite) }), onclick: () => lancer(yt ? 'youtube' : 'tiktok') }, img));
   else zone.append(el('div', { class: 'vm-jour-aff vm-jour-sans' }, img));
   const pied = [];
   if (yt && idTiktok(tk)) pied.push(el('button', { type: 'button', class: 'vm-jour-autre', onclick: () => lancer('tiktok') }, T('lireTiktok')));
-  return el('article', { class: 'vm-jour', 'aria-label': T('jourTitre', { n: jour.n, tonalite: jour.tonalite }) },
-    zone, el('h3', {}, T('jourTitre', { n: jour.n, tonalite: jour.tonalite })), date ? el('p', { class: 'vm-jour-date' }, T('datePub', { date })) : null,
+  return el('article', { class: 'vm-jour', 'aria-label': T('jourTitre', { n: jour.n, tonalite: ton(jour.tonalite) }) },
+    zone, el('h3', {}, T('jourTitre', { n: jour.n, tonalite: ton(jour.tonalite) })), date ? el('p', { class: 'vm-jour-date' }, T('datePub', { date })) : null,
     yt || tk ? null : el('p', { class: 'vm-jour-bientot' }, T('bientot')), ...pied, liens);
 }
 

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看见你的音乐——La Livrée d'Hermès</title>
+<meta name="description" content="看见你的音乐：选择一首曲子、一个文件或麦克风，观看声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。">
+<meta property="og:title" content="看见你的音乐——La Livrée d'Hermès">
+<meta property="og:description" content="看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/zh/see-your-music/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/zh/see-your-music/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="看见你的音乐——La Livrée d'Hermès">
+<meta name="twitter:description" content="看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/trois-portes.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<style>
+  * { box-sizing:border-box; }
+  html { overflow-x:hidden; }
+  body { margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  .wrap { max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header { text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .vm-page{ max-width:1040px; margin:0 auto; padding:8px 16px 48px; }
+  .vm-page h1{ margin:12px 0 8px; }
+  .vm-intro,.vm-discretion,.vm-flash{ color:var(--dim); line-height:1.6; max-width:70ch; overflow-wrap:anywhere; }
+  .vm-flash{ border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-message{ min-height:1.4em; margin:6px 0; color:var(--dim); overflow-wrap:anywhere; }
+  .vm-message[data-etat=erreur]{ color:var(--white); border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-son{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); align-items:start; margin:14px 0; }
+  .vm-son label{ display:block; color:var(--dim); font-size:13px; margin-bottom:4px; }
+  .vm-son select,.vm-ligne select{ width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-page button{ background:transparent; color:var(--white); border:1px solid var(--line-strong); border-radius:3px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer; min-height:40px; }
+  .vm-page button:hover:not(:disabled){ border-color:var(--gold); }
+  .vm-page button[aria-pressed=true]{ border-color:var(--gold); color:var(--gold); }
+  .vm-page button:disabled{ opacity:.55; cursor:not-allowed; }
+  .vm-page :focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .vm-aide{ color:var(--dim); font-size:12.5px; line-height:1.55; margin:6px 0; overflow-wrap:anywhere; display:block; }
+  .vm-main{ display:grid; gap:18px; grid-template-columns:minmax(0,1fr) minmax(0,260px); align-items:start; margin:14px 0; }
+  .vm-fenetres{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .vm-fen{ min-width:0; }
+  .vm-fen h2{ font-size:14px; margin:0 0 6px; font-weight:600; }
+  .vm-tag{ font-size:11px; color:var(--bg); background:var(--gold); padding:1px 6px; border-radius:3px; margin-left:4px; font-weight:400; }
+  .vm-tag.e{ background:var(--dim); }
+  .vm-fen canvas{ display:block; width:100%; max-width:260px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); }
+  .vm-fen figcaption{ color:var(--dim); font-size:12px; margin-top:4px; overflow-wrap:anywhere; }
+  .vm-fen-btns{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; grid-column:1 / -1; }
+  .vm-bascule{ display:none; gap:8px; margin:0 0 8px; }
+  .vm-opts{ display:flex; flex-direction:column; gap:6px; }
+  .vm-grp h3{ margin:0; font-size:inherit; font-weight:inherit; }
+  .vm-grp > h3 > button{ width:100%; text-align:left; display:flex; justify-content:space-between; }
+  .vm-grp > h3 > button::after{ content:"▾"; color:var(--dim); }
+  .vm-grp.open > h3 > button{ border-color:var(--gold); }
+  .vm-pan{ display:none; border:1px solid var(--line-strong); padding:8px; margin-top:4px; background:var(--bg); max-height:60vh; overflow:auto; }
+  .vm-grp.open .vm-pan{ display:grid; gap:6px; }
+  .vm-o{ display:flex; gap:8px; align-items:center; text-align:left; width:100%; }
+  .vm-o canvas{ flex:none; height:34px; width:auto; border:1px solid var(--line); }
+  .vm-o b{ display:block; font-weight:600; } .vm-o small{ display:block; color:var(--dim); font-size:11.5px; }
+  .vm-o.val{ box-shadow:inset 3px 0 0 var(--gold); }
+  .vm-details{ border:1px solid var(--line-strong); margin:12px 0; padding:0 12px; }
+  .vm-details summary{ cursor:pointer; padding:10px 0; color:var(--gold); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+  .vm-details > div{ padding-bottom:12px; }
+  .vm-ligne{ display:grid; grid-template-columns:1fr auto; gap:4px 8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-ligne label,.vm-ligne small{ grid-column:1 / -1; }
+  .vm-ligne input[type=range],.vm-ligne select{ grid-column:1; width:100%; min-width:0; }
+  .vm-ligne output{ min-width:3ch; text-align:right; font-variant-numeric:tabular-nums; }
+  .vm-case{ display:flex; gap:8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:6px 0 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis dt,.vm-raccourcis dd{ margin:0; } .vm-raccourcis kbd{ border:1px solid var(--line-strong); padding:1px 6px; border-radius:3px; color:var(--white); }
+  .vm-plein{ position:fixed; inset:0; background:#000; z-index:50; display:flex; align-items:center; justify-content:center; }
+  .vm-plein[hidden]{ display:none; }
+  .vm-plein{ width:100vw; height:100vh; height:100dvh; }
+  .vm-plein canvas{ display:block; width:100%; height:100%; } /* jamais d'aspect-ratio ni de max-* : le bitmap a la forme de l'écran, aucun étirement */
+  .vm-plein button{ position:absolute; top:10px; right:10px; background:#000; }
+  .vm-plein.vm-masque{ cursor:none; } .vm-plein.vm-masque button{ display:none; }
+  .vm-info{ color:var(--dim); font-size:12.5px; margin:8px 0 0; min-height:1.6em; overflow-wrap:anywhere; }
+  .vm-semaine{ margin:28px 0 0; } .vm-semaine h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-semaine-grille{ display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(min(100%,150px), 1fr)); margin-top:12px; }
+  .vm-jour{ min-width:0; border:1px solid var(--line-strong); padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .vm-jour h3{ margin:0; font-size:13px; font-weight:600; overflow-wrap:anywhere; }
+  .vm-jour-zone{ aspect-ratio:9 / 16; background:#000; position:relative; overflow:hidden; }
+  .vm-jour-zone iframe, .vm-jour-zone blockquote{ position:absolute; inset:0; width:100%; height:100%; border:0; margin:0; }
+  .vm-page .vm-jour-aff{ display:block; width:100%; height:100%; min-height:0; padding:0; border:0; border-radius:0; background:none; cursor:pointer; }
+  .vm-jour-sans{ cursor:default; opacity:.8; }
+  .vm-jour-aff img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .vm-jour-date, .vm-jour-bientot, .vm-jour-liens{ margin:0; color:var(--dim); font-size:12px; line-height:1.4; }
+  .vm-jour-liens a{ color:var(--gold); display:inline-block; margin-right:10px; }
+  .vm-page .vm-jour-autre{ align-self:flex-start; }
+  .vm-voir{ margin:28px 0 0; } .vm-voir h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-cartes{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+  .vm-carte{ display:block; border:1px solid var(--line-strong); padding:12px 14px; text-decoration:none; color:var(--dim); }
+  .vm-carte:hover{ border-color:var(--gold); } .vm-carte b{ display:block; color:var(--white); font-weight:600; margin-bottom:4px; }
+  .vm-carte span{ font-size:13px; line-height:1.5; overflow-wrap:anywhere; }
+  @media (max-width:760px){
+    .wrap{ padding:20px 12px 48px; }
+    .vm-main{ grid-template-columns:minmax(0,1fr); }
+    .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
+    .vm-bascule{ display:flex; }
+    body.vm-essai-seul .vm-fen-valide{ display:none; }
+    body:not(.vm-essai-seul) .vm-fen-essai{ display:none; }
+    .vm-fen canvas{ max-width:100%; }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="side-band left visible"></div>
+<div class="side-band right visible"></div>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">跳到正文</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="vm-page">
+    <nav class="breadcrumb" aria-label="面包屑导航"><a href="https://anibal-amiot.com/zh/">首页</a><span class="sep">/</span><span aria-current="page" data-t="ariane">看见你的音乐</span></nav>
+    <h1 data-t="h1">看见你的音乐</h1>
+    <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <p class="vm-intro" data-t="intro">每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。选择一首曲子、一个文件或麦克风：本页在方形板每个振动模式圆环所对应的频率上测量这份能量，然后在 La Livrée d'Hermès 的统一图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。</p>
+    <p class="vm-discretion" data-t="discretion">任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。</p>
+    <p class="vm-flash" role="note" data-t="flash">注意：画面可能快速变化并闪烁。“减少快速变化”选项可使其放慢。</p>
+
+    <section class="vm-son" aria-labelledby="vmSonLabel">
+      <div><label id="vmSonLabel" for="vmSource">声音</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
+      <div><button type="button" id="vmLecture" aria-pressed="false">播放</button></div>
+      <div id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">音频输入</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
+    </section>
+    <p class="vm-aide" id="vmMentionIA"></p>
+    <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
+
+    <div class="vm-bascule"><button type="button" id="vmBasculeValide">已确认</button><button type="button" id="vmBasculeEssai">试用</button></div>
+    <div class="vm-main">
+      <div>
+        <div class="vm-fenetres">
+          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">已确认</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap"></figcaption></figure>
+          <figure class="vm-fen vm-fen-essai" style="margin:0"><h2 id="vmEssaiTitre">试用</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
+        </div>
+        <div class="vm-fen-btns"><button type="button" id="vmValider">确认试用</button><button type="button" id="vmAnnuler">取消</button><button type="button" id="vmPleinBtn">全屏</button></div>
+        <p class="vm-aide" id="vmFenAide"></p>
+        <p class="vm-info" id="vmInfo" aria-live="off"></p>
+      </div>
+      <div class="vm-opts">
+        <div class="vm-grp" id="vm-g-mode"></div>
+        <div class="vm-grp" id="vm-g-fmt"></div>
+        <div class="vm-grp" id="vm-g-col"></div>
+        <div class="vm-grp" id="vm-g-view"></div>
+        <div class="vm-grp" id="vm-g-fond"></div>
+        <div class="vm-grp" id="vm-g-pal"></div>
+      </div>
+    </div>
+
+    <details class="vm-details"><summary id="vmTitreReglages">实时设置</summary><div id="vmReglages"></div></details>
+    <details class="vm-details"><summary id="vmTitreScene">舞台</summary><div id="vmScene"></div></details>
+    <details class="vm-details"><summary id="vmTitreEnreg">录制</summary><div id="vmEnregistrement"></div></details>
+    <details class="vm-details" id="vmComprendre" hidden><summary id="vmTitreComprendre">帮助理解</summary><div id="vmComprendreCorps"></div></details>
+    <details class="vm-details" id="vmCles" hidden><summary id="vmTitreCles">按密钥读取</summary><div id="vmClesCorps"></div></details>
+    <details class="vm-details"><summary id="vmTitreRacc">键盘快捷键</summary><div><dl class="vm-raccourcis" id="vmRaccourcis"></dl></div></details>
+
+    <div class="vm-plein" id="vmPlein" hidden><canvas id="vmPleinToile" width="720" height="720"></canvas><button type="button" id="vmQuitter">退出全屏</button></div>
+
+    <section class="vm-semaine" id="vmSemaine" aria-labelledby="vmSemaineTitre" hidden>
+      <h2 id="vmSemaineTitre">本周</h2>
+      <p class="vm-aide" id="vmSemaineMention">由 MC Claude 借助人工智能创作的音乐。</p>
+      <p class="vm-aide" id="vmSemaineTiers"></p>
+      <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
+    </section>
+
+    <section class="vm-voir" aria-labelledby="vmVoirTitre">
+      <h2 id="vmVoirTitre" data-t="voirAussiTitre">另请参阅</h2>
+      <div class="vm-cartes" id="vmVoirAussi"></div>
+    </section>
+  </div>
+</main>
+<!-- @main:end -->
+<script type="module">
+import { monter } from "../../assets/musique-chladni-ui.js";
+monter();
+</script>
+</div>
+
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+<script type="module" src="../../assets/trois-portes.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../zh/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">首页</span><span class="nav-tile-excerpt">本书、书中图版与全部工具。</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">文章<span class="lien-langue">（法文）</span></span><span class="nav-tile-excerpt">围绕 La Livrée d'Hermès 的思考与研究。</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/support/" style="display:inline-block; margin:14px 0;" title="以自定金额支持 La Livrée d'Hermès：一切内容均免费开放（CC BY-NC 4.0）；您的支持用于资助项目的后续发展。">支持本项目</a>
+
+    <nav class="nav-categories" aria-label="网站页面">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">图库</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../zh/animations/"><span class="nav-cat-label">动画图库</span><span class="nav-cat-texte">底纹系列的动画，分为六组：可观看、预览并下载为 MP4。</span></a></li>
+          <li><a href="../../galerie-bicolore.html" hreflang="fr"><span class="nav-cat-label">双色图库<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">由轴生成、能在立方体上闭合的 142 种双色图案——读取粒度、铺排、导出。</span></a></li>
+          <li><a href="../../galerie-patterns-unifies.html" hreflang="fr"><span class="nav-cat-label">三色图库<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">由色调混合生成的统一图案——选中一个图案即可查看其铺排效果。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">动画</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../zh/animations/"><span class="nav-cat-label">动画图库</span><span class="nav-cat-texte">底纹系列的动画，分为六组：可观看、预览并下载为 MP4。</span></a></li>
+          <li><a href="../../fonds-ecran.html" hreflang="fr"><span class="nav-cat-label">壁纸<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">全屏织物壁纸，可随声音变化，也可切换为节奏可调的冥想模式。</span></a></li>
+          <li><a href="../../zh/see-your-music/" aria-current="page"><span class="nav-cat-label">看见你的音乐</span><span class="nav-cat-texte">选择一首曲子、一个文件或麦克风：本页会找出频谱与声音最接近的 La Livrée d’Hermès 图案。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">起卦与印制</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html" hreflang="fr"><span class="nav-cat-label">易经起卦<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">随机起一卦并查看其方阵，或浏览六十四变化的棋盘。</span></a></li>
+          <li><a href="../../360-calques.html" hreflang="fr"><span class="nav-cat-label">360 图层<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">抽取并下载可直接付印的打印图层。</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">SVG 图案<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">下载 SVG 格式的打印图层，按笔画组合分为 4 类。</span></a></li>
+          <li><a href="../../hexagrammes/" hreflang="fr"><span class="nav-cat-label">六十四卦<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">易经 64 卦：每一卦的卦辞、三爻卦与幻方。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">创作工具</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html" hreflang="fr"><span class="nav-cat-label">创作图案<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">以易经的 60 幅图像为基础，组合出属于您自己的织物图案。</span></a></li>
+          <li><a href="../../bicolore.html" hreflang="fr"><span class="nav-cat-label">双色图案<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">组合一个 12×12 单元：六个层级，各有其族与色调。</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">双色图案 v2<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">对角线的第二种切分（YA/AY）：术语与半周期平移的各种状态——与 v1 工具并列。</span></a></li>
+          <li><a href="../../encodeur.html" hreflang="fr"><span class="nav-cat-label">编码器<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">基于双重参照、安卡十字与提花织机的几何隐写编码。</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">交互演示：网格以及由密钥导出的参照。</span></a></li>
+          <li><a href="../../unified-patterns.html" hreflang="fr"><span class="nav-cat-label">Magic quadricolore<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">64 卦对应的 64 种图案，可自定义，并可下载高分辨率文件。</span></a></li>
+          <li><a href="../../chladni.html" hreflang="fr"><span class="nav-cat-label">音流学<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">找出空间频率与您发出的声音最接近的那种铺排。</span></a></li>
+          <li><a href="../../zh/tools/"><span class="nav-cat-label">工具</span><span class="nav-cat-texte">网站的全部交互式工具，汇集于一处。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">关于本项目</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../zh/book/"><span class="nav-cat-label">论著</span><span class="nav-cat-texte">论著及其各语种译本、六十四卦与词汇表。</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">关于<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">作者及其著作，处于哲学、数学与应用科学的交汇处。</span></a></li>
+          <li><a href="../../zh/lexicon/"><span class="nav-cat-label">词汇表</span><span class="nav-cat-texte">理解 La Livrée d'Hermès 的十个关键概念。</span></a></li>
+          <li><a href="../../profil.html" hreflang="fr"><span class="nav-cat-label">文献档案<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">在法国国家工业产权局（INPI）登记的专利与 63 项外观设计，涵盖十二阶方阵。</span></a></li>
+          <li><a href="../../contact.html" hreflang="fr"><span class="nav-cat-label">联系<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">如需合作项目，或订制图案与织物印制，请联系作者。</span></a></li>
+          <li><a href="../../zh/support/"><span class="nav-cat-label">支持</span><span class="nav-cat-texte">以自定金额支持 La Livrée d'Hermès：网站及其内容仍完全免费。</span></a></li>
+          <li><a href="../../chiffres-et-sources.html" hreflang="fr"><span class="nav-cat-label">数字与出处<span class="lien-langue">（法文）</span></span><span class="nav-cat-texte">网站上的每个数字、复现它的脚本以及脚本打印的那一行。</span></a></li>
+          <li><a href="../../zh/works/"><span class="nav-cat-label">成果</span><span class="nav-cat-texte">存档、代码与投稿论文，每一项都有时间戳并公开。</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>与 Claude 合作完成</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="页脚">
+    <a href="../../zh/">首页</a>
+    <a href="../../zh/book/">论著</a>
+    <a href="../../zh/lexicon/">词汇表</a>
+    <a href="../../zh/works/">研究存档</a>
+    <a href="../../research/" hreflang="en">研究现状（英文）</a>
+    <a href="../../zh/tools/">工具</a>
+    <a href="../../en/hexagrams/" hreflang="en">六十四卦（英文）</a>
+    <a href="../../motifs/" hreflang="en">图案（英文）</a>
+    <a href="../../profil.html" hreflang="fr">作者简介（法文）</a>
+    <a href="../../contact.html" hreflang="fr">联系（法文）</a>
+    <a href="../../zh/support/">支持本项目</a>
+  </nav>
+  <p class="site-footer-licence">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a> 许可
+    · 代码采用 AGPL v3，商业许可可应要求提供
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

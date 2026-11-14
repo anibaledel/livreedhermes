@@ -41,6 +41,12 @@ def caracteres():
             if f.endswith('.html'):
                 with open(os.path.join(d, f), encoding='utf-8', errors='ignore') as h:
                     vus.update(CJK.findall(h.read()))
+    # les textes chinois posés par JavaScript (la page « Voir sa musique » les écrit au chargement, depuis ces fichiers) : la police doit aussi les porter
+    for f in ('data/musique-chladni/traductions/zh.json', 'data/musique-chladni/traductions/statique.json'):
+        chemin = os.path.join(RACINE, f)
+        if os.path.exists(chemin):
+            with open(chemin, encoding='utf-8') as h:
+                vus.update(CJK.findall(h.read()))
     return vus
 
 

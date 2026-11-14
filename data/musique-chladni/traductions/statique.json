@@ -1,0 +1,46 @@
+{
+"_doc": "Les textes STATIQUES de la page « Voir sa musique » traduite (ce que le HTML porte avant que le script de la page ne s'exécute : métadonnées sociales, fil d'Ariane). Les autres textes statiques viennent des traductions de l'interface (<langue>.json). Traduction faite par IA, à relire (docs/relecture-langues/).",
+"fr": {
+  "ogDescription": "Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son.",
+  "twitterDescription": "Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus."
+},
+"en": {
+  "ogDescription": "See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.",
+  "twitterDescription": "See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most.",
+  "ogLocale": "en_GB", "dossier": "en/see-your-music/"
+},
+"es": {
+  "ogDescription": "Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece. Graba 15 segundos con el sonido.",
+  "twitterDescription": "Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece.",
+  "ogLocale": "es_ES", "dossier": "es/ver-tu-musica/"
+},
+"th": {
+  "ogDescription": "มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด บันทึกวิดีโอพร้อมเสียง 15 วินาที",
+  "twitterDescription": "มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด",
+  "ogLocale": "th_TH", "dossier": "th/see-your-music/"
+},
+"zh": {
+  "ogDescription": "看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。",
+  "twitterDescription": "看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。",
+  "ogLocale": "zh_CN", "dossier": "zh/see-your-music/",
+  "ariaFil": "面包屑导航", "accueil": "首页"
+},
+"ru": {
+  "ogDescription": "Увидеть свою музыку: фигура Хладни, которую рисует звук, и узор La Livrée d'Hermès, который больше всего на неё похож. Запишите 15 секунд со звуком.",
+  "twitterDescription": "Увидеть свою музыку: фигура Хладни, которую рисует звук, и узор La Livrée d'Hermès, который больше всего на неё похож.",
+  "ogLocale": "ru_RU", "dossier": "ru/see-your-music/",
+  "ariaFil": "Навигационная цепочка", "accueil": "Главная"
+},
+"pt": {
+  "ogDescription": "Ver a sua música: a figura de Chladni que o som desenha e o padrão de La Livrée d'Hermès que mais se lhe assemelha. Grave 15 segundos com o som.",
+  "twitterDescription": "Ver a sua música: a figura de Chladni que o som desenha e o padrão de La Livrée d'Hermès que mais se lhe assemelha.",
+  "ogLocale": "pt_PT", "dossier": "pt/see-your-music/",
+  "ariaFil": "Navegação estrutural", "accueil": "Início"
+},
+"hi": {
+  "ogDescription": "अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।",
+  "twitterDescription": "अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है।",
+  "ogLocale": "hi_IN", "dossier": "hi/see-your-music/",
+  "ariaFil": "पथ-सूचक", "accueil": "मुखपृष्ठ"
+}
+}

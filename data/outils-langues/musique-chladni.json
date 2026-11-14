@@ -1,0 +1,265 @@
+{
+  "_doc": "Textes statiques de musique-chladni.html et leurs traductions (engendré par scripts/build-musique-textes.mjs depuis data/musique-chladni/traductions/). « fr » : sous-chaîne EXACTE de la page française. Les traductions viennent de l'IA, à relire (docs/relecture-langues/).",
+  "textes": [
+    {
+      "fr": "Voir sa musique — La Livrée d'Hermès",
+      "en": "See your music — La Livrée d'Hermès",
+      "es": "Ver tu música — La Livrée d'Hermès",
+      "th": "มองเห็นดนตรีของคุณ — La Livrée d'Hermès",
+      "zh": "看见你的音乐——La Livrée d'Hermès",
+      "ru": "Увидеть свою музыку — La Livrée d'Hermès",
+      "pt": "Ver a sua música — La Livrée d'Hermès",
+      "hi": "अपने संगीत को देखें — La Livrée d'Hermès"
+    },
+    {
+      "fr": "Choisissez un morceau, un fichier ou le micro : voyez la figure de Chladni du son et le motif de La Livrée d'Hermès qui lui ressemble. Enregistrez 15 s.",
+      "en": "See your music: choose a track, a file or the microphone and watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.",
+      "es": "Ver tu música: elige una pieza, un archivo o el micrófono y mira la figura de Chladni que dibuja el sonido, y después el motivo de La Livrée d'Hermès que más se le parece. Graba 15 segundos con el sonido.",
+      "th": "มองเห็นดนตรีของคุณ: เลือกเพลง ไฟล์ หรือไมโครโฟน แล้วดูรูปแบบของ Chladni ที่เสียงวาดขึ้น จากนั้นดูลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด บันทึกวิดีโอพร้อมเสียง 15 วินาที",
+      "zh": "看见你的音乐：选择一首曲子、一个文件或麦克风，观看声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。",
+      "ru": "Увидеть свою музыку: выберите композицию, файл или микрофон и посмотрите на фигуру Хладни, которую рисует звук, а затем на узор La Livrée d'Hermès, который больше всего на неё похож. Запишите 15 секунд со звуком.",
+      "pt": "Ver a sua música: escolha uma peça, um ficheiro ou o microfone e veja a figura de Chladni que o som desenha e, depois, o padrão de La Livrée d'Hermès que mais se lhe assemelha. Grave 15 segundos com o som.",
+      "hi": "अपने संगीत को देखें: कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें और देखें कि ध्वनि कौन-सी Chladni आकृति बनाती है, फिर La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।"
+    },
+    {
+      "fr": "Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son.",
+      "en": "See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.",
+      "es": "Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece. Graba 15 segundos con el sonido.",
+      "th": "มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด บันทึกวิดีโอพร้อมเสียง 15 วินาที",
+      "zh": "看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。",
+      "ru": "Увидеть свою музыку: фигура Хладни, которую рисует звук, и узор La Livrée d'Hermès, который больше всего на неё похож. Запишите 15 секунд со звуком.",
+      "pt": "Ver a sua música: a figura de Chladni que o som desenha e o padrão de La Livrée d'Hermès que mais se lhe assemelha. Grave 15 segundos com o som.",
+      "hi": "अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।"
+    },
+    {
+      "fr": "Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus.",
+      "en": "See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most.",
+      "es": "Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece.",
+      "th": "มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด",
+      "zh": "看见你的音乐：声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。",
+      "ru": "Увидеть свою музыку: фигура Хладни, которую рисует звук, и узор La Livrée d'Hermès, который больше всего на неё похож.",
+      "pt": "Ver a sua música: a figura de Chladni que o som desenha e o padrão de La Livrée d'Hermès que mais se lhe assemelha.",
+      "hi": "अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है।"
+    },
+    {
+      "fr": "<span aria-current=\"page\" data-t=\"ariane\">Voir sa musique</span>",
+      "en": "<span aria-current=\"page\" data-t=\"ariane\">See your music</span>",
+      "es": "<span aria-current=\"page\" data-t=\"ariane\">Ver tu música</span>",
+      "th": "<span aria-current=\"page\" data-t=\"ariane\">มองเห็นดนตรีของคุณ</span>",
+      "zh": "<span aria-current=\"page\" data-t=\"ariane\">看见你的音乐</span>",
+      "ru": "<span aria-current=\"page\" data-t=\"ariane\">Увидеть свою музыку</span>",
+      "pt": "<span aria-current=\"page\" data-t=\"ariane\">Ver a sua música</span>",
+      "hi": "<span aria-current=\"page\" data-t=\"ariane\">अपने संगीत को देखें</span>"
+    },
+    {
+      "fr": "<h1 data-t=\"h1\">Voir sa musique</h1>",
+      "en": "<h1 data-t=\"h1\">See your music</h1>",
+      "es": "<h1 data-t=\"h1\">Ver tu música</h1>",
+      "th": "<h1 data-t=\"h1\">มองเห็นดนตรีของคุณ</h1>",
+      "zh": "<h1 data-t=\"h1\">看见你的音乐</h1>",
+      "ru": "<h1 data-t=\"h1\">Увидеть свою музыку</h1>",
+      "pt": "<h1 data-t=\"h1\">Ver a sua música</h1>",
+      "hi": "<h1 data-t=\"h1\">अपने संगीत को देखें</h1>"
+    },
+    {
+      "fr": "<p class=\"vm-intro\" data-t=\"intro\"></p>",
+      "en": "<p class=\"vm-intro\" data-t=\"intro\">Every piece of music has a signature: the way its energy is spread across frequencies. Choose a track, a file or the microphone: the page measures that energy at the frequencies of each circle of modes of a square plate, then looks, among the unified patterns of La Livrée d'Hermès, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a musical law: a pattern does not “express” a piece.</p>",
+      "es": "<p class=\"vm-intro\" data-t=\"intro\">Cada música tiene una firma: la manera en que su energía se reparte entre las frecuencias. Elige una pieza, un archivo o el micrófono: la página mide esa energía en las frecuencias de cada círculo de modos de una placa cuadrada y busca, entre los motivos unificados de La Livrée d'Hermès, aquel cuyo espectro más se le parece. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>",
+      "th": "<p class=\"vm-intro\" data-t=\"intro\">ดนตรีทุกชิ้นมีลายเซ็นของตัวเอง คือวิธีที่พลังงานของมันกระจายไปตามความถี่ต่าง ๆ เลือกเพลง ไฟล์ หรือไมโครโฟน หน้านี้จะวัดพลังงานนั้นที่ความถี่ของวงโหมดแต่ละวงของแผ่นสี่เหลี่ยมจัตุรัส แล้วค้นหาในบรรดาลวดลายรวมเป็นหนึ่งของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด การเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง</p>",
+      "zh": "<p class=\"vm-intro\" data-t=\"intro\">每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。选择一首曲子、一个文件或麦克风：本页在方形板每个振动模式圆环所对应的频率上测量这份能量，然后在 La Livrée d'Hermès 的统一图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。</p>",
+      "ru": "<p class=\"vm-intro\" data-t=\"intro\">У каждой музыки есть подпись: то, как её энергия распределяется по частотам. Выберите композицию, файл или микрофон: страница измеряет эту энергию на частотах каждого круга мод квадратной пластины, а затем ищет среди унифицированных узоров La Livrée d'Hermès тот, чей спектр больше всего на неё похож. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» композицию.</p>",
+      "pt": "<p class=\"vm-intro\" data-t=\"intro\">Cada música tem uma assinatura: a forma como a sua energia se reparte pelas frequências. Escolha uma peça, um ficheiro ou o microfone: a página mede essa energia nas frequências de cada círculo de modos de uma placa quadrada e procura, entre os padrões unificados de La Livrée d'Hermès, aquele cujo espetro mais se lhe assemelha. A escolha assenta na semelhança de dois espetros, não numa lei musical: um padrão não «exprime» uma peça.</p>",
+      "hi": "<p class=\"vm-intro\" data-t=\"intro\">हर संगीत का एक हस्ताक्षर होता है: उसकी ऊर्जा आवृत्तियों में किस तरह बँटी है। कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर यह ऊर्जा मापता है, फिर La Livrée d'Hermès के एकीकृत पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता हो। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता।</p>"
+    },
+    {
+      "fr": "<p class=\"vm-discretion\" data-t=\"discretion\"></p>",
+      "en": "<p class=\"vm-discretion\" data-t=\"discretion\">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.</p>",
+      "es": "<p class=\"vm-discretion\" data-t=\"discretion\">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte.</p>",
+      "th": "<p class=\"vm-discretion\" data-t=\"discretion\">ไม่มีสิ่งใดออกจากเบราว์เซอร์ของคุณ: ไฟล์ ไมโครโฟน และเสียงที่จับได้ จะถูกวิเคราะห์ในเครื่องและไม่ถูกส่งไปที่ใดเลย</p>",
+      "zh": "<p class=\"vm-discretion\" data-t=\"discretion\">任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。</p>",
+      "ru": "<p class=\"vm-discretion\" data-t=\"discretion\">Ничто не покидает ваш браузер: файл, микрофон и захваченный звук анализируются на месте и никуда не отправляются.</p>",
+      "pt": "<p class=\"vm-discretion\" data-t=\"discretion\">Nada sai do seu navegador: o ficheiro, o microfone e o áudio captado são analisados no próprio aparelho e não são enviados para parte nenhuma.</p>",
+      "hi": "<p class=\"vm-discretion\" data-t=\"discretion\">आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं।</p>"
+    },
+    {
+      "fr": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\"></p>",
+      "en": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Warning: the images can change fast and flicker. The “reduce rapid changes” setting slows them down.</p>",
+      "es": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atención: las imágenes pueden cambiar rápido y parpadear. El ajuste «reducir los cambios rápidos» las ralentiza.</p>",
+      "th": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">คำเตือน: ภาพอาจเปลี่ยนเร็วและกะพริบ ตัวเลือก “ลดการเปลี่ยนแปลงที่รวดเร็ว” จะทำให้ช้าลง</p>",
+      "zh": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">注意：画面可能快速变化并闪烁。“减少快速变化”选项可使其放慢。</p>",
+      "ru": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Внимание: изображения могут быстро меняться и мигать. Параметр «уменьшить быстрые изменения» замедляет их.</p>",
+      "pt": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atenção: as imagens podem mudar depressa e piscar. A opção «reduzir as mudanças rápidas» abranda-as.</p>",
+      "hi": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है।</p>"
+    },
+    {
+      "fr": "<label id=\"vmSonLabel\" for=\"vmSource\">Son</label>",
+      "en": "<label id=\"vmSonLabel\" for=\"vmSource\">Sound</label>",
+      "es": "<label id=\"vmSonLabel\" for=\"vmSource\">Sonido</label>",
+      "th": "<label id=\"vmSonLabel\" for=\"vmSource\">เสียง</label>",
+      "zh": "<label id=\"vmSonLabel\" for=\"vmSource\">声音</label>",
+      "ru": "<label id=\"vmSonLabel\" for=\"vmSource\">Звук</label>",
+      "pt": "<label id=\"vmSonLabel\" for=\"vmSource\">Som</label>",
+      "hi": "<label id=\"vmSonLabel\" for=\"vmSource\">ध्वनि</label>"
+    },
+    {
+      "fr": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">Lecture</button>",
+      "en": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">Play</button>",
+      "es": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">Reproducir</button>",
+      "th": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">เล่น</button>",
+      "zh": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">播放</button>",
+      "ru": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">Воспроизвести</button>",
+      "pt": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">Reproduzir</button>",
+      "hi": "<button type=\"button\" id=\"vmLecture\" aria-pressed=\"false\">चलाएँ</button>"
+    },
+    {
+      "fr": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">Entrée audio</label>",
+      "en": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">Audio input</label>",
+      "es": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">Entrada de audio</label>",
+      "th": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">อินพุตเสียง</label>",
+      "zh": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">音频输入</label>",
+      "ru": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">Аудиовход</label>",
+      "pt": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">Entrada de áudio</label>",
+      "hi": "<label id=\"vmEntreeLabel\" for=\"vmEntree\">ऑडियो इनपुट</label>"
+    },
+    {
+      "fr": "<button type=\"button\" id=\"vmBasculeValide\">Validé</button><button type=\"button\" id=\"vmBasculeEssai\">Essai</button>",
+      "en": "<button type=\"button\" id=\"vmBasculeValide\">Validated</button><button type=\"button\" id=\"vmBasculeEssai\">Trial</button>",
+      "es": "<button type=\"button\" id=\"vmBasculeValide\">Validada</button><button type=\"button\" id=\"vmBasculeEssai\">Prueba</button>",
+      "th": "<button type=\"button\" id=\"vmBasculeValide\">ยืนยันแล้ว</button><button type=\"button\" id=\"vmBasculeEssai\">ทดลอง</button>",
+      "zh": "<button type=\"button\" id=\"vmBasculeValide\">已确认</button><button type=\"button\" id=\"vmBasculeEssai\">试用</button>",
+      "ru": "<button type=\"button\" id=\"vmBasculeValide\">Утверждено</button><button type=\"button\" id=\"vmBasculeEssai\">Проба</button>",
+      "pt": "<button type=\"button\" id=\"vmBasculeValide\">Validada</button><button type=\"button\" id=\"vmBasculeEssai\">Ensaio</button>",
+      "hi": "<button type=\"button\" id=\"vmBasculeValide\">पुष्ट</button><button type=\"button\" id=\"vmBasculeEssai\">परीक्षण</button>"
+    },
+    {
+      "fr": "<h2 id=\"vmValideTitre\">Validé</h2>",
+      "en": "<h2 id=\"vmValideTitre\">Validated</h2>",
+      "es": "<h2 id=\"vmValideTitre\">Validada</h2>",
+      "th": "<h2 id=\"vmValideTitre\">ยืนยันแล้ว</h2>",
+      "zh": "<h2 id=\"vmValideTitre\">已确认</h2>",
+      "ru": "<h2 id=\"vmValideTitre\">Утверждено</h2>",
+      "pt": "<h2 id=\"vmValideTitre\">Validada</h2>",
+      "hi": "<h2 id=\"vmValideTitre\">पुष्ट</h2>"
+    },
+    {
+      "fr": "<h2 id=\"vmEssaiTitre\">Essai</h2>",
+      "en": "<h2 id=\"vmEssaiTitre\">Trial</h2>",
+      "es": "<h2 id=\"vmEssaiTitre\">Prueba</h2>",
+      "th": "<h2 id=\"vmEssaiTitre\">ทดลอง</h2>",
+      "zh": "<h2 id=\"vmEssaiTitre\">试用</h2>",
+      "ru": "<h2 id=\"vmEssaiTitre\">Проба</h2>",
+      "pt": "<h2 id=\"vmEssaiTitre\">Ensaio</h2>",
+      "hi": "<h2 id=\"vmEssaiTitre\">परीक्षण</h2>"
+    },
+    {
+      "fr": "<button type=\"button\" id=\"vmValider\">Valider l'essai</button><button type=\"button\" id=\"vmAnnuler\">Annuler</button><button type=\"button\" id=\"vmPleinBtn\">Plein écran</button>",
+      "en": "<button type=\"button\" id=\"vmValider\">Validate the trial</button><button type=\"button\" id=\"vmAnnuler\">Cancel</button><button type=\"button\" id=\"vmPleinBtn\">Full screen</button>",
+      "es": "<button type=\"button\" id=\"vmValider\">Validar la prueba</button><button type=\"button\" id=\"vmAnnuler\">Cancelar</button><button type=\"button\" id=\"vmPleinBtn\">Pantalla completa</button>",
+      "th": "<button type=\"button\" id=\"vmValider\">ยืนยันการทดลอง</button><button type=\"button\" id=\"vmAnnuler\">ยกเลิก</button><button type=\"button\" id=\"vmPleinBtn\">เต็มหน้าจอ</button>",
+      "zh": "<button type=\"button\" id=\"vmValider\">确认试用</button><button type=\"button\" id=\"vmAnnuler\">取消</button><button type=\"button\" id=\"vmPleinBtn\">全屏</button>",
+      "ru": "<button type=\"button\" id=\"vmValider\">Утвердить пробу</button><button type=\"button\" id=\"vmAnnuler\">Отмена</button><button type=\"button\" id=\"vmPleinBtn\">Полный экран</button>",
+      "pt": "<button type=\"button\" id=\"vmValider\">Validar o ensaio</button><button type=\"button\" id=\"vmAnnuler\">Cancelar</button><button type=\"button\" id=\"vmPleinBtn\">Ecrã inteiro</button>",
+      "hi": "<button type=\"button\" id=\"vmValider\">परीक्षण को पुष्ट करें</button><button type=\"button\" id=\"vmAnnuler\">रद्द करें</button><button type=\"button\" id=\"vmPleinBtn\">पूर्ण स्क्रीन</button>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreReglages\">Réglages</summary>",
+      "en": "<summary id=\"vmTitreReglages\">Live settings</summary>",
+      "es": "<summary id=\"vmTitreReglages\">Ajustes en directo</summary>",
+      "th": "<summary id=\"vmTitreReglages\">การตั้งค่าขณะเล่น</summary>",
+      "zh": "<summary id=\"vmTitreReglages\">实时设置</summary>",
+      "ru": "<summary id=\"vmTitreReglages\">Настройки на лету</summary>",
+      "pt": "<summary id=\"vmTitreReglages\">Definições em direto</summary>",
+      "hi": "<summary id=\"vmTitreReglages\">चलते-चलते सेटिंग</summary>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreScene\">La scène</summary>",
+      "en": "<summary id=\"vmTitreScene\">The stage</summary>",
+      "es": "<summary id=\"vmTitreScene\">La escena</summary>",
+      "th": "<summary id=\"vmTitreScene\">เวที</summary>",
+      "zh": "<summary id=\"vmTitreScene\">舞台</summary>",
+      "ru": "<summary id=\"vmTitreScene\">Сцена</summary>",
+      "pt": "<summary id=\"vmTitreScene\">A cena</summary>",
+      "hi": "<summary id=\"vmTitreScene\">मंच</summary>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreEnreg\">Enregistrer</summary>",
+      "en": "<summary id=\"vmTitreEnreg\">Record</summary>",
+      "es": "<summary id=\"vmTitreEnreg\">Grabar</summary>",
+      "th": "<summary id=\"vmTitreEnreg\">บันทึก</summary>",
+      "zh": "<summary id=\"vmTitreEnreg\">录制</summary>",
+      "ru": "<summary id=\"vmTitreEnreg\">Запись</summary>",
+      "pt": "<summary id=\"vmTitreEnreg\">Gravar</summary>",
+      "hi": "<summary id=\"vmTitreEnreg\">रिकॉर्ड करें</summary>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreComprendre\">Pour comprendre</summary>",
+      "en": "<summary id=\"vmTitreComprendre\">To understand</summary>",
+      "es": "<summary id=\"vmTitreComprendre\">Para comprender</summary>",
+      "th": "<summary id=\"vmTitreComprendre\">เพื่อความเข้าใจ</summary>",
+      "zh": "<summary id=\"vmTitreComprendre\">帮助理解</summary>",
+      "ru": "<summary id=\"vmTitreComprendre\">Чтобы понять</summary>",
+      "pt": "<summary id=\"vmTitreComprendre\">Para compreender</summary>",
+      "hi": "<summary id=\"vmTitreComprendre\">समझने के लिए</summary>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreCles\">Lecture en clés</summary>",
+      "en": "<summary id=\"vmTitreCles\">Reading in keys</summary>",
+      "es": "<summary id=\"vmTitreCles\">Lectura en claves</summary>",
+      "th": "<summary id=\"vmTitreCles\">การอ่านเป็นกุญแจ</summary>",
+      "zh": "<summary id=\"vmTitreCles\">按密钥读取</summary>",
+      "ru": "<summary id=\"vmTitreCles\">Чтение в ключах</summary>",
+      "pt": "<summary id=\"vmTitreCles\">Leitura em chaves</summary>",
+      "hi": "<summary id=\"vmTitreCles\">कुंजियों में पठन</summary>"
+    },
+    {
+      "fr": "<summary id=\"vmTitreRacc\">Raccourcis clavier</summary>",
+      "en": "<summary id=\"vmTitreRacc\">Keyboard shortcuts</summary>",
+      "es": "<summary id=\"vmTitreRacc\">Atajos de teclado</summary>",
+      "th": "<summary id=\"vmTitreRacc\">ปุ่มลัดบนแป้นพิมพ์</summary>",
+      "zh": "<summary id=\"vmTitreRacc\">键盘快捷键</summary>",
+      "ru": "<summary id=\"vmTitreRacc\">Сочетания клавиш</summary>",
+      "pt": "<summary id=\"vmTitreRacc\">Atalhos de teclado</summary>",
+      "hi": "<summary id=\"vmTitreRacc\">कीबोर्ड शॉर्टकट</summary>"
+    },
+    {
+      "fr": "<button type=\"button\" id=\"vmQuitter\">Quitter le plein écran</button>",
+      "en": "<button type=\"button\" id=\"vmQuitter\">Exit full screen</button>",
+      "es": "<button type=\"button\" id=\"vmQuitter\">Salir de la pantalla completa</button>",
+      "th": "<button type=\"button\" id=\"vmQuitter\">ออกจากโหมดเต็มหน้าจอ</button>",
+      "zh": "<button type=\"button\" id=\"vmQuitter\">退出全屏</button>",
+      "ru": "<button type=\"button\" id=\"vmQuitter\">Выйти из полноэкранного режима</button>",
+      "pt": "<button type=\"button\" id=\"vmQuitter\">Sair do ecrã inteiro</button>",
+      "hi": "<button type=\"button\" id=\"vmQuitter\">पूर्ण स्क्रीन से बाहर निकलें</button>"
+    },
+    {
+      "fr": "<h2 id=\"vmSemaineTitre\">La semaine</h2>",
+      "en": "<h2 id=\"vmSemaineTitre\">The week</h2>",
+      "es": "<h2 id=\"vmSemaineTitre\">La semana</h2>",
+      "th": "<h2 id=\"vmSemaineTitre\">สัปดาห์นี้</h2>",
+      "zh": "<h2 id=\"vmSemaineTitre\">本周</h2>",
+      "ru": "<h2 id=\"vmSemaineTitre\">Неделя</h2>",
+      "pt": "<h2 id=\"vmSemaineTitre\">A semana</h2>",
+      "hi": "<h2 id=\"vmSemaineTitre\">यह सप्ताह</h2>"
+    },
+    {
+      "fr": "<p class=\"vm-aide\" id=\"vmSemaineMention\">Musique composée avec l'IA par MC Claude.</p>",
+      "en": "<p class=\"vm-aide\" id=\"vmSemaineMention\">Music composed with AI by MC Claude.</p>",
+      "es": "<p class=\"vm-aide\" id=\"vmSemaineMention\">Música compuesta con IA por MC Claude.</p>",
+      "th": "<p class=\"vm-aide\" id=\"vmSemaineMention\">ดนตรีที่แต่งด้วย AI โดย MC Claude</p>",
+      "zh": "<p class=\"vm-aide\" id=\"vmSemaineMention\">由 MC Claude 借助人工智能创作的音乐。</p>",
+      "ru": "<p class=\"vm-aide\" id=\"vmSemaineMention\">Музыка, созданная с помощью ИИ — MC Claude.</p>",
+      "pt": "<p class=\"vm-aide\" id=\"vmSemaineMention\">Música composta com IA por MC Claude.</p>",
+      "hi": "<p class=\"vm-aide\" id=\"vmSemaineMention\">MC Claude द्वारा AI से रचा गया संगीत।</p>"
+    },
+    {
+      "fr": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">Voir aussi</h2>",
+      "en": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">See also</h2>",
+      "es": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">Ver también</h2>",
+      "th": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">ดูเพิ่มเติม</h2>",
+      "zh": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">另请参阅</h2>",
+      "ru": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">Смотрите также</h2>",
+      "pt": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">Ver também</h2>",
+      "hi": "<h2 id=\"vmVoirTitre\" data-t=\"voirAussiTitre\">यह भी देखें</h2>"
+    }
+  ]
+}

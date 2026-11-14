@@ -160,9 +160,15 @@ const TUILES_I18N = {
     pt: { label: "Trabalhos", excerpt: "Os depósitos, o código e os artigos submetidos, cada um datado e aberto." }, // adapté de pt/works/index.html
     hi: { label: "कार्य", excerpt: "जमा किए गए अभिलेख, कोड और प्रस्तुत लेख, हर एक समय-मुहर के साथ और खुला।" }, // adapté de hi/works/index.html
   },
-  // « Voir sa musique » : français et anglais dans nav-tiles.js ; les six autres langues viendront avec leur traduction
-  // (la tuile affiche le texte français tant qu'elles manquent : item[lang] || item.fr).
-  'voir-sa-musique': {},
+  // « Voir sa musique » : français et anglais dans nav-tiles.js ; les six autres langues ici (textes de la page : data/musique-chladni/traductions/, à relire)
+  'voir-sa-musique': {
+    es: { label: "Ver tu música", excerpt: "Elige una pieza, un archivo o el micrófono: la página busca el motivo de La Livrée d’Hermès cuyo espectro más se parece al del sonido." }, // SANS SOURCE
+    th: { label: "มองเห็นดนตรีของคุณ", excerpt: "เลือกเพลง ไฟล์ หรือไมโครโฟน: หน้านี้จะค้นหาลวดลายของ La Livrée d’Hermès ที่สเปกตรัมใกล้เคียงกับเสียงมากที่สุด" }, // SANS SOURCE
+    zh: { label: "看见你的音乐", excerpt: "选择一首曲子、一个文件或麦克风：本页会找出频谱与声音最接近的 La Livrée d’Hermès 图案。" }, // SANS SOURCE
+    ru: { label: "Увидеть свою музыку", excerpt: "Выберите композицию, файл или микрофон: страница найдёт узор La Livrée d’Hermès, спектр которого ближе всего к спектру звука." }, // SANS SOURCE
+    pt: { label: "Ver a sua música", excerpt: "Escolha uma peça, um ficheiro ou o microfone: a página procura o padrão de La Livrée d’Hermès cujo espetro mais se assemelha ao do som." }, // SANS SOURCE
+    hi: { label: "अपने संगीत को देखें", excerpt: "कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ La Livrée d’Hermès का वह पैटर्न खोजता है जिसका स्पेक्ट्रम ध्वनि के सबसे निकट हो।" }, // SANS SOURCE
+  },
   'fonds-ecran': {
     es: {
       label: "Fondo de pantalla", // es/libro/index.html:179

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-14T14:02:13Z",
+ "generated_at_utc": "2026-11-14T14:17:32Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 264,
+  "scripts": 267,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -779,6 +779,28 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/build-musique-textes.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/build-musique-textes.mjs",
+   "octets": 13030,
+   "sha256": "86592bdbbf36a39b6fe9bf1150518133b593e46f6ba3d16a595ee6dace68594d",
+   "md5": "94fb810e768c93c6fa762b4f6be03131",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les textes de « Voir sa musique » dans 7 langues (en, es, th, zh, ru, pt, hi).",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 1,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "contrôle des 7 langues, écriture de assets/musique-chladni-textes.js et des tableaux de relecture"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "scripts/build-outils-langues.js",
    "adresse": "https://anibal-amiot.com/scripts/build-outils-langues.js",
    "octets": 29966,
@@ -790,6 +812,28 @@
    "lit": [],
    "ecrit": null,
    "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/build-outils-support-langues.js",
+   "adresse": "https://anibal-amiot.com/scripts/build-outils-support-langues.js",
+   "octets": 9545,
+   "sha256": "0efdc2d51bd5fa241b32ec3f4627e6bb27fc705acc6205a46c2e107e512413a4",
+   "md5": "44d5aa60e739bd882094fa8b61dc088c",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les pages « Outils » et « Soutenir » (soutien) en anglais, espagnol et thaï, et la carte « Voir sa musique » des pages « Outils » des huit langues (prompt 185, L2).",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 1,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "pages Outils et Soutenir en en, es, th ; carte « Voir sa musique »"
+    }
+   ],
    "arborescence_requise": null,
    "zenodo": []
   },
@@ -929,6 +973,28 @@
      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
      "mesure_le": "2026-11-14",
      "source": "les trois pages sonores : barre, liens, 390 px, morceau et sinus à l'ordre 12"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/essai-voir-sa-musique-langues.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/essai-voir-sa-musique-langues.mjs",
+   "octets": 5995,
+   "sha256": "e33905e28b2c35ae7ad904c00fdc6a7811b01eb814f9a6c26db1db1485acb191",
+   "md5": "74eac7fb1a3901f9be96105311f7a001",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "« Voir sa musique » dans ses huit langues, dans Chromium (Playwright) : la page s'ouvre à son adresse, <html lang> est la bonne, le titre et les boutons sont ceux de la langue (pas du français), un morceau fourni dessine une figure, aucu…",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 75,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "huit langues : ouverture, figure avec un morceau, 390 px, incrustation"
     }
    ],
    "arborescence_requise": null,
@@ -1197,9 +1263,9 @@
   {
    "chemin": "scripts/generate-sitemap.js",
    "adresse": "https://anibal-amiot.com/scripts/generate-sitemap.js",
-   "octets": 13558,
-   "sha256": "28472ce252e8514ee662fd81150762821e92dc1bcd553bc6fb56e094043367b7",
-   "md5": "ab6272c1a4f9c317950da6eb0120ad84",
+   "octets": 13436,
+   "sha256": "8db67cf511fe0304081b2e4276ddad0074e165e77536aa140db116bce226cfe9",
+   "md5": "fe614594294498c646fb33e6aa601b85",
    "licence_declaree": false,
    "licence": null,
    "role": "Génère sitemap.xml à partir des pages réellement présentes dans le dépôt, plutôt que de maintenir une liste figée à la main.",
@@ -1227,9 +1293,9 @@
   {
    "chemin": "scripts/langues.js",
    "adresse": "https://anibal-amiot.com/scripts/langues.js",
-   "octets": 37862,
-   "sha256": "d3295a71daa59dda52817f912cdbbcb0294c8ba0fb225e12a15211bbe4e6f43f",
-   "md5": "c28c39db17a00882470ac421dea7a86a",
+   "octets": 38108,
+   "sha256": "366e5820d9527125a9d491269b1560976953e1d15cc8637d29a4f107df977f06",
+   "md5": "3b9b7c07f0ec78e133afcdf620d3b820",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique des groupes de traduction du site.",
@@ -1285,9 +1351,9 @@
   {
    "chemin": "scripts/nav-tiles-libelles.js",
    "adresse": "https://anibal-amiot.com/scripts/nav-tiles-libelles.js",
-   "octets": 51690,
-   "sha256": "379c35434ae0a24452027d1ba4d0557ebf0ce8eea78939c9bbcd4b74150827e9",
-   "md5": "435089e82b6e439b1892526e03e94587",
+   "octets": 53342,
+   "sha256": "5ea959349f20117f5a36dd9a3efe2a3e3fb2cc0b4774e1fddf430de6c8c15e65",
+   "md5": "deacaa0140bb1c25bce09912c28dedde",
    "licence_declaree": false,
    "licence": null,
    "role": "les textes des tuiles de navigation dans les six langues ajoutées après le français et l'anglais (es, th, zh, ru, pt, hi).",
@@ -3220,9 +3286,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 13599,
-   "sha256": "80a58aa648c1563db20ed067c0651f792612cba1fa648c0ed57fe5c8e528104a",
-   "md5": "312fe99a07b285f123fafeb43e50d876",
+   "octets": 14081,
+   "sha256": "487f30c1a0998982ba94ef9cfb446338c3502551f2337bda4120522f497c8f94",
+   "md5": "48cb472863097e9aa92beafac34ce030",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
@@ -3685,9 +3751,9 @@
   {
    "chemin": "tools/police_zh.py",
    "adresse": "https://anibal-amiot.com/tools/police_zh.py",
-   "octets": 4086,
-   "sha256": "79fe313aacc28c0ec69e73a993264f477138349f6e74e5f947bd1cd6b165b21f",
-   "md5": "7b0197376503be5143c850797cd98f7a",
+   "octets": 4534,
+   "sha256": "ec3566baaaf0e621622e5e3448fcbbe90049d90c492261de88e3c5141b6af506",
+   "md5": "fd9a35febaf5e86ef4d646e8374389b6",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la police chinoise du site, réduite aux caractères employés.",

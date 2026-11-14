@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>See your music — La Livrée d'Hermès</title>
+<meta name="description" content="See your music: choose a track, a file or the microphone and watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.">
+<meta property="og:title" content="See your music — La Livrée d'Hermès">
+<meta property="og:description" content="See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/en/see-your-music/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/en/see-your-music/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="See your music — La Livrée d'Hermès">
+<meta name="twitter:description" content="See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/trois-portes.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<style>
+  * { box-sizing:border-box; }
+  html { overflow-x:hidden; }
+  body { margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  .wrap { max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header { text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .vm-page{ max-width:1040px; margin:0 auto; padding:8px 16px 48px; }
+  .vm-page h1{ margin:12px 0 8px; }
+  .vm-intro,.vm-discretion,.vm-flash{ color:var(--dim); line-height:1.6; max-width:70ch; overflow-wrap:anywhere; }
+  .vm-flash{ border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-message{ min-height:1.4em; margin:6px 0; color:var(--dim); overflow-wrap:anywhere; }
+  .vm-message[data-etat=erreur]{ color:var(--white); border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-son{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); align-items:start; margin:14px 0; }
+  .vm-son label{ display:block; color:var(--dim); font-size:13px; margin-bottom:4px; }
+  .vm-son select,.vm-ligne select{ width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-page button{ background:transparent; color:var(--white); border:1px solid var(--line-strong); border-radius:3px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer; min-height:40px; }
+  .vm-page button:hover:not(:disabled){ border-color:var(--gold); }
+  .vm-page button[aria-pressed=true]{ border-color:var(--gold); color:var(--gold); }
+  .vm-page button:disabled{ opacity:.55; cursor:not-allowed; }
+  .vm-page :focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .vm-aide{ color:var(--dim); font-size:12.5px; line-height:1.55; margin:6px 0; overflow-wrap:anywhere; display:block; }
+  .vm-main{ display:grid; gap:18px; grid-template-columns:minmax(0,1fr) minmax(0,260px); align-items:start; margin:14px 0; }
+  .vm-fenetres{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .vm-fen{ min-width:0; }
+  .vm-fen h2{ font-size:14px; margin:0 0 6px; font-weight:600; }
+  .vm-tag{ font-size:11px; color:var(--bg); background:var(--gold); padding:1px 6px; border-radius:3px; margin-left:4px; font-weight:400; }
+  .vm-tag.e{ background:var(--dim); }
+  .vm-fen canvas{ display:block; width:100%; max-width:260px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); }
+  .vm-fen figcaption{ color:var(--dim); font-size:12px; margin-top:4px; overflow-wrap:anywhere; }
+  .vm-fen-btns{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; grid-column:1 / -1; }
+  .vm-bascule{ display:none; gap:8px; margin:0 0 8px; }
+  .vm-opts{ display:flex; flex-direction:column; gap:6px; }
+  .vm-grp h3{ margin:0; font-size:inherit; font-weight:inherit; }
+  .vm-grp > h3 > button{ width:100%; text-align:left; display:flex; justify-content:space-between; }
+  .vm-grp > h3 > button::after{ content:"▾"; color:var(--dim); }
+  .vm-grp.open > h3 > button{ border-color:var(--gold); }
+  .vm-pan{ display:none; border:1px solid var(--line-strong); padding:8px; margin-top:4px; background:var(--bg); max-height:60vh; overflow:auto; }
+  .vm-grp.open .vm-pan{ display:grid; gap:6px; }
+  .vm-o{ display:flex; gap:8px; align-items:center; text-align:left; width:100%; }
+  .vm-o canvas{ flex:none; height:34px; width:auto; border:1px solid var(--line); }
+  .vm-o b{ display:block; font-weight:600; } .vm-o small{ display:block; color:var(--dim); font-size:11.5px; }
+  .vm-o.val{ box-shadow:inset 3px 0 0 var(--gold); }
+  .vm-details{ border:1px solid var(--line-strong); margin:12px 0; padding:0 12px; }
+  .vm-details summary{ cursor:pointer; padding:10px 0; color:var(--gold); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+  .vm-details > div{ padding-bottom:12px; }
+  .vm-ligne{ display:grid; grid-template-columns:1fr auto; gap:4px 8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-ligne label,.vm-ligne small{ grid-column:1 / -1; }
+  .vm-ligne input[type=range],.vm-ligne select{ grid-column:1; width:100%; min-width:0; }
+  .vm-ligne output{ min-width:3ch; text-align:right; font-variant-numeric:tabular-nums; }
+  .vm-case{ display:flex; gap:8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:6px 0 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis dt,.vm-raccourcis dd{ margin:0; } .vm-raccourcis kbd{ border:1px solid var(--line-strong); padding:1px 6px; border-radius:3px; color:var(--white); }
+  .vm-plein{ position:fixed; inset:0; background:#000; z-index:50; display:flex; align-items:center; justify-content:center; }
+  .vm-plein[hidden]{ display:none; }
+  .vm-plein{ width:100vw; height:100vh; height:100dvh; }
+  .vm-plein canvas{ display:block; width:100%; height:100%; } /* jamais d'aspect-ratio ni de max-* : le bitmap a la forme de l'écran, aucun étirement */
+  .vm-plein button{ position:absolute; top:10px; right:10px; background:#000; }
+  .vm-plein.vm-masque{ cursor:none; } .vm-plein.vm-masque button{ display:none; }
+  .vm-info{ color:var(--dim); font-size:12.5px; margin:8px 0 0; min-height:1.6em; overflow-wrap:anywhere; }
+  .vm-semaine{ margin:28px 0 0; } .vm-semaine h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-semaine-grille{ display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(min(100%,150px), 1fr)); margin-top:12px; }
+  .vm-jour{ min-width:0; border:1px solid var(--line-strong); padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .vm-jour h3{ margin:0; font-size:13px; font-weight:600; overflow-wrap:anywhere; }
+  .vm-jour-zone{ aspect-ratio:9 / 16; background:#000; position:relative; overflow:hidden; }
+  .vm-jour-zone iframe, .vm-jour-zone blockquote{ position:absolute; inset:0; width:100%; height:100%; border:0; margin:0; }
+  .vm-page .vm-jour-aff{ display:block; width:100%; height:100%; min-height:0; padding:0; border:0; border-radius:0; background:none; cursor:pointer; }
+  .vm-jour-sans{ cursor:default; opacity:.8; }
+  .vm-jour-aff img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .vm-jour-date, .vm-jour-bientot, .vm-jour-liens{ margin:0; color:var(--dim); font-size:12px; line-height:1.4; }
+  .vm-jour-liens a{ color:var(--gold); display:inline-block; margin-right:10px; }
+  .vm-page .vm-jour-autre{ align-self:flex-start; }
+  .vm-voir{ margin:28px 0 0; } .vm-voir h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-cartes{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+  .vm-carte{ display:block; border:1px solid var(--line-strong); padding:12px 14px; text-decoration:none; color:var(--dim); }
+  .vm-carte:hover{ border-color:var(--gold); } .vm-carte b{ display:block; color:var(--white); font-weight:600; margin-bottom:4px; }
+  .vm-carte span{ font-size:13px; line-height:1.5; overflow-wrap:anywhere; }
+  @media (max-width:760px){
+    .wrap{ padding:20px 12px 48px; }
+    .vm-main{ grid-template-columns:minmax(0,1fr); }
+    .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
+    .vm-bascule{ display:flex; }
+    body.vm-essai-seul .vm-fen-valide{ display:none; }
+    body:not(.vm-essai-seul) .vm-fen-essai{ display:none; }
+    .vm-fen canvas{ max-width:100%; }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="side-band left visible"></div>
+<div class="side-band right visible"></div>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="vm-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><span aria-current="page" data-t="ariane">See your music</span></nav>
+    <h1 data-t="h1">See your music</h1>
+    <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <p class="vm-intro" data-t="intro">Every piece of music has a signature: the way its energy is spread across frequencies. Choose a track, a file or the microphone: the page measures that energy at the frequencies of each circle of modes of a square plate, then looks, among the unified patterns of La Livrée d'Hermès, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a musical law: a pattern does not “express” a piece.</p>
+    <p class="vm-discretion" data-t="discretion">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.</p>
+    <p class="vm-flash" role="note" data-t="flash">Warning: the images can change fast and flicker. The “reduce rapid changes” setting slows them down.</p>
+
+    <section class="vm-son" aria-labelledby="vmSonLabel">
+      <div><label id="vmSonLabel" for="vmSource">Sound</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
+      <div><button type="button" id="vmLecture" aria-pressed="false">Play</button></div>
+      <div id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Audio input</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
+    </section>
+    <p class="vm-aide" id="vmMentionIA"></p>
+    <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
+
+    <div class="vm-bascule"><button type="button" id="vmBasculeValide">Validated</button><button type="button" id="vmBasculeEssai">Trial</button></div>
+    <div class="vm-main">
+      <div>
+        <div class="vm-fenetres">
+          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">Validated</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap"></figcaption></figure>
+          <figure class="vm-fen vm-fen-essai" style="margin:0"><h2 id="vmEssaiTitre">Trial</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
+        </div>
+        <div class="vm-fen-btns"><button type="button" id="vmValider">Validate the trial</button><button type="button" id="vmAnnuler">Cancel</button><button type="button" id="vmPleinBtn">Full screen</button></div>
+        <p class="vm-aide" id="vmFenAide"></p>
+        <p class="vm-info" id="vmInfo" aria-live="off"></p>
+      </div>
+      <div class="vm-opts">
+        <div class="vm-grp" id="vm-g-mode"></div>
+        <div class="vm-grp" id="vm-g-fmt"></div>
+        <div class="vm-grp" id="vm-g-col"></div>
+        <div class="vm-grp" id="vm-g-view"></div>
+        <div class="vm-grp" id="vm-g-fond"></div>
+        <div class="vm-grp" id="vm-g-pal"></div>
+      </div>
+    </div>
+
+    <details class="vm-details"><summary id="vmTitreReglages">Live settings</summary><div id="vmReglages"></div></details>
+    <details class="vm-details"><summary id="vmTitreScene">The stage</summary><div id="vmScene"></div></details>
+    <details class="vm-details"><summary id="vmTitreEnreg">Record</summary><div id="vmEnregistrement"></div></details>
+    <details class="vm-details" id="vmComprendre" hidden><summary id="vmTitreComprendre">To understand</summary><div id="vmComprendreCorps"></div></details>
+    <details class="vm-details" id="vmCles" hidden><summary id="vmTitreCles">Reading in keys</summary><div id="vmClesCorps"></div></details>
+    <details class="vm-details"><summary id="vmTitreRacc">Keyboard shortcuts</summary><div><dl class="vm-raccourcis" id="vmRaccourcis"></dl></div></details>
+
+    <div class="vm-plein" id="vmPlein" hidden><canvas id="vmPleinToile" width="720" height="720"></canvas><button type="button" id="vmQuitter">Exit full screen</button></div>
+
+    <section class="vm-semaine" id="vmSemaine" aria-labelledby="vmSemaineTitre" hidden>
+      <h2 id="vmSemaineTitre">The week</h2>
+      <p class="vm-aide" id="vmSemaineMention">Music composed with AI by MC Claude.</p>
+      <p class="vm-aide" id="vmSemaineTiers"></p>
+      <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
+    </section>
+
+    <section class="vm-voir" aria-labelledby="vmVoirTitre">
+      <h2 id="vmVoirTitre" data-t="voirAussiTitre">See also</h2>
+      <div class="vm-cartes" id="vmVoirAussi"></div>
+    </section>
+  </div>
+</main>
+<!-- @main:end -->
+<script type="module">
+import { monter } from "../../assets/musique-chladni-ui.js";
+monter();
+</script>
+</div>
+
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+<script type="module" src="../../assets/trois-portes.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/en/support/" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter</a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/wallpapers/"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+          <li><a href="../../en/see-your-music/" aria-current="page"><span class="nav-cat-label">See your music</span><span class="nav-cat-texte">Pick a track, a file or the microphone: the page finds the La Livrée d’Hermès pattern whose spectrum is closest to the sound.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws &amp; prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../en/downloads/"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/create-a-pattern/"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Two-colour patterns v2 <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../en/encoder/"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../en/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/chladni/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../en/tools/"><span class="nav-cat-label">Tools</span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../en/support/"><span class="nav-cat-label">Support</span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../en/tools/">Tools</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../en/documentary-profile/">Author profile</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../research/">Research state</a>
+    <a href="../../en/contact/">Contact</a>
+    <a href="../../en/support/">Support</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

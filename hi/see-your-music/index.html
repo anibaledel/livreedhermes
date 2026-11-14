@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>अपने संगीत को देखें — La Livrée d'Hermès</title>
+<meta name="description" content="अपने संगीत को देखें: कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें और देखें कि ध्वनि कौन-सी Chladni आकृति बनाती है, फिर La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।">
+<meta property="og:title" content="अपने संगीत को देखें — La Livrée d'Hermès">
+<meta property="og:description" content="अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/hi/see-your-music/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/hi/see-your-music/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="अपने संगीत को देखें — La Livrée d'Hermès">
+<meta name="twitter:description" content="अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है।">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/trois-portes.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<style>
+  * { box-sizing:border-box; }
+  html { overflow-x:hidden; }
+  body { margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  .wrap { max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header { text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .vm-page{ max-width:1040px; margin:0 auto; padding:8px 16px 48px; }
+  .vm-page h1{ margin:12px 0 8px; }
+  .vm-intro,.vm-discretion,.vm-flash{ color:var(--dim); line-height:1.6; max-width:70ch; overflow-wrap:anywhere; }
+  .vm-flash{ border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-message{ min-height:1.4em; margin:6px 0; color:var(--dim); overflow-wrap:anywhere; }
+  .vm-message[data-etat=erreur]{ color:var(--white); border-left:3px solid var(--gold); padding-left:10px; }
+  .vm-son{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); align-items:start; margin:14px 0; }
+  .vm-son label{ display:block; color:var(--dim); font-size:13px; margin-bottom:4px; }
+  .vm-son select,.vm-ligne select{ width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-page button{ background:transparent; color:var(--white); border:1px solid var(--line-strong); border-radius:3px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer; min-height:40px; }
+  .vm-page button:hover:not(:disabled){ border-color:var(--gold); }
+  .vm-page button[aria-pressed=true]{ border-color:var(--gold); color:var(--gold); }
+  .vm-page button:disabled{ opacity:.55; cursor:not-allowed; }
+  .vm-page :focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .vm-aide{ color:var(--dim); font-size:12.5px; line-height:1.55; margin:6px 0; overflow-wrap:anywhere; display:block; }
+  .vm-main{ display:grid; gap:18px; grid-template-columns:minmax(0,1fr) minmax(0,260px); align-items:start; margin:14px 0; }
+  .vm-fenetres{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .vm-fen{ min-width:0; }
+  .vm-fen h2{ font-size:14px; margin:0 0 6px; font-weight:600; }
+  .vm-tag{ font-size:11px; color:var(--bg); background:var(--gold); padding:1px 6px; border-radius:3px; margin-left:4px; font-weight:400; }
+  .vm-tag.e{ background:var(--dim); }
+  .vm-fen canvas{ display:block; width:100%; max-width:260px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); }
+  .vm-fen figcaption{ color:var(--dim); font-size:12px; margin-top:4px; overflow-wrap:anywhere; }
+  .vm-fen-btns{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; grid-column:1 / -1; }
+  .vm-bascule{ display:none; gap:8px; margin:0 0 8px; }
+  .vm-opts{ display:flex; flex-direction:column; gap:6px; }
+  .vm-grp h3{ margin:0; font-size:inherit; font-weight:inherit; }
+  .vm-grp > h3 > button{ width:100%; text-align:left; display:flex; justify-content:space-between; }
+  .vm-grp > h3 > button::after{ content:"▾"; color:var(--dim); }
+  .vm-grp.open > h3 > button{ border-color:var(--gold); }
+  .vm-pan{ display:none; border:1px solid var(--line-strong); padding:8px; margin-top:4px; background:var(--bg); max-height:60vh; overflow:auto; }
+  .vm-grp.open .vm-pan{ display:grid; gap:6px; }
+  .vm-o{ display:flex; gap:8px; align-items:center; text-align:left; width:100%; }
+  .vm-o canvas{ flex:none; height:34px; width:auto; border:1px solid var(--line); }
+  .vm-o b{ display:block; font-weight:600; } .vm-o small{ display:block; color:var(--dim); font-size:11.5px; }
+  .vm-o.val{ box-shadow:inset 3px 0 0 var(--gold); }
+  .vm-details{ border:1px solid var(--line-strong); margin:12px 0; padding:0 12px; }
+  .vm-details summary{ cursor:pointer; padding:10px 0; color:var(--gold); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+  .vm-details > div{ padding-bottom:12px; }
+  .vm-ligne{ display:grid; grid-template-columns:1fr auto; gap:4px 8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-ligne label,.vm-ligne small{ grid-column:1 / -1; }
+  .vm-ligne input[type=range],.vm-ligne select{ grid-column:1; width:100%; min-width:0; }
+  .vm-ligne output{ min-width:3ch; text-align:right; font-variant-numeric:tabular-nums; }
+  .vm-case{ display:flex; gap:8px; align-items:center; margin:8px 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:6px 0 0; font-size:13px; color:var(--dim); }
+  .vm-raccourcis dt,.vm-raccourcis dd{ margin:0; } .vm-raccourcis kbd{ border:1px solid var(--line-strong); padding:1px 6px; border-radius:3px; color:var(--white); }
+  .vm-plein{ position:fixed; inset:0; background:#000; z-index:50; display:flex; align-items:center; justify-content:center; }
+  .vm-plein[hidden]{ display:none; }
+  .vm-plein{ width:100vw; height:100vh; height:100dvh; }
+  .vm-plein canvas{ display:block; width:100%; height:100%; } /* jamais d'aspect-ratio ni de max-* : le bitmap a la forme de l'écran, aucun étirement */
+  .vm-plein button{ position:absolute; top:10px; right:10px; background:#000; }
+  .vm-plein.vm-masque{ cursor:none; } .vm-plein.vm-masque button{ display:none; }
+  .vm-info{ color:var(--dim); font-size:12.5px; margin:8px 0 0; min-height:1.6em; overflow-wrap:anywhere; }
+  .vm-semaine{ margin:28px 0 0; } .vm-semaine h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-semaine-grille{ display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(min(100%,150px), 1fr)); margin-top:12px; }
+  .vm-jour{ min-width:0; border:1px solid var(--line-strong); padding:8px; display:flex; flex-direction:column; gap:6px; }
+  .vm-jour h3{ margin:0; font-size:13px; font-weight:600; overflow-wrap:anywhere; }
+  .vm-jour-zone{ aspect-ratio:9 / 16; background:#000; position:relative; overflow:hidden; }
+  .vm-jour-zone iframe, .vm-jour-zone blockquote{ position:absolute; inset:0; width:100%; height:100%; border:0; margin:0; }
+  .vm-page .vm-jour-aff{ display:block; width:100%; height:100%; min-height:0; padding:0; border:0; border-radius:0; background:none; cursor:pointer; }
+  .vm-jour-sans{ cursor:default; opacity:.8; }
+  .vm-jour-aff img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .vm-jour-date, .vm-jour-bientot, .vm-jour-liens{ margin:0; color:var(--dim); font-size:12px; line-height:1.4; }
+  .vm-jour-liens a{ color:var(--gold); display:inline-block; margin-right:10px; }
+  .vm-page .vm-jour-autre{ align-self:flex-start; }
+  .vm-voir{ margin:28px 0 0; } .vm-voir h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-cartes{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+  .vm-carte{ display:block; border:1px solid var(--line-strong); padding:12px 14px; text-decoration:none; color:var(--dim); }
+  .vm-carte:hover{ border-color:var(--gold); } .vm-carte b{ display:block; color:var(--white); font-weight:600; margin-bottom:4px; }
+  .vm-carte span{ font-size:13px; line-height:1.5; overflow-wrap:anywhere; }
+  @media (max-width:760px){
+    .wrap{ padding:20px 12px 48px; }
+    .vm-main{ grid-template-columns:minmax(0,1fr); }
+    .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
+    .vm-bascule{ display:flex; }
+    body.vm-essai-seul .vm-fen-valide{ display:none; }
+    body:not(.vm-essai-seul) .vm-fen-essai{ display:none; }
+    .vm-fen canvas{ max-width:100%; }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="side-band left visible"></div>
+<div class="side-band right visible"></div>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">सामग्री पर जाएँ</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="vm-page">
+    <nav class="breadcrumb" aria-label="पथ-सूचक"><a href="https://anibal-amiot.com/hi/">मुखपृष्ठ</a><span class="sep">/</span><span aria-current="page" data-t="ariane">अपने संगीत को देखें</span></nav>
+    <h1 data-t="h1">अपने संगीत को देखें</h1>
+    <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <p class="vm-intro" data-t="intro">हर संगीत का एक हस्ताक्षर होता है: उसकी ऊर्जा आवृत्तियों में किस तरह बँटी है। कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर यह ऊर्जा मापता है, फिर La Livrée d'Hermès के एकीकृत पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता हो। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता।</p>
+    <p class="vm-discretion" data-t="discretion">आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं।</p>
+    <p class="vm-flash" role="note" data-t="flash">सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है।</p>
+
+    <section class="vm-son" aria-labelledby="vmSonLabel">
+      <div><label id="vmSonLabel" for="vmSource">ध्वनि</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
+      <div><button type="button" id="vmLecture" aria-pressed="false">चलाएँ</button></div>
+      <div id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">ऑडियो इनपुट</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
+    </section>
+    <p class="vm-aide" id="vmMentionIA"></p>
+    <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
+
+    <div class="vm-bascule"><button type="button" id="vmBasculeValide">पुष्ट</button><button type="button" id="vmBasculeEssai">परीक्षण</button></div>
+    <div class="vm-main">
+      <div>
+        <div class="vm-fenetres">
+          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">पुष्ट</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap"></figcaption></figure>
+          <figure class="vm-fen vm-fen-essai" style="margin:0"><h2 id="vmEssaiTitre">परीक्षण</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
+        </div>
+        <div class="vm-fen-btns"><button type="button" id="vmValider">परीक्षण को पुष्ट करें</button><button type="button" id="vmAnnuler">रद्द करें</button><button type="button" id="vmPleinBtn">पूर्ण स्क्रीन</button></div>
+        <p class="vm-aide" id="vmFenAide"></p>
+        <p class="vm-info" id="vmInfo" aria-live="off"></p>
+      </div>
+      <div class="vm-opts">
+        <div class="vm-grp" id="vm-g-mode"></div>
+        <div class="vm-grp" id="vm-g-fmt"></div>
+        <div class="vm-grp" id="vm-g-col"></div>
+        <div class="vm-grp" id="vm-g-view"></div>
+        <div class="vm-grp" id="vm-g-fond"></div>
+        <div class="vm-grp" id="vm-g-pal"></div>
+      </div>
+    </div>
+
+    <details class="vm-details"><summary id="vmTitreReglages">चलते-चलते सेटिंग</summary><div id="vmReglages"></div></details>
+    <details class="vm-details"><summary id="vmTitreScene">मंच</summary><div id="vmScene"></div></details>
+    <details class="vm-details"><summary id="vmTitreEnreg">रिकॉर्ड करें</summary><div id="vmEnregistrement"></div></details>
+    <details class="vm-details" id="vmComprendre" hidden><summary id="vmTitreComprendre">समझने के लिए</summary><div id="vmComprendreCorps"></div></details>
+    <details class="vm-details" id="vmCles" hidden><summary id="vmTitreCles">कुंजियों में पठन</summary><div id="vmClesCorps"></div></details>
+    <details class="vm-details"><summary id="vmTitreRacc">कीबोर्ड शॉर्टकट</summary><div><dl class="vm-raccourcis" id="vmRaccourcis"></dl></div></details>
+
+    <div class="vm-plein" id="vmPlein" hidden><canvas id="vmPleinToile" width="720" height="720"></canvas><button type="button" id="vmQuitter">पूर्ण स्क्रीन से बाहर निकलें</button></div>
+
+    <section class="vm-semaine" id="vmSemaine" aria-labelledby="vmSemaineTitre" hidden>
+      <h2 id="vmSemaineTitre">यह सप्ताह</h2>
+      <p class="vm-aide" id="vmSemaineMention">MC Claude द्वारा AI से रचा गया संगीत।</p>
+      <p class="vm-aide" id="vmSemaineTiers"></p>
+      <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
+    </section>
+
+    <section class="vm-voir" aria-labelledby="vmVoirTitre">
+      <h2 id="vmVoirTitre" data-t="voirAussiTitre">यह भी देखें</h2>
+      <div class="vm-cartes" id="vmVoirAussi"></div>
+    </section>
+  </div>
+</main>
+<!-- @main:end -->
+<script type="module">
+import { monter } from "../../assets/musique-chladni-ui.js";
+monter();
+</script>
+</div>
+
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+<script type="module" src="../../assets/trois-portes.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../hi/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">मुखपृष्ठ</span><span class="nav-tile-excerpt">पुस्तक, उसके चित्रफलक और सभी उपकरण।</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">लेख <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-tile-excerpt">La Livrée d'Hermès से जुड़े चिंतन और शोध।</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/hi/support/" style="display:inline-block; margin:14px 0;" title="La Livrée d'Hermès को अपनी इच्छा से तय की गई राशि से सहयोग दें: सब कुछ निःशुल्क है, CC BY-NC 4.0 लाइसेंस के अंतर्गत; आपका सहयोग परियोजना को आगे बढ़ाता है।">परियोजना को सहयोग दें</a>
+
+    <nav class="nav-categories" aria-label="साइट के पृष्ठ">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">गैलरी</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../hi/animations/"><span class="nav-cat-label">एनिमेशन गैलरी</span><span class="nav-cat-texte">पृष्ठभूमि-संग्रहों के एनिमेशन, छह समूहों में: देखें, पूर्वावलोकन करें और MP4 में डाउनलोड करें।</span></a></li>
+          <li><a href="../../galerie-bicolore.html" hreflang="fr"><span class="nav-cat-label">द्विवर्णी दीर्घा <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">अक्षों से बने और घन पर बंद 142 द्विवर्णी पैटर्न: पठन-कण, टाइलिंग, निर्यात।</span></a></li>
+          <li><a href="../../galerie-patterns-unifies.html" hreflang="fr"><span class="nav-cat-label">त्रिवर्णी दीर्घा <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">रंगों के मिश्रण से बने एकीकृत पैटर्न। उसकी टाइलिंग देखने के लिए एक पैटर्न चुनें।</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">एनिमेशन</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../hi/animations/"><span class="nav-cat-label">एनिमेशन गैलरी</span><span class="nav-cat-texte">पृष्ठभूमि-संग्रहों के एनिमेशन, छह समूहों में: देखें, पूर्वावलोकन करें और MP4 में डाउनलोड करें।</span></a></li>
+          <li><a href="../../fonds-ecran.html" hreflang="fr"><span class="nav-cat-label">वॉलपेपर <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">पूर्ण स्क्रीन पर वस्त्र-वॉलपेपर: ध्वनि पर प्रतिक्रिया करते हैं या ध्यान-मोड में चलते हैं, समायोज्य लय के साथ।</span></a></li>
+          <li><a href="../../hi/see-your-music/" aria-current="page"><span class="nav-cat-label">अपने संगीत को देखें</span><span class="nav-cat-texte">कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ La Livrée d’Hermès का वह पैटर्न खोजता है जिसका स्पेक्ट्रम ध्वनि के सबसे निकट हो।</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">प्रश्न और मुद्रण</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html" hreflang="fr"><span class="nav-cat-label">ई चिंग से प्रश्न <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">यादृच्छिक रूप से एक हेक्साग्राम निकालें और उसका वर्ग देखें, या 64 परिवर्तनों की बिसात देखें।</span></a></li>
+          <li><a href="../../360-calques.html" hreflang="fr"><span class="nav-cat-label">360 परतें <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">मुद्रण की परतें बनाएँ और डाउनलोड करें, छापने के लिए तैयार।</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">SVG पैटर्न <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">रेखा-संयोजनों की 4 श्रेणियों में, मुद्रण की परतें SVG में डाउनलोड करें।</span></a></li>
+          <li><a href="../../hexagrammes/" hreflang="fr"><span class="nav-cat-label">हेक्साग्राम <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">ई चिंग के 64 हेक्साग्राम: प्रत्येक का निर्णय, त्रिग्राम और जादुई वर्ग।</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">रचनात्मक उपकरण</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html" hreflang="fr"><span class="nav-cat-label">पैटर्न बनाएँ <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">ई चिंग की 60 आकृतियों से अपने स्वयं के वस्त्र-पैटर्न रचें।</span></a></li>
+          <li><a href="../../bicolore.html" hreflang="fr"><span class="nav-cat-label">द्विवर्णी पैटर्न <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">एक 12×12 कोशिका रचें: छह स्तर, प्रत्येक का अपना परिवार और अपना रंग।</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">द्विवर्णी पैटर्न v2 <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">विकर्णों का दूसरा विभाजन (YA/AY): शब्दावली और अर्ध-विस्थापन की अवस्थाएँ — उपकरण v1 के साथ।</span></a></li>
+          <li><a href="../../encodeur.html" hreflang="fr"><span class="nav-cat-label">एनकोडर <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">दोहरे संदर्भ, अंख क्रॉस और जैक्वार्ड द्वारा ज्यामितीय स्टेग्नोग्राफ़िक एनकोडिंग।</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">संवादात्मक प्रदर्शन: ग्रिड और कुंजी से निकले संदर्भ।</span></a></li>
+          <li><a href="../../unified-patterns.html" hreflang="fr"><span class="nav-cat-label">Magic quadricolore <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">हेक्साग्रामों के 64 पैटर्न, अनुकूलन योग्य और उच्च रिज़ॉल्यूशन में डाउनलोड योग्य।</span></a></li>
+          <li><a href="../../chladni.html" hreflang="fr"><span class="nav-cat-label">साइमैटिक्स <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">वह टाइलिंग जिसकी स्थानिक आवृत्ति उसकी उत्सर्जित ध्वनि के सबसे निकट है।</span></a></li>
+          <li><a href="../../hi/tools/"><span class="nav-cat-label">उपकरण</span><span class="nav-cat-texte">साइट के सभी संवादात्मक उपकरण, एक ही स्थान पर।</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">परियोजना के बारे में</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../hi/book/"><span class="nav-cat-label">ग्रंथ</span><span class="nav-cat-texte">ग्रंथ और उसके अनूदित संस्करण, हेक्साग्राम और शब्दावली।</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">लेखक के बारे में <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">लेखक और उनकी पुस्तक — दर्शन, गणित और अनुप्रयुक्त विज्ञान के संगम पर।</span></a></li>
+          <li><a href="../../hi/lexicon/"><span class="nav-cat-label">शब्दावली</span><span class="nav-cat-texte">La Livrée d'Hermès को समझने के लिए दस मुख्य अवधारणाएँ।</span></a></li>
+          <li><a href="../../profil.html" hreflang="fr"><span class="nav-cat-label">दस्तावेज़ी परिचय <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">INPI में पंजीकृत पेटेंट और 63 डिज़ाइन, जो कोटि 12 के वर्गों को समेटते हैं।</span></a></li>
+          <li><a href="../../contact.html" hreflang="fr"><span class="nav-cat-label">संपर्क <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">किसी परियोजना, या पैटर्न और वस्त्र-मुद्रण के ऑर्डर के लिए लेखक से संपर्क करें।</span></a></li>
+          <li><a href="../../hi/support/"><span class="nav-cat-label">सहयोग दें</span><span class="nav-cat-texte">अपनी चुनी राशि से La Livrée d'Hermès को सहयोग दें: साइट और उसकी सामग्री निःशुल्क रहती है।</span></a></li>
+          <li><a href="../../chiffres-et-sources.html" hreflang="fr"><span class="nav-cat-label">आँकड़े और स्रोत <span class="lien-langue">(फ़्रेंच में)</span></span><span class="nav-cat-texte">साइट का हर आँकड़ा, उसे दोहराने वाली स्क्रिप्ट और उसकी छापी हुई पंक्ति।</span></a></li>
+          <li><a href="../../hi/works/"><span class="nav-cat-label">कार्य</span><span class="nav-cat-texte">जमा किए गए अभिलेख, कोड और प्रस्तुत लेख, हर एक समय-मुहर के साथ और खुला।</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Claude के सहयोग से निर्मित</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="पाद-सूची">
+    <a href="../../hi/">मुखपृष्ठ</a>
+    <a href="../../hi/book/">ग्रंथ</a>
+    <a href="../../hi/lexicon/">शब्दावली</a>
+    <a href="../../hi/works/">कृतियाँ</a>
+    <a href="../../research/" hreflang="en">Research state (अंग्रेज़ी में)</a>
+    <a href="../../hi/tools/">उपकरण</a>
+    <a href="../../en/hexagrams/" hreflang="en">हेक्साग्राम (अंग्रेज़ी में)</a>
+    <a href="../../motifs/" hreflang="en">पैटर्न (अंग्रेज़ी में)</a>
+    <a href="../../profil.html" hreflang="fr">लेखक के बारे में (फ़्रेंच में)</a>
+    <a href="../../contact.html" hreflang="fr">संपर्क (फ़्रेंच में)</a>
+    <a href="../../hi/support/">परियोजना को सहयोग दें</a>
+  </nav>
+  <p class="site-footer-licence">
+    सामग्री <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a> के अंतर्गत
+    · कोड AGPL v3 के अंतर्गत, व्यावसायिक लाइसेंस अनुरोध पर
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

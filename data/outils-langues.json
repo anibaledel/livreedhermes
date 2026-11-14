@@ -716,6 +716,89 @@
           "ogLocale": "th_TH"
         }
       }
+    },
+    {
+      "source": "musique-chladni.html",
+      "priorite": "0.8",
+      "textes": "data/outils-langues/musique-chladni.json",
+      "langues": {
+        "en": {
+          "dossier": "en/see-your-music/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/ver-tu-musica/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/see-your-music/",
+          "ogLocale": "th_TH"
+        },
+        "zh": {
+          "dossier": "zh/see-your-music/",
+          "ogLocale": "zh_CN",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"面包屑导航\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/zh/\">首页</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        },
+        "ru": {
+          "dossier": "ru/see-your-music/",
+          "ogLocale": "ru_RU",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Навигационная цепочка\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/ru/\">Главная</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        },
+        "pt": {
+          "dossier": "pt/see-your-music/",
+          "ogLocale": "pt_PT",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Navegação estrutural\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/pt/\">Início</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        },
+        "hi": {
+          "dossier": "hi/see-your-music/",
+          "ogLocale": "hi_IN",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"पथ-सूचक\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/hi/\">मुखपृष्ठ</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        }
+      }
     }
   ],
   "communs": [
@@ -742,16 +825,16 @@
     },
     {
       "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-      "en": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
-      "es": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
-      "th": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
-      "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+      "en": "<a href=\"https://anibal-amiot.com/en/tools/\">Tools</a>",
+      "es": "<a href=\"https://anibal-amiot.com/es/herramientas/\">Herramientas</a>",
+      "th": "<a href=\"https://anibal-amiot.com/th/tools/\">เครื่องมือ</a>",
+      "source": "nav-tiles (outils) ; la page des outils existe dans les trois langues depuis le prompt 185 (scripts/build-outils-support-langues.js)"
     },
     {
-      "fr": "\"name\": \"Outils\"",
-      "en": "\"name\": \"Tools\"",
-      "es": "\"name\": \"Herramientas\"",
-      "th": "\"name\": \"เครื่องมือ\"",
+      "fr": "\"name\": \"Outils\", \"item\": \"https://anibal-amiot.com/outils.html\"",
+      "en": "\"name\": \"Tools\", \"item\": \"https://anibal-amiot.com/en/tools/\"",
+      "es": "\"name\": \"Herramientas\", \"item\": \"https://anibal-amiot.com/es/herramientas/\"",
+      "th": "\"name\": \"เครื่องมือ\", \"item\": \"https://anibal-amiot.com/th/tools/\"",
       "source": "nav-tiles (outils)"
     },
     {

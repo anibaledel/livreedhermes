@@ -294,3 +294,8 @@ chaque chaîne avec sa provenance en commentaire :
   et Travaux adaptés des pages /support/ et /works/ là où elles existent (zh, ru, pt, hi).
   Termes du glossaire respectés (`tools/check_glossaire.mjs`) : « ฉักลักษณ์ », « हेक्साग्राम »,
   « И цзин », « ई चिंग », « I Ching » (pt), « публикация ».
+
+## « Voir sa musique » (prompt 185, 14 nov. 2026) — es, th, zh, ru, pt, hi
+
+Tuile `voir-sa-musique` (libellé et extrait), dans `scripts/nav-tiles-libelles.js` : **SANS SOURCE** dans les six langues (proposée par IA, à relire). Le détail, avec les autres textes du bloc : `docs/relecture-langues/`.
+

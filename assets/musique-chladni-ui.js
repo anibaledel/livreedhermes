@@ -23,7 +23,8 @@ const el = (tag, attrs = {}, ...enfants) => {
   for (const c of enfants.flat()) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
   return e;
 };
-const lJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(`${u} : ${r.status}`); return r.json(); });
+const RACINE = new URL('../', import.meta.url); // la page peut vivre dans un sous-dossier (en/see-your-music/) : les fichiers se lisent depuis la racine du site
+const lJson = (u) => fetch(new URL(u, RACINE)).then((r) => { if (!r.ok) throw new Error(`${u} : ${r.status}`); return r.json(); });
 const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const hex = (a) => '#' + a.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
 const MQ_CALME = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
@@ -320,7 +321,7 @@ async function lecture() {
   if (v === 'onglet') return capturerOnglet();
   if (v === 'essai') return musiqueEssai();
   if (v === 'file') { if (!A.fichierUrl) return $('vmFichier').click(); return lireElement(A.fichierUrl, 'fichier', T('etatFichier', { nom: A.fichierNom }), false); }
-  const m = CONFIG.morceaux.find((x) => x.id === v); if (m) return lireElement(m.fichier, 'morceau', T('etatMorceau'), true);
+  const m = CONFIG.morceaux.find((x) => x.id === v); if (m) return lireElement(new URL(m.fichier, RACINE).href, 'morceau', T('etatMorceau'), true);
 }
 
 // ---------- l'enregistrement (comme assets/outil-fond-ecran.js) : les signes en plein cadre, le bandeau, rien d'autre ----------
@@ -329,21 +330,27 @@ const dimensions = (f) => (f === '916' ? [1080, 1920] : f === '45' ? [1080, 1350
 // L'AAC (H.264 + AAC dans un MP4) est essayé EN PREMIER ; l'Opus n'est qu'un repli, annoncé à l'écran (iPhone, QuickTime et certaines applications de publication le lisent mal).
 const typeVideo = () => FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || '';
 const avecAac = (t) => /mp4a|aac/.test(t);
+// L'incrustation est écrite dans la langue de la page (la mention de l'IA : le même texte que le bloc « La semaine »). La police nomme celles de assets/fonts.css
+// (chinois, thaï, devanagari, cyrillique) avant celle du système : un canevas ne charge pas une police tout seul, lancerEnregistrement() la demande avant de filmer.
+const POLICE_INCRUSTATION = '600 30px "Noto Sans SC LDH", "Noto Sans Thai LDH", "Noto Sans Devanagari LDH", "Roboto Condensed LDH", system-ui, sans-serif';
+const lignesIncrustation = () => [CONFIG.enregistrement.signatureTexte, ...(S.ia ? [T('semaineMention')] : [])];
 function composer() {
   const { c, W, H } = rec;
   valide.peindre(c, W, H, C.tuilePleinEcran);
   if (S.signature) {
-    const lignes = [CONFIG.enregistrement.signatureTexte]; if (S.ia) lignes.push(CONFIG.enregistrement.ligneIA);
+    const lignes = lignesIncrustation();
     const haut = 30 + lignes.length * 40, e = rgb(ENCRE);
     c.fillStyle = `rgba(${e[0]},${e[1]},${e[2]},0.55)`; c.fillRect(0, H - haut, W, haut);
-    c.fillStyle = CREME; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '600 30px system-ui, sans-serif';
+    c.fillStyle = CREME; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = POLICE_INCRUSTATION;
     lignes.forEach((l, i) => c.fillText(l, W / 2, H - haut + 28 + i * 40 + 12));
   }
 }
-function lancerEnregistrement() {
+async function lancerEnregistrement() {
   if (rec) return arreterEnregistrement();
   if (!window.MediaRecorder) return message(T('enregIndispo'));
   if (!S.source) return message(T('enregSansSource'));
+  if (document.fonts && document.fonts.load) await Promise.all(lignesIncrustation().map((t) => document.fonts.load(POLICE_INCRUSTATION, t).catch(() => {}))); // la police des signes de la langue, chargée avant de filmer
+  if (rec) return; // un second clic pendant le chargement de la police
   const format = $('vmFormatVideo').value, [W, H] = dimensions(format), cible = document.createElement('canvas'); cible.width = W; cible.height = H;
   if (!cible.captureStream) return message(T('enregIndispo'));
   const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p)); A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p.clone())); // des CLONES : onstop arrête les pistes du flux, et la piste de A.dest sert aux enregistrements suivants
