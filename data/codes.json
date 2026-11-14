@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-14T14:26:02Z",
+ "generated_at_utc": "2026-11-14T14:57:36Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3676,7 +3676,7 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les épingles Pinterest des motifs bicolores de l'ORDRE 12 (les 142 motifs de galerie-bicolore.html), lot d'essai : 3 motifs, chacun en TUILE (la cellule de 12 × 12 cases, 60 px par case : 720 × 720) et en PAVAGE (4 cellules en largeur, 6…",
    "lit": [],
-   "ecrit": null,
+   "ecrit": [],
    "durees": [
     {
      "secondes": 8,
