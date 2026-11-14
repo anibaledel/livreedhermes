@@ -66,6 +66,7 @@ const DUREES = {
   'tools/tous_croisements.py': [[30, 'conteneur', '2026-10-07', 'inventaire des scripts']],
   'scripts/mesure-appariement.mjs': [[42, 'conteneur', '2026-11-12', 'avant la section (d) : 7 morceaux et 3 sinus, trois ordres'], [160, 'conteneur', '2026-11-14', 'avec la section (d) : pilote simulé, quatre fenêtres de moyenne']],
   'scripts/essai-musique-chladni-enregistrements.mjs': [[160, 'conteneur', '2026-11-14', 'les 9 enregistrements de 15 s (3 formats × 3 cadrages), ffprobe et ffmpeg ; Chromium de Playwright : H.264 + Opus, pas d\'AAC']],
+  'tools/pins/fabriquer_lot03.mjs': [[20, 'conteneur', '2026-11-14', 'lot 3 : 224 cellules tricolores en niveaux de gris, manifeste']],
   'tools/pins/fabriquer_gris.mjs': [[8, 'conteneur', '2026-11-14', 'lot d\'essai tricolore en niveaux de gris : 6 images, planche, manifeste']],
   'tools/pins/fabriquer_12.mjs': [[8, 'conteneur', '2026-11-14', 'lot d\'essai de l\'ordre 12 : 6 images, planche, manifeste']],
   'scripts/build-musique-textes.mjs': [[1, 'conteneur', '2026-11-14', 'contrôle des 7 langues, écriture de assets/musique-chladni-textes.js et des tableaux de relecture']],

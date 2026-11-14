@@ -1633,6 +1633,7 @@
     "tools/paires_croisees.py",
     "tools/pins/fabriquer_12.mjs",
     "tools/pins/fabriquer_gris.mjs",
+    "tools/pins/fabriquer_lot03.mjs",
     "tools/registre.json",
     "tools/selection_ordre6.py",
     "tools/tous_croisements.py",
@@ -1733,6 +1734,7 @@
     "tools/pins/fabriquer.mjs",
     "tools/pins/fabriquer_12.mjs",
     "tools/pins/fabriquer_gris.mjs",
+    "tools/pins/fabriquer_lot03.mjs",
     "tools/releve_texte_rouge.mjs",
     "tools/video_reference.mjs"
    ],
@@ -1996,6 +1998,19 @@
   {
    "fichier": "tools/pins/fabriquer_gris.mjs",
    "role": "les épingles Pinterest des motifs TRICOLORES « Unified Patterns » en trois niveaux de gris (lot d'essai : 3 motifs, cellule + pavage).",
+   "lit": [
+    "data/fonds_ecran_v1.json",
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/pins/fabriquer_lot03.mjs",
+   "role": "lot 3 des épingles Pinterest : les CELLULES tricolores en niveaux de gris, une épingle par grille (pas de pavage).",
    "lit": [
     "data/fonds_ecran_v1.json",
     "data/motifs-index.csv"
