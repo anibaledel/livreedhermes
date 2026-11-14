@@ -372,11 +372,31 @@ export function vecteurAudio(v, bloc) {
   return a;
 }
 const cosinus = (bloc, j, a) => { let s = 0; for (let k = 0; k < bloc.NS; k++) s += bloc.Pc[j * bloc.NS + k] * a[k]; return s; };
-/** Le motif du bloc dont le spectre ressemble le plus à celui de la musique (cosinus centré). */
-export function meilleurMotif(v, bloc) {
+/**
+ * Entre des motifs EX ÆQUO (exactement le même spectre : à l'ordre 12 tricolore plusieurs motifs se confondent, et le premier de la liste gagnait,
+ * donc le choix dépendait de l'ordre des fichiers), on garde celui qui est le plus proche, dans la chaîne du bloc, du motif `ref` (le motif
+ * précédent, s'il y en a un) ; à distance égale, ou sans `ref`, celui dont l'identifiant est le plus petit. Le score n'est pas touché.
+ */
+export const EGALITE = 1e-12;
+export function departager(bloc, ex, ref = -1) {
+  const pos = bloc.posChaine && ref >= 0 ? bloc.posChaine : null; let meilleur = ex[0];
+  for (const j of ex) {
+    if (pos) { const dj = Math.abs(pos[j] - pos[ref]), dm = Math.abs(pos[meilleur] - pos[ref]); if (dj !== dm) { if (dj < dm) meilleur = j; continue; } }
+    if (String(bloc.ids[j]) < String(bloc.ids[meilleur])) meilleur = j;
+  }
+  return meilleur;
+}
+/** Le meilleur motif d'une liste de candidats (tous les motifs du bloc si `parmi` est absent) pour le vecteur centré `a`, ex æquo départagés. */
+function meilleurParmi(a, bloc, ref, parmi = null) {
+  const n = parmi ? parmi.length : bloc.n, sc = new Float64Array(n); let bs = -9;
+  for (let k = 0; k < n; k++) { sc[k] = cosinus(bloc, parmi ? parmi[k] : k, a); if (sc[k] > bs) bs = sc[k]; }
+  const ex = []; for (let k = 0; k < n; k++) if (sc[k] >= bs - EGALITE) ex.push(parmi ? parmi[k] : k);
+  return { i: ex.length === 1 ? ex[0] : departager(bloc, ex, ref), score: bs };
+}
+/** Le motif du bloc dont le spectre ressemble le plus à celui de la musique (cosinus centré) ; `ref` : le motif précédent, pour les ex æquo. */
+export function meilleurMotif(v, bloc, ref = -1) {
   const a = vecteurAudio(v, bloc); if (!a) return { i: -1, score: 0 };
-  let bi = 0, bs = -9; for (let j = 0; j < bloc.n; j++) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; bi = j; } }
-  return { i: bi, score: bs };
+  return meilleurParmi(a, bloc, ref);
 }
 
 // ---------- la détection des attaques (fonction nouvelle et séparée) ----------
@@ -511,10 +531,11 @@ export const VUES = Object.freeze(['signes', 'lignes', 'pavage']);
  * « Quand » : à chaque attaque, ou — si une pulsation régulière est détectée — à chaque temps ou toutes les
  * 4 pulsations. `calme` allonge le fondu et la tenue (réduire les changements rapides).
  */
-export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE, facteurOctave = 4 } = {}) {
+export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE, facteurOctave = 4, fenetreImage = 0 } = {}) {
   let courant = 0, ancien = -1, precedent = -1, tenue = 1e9, tChange = -1e9, noteOrbite = -1, etapeOrbite = 0;
   const meilleurs = new Map(); // cercle -> le motif de plus grande amplitude à ce cercle (mode « octaves »)
-  const etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation, facteurOctave };
+  const etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation, facteurOctave, fenetreImage }; // fenetreImage : secondes de moyenne du spectre avant l'appariement, mode « image » seulement (0 = aucune)
+  const histo = []; // les vecteurs des `fenetreImage` dernières secondes : { t, v }
   const suivi = creerSuiviPulsation();
   const facteur = () => (etat.calme ? 3 : 1);
   const momentJuste = (attaque, t) => {
@@ -532,16 +553,21 @@ export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenue
     /** Reprend l'état d'une autre fenêtre (« Valider l'essai »). */
     copier(autre) { courant = autre.motif(); ancien = autre.ancien(); precedent = autre.precedent(); tenue = 1e9; },
     motif() { return courant; }, ancien() { return ancien; }, precedent() { return precedent; },
-    reinitialiser() { courant = 0; ancien = -1; precedent = -1; tenue = 1e9; tChange = -1e9; suivi.reinitialiser(); },
+    reinitialiser() { courant = 0; ancien = -1; precedent = -1; tenue = 1e9; tChange = -1e9; histo.length = 0; suivi.reinitialiser(); },
     /** `v` : vecteur de la musique ; `attaque` : booléen du détecteur ; `t` : secondes. */
     pas({ v, attaque = false, t }) {
       tenue++;
       if (attaque) suivi.attaque(t);
       let change = false, score = 0;
       if (etat.mode === MODES.IMAGE) {
-        const a = vecteurAudio(v, bloc);
+        let vm = v;
+        if (etat.fenetreImage > 0) { // la moyenne des vecteurs des dernières secondes : un morceau qui passe d'un timbre à l'autre ne fait plus sauter le motif à chaque note
+          histo.push({ t, v: Float64Array.from(v) }); while (histo.length > 1 && histo[0].t < t - etat.fenetreImage) histo.shift();
+          vm = new Float64Array(bloc.NS); for (const h of histo) for (let k = 0; k < bloc.NS; k++) vm[k] += h.v[k] / histo.length;
+        } else if (histo.length) histo.length = 0;
+        const a = vecteurAudio(vm, bloc);
         if (a) {
-          let bi = 0, bs = -9; for (let j = 0; j < bloc.n; j++) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; bi = j; } }
+          const { i: bi, score: bs } = meilleurParmi(a, bloc, courant); // ex æquo : le plus proche de `courant` dans la chaîne, puis le plus petit identifiant
           score = bs;
           if (bi !== courant && bs > cosinus(bloc, courant, a) + etat.hysteresis && tenue >= etat.tenueMin * facteur()) change = aller(bi, t);
         }
@@ -561,7 +587,7 @@ export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenue
           const a = vecteurAudio(v, bloc);
           if (a) {
             let cand = bloc.rac[courant].filter((j) => j !== precedent); if (!cand.length) cand = bloc.rac[courant];
-            let best = cand[0], bs = -9; for (const j of cand) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; best = j; } }
+            const { i: best, score: bs } = meilleurParmi(a, bloc, courant, cand);
             score = bs; change = aller(best, t);
           }
         }

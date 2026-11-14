@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-14T13:46:14Z",
+ "generated_at_utc": "2026-11-14T13:59:54Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -893,9 +893,9 @@
   {
    "chemin": "scripts/essai-musique-chladni-options.mjs",
    "adresse": "https://anibal-amiot.com/scripts/essai-musique-chladni-options.mjs",
-   "octets": 8383,
-   "sha256": "b9c6e8b91ab68b0a50e344f5ecd21c5bc1c9ad6c55ff49d4b72e755415793c26",
-   "md5": "8c65732951373ea11d78c735bdf04c8d",
+   "octets": 8826,
+   "sha256": "cafce9362e48ffe39dc2617fd8449fd35b60d5ea4a55a9df82f5b59ed89ce366",
+   "md5": "395e1f00c8939c38ce0be5bbb49aba67",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "essaie dans un vrai navigateur (Chromium, Playwright) les options ajoutées à « Voir sa musique » (figure du son, loi de la plaque, mode « octaves », lecture en clés, « Pour comprendre »), aux ordres 12, 18 et 30, avec un morceau fourni e…",
@@ -1257,9 +1257,9 @@
   {
    "chemin": "scripts/mesure-appariement.mjs",
    "adresse": "https://anibal-amiot.com/scripts/mesure-appariement.mjs",
-   "octets": 12632,
-   "sha256": "cd61a7379f382066d428700e4828f36ddfc621e21677d23b6450ea0c2dd5af61",
-   "md5": "d339c2c6287495c8c9965b750d6d0d92",
+   "octets": 17986,
+   "sha256": "562493974bdaefe85c91c1d4bed50543d8c9c33b1ef8aea53420c3db74d0eb88",
+   "md5": "693559023950a179e89aab58486668f5",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "mesure l'appariement du son et du motif de « Voir sa musique », sans rien corriger.",
@@ -1270,7 +1270,13 @@
      "secondes": 42,
      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
      "mesure_le": "2026-11-12",
-     "source": "mesure faite en écrivant le script (7 morceaux et 3 sinus, trois ordres)"
+     "source": "avant la section (d) : 7 morceaux et 3 sinus, trois ordres"
+    },
+    {
+     "secondes": 160,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "avec la section (d) : pilote simulé, quatre fenêtres de moyenne"
     }
    ],
    "arborescence_requise": null,
@@ -2103,9 +2109,9 @@
   {
    "chemin": "tools/check_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_chladni.mjs",
-   "octets": 27335,
-   "sha256": "3cf93a5a22c91bde48774b562fe6c56a703e5a30fd88666114a4afb38f0f1ab2",
-   "md5": "22fa38bf52d74c2d5c705b2a1b471307",
+   "octets": 28575,
+   "sha256": "b37ac4b2a45feaad0a56d0f3ce2802c10e12f354fdab02b5194833def42f612c",
+   "md5": "fbfa93b4e4d4045358bb04bceb4c77a9",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
@@ -3214,9 +3220,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 13382,
-   "sha256": "bba732fa4833cac7b0a7e15165bcb7f68d6562d37a4c838787f9c7a3b6617d54",
-   "md5": "c4c6e7bf2bdc6b2b87076bde4250ad53",
+   "octets": 13470,
+   "sha256": "85109c07849eace06496b38b11a9f5ede0cae4c9898efd44468c2d96d61b1246",
+   "md5": "5e3ae68c4fb4e33fafe50d8177f07ee8",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
@@ -4369,9 +4375,9 @@
   {
    "chemin": "tools/verify_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/verify_musique_chladni.mjs",
-   "octets": 36252,
-   "sha256": "a4ed14b5a426e90e76f252e8f98bbfb9c9d8b7a26b5a5020f9f6cc1a8c10859f",
-   "md5": "f024241a50fa2c93cf0a2bcb13fe4120",
+   "octets": 40344,
+   "sha256": "e244ee3c4174b92663437e9b65d6481f2a74af731e75c8038b57950e8341ed6c",
+   "md5": "ccba7151a36b3ff53fcdad48bec07e21",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le moteur de « Voir sa musique » (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.",

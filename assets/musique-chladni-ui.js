@@ -124,7 +124,7 @@ function pavage(ctx, W, H, t, alpha, fmt = 12, s = Math.min(W, H) / tuilesParCot
 // ---------- une fenêtre : sa configuration, son pilote, son rendu ----------
 class Fenetre {
   constructor(cv, cap) { this.cv = cv; this.ctx = cv.getContext('2d'); this.cap = cap; this.cfg = null; this.p = null; this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
-  options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation, facteurOctave: S.loi === M.LOIS.PLAQUE ? 2 : 4 }; }
+  options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation, facteurOctave: S.loi === M.LOIS.PLAQUE ? 2 : 4, fenetreImage: C.fenetreImageSecondes }; }
   setCfg(c) {
     const ancienne = this.cfg; this.cfg = { ...c };
     if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs.get(c.col), this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }

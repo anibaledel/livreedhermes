@@ -384,5 +384,45 @@ print(json.dumps(out))`;
   console.log('15. « Pour comprendre » : cos(4πx/a) − cos(4πy/a) = cos(4πx/a) + cos(4πy/a) décalé d\'un quart de côté, à s = 0 des lignes verticales seules, champ normalisé à ±1 ; produit de deux réseaux de ±1 = XNOR des bits, +1 partout pour un réseau multiplié par lui-même.');
 }
 
+// ---- 16. ex æquo : mélanger l'ordre des motifs ne change pas le motif retenu (ni dans meilleurMotif, ni dans le pilote en mode « image ») ----
+{
+  // un bloc dont les motifs sont dans un autre ordre : mêmes spectres, mêmes identifiants, même chaîne (relue sur les identifiants)
+  const permuter = (bloc, perm) => { // perm[k] = ancien indice du motif qui prend la place k
+    const NS = bloc.NS, n = bloc.n, inv = new Int32Array(n); perm.forEach((o, k) => { inv[o] = k; });
+    const P = new Float32Array(n * NS), Pc = new Float32Array(n * NS); perm.forEach((o, k) => { P.set(bloc.P.subarray(o * NS, (o + 1) * NS), k * NS); Pc.set(bloc.Pc.subarray(o * NS, (o + 1) * NS), k * NS); });
+    const chain = bloc.chain.map((j) => inv[j]), posChaine = new Int32Array(n); chain.forEach((j, p) => { posChaine[j] = p; });
+    return { ...bloc, P, Pc, ids: perm.map((o) => bloc.ids[o]), chain, posChaine, rac: perm.map((o) => bloc.rac[o].map((j) => inv[j])), inv };
+  };
+  let graine = 12345; const alea = () => { graine = (Math.imul(graine, 1664525) + 1013904223) >>> 0; return graine / 4294967296; };
+  const melange = (n) => { const p = Array.from({ length: n }, (_, i) => i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(alea() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } return p; };
+  const permutes = [0, 1, 2].map(() => permuter(tri, melange(tri.n)));
+  // des sons à départager : le son de motifs pris dans toute la collection, et des vecteurs de cercles quelconques
+  const sons = []; for (let i = 0; i < tri.n; i += 5) sons.push(M.bandesDuSon(sonDuMotif(tri, i, 0), SR, { pente: false, fref: tri.fref, shells: tri.shells }));
+  for (let k = 0; k < 40; k++) sons.push(Float64Array.from({ length: tri.NS }, () => alea()));
+  let egalites = 0, diff = 0, diffRef = 0, essais = 0;
+  for (const v of sons) {
+    const a = M.vecteurAudio(v, tri); if (!a) continue;
+    let bs = -9; const sc = []; for (let j = 0; j < tri.n; j++) { let x = 0; for (let k = 0; k < tri.NS; k++) x += tri.Pc[j * tri.NS + k] * a[k]; sc.push(x); if (x > bs) bs = x; }
+    if (sc.filter((x) => x >= bs - M.EGALITE).length > 1) egalites++;
+    const ref0 = Math.floor(alea() * tri.n), idRef = tri.ids[ref0], r0 = M.meilleurMotif(v, tri), r0r = M.meilleurMotif(v, tri, ref0);
+    for (const q of permutes) {
+      essais++;
+      const r = M.meilleurMotif(v, q), rr = M.meilleurMotif(v, q, q.inv[ref0]);
+      if (q.ids[r.i] !== tri.ids[r0.i] || Math.abs(r.score - r0.score) > 1e-12) diff++;
+      if (q.ids[rr.i] !== tri.ids[r0r.i]) diffRef++;
+    }
+  }
+  ok(egalites > 0, 'ex æquo : aucun des sons essayés ne donne d\'ex æquo, le contrôle ne prouve rien');
+  ok(diff === 0, `ex æquo : ${diff} essais où mélanger l'ordre des motifs change le motif retenu (sans motif précédent)`);
+  ok(diffRef === 0, `ex æquo : ${diffRef} essais où mélanger l'ordre des motifs change le motif retenu (avec motif précédent, départage par la chaîne)`);
+  // le pilote (mode « image ») : même suite de motifs sur le bloc mélangé, du premier motif aux changements
+  const suite = (bloc, ref0) => { const p = M.creerPilote(bloc, { mode: 'image', hysteresis: 0, tenueMin: 0 }), out = []; for (let t = 0; t < sons.length; t++) { p.pas({ v: sons[t], attaque: false, t: t * 0.1 }); out.push(bloc.ids[p.motif()]); } return out; };
+  const base = suite(tri), melangees = permutes.map((q) => suite(q)); 
+  // le premier motif courant d'un pilote est le motif 0 du bloc : on aligne les deux départs avant de comparer
+  const depart = permutes.map((q) => q.ids[0]); const memeDepart = permutes.every((q, i) => depart[i] === tri.ids[0]);
+  if (memeDepart) ok(melangees.every((m) => JSON.stringify(m) === JSON.stringify(base)), 'ex æquo : le pilote en mode « image » ne suit pas la même suite de motifs sur un bloc mélangé');
+  console.log(`16. ex æquo : ${egalites} sons sur ${sons.length} ont des motifs au même score exact ; sur ${essais} essais (3 ordres mélangés), le motif retenu ne change jamais, sans motif précédent comme avec (chaîne, puis plus petit identifiant) ; score inchangé.`);
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');

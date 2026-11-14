@@ -65,6 +65,7 @@ export const CONFIG = Object.freeze({
     fonduSecondes: 0.3,
     penteDesGraves: true,
     cPlaque: 31.85,       // Hz par unité de m² + n² (loi « plaque » : aluminium de 3 mm, 48 cm) ; réglable
+    fenetreImageSecondes: 0, // mode « image » seulement : moyenne du spectre sur les N dernières secondes avant l'appariement (0 = aucune) ; mesure : docs/mesure-appariement.md
     teinteParImage: 3,    // la teinte qui suit le son : pente limitée à ±3° par image
     tuileFenetre: 360,    // côté de la tuile des fenêtres Validé / Essai
     tuilePleinEcran: 720, // côté de la tuile du plein écran et de l'enregistrement

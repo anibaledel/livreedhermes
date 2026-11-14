@@ -1,10 +1,10 @@
 # Mesure de l'appariement du son et du motif (« Voir sa musique »)
 
-Produit par `node scripts/mesure-appariement.mjs --ecrit` ; le moteur n'est pas modifié, on rapporte seulement. Analyse de la page refaite hors navigateur : fenêtre de Blackman de 8192 échantillons à 48000 Hz, une image toutes les 33 ms, `bandesDuSon`, lissage 0.45, puis `meilleurMotif` (cosinus centré) sur la collection par défaut de chaque ordre : tricolore à l'ordre 12 (512 motifs), `b1971128` à l'ordre 18 (128), `p30` à l'ordre 30 (88). Le score est le cosinus entre le vecteur du son (moyenné sur le morceau entier) et le spectre centré du motif ; la marge est l'écart entre le premier et le deuxième score. La dernière colonne donne l'indice du motif retenu pour chacun des quatre tronçons de 15 s.
+Produit par `node scripts/mesure-appariement.mjs --ecrit` ; on rapporte ; le moteur est mesuré tel quel. Analyse de la page refaite hors navigateur : fenêtre de Blackman de 8192 échantillons à 48000 Hz, une image toutes les 33 ms, `bandesDuSon`, lissage 0.45, puis `meilleurMotif` (cosinus centré) sur la collection par défaut de chaque ordre : tricolore à l'ordre 12 (512 motifs), `b1971128` à l'ordre 18 (128), `p30` à l'ordre 30 (88). Le score est le cosinus entre le vecteur du son (moyenné sur le morceau entier) et le spectre centré du motif ; la marge est l'écart entre le premier et le deuxième score. La dernière colonne donne l'indice du motif retenu pour chacun des quatre tronçons de 15 s.
 
 ## À lire avant les chiffres
 
-- **Marge nulle à l'ordre 12 (tricolore).** Plusieurs motifs de la collection ont exactement le même spectre de cercles (t000 en a au moins trois autres identiques), donc le premier et le deuxième score sont égaux et `meilleurMotif` garde le premier de la liste. À cet ordre, le motif retenu dépend de l'ordre des fichiers, et la « stabilité » comme les distances de chaîne y sont peu parlantes. Constat, pas corrigé.
+- **Marge nulle à l'ordre 12 (tricolore).** Plusieurs motifs de la collection ont exactement le même spectre de cercles (t000 en a au moins trois autres identiques), donc le premier et le deuxième score sont égaux (marge 0). Jusqu'au prompt 183, `meilleurMotif` gardait le premier de la liste, et le motif retenu dépendait de l'ordre des fichiers ; depuis, les ex æquo sont départagés par la proximité dans la chaîne du motif précédent, sinon par le plus petit identifiant (`departager`, contrôle n° 16 de `tools/verify_musique_chladni.mjs`). Le score ne change pas : la marge reste 0 entre ex æquo.
 - Une distance de 0 dans la chaîne veut dire que les deux morceaux ont reçu le même motif.
 - Le lissage (0.45) est la valeur par défaut de la page ; les 4 tronçons sont ceux de 15 s des morceaux de 60 s.
 
@@ -48,6 +48,64 @@ Produit par `node scripts/mesure-appariement.mjs --ecrit` ; le moteur n'est pas 
 | sinus 440 Hz | sinus pur 440 Hz | 12 (tri) | t272 | 0.449 | 0.449 | 0.000 | 272 · 272 · 272 · 272 | oui |
 | sinus 440 Hz | sinus pur 440 Hz | 18 (b1971128) | o18-b1971128-m051 | 0.329 | 0.321 | 0.008 | 51 · 51 · 51 · 51 | oui |
 | sinus 440 Hz | sinus pur 440 Hz | 30 (p30) | o30-p20-c1 | 0.155 | 0.152 | 0.003 | 38 · 38 · 38 · 38 | oui |
+
+## (d) Moyenne du spectre sur une fenêtre plus longue (mode « image » seulement)
+
+La mesure (a) compare des moyennes de 15 s : elle ne peut pas changer avec une fenêtre de 3, 5 ou 8 s. Ici, on simule le pilote de la page en mode « image » (hystérésis 0,07, tenue de 8 images, lissage 0.45), image par image, avec une moyenne du vecteur du son sur les N dernières secondes avant l'appariement (`fenetreImage` de `creerPilote`), et on relève **le motif tenu à la fin de chaque tronçon de 15 s** : « stable » = le même motif aux quatre fins de tronçon. Les ex æquo sont départagés comme dans la page.
+
+| Fenêtre | Morceaux stables (7 × 3 ordres) | dont ordre 12 (sur 7) | Sinus purs stables (3 × 3 ordres) | Changements de motif par minute (moyenne, morceaux) |
+|---|---|---|---|---|
+| 0 s (réglage actuel) | 0 sur 21 | 0 sur 7 | 9 sur 9 (110 Hz : 3/3, 220 Hz : 3/3, 440 Hz : 3/3) | 102.9 |
+| 3 s | 2 sur 21 | 0 sur 7 | 9 sur 9 (110 Hz : 3/3, 220 Hz : 3/3, 440 Hz : 3/3) | 17.9 |
+| 5 s | 7 sur 21 | 1 sur 7 | 9 sur 9 (110 Hz : 3/3, 220 Hz : 3/3, 440 Hz : 3/3) | 11.5 |
+| 8 s | 9 sur 21 | 1 sur 7 | 9 sur 9 (110 Hz : 3/3, 220 Hz : 3/3, 440 Hz : 3/3) | 7.8 |
+
+**Décision.** Aucune fenêtre n'atteint le seuil de 15 cas sur 21 (la meilleure, 8 s : 9 sur 21 ; réglage actuel : 0 sur 21). Le réglage actuel est laissé (`fenetreImageSecondes: 0`) ; la fenêtre reste proposée en option : changer `CONFIG.moteur.fenetreImageSecondes` (3, 5 ou 8). Elle améliore la stabilité d'un tronçon à l'autre sans atteindre le seuil, et divise les changements de motif par minute (dernière colonne).
+
+Ordre 12 (tricolore), motif tenu à la fin des tronçons de 15 s :
+
+| Son | Fenêtre | Motifs aux fins de tronçon | Stable ? | Changements |
+|---|---|---|---|---|
+| j1 | 0 s | t019 · t191 · t260 · t017 | non | 133 |
+| j1 | 3 s | t498 · t190 · t190 · t256 | non | 35 |
+| j1 | 5 s | t064 · t023 · t186 · t190 | non | 23 |
+| j1 | 8 s | t191 · t023 · t186 · t190 | non | 19 |
+| j2 | 0 s | t274 · t180 · t013 · t429 | non | 121 |
+| j2 | 3 s | t191 · t260 · t160 · t160 | non | 27 |
+| j2 | 5 s | t191 · t191 · t020 · t160 | non | 18 |
+| j2 | 8 s | t191 · t191 · t191 · t001 | non | 16 |
+| j3 | 0 s | t277 · t184 · t005 · t429 | non | 109 |
+| j3 | 3 s | t191 · t181 · t278 · t184 | non | 27 |
+| j3 | 5 s | t191 · t191 · t020 · t003 | non | 24 |
+| j3 | 8 s | t191 · t187 · t015 · t188 | non | 19 |
+| j4 | 0 s | t191 · t273 · t429 · t431 | non | 132 |
+| j4 | 3 s | t168 · t160 · t428 · t168 | non | 29 |
+| j4 | 5 s | t168 · t001 · t428 · t168 | non | 21 |
+| j4 | 8 s | t001 · t001 · t424 · t001 | non | 8 |
+| j5 | 0 s | t191 · t001 · t013 · t191 | non | 106 |
+| j5 | 3 s | t031 · t013 · t031 · t191 | non | 16 |
+| j5 | 5 s | t031 · t031 · t031 · t031 | oui | 5 |
+| j5 | 8 s | t191 · t191 · t191 · t191 | oui | 4 |
+| j6 | 0 s | t165 · t178 · t190 · t191 | non | 155 |
+| j6 | 3 s | t273 · t434 · t160 · t017 | non | 29 |
+| j6 | 5 s | t273 · t434 · t160 · t017 | non | 26 |
+| j6 | 8 s | t191 · t434 · t001 · t001 | non | 17 |
+| j7 | 0 s | t077 · t069 · t168 · t191 | non | 124 |
+| j7 | 3 s | t015 · t077 · t168 · t077 | non | 18 |
+| j7 | 5 s | t191 · t191 · t278 · t077 | non | 14 |
+| j7 | 8 s | t191 · t015 · t191 · t077 | non | 10 |
+| sinus 110 Hz | 0 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 110 Hz | 3 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 110 Hz | 5 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 110 Hz | 8 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 220 Hz | 0 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 220 Hz | 3 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 220 Hz | 5 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 220 Hz | 8 s | t000 · t000 · t000 · t000 | oui | 0 |
+| sinus 440 Hz | 0 s | t272 · t272 · t272 · t272 | oui | 1 |
+| sinus 440 Hz | 3 s | t272 · t272 · t272 · t272 | oui | 1 |
+| sinus 440 Hz | 5 s | t272 · t272 · t272 · t272 | oui | 1 |
+| sinus 440 Hz | 8 s | t272 · t272 · t272 · t272 | oui | 1 |
 
 ## (b) Des tonalités voisines (au plus deux demi-tons)
 
