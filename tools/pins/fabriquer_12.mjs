@@ -18,12 +18,19 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { servirDepot } from '../lib_fonds_site.mjs';
 import { buildAxes, generateAxesMask } from '../../assets/bicolore-axes.js';
+import { triangleGeometry, PER_CELL } from '../../assets/bicolore-render.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), SORTIE = path.join(ROOT, 'pins/essai-12');
 const DEPOT = 'anibaledel/motifs-pins', DOSSIER = 'essai-12', PAGE = 'https://anibal-amiot.com/galerie-bicolore.html', G = 12, PXT = 60, PXP = 21, LT = G * PXT, LP = 4 * G * PXP, HP = 6 * G * PXP;
 const lire = (rel) => JSON.parse(readFileSync(path.join(ROOT, rel), 'utf8'));
 const AXES = buildAxes(lire('data/AXES/catalogue.json')), data = lire('data/bicolore_galerie_v1.json');
 const masques = data.entries.map((e) => generateAxesMask(e.accord.flatMap(([n, g]) => AXES[n][g] || []), { grain: 'C1' }));
+// Le CADRAGE de la galerie : au grain C8 (8 triangles par case, comme la galerie à son réglage de départ, drawMask). Le grain C1 testait le CENTRE de chaque case : un axe
+// diagonal qui passe par ce centre y tombe en égalité, et la figure sortait décalée d'une demi-case (127 motifs sur 142 : tous ceux dont les 8 triangles d'une case diffèrent).
+// Les masques C1 ne servent plus qu'à classer les motifs (nombre de cases sombres) et à contrôler les données.
+const masques8 = data.entries.map((e) => generateAxesMask(e.accord.flatMap(([n, g]) => AXES[n][g] || []), { grain: 'C8' }));
+const TRI = Array.from({ length: G * G * PER_CELL }, (_, k) => triangleGeometry(k, 1, PER_CELL).map((p) => [p[0], p[1]])); // coordonnées en cases, origine au coin de la cellule
+const decalees = masques.filter((m, i) => masques8[i].some((v, k) => v !== m[Math.floor(k / PER_CELL)])).length; // motifs dont la lecture « case » diffère de celle de la galerie
 const id = (i) => `o12-b${String(i).padStart(3, '0')}`, sombre = (i) => masques[i].reduce((a, b) => a + b, 0);
 masques.forEach((m, i) => { if (m.length !== G * G || sombre(i) !== data.entries[i].sombre) throw new Error(`${id(i)} : masque de ${m.length} cases, ${sombre(i)} sombres au lieu de ${data.entries[i].sombre}`); });
 
@@ -36,8 +43,9 @@ const pins = []; for (const [, i] of choix) for (const type of ['pavage', 'tuile
 
 const RENDU = `async (spec) => {
   const { PALETTES } = await import('/assets/couleurs.js'), rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)), ink = rgb(PALETTES.creme[1]), fond = rgb(PALETTES.creme[0]), css = (c) => 'rgb(' + c.join(',') + ')';
-  const cellule = (m, px) => { const c = document.createElement('canvas'); c.width = c.height = spec.G * px; const x = c.getContext('2d'); x.fillStyle = css(fond); x.fillRect(0, 0, c.width, c.height); x.fillStyle = css(ink);
-    for (let y = 0; y < spec.G; y++) for (let k = 0; k < spec.G; k++) if (m[y * spec.G + k]) x.fillRect(k * px, y * px, px, px); return c; };
+  const cellule = (m, px) => { const c = document.createElement('canvas'); c.width = c.height = spec.G * px; const x = c.getContext('2d'); x.fillStyle = css(fond); x.fillRect(0, 0, c.width, c.height); x.fillStyle = css(ink); x.strokeStyle = css(ink); x.lineWidth = 0.6; x.lineJoin = 'round';
+    for (let k = 0; k < m.length; k++) if (m[k]) { const t = spec.TRI[k]; x.beginPath(); x.moveTo(t[0][0] * px, t[0][1] * px); x.lineTo(t[1][0] * px, t[1][1] * px); x.lineTo(t[2][0] * px, t[2][1] * px); x.closePath(); x.fill(); x.stroke(); } // le trait comble les joints entre triangles voisins
+    return c; };
   const image = (p) => { const m = spec.masques[p.i];
     if (p.type === 'tuile') return cellule(m, spec.PXT);
     const t = cellule(m, spec.PXP), c = document.createElement('canvas'); c.width = spec.LP; c.height = spec.HP; const x = c.getContext('2d');
@@ -55,7 +63,7 @@ mkdirSync(SORTIE, { recursive: true });
 const serveur = await servirDepot(ROOT), nav = await chromium.launch(); let r;
 try {
   const page = await nav.newPage(); await page.goto(`${serveur.url}/includes/head-icons.html`);
-  r = await page.evaluate(`(${RENDU})(${JSON.stringify({ G, PXT, PXP, LP, HP, pins, masques: masques.map((m) => Array.from(m)) })})`);
+  r = await page.evaluate(`(${RENDU})(${JSON.stringify({ G, PXT, PXP, LP, HP, pins, TRI, masques: masques8.map((m) => Array.from(m)) })})`);
 } finally { await nav.close(); serveur.fermer(); }
 for (const im of r.images) writeFileSync(path.join(SORTIE, im.fichier), Buffer.from(im.png, 'base64'));
 writeFileSync(path.join(SORTIE, 'planche.png'), Buffer.from(r.planche, 'base64'));
@@ -82,4 +90,5 @@ for (const im of r.images) { const [L, H] = im.fichier.endsWith('tuile.png') ? [
 ok(new Set(epingles.map((e) => e.titre)).size === 6 && epingles.length === 6, 'six titres distincts attendus');
 ok(Object.values(parJour).every((n) => n <= 12), 'plus de 12 épingles un jour');
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
+console.log(`${decalees} motifs sur ${masques.length} avaient la lecture « case » décalée par rapport à la galerie (corrigé : grain C8, comme la galerie).`);
 console.log(`Essai ordre 12 : ${r.images.length} images dans ${SORTIE}/ (tuile ${LT} × ${LT}, pavage ${LP} × ${HP}), planche.png, manifeste-essai-12.json ; motifs ${choix.map(([n, i]) => `${n} ${id(i)} (${sombre(i)}/144 sombres)`).join(', ')}. Rien n'est poussé.`);

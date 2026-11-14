@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-14T14:57:36Z",
+ "generated_at_utc": "2026-11-14T15:38:18Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 267,
+  "scripts": 268,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3286,9 +3286,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 14081,
-   "sha256": "487f30c1a0998982ba94ef9cfb446338c3502551f2337bda4120522f497c8f94",
-   "md5": "48cb472863097e9aa92beafac34ce030",
+   "octets": 14226,
+   "sha256": "355e71ff1517ff987b35d10b999215187428a724b8e2adcb5932d9ddf76bc835",
+   "md5": "accf45405673657a810ed9a9fed21b88",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
@@ -3669,9 +3669,9 @@
   {
    "chemin": "tools/pins/fabriquer_12.mjs",
    "adresse": "https://anibal-amiot.com/tools/pins/fabriquer_12.mjs",
-   "octets": 9707,
-   "sha256": "babe527acecab10ec85c0da149a865702673ddb3cdbf91339dd75592d2a58713",
-   "md5": "a514e60e55aa597bf78f3cd202b32819",
+   "octets": 11152,
+   "sha256": "6a7b0e1f8e4084f0db2d36822188901fc49b95ce3773d35f5c965795623717e9",
+   "md5": "77b19df4ca191ec3d5ac539553c97b92",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les épingles Pinterest des motifs bicolores de l'ORDRE 12 (les 142 motifs de galerie-bicolore.html), lot d'essai : 3 motifs, chacun en TUILE (la cellule de 12 × 12 cases, 60 px par case : 720 × 720) et en PAVAGE (4 cellules en largeur, 6…",
@@ -3683,6 +3683,30 @@
      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
      "mesure_le": "2026-11-14",
      "source": "lot d'essai de l'ordre 12 : 6 images, planche, manifeste"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/pins/fabriquer_gris.mjs",
+   "adresse": "https://anibal-amiot.com/tools/pins/fabriquer_gris.mjs",
+   "octets": 8634,
+   "sha256": "5b2457f1f335c3f75b72efef956c20736acd22b12d96ce5dd6c5e2b8ccd9c0e4",
+   "md5": "1e715c439bb0dbd0258ca3c2bcfb36ef",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les épingles Pinterest des motifs TRICOLORES « Unified Patterns » en trois niveaux de gris (lot d'essai : 3 motifs, cellule + pavage).",
+   "lit": [
+    "constructions-1024"
+   ],
+   "ecrit": [],
+   "durees": [
+    {
+     "secondes": 8,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "lot d'essai tricolore en niveaux de gris : 6 images, planche, manifeste"
     }
    ],
    "arborescence_requise": null,
