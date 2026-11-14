@@ -95,21 +95,21 @@ const LANGUES = {
   },
   en: {
     nom: 'English', autres: 'Other languages:', drapeau: '🇬🇧', hexagrammes: true,
-    pages: { livre: 'en/book/', accueil: 'en/', lexique: 'en/lexicon/', 'a-propos': 'en/about/', travaux: 'en/works/', recherche: 'en/search/', articles: 'en/articles/' },
+    pages: { livre: 'en/book/', accueil: 'en/', lexique: 'en/lexicon/', 'a-propos': 'en/about/', travaux: 'en/works/', recherche: 'en/search/', articles: 'en/articles/', outils: 'en/tools/', soutien: 'en/support/' },
     edition: { titre: 'English edition', lire: "Read La Livrée d'Hermès online, page by page, with free PDF download.", boutonLire: 'Read the book online →', boutonPdf: 'Download the PDF (EN)' },
     evitement: "Skip to content",
     lecteur: { titre: "The Book — viewer", titreDoc: "La Livrée d'Hermès — The Book", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Go to", exemple: "e.g. 042", voir: "Go", aideClavier: "← → to turn pages · click the page to zoom", aideTactile: "Swipe left/right to turn pages · tap the page to zoom", prec: "Previous page", suiv: "Next page", pdf: "Download the PDF", langues: "Language of the book", repliPage: "Page {code} is not in this edition: showing page {proche}, the nearest." },
   },
   es: {
     nom: 'Español', autres: 'Otros idiomas:', drapeau: '🇪🇸', hexagrammes: true,
-    pages: { livre: 'es/libro/', accueil: 'es/', lexique: 'es/lexico/', recherche: 'es/buscar/' },
+    pages: { livre: 'es/libro/', accueil: 'es/', lexique: 'es/lexico/', recherche: 'es/buscar/', outils: 'es/herramientas/', soutien: 'es/apoyar/' },
     edition: { titre: 'Edición española', lire: "Lea La Livrée d'Hermès en línea, página por página, con descarga gratuita en PDF.", boutonLire: 'Leer el libro en línea →', boutonPdf: 'Descargar el PDF (ES)' },
     evitement: "Ir al contenido",
     lecteur: { titre: "El libro — visor", titreDoc: "La Livrée d'Hermès — El libro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir a", exemple: "p. ej. 042", voir: "Ver", aideClavier: "← → para pasar las páginas · clic en la página para ampliar", aideTactile: "Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar", prec: "Página anterior", suiv: "Página siguiente", pdf: "Descargar el PDF", langues: "Idioma del libro", repliPage: "La página {code} no existe en esta edición: página {proche}, la más cercana." },
   },
   th: {
     nom: 'ไทย', autres: 'ภาษาอื่น:', drapeau: '🇹🇭', hexagrammes: true, titreLivre: 'ลิเวรีของเฮอร์มีส',
-    pages: { livre: 'th/book/', accueil: 'th/', lexique: 'th/lexicon/', recherche: 'th/search/' },
+    pages: { livre: 'th/book/', accueil: 'th/', lexique: 'th/lexicon/', recherche: 'th/search/', outils: 'th/tools/', soutien: 'th/support/' },
     edition: { titre: 'ฉบับภาษาไทย', lire: "อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี", boutonLire: 'อ่านหนังสือออนไลน์ →', boutonPdf: 'ดาวน์โหลด PDF (TH)' },
     evitement: "ข้ามไปยังเนื้อหา",
     lecteur: { titre: "หนังสือ — โปรแกรมอ่าน", titreDoc: "ลิเวรีของเฮอร์มีส — หนังสือ", pageLabel: "หน้า {code} — {i} / {n}", alt: "หน้า {code}", allerA: "ไปที่หน้า", exemple: "เช่น 042", voir: "ดู", aideClavier: "← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย", aideTactile: "ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย", prec: "หน้าก่อนหน้า", suiv: "หน้าถัดไป", pdf: "ดาวน์โหลด PDF", langues: "ภาษาของหนังสือ", repliPage: "ฉบับนี้ไม่มีหน้า {code} : แสดงหน้า {proche} ซึ่งใกล้ที่สุด" },
@@ -324,7 +324,7 @@ function hreflangDe(groupe) {
 // les deux consommateurs d'un coup. L'existence des fichiers, elle, est
 // vérifiée par build-header.js --verifie (il a le dépôt sous la main).
 // -------------------------------------------------------------------------
-const SANS_X_DEFAUT = new Set(['outils', 'soutien']);
+const SANS_X_DEFAUT = new Set([]); // « outils » et « soutien » l'étaient tant qu'il n'y avait pas de page anglaise ; elles existent depuis le prompt 185
 const vus = new Map();
 for (const g of GROUPES) {
   const langues = g.pages.map(([lang]) => lang);

@@ -1,0 +1,74 @@
+{
+  "_doc": "Textes des pages « Outils » et « Soutenir » en anglais, espagnol et thaï (scripts/build-outils-support-langues.js). Les textes français de outils.html et soutenir.html font foi ; traduction faite par IA, à relire (docs/relecture-langues/en-es.md, th.md).",
+  "langues": {
+    "en": {
+      "dossierOutils": "en/tools/",
+      "dossierSoutien": "en/support/",
+      "ogLocale": "en_GB",
+      "home": "Home",
+      "ariaFil": "Breadcrumb",
+      "note": "(page in French)",
+      "outils": {
+        "titre": "Tools",
+        "desc": "The interactive tools of La Livrée d'Hermès — compose, visualise, print, encrypt.",
+        "intro": "The interactive tools of La Livrée d'Hermès — compose, visualise, print, encrypt. Pages marked “(page in French)” are not translated yet."
+      },
+      "soutien": {
+        "titre": "Support",
+        "desc": "Support La Livrée d'Hermès at a price of your choice: the site and all its content stay entirely free.",
+        "intro": "Everything is free. The treatise, the patterns and the files produced by the tools can be downloaded without condition, under the CC BY-NC 4.0 licence. Your support, at a price of your choice, funds what comes next: new patterns, new tools, the textile side.",
+        "cta": "Go to the French page to pay",
+        "nota": "Payment is secured by Stripe. Free amount, voluntary donation. The payment page is in French.",
+        "h2": "What your support funds",
+        "b": "Research, development and translation time",
+        "p": "Building the patterns, the site’s tools and their documentation in four languages."
+      }
+    },
+    "es": {
+      "dossierOutils": "es/herramientas/",
+      "dossierSoutien": "es/apoyar/",
+      "ogLocale": "es_ES",
+      "home": "Inicio",
+      "ariaFil": "Ruta de navegación",
+      "note": "(página en francés)",
+      "outils": {
+        "titre": "Herramientas",
+        "desc": "Las herramientas interactivas de La Livrée d'Hermès: componer, visualizar, imprimir, cifrar.",
+        "intro": "Las herramientas interactivas de La Livrée d'Hermès: componer, visualizar, imprimir, cifrar. Las páginas marcadas «(página en francés)» aún no están traducidas."
+      },
+      "soutien": {
+        "titre": "Apoyar",
+        "desc": "Apoya La Livrée d'Hermès a precio libre: el sitio y todo su contenido siguen siendo totalmente gratuitos.",
+        "intro": "Todo es libre. El tratado, los motivos y los archivos producidos por las herramientas se descargan sin condición, bajo licencia CC BY-NC 4.0. Tu apoyo, a precio libre, financia lo que viene: nuevos motivos, nuevas herramientas, el apartado textil.",
+        "cta": "Ir a la página en francés para pagar",
+        "nota": "El pago está protegido por Stripe. Importe libre, donación voluntaria. La página de pago está en francés.",
+        "h2": "Qué financia tu apoyo",
+        "b": "El tiempo de investigación, desarrollo y traducción",
+        "p": "La construcción de los motivos, de las herramientas del sitio y su documentación en cuatro idiomas."
+      }
+    },
+    "th": {
+      "dossierOutils": "th/tools/",
+      "dossierSoutien": "th/support/",
+      "ogLocale": "th_TH",
+      "home": "หน้าแรก",
+      "ariaFil": "เส้นทางนำทาง",
+      "note": "(หน้าภาษาฝรั่งเศส)",
+      "outils": {
+        "titre": "เครื่องมือ",
+        "desc": "เครื่องมือแบบโต้ตอบของ La Livrée d'Hermès — ประพันธ์ ดูภาพ พิมพ์ เข้ารหัส",
+        "intro": "เครื่องมือแบบโต้ตอบของ La Livrée d'Hermès — ประพันธ์ ดูภาพ พิมพ์ เข้ารหัส หน้าที่ระบุ “(หน้าภาษาฝรั่งเศส)” ยังไม่ได้แปล"
+      },
+      "soutien": {
+        "titre": "สนับสนุน",
+        "desc": "สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหาทั้งหมดยังคงเป็นของฟรี",
+        "intro": "ทุกอย่างเป็นของเปิด ตำรา ลวดลาย และไฟล์ที่เครื่องมือสร้างขึ้นดาวน์โหลดได้โดยไม่มีเงื่อนไข ภายใต้สัญญาอนุญาต CC BY-NC 4.0 การสนับสนุนของคุณในราคาที่คุณกำหนดเอง ช่วยหนุนสิ่งที่จะตามมา: ลวดลายใหม่ เครื่องมือใหม่ และงานด้านสิ่งทอ",
+        "cta": "ไปที่หน้าภาษาฝรั่งเศสเพื่อชำระเงิน",
+        "nota": "การชำระเงินปลอดภัยด้วย Stripe จำนวนเงินกำหนดเอง การบริจาคเป็นไปตามความสมัครใจ หน้าชำระเงินเป็นภาษาฝรั่งเศส",
+        "h2": "การสนับสนุนของคุณช่วยอะไร",
+        "b": "เวลาสำหรับการวิจัย การพัฒนา และการแปล",
+        "p": "การสร้างลวดลาย เครื่องมือของเว็บไซต์ และเอกสารประกอบเป็นสี่ภาษา"
+      }
+    }
+  }
+}

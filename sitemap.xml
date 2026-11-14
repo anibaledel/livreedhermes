@@ -9,12 +9,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/musique-chladni.html</loc>
-    <lastmod>2026-11-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/la-livree-d-hermes.html</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -1713,7 +1707,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/chladni.html</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1725,7 +1719,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/chladni/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1737,7 +1731,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/chladni/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1749,7 +1743,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/chladni/</loc>
-    <lastmod>2026-11-07</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1989,7 +1983,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/fonds-ecran.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
@@ -2000,7 +1994,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/wallpapers/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
@@ -2011,7 +2005,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/fondos-de-pantalla/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
@@ -2022,7 +2016,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/wallpapers/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
@@ -2348,6 +2342,126 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/create-a-pattern/"/>
   </url>
   <url>
+    <loc>https://anibal-amiot.com/musique-chladni.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/ver-tu-musica/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/see-your-music/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/musique-chladni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/ver-tu-musica/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/see-your-music/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/see-your-music/"/>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/carre-magique-ordre-6.html</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -2393,10 +2507,59 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/tools/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/herramientas/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/tools/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/zh/tools/</loc>
@@ -2404,10 +2567,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/ru/tools/</loc>
@@ -2415,10 +2582,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/pt/tools/</loc>
@@ -2426,10 +2597,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/hi/tools/</loc>
@@ -2437,10 +2612,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/soutenir.html</loc>
@@ -2448,10 +2627,59 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/support/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/apoyar/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/support/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/zh/support/</loc>
@@ -2459,10 +2687,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/ru/support/</loc>
@@ -2470,10 +2702,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/pt/support/</loc>
@@ -2481,10 +2717,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/hi/support/</loc>
@@ -2492,10 +2732,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/support/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/apoyar/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/support/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/support/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/support/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/articles.html</loc>
