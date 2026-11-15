@@ -174,6 +174,13 @@ function page(d, f) {
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="article">
 <meta property="og:image" content="${SITE}/assets/og_image_anibal_amiot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="La Livrée d'Hermès — a treatise on arithmogeometry, by Anibal Edelberto Amiot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(f.titre)}">
+<meta name="twitter:description" content="${esc(metaDesc)}">
+<meta name="twitter:image" content="${SITE}/assets/og_image_anibal_amiot.png">
 <!-- balises citation_* : ce que lit Google Scholar (engendrées par scripts/build-travaux-pages.js) -->
 ${citation}
 <script type="application/ld+json">
