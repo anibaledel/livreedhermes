@@ -120,6 +120,32 @@ CSS = """
 """
 
 
+LICENCE_URLS = {
+    "CC BY-NC 4.0": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "CC BY 4.0": "https://creativecommons.org/licenses/by/4.0/",
+    "AGPL-3.0": "https://www.gnu.org/licenses/agpl-3.0.html",
+}
+
+
+def licence_url(texte):
+    """Le champ `license` du JSON-LD doit être une URL (Google, Dataset) :
+    « CC BY-NC 4.0 » ou « CC BY 4.0 (data), AGPL-3.0 (code) » n'en sont pas.
+    Pour une licence composée, on retient celle des données, à défaut celle
+    des textes, à défaut la première. Le texte affiché sur la page ne change
+    pas : seule la valeur du JSON-LD est convertie."""
+    if texte.startswith("http"):
+        return texte
+    parts = [p.strip() for p in texte.split(",")]
+    def nom(p):
+        return re.sub(r"\s*\(.*?\)\s*$", "", p).strip()
+    choix = None
+    for marque in ("(data)", "(texts)", "(text)"):
+        choix = next((p for p in parts if p.endswith(marque)), None)
+        if choix:
+            break
+    return LICENCE_URLS.get(nom(choix or parts[0]), texte)
+
+
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -228,7 +254,7 @@ def jsonld(data):
         if w.get("doi"):
             el["identifier"] = f"https://doi.org/{w['doi']}"
         if w.get("license"):
-            el["license"] = w["license"]
+            el["license"] = licence_url(w["license"])
         items.append({"@type": "ListItem", "position": n, "item": el})
     graph = {
         "@context": "https://schema.org",

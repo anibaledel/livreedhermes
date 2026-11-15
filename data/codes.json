@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-15T06:38:01Z",
+ "generated_at_utc": "2026-11-15T09:10:04Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1593,9 +1593,9 @@
   {
    "chemin": "tools/build_research.py",
    "adresse": "https://anibal-amiot.com/tools/build_research.py",
-   "octets": 17182,
-   "sha256": "570b6214056d556d58cbf4660a3f6cdf1d9cbf458064731dcfc10d4a0dfd763b",
-   "md5": "2e26f6cd4f5e5f5e7cbbbde447668c84",
+   "octets": 18221,
+   "sha256": "271785f38dd1b76f42688690c4df5dab2e840347917d1d8ef733bfdca28d49f5",
+   "md5": "be43a0ccff81d0932ce48137efa0daa7",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "engendre la page « État des travaux » depuis research/status.json.",
