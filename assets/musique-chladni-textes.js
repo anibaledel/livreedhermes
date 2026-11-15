@@ -220,7 +220,7 @@ export const TEXTES = {
   // @langues:start — engendré par scripts/build-musique-textes.mjs depuis data/musique-chladni/traductions/<langue>.json, ne pas éditer ici
   en: {
     "titrePage": "See your music — La Livrée d'Hermès",
-    "description": "See your music: choose a track, a file or the microphone and watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound.",
+    "description": "See your music: pick a track, a file or the microphone, watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most.",
     "ariane": "See your music",
     "h1": "See your music",
     "intro": "Every piece of music has a signature: the way its energy is spread across frequencies. Choose a track, a file or the microphone: the page measures that energy at the frequencies of each circle of modes of a square plate, then looks, among the unified patterns of La Livrée d'Hermès, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a musical law: a pattern does not “express” a piece.",
@@ -576,7 +576,7 @@ export const TEXTES = {
   },
   es: {
     "titrePage": "Ver tu música — La Livrée d'Hermès",
-    "description": "Ver tu música: elige una pieza, un archivo o el micrófono y mira la figura de Chladni que dibuja el sonido, y después el motivo de La Livrée d'Hermès que más se le parece. Graba 15 segundos con el sonido.",
+    "description": "Ver tu música: elige una pieza, un archivo o el micrófono, mira la figura de Chladni del sonido y el motivo de La Livrée d'Hermès más parecido. Graba 15 segundos.",
     "ariane": "Ver tu música",
     "h1": "Ver tu música",
     "intro": "Cada música tiene una firma: la manera en que su energía se reparte entre las frecuencias. Elige una pieza, un archivo o el micrófono: la página mide esa energía en las frecuencias de cada círculo de modos de una placa cuadrada y busca, entre los motivos unificados de La Livrée d'Hermès, aquel cuyo espectro más se le parece. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.",
@@ -932,7 +932,7 @@ export const TEXTES = {
   },
   th: {
     "titrePage": "มองเห็นดนตรีของคุณ — La Livrée d'Hermès",
-    "description": "มองเห็นดนตรีของคุณ: เลือกเพลง ไฟล์ หรือไมโครโฟน แล้วดูรูปแบบของ Chladni ที่เสียงวาดขึ้น จากนั้นดูลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด บันทึกวิดีโอพร้อมเสียง 15 วินาที",
+    "description": "มองเห็นดนตรีของคุณ: เลือกเพลง ไฟล์ หรือไมโครโฟน ดูรูป Chladni ที่เสียงวาด และลวดลายของ La Livrée d'Hermès ที่คล้ายที่สุด บันทึก 15 วินาที",
     "ariane": "มองเห็นดนตรีของคุณ",
     "h1": "มองเห็นดนตรีของคุณ",
     "intro": "ดนตรีทุกชิ้นมีลายเซ็นของตัวเอง คือวิธีที่พลังงานของมันกระจายไปตามความถี่ต่าง ๆ เลือกเพลง ไฟล์ หรือไมโครโฟน หน้านี้จะวัดพลังงานนั้นที่ความถี่ของวงโหมดแต่ละวงของแผ่นสี่เหลี่ยมจัตุรัส แล้วค้นหาในบรรดาลวดลายรวมเป็นหนึ่งของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด การเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง",
@@ -1644,7 +1644,7 @@ export const TEXTES = {
   },
   ru: {
     "titrePage": "Увидеть свою музыку — La Livrée d'Hermès",
-    "description": "Увидеть свою музыку: выберите композицию, файл или микрофон и посмотрите на фигуру Хладни, которую рисует звук, а затем на узор La Livrée d'Hermès, который больше всего на неё похож. Запишите 15 секунд со звуком.",
+    "description": "Увидеть свою музыку: выберите композицию, файл или микрофон, посмотрите фигуру Хладни и самый похожий узор La Livrée d'Hermès. Запишите 15 секунд.",
     "ariane": "Увидеть свою музыку",
     "h1": "Увидеть свою музыку",
     "intro": "У каждой музыки есть подпись: то, как её энергия распределяется по частотам. Выберите композицию, файл или микрофон: страница измеряет эту энергию на частотах каждого круга мод квадратной пластины, а затем ищет среди унифицированных узоров La Livrée d'Hermès тот, чей спектр больше всего на неё похож. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» композицию.",
@@ -2000,7 +2000,7 @@ export const TEXTES = {
   },
   pt: {
     "titrePage": "Ver a sua música — La Livrée d'Hermès",
-    "description": "Ver a sua música: escolha uma peça, um ficheiro ou o microfone e veja a figura de Chladni que o som desenha e, depois, o padrão de La Livrée d'Hermès que mais se lhe assemelha. Grave 15 segundos com o som.",
+    "description": "Ver a sua música: escolha uma peça, um ficheiro ou o microfone, veja a figura de Chladni do som e o padrão de La Livrée d'Hermès mais parecido. Grave 15 segundos.",
     "ariane": "Ver a sua música",
     "h1": "Ver a sua música",
     "intro": "Cada música tem uma assinatura: a forma como a sua energia se reparte pelas frequências. Escolha uma peça, um ficheiro ou o microfone: a página mede essa energia nas frequências de cada círculo de modos de uma placa quadrada e procura, entre os padrões unificados de La Livrée d'Hermès, aquele cujo espetro mais se lhe assemelha. A escolha assenta na semelhança de dois espetros, não numa lei musical: um padrão não «exprime» uma peça.",
@@ -2356,7 +2356,7 @@ export const TEXTES = {
   },
   hi: {
     "titrePage": "अपने संगीत को देखें — La Livrée d'Hermès",
-    "description": "अपने संगीत को देखें: कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें और देखें कि ध्वनि कौन-सी Chladni आकृति बनाती है, फिर La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें।",
+    "description": "अपना संगीत देखें: रचना, फ़ाइल या माइक्रोफ़ोन चुनें, ध्वनि की Chladni आकृति और La Livrée d'Hermès का सबसे मिलता पैटर्न देखें। 15 सेकंड रिकॉर्ड करें।",
     "ariane": "अपने संगीत को देखें",
     "h1": "अपने संगीत को देखें",
     "intro": "हर संगीत का एक हस्ताक्षर होता है: उसकी ऊर्जा आवृत्तियों में किस तरह बँटी है। कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर यह ऊर्जा मापता है, फिर La Livrée d'Hermès के एकीकृत पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता हो। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता।",
@@ -2712,7 +2712,7 @@ export const TEXTES = {
   },
   de: {
     "titrePage": "Die eigene Musik sehen — La Livrée d'Hermès",
-    "description": "Die eigene Musik sehen: Wählen Sie ein Stück, eine Datei oder das Mikrofon und sehen Sie die Chladni-Figur, die der Klang zeichnet, und danach das Muster von La Livrée d'Hermès, das ihm am meisten ähnelt. Nehmen Sie 15 Sekunden mit dem Klang auf.",
+    "description": "Die eigene Musik sehen: Stück, Datei oder Mikrofon wählen, die Chladni-Figur des Klangs und das ähnlichste Muster von La Livrée d'Hermès ansehen. 15 Sekunden aufnehmen.",
     "ariane": "Die eigene Musik sehen",
     "h1": "Die eigene Musik sehen",
     "intro": "Jede Musik hat eine Signatur: die Art, wie sich ihre Energie auf die Frequenzen verteilt. Wählen Sie ein Stück, eine Datei oder das Mikrofon: Die Seite misst diese Energie bei den Frequenzen jedes Modenkreises einer quadratischen Platte und sucht dann unter den vereinheitlichten Mustern von La Livrée d'Hermès dasjenige, dessen Spektrum ihr am meisten ähnelt. Die Wahl beruht auf der Ähnlichkeit zweier Spektren, nicht auf einem musikalischen Gesetz: Ein Muster „drückt“ kein Stück „aus“.",
@@ -3068,7 +3068,7 @@ export const TEXTES = {
   },
   it: {
     "titrePage": "Vedere la propria musica — La Livrée d'Hermès",
-    "description": "Vedere la propria musica: scegli un brano, un file o il microfono e guarda la figura di Chladni che il suono disegna, poi il motivo di La Livrée d'Hermès che più gli somiglia. Registra 15 secondi con il suono.",
+    "description": "Vedere la propria musica: scegli un brano, un file o il microfono e guarda la figura di Chladni del suono e il motivo di La Livrée d'Hermès più simile. 15 secondi.",
     "ariane": "Vedere la propria musica",
     "h1": "Vedere la propria musica",
     "intro": "Ogni musica ha una firma: il modo in cui la sua energia si ripartisce tra le frequenze. Scegli un brano, un file o il microfono: la pagina misura questa energia alle frequenze di ciascun cerchio di modi di una piastra quadrata, poi cerca, tra i motivi unificati di La Livrée d'Hermès, quello il cui spettro le somiglia di più. La scelta poggia sulla somiglianza di due spettri, non su una legge musicale: un motivo non «esprime» un brano.",
