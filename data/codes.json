@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-15T09:10:04Z",
+ "generated_at_utc": "2026-11-15T11:04:49Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 270,
+  "scripts": 271,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -772,6 +772,21 @@
    "licence_declaree": false,
    "licence": null,
    "role": "engendre les lexiques traduits depuis data/lexiques_traduits.json.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/build-llms-full.js",
+   "adresse": "https://anibal-amiot.com/scripts/build-llms-full.js",
+   "octets": 5589,
+   "sha256": "a0ef51975748225e5e2064b95fe925d655d02e139fed9d1be899e85deb364046",
+   "md5": "263ab6b5b82c43757081f7a9261c7318",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande",
+   "role": "engendre llms-full.txt (français, puis anglais) : un seul fichier texte pour les IA, repris de ce que le site dit déjà.",
    "lit": [],
    "ecrit": null,
    "durees": [],
