@@ -1,0 +1,25 @@
+name: Données structurées (JSON-LD)
+
+# Chaque bloc JSON-LD se parse, toute page indexable en porte un, toute valeur
+# « license » est une URL, et chaque gabarit porte ses types (tools/check_jsonld.mjs).
+# Les WebPage minimaux viennent de scripts/build-jsonld-pages.js (dates ignorées
+# ici : l'historique git est tronqué en CI).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_jsonld.mjs
+      - run: node scripts/build-jsonld-pages.js --verifie

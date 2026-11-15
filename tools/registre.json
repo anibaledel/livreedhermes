@@ -578,6 +578,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_jsonld.mjs",
+   "role": "non-régression des données structurées (prompt 194, point 4) : chaque bloc JSON-LD de toutes les pages se parse ; toute page indexable en porte porte les types attendus (motifs : CreativeWork, hexagrammes : DefinedTerm, articles : Articl…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-jsonld.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_jsonld_visible.py",
    "role": "Garde-fou : le texte d'une FAQPage doit être lisible sur la page.",
    "lit": [],

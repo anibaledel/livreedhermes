@@ -27,6 +27,7 @@ Puis régénérer et vérifier :
 node scripts/build-langues.js
 node scripts/build-couverture.js
 node scripts/build-header.js
+node scripts/build-jsonld-pages.js   # WebPage minimal sur les pages sans données structurées
 node scripts/build-langues.js --verifie
 ```
 
@@ -100,6 +101,7 @@ node scripts/build-travaux.js
 node scripts/build-langues.js
 node scripts/build-couverture.js
 node scripts/build-header.js
+node scripts/build-jsonld-pages.js   # WebPage minimal sur les pages sans données structurées
 ```
 
 Si le livre est déjà là, faire ensuite le cas A.
