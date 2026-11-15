@@ -202,6 +202,8 @@ LANGUES.fr.pages['carres-magiques-ordre-pair'] = 'carres-magiques-ordre-pair.htm
 LANGUES.en.pages['carres-magiques-ordre-pair'] = 'en/even-order-magic-square-construction/';
 LANGUES.fr.pages['carre-magique-ordre-6'] = 'carre-magique-ordre-6.html';
 LANGUES.en.pages['carre-magique-ordre-6'] = 'en/order-6-magic-square/';
+LANGUES.fr.pages['arithmogeometrie'] = 'arithmogeometrie.html';
+LANGUES.en.pages['arithmogeometrie'] = 'en/arithmogeometry/';
 
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
@@ -284,6 +286,8 @@ for (const g of GALERIE.groupes) {
 for (const p of OUTILS_TRADUITS) {
   GROUPES.push({ nom: p.nom, changefreq: 'monthly', priority: p.priorite, rangee: false, pages: pagesDe(p.nom) });
 }
+// La notion, en une page (prompt 194, point 3) : français et anglais.
+GROUPES.push({ nom: 'arithmogeometrie', changefreq: 'monthly', priority: '0.8', rangee: true, pages: pagesDe('arithmogeometrie') });
 GROUPES.push({ nom: 'carre-magique-ordre-6', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('carre-magique-ordre-6') });
 GROUPES.push({ nom: 'carres-magiques-ordre-pair', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('carres-magiques-ordre-pair') });
 GROUPES.push({ nom: 'outils', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('outils') });

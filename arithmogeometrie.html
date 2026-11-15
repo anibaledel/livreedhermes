@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qu'est-ce que l'arithmogéométrie ? Définition et exemple | Anibal Amiot</title>
+<meta name="description" content="L'arithmogéométrie construit les carrés magiques par la géométrie, de la croix ansée à l'armure Jacquard. Définition, exemple d'ordre 12 et résultats vérifiés.">
+<meta property="og:title" content="Qu'est-ce que l'arithmogéométrie ? Définition et exemple | Anibal Amiot">
+<meta property="og:description" content="L'arithmogéométrie construit les carrés magiques par la géométrie, de la croix ansée à l'armure Jacquard. Définition, exemple d'ordre 12 et résultats vérifiés.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:url" content="https://anibal-amiot.com/arithmogeometrie.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/arithmogeometrie.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qu'est-ce que l'arithmogéométrie ? Définition et exemple | Anibal Amiot">
+<meta name="twitter:description" content="L'arithmogéométrie construit les carrés magiques par la géométrie, de la croix ansée à l'armure Jacquard. Définition, exemple d'ordre 12 et résultats vérifiés.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://anibal-amiot.com/arithmogeometrie.html#terme",
+      "name": "Arithmogéométrie",
+      "description": "Construction des carrés magiques par une méthode géométrique plutôt qu'arithmétique : chaque nombre est posé comme une figure dérivée de la croix ansée, et l'ensemble se transcrit directement en armure Jacquard.",
+      "inDefinedTermSet": "https://anibal-amiot.com/lexique.html",
+      "url": "https://anibal-amiot.com/arithmogeometrie.html",
+      "inLanguage": "fr"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://anibal-amiot.com/arithmogeometrie.html#page",
+      "url": "https://anibal-amiot.com/arithmogeometrie.html",
+      "name": "Qu'est-ce que l'arithmogéométrie ?",
+      "inLanguage": "fr",
+      "isPartOf": {
+        "@id": "https://anibal-amiot.com/#website"
+      },
+      "about": {
+        "@id": "https://anibal-amiot.com/arithmogeometrie.html#terme"
+      },
+      "author": {
+        "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+      },
+      "datePublished": "2026-11-15",
+      "dateModified": "2026-11-15",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Lexique",
+      "item": "https://anibal-amiot.com/lexique.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "L'arithmogéométrie",
+      "item": "https://anibal-amiot.com/arithmogeometrie.html"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
+
+  /* ---------- contenu travaux ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .travaux-list{ list-style:none; padding:0; margin:0; }
+  .travaux-list li{ padding:14px 0; border-top:1px solid var(--line); }
+  .travaux-list li:first-child{ border-top:none; }
+  .travaux-list cite{ font-style:normal; color:var(--white); display:block; margin-bottom:4px; font-size:14px; line-height:1.5; }
+  .travaux-list p.travaux-desc{ color:var(--dim); font-size:12.5px; line-height:1.6; margin:0 0 6px; }
+  .travaux-list a{ color:var(--gold); text-decoration:none; font-size:12.5px; }
+  .travaux-list a:hover{ text-decoration:underline; }
+  .travaux-list span.travaux-meta{ display:block; color:var(--dim); font-size:11px; margin-top:4px; letter-spacing:.02em; }
+  .travaux-list span.travaux-toutes{ color:var(--dim); font-size:11px; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; text-align:center; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .profile-intro{ font-size:14.5px; }
+  }
+  /* ---------- ajouts : page carrés magiques d'ordre pair ---------- */
+  .profile-section h3{
+    font-size:13px; letter-spacing:.06em; color:var(--white);
+    font-weight:400; margin:22px 0 8px;
+  }
+  .profile-section p{ color:var(--dim); font-size:14px; line-height:1.8; margin:0 0 14px; }
+  .profile-section em{ font-style:italic; color:var(--white); }
+  .profile-section strong{ font-weight:400; color:var(--gold); }
+  p.formule{
+    text-align:center; color:var(--white); font-size:14px; line-height:2;
+    margin:18px 0; padding:14px 16px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .profile-section pre{
+    overflow-x:auto; margin:16px 0; padding:14px 16px;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+  }
+  .profile-section pre code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.9; color:var(--dim); white-space:pre;
+  }
+  table.tableau-ordres{
+    width:100%; border-collapse:collapse; margin:18px 0; font-size:13px;
+  }
+  table.tableau-ordres caption{
+    caption-side:top; text-align:left; color:var(--gold);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-bottom:8px;
+  }
+  table.tableau-ordres th, table.tableau-ordres td{
+    border:1px solid var(--line); padding:7px 9px; text-align:center;
+    color:var(--dim); font-weight:400;
+  }
+  table.tableau-ordres thead th{ color:var(--white); }
+  table.tableau-ordres tbody th{ color:var(--gold); text-align:left; }
+
+  /* ---------- carré affiché et figures ---------- */
+  table.carre-magique{
+    border-collapse:collapse; margin:18px auto; font-size:13px;
+  }
+  table.carre-magique caption{
+    caption-side:top; text-align:center; color:var(--gold);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-bottom:10px;
+  }
+  table.carre-magique td{
+    border:1px solid var(--line); width:46px; height:46px; text-align:center;
+    vertical-align:middle; color:var(--white); position:relative; padding:0;
+  }
+  table.carre-magique td span{
+    display:block; font-size:9px; letter-spacing:.08em; color:var(--gold); margin-top:1px;
+  }
+  .deux-figures{
+    display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:22px 0;
+  }
+  .deux-figures figure{ margin:0; text-align:center; }
+  .deux-figures figcaption{
+    color:var(--dim); font-size:11px; letter-spacing:.1em;
+    text-transform:uppercase; margin-top:8px;
+  }
+</style>
+<link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/arithmogeometrie.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/arithmogeometry/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/arithmogeometry/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-37-profil.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">L'arithmogéométrie</span>
+    </nav>
+    <h1>L'arithmogéométrie</h1>
+    <p>Qu'est-ce que l'arithmogéométrie ?</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Autres langues : <a href="https://anibal-amiot.com/en/arithmogeometry/">English</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="profile-body">
+    <p class="profile-intro">L'arithmogéométrie construit les carrés magiques par une méthode
+    <strong>géométrique plutôt qu'arithmétique</strong> : chaque nombre y est posé comme une figure,
+    dérivée de la croix ansée, et l'ensemble se transcrit directement en armure Jacquard. Le terme est
+    proposé par Anibal Edelberto Amiot dans <em>La Livrée d'Hermès</em> (2026).</p>
+
+    <div class="profile-section">
+      <h2>Un exemple : l'ordre 12 du livre</h2>
+      <p>La planche 031 du traité montre huit carrés de 12 × 12 cases. Quatre sont des carrés d'ordre 6
+      posés en cadre, en copies conformes ou en miroirs ; les quatre autres en inversent les couleurs. Le
+      livre les appelle « la retranscription de carrés magiques d'ordre 12 ». Chaque case est une figure
+      colorée, et c'est ce dessin qui se tisse tel quel sur le métier Jacquard.</p>
+      <figure class="figure-arith">
+        <img src="book-viewer/pages/fr/031.webp" alt="Planche 031 du livre : huit carrés de 12 × 12 cases, assemblés en miroirs et en copies conformes de carrés d'ordre 6" width="1920" height="1080" loading="lazy" style="max-width:100%;height:auto;">
+        <figcaption>Planche 031 de <em>La Livrée d'Hermès</em> : « Du centrage pair pair ».</figcaption>
+      </figure>
+      <p>Un carré magique d'ordre 12 a pour constante 12 × 145 / 2 = <strong>870</strong>. Le livre en
+      compte 64 par assemblage.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Les résultats clés, avec leur statut</h2>
+      <ul>
+        <li><strong>2 croix ansées</strong> d'ordre 6 — vérifié (journal du dépôt).</li>
+        <li><strong>256 carrés solaires</strong> d'ordre 6, 128 par croix — vérifié (journal du dépôt).</li>
+        <li><strong>64 carrés magiques d'ordre 12</strong> par assemblage, constante 870 — vérifié (journal du dépôt).</li>
+        <li><strong>360 calques</strong> : 15 familles d'axes × 4 natures × 6 niveaux — vérifié (relancé en CI).</li>
+        <li>Les 256 motifs qui ont une page ne dessinent que <strong>224 grilles distinctes</strong> — vérifié (relancé en CI).</li>
+      </ul>
+      <p>Chaque ligne se relit dans <a href="chiffres-et-sources.html" style="color:var(--gold);">chiffres et sources</a>
+      et dans <a href="data/resultats-etablis.json" style="color:var(--gold);">resultats-etablis.json</a>, avec le
+      script qui la reproduit et la ligne qu'il imprime.</p>
+    </div>
+
+    <p class="profile-sources">Pour aller plus loin :
+    <a href="fr/livre/" style="color:var(--gold);">le livre</a>,
+    <a href="lexique.html" style="color:var(--gold);">le lexique</a>,
+    <a href="chiffres-et-sources.html" style="color:var(--gold);">chiffres et sources</a>,
+    <a href="travaux.html" style="color:var(--gold);">les travaux déposés</a>,
+    <a href="carre-magique-ordre-6.html" style="color:var(--gold);">le carré magique d'ordre 6</a>.</p>
+  </div>
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="assets/share-widget.js"></script>
+<script src="assets/soutien-gate.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="index.html"><img class="nav-tile-icon" src="assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="articles.html"><img class="nav-tile-icon" src="assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
+
+    <nav class="nav-categories" aria-label="Pages du site">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galeries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="galerie-bicolore.html"><span class="nav-cat-label">Galerie bicolore</span><span class="nav-cat-texte">142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.</span></a></li>
+          <li><a href="galerie-patterns-unifies.html"><span class="nav-cat-label">Galerie tricolore</span><span class="nav-cat-texte">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="fonds-ecran.html"><span class="nav-cat-label">Fond d'écran</span><span class="nav-cat-texte">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></a></li>
+          <li><a href="musique-chladni.html"><span class="nav-cat-label">Voir sa musique</span><span class="nav-cat-texte">Choisissez un morceau, un fichier ou le micro : la page cherche le motif de La Livrée d’Hermès dont le spectre ressemble le plus à celui du son.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tirages</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="tirage-livree-hermes.html"><span class="nav-cat-label">Tirage du Yi King</span><span class="nav-cat-texte">Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations.</span></a></li>
+          <li><a href="360-calques.html"><span class="nav-cat-label">360 calques</span><span class="nav-cat-texte">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></a></li>
+          <li><a href="telechargements.html"><span class="nav-cat-label">Motifs SVG</span><span class="nav-cat-texte">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></a></li>
+          <li><a href="hexagrammes/"><span class="nav-cat-label">Hexagrammes</span><span class="nav-cat-texte">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Outils créatifs</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="creation-motifs-yi-king.html"><span class="nav-cat-label">Créer un motif</span><span class="nav-cat-texte">Composez vos propres motifs textiles à partir des 60 images du Yi King.</span></a></li>
+          <li><a href="bicolore.html"><span class="nav-cat-label">Motifs bicolores</span><span class="nav-cat-texte">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></a></li>
+          <li><a href="creation-bicolore-v2.html"><span class="nav-cat-label">Motifs bicolores v2</span><span class="nav-cat-texte">La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.</span></a></li>
+          <li><a href="encodeur.html"><span class="nav-cat-label">Encodeur</span><span class="nav-cat-texte">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></a></li>
+          <li><a href="carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Démo interactive : la grille et les référents dérivés de la clé.</span></a></li>
+          <li><a href="unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></a></li>
+          <li><a href="chladni.html"><span class="nav-cat-label">Cymatique</span><span class="nav-cat-texte">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></a></li>
+          <li><a href="outils.html"><span class="nav-cat-label">Outils</span><span class="nav-cat-texte">Tous les outils interactifs du site, réunis en un seul endroit.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">À propos du projet</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="la-livree-d-hermes.html"><span class="nav-cat-label">Le traité</span><span class="nav-cat-texte">Le traité et ses éditions traduites, les hexagrammes et le lexique.</span></a></li>
+          <li><a href="a-propos.html"><span class="nav-cat-label">À propos</span><span class="nav-cat-texte">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></a></li>
+          <li><a href="lexique.html"><span class="nav-cat-label">Lexique</span><span class="nav-cat-texte">Dix notions clés pour comprendre La Livrée d'Hermès.</span></a></li>
+          <li><a href="profil.html"><span class="nav-cat-label">Profil documentaire</span><span class="nav-cat-texte">Brevets et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12.</span></a></li>
+          <li><a href="contact.html"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></a></li>
+          <li><a href="soutenir.html"><span class="nav-cat-label">Soutenir</span><span class="nav-cat-texte">Soutenir La Livrée d'Hermès à prix libre : le site et son contenu restent gratuits.</span></a></li>
+          <li><a href="chiffres-et-sources.html"><span class="nav-cat-label">Chiffres et sources</span><span class="nav-cat-texte">Chaque chiffre du site, le script qui le reproduit et la ligne qu'il imprime.</span></a></li>
+          <li><a href="travaux.html"><span class="nav-cat-label">Travaux</span><span class="nav-cat-texte">Les dépôts, le code et les articles soumis, chacun horodaté et ouvert.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="./">Accueil</a>
+    <a href="la-livree-d-hermes.html">Le traité</a>
+    <a href="hexagrammes/">Hexagrammes</a>
+    <a href="fr/motifs/">Motifs</a>
+    <a href="lexique.html">Lexique</a>
+    <a href="articles.html">Articles</a>
+    <a href="outils.html">Outils</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="profil.html">Profil documentaire</a>
+    <a href="travaux.html">Travaux</a>
+    <a href="research/" hreflang="en">État des travaux (en anglais)</a>
+    <a href="contact.html">Contact</a>
+    <a href="soutenir.html">Soutenir</a>
+    <a href="recherche.html">Rechercher</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

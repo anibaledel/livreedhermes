@@ -225,7 +225,7 @@ const AVEC_TUILES_EN_PLUS = new Set([
   // logos et crédit (relevé page par page) : il est remplacé tel quel.
   'la-livree-d-hermes.html', 'contact.html', 'lexique.html', '360-calques.html',
   'galerie-patterns-unifies.html', 'chiffres-et-sources.html', 'galerie-bicolore.html',
-  'unified-patterns.html', 'outils.html', 'fonds-ecran.html', 'a-propos.html',
+  'unified-patterns.html', 'outils.html', 'fonds-ecran.html', 'a-propos.html', 'arithmogeometrie.html',
   'articles.html', 'hexagrammes/index.html',
   ...fs.readdirSync(path.join(REPO_ROOT, 'articles')).filter((f) => f.endsWith('.html')).map((f) => `articles/${f}`),
   // Ces deux-là portent leurs réglages de palette DANS le même <div class="note"> :
