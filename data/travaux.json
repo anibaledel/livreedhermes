@@ -8,7 +8,10 @@
       "zh": "本书",
       "ru": "Книга",
       "pt": "O livro",
-      "hi": "पुस्तक"
+      "hi": "पुस्तक",
+      "de": "Das Buch",
+      "it": "Il libro",
+      "ja": "本"
     },
     {
       "id": "prepublications",
@@ -17,7 +20,10 @@
       "zh": "预印本与笔记",
       "ru": "Препринты и заметки",
       "pt": "Pré-publicações e notas",
-      "hi": "प्रीप्रिंट और टिप्पणियाँ"
+      "hi": "प्रीप्रिंट और टिप्पणियाँ",
+      "de": "Preprints und Notizen",
+      "it": "Preprint e note",
+      "ja": "プレプリントとノート"
     },
     {
       "id": "donnees",
@@ -26,7 +32,10 @@
       "zh": "数据与代码",
       "ru": "Данные и код",
       "pt": "Dados e código",
-      "hi": "डेटा और कोड"
+      "hi": "डेटा और कोड",
+      "de": "Daten und Code",
+      "it": "Dati e codice",
+      "ja": "データとコード"
     },
     {
       "id": "rapports",
@@ -35,7 +44,10 @@
       "zh": "进展报告",
       "ru": "Отчёты",
       "pt": "Relatórios",
-      "hi": "प्रगति-विवरण"
+      "hi": "प्रगति-विवरण",
+      "de": "Berichte",
+      "it": "Resoconti",
+      "ja": "報告"
     }
   ],
   "depots": [
@@ -85,7 +97,10 @@
         "zh": "验证代码条目",
         "ru": "запись кода проверки",
         "pt": "ficha do código de verificação",
-        "hi": "सत्यापन-कोड की प्रविष्टि"
+        "hi": "सत्यापन-कोड की प्रविष्टि",
+        "de": "Datensatz zum Prüfcode",
+        "it": "scheda del codice di verifica",
+        "ja": "検証コードの記録"
       }
     },
     {

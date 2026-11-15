@@ -44,7 +44,13 @@
    fonts/noto-sans-devanagari/OFL.txt), hébergée ENTIÈRE — 50 Ko par graisse,
    il n'y a rien à gagner à la réduire, et ses règles de mise en forme
    (conjointes, matras, reph) restent intactes : un texte hindi nouveau n'a
-   jamais de glyphe manquant. */
+   jamais de glyphe manquant.
+
+   Le japonais (ja/, 2026-11-15) : Noto Sans JP, réduite aux caractères que le site écrit en
+   japonais (tools/police_ja.py ; SIL OFL 1.1, fonts/noto-sans-jp/OFL.txt) : les kana, et les kanji
+   des pages ja/. Sur les pages et les passages en japonais, elle passe AVANT Noto Sans SC (les
+   formes des kanji diffèrent du chinois) ; ailleurs elle ne sert qu'aux kana et au lien « 日本語 »
+   des rangées de langues. */
 @font-face {
   font-family: 'Roboto Condensed LDH';
   font-style: normal;
@@ -60,6 +66,14 @@
   font-display: swap;
   src: url('fonts/roboto-condensed/roboto-condensed-cyrillic-400-normal.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Noto Sans JP LDH';
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-jp/noto-sans-jp-ldh.woff2') format('woff2');
+  unicode-range: U+3000-30FF, U+31F0-31FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
 }
 @font-face {
   font-family: 'Noto Sans SC LDH';
@@ -150,7 +164,7 @@
   unicode-range: U+0E01-0E3A, U+0E3F-0E5B;
 }
 :root, body {
-  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans SC LDH', 'Noto Sans Devanagari LDH', 'Noto Sans Thai LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans SC LDH', 'Noto Sans JP LDH', 'Noto Sans Devanagari LDH', 'Noto Sans Thai LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
 }
 
@@ -160,3 +174,6 @@
    dès qu'il est non nul. Sur les pages et les passages en hindi, il revient
    à zéro. */
 :lang(hi), :lang(hi) * { letter-spacing: normal !important; }
+
+/* Le japonais : ses formes de kanji et ses kana d'abord (Noto Sans SC garde les idéogrammes chinois des autres passages). */
+:lang(ja), :lang(ja) * { font-family: 'Barlow Semi Condensed', 'Noto Sans JP LDH', 'Noto Sans SC LDH', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans Devanagari LDH', 'Noto Sans Thai LDH', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif; }

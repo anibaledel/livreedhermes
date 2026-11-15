@@ -2047,6 +2047,25 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/police_ja.py",
+   "role": "la police japonaise du site, réduite aux caractères employés.",
+   "lit": [
+    "assets/fonts/noto-sans-jp/noto-sans-jp-ldh.woff2",
+    "assets/trois-portes.js",
+    "data/galerie-animations.json",
+    "data/lexiques_traduits.json",
+    "data/musique-chladni/traductions/ja.json",
+    "data/musique-chladni/traductions/statique.json",
+    "data/outils-langues/outils-support.json",
+    "scripts/nav-tiles-libelles.js"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/police_symboles.py",
    "role": "les replis hébergés des signes que Barlow Semi Condensed ne porte pas : le grec, les indices et exposants, les signes mathématiques, les huit trigrammes ☰…☷.",
    "lit": [

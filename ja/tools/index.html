@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ツール — La Livrée d'Hermès</title>
+<meta name="description" content="La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/ja/tools/">
+<meta property="og:title" content="ツール — La Livrée d'Hermès">
+<meta property="og:description" content="La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/ja/tools/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ツール — La Livrée d'Hermès">
+<meta name="twitter:description" content="La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://anibal-amiot.com/ja/tools/#page",
+      "name": "ツール — La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/ja/tools/",
+      "inLanguage": "ja",
+      "description": "La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "hasPart": [
+        { "@type": "WebApplication", "name": "紋様をつくる", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-motifs-yi-king.html" },
+        { "@type": "WebApplication", "name": "Magic quadricolore", "inLanguage": "fr", "url": "https://anibal-amiot.com/unified-patterns.html" },
+        { "@type": "WebApplication", "name": "三色ギャラリー", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-patterns-unifies.html" },
+        { "@type": "WebApplication", "name": "二色ギャラリー", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-bicolore.html" },
+        { "@type": "WebApplication", "name": "SVG 紋様", "inLanguage": "fr", "url": "https://anibal-amiot.com/telechargements.html" },
+        { "@type": "WebApplication", "name": "二色紋様", "inLanguage": "fr", "url": "https://anibal-amiot.com/bicolore.html" },
+        { "@type": "WebApplication", "name": "二色紋様 v2", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-bicolore-v2.html" },
+        { "@type": "WebApplication", "name": "キマティクス", "inLanguage": "fr", "url": "https://anibal-amiot.com/chladni.html" },
+        { "@type": "WebApplication", "name": "壁紙", "inLanguage": "fr", "url": "https://anibal-amiot.com/fonds-ecran.html" },
+        { "@type": "WebApplication", "name": "自分の音楽を見る", "inLanguage": "ja", "url": "https://anibal-amiot.com/ja/see-your-music/" },
+        { "@type": "WebApplication", "name": "アニメーションギャラリー", "inLanguage": "ja", "url": "https://anibal-amiot.com/ja/animations/" },
+        { "@type": "WebApplication", "name": "360層", "inLanguage": "fr", "url": "https://anibal-amiot.com/360-calques.html" },
+        { "@type": "WebApplication", "name": "符号化器", "inLanguage": "fr", "url": "https://anibal-amiot.com/encodeur.html" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://anibal-amiot.com/zh/" },
+    { "@type": "ListItem", "position": 2, "name": "ツール", "item": "https://anibal-amiot.com/ja/tools/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .tools-body{ padding:24px 0 8px; }
+
+  .article-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .article-card{
+    display:flex; flex-direction:column; height:280px;
+    border:1px solid var(--line); text-decoration:none; color:inherit;
+    overflow:hidden; transition:border-color .12s ease;
+  }
+  .article-card:hover{ border-color:var(--gold); }
+  .article-card:hover h2{ color:var(--gold); }
+  .article-cover{ width:100%; height:100px; object-fit:contain; background:var(--panel); padding:14px; display:block; border-bottom:1px solid var(--line); flex-shrink:0; }
+  .article-card-body{ padding:12px 16px; display:flex; flex-direction:column; flex:1; min-height:0; }
+  .article-card h2{ font-size:calc(15.5px + var(--fs-bump)); font-weight:400; margin:0 0 8px; line-height:1.25; color:var(--white); }
+  .article-excerpt{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.55; margin:0; flex:1; min-height:0; }
+
+  @media (max-width:1099px){ .article-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:699px){
+    .article-grid{ grid-template-columns:1fr; }
+    .article-card{ height:auto; min-height:200px; }
+  }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/tools/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/herramientas/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/tools/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/tools/">
+<link rel="alternate" hreflang="de" href="https://anibal-amiot.com/de/tools/">
+<link rel="alternate" hreflang="it" href="https://anibal-amiot.com/it/tools/">
+<link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/tools/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/tools/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">本文へ移動</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-27-outils.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="https://anibal-amiot.com/ja/">トップ</a><span class="sep">/</span><span aria-current="page">ツール</span>
+    </nav>
+    <h1>ツール</h1>
+    <p>La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。「（フランス語のページ）」と記したページは、まだ翻訳されていません。</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">他の言語：<a href="https://anibal-amiot.com/outils.html">Français</a> · <a href="https://anibal-amiot.com/en/tools/">English</a> · <a href="https://anibal-amiot.com/es/herramientas/">Español</a> · <a href="https://anibal-amiot.com/th/tools/">ไทย</a> · <a href="https://anibal-amiot.com/zh/tools/">简体中文</a> · <a href="https://anibal-amiot.com/ru/tools/">Русский</a> · <a href="https://anibal-amiot.com/pt/tools/">Português</a> · <a href="https://anibal-amiot.com/hi/tools/">हिन्दी</a> · <a href="https://anibal-amiot.com/de/tools/">Deutsch</a> · <a href="https://anibal-amiot.com/it/tools/">Italiano</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="tools-body">
+    <div class="article-grid">
+      <a class="article-card" href="https://anibal-amiot.com/creation-motifs-yi-king.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/creation-motifs.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>紋様をつくる</h2>
+          <p class="article-excerpt">易経の60の像から、自分だけの織物紋様を組み立てます。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/unified-patterns.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/unified-patterns.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Magic quadricolore</h2>
+          <p class="article-excerpt">64卦の紋様。カスタマイズでき、高解像度でダウンロードできます。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-patterns-unifies.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/galerie.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>三色ギャラリー</h2>
+          <p class="article-excerpt">色合いの混合から生まれた統一紋様。紋様を選ぶと、その敷き詰めを見られます。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>二色ギャラリー</h2>
+          <p class="article-excerpt">軸から生まれ、立方体上で閉じる142の二色紋様。読み取り粒度、敷き詰め、書き出し。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/telechargements.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/motifs-svg.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>SVG 紋様</h2>
+          <p class="article-excerpt">線の組み合わせ4分類の印刷用レイヤーを SVG でダウンロードします。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>二色紋様</h2>
+          <p class="article-excerpt">12×12 のセルを組み立てます。6つの階層に、それぞれの族と色合いがあります。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/creation-bicolore-v2.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>二色紋様 v2</h2>
+          <p class="article-excerpt">対角線の第二の分割（YA/AY）、語彙、半周期ずらしの状態。v1 のツールと並びます。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/chladni.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/cymatique.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>キマティクス</h2>
+          <p class="article-excerpt">空間周波数があなたの出す音に最も近い敷き詰め。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/fonds-ecran.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/fond-ecran.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>壁紙</h2>
+          <p class="article-excerpt">フルスクリーンの織物壁紙。音に反応するモードと、速さを調整できる瞑想モードがあります。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/ja/see-your-music/">
+        <img class="article-cover" src="../../assets/nav-icons/cymatique.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>自分の音楽を見る</h2>
+          <p class="article-excerpt">曲、ファイル、またはマイクを選ぶと、スペクトルが音に最も近い La Livrée d’Hermès の紋様をページが探します。</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/ja/animations/">
+        <img class="article-cover" src="../../assets/nav-icons/fond-ecran.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>アニメーションギャラリー</h2>
+          <p class="article-excerpt">背景コレクションのアニメーションを6つのグループで：視聴、プレビュー、MP4 でのダウンロードができます。</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/360-calques.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/impression.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>360層</h2>
+          <p class="article-excerpt">印刷用のレイヤーを抽出してダウンロードします。 （フランス語のページ）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/encodeur.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/encodeur.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>符号化器</h2>
+          <p class="article-excerpt">二重の参照、取っ手付き十字、ジャカードによる幾何学的ステガノグラフィ符号化。 （フランス語のページ）</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</main>
+<!-- @main:end -->
+</div>
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../ja/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">トップ</span><span class="nav-tile-excerpt">本、その図版、すべてのツール。</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">記事<span class="lien-langue">（フランス語）</span></span><span class="nav-tile-excerpt">La Livrée d'Hermès をめぐる考察と研究。</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/ja/support/" style="display:inline-block; margin:14px 0;" title="La Livrée d'Hermès を好きな金額で支援できます。すべて CC BY-NC 4.0 で自由に使え、支援はプロジェクトの継続に充てられます。">プロジェクトを支援する</a>
+
+    <nav class="nav-categories" aria-label="サイトのページ">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">ギャラリー</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../ja/animations/"><span class="nav-cat-label">アニメーションギャラリー</span><span class="nav-cat-texte">背景コレクションのアニメーションを6つのグループで：視聴、プレビュー、MP4 でのダウンロードができます。</span></a></li>
+          <li><a href="../../galerie-bicolore.html" hreflang="fr"><span class="nav-cat-label">二色ギャラリー<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">軸から生まれ、立方体上で閉じる142の二色紋様。読み取り粒度、敷き詰め、書き出し。</span></a></li>
+          <li><a href="../../galerie-patterns-unifies.html" hreflang="fr"><span class="nav-cat-label">三色ギャラリー<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">色合いの混合から生まれた統一紋様。紋様を選ぶと、その敷き詰めを見られます。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">アニメーション</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../ja/animations/"><span class="nav-cat-label">アニメーションギャラリー</span><span class="nav-cat-texte">背景コレクションのアニメーションを6つのグループで：視聴、プレビュー、MP4 でのダウンロードができます。</span></a></li>
+          <li><a href="../../fonds-ecran.html" hreflang="fr"><span class="nav-cat-label">壁紙<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">フルスクリーンの織物壁紙。音に反応するモードと、速さを調整できる瞑想モードがあります。</span></a></li>
+          <li><a href="../../ja/see-your-music/"><span class="nav-cat-label">自分の音楽を見る</span><span class="nav-cat-texte">曲、ファイル、またはマイクを選ぶと、スペクトルが音に最も近い La Livrée d’Hermès の紋様をページが探します。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">占いと印刷</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html" hreflang="fr"><span class="nav-cat-label">易経の占い<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">卦をランダムに引いてその方陣を見るか、64の変化の盤を見て回れます。</span></a></li>
+          <li><a href="../../360-calques.html" hreflang="fr"><span class="nav-cat-label">360層<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">印刷用のレイヤーを抽出してダウンロードします。</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">SVG 紋様<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">線の組み合わせ4分類の印刷用レイヤーを SVG でダウンロードします。</span></a></li>
+          <li><a href="../../hexagrammes/" hreflang="fr"><span class="nav-cat-label">六十四卦<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">易経の64卦：それぞれの卦辞、八卦、魔方陣。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">創作ツール</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html" hreflang="fr"><span class="nav-cat-label">紋様をつくる<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">易経の60の像から、自分だけの織物紋様を組み立てます。</span></a></li>
+          <li><a href="../../bicolore.html" hreflang="fr"><span class="nav-cat-label">二色紋様<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">12×12 のセルを組み立てます。6つの階層に、それぞれの族と色合いがあります。</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">二色紋様 v2<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">対角線の第二の分割（YA/AY）、語彙、半周期ずらしの状態。v1 のツールと並びます。</span></a></li>
+          <li><a href="../../encodeur.html" hreflang="fr"><span class="nav-cat-label">符号化器<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">二重の参照、取っ手付き十字、ジャカードによる幾何学的ステガノグラフィ符号化。</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">インタラクティブなデモ：鍵から導かれるグリッドと参照。</span></a></li>
+          <li><a href="../../unified-patterns.html" hreflang="fr"><span class="nav-cat-label">Magic quadricolore<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">64卦の紋様。カスタマイズでき、高解像度でダウンロードできます。</span></a></li>
+          <li><a href="../../chladni.html" hreflang="fr"><span class="nav-cat-label">キマティクス<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">空間周波数があなたの出す音に最も近い敷き詰め。</span></a></li>
+          <li><a href="../../ja/tools/" aria-current="page"><span class="nav-cat-label">ツール</span><span class="nav-cat-texte">サイトのすべてのインタラクティブなツールを一か所に。</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">プロジェクトについて</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../ja/book/"><span class="nav-cat-label">論考</span><span class="nav-cat-texte">論考と各言語の翻訳版、六十四卦、用語集。</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">著者について<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">哲学・数学・応用科学の交点にある、著者とその本。</span></a></li>
+          <li><a href="../../ja/lexicon/"><span class="nav-cat-label">用語集</span><span class="nav-cat-texte">La Livrée d'Hermès を理解するための10の鍵となる概念。</span></a></li>
+          <li><a href="../../profil.html" hreflang="fr"><span class="nav-cat-label">資料プロフィール<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">INPI に登録された特許と63の意匠。12次方陣を対象としています。</span></a></li>
+          <li><a href="../../contact.html" hreflang="fr"><span class="nav-cat-label">連絡先<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">紋様や織物プリントのプロジェクト・ご依頼は著者までご連絡ください。</span></a></li>
+          <li><a href="../../ja/support/"><span class="nav-cat-label">支援する</span><span class="nav-cat-texte">La Livrée d'Hermès を好きな金額で支援できます。サイトと内容は引き続き無料です。</span></a></li>
+          <li><a href="../../chiffres-et-sources.html" hreflang="fr"><span class="nav-cat-label">数値と出典<span class="lien-langue">（フランス語）</span></span><span class="nav-cat-texte">サイトのすべての数値、それを再現するスクリプト、そして出力される行。</span></a></li>
+          <li><a href="../../ja/works/"><span class="nav-cat-label">研究成果</span><span class="nav-cat-texte">寄託、コード、投稿論文。いずれも日付入りで公開されています。</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Claude との協働で制作</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="フッター">
+    <a href="../../ja/">トップ</a>
+    <a href="../../ja/book/">論考</a>
+    <a href="../../ja/lexicon/">用語集</a>
+    <a href="../../ja/works/">研究成果</a>
+    <a href="../../research/" hreflang="en">研究の進捗（英語）</a>
+    <a href="../../ja/tools/">ツール</a>
+    <a href="../../en/hexagrams/" hreflang="en">六十四卦（英語）</a>
+    <a href="../../motifs/" hreflang="en">パターン（英語）</a>
+    <a href="../../profil.html" hreflang="fr">著者について（フランス語）</a>
+    <a href="../../contact.html" hreflang="fr">連絡先（フランス語）</a>
+    <a href="../../ja/support/">プロジェクトを支援する</a>
+  </nav>
+  <p class="site-footer-licence">
+    内容は <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a> です
+    · コードは AGPL v3、商用ライセンスは要相談
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+    · 翻訳は AI によるものです — 訂正の連絡は連絡先ページ（フランス語）から
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

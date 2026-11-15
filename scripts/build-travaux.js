@@ -34,13 +34,13 @@ const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) =>
 const doiUrl = (doi) => `https://doi.org/${doi}`;
 
 const TYPES = {
-  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга', pt: 'Livro', hi: 'पुस्तक' },
-  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт', pt: 'Pré-publicação', hi: 'प्रीप्रिंट' },
-  article: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Article', en: 'Article', zh: '论文', ru: 'Статья', pt: 'Artigo', hi: 'लेख' },
-  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных', pt: 'Conjunto de dados', hi: 'डेटासेट' },
-  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные', pt: 'Código e dados', hi: 'कोड और डेटा' },
-  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода', pt: 'Repositório de código', hi: 'कोड रिपॉज़िटरी' },
-  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт', pt: 'Relatório', hi: 'प्रगति-विवरण' },
+  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга', pt: 'Livro', hi: 'पुस्तक', de: 'Buch', it: 'Libro', ja: '書籍' },
+  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт', pt: 'Pré-publicação', hi: 'प्रीप्रिंट', de: 'Preprint', it: 'Preprint', ja: 'プレプリント' },
+  article: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Article', en: 'Article', zh: '论文', ru: 'Статья', pt: 'Artigo', hi: 'लेख', de: 'Artikel', it: 'Articolo', ja: '論文' },
+  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных', pt: 'Conjunto de dados', hi: 'डेटासेट', de: 'Datensatz', it: 'Dataset', ja: 'データセット' },
+  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные', pt: 'Código e dados', hi: 'कोड और डेटा', de: 'Code und Daten', it: 'Codice e dati', ja: 'コードとデータ' },
+  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода', pt: 'Repositório de código', hi: 'कोड रिपॉज़िटरी', de: 'Code-Repository', it: 'Repository di codice', ja: 'コードリポジトリ' },
+  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт', pt: 'Relatório', hi: 'प्रगति-विवरण', de: 'Bericht', it: 'Resoconto', ja: '報告' },
 };
 const LICENCES = {
   'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
@@ -60,11 +60,15 @@ const MOIS = {
   // le russe date au génitif : « 12 сентября 2026 г. »
   pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
   hi: ['जनवरी', 'फ़रवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'],
+  de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+  it: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
   ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
 };
 function dateLisible(iso, lang) {
   const [a, m, j] = iso.split('-').map(Number);
-  if (lang === 'zh') return `${a}年${m}月${j}日`;
+  if (lang === 'zh' || lang === 'ja') return `${a}年${m}月${j}日`;
+  if (lang === 'de') return `${j}. ${MOIS.de[m - 1]} ${a}`;
+  if (lang === 'it') return `${j === 1 ? '1º' : j} ${MOIS.it[m - 1]} ${a}`;
   if (lang === 'ru') return `${j} ${MOIS.ru[m - 1]} ${a} г.`;
   if (lang === 'pt') return `${j} de ${MOIS.pt[m - 1]} de ${a}`;
   if (lang === 'hi') return `${j} ${MOIS.hi[m - 1]} ${a}`;
@@ -78,6 +82,9 @@ const T = {
   zh: { statut: '状态', toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
   pt: { statut: 'estado', toutes: 'todas as versões, a citar', version: 'versão', cetteVersion: 'DOI desta versão', premiere: 'primeira versão em', anterieur: 'ver também a' },
   hi: { statut: 'स्थिति', toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
+  de: { statut: 'Status', toutes: 'alle Versionen, zum Zitieren', version: 'Version', cetteVersion: 'DOI dieser Version', premiere: 'erste Version am', anterieur: 'siehe auch die' },
+  it: { statut: 'stato', toutes: 'tutte le versioni, da citare', version: 'versione', cetteVersion: 'DOI di questa versione', premiere: 'prima versione il', anterieur: 'vedi anche la' },
+  ja: { statut: '状態', toutes: '全バージョン、引用用', version: 'バージョン', cetteVersion: 'このバージョンの DOI', premiere: '初版：', anterieur: '関連：' },
   ru: { statut: 'статус', toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
 // Le tableau des versions de référence, en tête de chaque liste : les mêmes
@@ -88,6 +95,9 @@ const VERSIONS_REF = {
   fr: { titre: 'Versions de référence', col: ['Dépôt', 'Version', 'DOI de la version', 'Date'], maj: (d) => `Tableau tiré de research/status.json, mis à jour le ${d}.` },
   en: { titre: 'Reference versions', col: ['Deposit', 'Version', 'Version DOI', 'Date'], maj: (d) => `Table drawn from research/status.json, last updated ${d}.` },
   zh: { titre: '参考版本', col: ['存档', '版本', '版本 DOI', '日期'], maj: (d) => `本表取自 research/status.json，最后更新于 ${d}。` },
+  de: { titre: 'Referenzversionen', col: ['Hinterlegung', 'Version', 'DOI der Version', 'Datum'], maj: (d) => `Tabelle aus research/status.json, zuletzt aktualisiert am ${d}.` },
+  it: { titre: 'Versioni di riferimento', col: ['Deposito', 'Versione', 'DOI della versione', 'Data'], maj: (d) => `Tabella tratta da research/status.json, aggiornata il ${d}.` },
+  ja: { titre: '参照バージョン', col: ['寄託', 'バージョン', 'バージョンの DOI', '日付'], maj: (d) => `この表は research/status.json から作成。最終更新：${d}。` },
   ru: { titre: 'Актуальные версии', col: ['Публикация', 'Версия', 'DOI версии', 'Дата'], maj: (d) => `Таблица составлена по research/status.json, обновлено ${d}.` },
   pt: { titre: 'Versões de referência', col: ['Depósito', 'Versão', 'DOI da versão', 'Data'], maj: (d) => `Tabela tirada de research/status.json, atualizada em ${d}.` },
   hi: { titre: 'संदर्भ संस्करण', col: ['जमा', 'संस्करण', 'संस्करण का DOI', 'तिथि'], maj: (d) => `यह तालिका research/status.json से ली गई है, अंतिम अद्यतन ${d}।` },
@@ -108,7 +118,7 @@ function versionsHtml(lang) {
 // encore écrite par Anibal ni relue (décision du 7 octobre 2026 — rien ne parle
 // en son nom sans sa relecture) ; la page omet alors la description dans cette
 // langue au lieu d'en inventer une. Voir TODO-RELECTURE.md.
-for (const lang of ['fr', 'en', 'zh', 'ru', 'pt', 'hi']) {
+for (const lang of ['fr', 'en', 'zh', 'ru', 'pt', 'hi', 'de', 'it', 'ja']) {
   for (const x of [...DONNEES.sections, ...DONNEES.depots.flatMap((d) => [d.anterieur, d.renvoi]).filter(Boolean)]) {
     if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
   }
@@ -125,8 +135,8 @@ function itemHtml(d, lang) {
   if (d.doi) lignes.push(`          <a href="${doiUrl(d.doi)}">doi:${d.doi}</a>${d.versionDoi ? ` <span class="travaux-toutes">(${t.toutes})</span>` : ''}`);
   else if (d.url) lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
   const meta = [TYPES[d.type][lang]];
-  if (d.statut) meta.push(`${t.statut}${lang === 'fr' ? ' : ' : lang === 'zh' ? '：' : ': '}${escapeHtml(d.statut[lang] || d.statut.en)}`);
-  if (d.version) meta.push(`${t.version} ${escapeHtml(libelleVersion(d.version))}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
+  if (d.statut) meta.push(`${t.statut}${lang === 'fr' ? ' : ' : lang === 'zh' || lang === 'ja' ? '：' : ': '}${escapeHtml(d.statut[lang] || d.statut.en)}`);
+  if (d.version) meta.push(`${t.version} ${escapeHtml(libelleVersion(d.version))}${d.date ? `${lang === 'zh' || lang === 'ja' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
   if (d.versionDoi) meta.push(`<a href="${doiUrl(d.versionDoi)}">${t.cetteVersion}</a>`);
@@ -153,6 +163,9 @@ const PHRASE_LICENCES = {
   fr: (l) => `Ce site est sous licence ${LICENCE_SITE}. Chaque dépôt ci-dessous garde la licence sous laquelle il a été publié, indiquée pour chacun : ${et(l.map(([n, k]) => `${n} pour ${k}`), 'et')}.`,
   en: (l) => `This site is licensed under ${LICENCE_SITE}. Each deposit below keeps the licence under which it was published, shown with it: ${et(l.map(([n, k]) => `${n} for ${k}`), 'and')}.`,
   zh: (l) => `本网站采用 ${LICENCE_SITE} 许可。以下每个存档保留其发布时的许可，并在各条目中注明：${l.map(([n, k]) => `${k} 个为 ${n}`).join('，')}。`,
+  de: (l) => `Diese Website steht unter der Lizenz ${LICENCE_SITE}. Jede unten aufgeführte Hinterlegung behält die Lizenz, unter der sie veröffentlicht wurde, jeweils angegeben: ${et(l.map(([n, k]) => `${n} für ${k}`), 'und')}.`,
+  it: (l) => `Questo sito è sotto licenza ${LICENCE_SITE}. Ogni deposito qui sotto mantiene la licenza con cui è stato pubblicato, indicata per ciascuno: ${et(l.map(([n, k]) => `${n} per ${k}`), 'e')}.`,
+  ja: (l) => `本サイトのライセンスは ${LICENCE_SITE} です。以下の各寄託は、公開時のライセンスを保持しており、各項目に明記しています：${l.map(([n, k]) => `${n} が ${k} 件`).join('、')}。`,
   pt: (l) => `Este site está sob licença ${LICENCE_SITE}. Cada depósito abaixo mantém a licença sob a qual foi publicado, indicada em cada um: ${et(l.map(([n, k]) => `${n} para ${k}`), 'e')}.`,
   hi: (l) => `यह साइट ${LICENCE_SITE} लाइसेंस के अंतर्गत है। नीचे का हर जमा उसी लाइसेंस को बनाए रखता है जिसके अंतर्गत वह प्रकाशित हुआ था, जो हर एक के साथ दिया गया है: ${l.map(([n, k]) => `${k} ${k > 1 ? 'जमाओं' : 'जमा'} के लिए ${n}`).join(', ')}।`,
   ru: (l) => `Этот сайт распространяется по лицензии ${LICENCE_SITE}. Каждая публикация ниже сохраняет лицензию, под которой она была опубликована; лицензия указана у каждой: ${l.map(([n, k]) => `${n} — ${k}`).join(', ')}.`,
@@ -283,6 +296,9 @@ for (const [rel, lang, url, nom] of [
   ['ru/works/index.html', 'ru', `${SITE}/ru/works/`, 'Научные публикации — Anibal Edelberto Amiot'],
   ['pt/works/index.html', 'pt-PT', `${SITE}/pt/works/`, 'Trabalhos de investigação — Anibal Edelberto Amiot'],
   ['hi/works/index.html', 'hi', `${SITE}/hi/works/`, 'शोध-कृतियाँ — Anibal Edelberto Amiot'],
+  ['de/works/index.html', 'de', `${SITE}/de/works/`, 'Forschungsarbeiten — Anibal Edelberto Amiot'],
+  ['it/works/index.html', 'it', `${SITE}/it/works/`, 'Lavori di ricerca — Anibal Edelberto Amiot'],
+  ['ja/works/index.html', 'ja', `${SITE}/ja/works/`, '研究成果 — Anibal Edelberto Amiot'],
 ]) {
   const cle = lang.slice(0, 2); // zh-Hans -> zh : la clé des textes ; inLanguage garde zh-Hans
   ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(cle), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));

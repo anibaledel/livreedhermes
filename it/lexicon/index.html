@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessico — Capire La Livrée d'Hermès</title>
+<meta name="description" content="Definizioni di riferimento e domande frequenti su La Livrée d'Hermès: quadrati solari, la croce ansata, il sistema dei 360 strati, Carter.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/it/lexicon/">
+<meta property="og:title" content="Lessico — Capire La Livrée d'Hermès">
+<meta property="og:description" content="Definizioni di riferimento e domande frequenti su La Livrée d'Hermès: quadrati solari, la croce ansata, il sistema dei 360 strati, Carter.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/it/lexicon/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lessico — Capire La Livrée d'Hermès">
+<meta name="twitter:description" content="Definizioni di riferimento e domande frequenti su La Livrée d'Hermès: quadrati solari, la croce ansata, il sistema dei 360 strati, Carter.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Lessico — Capire La Livrée d'Hermès",
+  "url": "https://anibal-amiot.com/it/lexicon/",
+  "inLanguage": "it",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "La Livrée d'Hermès",
+      "description": "La Livrée d'Hermès (La Livrea di Ermes) è un trattato di aritmogeometria di 111 pagine, elaborato dal 2009 al 2019, che presenta un metodo di costruzione dei quadrati magici di ordine 6 e un sistema di motivi per telai Jacquard basato su 360 strati. È pubblicato con licenza CC BY-NC 4.0, depositato su Zenodo (DOI 10.5281/zenodo.22722485) e distribuito a prezzo libero su anibal-amiot.com, dove si legge in più lingue.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Aritmogeometria",
+      "description": "L'aritmogeometria è lo studio dei numeri attraverso la loro disposizione nello spazio: un numero è una configurazione di punti, una somma è una figura. La Livrée d'Hermès la applica ai quadrati magici — dove la disposizione dei numeri è vincolata dalle somme — e ai motivi tessuti, dove la stessa disposizione diventa immagine. Il termine indica qui una pratica costruttiva, non una numerologia: ogni figura del libro si può verificare con un calcolo.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Il quadrato solare e la croce ansata",
+      "description": "Un quadrato solare è un quadrato magico di ordine 6 costruito direttamente da una colorazione delle sue 36 caselle in quattro colori, senza quadrato ausiliario. La colorazione segue una figura detta croce ansata — una configurazione di tratti a simmetria centrale, di cui per l'ordine 6 esistono esattamente due forme — e quattro criteri. Esistono esattamente 256 colorazioni ammissibili, 128 per ciascuna croce, e ognuna dà un quadrato magico completo: righe, colonne e le due diagonali. Il calcolo è riproducibile: codice di verifica su Zenodo.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Il sistema dei 360 strati",
+      "description": "Il sistema dei 360 strati è il vocabolario dei motivi di La Livrée d'Hermès: una griglia di 12 × 12 caselle è divisa in sei livelli di 24 caselle, e ogni livello prende una di 60 immagini (15 famiglie di assi × 4 nature), 360 strati in tutto. Scegliendo uno strato per livello si compone un motivo; le sei scelte, ciascuna in due stati, trascrivono i 64 esagrammi dello Yi Jing. Il sistema è pensato per la perforazione Jacquard: ogni strato è una scheda perforata.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Il criterio del semi-spostamento (motivi unificati)",
+      "description": "Un motivo 12 × 12 si dice unificato quando traslarlo di metà periodo — sei caselle in entrambe le direzioni — equivale a scambiare le sue due immagini generatrici. Sui 360 strati questo criterio trattiene esattamente 8 delle 15 famiglie, quelle con una sola base diagonale, yang o yang-mutante, e produce 512 griglie distinte, cioè 256 pavimentazioni del piano e 128 orbite di simmetria. Esattamente la metà di queste griglie si chiude anche sulle sei facce di un cubo: quelle il cui asse diagonale è di tipo yang. Dimostrato e verificato con uno script.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Carter, il codificatore",
+      "description": "Carter è una codifica steganografica che scrive un messaggio cifrato in una griglia di simboli, in posizioni designate da un referente pubblico — i quadrati solari o i 360 strati. La riservatezza viene dalla cifratura (XChaCha20-Poly1305, chiave a 256 bit), non dalla geometria: le dimostrazioni valgono anche quando la disposizione è nota. Il referente è un parametro sostituibile; il codice è software libero (AGPL v3) e comprende vettori di riferimento verificabili passo dopo passo.",
+      "inDefinedTermSet": "https://anibal-amiot.com/it/lexicon/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "it",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Che cos'è un quadrato solare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un quadrato magico di ordine 6 ottenuto direttamente da una colorazione in quattro colori delle sue caselle, secondo la croce ansata e quattro criteri. Ne esistono esattamente 256, tutti magici su righe, colonne e le due diagonali."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanti quadrati magici produce il metodo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "256 di ordine 6 — e sono tutte le colorazioni ammissibili, non un campione. Assemblati quattro alla volta danno 64 quadrati magici di ordine 12, di costante 870."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Che cos'è la croce ansata?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Una figura di tratti a simmetria centrale sulla griglia 6 × 6, che congiunge a due a due le caselle complementari di un quadrato magico di ordine 6. Con i criteri del libro ne esistono esattamente due. Le due croci sono antinomiche: nessuna rotazione o riflessione del quadrato porta l'una sull'altra. Una si ottiene dall'altra con un quarto di giro composto con lo scambio delle scelte. L'ordine 6 è un caso particolare: a ogni ordine n = 2m ≥ 6 con m dispari esistono esattamente 2^(m²−3m+1) figure di croce ansata, tutte realizzabili — 2 048 all'ordine 10 — e nessuna se m è pari."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Il libro è libero?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "È a prezzo libero: si può leggere e scaricare senza pagare, e sostenere se lo si desidera. Licenza CC BY-NC 4.0 — libero di copiare, condividere e riutilizzare per scopi non commerciali, con attribuzione."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dove sono il libro e il codice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il libro su Zenodo (DOI 10.5281/zenodo.22722485) e su anibal-amiot.com, in più lingue. Il codice su GitHub (anibaledel/livreedhermes), sotto AGPL v3, con script di verifica per ogni risultato."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Che legame c'è con lo Yi Jing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il sistema dei 360 strati compone un motivo con sei scelte binarie, una per livello: la struttura dei 64 esagrammi. Il sito offre un'estrazione che rende ogni esagramma come motivo. Il legame è strutturale — sei linee, sei livelli — e non pretende nulla di più."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Che cos'è un motivo unificato?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un motivo 12 × 12 la cui traslazione di mezzo periodo equivale allo scambio delle sue due immagini: la pavimentazione porta allora un solo motivo invece di due alternati. Ce ne sono 512, in 128 orbite; metà si chiude su un cubo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Questi motivi si possono tessere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sì: il sistema è stato pensato per la perforazione Jacquard, ogni strato essendo una scheda. I file vettoriali dei 360 strati e dei 256 quadrati sono nel repository, sotto CC BY-NC 4.0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Carter è uno schema di cifratura?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carter usa un cifrario standard (XChaCha20-Poly1305) e dispone il risultato in una griglia secondo un referente pubblico. La sua sicurezza è quella del cifrario, non della geometria; le dimostrazioni dell'articolo valgono anche quando la disposizione è nota. Non è un nuovo cifrario e non pretende di esserlo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Come si verificano i risultati?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ogni cifra del sito e delle note esce da uno script del repository: le due croci, i 256 quadrati, i 64 di ordine 12, le 512 griglie e le 128 orbite, il cubo. Gli script leggono i dati pubblicati e girano in pochi minuti."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Pagina iniziale",
+      "item": "https://anibal-amiot.com/it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "La Livrée d'Hermès",
+      "item": "https://anibal-amiot.com/la-livree-d-hermes.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Lessico",
+      "item": "https://anibal-amiot.com/it/lexicon/"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(15px + var(--fs-bump)); margin:0; }
+  @media (max-width:768px){ header h1{ font-size:calc(22px + var(--fs-bump)); } }
+  @media (max-width:480px){ header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; } }
+
+  .lex-body{ padding:24px 0 8px; }
+  .lex-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.8;
+  }
+  .lex-section{ max-width:64ch; margin:0 auto 34px; text-align:center; }
+  .lex-section h2{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 12px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;
+  }
+  .lex-section p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:0; }
+  .lex-section i{ color:var(--white); font-style:italic; }
+
+  .faq-block{ max-width:64ch; margin:46px auto 40px; text-align:left; padding-top:34px; border-top:1px solid var(--line); }
+  .faq-block-title{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 16px; text-align:center;
+  }
+  .faq-item{ border-top:1px solid var(--line); padding:14px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer; color:var(--white); font-size:calc(14.5px + var(--fs-bump));
+    list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:12px 0 0; }
+
+  .lex-sources{
+    max-width:64ch; margin:0 auto; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.7;
+  }
+  .lex-sources a, .lex-intro a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .lex-sources a:hover, .lex-intro a:hover{ text-decoration-color:currentColor; }
+
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .site-nav-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px auto 0; max-width:900px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase;
+    padding:9px 16px; cursor:pointer; text-decoration:none;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:18px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    .lex-intro, .lex-section p, .lex-sources{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/lexicon/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/lexicon/">
+<link rel="alternate" hreflang="de" href="https://anibal-amiot.com/de/lexicon/">
+<link rel="alternate" hreflang="it" href="https://anibal-amiot.com/it/lexicon/">
+<link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/lexicon/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Vai al contenuto</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-26-lexique.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Lessico">
+      <a href="https://anibal-amiot.com/it/">Pagina iniziale</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html" hreflang="fr">La Livrée d'Hermès <span class="lien-langue">(in francese)</span></a><span class="sep">/</span><span aria-current="page">Lessico</span>
+    </nav>
+    <h1>Lessico</h1>
+    <p>Sei definizioni di riferimento e dieci domande</p>
+  </header>
+  </div>
+
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Altre lingue: <a href="https://anibal-amiot.com/lexique.html">Français</a> · <a href="https://anibal-amiot.com/en/lexicon/">English</a> · <a href="https://anibal-amiot.com/es/lexico/">Español</a> · <a href="https://anibal-amiot.com/th/lexicon/">ไทย</a> · <a href="https://anibal-amiot.com/zh/lexicon/">简体中文</a> · <a href="https://anibal-amiot.com/ru/lexicon/">Русский</a> · <a href="https://anibal-amiot.com/pt/lexicon/">Português</a> · <a href="https://anibal-amiot.com/hi/lexicon/">हिन्दी</a> · <a href="https://anibal-amiot.com/de/lexicon/">Deutsch</a> · <a href="https://anibal-amiot.com/ja/lexicon/">日本語</a></p>
+<!-- @langues:end -->
+
+  <div class="lex-body">
+    <p class="lex-intro">Sei definizioni scritte per essere citate così come stanno, e dieci domande con le loro risposte. Ogni numero esce da uno script del repository; la pagina francese «Cifre e fonti» indica il comando di ciascuno.</p>
+
+    <section class="lex-section">
+      <h2>La Livrée d'Hermès</h2>
+      <p><i>La Livrée d'Hermès</i> (La Livrea di Ermes) è un trattato di aritmogeometria di 111 pagine, elaborato dal 2009 al 2019, che presenta un metodo di costruzione dei quadrati magici di ordine 6 e un sistema di motivi per telai Jacquard basato su 360 strati. È pubblicato con licenza CC BY-NC 4.0, depositato su Zenodo (DOI 10.5281/zenodo.22722485) e distribuito a prezzo libero su anibal-amiot.com, dove si legge in più lingue.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Aritmogeometria</h2>
+      <p>L'aritmogeometria è lo studio dei numeri attraverso la loro disposizione nello spazio: un numero è una configurazione di punti, una somma è una figura. <i>La Livrée d'Hermès</i> la applica ai quadrati magici — dove la disposizione dei numeri è vincolata dalle somme — e ai motivi tessuti, dove la stessa disposizione diventa immagine. Il termine indica qui una pratica costruttiva, non una numerologia: ogni figura del libro si può verificare con un calcolo.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Il quadrato solare e la croce ansata</h2>
+      <p>Un quadrato solare è un quadrato magico di ordine 6 costruito direttamente da una colorazione delle sue 36 caselle in quattro colori, senza quadrato ausiliario. La colorazione segue una figura detta croce ansata — una configurazione di tratti a simmetria centrale, di cui per l'ordine 6 esistono esattamente due forme — e quattro criteri. Esistono esattamente 256 colorazioni ammissibili, 128 per ciascuna croce, e ognuna dà un quadrato magico completo: righe, colonne e le due diagonali. Il calcolo è riproducibile: codice di verifica su Zenodo.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Il sistema dei 360 strati</h2>
+      <p>Il sistema dei 360 strati è il vocabolario dei motivi di <i>La Livrée d'Hermès</i>: una griglia di 12 × 12 caselle è divisa in sei livelli di 24 caselle, e ogni livello prende una di 60 immagini (15 famiglie di assi × 4 nature), 360 strati in tutto. Scegliendo uno strato per livello si compone un motivo; le sei scelte, ciascuna in due stati, trascrivono i 64 esagrammi dello Yi Jing. Il sistema è pensato per la perforazione Jacquard: ogni strato è una scheda perforata.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Il criterio del semi-spostamento (motivi unificati)</h2>
+      <p>Un motivo 12 × 12 si dice unificato quando traslarlo di metà periodo — sei caselle in entrambe le direzioni — equivale a scambiare le sue due immagini generatrici. Sui 360 strati questo criterio trattiene esattamente 8 delle 15 famiglie, quelle con una sola base diagonale, yang o yang-mutante, e produce 512 griglie distinte, cioè 256 pavimentazioni del piano e 128 orbite di simmetria. Esattamente la metà di queste griglie si chiude anche sulle sei facce di un cubo: quelle il cui asse diagonale è di tipo yang. Dimostrato e verificato con uno script.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Carter, il codificatore</h2>
+      <p>Carter è una codifica steganografica che scrive un messaggio cifrato in una griglia di simboli, in posizioni designate da un referente pubblico — i quadrati solari o i 360 strati. La riservatezza viene dalla cifratura (XChaCha20-Poly1305, chiave a 256 bit), non dalla geometria: le dimostrazioni valgono anche quando la disposizione è nota. Il referente è un parametro sostituibile; il codice è software libero (AGPL v3) e comprende vettori di riferimento verificabili passo dopo passo.</p>
+    </section>
+
+    <div class="faq-block">
+      <p class="faq-block-title">Domande frequenti</p>
+
+      <details class="faq-item">
+        <summary>Che cos'è un quadrato solare?<span class="q-mark">＋</span></summary>
+        <p>Un quadrato magico di ordine 6 ottenuto direttamente da una colorazione in quattro colori delle sue caselle, secondo la croce ansata e quattro criteri. Ne esistono esattamente 256, tutti magici su righe, colonne e le due diagonali.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quanti quadrati magici produce il metodo?<span class="q-mark">＋</span></summary>
+        <p>256 di ordine 6 — e sono tutte le colorazioni ammissibili, non un campione. Assemblati quattro alla volta danno 64 quadrati magici di ordine 12, di costante 870.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Che cos'è la croce ansata?<span class="q-mark">＋</span></summary>
+        <p>Una figura di tratti a simmetria centrale sulla griglia 6 × 6, che congiunge a due a due le caselle complementari di un quadrato magico di ordine 6. Con i criteri del libro ne esistono esattamente due. Le due croci sono antinomiche: nessuna rotazione o riflessione del quadrato porta l'una sull'altra. Una si ottiene dall'altra con un quarto di giro composto con lo scambio delle scelte. L'ordine 6 è un caso particolare: a ogni ordine n = 2m ≥ 6 con m dispari esistono esattamente 2^(m²−3m+1) figure di croce ansata, tutte realizzabili — 2 048 all'ordine 10 — e nessuna se m è pari.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Il libro è libero?<span class="q-mark">＋</span></summary>
+        <p>È a prezzo libero: si può leggere e scaricare senza pagare, e sostenere se lo si desidera. Licenza CC BY-NC 4.0 — libero di copiare, condividere e riutilizzare per scopi non commerciali, con attribuzione.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Dove sono il libro e il codice?<span class="q-mark">＋</span></summary>
+        <p>Il libro su Zenodo (DOI 10.5281/zenodo.22722485) e su anibal-amiot.com, in più lingue. Il codice su GitHub (anibaledel/livreedhermes), sotto AGPL v3, con script di verifica per ogni risultato.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Che legame c'è con lo Yi Jing?<span class="q-mark">＋</span></summary>
+        <p>Il sistema dei 360 strati compone un motivo con sei scelte binarie, una per livello: la struttura dei 64 esagrammi. Il sito offre un'estrazione che rende ogni esagramma come motivo. Il legame è strutturale — sei linee, sei livelli — e non pretende nulla di più.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Che cos'è un motivo unificato?<span class="q-mark">＋</span></summary>
+        <p>Un motivo 12 × 12 la cui traslazione di mezzo periodo equivale allo scambio delle sue due immagini: la pavimentazione porta allora un solo motivo invece di due alternati. Ce ne sono 512, in 128 orbite; metà si chiude su un cubo.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Questi motivi si possono tessere?<span class="q-mark">＋</span></summary>
+        <p>Sì: il sistema è stato pensato per la perforazione Jacquard, ogni strato essendo una scheda. I file vettoriali dei 360 strati e dei 256 quadrati sono nel repository, sotto CC BY-NC 4.0.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Carter è uno schema di cifratura?<span class="q-mark">＋</span></summary>
+        <p>Carter usa un cifrario standard (XChaCha20-Poly1305) e dispone il risultato in una griglia secondo un referente pubblico. La sua sicurezza è quella del cifrario, non della geometria; le dimostrazioni dell'articolo valgono anche quando la disposizione è nota. Non è un nuovo cifrario e non pretende di esserlo.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Come si verificano i risultati?<span class="q-mark">＋</span></summary>
+        <p>Ogni cifra del sito e delle note esce da uno script del repository: le due croci, i 256 quadrati, i 64 di ordine 12, le 512 griglie e le 128 orbite, il cubo. Gli script leggono i dati pubblicati e girano in pochi minuti.</p>
+      </details>
+    </div>
+
+    <p class="lex-sources">Per andare oltre: leggere il libro online, le cifre e le loro fonti, o il profilo documentale dell'autore (in francese). Contenuti sotto CC BY-NC 4.0, codice sotto AGPL v3.</p>
+  </div>
+</main>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note note-tuiles">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../it/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Pagina iniziale</span><span class="nav-tile-excerpt">Il libro, le sue tavole e l'insieme degli strumenti.</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articoli <span class="lien-langue">(in francese)</span></span><span class="nav-tile-excerpt">Riflessioni e ricerche intorno a La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <nav class="nav-categories" aria-label="Pagine del sito">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Gallerie</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../it/animations/"><span class="nav-cat-label">Galleria di animazioni</span><span class="nav-cat-texte">Le animazioni delle collezioni di fondi, in sei gruppi: da guardare, visualizzare in anteprima e scaricare in MP4.</span></a></li>
+          <li><a href="../../galerie-bicolore.html" hreflang="fr"><span class="nav-cat-label">Galleria bicolore <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">142 motivi bicolori generati dagli assi e chiusi sul cubo — grana di lettura, pavimentazione, esportazione.</span></a></li>
+          <li><a href="../../galerie-patterns-unifies.html" hreflang="fr"><span class="nav-cat-label">Galleria tricolore <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Motivi unificati, generati dalla miscela di tinte — seleziona un motivo per vedere la sua pavimentazione.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animazioni</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../it/animations/"><span class="nav-cat-label">Galleria di animazioni</span><span class="nav-cat-texte">Le animazioni delle collezioni di fondi, in sei gruppi: da guardare, visualizzare in anteprima e scaricare in MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html" hreflang="fr"><span class="nav-cat-label">Sfondo <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Sfondi tessili a schermo intero, reattivi al suono o in modalità meditativa a ritmo regolabile.</span></a></li>
+          <li><a href="../../it/see-your-music/"><span class="nav-cat-label">Vedere la propria musica</span><span class="nav-cat-texte">Scegli un brano, un file o il microfono: la pagina cerca il motivo di La Livrée d’Hermès il cui spettro è più vicino a quello del suono.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Estrazioni e stampe</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html" hreflang="fr"><span class="nav-cat-label">Estrazione dello Yi Jing <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Estrai un esagramma a caso e scopri il suo quadrato, oppure sfoglia la scacchiera delle 64 mutazioni.</span></a></li>
+          <li><a href="../../360-calques.html" hreflang="fr"><span class="nav-cat-label">360 strati <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Estrai e scarica gli strati pronti per la stampa.</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">Motivi SVG <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Scarica gli strati di stampa in 4 categorie di combinazioni di tratti, in SVG.</span></a></li>
+          <li><a href="../../hexagrammes/" hreflang="fr"><span class="nav-cat-label">Esagrammi <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">I 64 esagrammi dello Yi Jing: giudizio, trigrammi e quadrato magico per ciascuno.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Strumenti creativi</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html" hreflang="fr"><span class="nav-cat-label">Creare un motivo <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Componi i tuoi motivi tessili a partire dalle 60 immagini dello Yi Jing.</span></a></li>
+          <li><a href="../../bicolore.html" hreflang="fr"><span class="nav-cat-label">Motivi bicolori <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Componi una cella 12×12, sei livelli, ciascuno con la propria famiglia e la propria tinta.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Motivi bicolori v2 <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">La seconda divisione delle diagonali (YA/AY), vocabolario e stati del semi-spostamento — accanto allo strumento v1.</span></a></li>
+          <li><a href="../../encodeur.html" hreflang="fr"><span class="nav-cat-label">Codificatore <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Codifica steganografica geometrica con doppio referente, croce ansata e Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Demo interattiva: la griglia e i referenti derivati dalla chiave.</span></a></li>
+          <li><a href="../../unified-patterns.html" hreflang="fr"><span class="nav-cat-label">Magic quadricolore <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">I 64 motivi degli esagrammi, personalizzabili e scaricabili in alta risoluzione.</span></a></li>
+          <li><a href="../../chladni.html" hreflang="fr"><span class="nav-cat-label">Cimatica <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">La pavimentazione la cui frequenza spaziale è più vicina al suono che emetti.</span></a></li>
+          <li><a href="../../it/tools/"><span class="nav-cat-label">Strumenti</span><span class="nav-cat-texte">Tutti gli strumenti interattivi del sito, riuniti in un solo luogo.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Sul progetto</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../it/book/"><span class="nav-cat-label">Il trattato</span><span class="nav-cat-texte">Il trattato e le sue edizioni tradotte, gli esagrammi e il lessico.</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">Informazioni <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">L'autore e il suo libro, all'incrocio tra filosofia, matematica e scienza applicata.</span></a></li>
+          <li><a href="../../it/lexicon/" aria-current="page"><span class="nav-cat-label">Lessico</span><span class="nav-cat-texte">Dieci nozioni chiave per capire La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../profil.html" hreflang="fr"><span class="nav-cat-label">Profilo documentale <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Brevetti e 63 disegni e modelli registrati presso l'INPI, che coprono i quadrati di ordine 12.</span></a></li>
+          <li><a href="../../contact.html" hreflang="fr"><span class="nav-cat-label">Contatto <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Contatta l'autore per un progetto o una commissione di motivi e stampe tessili.</span></a></li>
+          <li><a href="../../it/support/"><span class="nav-cat-label">Sostieni</span><span class="nav-cat-texte">Sostieni La Livrée d'Hermès a un prezzo a tua scelta: il sito e i suoi contenuti restano liberi.</span></a></li>
+          <li><a href="../../chiffres-et-sources.html" hreflang="fr"><span class="nav-cat-label">Cifre e fonti <span class="lien-langue">(in francese)</span></span><span class="nav-cat-texte">Ogni cifra del sito, lo script che la riproduce e la riga che stampa.</span></a></li>
+          <li><a href="../../it/works/"><span class="nav-cat-label">Lavori</span><span class="nav-cat-texte">Depositi, codice e articoli sottomessi, ciascuno datato e aperto.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+<!-- @navtiles:end -->
+<div class="note">
+  <div class="site-nav-row">
+    <a class="site-nav-btn" href="https://anibal-amiot.com/it/">Pagina iniziale</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/it/book/">Il trattato</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/it/works/">Lavori</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/it/tools/">Strumenti</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/en/hexagrams/" hreflang="en">Esagrammi (inglese) <span class="lien-langue">(in inglese)</span></a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/motifs/" hreflang="en">Motivi (inglese) <span class="lien-langue">(in inglese)</span></a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/chiffres-et-sources.html" hreflang="fr">Cifre e fonti (francese) <span class="lien-langue">(in francese)</span></a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/contact.html" hreflang="fr">Contatto (francese) <span class="lien-langue">(in francese)</span></a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/it/support/">Sostieni</a>
+  </div>
+  <div class="credit-line">
+    <span>© 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 · Realizzato in collaborazione con Claude</span>
+  </div>
+  <div class="footer-title-logo">
+    <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+  </div>
+</div>
+</div>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

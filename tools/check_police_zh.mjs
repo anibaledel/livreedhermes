@@ -21,7 +21,7 @@ import { cmapWoff2 } from './lib_woff2.mjs';
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const POLICE = path.join(RACINE, 'assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2');
 const CJK = /[⺀-⿟　-〿㐀-䶿一-鿿豈-﫿＀-￯]/gu;
-const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'docs']);
+const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'docs', 'ja']); // ja/ : police japonaise (tools/police_ja.py)
 
 // ---- les caractères du site ----------------------------------------------
 function pages(dir, acc = []) {
@@ -29,7 +29,7 @@ function pages(dir, acc = []) {
     if (IGNORES.has(e.name)) continue;
     const abs = path.join(dir, e.name);
     if (e.isDirectory()) pages(abs, acc);
-    else if (e.name.endsWith('.html')) acc.push(abs);
+    else if (e.name.endsWith('.html') && e.name !== 'footer-ja.html') acc.push(abs);
   }
   return acc;
 }

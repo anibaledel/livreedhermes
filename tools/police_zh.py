@@ -30,7 +30,7 @@ RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SORTIE = os.path.join(RACINE, 'assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2')
 # Mêmes plages que l'unicode-range de assets/fonts.css (et que check_police_zh.mjs).
 CJK = re.compile('[⺀-⿟　-〿㐀-䶿一-鿿豈-﫿＀-￯]')
-IGNORES = {'.git', 'node_modules', 'pagefind', 'docs'}
+IGNORES = {'.git', 'node_modules', 'pagefind', 'docs', 'ja'}  # ja/ : police japonaise (tools/police_ja.py)
 
 
 def caracteres():
@@ -38,7 +38,7 @@ def caracteres():
     for d, sous, fichiers in os.walk(RACINE):
         sous[:] = [s for s in sous if s not in IGNORES]
         for f in fichiers:
-            if f.endswith('.html'):
+            if f.endswith('.html') and f != 'footer-ja.html':
                 with open(os.path.join(d, f), encoding='utf-8', errors='ignore') as h:
                     vus.update(CJK.findall(h.read()))
     # les textes chinois posés par JavaScript (la page « Voir sa musique » les écrit au chargement, depuis ces fichiers) : la police doit aussi les porter

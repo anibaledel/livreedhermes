@@ -2710,6 +2710,1074 @@ export const TEXTES = {
       }
     ]
   },
+  de: {
+    "titrePage": "Die eigene Musik sehen — La Livrée d'Hermès",
+    "description": "Die eigene Musik sehen: Wählen Sie ein Stück, eine Datei oder das Mikrofon und sehen Sie die Chladni-Figur, die der Klang zeichnet, und danach das Muster von La Livrée d'Hermès, das ihm am meisten ähnelt. Nehmen Sie 15 Sekunden mit dem Klang auf.",
+    "ariane": "Die eigene Musik sehen",
+    "h1": "Die eigene Musik sehen",
+    "intro": "Jede Musik hat eine Signatur: die Art, wie sich ihre Energie auf die Frequenzen verteilt. Wählen Sie ein Stück, eine Datei oder das Mikrofon: Die Seite misst diese Energie bei den Frequenzen jedes Modenkreises einer quadratischen Platte und sucht dann unter den vereinheitlichten Mustern von La Livrée d'Hermès dasjenige, dessen Spektrum ihr am meisten ähnelt. Die Wahl beruht auf der Ähnlichkeit zweier Spektren, nicht auf einem musikalischen Gesetz: Ein Muster „drückt“ kein Stück „aus“.",
+    "discretion": "Nichts verlässt Ihren Browser: Die Datei, das Mikrofon und das aufgenommene Audio werden vor Ort analysiert und nirgendwohin gesendet.",
+    "flash": "Achtung: Die Bilder können schnell wechseln und flackern. Die Einstellung „Schnelle Wechsel reduzieren“ verlangsamt sie.",
+    "sonTitre": "Der Klang",
+    "sonChoix": "Klang",
+    "morceau": "Mitgeliefertes Stück {n} — {note}",
+    "notes": {
+      "j1": "Cis",
+      "j2": "A",
+      "j3": "D",
+      "j4": "E",
+      "j5": "G",
+      "j6": "H",
+      "j7": "C"
+    },
+    "tonalites": {
+      "do dièse mineur": "cis-Moll",
+      "la mineur": "a-Moll",
+      "ré mineur": "d-Moll",
+      "mi mineur": "e-Moll",
+      "sol mineur": "g-Moll",
+      "si mineur": "h-Moll",
+      "do mineur": "c-Moll"
+    },
+    "sourceFichier": "Meine Audiodatei…",
+    "sourceMicro": "Mikrofon",
+    "sourceEssai": "Testmusik",
+    "sourceOnglet": "Audio eines Tabs",
+    "lecture": "Abspielen",
+    "pause": "Pause",
+    "arreter": "Stopp",
+    "entree": "Audioeingang",
+    "entreeDefaut": "Standardeingang",
+    "entreeAide": "Mischpult, Soundkarte: Schließen Sie sie an, erlauben Sie das Mikrofon und wählen Sie sie hier aus.",
+    "sensibilite": "Schwelle der Anschläge",
+    "sensibiliteAide": "In Standardabweichungen über dem Mittelwert: je niedriger, desto empfindlicher gegenüber Notenwechseln.",
+    "intervalle": "Mindestabstand zwischen zwei Anschlägen (s)",
+    "intervalleAide": "Standard 0,45 s: höchstens etwa 133 Anschläge pro Minute. Senken Sie den Wert für ein schnelles Tempo.",
+    "mentionIA": "Die mitgelieferten Stücke sind mit Hilfe von KI komponiert („Musik, komponiert mit KI von MC Claude.“).",
+    "etatDepart": "Drücken Sie auf Abspielen. Die mitgelieferten Stücke sind mit Hilfe von KI komponiert.",
+    "etatMorceau": "Mitgeliefertes Stück, mit Hilfe von KI komponiert.",
+    "etatFichier": "Datei: {nom} (sie bleibt in Ihrem Browser).",
+    "etatMicro": "Mikrofon aktiv.",
+    "etatEntree": "Eingang „{nom}“ aktiv.",
+    "etatOnglet": "Tab-Audio aktiv.",
+    "etatEssai": "Testmusik.",
+    "erreurMicroRefuse": "Das Mikrofon wurde verweigert. Erlauben Sie es in den Einstellungen der Website (das Schloss links neben der Adresse) und klicken Sie erneut auf Abspielen. Sie können auch eine Datei oder ein Stück wählen.",
+    "erreurMicroAbsent": "Auf diesem Gerät ist kein Mikrofon verfügbar.",
+    "erreurMicro": "Das Mikrofon startet nicht: {message}",
+    "erreurOnglet": "Die Aufnahme des Audios eines Tabs ist hier nicht möglich. Sie erfordert einen aktuellen Desktop-Browser (Chrome, Edge); auf Mobilgeräten und in Safari fehlt sie.",
+    "erreurOngletSansSon": "Der gewählte Tab hat keinen Ton geliefert. Starten Sie neu und aktivieren Sie „Audio des Tabs teilen“.",
+    "erreurFichier": "Diese Datei kann nicht als Klang gelesen werden.",
+    "erreurAudio": "Der Klang kann nicht starten: {message}",
+    "erreurDonnees": "Die Daten der Seite werden nicht geladen: {message}",
+    "bandeManque": "Das Band {id} fehlt in der Sammlung der Hintergründe",
+    "microCoupe": "Die Quelle wurde angehalten (Gerät getrennt oder Berechtigung entzogen).",
+    "silence": "Stille: Starten Sie einen Klang.",
+    "valide": "Bestätigt",
+    "valideTag": "aktuell",
+    "essai": "Versuch",
+    "essaiTag": "Vorschau",
+    "validerEssai": "Versuch bestätigen",
+    "annuler": "Abbrechen",
+    "pleinEcran": "Vollbild",
+    "quitterPleinEcran": "Vollbild beenden",
+    "fenetresAide": "Dunkler Grund: bestätigt. Goldener Rahmen: im Versuch. Fahren Sie über eine Option, um sie im Versuch zu sehen, klicken Sie, um sie zu behalten, dann „Versuch bestätigen“.",
+    "fenetreValide": "Bestätigtes Fenster",
+    "fenetreEssai": "Versuchsfenster",
+    "basculeValide": "Bestätigt",
+    "basculeEssai": "Versuch",
+    "pleinEcranIndispo": "Der Vollbildmodus ist in diesem Browser nicht verfügbar.",
+    "pleinEcranRepli": "Dieser Browser bietet für dieses Element keinen nativen Vollbildmodus: Die Bühne bedeckt das Fenster. Esc oder die Schaltfläche schließt sie.",
+    "groupes": {
+      "mode": "Klangsteuerung",
+      "fmt": "Format (Ordnung)",
+      "col": "Sammlung",
+      "view": "Ansicht",
+      "fond": "Feldvariante",
+      "pal": "Farben"
+    },
+    "modes": {
+      "image": [
+        "Der Klang bestimmt das Bild",
+        "In jedem Augenblick das Muster, dessen Spektrum dem der Musik am meisten ähnelt."
+      ],
+      "rythme": [
+        "Der Klang bestimmt den Rhythmus",
+        "Ein Schritt in der Nachbarschaftskette bei jedem Notenanschlag."
+      ],
+      "chemin": [
+        "Der Klang lenkt den Weg",
+        "Der Rhythmus entscheidet, wann; das Spektrum entscheidet, zu welchem Nachbarn."
+      ],
+      "octaves": [
+        "Der Klang folgt der Oktave",
+        "Bei jedem Anschlag ein Schritt auf der Bahn der vorherrschenden Note: der Kreis K, dann seine Oktave 4K, dann 16K …, sofern diese Kreise existieren."
+      ]
+    },
+    "vues": {
+      "signes": [
+        "Vorzeichen",
+        "Die positiven Zonen der Figur des Musters."
+      ],
+      "lignes": [
+        "Knotenlinien",
+        "Die Linien, auf denen die Figur des Musters verschwindet."
+      ],
+      "pavage": [
+        "Zellen",
+        "Das Muster selbst, in 2 × 2-Parkettierung."
+      ]
+    },
+    "format": {
+      "titre": "Ordnung {n}",
+      "detail": "Gitter aus {g} × {g} Feldern",
+      "bientot": "Ordnung {n} (zweite Lieferung)"
+    },
+    "chargementOrdre": "Ordnung {n} wird geladen …",
+    "ordreIndisponible": "Die Daten der Ordnung {n} werden nicht geladen: {message}",
+    "collections": {
+      "tri": [
+        "Dreifarbig — vereinheitlichte Muster",
+        "{n} Muster (verschiedene 12 × 12-Gitter)"
+      ],
+      "bi": [
+        "Zweifarbig — vereinheitlichte Muster",
+        "{n} Muster (zwei Spiegel, lesbar nach der Regel vom 3. Oktober)"
+      ],
+      "ce": [
+        "Zweifarbig — Zentralsymmetrie",
+        "{n} Muster (nur 180°-Zentralsymmetrie, lesbar nach der Regel vom 3. Oktober)"
+      ],
+      "b1971128": [
+        "Block 1971128",
+        "{n} Muster"
+      ],
+      "b16012838": [
+        "Block 16012838",
+        "{n} Muster"
+      ],
+      "b3016090": [
+        "Block 3016090",
+        "{n} Muster"
+      ],
+      "f613": [
+        "Familie 613",
+        "{n} Muster"
+      ],
+      "f18": [
+        "Familie 18",
+        "{n} Muster"
+      ],
+      "fpilote": [
+        "Pilotfamilie",
+        "{n} Muster"
+      ],
+      "p18": [
+        "Kreuz 1·2",
+        "{n} Muster"
+      ],
+      "p30": [
+        "Kreuz 1·2",
+        "{n} Muster"
+      ]
+    },
+    "fond": "Bänder {id}",
+    "fondAide": "Ein Feld trägt vier Dreiecke; jedes wird mit dem Zustand 1 des Grundes gezeichnet oder mit dem Zustand 0: demselben Grund, um 90° gedreht.",
+    "fondSeulementBicolore": "Die Feldvariante gilt nur für die zweifarbige Sammlung.",
+    "palettes": {
+      "creme": [
+        "Tinte und Creme",
+        "Die Farben der Website."
+      ],
+      "monochrome": [
+        "Grau und Weiß",
+        "Das Monochrom der Website."
+      ],
+      "perso": [
+        "Meine Farben",
+        "Wählen Sie das Muster und den Grund."
+      ],
+      "son": [
+        "Der Farbton folgt dem Klang",
+        "Der Farbton gleitet langsam mit der Helligkeit des Klangs (standardmäßig aus)."
+      ]
+    },
+    "persoMotif": "Muster",
+    "persoFond": "Grund",
+    "tricoloreAide": "Dreifarbig: V am dunkelsten (Tinte), O mittleres Grau, M am hellsten (Creme).",
+    "legendeFenetre": "{mode} · {collection} · {vue}{fond} · {palette}",
+    "reglagesTitre": "Einstellungen im laufenden Betrieb",
+    "lissage": "Glättung",
+    "pulsationTitre": "Puls",
+    "pulsations": {
+      "attaque": "Bei jedem Anschlag",
+      "temps": "Bei jedem Schlag",
+      "quatre": "Alle 4 Schläge"
+    },
+    "pulsationAide": "Standardmäßig ein Wechsel bei jedem Anschlag. Wird ein regelmäßiger Puls erkannt, können Sie bei jedem Schlag oder alle 4 Schläge wechseln.",
+    "pulsationDetectee": "Puls erkannt: {bpm} pro Minute.",
+    "pulsationAucune": "Bisher wurde kein regelmäßiger Puls erkannt.",
+    "calme": "Schnelle Wechsel reduzieren",
+    "calmeAide": "Eine längere Überblendung und eine längere Haltedauer. Automatisch aktiviert, wenn Ihr System weniger Animation verlangt.",
+    "pente": "Abfall der Bässe ausgleichen",
+    "pauseImage": "Bild anhalten",
+    "optionsTitre": "Optionen",
+    "comprendreTitre": "Zum Verständnis",
+    "comprendreAide": "Zwei Lehransichten, ohne Bezug zum Klang.",
+    "paireTitre": "Die Mode (4, 0) und ihr entartetes Paar",
+    "paireAide": "Auf einer quadratischen Platte haben die Moden (4, 0) und (0, 4) dieselbe Frequenz: Jede Kombination ist ebenfalls eine Mode dieser Frequenz. Der Regler geht von cos(4πx/a) + cos(4πy/a) (rechts) zu cos(4πx/a) − cos(4πy/a) (links); in der Mitte bleibt nur cos(4πx/a), senkrechte Linien. Helle und dunkle Zonen: entgegengesetzte Vorzeichen; Strich: Knotenlinie.",
+    "paireMelange": "Mischung s: cos(4πx/a) + s · cos(4πy/a)",
+    "paireAlt": "Figur der Mode (4, 0), gemischt mit ihrem entarteten Paar",
+    "moireTitre": "Die Parität als Überlagerung zweier ±1-Gitter",
+    "moireAide": "Jedes Gitter ist ein Schachbrett: die Parität (−1)^(i + j) des Feldes (i, j). Ihr Produkt ist +1, wo beide übereinstimmen, und −1, wo sie sich unterscheiden: Es ist das XNOR der Bits, wie zwei gekreuzte Polarisatoren. Verschiebt oder dreht man eines der beiden ein wenig, entsteht ein Moiré.",
+    "moireAngle": "Drehung des zweiten Gitters (Grad)",
+    "moirePeriode": "Periode des zweiten Gitters (in % der ersten)",
+    "moireA": "Gitter A",
+    "moireB": "Gitter B",
+    "moireProduit": "Produkt A × B (XNOR)",
+    "moireAlt": "Produkt zweier ±1-Gitter",
+    "clesTitre": "Lesung in Schlüsseln",
+    "clesAide": "Nur Anzeige: die Schlüssel der Achsennotation (72 Schlüssel ohne Duplikate, Parität ab dem Eckfeld gezählt, Rang 70), deren Summe die Figur des gewählten Musters ergibt, wenn sie existiert. Die Seite behauptet keinerlei Verbindung zwischen einem Schlüssel und einer Frequenz.",
+    "clesNatures": {
+      "D+": "Diagonale x + y",
+      "D-": "Diagonale y − x",
+      "H": "waagerecht",
+      "V": "senkrecht"
+    },
+    "clesFigure": {
+      "figure": "Figur des Musters",
+      "V": "Klasse V (violett)",
+      "O": "Klasse O (orange)",
+      "M": "Klasse M (magenta)"
+    },
+    "clesActives": "{n} aktive Schlüssel: {liste}",
+    "clesAucune": "kein Schlüssel (leere Figur)",
+    "clesComplement": " (bis auf das Komplement)",
+    "clesHors": "Diese Figur ist keine Summe von Schlüsseln: Sie liegt außerhalb des von ihnen erzeugten Raums.",
+    "clesMotif": "Muster {i} von {n}, Sammlung {collection}.",
+    "clesOrdre12": "Die Lesung in Schlüsseln gilt nur für die Ordnung 12.",
+    "loiTitre": "Frequenzgesetz der Kreise",
+    "loiChoix": {
+      "racine": "Für das Ohr gestauchte Skala",
+      "plaque": "Gesetz der realen Platte"
+    },
+    "loiAide": "Gestauchte Skala: f = Bezugsfrequenz × √K / 2 (Ausgangseinstellung). Plattengesetz: f = c × K, wie bei einer realen Platte (Aluminium, 3 mm, 48 cm: c = 31,85 Hz). Bei Ordnung 12 von 32 bis 2 293 Hz; Kreise oberhalb von 0,9 × der Nyquist-Frequenz werden wie bisher ignoriert. Der Anschlagdetektor und die Farbtonverfolgung ändern sich nicht.",
+    "loiC": "c (Hz pro Einheit m² + n²)",
+    "figureTitre": "Figur (Ansichten Vorzeichen und Linien)",
+    "figureChoix": {
+      "motif": "Des gewählten Musters",
+      "son": "Des Klangs",
+      "ecart": "Beide (Differenz)"
+    },
+    "figureAide": "Des gewählten Musters: die Chladni-Figur des gewählten Musters (Ausgangseinstellung). Des Klangs: die Summe der Wellen jedes Kreises, gewichtet mit der Energie, die der Klang dort einbringt, ohne den Umweg über ein Muster. Beide: die Stellen, an denen sich diese beiden Figuren unterscheiden. Der Klang liefert keine Phasen: Sie werden auf null gesetzt.",
+    "sceneTitre": "Die Bühne",
+    "projection": "Ein Projektionsfenster öffnen",
+    "sceneAide": "Das Vollbild startet immer das bestätigte Fenster, nie den Versuch; die Bedienelemente und der Cursor verschwinden nach 3 Sekunden. Esc zum Zurückkehren. Das Projektionsfenster ist getrennt: Ziehen Sie es auf einen zweiten Bildschirm oder einen Projektor.",
+    "projectionBloquee": "Das Projektionsfenster wurde vom Browser blockiert. Erlauben Sie Pop-ups für diese Website und versuchen Sie es erneut.",
+    "veille": "Der Bildschirm bleibt während der Wiedergabe an, wenn der Browser es erlaubt.",
+    "enregTitre": "Aufnehmen",
+    "enreg": "15 s aufnehmen",
+    "enregEnCours": "Aufnahme: {s} s",
+    "format916": "9:16 (Reels, Shorts, TikTok)",
+    "format45": "4:5 (Beitrag)",
+    "format11": "1:1 (quadratisch)",
+    "formatVideo": "Videoformat",
+    "signature": "Banner „{texte}“ am unteren Rand des Videos",
+    "enregPret": "Video aufgenommen: Der Download hat begonnen.",
+    "enregWebm": "Ihr Browser schreibt kein MP4: Das Video liegt im WebM-Format vor. Um es in MP4 umzuwandeln (Instagram, TikTok), nutzen Sie einen Konverter oder ffmpeg: ffmpeg -i datei.webm datei.mp4.",
+    "enregAac": "AAC-Audio im MP4: läuft überall (iPhone, QuickTime, Veröffentlichungs-Apps).",
+    "enregOpusAvant": "Dieser Browser schreibt das Audio des MP4 als Opus: Es lässt sich auf iPhone, in QuickTime oder in manchen Veröffentlichungs-Apps eventuell nicht abspielen (aktuelles Desktop-Chrome: AAC).",
+    "enregOpus": "Opus-Audio: lässt sich auf iPhone, in QuickTime oder in manchen Veröffentlichungs-Apps eventuell nicht abspielen. Für eine AAC-Spur: ffmpeg -i datei.mp4 -c:v copy -c:a aac ausgabe.mp4.",
+    "enregIndispo": "Die Videoaufnahme ist in diesem Browser nicht verfügbar.",
+    "enregSansSource": "Starten Sie zuerst einen Klang: Stille wird nicht aufgenommen.",
+    "enregErreur": "Die Aufnahme startet nicht: {message}",
+    "raccourcisTitre": "Tastenkürzel",
+    "raccourcis": [
+      [
+        "1 – 3",
+        "Ansicht des Versuchs: Vorzeichen, Knotenlinien, Zellen"
+      ],
+      [
+        "Leertaste",
+        "Nächster Steuerungsmodus (Versuch)"
+      ],
+      [
+        "P",
+        "Bild anhalten"
+      ],
+      [
+        "V",
+        "Versuch bestätigen"
+      ],
+      [
+        "F",
+        "Vollbild (bestätigtes Fenster)"
+      ],
+      [
+        "R",
+        "15 s aufnehmen"
+      ]
+    ],
+    "infoMotif": "Muster {i} von {n}",
+    "infoImages": "{fps} Bilder/s",
+    "infoResolution": "reduzierte Auflösung",
+    "semaineTitre": "Die Woche",
+    "semaineMention": "Musik, komponiert mit KI von MC Claude.",
+    "semaineTiers": "Ein Klick auf ein Plakat lädt den Player von YouTube oder TikTok: einen Drittanbieterdienst, der dann Ihren Besuch erhält. Vorher wird nichts geladen.",
+    "jourTitre": "Tag {n} — {tonalite}",
+    "datePub": "Veröffentlicht am {date}",
+    "bientot": "Bald",
+    "lire": "Das Video von Tag {n} abspielen, {tonalite}",
+    "lireTiktok": "Hier abspielen (TikTok)",
+    "voirYoutube": "Auf YouTube ansehen",
+    "voirTiktok": "Auf TikTok ansehen",
+    "afficheAlt": "Plakat von Tag {n} — {tonalite}",
+    "lecteurTitre": "Video von Tag {n}",
+    "voirAussiTitre": "Siehe auch",
+    "voirAussi": [
+      {
+        "href": "/galerie-bicolore.html",
+        "titre": "Zweifarbige Galerie",
+        "texte": "Die von den Achsen erzeugten zweifarbigen Muster, auf dem Würfel geschlossen: Körnung, Parkettierung, Export. (Seite auf Französisch.)"
+      },
+      {
+        "href": "/galerie-patterns-unifies.html",
+        "titre": "Dreifarbige Galerie",
+        "texte": "Die vereinheitlichten Muster, durch Mischen von Tönen erzeugt: Wählen Sie ein Muster, um seine Parkettierung zu sehen. (Seite auf Französisch.)"
+      },
+      {
+        "href": "/fonds-ecran.html",
+        "titre": "Hintergrundbilder",
+        "texte": "Textile Vollbild-Hintergründe, klangreaktiv oder im meditativen Modus. (Seite auf Französisch.)"
+      },
+      {
+        "href": "/de/animations/",
+        "titre": "Animationsgalerie",
+        "texte": "Die Animationen der Hintergrundsammlungen, zum Ansehen und zum Herunterladen als MP4."
+      },
+      {
+        "href": "/chladni.html",
+        "titre": "Chladni",
+        "texte": "Figuren, Tonleitern und Frequenzen: die Seite, die das Vokabular der Muster mit den Moden einer Platte verbindet. (Seite auf Französisch.)"
+      },
+      {
+        "href": "/de/book/",
+        "titre": "Das Buch",
+        "texte": "La Livrée d'Hermès online, Seite für Seite, mit dem kostenlosen PDF."
+      }
+    ]
+  },
+  it: {
+    "titrePage": "Vedere la propria musica — La Livrée d'Hermès",
+    "description": "Vedere la propria musica: scegli un brano, un file o il microfono e guarda la figura di Chladni che il suono disegna, poi il motivo di La Livrée d'Hermès che più gli somiglia. Registra 15 secondi con il suono.",
+    "ariane": "Vedere la propria musica",
+    "h1": "Vedere la propria musica",
+    "intro": "Ogni musica ha una firma: il modo in cui la sua energia si ripartisce tra le frequenze. Scegli un brano, un file o il microfono: la pagina misura questa energia alle frequenze di ciascun cerchio di modi di una piastra quadrata, poi cerca, tra i motivi unificati di La Livrée d'Hermès, quello il cui spettro le somiglia di più. La scelta poggia sulla somiglianza di due spettri, non su una legge musicale: un motivo non «esprime» un brano.",
+    "discretion": "Nulla lascia il tuo browser: il file, il microfono e l'audio catturato sono analizzati sul posto e non vengono inviati da nessuna parte.",
+    "flash": "Attenzione: le immagini possono cambiare in fretta e lampeggiare. L'impostazione «riduci i cambiamenti rapidi» le rallenta.",
+    "sonTitre": "Il suono",
+    "sonChoix": "Suono",
+    "morceau": "Brano fornito {n} — {note}",
+    "notes": {
+      "j1": "do diesis",
+      "j2": "la",
+      "j3": "re",
+      "j4": "mi",
+      "j5": "sol",
+      "j6": "si",
+      "j7": "do"
+    },
+    "tonalites": {
+      "do dièse mineur": "do diesis minore",
+      "la mineur": "la minore",
+      "ré mineur": "re minore",
+      "mi mineur": "mi minore",
+      "sol mineur": "sol minore",
+      "si mineur": "si minore",
+      "do mineur": "do minore"
+    },
+    "sourceFichier": "Il mio file audio…",
+    "sourceMicro": "Microfono",
+    "sourceEssai": "Musica di prova",
+    "sourceOnglet": "Audio di una scheda",
+    "lecture": "Riproduci",
+    "pause": "Pausa",
+    "arreter": "Ferma",
+    "entree": "Ingresso audio",
+    "entreeDefaut": "Ingresso predefinito",
+    "entreeAide": "Mixer, scheda audio: collegala, consenti il microfono, poi sceglila qui.",
+    "sensibilite": "Soglia degli attacchi",
+    "sensibiliteAide": "In deviazioni standard sopra la media: più bassa, più sensibile ai cambi di nota.",
+    "intervalle": "Intervallo minimo tra due attacchi (s)",
+    "intervalleAide": "0,45 s per impostazione predefinita: al massimo circa 133 attacchi al minuto. Abbassalo per un tempo veloce.",
+    "mentionIA": "I brani forniti sono composti con l'aiuto dell'IA («Musica composta con l'IA da MC Claude.»).",
+    "etatDepart": "Premi Riproduci. I brani forniti sono composti con l'aiuto dell'IA.",
+    "etatMorceau": "Brano fornito, composto con l'aiuto dell'IA.",
+    "etatFichier": "File: {nom} (resta nel tuo browser).",
+    "etatMicro": "Microfono attivo.",
+    "etatEntree": "Ingresso «{nom}» attivo.",
+    "etatOnglet": "Audio di una scheda attivo.",
+    "etatEssai": "Musica di prova.",
+    "erreurMicroRefuse": "Il microfono è stato rifiutato. Consentilo nelle impostazioni del sito (il lucchetto, a sinistra dell'indirizzo), poi fai di nuovo clic su Riproduci. Puoi anche scegliere un file o un brano.",
+    "erreurMicroAbsent": "Nessun microfono è disponibile su questo dispositivo.",
+    "erreurMicro": "Il microfono non si avvia: {message}",
+    "erreurOnglet": "La cattura dell'audio di una scheda non è possibile qui. Richiede un browser desktop recente (Chrome, Edge); manca su dispositivi mobili e su Safari.",
+    "erreurOngletSansSon": "La scheda scelta non ha fornito audio. Ricomincia e spunta «Condividi l'audio della scheda».",
+    "erreurFichier": "Questo file non può essere letto come suono.",
+    "erreurAudio": "Il suono non può partire: {message}",
+    "erreurDonnees": "I dati della pagina non si caricano: {message}",
+    "bandeManque": "la banda {id} manca nella collezione di fondi",
+    "microCoupe": "La sorgente si è fermata (dispositivo scollegato o autorizzazione ritirata).",
+    "silence": "Silenzio: avvia un suono.",
+    "valide": "Convalidata",
+    "valideTag": "in corso",
+    "essai": "Prova",
+    "essaiTag": "anteprima",
+    "validerEssai": "Convalida la prova",
+    "annuler": "Annulla",
+    "pleinEcran": "Schermo intero",
+    "quitterPleinEcran": "Esci dallo schermo intero",
+    "fenetresAide": "Fondo scuro: convalidata. Cornice dorata: in prova. Passa il cursore su un'opzione per vederla nella prova, fai clic per tenerla, poi «Convalida la prova».",
+    "fenetreValide": "Finestra convalidata",
+    "fenetreEssai": "Finestra di prova",
+    "basculeValide": "Convalidata",
+    "basculeEssai": "Prova",
+    "pleinEcranIndispo": "Lo schermo intero non è disponibile in questo browser.",
+    "pleinEcranRepli": "Questo browser non offre lo schermo intero nativo per questo elemento: la scena copre la finestra. Esc o il pulsante la chiude.",
+    "groupes": {
+      "mode": "Controllo del suono",
+      "fmt": "Formato (ordine)",
+      "col": "Collezione",
+      "view": "Vista",
+      "fond": "Variante di casella",
+      "pal": "Colori"
+    },
+    "modes": {
+      "image": [
+        "Il suono definisce l'immagine",
+        "In ogni istante, il motivo il cui spettro somiglia di più a quello della musica."
+      ],
+      "rythme": [
+        "Il suono definisce il ritmo",
+        "Un passo nella catena di prossimità a ogni attacco di nota."
+      ],
+      "chemin": [
+        "Il suono guida il cammino",
+        "Il ritmo decide quando, lo spettro decide verso quale vicino."
+      ],
+      "octaves": [
+        "Il suono segue l'ottava",
+        "A ogni attacco, un passo sull'orbita della nota dominante: il cerchio K, poi la sua ottava 4K, poi 16K…, quando questi cerchi esistono."
+      ]
+    },
+    "vues": {
+      "signes": [
+        "Segni",
+        "Le zone positive della figura del motivo."
+      ],
+      "lignes": [
+        "Linee nodali",
+        "Le linee dove la figura del motivo si annulla."
+      ],
+      "pavage": [
+        "Celle",
+        "Il motivo stesso, in pavimentazione 2 × 2."
+      ]
+    },
+    "format": {
+      "titre": "Ordine {n}",
+      "detail": "Griglia di {g} × {g} caselle",
+      "bientot": "Ordine {n} (seconda consegna)"
+    },
+    "chargementOrdre": "Caricamento dell'ordine {n}…",
+    "ordreIndisponible": "I dati dell'ordine {n} non si caricano: {message}",
+    "collections": {
+      "tri": [
+        "Tricolore — motivi unificati",
+        "{n} motivi (griglie 12 × 12 distinte)"
+      ],
+      "bi": [
+        "Bicolore — motivi unificati",
+        "{n} motivi (due specchi, leggibili con la regola del 3 ottobre)"
+      ],
+      "ce": [
+        "Bicolore — simmetria centrale",
+        "{n} motivi (solo simmetria centrale a 180°, leggibili con la regola del 3 ottobre)"
+      ],
+      "b1971128": [
+        "Blocco 1971128",
+        "{n} motivi"
+      ],
+      "b16012838": [
+        "Blocco 16012838",
+        "{n} motivi"
+      ],
+      "b3016090": [
+        "Blocco 3016090",
+        "{n} motivi"
+      ],
+      "f613": [
+        "Famiglia 613",
+        "{n} motivi"
+      ],
+      "f18": [
+        "Famiglia 18",
+        "{n} motivi"
+      ],
+      "fpilote": [
+        "Famiglia pilota",
+        "{n} motivi"
+      ],
+      "p18": [
+        "Croce 1·2",
+        "{n} motivi"
+      ],
+      "p30": [
+        "Croce 1·2",
+        "{n} motivi"
+      ]
+    },
+    "fond": "Bande {id}",
+    "fondAide": "Una casella porta quattro triangoli; ciascuno è disegnato con lo stato 1 del fondo, oppure con lo stato 0: lo stesso fondo ruotato di 90°.",
+    "fondSeulementBicolore": "La variante di casella si applica solo alla collezione bicolore.",
+    "palettes": {
+      "creme": [
+        "Inchiostro e crema",
+        "I colori del sito."
+      ],
+      "monochrome": [
+        "Grigio e bianco",
+        "Il monocromo del sito."
+      ],
+      "perso": [
+        "I miei colori",
+        "Scegli il motivo e lo sfondo."
+      ],
+      "son": [
+        "La tinta segue il suono",
+        "La tinta scivola lentamente con la luminosità del suono (disattivata per impostazione predefinita)."
+      ]
+    },
+    "persoMotif": "Motivo",
+    "persoFond": "Sfondo",
+    "tricoloreAide": "In tricolore: V il più scuro (inchiostro), O grigio medio, M il più chiaro (crema).",
+    "legendeFenetre": "{mode} · {collection} · {vue}{fond} · {palette}",
+    "reglagesTitre": "Impostazioni al volo",
+    "lissage": "Livellamento",
+    "pulsationTitre": "Pulsazione",
+    "pulsations": {
+      "attaque": "A ogni attacco",
+      "temps": "A ogni battito",
+      "quatre": "Ogni 4 pulsazioni"
+    },
+    "pulsationAide": "Per impostazione predefinita, un cambio a ogni attacco. Quando viene rilevata una pulsazione regolare, puoi cambiare a ogni battito o ogni 4 pulsazioni.",
+    "pulsationDetectee": "Pulsazione rilevata: {bpm} al minuto.",
+    "pulsationAucune": "Nessuna pulsazione regolare rilevata per ora.",
+    "calme": "Riduci i cambiamenti rapidi",
+    "calmeAide": "Una dissolvenza più lunga e una tenuta maggiore. Attivato d'ufficio se il tuo sistema chiede meno animazioni.",
+    "pente": "Compensa la pendenza dei bassi",
+    "pauseImage": "Pausa dell'immagine",
+    "optionsTitre": "Opzioni",
+    "comprendreTitre": "Per capire",
+    "comprendreAide": "Due viste didattiche, senza legame con il suono.",
+    "paireTitre": "Il modo (4, 0) e la sua coppia degenere",
+    "paireAide": "Su una piastra quadrata, i modi (4, 0) e (0, 4) hanno la stessa frequenza: ogni combinazione è anch'essa un modo di quella frequenza. Il cursore passa da cos(4πx/a) + cos(4πy/a) (a destra) a cos(4πx/a) − cos(4πy/a) (a sinistra); al centro resta solo cos(4πx/a), linee verticali. Zone chiare e scure: segni opposti; tratto: linea nodale.",
+    "paireMelange": "Miscela s: cos(4πx/a) + s · cos(4πy/a)",
+    "paireAlt": "Figura del modo (4, 0) mescolato con la sua coppia degenere",
+    "moireTitre": "La parità come sovrapposizione di due reticoli di ±1",
+    "moireAide": "Ogni reticolo è una scacchiera: la parità (−1)^(i + j) della casella (i, j). Il loro prodotto vale +1 dove i due concordano e −1 dove differiscono: è lo XNOR dei bit, come due polarizzatori incrociati. Spostando o ruotando un poco uno dei due, compare un moiré.",
+    "moireAngle": "Rotazione del secondo reticolo (gradi)",
+    "moirePeriode": "Periodo del secondo reticolo (in % di quello del primo)",
+    "moireA": "Reticolo A",
+    "moireB": "Reticolo B",
+    "moireProduit": "Prodotto A × B (XNOR)",
+    "moireAlt": "Prodotto di due reticoli di ±1",
+    "clesTitre": "Lettura in chiavi",
+    "clesAide": "Solo visualizzazione: le chiavi della nota degli assi (72 chiavi senza duplicati, parità contata dalla casella d'angolo, rango 70) la cui somma restituisce la figura del motivo scelto, quando esiste. La pagina non afferma alcun legame tra una chiave e una frequenza.",
+    "clesNatures": {
+      "D+": "diagonale x + y",
+      "D-": "diagonale y − x",
+      "H": "orizzontale",
+      "V": "verticale"
+    },
+    "clesFigure": {
+      "figure": "Figura del motivo",
+      "V": "Classe V (viola)",
+      "O": "Classe O (arancione)",
+      "M": "Classe M (magenta)"
+    },
+    "clesActives": "{n} chiavi attive: {liste}",
+    "clesAucune": "nessuna chiave (figura vuota)",
+    "clesComplement": " (a meno del complemento)",
+    "clesHors": "Questa figura non è la somma di chiavi: esce dallo spazio che esse generano.",
+    "clesMotif": "Motivo {i} di {n}, collezione {collection}.",
+    "clesOrdre12": "La lettura in chiavi riguarda solo l'ordine 12.",
+    "loiTitre": "Legge di frequenza dei cerchi",
+    "loiChoix": {
+      "racine": "Scala compressa per l'orecchio",
+      "plaque": "Legge della piastra reale"
+    },
+    "loiAide": "Scala compressa: f = frequenza di riferimento × √K / 2 (impostazione iniziale). Legge della piastra: f = c × K, come una piastra reale (alluminio da 3 mm, 48 cm: c = 31,85 Hz). All'ordine 12, da 32 a 2 293 Hz; i cerchi oltre 0,9 × la frequenza di Nyquist sono ignorati, come prima. Il rilevatore di attacchi e il tracciamento della tinta non cambiano.",
+    "loiC": "c (Hz per unità di m² + n²)",
+    "figureTitre": "Figura (viste Segni e Linee)",
+    "figureChoix": {
+      "motif": "Del motivo scelto",
+      "son": "Del suono",
+      "ecart": "Entrambe (scarto)"
+    },
+    "figureAide": "Del motivo scelto: la figura di Chladni del motivo scelto (impostazione iniziale). Del suono: la somma delle onde di ciascun cerchio, ponderate dall'energia che il suono vi mette, senza passare da un motivo. Entrambe: i punti in cui queste due figure differiscono. Il suono non fornisce le fasi: sono poste a zero.",
+    "sceneTitre": "La scena",
+    "projection": "Apri una finestra di proiezione",
+    "sceneAide": "Lo schermo intero avvia sempre la finestra convalidata, mai la prova; i comandi e il cursore si nascondono dopo 3 secondi. Esc per tornare. La finestra di proiezione è separata: trascinala su un secondo schermo o un proiettore.",
+    "projectionBloquee": "La finestra di proiezione è stata bloccata dal browser. Consenti i popup per questo sito, poi riprova.",
+    "veille": "Lo schermo resta acceso durante la riproduzione quando il browser lo consente.",
+    "enregTitre": "Registra",
+    "enreg": "Registra 15 s",
+    "enregEnCours": "Registrazione: {s} s",
+    "format916": "9:16 (Reels, Shorts, TikTok)",
+    "format45": "4:5 (post)",
+    "format11": "1:1 (quadrato)",
+    "formatVideo": "Formato del video",
+    "signature": "Banda «{texte}» in fondo al video",
+    "enregPret": "Video registrato: il download è iniziato.",
+    "enregWebm": "Il tuo browser non scrive MP4: il video è in formato WebM. Per convertirlo in MP4 (Instagram, TikTok), passalo da un convertitore o da ffmpeg: ffmpeg -i file.webm file.mp4.",
+    "enregAac": "Audio AAC nell'MP4: si legge ovunque (iPhone, QuickTime, app di pubblicazione).",
+    "enregOpusAvant": "Questo browser scrive l'audio dell'MP4 in Opus: potrebbe non leggersi su iPhone, QuickTime o in alcune app di pubblicazione (Chrome desktop recente: AAC).",
+    "enregOpus": "Audio Opus: potrebbe non leggersi su iPhone, QuickTime o in alcune app di pubblicazione. Per una traccia AAC: ffmpeg -i file.mp4 -c:v copy -c:a aac uscita.mp4.",
+    "enregIndispo": "La registrazione video non è disponibile in questo browser.",
+    "enregSansSource": "Avvia prima un suono: il silenzio non si registra.",
+    "enregErreur": "La registrazione non parte: {message}",
+    "raccourcisTitre": "Scorciatoie da tastiera",
+    "raccourcis": [
+      [
+        "1 – 3",
+        "Vista della prova: segni, linee nodali, celle"
+      ],
+      [
+        "Spazio",
+        "Modalità di controllo successiva (prova)"
+      ],
+      [
+        "P",
+        "Pausa dell'immagine"
+      ],
+      [
+        "V",
+        "Convalida la prova"
+      ],
+      [
+        "F",
+        "Schermo intero (finestra convalidata)"
+      ],
+      [
+        "R",
+        "Registra 15 s"
+      ]
+    ],
+    "infoMotif": "Motivo {i} di {n}",
+    "infoImages": "{fps} immagini/s",
+    "infoResolution": "risoluzione ridotta",
+    "semaineTitre": "La settimana",
+    "semaineMention": "Musica composta con l'IA da MC Claude.",
+    "semaineTiers": "Un clic su un poster carica il lettore di YouTube o di TikTok: un servizio di terze parti, che riceve allora la tua visita. Prima non viene caricato nulla.",
+    "jourTitre": "Giorno {n} — {tonalite}",
+    "datePub": "Pubblicato il {date}",
+    "bientot": "Presto",
+    "lire": "Guarda il video del giorno {n}, {tonalite}",
+    "lireTiktok": "Guarda qui (TikTok)",
+    "voirYoutube": "Guarda su YouTube",
+    "voirTiktok": "Guarda su TikTok",
+    "afficheAlt": "Poster del giorno {n} — {tonalite}",
+    "lecteurTitre": "Video del giorno {n}",
+    "voirAussiTitre": "Vedi anche",
+    "voirAussi": [
+      {
+        "href": "/galerie-bicolore.html",
+        "titre": "Galleria bicolore",
+        "texte": "I motivi bicolori generati dagli assi, chiusi sul cubo: grana, pavimentazione, esportazione. (Pagina in francese.)"
+      },
+      {
+        "href": "/galerie-patterns-unifies.html",
+        "titre": "Galleria tricolore",
+        "texte": "I motivi unificati, generati dalla miscela di tinte: seleziona un motivo per vedere la sua pavimentazione. (Pagina in francese.)"
+      },
+      {
+        "href": "/fonds-ecran.html",
+        "titre": "Sfondi",
+        "texte": "Sfondi tessili a schermo intero, reattivi al suono o in modalità meditativa. (Pagina in francese.)"
+      },
+      {
+        "href": "/it/animations/",
+        "titre": "Galleria di animazioni",
+        "texte": "Le animazioni delle collezioni di fondi, da guardare e da scaricare in MP4."
+      },
+      {
+        "href": "/chladni.html",
+        "titre": "Chladni",
+        "texte": "Figure, scale e frequenze: la pagina che lega il vocabolario dei motivi ai modi di una piastra. (Pagina in francese.)"
+      },
+      {
+        "href": "/it/book/",
+        "titre": "Il libro",
+        "texte": "La Livrée d'Hermès online, pagina per pagina, con il PDF gratuito."
+      }
+    ]
+  },
+  ja: {
+    "titrePage": "自分の音楽を見る — La Livrée d'Hermès",
+    "description": "自分の音楽を見る：曲、ファイル、またはマイクを選ぶと、音が描くクラドニ図形と、それに最もよく似た La Livrée d'Hermès の紋様が見られます。音とともに15秒間を録画できます。",
+    "ariane": "自分の音楽を見る",
+    "h1": "自分の音楽を見る",
+    "intro": "どんな音楽にも署名があります。エネルギーが周波数ごとにどう分かれているか、ということです。曲、ファイル、またはマイクを選ぶと、このページは正方形の板の振動モードの各円の周波数でそのエネルギーを測り、La Livrée d'Hermès の統一紋様の中から、スペクトルが最もよく似たものを探します。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。",
+    "discretion": "何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。",
+    "flash": "注意：画像が素早く切り替わったり、点滅したりすることがあります。「急な変化を抑える」設定で、動きがゆるやかになります。",
+    "sonTitre": "音",
+    "sonChoix": "音",
+    "morceau": "付属の曲 {n} — {note}",
+    "notes": {
+      "j1": "嬰ハ",
+      "j2": "イ",
+      "j3": "ニ",
+      "j4": "ホ",
+      "j5": "ト",
+      "j6": "ロ",
+      "j7": "ハ"
+    },
+    "tonalites": {
+      "do dièse mineur": "嬰ハ短調",
+      "la mineur": "イ短調",
+      "ré mineur": "ニ短調",
+      "mi mineur": "ホ短調",
+      "sol mineur": "ト短調",
+      "si mineur": "ロ短調",
+      "do mineur": "ハ短調"
+    },
+    "sourceFichier": "自分のオーディオファイル…",
+    "sourceMicro": "マイク",
+    "sourceEssai": "テスト用の音楽",
+    "sourceOnglet": "タブの音声",
+    "lecture": "再生",
+    "pause": "一時停止",
+    "arreter": "停止",
+    "entree": "オーディオ入力",
+    "entreeDefaut": "既定の入力",
+    "entreeAide": "ミキサー、サウンドカード：接続し、マイクを許可してから、ここで選んでください。",
+    "sensibilite": "アタックのしきい値",
+    "sensibiliteAide": "平均を上回る標準偏差で表します。低いほど、音の変化に敏感になります。",
+    "intervalle": "2つのアタックの最小間隔（秒）",
+    "intervalleAide": "既定は 0.45 秒で、1分あたり最大およそ133回のアタックです。速いテンポでは下げてください。",
+    "mentionIA": "付属の曲は AI の助けを借りて作曲されています（「MC Claude が AI で作曲した音楽。」）。",
+    "etatDepart": "「再生」を押してください。付属の曲は AI の助けを借りて作曲されています。",
+    "etatMorceau": "付属の曲。AI の助けを借りて作曲されています。",
+    "etatFichier": "ファイル：{nom}（ブラウザの中にとどまります）。",
+    "etatMicro": "マイクがオンです。",
+    "etatEntree": "入力「{nom}」がオンです。",
+    "etatOnglet": "タブの音声がオンです。",
+    "etatEssai": "テスト用の音楽。",
+    "erreurMicroRefuse": "マイクが拒否されました。サイトの設定（アドレスの左の鍵のアイコン）で許可してから、もう一度「再生」を押してください。ファイルや付属の曲を選ぶこともできます。",
+    "erreurMicroAbsent": "この端末で使えるマイクがありません。",
+    "erreurMicro": "マイクが起動しません：{message}",
+    "erreurOnglet": "ここではタブの音声を取り込めません。最新のデスクトップ用ブラウザ（Chrome、Edge）が必要で、モバイルと Safari では使えません。",
+    "erreurOngletSansSon": "選んだタブから音が届きませんでした。もう一度やり直し、「タブの音声を共有」にチェックを入れてください。",
+    "erreurFichier": "このファイルは音として読み込めません。",
+    "erreurAudio": "音を開始できません：{message}",
+    "erreurDonnees": "ページのデータを読み込めません：{message}",
+    "bandeManque": "背景コレクションに帯 {id} がありません",
+    "microCoupe": "音源が停止しました（機器が外されたか、許可が取り消されました）。",
+    "silence": "無音：音を再生してください。",
+    "valide": "確定済み",
+    "valideTag": "現在",
+    "essai": "試用",
+    "essaiTag": "プレビュー",
+    "validerEssai": "試用を確定",
+    "annuler": "キャンセル",
+    "pleinEcran": "全画面",
+    "quitterPleinEcran": "全画面を終了",
+    "fenetresAide": "暗い背景：確定済み。金色の枠：試用中。選択肢にカーソルを合わせると試用で確認でき、クリックで保持し、その後「試用を確定」を押します。",
+    "fenetreValide": "確定済みのウィンドウ",
+    "fenetreEssai": "試用ウィンドウ",
+    "basculeValide": "確定済み",
+    "basculeEssai": "試用",
+    "pleinEcranIndispo": "このブラウザでは全画面を使えません。",
+    "pleinEcranRepli": "このブラウザは、この要素にネイティブの全画面を提供していません。ステージがウィンドウ全体を覆います。Esc キーまたはボタンで閉じます。",
+    "groupes": {
+      "mode": "音による制御",
+      "fmt": "形式（次数）",
+      "col": "コレクション",
+      "view": "表示",
+      "fond": "マスの変種",
+      "pal": "色"
+    },
+    "modes": {
+      "image": [
+        "音が像を決める",
+        "各瞬間に、スペクトルが音楽のスペクトルに最もよく似た紋様を表示します。"
+      ],
+      "rythme": [
+        "音がリズムを決める",
+        "音符のアタックごとに、近さの連鎖を1歩進みます。"
+      ],
+      "chemin": [
+        "音が道筋を導く",
+        "リズムが「いつ」を、スペクトルが「どの隣へ」を決めます。"
+      ],
+      "octaves": [
+        "音がオクターブをたどる",
+        "アタックごとに、主音の軌道を1歩進みます。円 K、次にそのオクターブ 4K、次に 16K…（これらの円が存在する場合）。"
+      ]
+    },
+    "vues": {
+      "signes": [
+        "符号",
+        "紋様の図形の正の領域。"
+      ],
+      "lignes": [
+        "節線",
+        "紋様の図形がゼロになる線。"
+      ],
+      "pavage": [
+        "セル",
+        "紋様そのもの。2 × 2 の敷き詰め。"
+      ]
+    },
+    "format": {
+      "titre": "{n} 次",
+      "detail": "{g} × {g} マスのグリッド",
+      "bientot": "{n} 次（第2回の納品）"
+    },
+    "chargementOrdre": "{n} 次を読み込んでいます…",
+    "ordreIndisponible": "{n} 次のデータを読み込めません：{message}",
+    "collections": {
+      "tri": [
+        "三色 — 統一紋様",
+        "{n} 個の紋様（互いに異なる 12 × 12 のグリッド）"
+      ],
+      "bi": [
+        "二色 — 統一紋様",
+        "{n} 個の紋様（2つの鏡。10月3日の規則で読めます）"
+      ],
+      "ce": [
+        "二色 — 中心対称",
+        "{n} 個の紋様（180° の中心対称のみ。10月3日の規則で読めます）"
+      ],
+      "b1971128": [
+        "ブロック 1971128",
+        "{n} 個の紋様"
+      ],
+      "b16012838": [
+        "ブロック 16012838",
+        "{n} 個の紋様"
+      ],
+      "b3016090": [
+        "ブロック 3016090",
+        "{n} 個の紋様"
+      ],
+      "f613": [
+        "族 613",
+        "{n} 個の紋様"
+      ],
+      "f18": [
+        "族 18",
+        "{n} 個の紋様"
+      ],
+      "fpilote": [
+        "先導の族",
+        "{n} 個の紋様"
+      ],
+      "p18": [
+        "十字 1·2",
+        "{n} 個の紋様"
+      ],
+      "p30": [
+        "十字 1·2",
+        "{n} 個の紋様"
+      ]
+    },
+    "fond": "帯 {id}",
+    "fondAide": "1つのマスには4つの三角形があり、それぞれ背景の状態1か、状態0（同じ背景を90°回転したもの）で描かれます。",
+    "fondSeulementBicolore": "マスの変種は二色のコレクションにのみ適用されます。",
+    "palettes": {
+      "creme": [
+        "墨とクリーム",
+        "サイトの色。"
+      ],
+      "monochrome": [
+        "グレーと白",
+        "サイトのモノクロ。"
+      ],
+      "perso": [
+        "自分の色",
+        "紋様と背景を選びます。"
+      ],
+      "son": [
+        "色合いが音に従う",
+        "色合いが音の明るさに合わせてゆっくり移ります（既定ではオフ）。"
+      ]
+    },
+    "persoMotif": "紋様",
+    "persoFond": "背景",
+    "tricoloreAide": "三色では、V が最も暗く（墨）、O が中間のグレー、M が最も明るい（クリーム）色です。",
+    "legendeFenetre": "{mode} · {collection} · {vue}{fond} · {palette}",
+    "reglagesTitre": "その場での設定",
+    "lissage": "平滑化",
+    "pulsationTitre": "拍動",
+    "pulsations": {
+      "attaque": "アタックごと",
+      "temps": "拍ごと",
+      "quatre": "4拍ごと"
+    },
+    "pulsationAide": "既定ではアタックごとに切り替わります。規則的な拍動が検出されると、拍ごと、または4拍ごとに切り替えられます。",
+    "pulsationDetectee": "拍動を検出：毎分 {bpm}。",
+    "pulsationAucune": "今のところ、規則的な拍動は検出されていません。",
+    "calme": "急な変化を抑える",
+    "calmeAide": "フェードが長くなり、保持も長くなります。システムがアニメーションの軽減を求めている場合は、最初からオンです。",
+    "pente": "低音の傾斜を補正する",
+    "pauseImage": "画像を一時停止",
+    "optionsTitre": "オプション",
+    "comprendreTitre": "理解のために",
+    "comprendreAide": "音とは関係のない、学習用の2つの表示。",
+    "paireTitre": "モード (4, 0) とその縮退した対",
+    "paireAide": "正方形の板では、モード (4, 0) と (0, 4) は同じ周波数を持ちます。その任意の組み合わせも、その周波数のモードです。スライダーは cos(4πx/a) + cos(4πy/a)（右）から cos(4πx/a) − cos(4πy/a)（左）まで動き、中央では cos(4πx/a) のみ、つまり縦線だけが残ります。明るい領域と暗い領域は符号が逆で、線は節線です。",
+    "paireMelange": "混合 s：cos(4πx/a) + s · cos(4πy/a)",
+    "paireAlt": "縮退した対と混ぜたモード (4, 0) の図形",
+    "moireTitre": "パリティを2つの ±1 格子の重ね合わせとして見る",
+    "moireAide": "各格子は市松模様で、マス (i, j) のパリティ (−1)^(i + j) です。2つの積は、一致するところで +1、異なるところで −1 になります。これはビットの XNOR で、直交した2枚の偏光板のようなものです。一方を少しずらしたり回したりすると、モアレが現れます。",
+    "moireAngle": "2つ目の格子の回転（度）",
+    "moirePeriode": "2つ目の格子の周期（1つ目に対する %）",
+    "moireA": "格子 A",
+    "moireB": "格子 B",
+    "moireProduit": "積 A × B（XNOR）",
+    "moireAlt": "2つの ±1 格子の積",
+    "clesTitre": "鍵による読み取り",
+    "clesAide": "表示のみ：軸の記法の鍵（重複を除いた72個の鍵、パリティは隅のマスから数え、階数70）のうち、その和が選んだ紋様の図形になるもの（存在する場合）。このページは、鍵と周波数の間にいかなる関係も主張しません。",
+    "clesNatures": {
+      "D+": "対角線 x + y",
+      "D-": "対角線 y − x",
+      "H": "水平",
+      "V": "垂直"
+    },
+    "clesFigure": {
+      "figure": "紋様の図形",
+      "V": "クラス V（紫）",
+      "O": "クラス O（オレンジ）",
+      "M": "クラス M（マゼンタ）"
+    },
+    "clesActives": "有効な鍵 {n} 個：{liste}",
+    "clesAucune": "鍵なし（空の図形）",
+    "clesComplement": "（補集合を除いて）",
+    "clesHors": "この図形は鍵の和ではありません。鍵が生成する空間の外にあります。",
+    "clesMotif": "紋様 {i} / {n}、コレクション {collection}。",
+    "clesOrdre12": "鍵による読み取りは12次にのみ適用されます。",
+    "loiTitre": "円の周波数の法則",
+    "loiChoix": {
+      "racine": "耳のために圧縮した目盛り",
+      "plaque": "実際の板の法則"
+    },
+    "loiAide": "圧縮した目盛り：f = 基準周波数 × √K / 2（初期設定）。板の法則：f = c × K。実際の板（厚さ3 mm、48 cm のアルミ：c = 31.85 Hz）と同じです。12次では 32 〜 2 293 Hz。ナイキスト周波数の 0.9 倍を超える円は、従来どおり無視されます。アタック検出器と色合いの追従は変わりません。",
+    "loiC": "c（m² + n² の単位あたりの Hz）",
+    "figureTitre": "図形（符号と線の表示）",
+    "figureChoix": {
+      "motif": "選んだ紋様の",
+      "son": "音の",
+      "ecart": "両方（差）"
+    },
+    "figureAide": "選んだ紋様の：選んだ紋様のクラドニ図形（初期設定）。音の：各円の波の和を、音がそこに込めるエネルギーで重み付けしたもの（紋様を経由しません）。両方：この2つの図形が異なる場所。音から位相は得られないため、位相はゼロに置かれます。",
+    "sceneTitre": "ステージ",
+    "projection": "投影ウィンドウを開く",
+    "sceneAide": "全画面は常に確定済みのウィンドウを起動し、試用は起動しません。操作部とカーソルは3秒後に隠れます。Esc で戻ります。投影ウィンドウは別ウィンドウで、2台目の画面やプロジェクターにドラッグできます。",
+    "projectionBloquee": "投影ウィンドウがブラウザにブロックされました。このサイトのポップアップを許可してから、もう一度お試しください。",
+    "veille": "ブラウザが許可すれば、再生中は画面が点灯したままになります。",
+    "enregTitre": "録画",
+    "enreg": "15秒録画",
+    "enregEnCours": "録画中：{s} 秒",
+    "format916": "9:16（Reels、Shorts、TikTok）",
+    "format45": "4:5（投稿）",
+    "format11": "1:1（正方形）",
+    "formatVideo": "動画の形式",
+    "signature": "動画の下部に「{texte}」の帯を入れる",
+    "enregPret": "動画を録画しました。ダウンロードが始まりました。",
+    "enregWebm": "お使いのブラウザは MP4 を書き出せません。動画は WebM 形式です。MP4 に変換する（Instagram、TikTok）には、変換ツールか ffmpeg を使ってください：ffmpeg -i ファイル.webm ファイル.mp4。",
+    "enregAac": "MP4 の AAC 音声：どこでも再生できます（iPhone、QuickTime、投稿アプリ）。",
+    "enregOpusAvant": "このブラウザは MP4 の音声を Opus で書き出します。iPhone、QuickTime、一部の投稿アプリでは再生できないことがあります（最新のデスクトップ版 Chrome：AAC）。",
+    "enregOpus": "Opus 音声：iPhone、QuickTime、一部の投稿アプリでは再生できないことがあります。AAC のトラックにするには：ffmpeg -i ファイル.mp4 -c:v copy -c:a aac 出力.mp4。",
+    "enregIndispo": "このブラウザでは動画の録画を使えません。",
+    "enregSansSource": "先に音を再生してください。無音は録画できません。",
+    "enregErreur": "録画を開始できません：{message}",
+    "raccourcisTitre": "キーボードショートカット",
+    "raccourcis": [
+      [
+        "1 – 3",
+        "試用の表示：符号、節線、セル"
+      ],
+      [
+        "スペース",
+        "次の制御モード（試用）"
+      ],
+      [
+        "P",
+        "画像を一時停止"
+      ],
+      [
+        "V",
+        "試用を確定"
+      ],
+      [
+        "F",
+        "全画面（確定済みのウィンドウ）"
+      ],
+      [
+        "R",
+        "15秒録画"
+      ]
+    ],
+    "infoMotif": "紋様 {i} / {n}",
+    "infoImages": "{fps} コマ/秒",
+    "infoResolution": "解像度を下げています",
+    "semaineTitre": "今週",
+    "semaineMention": "MC Claude が AI で作曲した音楽。",
+    "semaineTiers": "ポスターをクリックすると、YouTube または TikTok のプレーヤーが読み込まれます。これは第三者のサービスで、その時点であなたの訪問を受け取ります。それまでは何も読み込まれません。",
+    "jourTitre": "{n} 日目 — {tonalite}",
+    "datePub": "{date} 公開",
+    "bientot": "近日公開",
+    "lire": "{n} 日目の動画を再生、{tonalite}",
+    "lireTiktok": "ここで再生（TikTok）",
+    "voirYoutube": "YouTube で見る",
+    "voirTiktok": "TikTok で見る",
+    "afficheAlt": "{n} 日目のポスター — {tonalite}",
+    "lecteurTitre": "{n} 日目の動画",
+    "voirAussiTitre": "関連ページ",
+    "voirAussi": [
+      {
+        "href": "/galerie-bicolore.html",
+        "titre": "二色ギャラリー",
+        "texte": "軸から生まれ、立方体上で閉じる二色紋様：粒度、敷き詰め、書き出し。（フランス語のページ）"
+      },
+      {
+        "href": "/galerie-patterns-unifies.html",
+        "titre": "三色ギャラリー",
+        "texte": "色合いの混合から生まれた統一紋様。紋様を選ぶと、その敷き詰めを見られます。（フランス語のページ）"
+      },
+      {
+        "href": "/fonds-ecran.html",
+        "titre": "壁紙",
+        "texte": "フルスクリーンの織物壁紙。音に反応するモードと瞑想モードがあります。（フランス語のページ）"
+      },
+      {
+        "href": "/ja/animations/",
+        "titre": "アニメーションギャラリー",
+        "texte": "背景コレクションのアニメーション。視聴と MP4 でのダウンロードができます。"
+      },
+      {
+        "href": "/chladni.html",
+        "titre": "Chladni",
+        "texte": "図形、音階、周波数：紋様の語彙を板のモードに結びつけるページ。（フランス語のページ）"
+      },
+      {
+        "href": "/ja/book/",
+        "titre": "本",
+        "texte": "La Livrée d'Hermès をオンラインで1ページずつ読めます。PDF は無料です。"
+      }
+    ]
+  },
   // @langues:end
 };
 export const LANGUE_DEFAUT = 'fr';

@@ -31,7 +31,7 @@ const { traiter } = require('./build-header.js');
 const ecrire = (f, s, sorties) => { s = traiter(f, s); const abs = path.join(ROOT, f); const avant = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null; if (avant !== s) sorties.push(f); if (!verifie && avant !== s) { fs.mkdirSync(path.dirname(abs), { recursive: true }); fs.writeFileSync(abs, s); } };
 const modifiees = [];
 
-for (const l of ['en', 'es', 'th']) {
+for (const l of ['en', 'es', 'th', 'de', 'it', 'ja']) {
   const d = L[l], H = hreflang(l);
   // ---- Outils ----
   let s = lire('zh/tools/index.html'); const t = d.outils;

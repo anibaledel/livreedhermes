@@ -66,6 +66,10 @@ export const PAGES = [
   // aussi le thaï de la rangée des langues, qui n'a pas encore de repli
   // déclaré.
   ...['', 'book/', 'lexicon/', 'works/', 'tools/', 'support/'].map((p) => [`hi/${p}index.html`, /[\u0900-\u097F\u1CD0-\u1CF9\uA830-\uA839\uA8E0-\uA8FF]/u]),
+  // le japonais : kana et kanji des pages ja/ doivent sortir d'une police
+  // hébergée (Noto Sans JP LDH pour les kana, Noto Sans SC LDH ou JP pour les
+  // kanji), jamais d'une police du système. Restreint à ces écritures.
+  ...pagesAvec(/[\u3040-\u30FF]/u).filter((p) => p.startsWith('ja/')).map((p) => [p, /[\u3040-\u30FF\u3400-\u9FFF]/u]),
   // les pages qui écrivent les trigrammes ☰…☷ (repli Noto Sans Symbols 2 LDH,
   // 2026-10-08) : les 512 pages de motifs et les 256 pages d'hexagrammes en
   // entier, thaï compris ; les deux pages de tirage pour les seuls trigrammes

@@ -69,6 +69,75 @@
         "b": "เวลาสำหรับการวิจัย การพัฒนา และการแปล",
         "p": "การสร้างลวดลาย เครื่องมือของเว็บไซต์ และเอกสารประกอบเป็นสี่ภาษา"
       }
+    },
+    "de": {
+      "dossierOutils": "de/tools/",
+      "dossierSoutien": "de/support/",
+      "ogLocale": "de_DE",
+      "home": "Startseite",
+      "ariaFil": "Brotkrumennavigation",
+      "note": "(Seite auf Französisch)",
+      "outils": {
+        "titre": "Werkzeuge",
+        "desc": "Die interaktiven Werkzeuge von La Livrée d'Hermès — komponieren, visualisieren, drucken, verschlüsseln.",
+        "intro": "Die interaktiven Werkzeuge von La Livrée d'Hermès — komponieren, visualisieren, drucken, verschlüsseln. Seiten mit dem Zusatz „(Seite auf Französisch)“ sind noch nicht übersetzt."
+      },
+      "soutien": {
+        "titre": "Unterstützen",
+        "desc": "Unterstützen Sie La Livrée d'Hermès zu einem Preis Ihrer Wahl: Die Website und alle ihre Inhalte bleiben vollständig frei.",
+        "intro": "Alles ist frei. Die Abhandlung, die Muster und die von den Werkzeugen erzeugten Dateien lassen sich ohne Bedingung herunterladen, unter der Lizenz CC BY-NC 4.0. Ihre Unterstützung, zu einem Preis Ihrer Wahl, finanziert das, was folgt: neue Muster, neue Werkzeuge, den Textilbereich.",
+        "cta": "Zur französischen Seite zum Bezahlen",
+        "nota": "Die Zahlung wird von Stripe abgesichert. Frei wählbarer Betrag, freiwillige Spende. Die Zahlungsseite ist auf Französisch.",
+        "h2": "Was Ihre Unterstützung finanziert",
+        "b": "Zeit für Forschung, Entwicklung und Übersetzung",
+        "p": "Die Konstruktion der Muster, der Werkzeuge der Website und ihre Dokumentation in mehreren Sprachen."
+      }
+    },
+    "it": {
+      "dossierOutils": "it/tools/",
+      "dossierSoutien": "it/support/",
+      "ogLocale": "it_IT",
+      "home": "Pagina iniziale",
+      "ariaFil": "Percorso di navigazione",
+      "note": "(pagina in francese)",
+      "outils": {
+        "titre": "Strumenti",
+        "desc": "Gli strumenti interattivi di La Livrée d'Hermès — comporre, visualizzare, stampare, cifrare.",
+        "intro": "Gli strumenti interattivi di La Livrée d'Hermès — comporre, visualizzare, stampare, cifrare. Le pagine contrassegnate «(pagina in francese)» non sono ancora tradotte."
+      },
+      "soutien": {
+        "titre": "Sostieni",
+        "desc": "Sostieni La Livrée d'Hermès a un prezzo a tua scelta: il sito e tutti i suoi contenuti restano interamente liberi.",
+        "intro": "Tutto è libero. Il trattato, i motivi e i file prodotti dagli strumenti si scaricano senza condizioni, con licenza CC BY-NC 4.0. Il tuo sostegno, a prezzo libero, finanzia il seguito: nuovi motivi, nuovi strumenti, la parte tessile.",
+        "cta": "Vai alla pagina francese per pagare",
+        "nota": "Il pagamento è protetto da Stripe. Importo libero, donazione facoltativa. La pagina di pagamento è in francese.",
+        "h2": "Che cosa finanzia il tuo sostegno",
+        "b": "Il tempo di ricerca, sviluppo e traduzione",
+        "p": "La costruzione dei motivi, degli strumenti del sito e la loro documentazione in più lingue."
+      }
+    },
+    "ja": {
+      "dossierOutils": "ja/tools/",
+      "dossierSoutien": "ja/support/",
+      "ogLocale": "ja_JP",
+      "home": "トップ",
+      "ariaFil": "パンくずリスト",
+      "note": "（フランス語のページ）",
+      "outils": {
+        "titre": "ツール",
+        "desc": "La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。",
+        "intro": "La Livrée d'Hermès のインタラクティブなツール：作る、見る、印刷する、暗号化する。「（フランス語のページ）」と記したページは、まだ翻訳されていません。"
+      },
+      "soutien": {
+        "titre": "支援する",
+        "desc": "La Livrée d'Hermès を好きな金額で支援できます。サイトとそのすべての内容は引き続き完全に無料です。",
+        "intro": "すべて自由です。論考、紋様、ツールが生成するファイルは、条件なしでダウンロードでき、CC BY-NC 4.0 ライセンスです。好きな金額での支援は、これからのこと、つまり新しい紋様、新しいツール、織物の仕事の資金になります。",
+        "cta": "フランス語のページで支払う",
+        "nota": "支払いは Stripe で安全に処理されます。金額は自由で、寄付は任意です。支払いページはフランス語です。",
+        "h2": "支援の使い道",
+        "b": "研究・開発・翻訳の時間",
+        "p": "紋様、サイトのツール、そしてそれらの文書を複数の言語で整える作業。"
+      }
     }
   }
 }

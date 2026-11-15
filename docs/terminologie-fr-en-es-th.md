@@ -35,32 +35,32 @@ titre de la couverture et de la page 1 du PDF anglais v3 (décision d'Anibal,
 4 octobre 2026). Le contrôle échoue sur toute autre glose anglaise du titre,
 dans les pages anglaises comme dans la partie anglaise de `llms.txt`.
 
-| FR | EN (déjà en usage) | ES | TH | ZH | RU | PT | HI | Note |
-|---|---|---|---|---|---|---|---|---|
-| famille | family | familia | ตระกูล | 族 | семейство | família | परिवार | — |
-| mutant (adj.) | mutant | mutante | กลายพันธุ์ | 变 | мутантный | mutante | परिवर्ती | ex. « T1 YIN et son mutant » |
-| maille, grain (C8/C1) | grain | grano de lectura | เกรนการอ่าน | 读取粒度 | зерно чтения | grão de leitura | पठन-कण | pas dans les 42 clés de cette version, fixé pour `galerie-bicolore.html` |
-| accord (sous-ensemble XOR) | chord | acorde | คอร์ด | 和弦 | аккорд | acorde | कॉर्ड | emprunt musical, comme en anglais |
-| système de bandes | band system | sistema de bandas | ระบบแถบ | 条带系统 | система полос | sistema de bandas | पट्टी-प्रणाली | — |
-| écart (décalage d'une droite) | offset | desplazamiento | ระยะเยื้อง | 偏移 | смещение | desvio | विचलन | — |
-| parité | parity | paridad | พาริตี | 奇偶性 | чётность | paridade | समता | translittéré, usage établi en informatique thaïe |
-| niveau | level | nivel | ระดับ | 层级 | уровень | nível | स्तर | aussi utilisé pour « case » de grille au sens large |
-| figure (motif de parité) | figure | figura | รูป | 图形 | фигура | figura | आकृति | distinct de « motif » (ลวดลาย), déjà utilisé ailleurs sur le site pour un motif textile |
-| case (cellule de grille) | cell | casilla | ช่อง | 格 | клетка | casa | खाना | — |
-| fonction propre / mode propre | eigenfunction / eigenmode | función propia / modo propio | ฟังก์ชันไอเกน / โหมดไอเกน | 本征函数 / 本征模态 | собственная функция / собственная мода | função própria / modo próprio | आइगेन-फलन / आइगेन-मोड | « ไอเกน » translittéré, sans équivalent thaï établi |
-| plaque | plate | placa | แผ่นเพลต | 板 | пластина | placa | पट्टिका | — |
-| cavité (acoustique) | cavity | cavidad | โพรงเสียง | 腔 | полость | cavidade | गुहा | — |
-| porteuse | carrier | portadora | คลื่นพาหะ | 载波 | несущая | portadora | वाहक तरंग | — |
-| onde | wave | onda | คลื่น | 波 | волна | onda | तरंग | — |
-| coupe (niveau d'une onde) | cut | corte | ภาคตัด | 截面 | срез | corte | काट | — |
-| ligne nodale | nodal line | línea nodal | เส้นโหนด | 节线 | узловая линия | linha nodal | नोडीय रेखा | — |
-| ligne d'iso-amplitude | iso-amplitude line | línea de isoamplitud | เส้นแอมพลิจูดเท่ากัน | 等幅线 | линия равной амплитуды | linha de isoamplitude | सम-आयाम रेखा | — |
-| région de référence | reference region | región de referencia | บริเวณอ้างอิง | 参考区域 | опорная область | região de referência | संदर्भ क्षेत्र | — |
-| étoile (forme de superposition) | star | estrella | ดาว | 星形 | звезда | estrela | तारा | forme de superposition (`etoile` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
-| rond (forme de superposition) | disc | disco | วงกลมทึบ | 圆盘 | круг | disco | चकती | forme de superposition (`rond` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — une surface pleine : EN « disc », jamais « circle » (une ligne) |
-| carré (forme de superposition) | square | cuadrado | สี่เหลี่ยมจัตุรัส | 正方形 | квадрат | quadrado | वर्ग | forme de superposition (`carre` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
-| croix (forme de superposition) | cross | cruz | กางเขน | 十字 | крест | cruz | क्रॉस | forme de superposition (`croix` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — TH et HI comme dans « croix ansée » |
-| losange (forme de superposition) | lozenge | rombo | สี่เหลี่ยมขนมเปียกปูน | 菱形 | ромб | losango | समचतुर्भुज | forme de superposition (`losange` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — EN « lozenge », déjà en usage dans le sélecteur de fonds |
+| FR | EN (déjà en usage) | ES | TH | ZH | RU | PT | HI | DE | IT | JA | Note |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| famille | family | familia | ตระกูล | 族 | семейство | família | परिवार | Familie | famiglia | 族 | — |
+| mutant (adj.) | mutant | mutante | กลายพันธุ์ | 变 | мутантный | mutante | परिवर्ती | mutierend | mutante | 変 | ex. « T1 YIN et son mutant » |
+| maille, grain (C8/C1) | grain | grano de lectura | เกรนการอ่าน | 读取粒度 | зерно чтения | grão de leitura | पठन-कण | Lesekörnung | grana di lettura | 読み取り粒度 | pas dans les 42 clés de cette version, fixé pour `galerie-bicolore.html` |
+| accord (sous-ensemble XOR) | chord | acorde | คอร์ด | 和弦 | аккорд | acorde | कॉर्ड | Akkord | accordo | 和音 | emprunt musical, comme en anglais |
+| système de bandes | band system | sistema de bandas | ระบบแถบ | 条带系统 | система полос | sistema de bandas | पट्टी-प्रणाली | Bandsystem | sistema di bande | 帯の体系 | — |
+| écart (décalage d'une droite) | offset | desplazamiento | ระยะเยื้อง | 偏移 | смещение | desvio | विचलन | Versatz | scostamento | オフセット | — |
+| parité | parity | paridad | พาริตี | 奇偶性 | чётность | paridade | समता | Parität | parità | パリティ | translittéré, usage établi en informatique thaïe |
+| niveau | level | nivel | ระดับ | 层级 | уровень | nível | स्तर | Ebene | livello | 階層 | aussi utilisé pour « case » de grille au sens large |
+| figure (motif de parité) | figure | figura | รูป | 图形 | фигура | figura | आकृति | Figur | figura | 図形 | distinct de « motif » (ลวดลาย), déjà utilisé ailleurs sur le site pour un motif textile |
+| case (cellule de grille) | cell | casilla | ช่อง | 格 | клетка | casa | खाना | Feld | casella | マス | — |
+| fonction propre / mode propre | eigenfunction / eigenmode | función propia / modo propio | ฟังก์ชันไอเกน / โหมดไอเกน | 本征函数 / 本征模态 | собственная функция / собственная мода | função própria / modo próprio | आइगेन-फलन / आइगेन-मोड | Eigenfunktion / Eigenmode | autofunzione / modo proprio | 固有関数 / 固有モード | « ไอเกน » translittéré, sans équivalent thaï établi |
+| plaque | plate | placa | แผ่นเพลต | 板 | пластина | placa | पट्टिका | Platte | piastra | 板 | — |
+| cavité (acoustique) | cavity | cavidad | โพรงเสียง | 腔 | полость | cavidade | गुहा | Hohlraum | cavità | 空洞 | — |
+| porteuse | carrier | portadora | คลื่นพาหะ | 载波 | несущая | portadora | वाहक तरंग | Träger | portante | 搬送波 | — |
+| onde | wave | onda | คลื่น | 波 | волна | onda | तरंग | Welle | onda | 波 | — |
+| coupe (niveau d'une onde) | cut | corte | ภาคตัด | 截面 | срез | corte | काट | Schnitt | sezione | 断面 | — |
+| ligne nodale | nodal line | línea nodal | เส้นโหนด | 节线 | узловая линия | linha nodal | नोडीय रेखा | Knotenlinie | linea nodale | 節線 | — |
+| ligne d'iso-amplitude | iso-amplitude line | línea de isoamplitud | เส้นแอมพลิจูดเท่ากัน | 等幅线 | линия равной амплитуды | linha de isoamplitude | सम-आयाम रेखा | Linie gleicher Amplitude | linea di isoampiezza | 等振幅線 | — |
+| région de référence | reference region | región de referencia | บริเวณอ้างอิง | 参考区域 | опорная область | região de referência | संदर्भ क्षेत्र | Referenzbereich | regione di riferimento | 基準領域 | — |
+| étoile (forme de superposition) | star | estrella | ดาว | 星形 | звезда | estrela | तारा | Stern | stella | 星形 | forme de superposition (`etoile` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
+| rond (forme de superposition) | disc | disco | วงกลมทึบ | 圆盘 | круг | disco | चकती | Scheibe | disco | 円板 | forme de superposition (`rond` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — une surface pleine : EN « disc », jamais « circle » (une ligne) |
+| carré (forme de superposition) | square | cuadrado | สี่เหลี่ยมจัตุรัส | 正方形 | квадрат | quadrado | वर्ग | Quadrat | quadrato | 正方形 | forme de superposition (`carre` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
+| croix (forme de superposition) | cross | cruz | กางเขน | 十字 | крест | cruz | क्रॉस | Kreuz | croce | 十字 | forme de superposition (`croix` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — TH et HI comme dans « croix ansée » |
+| losange (forme de superposition) | lozenge | rombo | สี่เหลี่ยมขนมเปียกปูน | 菱形 | ромб | losango | समचतुर्भुज | Raute | rombo | 菱形 | forme de superposition (`losange` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — EN « lozenge », déjà en usage dans le sélecteur de fonds |
 
 ## Termes du système
 
@@ -68,28 +68,28 @@ Les termes du traité lui-même. EN, ES et TH reprennent l'usage **mesuré**
 sur les pages du site (le terme majoritaire là où deux coexistaient — voir
 les variantes refusées plus bas) ; ZH et RU sont fixés ici, avant les pages.
 
-| FR | EN | ES | TH | ZH | RU | PT | HI | Note |
-|---|---|---|---|---|---|---|---|---|
-| carré magique | magic square | cuadrado mágico | จัตุรัสกล | 幻方 | магический квадрат | quadrado mágico | जादुई वर्ग | ZH : jamais 魔方 (le cube de Rubik) |
-| carré solaire | solar square | cuadrado solar | จัตุรัสสุริยะ | 太阳方阵 | солнечный квадрат | quadrado solar | सौर वर्ग | — |
-| croix ansée | ansate cross | cruz ansada | กางเขนหูหิ้ว | 安卡十字 | крест с петлёй | cruz ansada | अंख क्रॉस | RU descriptif, comme ES et TH ; ZH sur 安卡 (ankh) — à relire |
-| demi-décalage | half-shift | semidesplazamiento | การเลื่อนครึ่งคาบ | 半周期平移 | полусдвиг | meio-deslocamento | अर्ध-विस्थापन | translation de six cases, la moitié de la période |
-| livrée | livery | librea | — | 号衣 | ливрея | libré | पोशाक | le nom commun ; le TITRE ne se traduit pas. Aucune page thaïe ne l'emploie. |
-| yang | yang | yang | หยาง | 阳 | ян | yang | यांग | trait plein ; les noms de familles (YANG, YANG mutant) restent en latin |
-| yin | yin | yin | ยิน | 阴 | инь | yin | यिन | trait brisé ; idem |
-| hexagramme | hexagram | hexagrama | ฉักลักษณ์ | 卦 | гексаграмма | hexagrama | हेक्साग्राम | ZH : jamais 六芒星 (l'étoile à six branches) |
-| trigramme | trigram | trigrama | ตรีลักษณ์ | 三爻卦 | триграмма | trigrama | त्रिग्राम | — |
-| arithmogéométrie | arithmogeometry | aritmogeometría | เลขาคณิตศาสตร์ | 数形学 | арифмогеометрия | aritmogeometria | अंकज्यामिति | ZH : pas 算术几何, qui est la géométrie arithmétique |
-| calque (des 360) | layer | capa | แผ่นลาย | 图层 | слой | camada | परत | — |
-| motif (12 × 12) | pattern | motivo | ลวดลาย | 图案 | узор | padrão | पैटर्न | — |
-| motif unifié | unified pattern | motivo unificado | ลวดลายรวมเป็นหนึ่ง | 统一图案 | унифицированный узор | padrão unificado | एकीकृत पैटर्न | — |
-| planche (du livre) | plate | lámina | แผ่นภาพ | 图版 | таблица | prancha | चित्रफलक | RU : sens éditorial (planche illustrée) |
-| métier Jacquard | Jacquard loom | telar Jacquard | เครื่องทอฌักการ์ | 提花织机 | жаккардовый станок | tear Jacquard | जैक्वार्ड करघा | TH non mesuré : les pages disent « ลายทอแบบฌักการ์ » (le tissage) |
-| gnomon | gnomon | gnomon | โนมอน | 磬折形 | гномон | gnómon | ग्नोमोन | TH absent des pages, translittéré |
-| Yi King | Yi King | Yi King | อี้จิง | 易经 | И цзин | I Ching | ई चिंग | — |
-| Carter (l'encodeur) | Carter | Carter | คาร์เตอร์ | Carter | Carter | Carter | Carter | nom propre : ZH et RU gardent le latin |
-| dépôt (Zenodo) | deposit | depósito | — | 存档 | публикация | depósito | जमा | une entrée de data/travaux.json ; ES et TH : aucune page ne l'emploie encore |
-| licence | licence | licencia | สัญญาอนุญาต | 许可 | лицензия | licença | लाइसेंस | la licence d'une page ou d'un dépôt ; ses noms (CC BY-NC 4.0, CC BY 4.0, AGPL v3) ne se traduisent pas |
+| FR | EN | ES | TH | ZH | RU | PT | HI | DE | IT | JA | Note |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| carré magique | magic square | cuadrado mágico | จัตุรัสกล | 幻方 | магический квадрат | quadrado mágico | जादुई वर्ग | magisches Quadrat | quadrato magico | 魔方陣 | ZH : jamais 魔方 (le cube de Rubik) |
+| carré solaire | solar square | cuadrado solar | จัตุรัสสุริยะ | 太阳方阵 | солнечный квадрат | quadrado solar | सौर वर्ग | Sonnenquadrat | quadrato solare | 太陽方陣 | — |
+| croix ansée | ansate cross | cruz ansada | กางเขนหูหิ้ว | 安卡十字 | крест с петлёй | cruz ansada | अंख क्रॉस | Henkelkreuz | croce ansata | 取っ手付き十字 | RU descriptif, comme ES et TH ; ZH sur 安卡 (ankh) — à relire |
+| demi-décalage | half-shift | semidesplazamiento | การเลื่อนครึ่งคาบ | 半周期平移 | полусдвиг | meio-deslocamento | अर्ध-विस्थापन | Halbverschiebung | semi-spostamento | 半周期ずらし | translation de six cases, la moitié de la période |
+| livrée | livery | librea | — | 号衣 | ливрея | libré | पोशाक | Livree | livrea | 制服 | le nom commun ; le TITRE ne se traduit pas. Aucune page thaïe ne l'emploie. |
+| yang | yang | yang | หยาง | 阳 | ян | yang | यांग | Yang | yang | 陽 | trait plein ; les noms de familles (YANG, YANG mutant) restent en latin |
+| yin | yin | yin | ยิน | 阴 | инь | yin | यिन | Yin | yin | 陰 | trait brisé ; idem |
+| hexagramme | hexagram | hexagrama | ฉักลักษณ์ | 卦 | гексаграмма | hexagrama | हेक्साग्राम | Hexagramm | esagramma | 卦 | ZH : jamais 六芒星 (l'étoile à six branches) |
+| trigramme | trigram | trigrama | ตรีลักษณ์ | 三爻卦 | триграмма | trigrama | त्रिग्राम | Trigramm | trigramma | 八卦 | — |
+| arithmogéométrie | arithmogeometry | aritmogeometría | เลขาคณิตศาสตร์ | 数形学 | арифмогеометрия | aritmogeometria | अंकज्यामिति | Arithmogeometrie | aritmogeometria | 算術幾何学 | ZH : pas 算术几何, qui est la géométrie arithmétique |
+| calque (des 360) | layer | capa | แผ่นลาย | 图层 | слой | camada | परत | Schicht | strato | 層 | — |
+| motif (12 × 12) | pattern | motivo | ลวดลาย | 图案 | узор | padrão | पैटर्न | Muster | motivo | 紋様 | — |
+| motif unifié | unified pattern | motivo unificado | ลวดลายรวมเป็นหนึ่ง | 统一图案 | унифицированный узор | padrão unificado | एकीकृत पैटर्न | vereinheitlichtes Muster | motivo unificato | 統一紋様 | — |
+| planche (du livre) | plate | lámina | แผ่นภาพ | 图版 | таблица | prancha | चित्रफलक | Tafel | tavola | 図版 | RU : sens éditorial (planche illustrée) |
+| métier Jacquard | Jacquard loom | telar Jacquard | เครื่องทอฌักการ์ | 提花织机 | жаккардовый станок | tear Jacquard | जैक्वार्ड करघा | Jacquard-Webstuhl | telaio Jacquard | ジャカード織機 | TH non mesuré : les pages disent « ลายทอแบบฌักการ์ » (le tissage) |
+| gnomon | gnomon | gnomon | โนมอน | 磬折形 | гномон | gnómon | ग्नोमोन | Gnomon | gnomone | グノモン | TH absent des pages, translittéré |
+| Yi King | Yi King | Yi King | อี้จิง | 易经 | И цзин | I Ching | ई चिंग | Yijing | Yi Jing | 易経 | — |
+| Carter (l'encodeur) | Carter | Carter | คาร์เตอร์ | Carter | Carter | Carter | Carter | Carter | Carter | Carter | nom propre : ZH et RU gardent le latin |
+| dépôt (Zenodo) | deposit | depósito | — | 存档 | публикация | depósito | जमा | Hinterlegung | deposito | 寄託 | une entrée de data/travaux.json ; ES et TH : aucune page ne l'emploie encore |
+| licence | licence | licencia | สัญญาอนุญาต | 许可 | лицензия | licença | लाइसेंस | Lizenz | licenza | ライセンス | la licence d'une page ou d'un dépôt ; ses noms (CC BY-NC 4.0, CC BY 4.0, AGPL v3) ne se traduisent pas |
 
 ## Variantes refusées
 

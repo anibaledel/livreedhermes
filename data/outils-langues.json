@@ -797,6 +797,54 @@
               "source": "fil d'Ariane des pages d'outils de la langue"
             }
           ]
+        },
+        "de": {
+          "dossier": "de/see-your-music/",
+          "ogLocale": "de_DE",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Brotkrumennavigation\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/de/\">Startseite</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        },
+        "it": {
+          "dossier": "it/see-your-music/",
+          "ogLocale": "it_IT",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Percorso di navigazione\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/it/\">Pagina iniziale</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
+        },
+        "ja": {
+          "dossier": "ja/see-your-music/",
+          "ogLocale": "ja_JP",
+          "remplacements": [
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"パンくずリスト\">",
+              "source": "fil d'Ariane des pages d'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/ja/\">トップ</a>",
+              "source": "fil d'Ariane des pages d'outils de la langue"
+            }
+          ]
         }
       }
     }

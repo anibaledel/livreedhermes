@@ -8,7 +8,7 @@
 // Elle vit dans ces trois pages seulement (ce n'est PAS un élément de la navigation engendrée par nav-tiles.js) :
 // chaque page porte <nav class="trois-portes" data-page="chladni|musique|fonds"></nav> sous son titre, et ce module la remplit.
 // La langue est celle de <html lang> et suit ses changements (chladni.html la change sans recharger). Une langue sans texte, ou un texte
-// manquant, retombe sur le français. Les huit langues sont rédigées (fr, en ; es, th, zh, ru, pt, hi par IA : docs/i18n/i18n_todo_trois-portes.md). Les adresses sont absolues
+// manquant, retombe sur le français. Les huit langues sont rédigées (fr, en ; es, th, zh, ru, pt, hi, de, it, ja par IA : docs/i18n/i18n_todo_trois-portes.md). Les adresses sont absolues
 // depuis la racine du site ; une langue sans page traduite renvoie vers la page française.
 const PORTES = ['chladni', 'musique', 'fonds'];
 const ADRESSES = {
@@ -20,6 +20,9 @@ const ADRESSES = {
   ru: { musique: '/ru/see-your-music/' },
   pt: { musique: '/pt/see-your-music/' },
   hi: { musique: '/hi/see-your-music/' },
+  de: { musique: '/de/see-your-music/' },
+  it: { musique: '/it/see-your-music/' },
+  ja: { musique: '/ja/see-your-music/' },
 };
 export const TEXTES = {
   fr: { titre: 'Les trois pages sonores', chladni: ['Cymatique', 'Le son crée la forme'], musique: ['Voir sa musique', 'Le son guide'], fonds: ['Fond d\'écran', 'Le son s\'efface'] },
@@ -29,6 +32,9 @@ export const TEXTES = {
   zh: { titre: '三个声音页面', chladni: ['音流学', '声音创造形状'], musique: ['看见你的音乐', '声音引路'], fonds: ['壁纸', '声音隐去'] },
   ru: { titre: 'Три страницы о звуке', chladni: ['Киматика', 'Звук создаёт форму'], musique: ['Увидеть свою музыку', 'Звук ведёт'], fonds: ['Обои', 'Звук растворяется'] },
   pt: { titre: 'As três páginas sonoras', chladni: ['Cimática', 'O som cria a forma'], musique: ['Ver a sua música', 'O som guia'], fonds: ['Fundos de ecrã', 'O som apaga-se'] },
+  de: { titre: 'Die drei Klangseiten', chladni: ['Kymatik', 'Der Klang schafft die Form'], musique: ['Die eigene Musik sehen', 'Der Klang lenkt'], fonds: ['Hintergrundbild', 'Der Klang tritt zurück'] },
+  it: { titre: 'Le tre pagine sonore', chladni: ['Cimatica', 'Il suono crea la forma'], musique: ['Vedere la propria musica', 'Il suono guida'], fonds: ['Sfondo', 'Il suono si dissolve'] },
+  ja: { titre: '音の3つのページ', chladni: ['キマティクス', '音が形をつくる'], musique: ['自分の音楽を見る', '音が導く'], fonds: ['壁紙', '音が退く'] },
   hi: { titre: 'ध्वनि के तीन पृष्ठ', chladni: ['साइमैटिक्स', 'ध्वनि रूप रचती है'], musique: ['अपने संगीत को देखें', 'ध्वनि राह दिखाती है'], fonds: ['वॉलपेपर', 'ध्वनि लुप्त हो जाती है'] },
 };
 export const texte = (cle, langue) => (TEXTES[langue] && TEXTES[langue][cle]) || TEXTES.fr[cle];

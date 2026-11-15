@@ -16,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), FICHIER = path.join(ROOT, 'assets/musique-chladni-textes.js'), verifie = process.argv.includes('--verifie');
-const LANGUES = ['en', 'es', 'th', 'zh', 'ru', 'pt', 'hi'], NOMS = { en: 'English', es: 'Español', th: 'ไทย', zh: '简体中文', ru: 'Русский', pt: 'Português (Portugal)', hi: 'हिन्दी' };
+const LANGUES = ['en', 'es', 'th', 'zh', 'ru', 'pt', 'hi', 'de', 'it', 'ja'], NOMS = { en: 'English', es: 'Español', th: 'ไทย', zh: '简体中文', ru: 'Русский', pt: 'Português (Portugal)', hi: 'हिन्दी', de: 'Deutsch', it: 'Italiano', ja: '日本語' };
 const source = readFileSync(FICHIER, 'utf8'), AVANT = '  // @langues:start', APRES = '  // @langues:end';
 // le français : lu dans le fichier lui-même, sans la zone des langues
 const sansZone = source.includes(AVANT) ? source.slice(0, source.indexOf(AVANT)) + source.slice(source.indexOf(APRES) + APRES.length) : source;
@@ -64,7 +64,7 @@ const md = (l) => {
 };
 const ENTETE = (titre, note) => `# ${titre}\n\nGénéré par \`node scripts/build-musique-textes.mjs\` depuis \`data/musique-chladni/traductions/<langue>.json\` ; **ne pas éditer ici** : corriger la traduction dans le fichier JSON de la langue, puis relancer le script. ${note}\n\nPage concernée : « Voir sa musique » (\`musique-chladni.html\` et ses versions traduites). Traduction faite par IA, à relire par un lecteur natif (voir \`TODO-RELECTURE.md\`). Les {noms} entre accolades se remplacent à l'affichage et restent tels quels ; les noms propres (Chladni, La Livrée d'Hermès, MC Claude) ne se traduisent pas ; la dernière section (« Voir aussi ») donne aussi l'adresse de chaque carte.\n\n`;
 const fichiers = new Map();
-for (const l of ['th', 'zh', 'ru', 'pt', 'hi']) fichiers.set(`docs/relecture-langues/${l}.md`, ENTETE(`Relecture — « Voir sa musique » en ${NOMS[l]}`, 'À relire par un locuteur natif.') + md(l));
+for (const l of ['th', 'zh', 'ru', 'pt', 'hi', 'de', 'it', 'ja']) fichiers.set(`docs/relecture-langues/${l}.md`, ENTETE(`Relecture — « Voir sa musique » en ${NOMS[l]}`, 'À relire par un locuteur natif.') + md(l));
 fichiers.set('docs/relecture-langues/en-es.md', ENTETE('Relecture — « Voir sa musique » en anglais et en espagnol', 'Relues par Anibal lui-même.') + md('en') + '\n' + md('es'));
 
 // la page traduite : ce que le HTML porte avant le script (métadonnées, titre, introduction), écrit pour scripts/build-outils-langues.js

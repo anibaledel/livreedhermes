@@ -24,6 +24,37 @@ directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relanc
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## Japonais, allemand, italien (ja, de, it — ajoutés le 2026-11-15, prompt 192)
+
+Traductions faites par l'IA, **aucune relecture native**. Les trois langues sont
+déclarées avec quatorze pages (accueil, livre, lexique, travaux, outils,
+soutien, animations, voir sa musique…) ; l'édition PDF est « en préparation »
+tant que le fichier n'est pas déposé. **À relire en premier : le japonais.**
+
+### Japonais (ja) — d'abord
+- le titre du livre « ヘルメスの制服 » (glose de « La Livrée d'Hermès », dont le
+  titre d'origine reste en bordure des PDF) : « 制服 » (uniforme) pour livrée, à confirmer ;
+- le registre (です・ます) et les termes du système (colonne JA de
+  `docs/terminologie-fr-en-es-th.md`) : demi-décalage, gnomon, carton Jacquard ;
+- la phrase des licences ; les textes de `data/musique-chladni/traductions/ja.json`
+  et de `assets/trois-portes.js` ;
+- la police : Noto Sans JP LDH pour les kana et les kanji absents de Noto Sans SC
+  (`python3 tools/police_ja.py`) — à relancer après toute correction.
+
+### Allemand (de) et italien (it)
+- « Die Livree des Hermes » et « La Livrea di Ermes » (glose du titre) ;
+- les termes du glossaire (colonnes DE et IT) ; la phrase des licences ;
+- `data/musique-chladni/traductions/{de,it}.json`, `assets/trois-portes.js`.
+
+- `data/travaux.json` : les **descriptions des dépôts** n'existent pas encore en
+  de, it, ja (la page les omet plutôt que d'en inventer, comme pour ru/pt/hi) ;
+  seuls les titres de section et les renvois sont traduits ;
+- les pages `de|it|ja/works/` : l'introduction (« Chaque dépôt est daté… ») ;
+
+Où corriger : `data/lexiques_traduits.json`, `data/travaux.json`,
+`scripts/build-couverture.js`, `scripts/langues.js`, `includes/footer-{de,it,ja}.html`,
+puis `node scripts/build-lexiques.js && node scripts/build-travaux.js && node scripts/build-langues.js`.
+
 ## Portugais (pt-PT, ajouté le 2026-10-04)
 
 Portugais du Portugal (choix d'Anibal) : « ecrã », « descarregar »,
