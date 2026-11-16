@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
+const HEXDESC = require('./hexagram-description.js');
 
 // L'en-tête et les icônes viennent des fragments de includes/, exactement
 // comme pour les 98 autres pages : voir scripts/build-header.js et
@@ -189,7 +190,8 @@ for(let chrono = 0; chrono < 64; chrono++){
   const sameUpper = allInfo.filter(h => h.chrono !== chrono && h.upperVal === allInfo[chrono].upperVal);
   const sameLower = allInfo.filter(h => h.chrono !== chrono && h.lowerVal === allInfo[chrono].lowerVal);
   const title = `Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${pinyin}, ${nameFr}`;
-  const description = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum}) : jugement, trigrammes et carré magique de La Livrée d'Hermès.`;
+  const baseDesc = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum})`;
+  const description = HEXDESC.description(jugementText, [`${baseDesc} : jugement, image, trigrammes, carré magique.`, `${baseDesc} : jugement, image, carré magique.`, `${baseDesc} : jugement, carré magique.`]);
 
   const linesHtml = traits.map((bit, i) => {
     const pos = i + 1;
@@ -236,6 +238,19 @@ for(let chrono = 0; chrono < 64; chrono++){
     "name": "Anibal Edelberto Amiot",
     "url": "https://anibal-amiot.com/a-propos.html"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "${url}#page",
+  "url": "${url}",
+  "name": ${JSON.stringify(title)},
+  "description": ${JSON.stringify(description)},
+  "inLanguage": "fr",
+  "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/"
 }
 </script>
 <script type="application/ld+json">
@@ -476,11 +491,11 @@ fs.writeFileSync(path.join(__dirname, 'hexagram-pages-manifest.json'), JSON.stri
 // chaque page hexagramme, et point d'entrée pour parcourir les 64 figures.
 // ============================================================
 const listingUrl = 'https://anibal-amiot.com/hexagrammes/';
-const listingTitle = 'Hexagrammes — La Livrée d\'Hermès';
-const listingDescription = 'Les 64 hexagrammes du Yi-King dans l\'ordre chronologique du site : jugement, trigrammes et carré magique associés à chacun.';
+const listingTitle = 'Les 64 hexagrammes du Yi King : noms et numéros | La Livrée d\'Hermès';
+const listingDescription = 'Les 64 hexagrammes du Yi King avec leur nom, leur numéro (chronologique et King Wen) et leurs trigrammes ; pour chacun, jugement, image et carré magique.';
 
 const gridItems = allInfo.map(info =>
-  `        <a class="hex-grid-item" href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`
+  `        <tr><th scope="row">${info.chrono}</th><td>${info.kwNum}</td><td><a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a></td><td>${DATA.TRIGRAMS[info.lowerVal].symbol} ${escapeHtml(DATA.TRIGRAMS[info.lowerVal].name)}</td><td>${DATA.TRIGRAMS[info.upperVal].symbol} ${escapeHtml(DATA.TRIGRAMS[info.upperVal].name)}</td></tr>`
 ).join('\n');
 
 const listingHtml = `<!DOCTYPE html>
@@ -545,6 +560,15 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
     padding:12px 14px; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .hex-grid-item:hover{ border-color:var(--gold); color:var(--gold); }
+  .hex-intro{ max-width:68ch; margin:0 auto 22px; }
+  .hex-intro h2{ font-size:calc(17px + var(--fs-bump)); font-weight:400; margin:0 0 8px; }
+  .hex-intro p{ color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); margin:0; }
+  .hex-intro a, .hex-table a{ color:var(--gold); text-underline-offset:3px; }
+  .hex-table-wrap{ overflow-x:auto; margin:0 0 24px; }
+  .hex-table{ border-collapse:collapse; width:100%; font-size:calc(13px + var(--fs-bump)); }
+  .hex-table caption{ position:absolute; left:-9999px; }
+  .hex-table th, .hex-table td{ border:1px solid var(--line); padding:7px 10px; text-align:left; font-weight:300; }
+  .hex-table thead th{ color:var(--dim); font-weight:400; }
 
   .note{
     margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
@@ -639,8 +663,19 @@ ${EN_TETE}
   </div>
   </div>
 
-  <div class="hex-grid">
+  <section class="hex-intro">
+    <h2>Qu'est-ce qu'un hexagramme ?</h2>
+    <p>Un hexagramme du Yi King est une figure de six traits, pleins (yang) ou brisés (yin) : il y en a 64, chacun formé de deux trigrammes superposés. Cette page les liste dans l'ordre chronologique du site (poids binaires, de 0 à 63), avec le numéro traditionnel King Wen. Ouvrez un hexagramme pour lire son jugement, son image, ses six traits et le carré magique associé. Pour en tirer un au hasard, essayez le <a href="https://anibal-amiot.com/tirage-livree-hermes.html">tirage du Yi King gratuit</a>.</p>
+  </section>
+
+  <div class="hex-table-wrap">
+    <table class="hex-table">
+      <caption>Les 64 hexagrammes : numéro, nom et trigrammes</caption>
+      <thead><tr><th scope="col">N° (site)</th><th scope="col">King Wen</th><th scope="col">Hexagramme</th><th scope="col">Trigramme inférieur</th><th scope="col">Trigramme supérieur</th></tr></thead>
+      <tbody>
 ${gridItems}
+      </tbody>
+    </table>
   </div>
 
 </main>

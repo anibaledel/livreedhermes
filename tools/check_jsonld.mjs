@@ -19,7 +19,7 @@ const SANS = new Set(['404.html', 'recherche.html', 'soutien-succes.html']);
 // gabarit -> types qu'il doit porter (au moins un de chaque ligne)
 const ATTENDUS = [
   [/^(fr\/)?motifs\/(?!index\.html)/, ['CreativeWork']],
-  [/^(hexagrammes|en\/hexagrams|es\/hexagramas|th\/hexagrams)\/(?!index\.html)/, ['DefinedTerm']],
+  [/^(hexagrammes|en\/hexagrams|es\/hexagramas|th\/hexagrams)\/(?!index\.html)/, ['DefinedTerm', 'WebPage', 'BreadcrumbList']],
   [/^articles\/[^/]+\.html$/, ['Article']],
   [/^travaux\/[^/]+\/index\.html$/, ['CollectionPage']],
   [/^(lexique\.html|en\/lexicon\/index\.html)$/, ['DefinedTermSet']],

@@ -27,6 +27,7 @@
            puis node scripts/build-header.js (hreflang, rangée de langues).
    ============================================================ */
 const fs = require('fs');
+const HEXDESC = require('./hexagram-description.js');
 const path = require('path');
 const crypto = require('crypto');
 const DATA = require('./extract-hexagram-data.js');
@@ -96,7 +97,7 @@ const L = {
     hexagrams: 'Hexagrams', breadcrumb: 'Breadcrumb',
     hexName: (c, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${n}`,
     title: (c, p, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, trigrams and the magic square of La Livrée d'Hermès.`,
+    description: (c, p, n, kw) => [`Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, trigrams, magic square.`, `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, magic square.`, `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, magic square.`],
     sub: (c, kw, hz) => `Binary index <b>${c}</b> (0 to 63; the site's "chronological no.", binary-weight order) · traditional King Wen no. <b>${kw}</b> · ${hz}`,
     by: (date) => `By <a href="${SITE}/${adresseDans('a-propos.html', 'en')}">Anibal Edelberto Amiot</a> — Updated ${date}`,
     alt: (c, n, kw) => `Magic square / tiling associated with hexagram ${c} (King Wen no. ${kw}, ${n})`,
@@ -112,10 +113,14 @@ const L = {
     neighbours: 'Neighbouring hexagrams', sharing: 'Hexagrams sharing a trigram',
     sameUpper: (s, n) => `Same upper trigram (${s} ${n}): `, sameLower: (s, n) => `Same lower trigram (${s} ${n}): `,
     back: '← All 64 hexagrams',
-    indexTitle: "Hexagrams — La Livrée d'Hermès",
-    indexDescription: "The 64 hexagrams of the Yi Jing in the site's chronological order: judgement, image, trigrams and the magic square associated with each.",
+    indexTitle: "The 64 Yi Jing hexagrams: names, numbers and trigrams | La Livrée d'Hermès",
+    indexDescription: "The 64 Yi Jing hexagrams with name, number (chronological and King Wen) and trigrams; for each, the judgement, image and magic square.",
     indexH1: 'The 64 hexagrams',
     indexSub: 'Each hexagram of the Yi Jing, in the chronological (binary-weight) order used on this site, with its judgement, image, trigrams and associated magic square.',
+    indexH2: "What is a hexagram?",
+    indexIntro: "A Yi Jing hexagram is a figure of six lines, solid (yang) or broken (yin): there are 64, each made of two stacked trigrams. This page lists them in the site's chronological order (binary weights, 0 to 63) with the traditional King Wen number. Open one to read its judgement, image, six lines and associated magic square. To draw one at random, try the <a href=\"{TIRAGE}\">free Yi King draw</a>.",
+    indexCaption: "The 64 hexagrams: number, name and trigrams",
+    indexCols: ["No. (site)", "King Wen", "Hexagram", "Lower trigram", "Upper trigram"],
     revue: null,
   },
   es: {
@@ -125,7 +130,7 @@ const L = {
     hexagrams: 'Hexagramas', breadcrumb: 'Ruta de navegación',
     hexName: (c, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${n}`,
     title: (c, p, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen, trigramas y el cuadrado mágico de La Livrée d'Hermès.`,
+    description: (c, p, n, kw) => [`Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen, trigramas y cuadrado mágico.`, `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen y cuadrado mágico.`, `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio y cuadrado mágico.`],
     sub: (c, kw, hz) => `Índice binario <b>${c}</b> (0 a 63; «n.º cronológico» del sitio, orden por pesos binarios) · n.º tradicional King Wen <b>${kw}</b> · ${hz}`,
     by: (date) => `Por <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Actualizado el ${date}`,
     alt: (c, n, kw) => `Cuadrado mágico / teselado asociado al hexagrama ${c} (n.º King Wen ${kw}, ${n})`,
@@ -141,10 +146,14 @@ const L = {
     neighbours: 'Hexagramas vecinos', sharing: 'Hexagramas que comparten un trigrama',
     sameUpper: (s, n) => `Mismo trigrama superior (${s} ${n}): `, sameLower: (s, n) => `Mismo trigrama inferior (${s} ${n}): `,
     back: '← Los 64 hexagramas',
-    indexTitle: "Hexagramas — La Livrée d'Hermès",
-    indexDescription: 'Los 64 hexagramas del Yi King en el orden cronológico del sitio: juicio, imagen, trigramas y el cuadrado mágico asociado a cada uno.',
+    indexTitle: "Los 64 hexagramas del Yi King: nombres y números | La Livrée d'Hermès",
+    indexDescription: "Los 64 hexagramas del Yi King con su nombre, su número (cronológico y King Wen) y sus trigramas; de cada uno, juicio, imagen y cuadrado mágico.",
     indexH1: 'Los 64 hexagramas',
     indexSub: 'Cada hexagrama del Yi King, en el orden cronológico (por pesos binarios) que usa este sitio, con su juicio, su imagen, sus trigramas y el cuadrado mágico asociado.',
+    indexH2: "¿Qué es un hexagrama?",
+    indexIntro: "Un hexagrama del Yi King es una figura de seis líneas, continuas (yang) o partidas (yin): son 64, cada una formada por dos trigramas superpuestos. Esta página los lista en el orden cronológico del sitio (pesos binarios, de 0 a 63), con el número tradicional King Wen. Abre uno para leer su juicio, su imagen, sus seis líneas y el cuadrado mágico asociado. Para sacar uno al azar, prueba la <a href=\"{TIRAGE}\">tirada del I Ching gratis</a>.",
+    indexCaption: "Los 64 hexagramas: número, nombre y trigramas",
+    indexCols: ["N.º (sitio)", "King Wen", "Hexagrama", "Trigrama inferior", "Trigrama superior"],
     // Même mention que chladni.html (UI.es.i18nReviewNote).
     revue: 'Traducción en revisión — si detectas un error, indícalo.',
   },
@@ -155,7 +164,7 @@ const L = {
     hexagrams: 'ฉักลักษณ์', breadcrumb: 'เส้นทางนำทาง',
     hexName: (c, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${n}`,
     title: (c, p, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลของ La Livrée d'Hermès`,
+    description: (c, p, n, kw) => [`ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ จัตุรัสกล`, `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ จัตุรัสกล`, `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน จัตุรัสกล`],
     sub: (c, kw, hz) => `ดัชนีฐานสอง <b>${c}</b> (0 ถึง 63 ; ลำดับตามเวลาของเว็บไซต์ เรียงตามน้ำหนักฐานสอง) · ลำดับ King Wen (ดั้งเดิม) <b>${kw}</b> · ${hz}`,
     by: (date) => `โดย <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — ปรับปรุงเมื่อ ${date}`,
     alt: (c, n, kw) => `จัตุรัสกล / การปูลายที่สัมพันธ์กับฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}, ${n})`,
@@ -171,10 +180,14 @@ const L = {
     neighbours: 'ฉักลักษณ์ข้างเคียง', sharing: 'ฉักลักษณ์ที่มีตรีลักษณ์ร่วมกัน',
     sameUpper: (s, n) => `ตรีลักษณ์บนเดียวกัน (${s} ${n}): `, sameLower: (s, n) => `ตรีลักษณ์ล่างเดียวกัน (${s} ${n}): `,
     back: '← ฉักลักษณ์ทั้ง 64',
-    indexTitle: "ฉักลักษณ์ — La Livrée d'Hermès",
-    indexDescription: 'ฉักลักษณ์ทั้ง 64 ของอี้จิง เรียงตามลำดับเวลาของเว็บไซต์: คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์',
+    indexTitle: "ฉักลักษณ์ทั้ง 64 ของอี้จิง: ชื่อ เลข และตรีลักษณ์ | La Livrée d'Hermès",
+    indexDescription: "ฉักลักษณ์ทั้ง 64 ของอี้จิง พร้อมชื่อ เลขลำดับ (ตามเว็บไซต์และ King Wen) และตรีลักษณ์ แต่ละรูปมีคำตัดสิน ภาพลักษณ์ และจัตุรัสกล",
     indexH1: 'ฉักลักษณ์ทั้ง 64',
     indexSub: 'ฉักลักษณ์แต่ละตัวของอี้จิง เรียงตามลำดับเวลา (ตามน้ำหนักฐานสอง) ที่ใช้ในเว็บไซต์นี้ พร้อมคำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กัน',
+    indexH2: "ฉักลักษณ์ คืออะไร",
+    indexIntro: "ฉักลักษณ์ของอี้จิงคือรูปหกเส้น เป็นเส้นเต็ม (หยาง) หรือเส้นขาด (หยิน) มีทั้งหมด 64 รูป แต่ละรูปประกอบด้วยตรีลักษณ์สองชั้นซ้อนกัน หน้านี้เรียงตามลำดับเวลาของเว็บไซต์ (น้ำหนักฐานสอง 0 ถึง 63) พร้อมเลขลำดับ King Wen แบบดั้งเดิม เปิดแต่ละรูปเพื่ออ่านคำตัดสิน ภาพลักษณ์ หกเส้น และจัตุรัสกลที่เกี่ยวข้อง หากต้องการสุ่มสักรูป ลอง<a href=\"{TIRAGE}\">ทอยอี้จิงฟรี</a>",
+    indexCaption: "ฉักลักษณ์ทั้ง 64: เลข ชื่อ และตรีลักษณ์",
+    indexCols: ["เลข (เว็บไซต์)", "King Wen", "ฉักลักษณ์", "ตรีลักษณ์ล่าง", "ตรีลักษณ์บน"],
     // Même mention que chladni.html (UI.th.i18nReviewNote).
     revue: 'การแปลอยู่ระหว่างการตรวจทาน — หากพบข้อผิดพลาด กรุณาแจ้งให้ทราบ',
   },
@@ -244,7 +257,7 @@ ${cartes}
     const sameUpper = info.filter((x) => x.chrono !== chrono && x.upperVal === h.upperVal);
     const sameLower = info.filter((x) => x.chrono !== chrono && x.lowerVal === h.lowerVal);
     const title = l.title(chrono, pinyin, name, kw);
-    const description = l.description(chrono, pinyin, name, kw);
+    const description = HEXDESC.description(judgement, l.description(chrono, pinyin, name, kw));
 
     const lines = traits.map((bit, i) => `      <div class="hexline">
         <div class="hexline-body"><b>${l.pos[i]}</b><p>${escapeHtml(tx.line(i + 1, bit))}</p></div>
@@ -291,6 +304,19 @@ ${cartes}
     "name": "Anibal Edelberto Amiot",
     "url": "${SITE}/a-propos.html"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "${url}#page",
+  "url": "${url}",
+  "name": ${JSON.stringify(title)},
+  "description": ${JSON.stringify(description)},
+  "inLanguage": "${lang}",
+  "isPartOf": { "@id": "${SITE}/#website" },
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/"
 }
 </script>
 <script type="application/ld+json">
@@ -415,7 +441,9 @@ ${scriptAnnee}<script src="${PREFIXE}assets/share-widget.js"></script>
 
   // ---------- index ----------
   const url = A.url(null, lang);
-  const items = info.map((i) => `    <a class="hex-grid-item" href="${A.url(i.chrono, lang)}">${i.chrono} — ${escapeHtml(i.pinyin)}, ${escapeHtml(i.name)}</a>`).join('\n');
+  const tirage = `${SITE}/${adresseDans('tirage-livree-hermes.html', lang)}`;
+  const tg = (v) => { const t = tx.trigram(v); return `${t.symbol} ${escapeHtml(t.name)}`; };
+  const items = info.map((i) => `        <tr><th scope="row">${i.chrono}</th><td>${i.kw}</td><td><a href="${A.url(i.chrono, lang)}">${escapeHtml(i.pinyin)}, ${escapeHtml(i.name)}</a></td><td>${tg(i.lowerVal)}</td><td>${tg(i.upperVal)}</td></tr>`).join('\n');
   const outPath = path.join(ROOT, A.fichier(null, lang));
   const ancien = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : null;
   const html = `<!DOCTYPE html>
@@ -485,8 +513,19 @@ ${EN_TETE}
   </div>
   </div>
 
-  <div class="hex-grid">
+  <section class="hex-intro">
+    <h2>${l.indexH2}</h2>
+    <p>${l.indexIntro.replace('{TIRAGE}', tirage)}</p>
+  </section>
+
+  <div class="hex-table-wrap">
+    <table class="hex-table">
+      <caption>${l.indexCaption}</caption>
+      <thead><tr>${l.indexCols.map((c) => `<th scope="col">${c}</th>`).join('')}</tr></thead>
+      <tbody>
 ${items}
+      </tbody>
+    </table>
   </div>
 
 </main>
