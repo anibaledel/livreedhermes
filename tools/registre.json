@@ -2078,6 +2078,23 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/police_libelles.py",
+   "role": "les sous-polices des libellés de langue : pour chaque écriture non latine (zh, ja, hi, th, ru), une police réduite aux seuls caractères du texte ÉTRANGER d'une page — la rangée des langues (« 日本語 », « हिन्दी »…), les cartes des éditions …",
+   "lit": [
+    "assets/fonts/libelles",
+    "assets/fonts/noto-sans-devanagari/noto-sans-devanagari-devanagari-300-normal.woff2",
+    "assets/fonts/noto-sans-jp/noto-sans-jp-ldh.woff2",
+    "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2",
+    "assets/fonts/noto-sans-thai/noto-sans-thai-ldh-300-normal.woff2",
+    "assets/fonts/roboto-condensed/roboto-condensed-cyrillic-300-normal.woff2"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/police_symboles.py",
    "role": "les replis hébergés des signes que Barlow Semi Condensed ne porte pas : le grec, les indices et exposants, les signes mathématiques, les huit trigrammes ☰…☷.",
    "lit": [

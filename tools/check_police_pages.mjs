@@ -158,6 +158,62 @@ for (const entree of pages.length ? pages : PAGES) {
     console.log(`OK    ${rel} : ${car.size} caractères, tous dans la pile déclarée (${pile.join(', ')})`);
   }
 }
+// ---- les libellés de langue (prompt 195) -------------------------------------
+// Sur une page qui n'est pas écrite en X, tout caractère de l'écriture X doit se
+// trouver dans un élément lang="X" (assets/fonts.css le sert alors depuis la
+// sous-police « Libelles X », jamais depuis la police complète — sinon un seul
+// libellé « 简体中文 » fait charger 114 Ko) et avoir son glyphe dans cette sous-police.
+if (!pages.length) {
+  const ECR = {
+    zh: /[⺀-⿟　-〿㐀-䶿一-鿿豈-﫿＀-￯]/u,
+    ja: /[぀-ヿ㐀-䶿一-鿿]/u,
+    hi: /[ऀ-ॿ᳐-᳹꠰-꠹꣠-ꣿ]/u,
+    th: /[฀-๿]/u, ru: /[Ѐ-ӿ]/u,
+  };
+  const CLE = { zh: 'zh', 'zh-hans': 'zh', ja: 'ja', hi: 'hi', th: 'th', ru: 'ru' };
+  const cmaps = Object.fromEntries(Object.keys(ECR).map((k) => [k, cmapWoff2(fs.readFileSync(path.join(RACINE, `assets/fonts/libelles/libelles-${k}.woff2`)))]));
+  const VIDES = new Set(['br', 'img', 'meta', 'link', 'input', 'hr', 'source', 'path', 'rect', 'circle', 'use', 'base', 'wbr']);
+  const IGN = new Set(['.git', 'node_modules', 'pagefind', 'docs', 'tools', 'scripts', 'data', 'includes', 'secubox', 'disk', 'worker', 'stegano', 'vectors', 'book-viewer', 'js', 'pins']);
+  const html = [];
+  (function marche(d) {
+    for (const e of fs.readdirSync(path.join(RACINE, d), { withFileTypes: true })) {
+      if (e.name.startsWith('.') || IGN.has(e.name)) continue;
+      const rel = d ? `${d}/${e.name}` : e.name;
+      if (e.isDirectory()) marche(rel); else if (e.name.endsWith('.html')) html.push(rel);
+    }
+  })('');
+  let nPages = 0; let fautes = 0;
+  for (const rel of html) {
+    const t = fs.readFileSync(path.join(RACINE, rel), 'utf8');
+    if (/noindex/.test(t) && /http-equiv="refresh"/.test(t)) continue;
+    const pl = CLE[(/<html[^>]*\blang="([\w-]+)"/i.exec(t) || [, 'fr'])[1].toLowerCase()] || 'x';
+    const corps = t.slice(Math.max(0, t.indexOf('<body'))).replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ').replace(/<!--[\s\S]*?-->/g, ' ');
+    const pile = []; const mauvais = new Map();
+    for (const m of corps.matchAll(/<(\/?)([a-zA-Z][\w-]*)([^>]*)>|([^<]+)/g)) {
+      if (m[4] !== undefined) {
+        const lang = [...pile].reverse().find((x) => x.l)?.l;
+        const cible = lang && CLE[lang];
+        const dansRangee = pile.some((x) => x.rangee);
+        for (const c of m[4]) {
+          const natives = pl === 'zh' || pl === 'ja' ? ['zh', 'ja'] : [pl]; // page CJK : kanji et hanzi partagés, police complète déjà due
+          const ecritures = Object.keys(ECR).filter((k) => !natives.includes(k) && ECR[k].test(c));
+          if (!ecritures.length) continue;
+          if (cible && ecritures.includes(cible)) {
+            if (!cmaps[cible].has(c.codePointAt(0))) mauvais.set(c, `absent de Libelles ${cible.toUpperCase()}`);
+          } else if (dansRangee) mauvais.set(c, `dans la rangée des langues hors d'un élément lang="${ecritures[0]}"`);
+          // hors de la rangée et sans lang : du contenu (noms chinois des hexagrammes…), servi par la police complète
+        }
+      } else if (!VIDES.has(m[2].toLowerCase())) {
+        if (m[1]) { for (let i = pile.length - 1; i >= 0; i--) if (pile[i].t === m[2].toLowerCase()) { pile.length = i; break; } }
+        else if (!/\/\s*$/.test(m[3])) pile.push({ t: m[2].toLowerCase(), l: ((/\blang="([\w-]+)"/i.exec(m[3]) || [])[1] || '').toLowerCase(), rangee: /class="[^"]*\bother-langs\b/.test(m[3]) });
+      }
+    }
+    if (mauvais.size) { fautes++; console.error(`ÉCHEC ${rel} : libellé étranger hors sous-police — ${[...mauvais].slice(0, 6).map(([c, w]) => `« ${c} » ${w}`).join(' ; ')}`); }
+    nPages++;
+  }
+  console.log(`${fautes ? 'ÉCHEC' : 'OK   '} libellés : ${nPages} pages, l'écriture d'une autre langue passe par lang="X" et sa sous-police (assets/fonts/libelles/).`);
+  if (fautes) echecs += fautes;
+}
 if (echecs) {
   console.error(`\n${echecs} page(s) : un caractère tomberait sur une police du système. Déclarer un repli hébergé qui le porte (assets/fonts.css), voir tools/police_iast.py.`);
   process.exit(1);

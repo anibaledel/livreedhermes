@@ -131,3 +131,11 @@ les textes des travaux, le pied de page, la colonne du glossaire. Une langue san
 textes ne peut pas exister sur le site ; une langue qui les a ne demande rien d'autre.
 Les traductions faites par Claude sont à relire par un lecteur natif :
 `TODO-RELECTURE.md`.
+
+## Polices : les libellés de la rangée de langues
+
+Une langue d'écriture non latine ajoute ses libellés (nom, « Autres langues : », cartes d'édition) aux
+pages des autres langues. Ils sortent de sous-polices réduites (`assets/fonts/libelles/`, 2 à 14 Ko),
+pas de la police complète : relancer `python3 tools/police_libelles.py` après tout changement de
+libellé, puis `node tools/check_police_pages.mjs` (il échoue si un libellé étranger n'est pas dans un
+élément `lang="X"` ou n'a pas son glyphe).

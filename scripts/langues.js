@@ -405,7 +405,7 @@ const RANGEE_PAR_FICHIER = new Map(
       libelle: LANGUES[lang].autres,
       liens: g.pages
         .filter(([autre]) => autre !== lang)
-        .map(([autre, href]) => ({ href, nom: LANGUES[autre].nom })),
+        .map(([autre, href]) => ({ href, nom: LANGUES[autre].nom, lang: hreflangDeCode(autre) })),
     },
   ])));
 

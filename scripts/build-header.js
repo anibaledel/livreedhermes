@@ -86,7 +86,7 @@ const htmlHreflang = (bloc) => bloc
 // personne ne parlait aux lecteurs.
 // Pas d'espace après une ponctuation pleine chasse (« 其他语言： »).
 const htmlRangee = (r) => `<p class="other-langs">${r.libelle}${/[：:]$/.test(r.libelle) && /[\u3000-\u303F\uFF00-\uFFEF]$/.test(r.libelle) ? '' : ' '}`
-  + r.liens.map((l) => `<a href="${l.href}">${l.nom}</a>`).join(' · ')
+  + r.liens.map((l) => `<a href="${l.href}" lang="${l.lang}">${l.nom}</a>`).join(' · ')
   + '</p>';
 
 const FIN_ENTETE = '<!-- @header:end -->';
