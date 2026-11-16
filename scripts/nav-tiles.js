@@ -224,7 +224,7 @@ function parenteDe(rel) {
   if (/^travaux\//.test(rel)) return 'travaux';
   // les carrés magiques d'ordre pair et d'ordre 6 (2026-10-09) : ce que les dépôts établissent, exposé sans le code
   // la notion, en une page : elle s'ouvre depuis le lexique
-  if (/^(arithmogeometrie\.html|en\/arithmogeometry\/)/.test(rel)) return 'lexique';
+  if (/^(arithmogeometrie\.html|en\/arithmogeometry\/|es\/que-es-la-aritmogeometria\/)/.test(rel)) return 'lexique';
   if (/^(carres-magiques-ordre-pair\.html|carre-magique-ordre-6\.html|en\/even-order-magic-square-construction\/|en\/order-6-magic-square\/)/.test(rel)) return 'travaux';
   return null;
 }

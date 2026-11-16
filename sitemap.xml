@@ -3544,6 +3544,7 @@
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/031.webp</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/arithmogeometrie.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/arithmogeometry/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/que-es-la-aritmogeometria/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/arithmogeometry/"/>
   </url>
   <url>
@@ -3555,6 +3556,19 @@
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/031.webp</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/arithmogeometrie.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/arithmogeometry/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/que-es-la-aritmogeometria/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/arithmogeometry/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/que-es-la-aritmogeometria/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/es/031.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/arithmogeometrie.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/arithmogeometry/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/que-es-la-aritmogeometria/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/arithmogeometry/"/>
   </url>
   <url>

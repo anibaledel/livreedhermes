@@ -204,6 +204,7 @@ LANGUES.fr.pages['carre-magique-ordre-6'] = 'carre-magique-ordre-6.html';
 LANGUES.en.pages['carre-magique-ordre-6'] = 'en/order-6-magic-square/';
 LANGUES.fr.pages['arithmogeometrie'] = 'arithmogeometrie.html';
 LANGUES.en.pages['arithmogeometrie'] = 'en/arithmogeometry/';
+LANGUES.es.pages['arithmogeometrie'] = 'es/que-es-la-aritmogeometria/';
 
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;

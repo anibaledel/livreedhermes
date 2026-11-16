@@ -140,11 +140,15 @@
     "code": "es",
     "dossier": "es/lexico",
     "url": "https://anibal-amiot.com/es/lexico/",
-    "titre": "Léxico — Entender La Livrée d'Hermès",
+    "titre": "Léxico de aritmogeometría — Entender La Livrée d'Hermès",
     "h1": "Léxico",
     "sous_titre": "Seis definiciones de referencia y diez preguntas",
     "description": "Definiciones de referencia y preguntas frecuentes sobre La Livrée d'Hermès: cuadrados solares, la cruz ansada, el sistema de las 360 capas, Carter.",
     "intro": "Seis definiciones escritas para ser citadas tal cual, y diez preguntas con sus respuestas. Cada cifra sale de un script del repositorio; la página francesa de cifras y fuentes da la orden que reproduce cada una.",
+    "def_lien": {
+     "texte": "La noción central en una página:",
+     "libelle": "¿Qué es la aritmogeometría?"
+    },
     "faq_titre": "Preguntas frecuentes",
     "sources": "Para saber más: leer el libro en línea, las cifras y sus fuentes, o el perfil documental. Contenidos bajo CC BY-NC 4.0, código bajo AGPL v3.",
     "fil": [

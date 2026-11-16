@@ -23,7 +23,7 @@ const ATTENDUS = [
   [/^articles\/[^/]+\.html$/, ['Article']],
   [/^travaux\/[^/]+\/index\.html$/, ['CollectionPage']],
   [/^(lexique\.html|en\/lexicon\/index\.html)$/, ['DefinedTermSet']],
-  [/^(arithmogeometrie\.html|en\/arithmogeometry\/index\.html)$/, ['DefinedTerm', 'WebPage']],
+  [/^(arithmogeometrie\.html|en\/arithmogeometry\/index\.html|es\/que-es-la-aritmogeometria\/index\.html)$/, ['DefinedTerm', 'WebPage']],
   [/^(carre-magique-ordre-6\.html|carres-magiques-ordre-pair\.html)$/, ['Article']],
   [/^la-livree-d-hermes\.html$/, ['Book']],
   [/^(animations\/[^/]+\.html|[a-z]{2}\/(animations|animaciones)\/.*index\.html)$/, ['WebPage']],
