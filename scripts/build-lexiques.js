@@ -52,6 +52,16 @@ const italiques = (s) => ech(s).replace(/\*([^*]+)\*/g, '<i>$1</i>');
 // ... et disparaît purement dans le JSON-LD, qui veut du texte brut.
 const brut = (s) => String(s).replace(/\*([^*]+)\*/g, '$1');
 
+// La notion centrale en une page (prompt 194, point 3) : dans les langues qui ont la page
+// définition (scripts/langues.js, groupe « arithmogeometrie »), le lexique y renvoie. Le texte du
+// renvoi vit dans data/lexiques_traduits.json (def_lien) : il survit aux reconstructions.
+function lienDefinition(L) {
+  const code = Object.keys(LANGUES).find((c) => hreflangDeCode(c) === L.code);
+  const page = code && LANGUES[code].pages.arithmogeometrie;
+  if (!page || !L.def_lien) return '';
+  return `    <p class="lex-sources" style="margin-top:0;">${ech(L.def_lien.texte)} <a href="${`${SITE}/${page}`}" style="color:var(--gold);">${ech(L.def_lien.libelle)}</a></p>\n`;
+}
+
 function page(L) {
   const prof = '../'.repeat(L.dossier.split('/').length);   // en/lexicon -> ../../
   const fil = L.fil.map(([nom, href], i) => href
@@ -195,7 +205,7 @@ ${json({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
 
   <div class="lex-body">
     <p class="lex-intro">${italiques(L.intro)}</p>
-
+${lienDefinition(L)}
 ${L.definitions.map((d) => `    <section class="lex-section">
       <h2>${ech(d.terme)}</h2>
       <p>${italiques(d.texte)}</p>

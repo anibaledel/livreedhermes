@@ -8,6 +8,10 @@
     "sous_titre": "Six reference definitions and ten questions",
     "description": "Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.",
     "intro": "Six definitions written to be quoted as they stand, and ten questions with their answers. Every figure comes from a script in the repository; the French page of figures and sources gives the command for each one.",
+    "def_lien": {
+     "texte": "The central notion on one page:",
+     "libelle": "What is arithmogeometry?"
+    },
     "faq_titre": "Frequently asked questions",
     "sources": "Further: read the book online, the figures and their sources, or the documentary profile. Contents under CC BY-NC 4.0, code under AGPL v3.",
     "fil": [
