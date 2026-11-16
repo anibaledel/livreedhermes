@@ -68,6 +68,12 @@ try {
       if (etat.masques.length) { fautes++; echec(`${nom} (${w}×${h}), langue ${i} : sous le pointeur, ${etat.masques.map(([b, t]) => `« ${b} » → ${t}`).join(' ; ')}`); }
       if (etat.deborde) { fautes++; echec(`${nom} : l'image ${etat.img} sort de son cadre ${etat.cadre}`); }
       if (etat.chevauche) { fautes++; echec(`${nom} : l'image ${etat.img} chevauche l'en-tête ou le pied`); }
+      // une édition « en préparation » (scripts/livres.js) a son bouton désactivé et le dit (« · bientôt ») :
+      // on le vérifie au lieu de chercher à le cliquer
+      if (await bouton.isDisabled()) {
+        if (!/bientôt/.test(code)) { fautes++; echec(`${nom} : « ${code} » est désactivé sans dire « bientôt »`); }
+        continue;
+      }
       try {
         await bouton.click({ timeout: 3000, trial: false });
         await page.waitForFunction((n) => document.querySelectorAll('#langRow .lang-btn')[n]?.classList.contains('active'), i, { timeout: 3000 });
