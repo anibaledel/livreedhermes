@@ -85,7 +85,11 @@ const htmlHreflang = (bloc) => bloc
 // deux pouvaient diverger — le hreflang parlait aux moteurs depuis #105, et
 // personne ne parlait aux lecteurs.
 // Pas d'espace après une ponctuation pleine chasse (« 其他语言： »).
-const htmlRangee = (r) => `<p class="other-langs">${r.libelle}${/[：:]$/.test(r.libelle) && /[\u3000-\u303F\uFF00-\uFFEF]$/.test(r.libelle) ? '' : ' '}`
+// Les sous-polices des libellés (assets/fonts/libelles/, < 10 Ko chacune) sont préchargées avec la
+// rangée : sans cela leur arrivée tardive réécrit la rangée et décale toute la page (CLS 0,16 → 0).
+// rel=preload est admis dans le corps ; l'adresse suit le préfixe de la page. hi (14 Ko) : pas de préchargement.
+const PRECHARGES = ['zh', 'ja', 'th', 'ru'];
+const htmlRangee = (r, prefixe = '') => PRECHARGES.map((k) => `<link rel="preload" href="${prefixe}assets/fonts/libelles/libelles-${k}.woff2" as="font" type="font/woff2" crossorigin>\n`).join('') + `<p class="other-langs">${r.libelle}${/[：:]$/.test(r.libelle) && /[\u3000-\u303F\uFF00-\uFFEF]$/.test(r.libelle) ? '' : ' '}`
   + r.liens.map((l) => `<a href="${l.href}" lang="${l.lang}">${l.nom}</a>`).join(' · ')
   + '</p>';
 
@@ -413,7 +417,7 @@ function traiter(rel, src) {
   // pages du lexique les portent ; celles du livre gardent leur rangée écrite
   // à la main, et ne reçoivent rien.
   if (RANGEE_PAR_FICHIER.has(rel) && s.includes('<!-- @langues:start')) {
-    const html = htmlRangee(RANGEE_PAR_FICHIER.get(rel));
+    const html = htmlRangee(RANGEE_PAR_FICHIER.get(rel), prefixe);
     s = poser(s, 'langues', zone('langues', html, 'scripts/langues.js'), (t) => t);
   }
 
