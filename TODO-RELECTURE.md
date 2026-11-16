@@ -24,6 +24,22 @@ directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relanc
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## Search Console : hexagrammes, tirage, aritmogeometría (prompt 196, 2026-11-16)
+
+Textes écrits par l'IA, à faire relire (thaï d'abord — le thaï est la langue du meilleur pays du site) :
+
+- **Thaï** : la section « ฉักลักษณ์ คืออะไร » et l'introduction de `th/hexagrams/` ; le paragraphe sous le tirage
+  (`th/yi-king-draw/`, `data/outils-langues/tirage.json`, clé `tirageResultat`) ; le titre et la description du
+  tirage (« ทอยอี้จิงฟรี… », `data/outils-langues.json`) ; le titre, la description et les en-têtes de colonnes du
+  listing des hexagrammes ; la phrase de sens des 64 descriptions (première proposition du jugement, sans point final) ;
+  « สิทธิบัตรฝรั่งเศส 2 ฉบับ » dans la description du profil. Vérifier que « ฉักลักษณ์ » reste le terme courant.
+- **Espagnol** : `es/que-es-la-aritmogeometria/` (page entière), l'introduction et la table de `es/hexagramas/`, le
+  paragraphe et le titre du tirage (« Tirada del I Ching gratis ») ; « aritmogeometría » (avec « h » en français et
+  en anglais seulement) ; « dos patentes francesas » (profil).
+- **Anglais** : le paragraphe et le titre du tirage (« Free I Ching reading online »), l'introduction de `en/hexagrams/`.
+- Les requêtes locales ont été vérifiées dans les résultats de recherche (pas de volumes) : « ทอยอี้จิง ออนไลน์ ฟรี »,
+  « tirada del I Ching online gratis », « I Ging Orakel online kostenlos » ; à confirmer avec la Search Console dans 4 semaines.
+
 ## Japonais, allemand, italien (ja, de, it — ajoutés le 2026-11-15, prompt 192)
 
 Traductions faites par l'IA, **aucune relecture native**. Les trois langues sont
