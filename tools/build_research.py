@@ -294,8 +294,8 @@ def page(data):
         return z.get(name, f"<!-- @{name}:start -->\n<!-- @{name}:end -->")
 
     title = "Research — current state / Travaux — état actuel | Anibal Amiot"
-    desc = ("Reference state of the work of Anibal Edelberto Amiot: every paper, deposit and dataset with its current "
-            "version, status and DOIs. État de référence des travaux : versions, statuts et DOI.")
+    desc = ("Reference state of the work of Anibal Edelberto Amiot: each paper, deposit and dataset with version, "
+            "status and DOIs. État de référence : versions, statuts, DOI.")
     head = f"""<!DOCTYPE html>
 <html lang="en">
 <head>

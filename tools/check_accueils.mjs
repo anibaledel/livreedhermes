@@ -46,9 +46,12 @@ const destination = (fr, replis) => (lang) => {
   const propre = dans(fr, lang);
   return propre ? [propre] : replis;
 };
+const PARUES = new Set(require('../scripts/livres.js').livres().filter((l) => l.pret).map((l) => l.code));
 const MODELE = {
   'le livre': destination('fr/livre/index.html', ['fr/livre/']),
-  'le PDF': (lang) => [`book-viewer/la-livree-d-hermes-anibal-amiot-${lang}.pdf`],
+  // Le PDF de la langue quand son édition est parue ; tant qu'elle est « en préparation » (scripts/livres.js :
+  // PDF et pages déposés ou non), l'accueil offre le PDF anglais, comme le dit son bouton (prompt 198).
+  'le PDF': (lang) => [`book-viewer/la-livree-d-hermes-anibal-amiot-${PARUES.has(lang) ? lang : 'en'}.pdf`],
   'le tirage': destination('tirage-livree-hermes.html', ['tirage-livree-hermes.html']),
   'les hexagrammes': destination('hexagrammes/index.html', ['hexagrammes/', 'en/hexagrams/']),
   'le lexique': destination('lexique.html', ['lexique.html']),

@@ -36,12 +36,19 @@
 //         node tools/check_langue_des_liens.mjs --essai   montre qu'il échoue sur les deux fautes
 
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const SITE = 'https://anibal-amiot.com/';
 const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'sources', 'docs']);
-const LIVRES = /^(fr\/livre|en\/book|es\/libro|th\/book|zh\/book|ru\/book|pt\/book|hi\/book)\/index\.html$/;
+// Les pages du livre, une par langue DÉCLARÉE (scripts/langues.js : de, it, ja y compris tant que leur édition est
+// « en préparation ») : un lien qui dit sa langue vers l'une d'elles choisit une édition, ce n'est pas une faute.
+const LIVRES = (() => {
+  const { GROUPES } = createRequire(import.meta.url)('../scripts/langues.js');
+  const chemins = GROUPES.find((g) => g.nom === 'livre').pages.map(([, , f]) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return new RegExp(`^(${chemins.join('|')})$`);
+})();
 
 function pages(dir, acc = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
