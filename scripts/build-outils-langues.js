@@ -526,7 +526,9 @@ const perimees = [];
 for (const [fichier, html] of pages()) {
   const abs = path.join(ROOT, fichier);
   const avant = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
-  if (avant === html) continue;
+  // la zone @jsonld-page (WebPage minimal) est posée APRÈS ce script, par build-jsonld-pages.js
+  const sansZone = (t) => t.replace(/<!-- @jsonld-page:start[\s\S]*?<!-- @jsonld-page:end -->\n?/, '');
+  if (avant !== null && sansZone(avant) === sansZone(html)) continue;
   perimees.push(fichier);
   if (!verifie) { fs.mkdirSync(path.dirname(abs), { recursive: true }); fs.writeFileSync(abs, html); }
 }
