@@ -21,6 +21,11 @@ export function dominantK2WithCoords(grid) {
   for (const row of grid) for (const v of row) mean += v;
   mean /= n * n;
 
+  // cos et sin ne dépendent que de (fx·x + fy·y) mod n : une table de n valeurs remplace
+  // 2·n⁴ appels trigonométriques (≈ 2 s pour les 1 024 tuiles de la galerie, sur un poste rapide).
+  const cosT = new Array(n), sinT = new Array(n);
+  for (let j = 0; j < n; j++) { const t = -2 * Math.PI * j / n; cosT[j] = Math.cos(t); sinT[j] = Math.sin(t); }
+
   let bestKx = 0, bestKy = 0, bestMag = -1;
   for (let fy = 0; fy < n; fy++) {
     for (let fx = 0; fx < n; fx++) {
@@ -29,9 +34,9 @@ export function dominantK2WithCoords(grid) {
       for (let y = 0; y < n; y++) {
         for (let x = 0; x < n; x++) {
           const v = grid[y][x] - mean;
-          const theta = -2 * Math.PI * (fx * x / n + fy * y / n);
-          re += v * Math.cos(theta);
-          im += v * Math.sin(theta);
+          const j = (fx * x + fy * y) % n;
+          re += v * cosT[j];
+          im += v * sinT[j];
         }
       }
       const mag = Math.hypot(re, im);

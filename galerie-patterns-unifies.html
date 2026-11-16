@@ -974,8 +974,15 @@ Promise.all([
 ]).then(([data, { k2OfLetterGrid }]) => {
   DATA = data;
   LAYER_OF = DATA.layerOf;
-  ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) =>
-    k2OfLetterGrid(hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB])));
+  // Les 1 024 entrées ne dessinent que 512 grilles distinctes : k² et la clé canonique se
+  // calculent une fois par grille (mémo par gridKey), pas une fois par entrée.
+  const MEMO_K2 = new Map(), MEMO_CANON = new Map();
+  ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) => {
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    const gk = gridKey(grid);
+    if(!MEMO_K2.has(gk)) MEMO_K2.set(gk, k2OfLetterGrid(grid));
+    return MEMO_K2.get(gk);
+  });
 
   // C2 : numéro d'orbite (1..128) par entrée, par la clé canonique (forme minimale en
   // ordre lexicographique parmi les 96 transformées). Autocontrôle : le nombre d'orbites
@@ -983,7 +990,9 @@ Promise.all([
   const orbitIdOfKey = new Map();
   ENTRY_ORBIT = DATA.entries.map(([fam, subA, subB, n]) => {
     const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
-    const key = canonicalKey(grid);
+    const gk = gridKey(grid);
+    if(!MEMO_CANON.has(gk)) MEMO_CANON.set(gk, canonicalKey(grid));
+    const key = MEMO_CANON.get(gk);
     if(!orbitIdOfKey.has(key)) orbitIdOfKey.set(key, orbitIdOfKey.size + 1);
     return orbitIdOfKey.get(key);
   });
