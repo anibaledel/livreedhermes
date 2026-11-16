@@ -1967,22 +1967,6 @@
    "sait_echouer": false
   },
   {
-   "fichier": "tools/pavables6.json",
-   "role": "",
-   "lit": [],
-   "ecrit": [],
-   "appele_par": [],
-   "utilise_par": [
-    "tools/croix_auto.py",
-    "tools/enum6.py",
-    "tools/exhaustif6.py",
-    "tools/identite.py",
-    "tools/verifie_portee.py"
-   ],
-   "etat": "actif",
-   "sait_echouer": false
-  },
-  {
    "fichier": "tools/pavage_miroirs.py",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m aux ordres testés ici ; sa validité pour tout m reste à démontrer.",
    "lit": [],
