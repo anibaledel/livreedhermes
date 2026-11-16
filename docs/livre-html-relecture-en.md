@@ -9,7 +9,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-1/
 - pages : 000A à 004C (8 pages)
 - titre de la page : Chapter I — Reed, Monad — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter I of La Livrée d'Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter I, Reed and Monad: the arithmogeometry of figurate numbers, the nature of areas, and the principles of the magic square (n², n² + 1, constants).
 - JSON-LD : `Chapter`, position 1, pagination 000A–004C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -28,7 +28,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-2/
 - pages : 005 à 008C (6 pages)
 - titre de la page : Chapter II — Mirror, Dyad — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter II of La Livrée d'Hermès: Mirror and Dyad. Symmetry, two as the only number that gives the same result when added to itself or multiplied by itself, and the symbolism of the second number.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter II, Mirror and Dyad: symmetry, two as the only number equal to its own sum and product, and the symbolism of the second number.
 - JSON-LD : `Chapter`, position 2, pagination 005–008C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -45,7 +45,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-3/
 - pages : 009 à 012C (6 pages)
 - titre de la page : Chapter III — Wave, Triad — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter III of La Livrée d'Hermès: Wave and Triad. The survey of sound zones, the magic square of order 3 and the writing of the Lo River, then the symbolism of the third number.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter III, Wave and Triad: the survey of sound zones, the order-3 magic square and the Lo River writing, then the symbolism of the third number.
 - JSON-LD : `Chapter`, position 3, pagination 009–012C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -62,7 +62,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-4/
 - pages : 013 à 018C (8 pages)
 - titre de la page : Chapter IV — Wind, Macro — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter IV of La Livrée d'Hermès: Wind and Macro. Even even numbers and the construction of magic squares whose order is a multiple of four, then the symbolism of the fourth number.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter IV, Wind and Macro: even even numbers and magic squares whose order is a multiple of four, then the symbolism of the fourth number.
 - JSON-LD : `Chapter`, position 4, pagination 013–018C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -81,7 +81,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-5/
 - pages : 019 à 024C (8 pages)
 - titre de la page : Chapter V — Temple, Micro — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter V of La Livrée d'Hermès: Temple and Micro. Odd numbers and the self-filling method attributed to Bachet de Méziriac, then the fifth number: pentagram, golden ratio and Platonic bodies.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter V, Temple and Micro: odd numbers and the self-filling method attributed to Bachet de Méziriac, then the fifth number: pentagram, golden ratio, Platonic bodies.
 - JSON-LD : `Chapter`, position 5, pagination 019–024C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -100,7 +100,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-6/
 - pages : 025 à 062C (44 pages)
 - titre de la page : Chapter VI — Axis, Mezzo, Herma, Beauty, Height, Hexa — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VI of La Livrée d'Hermès: Axis, Mezzo, Herma, Beauty, Height and Hexa. Even odd numbers and the magic square of order 6, the solar square and the ankh cross, the 64 flowers, and Apollinaire's “Twilight”.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VI, Axis, Mezzo, Herma, Beauty, Height, Hexa: the order-6 magic square, the solar square and ankh cross, the 64 flowers, Apollinaire's Twilight.
 - JSON-LD : `Chapter`, position 6, pagination 025–062C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -155,7 +155,7 @@
 - adresse : https://anibal-amiot.com/en/book/chapter-7/
 - pages : 063 à 092 (30 pages)
 - titre de la page : Chapter VII — Frame, Molt, Hebdo — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VII of La Livrée d'Hermès: Frame, Molt and Hebdo. Geomancy and the chronological order of the hexagrams, the axes of symmetry and the Yin and Yang of a motif, the draw and the superpositions of layers.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VII, Frame, Molt and Hebdo: geomancy and the chronological order of the hexagrams, axes of symmetry, the draw and the superposition of layers.
 - JSON-LD : `Chapter`, position 7, pagination 063–092, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |

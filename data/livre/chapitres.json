@@ -9,12 +9,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-1/",
     "titre": "Roseau, Monade",
-    "description": "Chapitre I de La Livrée d'Hermès : Roseau et Monade. L'arithmogéométrie des nombres figurés, la nature des aires et les principes du carré magique : n², n² + 1, constantes interne et externe."
+    "description": "Chapitre I, Roseau et Monade : l'arithmogéométrie des nombres figurés, la nature des aires et les principes du carré magique (n², n² + 1, constantes)."
    },
    "en": {
     "chemin": "en/book/chapter-1/",
     "titre": "Reed, Monad",
-    "description": "Chapter I of La Livrée d'Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants."
+    "description": "Chapter I, Reed and Monad: the arithmogeometry of figurate numbers, the nature of areas, and the principles of the magic square (n², n² + 1, constants)."
    }
   },
   {
@@ -25,12 +25,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-2/",
     "titre": "Miroir, Dyade",
-    "description": "Chapitre II de La Livrée d'Hermès : Miroir et Dyade. La symétrie, le deux qui donne le même résultat en s'ajoutant à lui-même ou en se multipliant par lui-même, et le symbolisme du deuxième nombre."
+    "description": "Chapitre II, Miroir et Dyade : la symétrie, le deux qui donne le même résultat ajouté ou multiplié à lui-même, et le symbolisme du deuxième nombre."
    },
    "en": {
     "chemin": "en/book/chapter-2/",
     "titre": "Mirror, Dyad",
-    "description": "Chapter II of La Livrée d'Hermès: Mirror and Dyad. Symmetry, two as the only number that gives the same result when added to itself or multiplied by itself, and the symbolism of the second number."
+    "description": "Chapter II, Mirror and Dyad: symmetry, two as the only number equal to its own sum and product, and the symbolism of the second number."
    }
   },
   {
@@ -41,12 +41,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-3/",
     "titre": "Onde, Triade",
-    "description": "Chapitre III de La Livrée d'Hermès : Onde et Triade. Le sondage des zones du son, le carré magique d'ordre 3 et l'écrit du fleuve Lo, puis le symbolisme du troisième nombre."
+    "description": "Chapitre III, Onde et Triade : le sondage des zones du son, le carré magique d'ordre 3 et l'écrit du fleuve Lo, puis le symbolisme du troisième nombre."
    },
    "en": {
     "chemin": "en/book/chapter-3/",
     "titre": "Wave, Triad",
-    "description": "Chapter III of La Livrée d'Hermès: Wave and Triad. The survey of sound zones, the magic square of order 3 and the writing of the Lo River, then the symbolism of the third number."
+    "description": "Chapter III, Wave and Triad: the survey of sound zones, the order-3 magic square and the Lo River writing, then the symbolism of the third number."
    }
   },
   {
@@ -57,12 +57,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-4/",
     "titre": "Vent, Macro",
-    "description": "Chapitre IV de La Livrée d'Hermès : Vent et Macro. Les nombres pairs pairs et la réalisation des carrés d'ordre multiple de quatre, puis la symbolique du quatrième nombre."
+    "description": "Chapitre IV, Vent et Macro : les nombres pairs pairs et les carrés d'ordre multiple de quatre, puis la symbolique du quatrième nombre."
    },
    "en": {
     "chemin": "en/book/chapter-4/",
     "titre": "Wind, Macro",
-    "description": "Chapter IV of La Livrée d'Hermès: Wind and Macro. Even even numbers and the construction of magic squares whose order is a multiple of four, then the symbolism of the fourth number."
+    "description": "Chapter IV, Wind and Macro: even even numbers and magic squares whose order is a multiple of four, then the symbolism of the fourth number."
    }
   },
   {
@@ -73,12 +73,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-5/",
     "titre": "Temple, Micro",
-    "description": "Chapitre V de La Livrée d'Hermès : Temple et Micro. Les nombres impairs et la méthode d'auto-remplissage attribuée à Bachet de Méziriac, puis le cinquième nombre : pentagramme, nombre d'or et corps platoniciens."
+    "description": "Chapitre V, Temple et Micro : les nombres impairs et l'auto-remplissage attribué à Bachet de Méziriac, puis le cinq : pentagramme, nombre d'or, corps platoniciens."
    },
    "en": {
     "chemin": "en/book/chapter-5/",
     "titre": "Temple, Micro",
-    "description": "Chapter V of La Livrée d'Hermès: Temple and Micro. Odd numbers and the self-filling method attributed to Bachet de Méziriac, then the fifth number: pentagram, golden ratio and Platonic bodies."
+    "description": "Chapter V, Temple and Micro: odd numbers and the self-filling method attributed to Bachet de Méziriac, then the fifth number: pentagram, golden ratio, Platonic bodies."
    }
   },
   {
@@ -89,12 +89,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-6/",
     "titre": "Axis, Mezzo, Herma, Beauté, Haut, Hexa",
-    "description": "Chapitre VI de La Livrée d'Hermès : Axis, Mezzo, Herma, Beauté, Haut et Hexa. Les nombres pairs impairs et le carré magique d'ordre 6, le carré solaire et la croix ansée, les 64 fleurs, et « Crépuscule » d'Apollinaire."
+    "description": "Chapitre VI, Axis, Mezzo, Herma, Beauté, Haut et Hexa : le carré magique d'ordre 6, le carré solaire et la croix ansée, les 64 fleurs, « Crépuscule » d'Apollinaire."
    },
    "en": {
     "chemin": "en/book/chapter-6/",
     "titre": "Axis, Mezzo, Herma, Beauty, Height, Hexa",
-    "description": "Chapter VI of La Livrée d'Hermès: Axis, Mezzo, Herma, Beauty, Height and Hexa. Even odd numbers and the magic square of order 6, the solar square and the ankh cross, the 64 flowers, and Apollinaire's “Twilight”."
+    "description": "Chapter VI, Axis, Mezzo, Herma, Beauty, Height, Hexa: the order-6 magic square, the solar square and ankh cross, the 64 flowers, Apollinaire's Twilight."
    }
   },
   {
@@ -105,12 +105,12 @@
    "fr": {
     "chemin": "fr/livre/chapitre-7/",
     "titre": "Trame, Mue, Hebdo",
-    "description": "Chapitre VII de La Livrée d'Hermès : Trame, Mue et Hebdo. La géomancie et l'ordre chronologique des hexagrammes, les axes de symétrie et le yin et le yang d'un motif, le tirage et les superpositions de calques."
+    "description": "Chapitre VII, Trame, Mue et Hebdo : la géomancie et l'ordre chronologique des hexagrammes, les axes de symétrie, le tirage et les superpositions de calques."
    },
    "en": {
     "chemin": "en/book/chapter-7/",
     "titre": "Frame, Molt, Hebdo",
-    "description": "Chapter VII of La Livrée d'Hermès: Frame, Molt and Hebdo. Geomancy and the chronological order of the hexagrams, the axes of symmetry and the Yin and Yang of a motif, the draw and the superpositions of layers."
+    "description": "Chapter VII, Frame, Molt and Hebdo: geomancy and the chronological order of the hexagrams, axes of symmetry, the draw and the superposition of layers."
    }
   },
   {

@@ -9,7 +9,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-1/
 - pages : 000A à 004C (8 pages)
 - titre de la page : Chapitre I — Roseau, Monade — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre I de La Livrée d'Hermès : Roseau et Monade. L'arithmogéométrie des nombres figurés, la nature des aires et les principes du carré magique : n², n² + 1, constantes interne et externe.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre I, Roseau et Monade : l'arithmogéométrie des nombres figurés, la nature des aires et les principes du carré magique (n², n² + 1, constantes).
 - JSON-LD : `Chapter`, position 1, pagination 000A–004C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -28,7 +28,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-2/
 - pages : 005 à 008C (6 pages)
 - titre de la page : Chapitre II — Miroir, Dyade — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre II de La Livrée d'Hermès : Miroir et Dyade. La symétrie, le deux qui donne le même résultat en s'ajoutant à lui-même ou en se multipliant par lui-même, et le symbolisme du deuxième nombre.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre II, Miroir et Dyade : la symétrie, le deux qui donne le même résultat ajouté ou multiplié à lui-même, et le symbolisme du deuxième nombre.
 - JSON-LD : `Chapter`, position 2, pagination 005–008C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -45,7 +45,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-3/
 - pages : 009 à 012C (6 pages)
 - titre de la page : Chapitre III — Onde, Triade — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre III de La Livrée d'Hermès : Onde et Triade. Le sondage des zones du son, le carré magique d'ordre 3 et l'écrit du fleuve Lo, puis le symbolisme du troisième nombre.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre III, Onde et Triade : le sondage des zones du son, le carré magique d'ordre 3 et l'écrit du fleuve Lo, puis le symbolisme du troisième nombre.
 - JSON-LD : `Chapter`, position 3, pagination 009–012C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -62,7 +62,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-4/
 - pages : 013 à 018C (8 pages)
 - titre de la page : Chapitre IV — Vent, Macro — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre IV de La Livrée d'Hermès : Vent et Macro. Les nombres pairs pairs et la réalisation des carrés d'ordre multiple de quatre, puis la symbolique du quatrième nombre.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre IV, Vent et Macro : les nombres pairs pairs et les carrés d'ordre multiple de quatre, puis la symbolique du quatrième nombre.
 - JSON-LD : `Chapter`, position 4, pagination 013–018C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -81,7 +81,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-5/
 - pages : 019 à 024C (8 pages)
 - titre de la page : Chapitre V — Temple, Micro — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre V de La Livrée d'Hermès : Temple et Micro. Les nombres impairs et la méthode d'auto-remplissage attribuée à Bachet de Méziriac, puis le cinquième nombre : pentagramme, nombre d'or et corps platoniciens.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre V, Temple et Micro : les nombres impairs et l'auto-remplissage attribué à Bachet de Méziriac, puis le cinq : pentagramme, nombre d'or, corps platoniciens.
 - JSON-LD : `Chapter`, position 5, pagination 019–024C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -100,7 +100,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-6/
 - pages : 025 à 062C (44 pages)
 - titre de la page : Chapitre VI — Axis, Mezzo, Herma, Beauté, Haut, Hexa — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VI de La Livrée d'Hermès : Axis, Mezzo, Herma, Beauté, Haut et Hexa. Les nombres pairs impairs et le carré magique d'ordre 6, le carré solaire et la croix ansée, les 64 fleurs, et « Crépuscule » d'Apollinaire.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VI, Axis, Mezzo, Herma, Beauté, Haut et Hexa : le carré magique d'ordre 6, le carré solaire et la croix ansée, les 64 fleurs, « Crépuscule » d'Apollinaire.
 - JSON-LD : `Chapter`, position 6, pagination 025–062C, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
@@ -155,7 +155,7 @@
 - adresse : https://anibal-amiot.com/fr/livre/chapitre-7/
 - pages : 063 à 092 (30 pages)
 - titre de la page : Chapitre VII — Trame, Mue, Hebdo — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VII de La Livrée d'Hermès : Trame, Mue et Hebdo. La géomancie et l'ordre chronologique des hexagrammes, les axes de symétrie et le yin et le yang d'un motif, le tirage et les superpositions de calques.
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VII, Trame, Mue et Hebdo : la géomancie et l'ordre chronologique des hexagrammes, les axes de symétrie, le tirage et les superpositions de calques.
 - JSON-LD : `Chapter`, position 7, pagination 063–092, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
