@@ -114,7 +114,9 @@ function page(d, f) {
   const r = resume(f.description_texte || '');
   const lang = langueDe(texteSeul(r.html));
   const desc = texteSeul(r.html);
-  const metaDesc = desc.length > 158 ? `${desc.slice(0, 157).replace(/\s+\S*$/, '')}…` : desc;
+  // meta : une phrase d'énoncé en mots (data/travaux.json), sans formule — le résumé Zenodo, lui, commence
+  // parfois par une formule qui ne se lit pas dans un résultat de recherche (prompt 196, point 5).
+  const metaDesc = d.meta || (desc.length > 158 ? `${desc.slice(0, 157).replace(/\s+\S*$/, '')}…` : desc);
   const [schema, typeFr] = TYPES[d.type];
   const pdfs = (Array.isArray(f.fichiers) ? f.fichiers : []).filter((x) => /\.pdf$/i.test(x.nom));
   const pdfPrincipal = pdfs.find((x) => /French/i.test(x.nom)) || pdfs[0];
@@ -166,7 +168,7 @@ function page(d, f) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(f.titre)} — Anibal Amiot</title>
+<title>${esc(d.titreCourt || f.titre)} — Anibal Amiot</title>
 <meta name="description" content="${esc(metaDesc)}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(f.titre)}">
