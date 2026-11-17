@@ -50,6 +50,36 @@ def _accueils():
 ACCUEILS = _accueils()
 
 
+def _medias():
+    # Les langues dont l'édition est servie par livre-medias (scripts/livres.js,
+    # data/livre/editions-medias.json) et l'adresse de leurs PDF (scripts/langues.js,
+    # MEDIAS_PDF). Les chapitres en HTML gardent leurs planches et leur texte de
+    # l'ancienne édition (leur découpage et leurs légendes sont ceux qu'Anibal a
+    # validés) ; leurs LIENS vers le PDF et la visionneuse, eux, désignent
+    # l'édition servie : la page de même texte, par la concordance.
+    import subprocess
+    code = ("const L=require('./scripts/langues.js'),V=require('./scripts/livres.js');"
+            "process.stdout.write(JSON.stringify({pdf:L.MEDIAS_PDF,externes:Object.keys(V.editionsMedias())}))")
+    sortie = subprocess.run(['node', '-e', code], cwd=ROOT, capture_output=True, text=True, check=True)
+    return json.loads(sortie.stdout)
+
+
+MEDIAS = _medias()
+
+
+def code_servi(code, langue):
+    """le code de page, dans l'édition que le site sert pour cette langue"""
+    if langue not in MEDIAS['externes']:
+        return code
+    conc = json.load(open(os.path.join(ROOT, 'data/livre/concordance.json'), encoding='utf-8'))['langues'][langue]['table']
+    return conc[code]['nouveau']
+
+
+def codes_servis(langue):
+    nom = 'PAGE_CODES_115' if langue in MEDIAS['externes'] else 'PAGE_CODES'
+    return LT.codes_de(nom)
+
+
 def _annonce_traite():
     # La page du traité (la-livree-d-hermes.html) n'existe qu'en français : le
     # fil d'Ariane d'une autre langue l'annonce avant le clic (scripts/langues.js,
@@ -186,7 +216,15 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
     i0 = codes.index(ch['du'])
     pdf = f"la-livree-d-hermes-anibal-amiot-{langue}.pdf"
     page_pdf = LT.rang_pdf(langue, i0, n_pdf) + 1
-    lecteur = f"{SITE}/book-viewer/index.html?read={langue}&page={ch['du']}"
+    if langue in MEDIAS['externes']:
+        # le PDF servi est celui de livre-medias : son numéro de page est celui du code servi
+        page_pdf = codes_servis(langue).index(code_servi(ch['du'], langue)) + 1
+        lien_pdf = f"{MEDIAS['pdf']}/{pdf}#page={page_pdf}"
+        attr_dl = ''
+    else:
+        lien_pdf = f"{SITE}/book-viewer/{pdf}#page={page_pdf}"
+        attr_dl = ' download'
+    lecteur = f"{SITE}/book-viewer/index.html?read={langue}&page={code_servi(ch['du'], langue)}"
     publies = [c for c in chapitres if c.get(langue)]
     k = publies.index(ch)
     prec = publies[k - 1] if k > 0 else None
@@ -224,13 +262,13 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
     sections = []
     for j, code in enumerate(pages):
         leg = legendes.get(code, '')
-        lien = f"{SITE}/book-viewer/index.html?read={langue}&amp;page={code}"
+        lien = f"{SITE}/book-viewer/index.html?read={langue}&amp;page={code_servi(code, langue)}"
         charge = 'eager' if j == 0 else 'lazy'
         sections.append(
             f'<section class="page-livre" id="p{code}" data-code="{code}" aria-label="{esc(t["texte"].format(code=code))}">\n'
             f'<figure>\n'
             f'<img src="{pre}book-viewer/pages/{langue}/{code}.webp" width="1920" height="1080" alt="{esc(leg)}" loading="{charge}" decoding="async">\n'
-            f'<figcaption><span class="legende">{esc(leg)}</span><a href="{lien}">{esc(t["ouvrir"].format(code=code))}</a></figcaption>\n'
+            f'<figcaption><span class="legende">{esc(leg)}</span><a href="{lien}">{esc(t["ouvrir"].format(code=code_servi(code, langue)))}</a></figcaption>\n'
             f'</figure>\n'
             f'<div class="texte-page" lang="{langue}">\n{rendre_texte(textes[code], langue)}\n</div>\n'
             f'</section>')
@@ -295,7 +333,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 {chr(10).join(sections)}
 <div class="chapitre-acces">
 <a class="primaire" href="{lecteur}">{esc(t['lire'])}</a>
-<a href="{SITE}/book-viewer/{pdf}#page={page_pdf}" download>{esc(t['pdf'])}</a>
+<a href="{lien_pdf}"{attr_dl}>{esc(t['pdf'])}</a>
 </div>
 <nav class="chapitre-nav" aria-label="{esc(t['nav_bas'])}">{''.join(nav)}</nav>
 <p class="pdf-licence">{esc(t['licence'])} — <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">creativecommons.org/licenses/by-nc/4.0</a> · <a href="https://doi.org/{DOI_LIVRE}" rel="noopener" target="_blank">DOI {DOI_LIVRE}</a></p>

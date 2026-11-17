@@ -107,7 +107,9 @@ function formatDateFr(iso){
   const [y, m, d] = iso.split('-').map(Number);
   return `${d} ${MONTHS_FR[m - 1]} ${y}`;
 }
-const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>';
+// la page « Trame » et les numéros du chapitre 7.1 : ceux de l'édition française servie (scripts/livres.js)
+const PP_FR = require('./livres.js').pagesTrame('fr');
+const BOOK_SOURCE_HTML = `<i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=${PP_FR.code}">chapitre 7.1 « Trame » (p. ${PP_FR.du} à ${PP_FR.au})</a>`;
 
 // Lien de pied de page vers la page Soutien — occupe l'emplacement laissé
 // vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
@@ -421,7 +423,7 @@ ${linesHtml}
       </div>
 
       <div class="cta-row">
-        <a class="cta-btn" href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">Lire le passage du livre (chap. 7.1) →</a>
+        <a class="cta-btn" href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=${PP_FR.code}">Lire le passage du livre (chap. 7.1) →</a>
         <a class="cta-btn" href="https://anibal-amiot.com/?chrono=${chrono}">Voir sur l'échiquier interactif →</a>
         <a class="cta-btn" href="https://anibal-amiot.com/creation-motifs-yi-king.html">Créer le motif de cet hexagramme →</a>
       </div>

@@ -14,7 +14,9 @@
 # Vérifie ensuite : 111 fichiers, exactement les noms de PAGE_CODES, tous en
 # 1920 × 1080 VP8. Le PSNR de chaque page contre son rendu est mesuré et
 # affiché (il varie avec la densité de la page), sans seuil inventé.
-# Usage : python3 tools/pages_webp.py <langue> [--pdf FICHIER] [--qualite 82]
+# Édition de 115 pages (PDF de livre-medias, 768 × 432 pt) : rendu à l'échelle 2,5, mêmes 1920 × 1080,
+# codes de PAGE_CODES_115 ; le nombre de pages du PDF choisit la liste.
+# Usage : python3 tools/pages_webp.py <langue> [--pdf FICHIER] [--sortie DOSSIER] [--qualite 82]
 import argparse, io, os, re, sys
 from multiprocessing import Pool
 import numpy as np
@@ -25,14 +27,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUALITE, LARGEUR, HAUTEUR = 82, 1920, 1080
 
 
-def codes():
+def codes(nom='PAGE_CODES'):
     html = open(os.path.join(ROOT, 'book-viewer/index.html'), encoding='utf-8').read()
-    return re.search(r'const PAGE_CODES = \[([^\]]*)\]', html).group(1).replace('"', '').split(',')
+    return re.search(r'const ' + nom + r' = \[([^\]]*)\]', html).group(1).replace('"', '').split(',')
 
 
 def une(arg):
     pdf, i, sortie, q = arg
-    im = pdfium.PdfDocument(pdf)[i].render(scale=1).to_pil().convert('RGB')
+    page = pdfium.PdfDocument(pdf)[i]
+    # 1920 pt de large : échelle 1 (ancienne édition) ; 768 pt (nouvelle) : 2,5
+    im = page.render(scale=LARGEUR / page.get_size()[0]).to_pil().convert('RGB')
     if im.size != (LARGEUR, HAUTEUR):
         return f'page {i + 1} : {im.size[0]} × {im.size[1]}, attendu {LARGEUR} × {HAUTEUR}'
     buf = io.BytesIO(); im.save(buf, 'WEBP', quality=q, method=6)
@@ -46,13 +50,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('langue')
     ap.add_argument('--pdf')
+    ap.add_argument('--sortie', help='dossier des pages (défaut : book-viewer/pages/<langue>) ; livre-medias : <dépôt>/pages/<langue>')
     ap.add_argument('--qualite', type=int, default=QUALITE)
     a = ap.parse_args()
     pdf = a.pdf or os.path.join(ROOT, f'book-viewer/la-livree-d-hermes-anibal-amiot-{a.langue}.pdf')
-    c = codes()
     n = len(pdfium.PdfDocument(pdf))
+    # le fichier dit l'édition : 115 pages → PAGE_CODES_115, 111 → PAGE_CODES
+    c = codes('PAGE_CODES_115') if n == len(codes('PAGE_CODES_115')) else codes()
     if n != len(c): sys.exit(f'{pdf} : {n} pages, le lecteur attend {len(c)} codes')
-    dossier = os.path.join(ROOT, 'book-viewer/pages', a.langue)
+    dossier = a.sortie or os.path.join(ROOT, 'book-viewer/pages', a.langue)
     os.makedirs(dossier, exist_ok=True)
     with Pool(4) as p:
         res = p.map(une, [(pdf, i, os.path.join(dossier, f'{code}.webp'), a.qualite) for i, code in enumerate(c)])

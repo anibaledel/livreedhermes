@@ -26,6 +26,7 @@ import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { servirDepot } from './lib_fonds_site.mjs';
 
@@ -40,6 +41,12 @@ BASE = BASE.replace(/\/$/, '');
 const echecs = [];
 const echec = (m) => { echecs.push(m); console.error(`ÉCHEC ${m}`); };
 const lire = async (rel) => { const r = await fetch(`${BASE}/${rel}`); return r.ok ? r.text() : null; };
+// curl -sI : le fetch de Node ignore le proxy des environnements fermés, et c'est la commande du prompt 192
+const tete = (url) => {
+  const blocs = execFileSync('curl', ['-sIL', '-m', '30', url], { encoding: 'utf8' }).replace(/\r/g, '').split(/\n\n+/).filter((b) => /^HTTP\/\S+ \d{3}/.test(b));
+  const b = blocs[blocs.length - 1] || '';
+  return { statut: Number((/^HTTP\/\S+ (\d{3})/.exec(b) || [])[1] || 0), type: (/^content-type: *(.*)$/im.exec(b) || [])[1] || '' };
+};
 const liens = (html) => [...html.matchAll(/<a\b[^>]*\shref="([^"]+)"/g)].map((m) => m[1]);
 
 const navigateur = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
@@ -61,7 +68,8 @@ try {
     else {
       const ls = liens(hl);
       if (!ls.some((u) => new RegExp(`book-viewer/(index\\.html)?\\?read=${l.code}\\b`).test(u))) fautes.push(`${l.page} ne mène pas à la visionneuse en ${l.code}`);
-      if (!ls.some((u) => u.endsWith(path.basename(l.pdf)))) fautes.push(`${l.page} ne mène pas à ${path.basename(l.pdf)}`);
+      const nomPdf = path.basename(l.pdfUrl);
+      if (!ls.some((u) => u.endsWith(nomPdf) && (!l.externe || u.startsWith(l.pdfUrl)))) fautes.push(`${l.page} ne mène pas à ${l.externe ? l.pdfUrl : nomPdf}`);
     }
     // 3. la visionneuse
     await page.goto(`${BASE}/book-viewer/?read=${l.code}&page=043`, { waitUntil: 'load' });
@@ -76,16 +84,22 @@ try {
     }));
     const ui = decl.lecteur;
     const attendu = {
-      lang: l.hreflang, titreDoc: ui.titreDoc, titre: ui.titre, label: ui.pageLabel.replace('{code}', '043').replace('{i}', '59').replace('{n}', '111'),
+      lang: l.hreflang, titreDoc: ui.titreDoc, titre: ui.titre, label: ui.pageLabel.replace('{code}', '043').replace('{i}', String(l.codesPages.indexOf('043') + 1)).replace('{n}', String(l.codesPages.length)),
       allerA: ui.allerA, exemple: ui.exemple, voir: ui.voir, aide: ui.aideClavier, prec: ui.prec, suiv: ui.suiv, alt: ui.alt.replace('{code}', '043'),
-      pdf: path.basename(l.pdf), pdfTexte: ui.pdf, evitement: decl.evitement, repli: false,
+      pdf: l.externe ? l.pdfUrl : path.basename(l.pdfUrl), pdfTexte: ui.pdf, evitement: decl.evitement, repli: false,
     };
     for (const [k, v] of Object.entries(attendu)) if (vu[k] !== v) fautes.push(`visionneuse, ${k} : « ${vu[k]} » au lieu de « ${v} »`);
     // 4. le PDF
-    const r = await fetch(`${BASE}/book-viewer/${path.basename(l.pdf)}`, { method: 'HEAD' });
-    if (r.status !== 200) fautes.push(`${l.pdf} : HTTP ${r.status}`);
+    // l'édition de livre-medias : l'adresse publique, 200 ET application/pdf ; sinon le fichier du site
+    if (l.externe) {
+      const r = tete(l.pdfUrl);
+      if (r.statut !== 200 || !/^application\/pdf/.test(r.type)) fautes.push(`${l.pdfUrl} : HTTP ${r.statut} ${r.type}`);
+    } else {
+      const r = await fetch(`${BASE}/book-viewer/${path.basename(l.pdf)}`, { method: 'HEAD' });
+      if (r.status !== 200) fautes.push(`${l.pdf} : HTTP ${r.status}`);
+    }
     if (fautes.length) fautes.forEach((f) => echec(`${l.code} : ${f}`));
-    else console.log(`OK    ${l.code} : accueil → ${l.page} → visionneuse en ${l.hreflang} (« ${vu.titre} ») → ${path.basename(l.pdf)} (200)`);
+    else console.log(`OK    ${l.code} : accueil → ${l.page} → visionneuse en ${l.hreflang} (« ${vu.titre} ») → ${l.externe ? l.pdfUrl : path.basename(l.pdf)} (200)`);
   }
   // le repli : une langue sans textes dit qu'elle est en français
   await page.goto(`${BASE}/book-viewer/?read=pt&page=043`, { waitUntil: 'load' });

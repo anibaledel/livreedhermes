@@ -664,6 +664,23 @@
    "appele_par": [
     "check-pdf.yml"
    ],
+   "utilise_par": [
+    "tools/check_livres_medias.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_livres_medias.py",
+   "role": "les éditions du livre servies par livre-medias (data/livre/editions-medias.json ; prompt 192, étape 2) : le PDF définitif et les pages WebP du lecteur, lus dans une copie du dépôt livre-medias (LIVRE_MEDIAS, par défaut ../livre-medias ; …",
+   "lit": [
+    "book-viewer/index.html",
+    "data/livre/editions-medias.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
@@ -1108,6 +1125,21 @@
    "ecrit": [],
    "appele_par": [
     "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/concordance_livre.py",
+   "role": "la page de l'ANCIENNE édition (111 pages, PAGE_CODES, book-viewer/) qui dit la même chose que telle page de la NOUVELLE (115 pages du fichier, PAGE_CODES_115, livre-medias), pour le français et l'anglais.",
+   "lit": [
+    "book-viewer/index.html",
+    "data/livre/concordance.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
@@ -1795,6 +1827,7 @@
    "role": "les chapitres du livre en HTML : pour chaque page du livre, dans l'ordre, la planche (book-viewer/pages/<langue>/<code>.webp) avec sa légende, puis le texte de cette page tel que le PDF le porte (tools/livre_texte.py).",
    "lit": [
     "data/livre/chapitres.json",
+    "data/livre/concordance.json",
     "en/book",
     "en/book/index.html",
     "fr/livre",
@@ -2340,6 +2373,23 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/retarget_livre_medias.mjs",
+   "role": "les pages ÉCRITES À LA MAIN (ou recopiées d'une page écrite à la main) qui citent le PDF d'une langue servie par livre-medias doivent le citer à l'adresse de scripts/langues.js (MEDIAS_PDF), et nulle part ailleurs.",
+   "lit": [
+    "book-viewer/index.html",
+    "data/outils-langues",
+    "scripts/langues.js",
+    "scripts/livres.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/selection_ordre6.py",
    "role": "Des 256 carrés d'ordre 6 aux premières formes unifiées.",
    "lit": [],
@@ -2468,6 +2518,22 @@
    "utilise_par": [
     "tools/verify_cadres_ordre12.py"
    ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verifie_livre_medias.mjs",
+   "role": "quelles éditions du livre sont RÉELLEMENT servies par livre-medias (prompt 192, étape 2) ?",
+   "lit": [
+    "book-viewer/index.html",
+    "data/livre/editions-medias.json",
+    "scripts/langues.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
+   "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
   },

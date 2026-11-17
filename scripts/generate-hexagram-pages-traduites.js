@@ -108,7 +108,7 @@ const L = {
     upper: 'Upper trigram', lower: 'Lower trigram', image: 'Image', judgement: 'Judgement', sixLines: 'The six lines',
     pos: ['First line', 'Second line', 'Third line', 'Fourth line', 'Fifth line', 'Sixth line'],
     readBook: 'Read the passage in the book (ch. 7.1) →', board: 'See it on the interactive board →', create: "Create this hexagram's pattern →",
-    source: (bookHref, frHref) => `<b>Source</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">chapter 7.1 (pp. 63–68)</a>. <a href="${frHref}">French version of this page</a>.`,
+    source: (bookHref, frHref, pp) => `<b>Source</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">chapter 7.1 (pp. ${pp.du}–${pp.au})</a>. <a href="${frHref}">French version of this page</a>.`,
     lexicon: (href) => `For the notions used here — magic square, layer and casting, the Yi Jing — see the <a href="${href}">project lexicon</a>.`,
     motifsHeading: 'The patterns of this hexagram',
     motifsIntro: 'Eight 12×12 Jacquard patterns are generated from this hexagram, one for each admissible family of the system. Each has its own page: cell, tiling, recolourings and data.',
@@ -141,7 +141,7 @@ const L = {
     upper: 'Trigrama superior', lower: 'Trigrama inferior', image: 'Imagen', judgement: 'Juicio', sixLines: 'Los seis rasgos',
     pos: ['Primer rasgo', 'Segundo rasgo', 'Tercer rasgo', 'Cuarto rasgo', 'Quinto rasgo', 'Sexto rasgo'],
     readBook: 'Leer el pasaje en el libro (cap. 7.1) →', board: 'Verlo en el tablero interactivo →', create: 'Crear el motivo de este hexagrama →',
-    source: (bookHref, frHref) => `<b>Fuente</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">capítulo 7.1 (pp. 63–68)</a>. <a href="${frHref}" hreflang="fr">Versión francesa de esta página</a>.`,
+    source: (bookHref, frHref, pp) => `<b>Fuente</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">capítulo 7.1 (pp. ${pp.du}–${pp.au})</a>. <a href="${frHref}" hreflang="fr">Versión francesa de esta página</a>.`,
     lexicon: (href) => `Para las nociones empleadas aquí — cuadrado mágico, capa y tirada, el Yi King — consulte el <a href="${href}">léxico del proyecto</a>.`,
     motifsHeading: 'Los motivos de este hexagrama',
     motifsIntro: 'De este hexagrama se generan ocho motivos Jacquard de 12×12, uno por cada familia admisible del sistema. Cada uno tiene su página (en inglés): celda, teselado, recoloreados y datos.',
@@ -175,7 +175,7 @@ const L = {
     upper: 'ตรีลักษณ์บน', lower: 'ตรีลักษณ์ล่าง', image: 'ภาพลักษณ์', judgement: 'คำตัดสิน', sixLines: 'หกเส้น',
     pos: ['เส้นที่หนึ่ง', 'เส้นที่สอง', 'เส้นที่สาม', 'เส้นที่สี่', 'เส้นที่ห้า', 'เส้นที่หก'],
     readBook: 'อ่านตอนนี้ในหนังสือ (บทที่ 7.1) →', board: 'ดูบนกระดานแบบโต้ตอบ →', create: 'สร้างลวดลายของฉักลักษณ์นี้ →',
-    source: (bookHref, frHref) => `<b>ที่มา</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">บทที่ 7.1 (หน้า 63–68)</a> · <a href="${frHref}" hreflang="fr">หน้านี้ฉบับภาษาฝรั่งเศส</a>`,
+    source: (bookHref, frHref, pp) => `<b>ที่มา</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">บทที่ 7.1 (หน้า ${pp.du}–${pp.au})</a> · <a href="${frHref}" hreflang="fr">หน้านี้ฉบับภาษาฝรั่งเศส</a>`,
     lexicon: (href) => `สำหรับแนวคิดที่ใช้ในหน้านี้ — จัตุรัสกล ชั้นลายและการเสี่ยงทาย อี้จิง — ดู<a href="${href}">อภิธานศัพท์ของโครงการ</a>`,
     motifsHeading: 'ลวดลายของฉักลักษณ์นี้',
     motifsIntro: 'ลวดลายแจ็คการ์ดขนาด 12×12 จำนวนแปดลายสร้างขึ้นจากฉักลักษณ์นี้ หนึ่งลายต่อหนึ่งตระกูลที่ยอมรับได้ของระบบ แต่ละลายมีหน้าของตนเอง (ภาษาอังกฤษ): เซลล์ การปูลาย การเปลี่ยนสี และข้อมูล',
@@ -210,7 +210,7 @@ const L = {
     upper: 'Oberes Trigramm', lower: 'Unteres Trigramm', image: 'Bild', judgement: 'Urteil', sixLines: 'Die sechs Linien',
     pos: ['Erste Linie', 'Zweite Linie', 'Dritte Linie', 'Vierte Linie', 'Fünfte Linie', 'Sechste Linie'],
     readBook: 'Die Stelle im Buch lesen (Kap. 7.1) →', board: 'Auf dem interaktiven Brett ansehen →', create: 'Das Muster dieses Hexagramms erstellen →',
-    source: (bookHref, frHref) => `<b>Quelle</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">Kapitel 7.1 (S. 63–68)</a>. <a href="${frHref}" hreflang="fr">Französische Fassung dieser Seite</a>.`,
+    source: (bookHref, frHref, pp) => `<b>Quelle</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">Kapitel 7.1 (S. ${pp.du}–${pp.au})</a>. <a href="${frHref}" hreflang="fr">Französische Fassung dieser Seite</a>.`,
     lexicon: (href) => `Zu den hier verwendeten Begriffen — magisches Quadrat, Schicht und Wurf, das I Ging — siehe das <a href="${href}">Lexikon des Projekts</a>.`,
     motifsHeading: 'Die Muster dieses Hexagramms',
     motifsIntro: 'Aus diesem Hexagramm entstehen acht Jacquard-Muster im Format 12×12, eines je zulässiger Familie des Systems. Jedes hat seine eigene Seite (auf Englisch): Zelle, Parkettierung, Umfärbungen und Daten.',
@@ -243,7 +243,7 @@ const L = {
     upper: 'Trigramma superiore', lower: 'Trigramma inferiore', image: 'Immagine', judgement: 'Giudizio', sixLines: 'Le sei linee',
     pos: ['Prima linea', 'Seconda linea', 'Terza linea', 'Quarta linea', 'Quinta linea', 'Sesta linea'],
     readBook: 'Leggere il passo nel libro (cap. 7.1) →', board: 'Vederlo sulla scacchiera interattiva →', create: 'Creare il motivo di questo esagramma →',
-    source: (bookHref, frHref) => `<b>Fonte</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">capitolo 7.1 (pp. 63–68)</a>. <a href="${frHref}" hreflang="fr">Versione francese di questa pagina</a>.`,
+    source: (bookHref, frHref, pp) => `<b>Fonte</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">capitolo 7.1 (pp. ${pp.du}–${pp.au})</a>. <a href="${frHref}" hreflang="fr">Versione francese di questa pagina</a>.`,
     lexicon: (href) => `Per le nozioni usate qui — quadrato magico, strato ed estrazione, l'I Ching — vedi il <a href="${href}">lessico del progetto</a>.`,
     motifsHeading: 'I motivi di questo esagramma',
     motifsIntro: 'Da questo esagramma si generano otto motivi Jacquard 12×12, uno per ogni famiglia ammissibile del sistema. Ciascuno ha la sua pagina (in inglese): cella, pavimentazione, ricolorazioni e dati.',
@@ -276,7 +276,7 @@ const L = {
     upper: '上卦', lower: '下卦', image: '象', judgement: '卦辞', sixLines: '六つの爻',
     pos: ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'],
     readBook: '本の該当箇所を読む（7.1章）→', board: 'インタラクティブな盤で見る →', create: 'この卦の紋様をつくる →',
-    source: (bookHref, frHref) => `<b>出典</b>：<i>La Livrée d'Hermès</i>、Anibal Amiot — <a href="${bookHref}">7.1章（63〜68ページ）</a>。<a href="${frHref}" hreflang="fr">このページのフランス語版</a>。`,
+    source: (bookHref, frHref, pp) => `<b>出典</b>：<i>La Livrée d'Hermès</i>、Anibal Amiot — <a href="${bookHref}">7.1章（${pp.du}〜${pp.au}ページ）</a>。<a href="${frHref}" hreflang="fr">このページのフランス語版</a>。`,
     lexicon: (href) => `ここで使う概念――魔方陣、層とくじ、易経――は<a href="${href}">プロジェクトの用語集</a>を参照。`,
     motifsHeading: 'この卦の紋様',
     motifsIntro: 'この卦から、システムの許容される家族ごとに一つ、計八つの 12×12 ジャカード紋様が生まれます。それぞれに専用ページ（英語）があり、セル、敷き詰め、色替え、データを載せています。',
@@ -352,7 +352,10 @@ ${cartes}
 
   // la visionneuse n'ouvre que les éditions parues (scripts/livres.js) : de, it, ja « en préparation » renvoient à l'anglaise
   const lecture = ((require('./livres.js').livres().find((x) => x.code === lang)) || {}).pret ? lang : 'en';
-  const bookHref = `${SITE}/book-viewer/index.html?read=${lecture}&amp;page=063`;
+  // le code de la page « Trame » et les numéros imprimés du chapitre 7.1 : ceux de l'édition lue
+  // (scripts/livres.js : 063 à 068 dans l'ancienne, 081 à 086 dans celle de livre-medias)
+  const pp = require('./livres.js').pagesTrame(lecture);
+  const bookHref = `${SITE}/book-viewer/index.html?read=${lecture}&amp;page=${pp.code}`;
   for (const h of info) {
     const { chrono, kw, pinyin, name, traits } = h;
     const { judgementTitle, judgement, image } = tx.hex(kw);
@@ -502,7 +505,7 @@ ${lines}
       </div>
 
       <hr>
-      <p class="article-sources">${l.source(bookHref, A.url(chrono, 'fr'))}</p>
+      <p class="article-sources">${l.source(bookHref, A.url(chrono, 'fr'), pp)}</p>
       <p><i>${l.lexicon(l.lexiconUrl)}</i></p>
 
       ${motifsHtml(chrono)}

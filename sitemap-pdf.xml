@@ -3,112 +3,70 @@
      relations hreflang portées ici en xhtml:link puisque <link rel="alternate"
      hreflang> dans un <head> ne peut pas cibler un fichier PDF directement — cette
      déclaration en sitemap est le mécanisme correct pour des ressources non-HTML.
-     Engendré par scripts/build-langues.js : un PDF par édition parue
-     (scripts/livres.js), ne pas éditer ici. -->
+     Engendré par scripts/build-langues.js : un PDF par édition parue SUR CE SITE
+     (scripts/livres.js) ; ceux de livre-medias (autre hôte) n'y sont pas, un
+     sitemap ne pouvant lister que les adresses de son propre site. Ne pas
+     éditer ici. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf</loc>
-    <lastmod>2026-09-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
-    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
-    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-  </url>
-  <url>
-    <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf</loc>
-    <lastmod>2026-09-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
-    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
-    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf</loc>
     <lastmod>2026-09-02</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf</loc>
     <lastmod>2026-09-03</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf</loc>
     <lastmod>2026-10-03</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf</loc>
     <lastmod>2026-10-03</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf</loc>
     <lastmod>2026-10-04</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf</loc>
     <lastmod>2026-10-04</lastmod>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf"/>
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
 </urlset>

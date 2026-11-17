@@ -48,9 +48,13 @@ DRAPEAUX = pymupdf.TEXT_INHIBIT_SPACES | pymupdf.TEXT_PRESERVE_WHITESPACE | pymu
 LIGATURES = {'ﬀ': 'ff', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'st', 'ﬆ': 'st'}
 
 
-def codes():
+def codes_de(nom='PAGE_CODES'):
     html = open(os.path.join(ROOT, 'book-viewer/index.html'), encoding='utf-8').read()
-    return re.search(r'const PAGE_CODES = \[([^\]]*)\]', html).group(1).replace('"', '').split(',')
+    return re.search(r'const ' + nom + r' = \[([^\]]*)\]', html).group(1).replace('"', '').split(',')
+
+
+def codes():
+    return codes_de('PAGE_CODES')
 
 
 def pdf(langue):

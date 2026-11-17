@@ -26,7 +26,7 @@
   "name": "La Livrée d'Hermès",
   "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
   "inLanguage": "fr",
-  "url": "https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf",
+  "url": "https://anibaledel.github.io/livre-medias/la-livree-d-hermes-anibal-amiot-fr.pdf",
   "isAccessibleForFree": true,
   "bookFormat": "https://schema.org/EBook",
   "workTranslation": [
@@ -34,7 +34,7 @@
       "@type": "Book",
       "name": "La Livrée d'Hermès",
       "inLanguage": "en",
-      "url": "https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf",
+      "url": "https://anibaledel.github.io/livre-medias/la-livree-d-hermes-anibal-amiot-en.pdf",
       "isAccessibleForFree": true,
       "bookFormat": "https://schema.org/EBook",
       "translationOfWork": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" }
@@ -258,7 +258,7 @@
     <button type="submit" id="voirBtn">Voir</button>
   </form>
   <span class="sep">|</span>
-  <a class="pdf-link" id="pdfLink" href="la-livree-d-hermes-anibal-amiot-fr.pdf" download>Télécharger le PDF</a>
+  <a class="pdf-link" id="pdfLink" href="https://anibaledel.github.io/livre-medias/la-livree-d-hermes-anibal-amiot-fr.pdf">Télécharger le PDF</a>
 </footer>
 
 <div class="hint" id="hintText">← → pour naviguer · clic sur la page pour zoomer</div>
@@ -266,30 +266,38 @@
 <script>
 // ---------- pages disponibles (même pagination pour les 4 langues prêtes : FR/EN/ES/TH) ----------
 const PAGE_CODES = ["000A","000B","001","002","003","004A","004B","004C","005","006","007","008A","008B","008C","009","010","011","012A","012B","012C","013","014","015","016","017","018A","018B","018C","019","020","021","022","023","024A","024B","024C","025","026","027","028A","028B","028C","029","030","031","032","033","034","035","036","037","038A","038B","038C","039","040","041","042","043","044","045","046","047","048","049","050","051","052","053","054","055","056","057","058","059","060","061","062A","062B","062C","063","064","065","066","067","068","069","070","071","072","073","074","075","076A","077","078","079","080","081","082","083","084","085","086","087","088","089","090","091","092","093"];
+// Nouvelle édition du livre (fr, en : PDF de livre-medias), 115 pages du FICHIER : couverture et
+// préliminaires (000A, 000B), puis un code par numéro imprimé du sommaire (001 à 110 ; la page « 111 »
+// du livre est la page DOI, avec les deux pages de fin : 111A, 111B, 111C). Relevé sur le PDF français :
+// la page n du fichier porte le numéro n − 2 de la page 4 (« 2 ») à la page 113 (« 111 »).
+const PAGE_CODES_115 = ["000A","000B","001","002","003","004","005","006","007","008","009","010","011","012","013","014","015","016","017","018","019","020","021","022","023","024","025","026","027","028","029","030","031","032","033","034","035","036","037","038","039","040","041","042","043","044","045","046","047","048","049","050","051","052","053","054","055","056","057","058","059","060","061","062","063","064","065","066","067","068","069","070","071","072","073","074","075","076","077","078","079","080","081","082","083","084","085","086","087","088","089","090","091","092","093","094","095","096","097","098","099","100","101","102","103","104","105","106","107","108","109","110","111A","111B","111C"];
+// @concordance:start — engendré par scripts/build-langues.js depuis data/livre/concordance.json, ne pas éditer ici
+const CONCORDANCE = {"000A":"000B","000B":"000B","001":"003","002":"004","003":"005","004A":"006","004B":"007","004C":"008","005":"009","006":"010","007":"011","008A":"012","008B":"013","008C":"014","009":"015","010":"016","011":"017","012A":"018","012B":"019","012C":"020","013":"021","014":"022","015":"023","016":"024","017":"025","018A":"026","018B":"027","018C":"028","019":"029","020":"030","021":"031","022":"032","023":"033","024A":"034","024B":"035","024C":"036","025":"037","026":"038","027":"039","028A":"040","028B":"041","028C":"042","029":"043","030":"044","031":"045","032":"046","033":"047","034":"048","035":"049","036":"050","037":"051","038A":"052","038B":"053","038C":"054","039":"055","040":"056","041":"057","042":"058","043":"059","044":"060","045":"061","046":"062","047":"063","048":"064","049":"065","050":"066","051":"067","052":"068","053":"069","054":"070","055":"071","056":"072","057":"073","058":"074","059":"075","060":"076","061":"077","062A":"078","062B":"079","062C":"080","063":"081","064":"082","065":"083","066":"084","067":"085","068":"086","069":"087","070":"088","071":"089","072":"090","073":"091","074":"092","075":"093","076A":"094","077":"095","078":"096","079":"097","080":"098","081":"099","082":"100","083":"101","084":"102","085":"103","086":"104","087":"105","088":"106","089":"107","090":"108","091":"109","092":"110","093":"111C"};
+// @concordance:end
 
 // @langues:start — engendré par scripts/build-langues.js, ne pas éditer ici
 const LANGS = {
-  fr: { label: "Français", pages: PAGE_CODES, ready: true, lang: "fr", pdf: "la-livree-d-hermes-anibal-amiot-fr.pdf", evitement: "Aller au contenu",
+  fr: { label: "Français", pages: PAGE_CODES_115, pagesBase: "https://anibaledel.github.io/livre-medias/pages/fr", ready: true, lang: "fr", pdf: "https://anibaledel.github.io/livre-medias/la-livree-d-hermes-anibal-amiot-fr.pdf", evitement: "Aller au contenu",
     ui: {"titre":"Le Livre — visualiseur","titreDoc":"La Livrée d'Hermès — Le Livre","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Aller à","exemple":"ex. 042","voir":"Voir","aideClavier":"← → pour naviguer · clic sur la page pour zoomer","aideTactile":"Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer","prec":"Page précédente","suiv":"Page suivante","pdf":"Télécharger le PDF","langues":"Langue du livre","repliPage":"La page {code} n'existe pas dans cette édition : page {proche}, la plus proche."} },
-  en: { label: "English", pages: PAGE_CODES, ready: true, lang: "en", pdf: "la-livree-d-hermes-anibal-amiot-en.pdf", evitement: "Skip to content",
+  en: { label: "English", pages: PAGE_CODES_115, pagesBase: "https://anibaledel.github.io/livre-medias/pages/en", ready: true, lang: "en", pdf: "https://anibaledel.github.io/livre-medias/la-livree-d-hermes-anibal-amiot-en.pdf", evitement: "Skip to content",
     ui: {"titre":"The Book — viewer","titreDoc":"La Livrée d'Hermès — The Book","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Go to","exemple":"e.g. 042","voir":"Go","aideClavier":"← → to turn pages · click the page to zoom","aideTactile":"Swipe left/right to turn pages · tap the page to zoom","prec":"Previous page","suiv":"Next page","pdf":"Download the PDF","langues":"Language of the book","repliPage":"Page {code} is not in this edition: showing page {proche}, the nearest."} },
-  es: { label: "Español", pages: PAGE_CODES, ready: true, lang: "es", pdf: "la-livree-d-hermes-anibal-amiot-es.pdf", evitement: "Ir al contenido",
+  es: { label: "Español", pages: PAGE_CODES, pagesBase: "pages/es", ready: true, lang: "es", pdf: "la-livree-d-hermes-anibal-amiot-es.pdf", evitement: "Ir al contenido",
     ui: {"titre":"El libro — visor","titreDoc":"La Livrée d'Hermès — El libro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir a","exemple":"p. ej. 042","voir":"Ver","aideClavier":"← → para pasar las páginas · clic en la página para ampliar","aideTactile":"Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar","prec":"Página anterior","suiv":"Página siguiente","pdf":"Descargar el PDF","langues":"Idioma del libro","repliPage":"La página {code} no existe en esta edición: página {proche}, la más cercana."} },
-  th: { label: "ไทย", pages: PAGE_CODES, ready: true, lang: "th", pdf: "la-livree-d-hermes-anibal-amiot-th.pdf", evitement: "ข้ามไปยังเนื้อหา",
+  th: { label: "ไทย", pages: PAGE_CODES, pagesBase: "pages/th", ready: true, lang: "th", pdf: "la-livree-d-hermes-anibal-amiot-th.pdf", evitement: "ข้ามไปยังเนื้อหา",
     ui: {"titre":"หนังสือ — โปรแกรมอ่าน","titreDoc":"ลิเวรีของเฮอร์มีส — หนังสือ","pageLabel":"หน้า {code} — {i} / {n}","alt":"หน้า {code}","allerA":"ไปที่หน้า","exemple":"เช่น 042","voir":"ดู","aideClavier":"← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย","aideTactile":"ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย","prec":"หน้าก่อนหน้า","suiv":"หน้าถัดไป","pdf":"ดาวน์โหลด PDF","langues":"ภาษาของหนังสือ","repliPage":"ฉบับนี้ไม่มีหน้า {code} : แสดงหน้า {proche} ซึ่งใกล้ที่สุด"} },
-  zh: { label: "简体中文", pages: PAGE_CODES, ready: true, lang: "zh-Hans", pdf: "la-livree-d-hermes-anibal-amiot-zh.pdf", evitement: "跳到正文",
+  zh: { label: "简体中文", pages: PAGE_CODES, pagesBase: "pages/zh", ready: true, lang: "zh-Hans", pdf: "la-livree-d-hermes-anibal-amiot-zh.pdf", evitement: "跳到正文",
     ui: {"titre":"本书 — 阅读器","titreDoc":"La Livrée d'Hermès — 本书","pageLabel":"第 {code} 页 — {i} / {n}","alt":"第 {code} 页","allerA":"跳至","exemple":"例：042","voir":"查看","aideClavier":"← → 翻页 · 点击页面放大","aideTactile":"左右滑动翻页 · 轻触页面放大","prec":"上一页","suiv":"下一页","pdf":"下载 PDF","langues":"本书语言","repliPage":"此版本没有第 {code} 页：显示最接近的第 {proche} 页。"} },
-  ru: { label: "Русский", pages: PAGE_CODES, ready: true, lang: "ru", pdf: "la-livree-d-hermes-anibal-amiot-ru.pdf", evitement: "Перейти к содержанию",
+  ru: { label: "Русский", pages: PAGE_CODES, pagesBase: "pages/ru", ready: true, lang: "ru", pdf: "la-livree-d-hermes-anibal-amiot-ru.pdf", evitement: "Перейти к содержанию",
     ui: {"titre":"Книга — просмотр","titreDoc":"La Livrée d'Hermès — Книга","pageLabel":"Страница {code} — {i} / {n}","alt":"Страница {code}","allerA":"Перейти к странице","exemple":"напр. 042","voir":"Открыть","aideClavier":"← → — листать · щелчок по странице — увеличить","aideTactile":"Листайте влево/вправо · коснитесь страницы, чтобы увеличить","prec":"Предыдущая страница","suiv":"Следующая страница","pdf":"Скачать PDF","langues":"Язык книги","repliPage":"Страницы {code} нет в этом издании: открыта ближайшая, {proche}."} },
-  pt: { label: "Português", pages: PAGE_CODES, ready: true, lang: "pt-PT", pdf: "la-livree-d-hermes-anibal-amiot-pt.pdf", evitement: "Ir para o conteúdo",
+  pt: { label: "Português", pages: PAGE_CODES, pagesBase: "pages/pt", ready: true, lang: "pt-PT", pdf: "la-livree-d-hermes-anibal-amiot-pt.pdf", evitement: "Ir para o conteúdo",
     ui: {"titre":"O livro — visualizador","titreDoc":"La Livrée d'Hermès — O livro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir para a página","exemple":"ex. 042","voir":"Ver","aideClavier":"← → para mudar de página · clique na página para ampliar","aideTactile":"Deslize para a esquerda/direita para mudar de página · toque na página para ampliar","prec":"Página anterior","suiv":"Página seguinte","pdf":"Descarregar o PDF","langues":"Língua do livro","repliPage":"A página {code} não existe nesta edição: página {proche}, a mais próxima."} },
-  hi: { label: "हिन्दी", pages: PAGE_CODES, ready: true, lang: "hi", pdf: "la-livree-d-hermes-anibal-amiot-hi.pdf", evitement: "सामग्री पर जाएँ",
+  hi: { label: "हिन्दी", pages: PAGE_CODES, pagesBase: "pages/hi", ready: true, lang: "hi", pdf: "la-livree-d-hermes-anibal-amiot-hi.pdf", evitement: "सामग्री पर जाएँ",
     ui: {"titre":"पुस्तक — दर्शक","titreDoc":"La Livrée d'Hermès — पुस्तक","pageLabel":"पृष्ठ {code} — {i} / {n}","alt":"पृष्ठ {code}","allerA":"पृष्ठ पर जाएँ","exemple":"उदा. 042","voir":"देखें","aideClavier":"← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें","aideTactile":"पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें","prec":"पिछला पृष्ठ","suiv":"अगला पृष्ठ","pdf":"PDF डाउनलोड करें","langues":"पुस्तक की भाषा","repliPage":"इस संस्करण में पृष्ठ {code} नहीं है: निकटतम पृष्ठ {proche} दिखाया गया है।"} },
-  de: { label: "Deutsch", pages: PAGE_CODES, ready: false, lang: "de", pdf: "la-livree-d-hermes-anibal-amiot-de.pdf", evitement: "Zum Inhalt springen",
+  de: { label: "Deutsch", pages: PAGE_CODES, pagesBase: "pages/de", ready: false, lang: "de", pdf: "la-livree-d-hermes-anibal-amiot-de.pdf", evitement: "Zum Inhalt springen",
     ui: {"titre":"Das Buch — Leseansicht","titreDoc":"La Livrée d'Hermès — Das Buch","pageLabel":"Seite {code} — {i} / {n}","alt":"Seite {code}","allerA":"Gehe zu","exemple":"z. B. 042","voir":"Anzeigen","aideClavier":"← → zum Blättern · Seite anklicken zum Vergrößern","aideTactile":"Nach links/rechts wischen zum Blättern · Seite antippen zum Vergrößern","prec":"Vorherige Seite","suiv":"Nächste Seite","pdf":"PDF öffnen","langues":"Sprache des Buches","repliPage":"Seite {code} gibt es in dieser Ausgabe nicht: angezeigt wird die nächstliegende Seite {proche}."} },
-  it: { label: "Italiano", pages: PAGE_CODES, ready: false, lang: "it", pdf: "la-livree-d-hermes-anibal-amiot-it.pdf", evitement: "Vai al contenuto",
+  it: { label: "Italiano", pages: PAGE_CODES, pagesBase: "pages/it", ready: false, lang: "it", pdf: "la-livree-d-hermes-anibal-amiot-it.pdf", evitement: "Vai al contenuto",
     ui: {"titre":"Il libro — visualizzatore","titreDoc":"La Livrée d'Hermès — Il libro","pageLabel":"Pagina {code} — {i} / {n}","alt":"Pagina {code}","allerA":"Vai a","exemple":"es. 042","voir":"Vai","aideClavier":"← → per cambiare pagina · clicca sulla pagina per ingrandire","aideTactile":"Scorri a sinistra/destra per cambiare pagina · tocca la pagina per ingrandire","prec":"Pagina precedente","suiv":"Pagina successiva","pdf":"Apri il PDF","langues":"Lingua del libro","repliPage":"La pagina {code} non esiste in questa edizione: mostrata la pagina {proche}, la più vicina."} },
-  ja: { label: "日本語", pages: PAGE_CODES, ready: false, lang: "ja", pdf: "la-livree-d-hermes-anibal-amiot-ja.pdf", evitement: "本文へ移動",
+  ja: { label: "日本語", pages: PAGE_CODES, pagesBase: "pages/ja", ready: false, lang: "ja", pdf: "la-livree-d-hermes-anibal-amiot-ja.pdf", evitement: "本文へ移動",
     ui: {"titre":"本 — ビューア","titreDoc":"La Livrée d'Hermès — 本","pageLabel":"{code} ページ — {i} / {n}","alt":"{code} ページ","allerA":"移動","exemple":"例：042","voir":"表示","aideClavier":"← → でページ送り · ページをクリックで拡大","aideTactile":"左右にスワイプでページ送り · ページをタップで拡大","prec":"前のページ","suiv":"次のページ","pdf":"PDF を開く","langues":"本の言語","repliPage":"この版には {code} ページがありません：最も近い {proche} ページを表示します。"} },
 };
 // @langues:end
@@ -334,10 +342,26 @@ function indexLePlusProche(list, code){
   list.forEach((c, i)=>{ if(Math.abs(cleDuCode(c) - k) < Math.abs(cleDuCode(list[best]) - k)) best = i; });
   return best;
 }
+// Deux éditions n'ont pas la même pagination (111 pages, ancienne ; 115, celle de
+// livre-medias) : « 081 » n'est pas la même page dans l'une et dans l'autre. En
+// passant de l'une à l'autre, le code traverse la CONCORDANCE (tools/concordance_livre.py :
+// la page de même texte), sinon la visionneuse ouvrirait une autre page sans le dire.
+function codeEntreEditions(code, depuis, vers){
+  if(depuis === vers || code === undefined) return code;
+  if(depuis === PAGE_CODES){ return CONCORDANCE[code] || code; }
+  // nouvelle → ancienne : l'ancien code dont la concordance donne ce code ; à défaut, celui
+  // de la page nouvelle qui précède, la plus proche dans l'ordre
+  const inverse = {};
+  Object.keys(CONCORDANCE).forEach(a => { if(!(CONCORDANCE[a] in inverse)) inverse[CONCORDANCE[a]] = a; });
+  for(let i = depuis.indexOf(code); i >= 0; i--){ if(depuis[i] in inverse) return inverse[depuis[i]]; }
+  return vers[0];
+}
 function changerDeLangue(code){
-  const avant = pages()[currentIndex];
+  const listeAvant = pages();
+  let avant = listeAvant[currentIndex];
   currentLang = code;
   const list = pages();
+  avant = codeEntreEditions(avant, listeAvant, list);
   let idx = avant === undefined ? 0 : indexDuCode(list, avant);
   let avis = null;
   if(idx < 0 && list.length){
@@ -374,6 +398,8 @@ function appliquerUI(){
   document.getElementById('voirBtn').textContent = ui.voir;
   const pdf = document.getElementById('pdfLink');
   pdf.href = L.pdf; pdf.textContent = ui.pdf; pdf.hreflang = L.lang;
+  // `download` ne vaut que vers le même domaine : sur livre-medias le PDF s'ouvre dans le navigateur
+  pdf.toggleAttribute('download', !/^https?:/.test(L.pdf));
   document.getElementById('hintText').textContent = isTouchDevice ? ui.aideTactile : ui.aideClavier;
   const ev = repli ? LANGS.fr.evitement : L.evitement;
   if(ev) document.querySelectorAll('.skip-link').forEach((a)=>{ a.textContent = ev; });
@@ -385,7 +411,8 @@ function render(){
   currentIndex = Math.max(0, Math.min(list.length-1, currentIndex));
   const code = list[currentIndex];
   const img = document.getElementById('pageImg');
-  img.src = `pages/${currentLang}/${code}.webp`;
+  // le dossier des pages dit d'où vient l'édition : ce site (pages/<langue>) ou livre-medias
+  img.src = `${LANGS[currentLang].pagesBase}/${code}.webp`;
   const ui = texte();
   img.alt = ui.alt.replace('{code}', code);
   img.classList.remove('zoomed');

@@ -25,6 +25,21 @@
    ============================================================ */
 const SITE = 'https://anibal-amiot.com';
 
+// Les fichiers lourds du livre (PDF et pages WebP) sont servis par le dépôt
+// public anibaledel/livre-medias (GitHub Pages), pas par ce site (prompt 192,
+// étape 2). UNE base, UN dossier de PDF, UN dossier de pages : si Anibal passe
+// un jour à jsDelivr ou range les PDF dans un sous-dossier, c'est une ligne.
+//   PDF    MEDIAS_PDF/la-livree-d-hermes-anibal-amiot-<code>.pdf  (à la racine)
+//   pages  MEDIAS_PAGES/<code>/<page>.webp
+// Aucune adresse de ces fichiers n'est écrite ailleurs à la main :
+// tools/retarget_livre_medias.mjs réécrit les pages écrites à la main depuis
+// ces constantes, tools/check_livre_medias.mjs échoue si une page en cite une
+// autre.
+const MEDIAS_BASE = 'https://anibaledel.github.io/livre-medias';
+const MEDIAS_PDF = MEDIAS_BASE;
+const MEDIAS_PAGES = `${MEDIAS_BASE}/pages`;
+const NOM_PDF = (code) => `la-livree-d-hermes-anibal-amiot-${code}.pdf`;
+
 // La langue servie au visiteur dont la langue n'est aucune des nôtres —
 // le x-default de chaque groupe. Choix éditorial d'Anibal : l'anglais.
 //
@@ -537,7 +552,7 @@ function annoncerLiens(html, lang, fichierPage) {
 }
 
 module.exports = {
-  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode, pageDe,
+  SITE, MEDIAS_BASE, MEDIAS_PDF, MEDIAS_PAGES, NOM_PDF, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode, pageDe,
   BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
   adresseDans, urlDans, annonceVers, ANNONCES, annoncerLiens, espaceAvant,
 };

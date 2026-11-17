@@ -1,0 +1,17 @@
+{
+ "_doc": "Les éditions du livre servies par livre-medias (tools/verifie_livre_medias.mjs --ecrire). Une langue n'y figure que si son PDF répond 200 application/pdf ET si chaque page de PAGE_CODES_115 répond 200 image/*. scripts/livres.js lit ce fichier : une langue ici est « parue » depuis livre-medias, les autres restent en préparation (ou sur l'ancienne édition du site).",
+ "base": "https://anibaledel.github.io/livre-medias",
+ "verifie_le": "2026-11-17",
+ "editions": {
+  "fr": {
+   "pdf_octets": 23684951,
+   "pages": 115,
+   "liste_de_pages": "PAGE_CODES_115"
+  },
+  "en": {
+   "pdf_octets": 24270455,
+   "pages": 115,
+   "liste_de_pages": "PAGE_CODES_115"
+  }
+ }
+}

@@ -5,6 +5,8 @@ name: PDF légers, linéarisés, servis en requêtes partielles
 #   génération de PDF).
 # - check_livres.py : les huit éditions, et les pages du lecteur qui les
 #   montrent (voir l'en-tête du script).
+# - check_livres_medias.py, concordance_livre.py, verifie_livre_medias.mjs,
+#   retarget_livre_medias.mjs : les éditions servies par livre-medias (fr, en).
 # - check_pdf_servis.py : sur le site DÉPLOYÉ, une requête partielle d'un PDF
 #   répond 206 et Accept-Ranges: bytes, et le fichier servi est linéarisé.
 #   Après chaque déploiement de main, et à la demande ; informatif sur une PR
@@ -36,6 +38,34 @@ jobs:
       - run: pip install pymupdf==1.28.2 numpy pillow
       - run: python3 tools/check_livres.py
       - run: python3 tools/check_livres.py --essai
+      # les éditions servies par livre-medias (fr, en ; prompt 192, étape 2) : le
+      # PDF et les pages du lecteur lus dans une copie du dépôt livre-medias
+      # (tools/check_livres_medias.py ; --essai le fait mordre), la concordance
+      # ancienne → nouvelle pagination, l'état en ligne (200 application/pdf,
+      # chaque page 200 image/*) et les pages écrites à la main qui doivent
+      # citer le PDF à l'adresse de scripts/langues.js
+      - uses: actions/checkout@v4
+        with:
+          repository: anibaledel/livre-medias
+          path: livre-medias
+      - run: pip install pypdfium2
+      - run: python3 tools/check_livres_medias.py
+        env:
+          LIVRE_MEDIAS: ${{ github.workspace }}/livre-medias
+      - run: python3 tools/check_livres_medias.py --essai
+        env:
+          LIVRE_MEDIAS: ${{ github.workspace }}/livre-medias
+      # linéarisation : ceux de livre-medias ne le sont pas (voir l'en-tête du script) ; l'écart
+      # est affiché en avertissement et n'arrête pas les autres contrôles
+      - run: python3 tools/check_livres_medias.py --lineaire
+        continue-on-error: true
+        env:
+          LIVRE_MEDIAS: ${{ github.workspace }}/livre-medias
+      - run: python3 tools/concordance_livre.py --verifie
+        env:
+          LIVRE_MEDIAS: ${{ github.workspace }}/livre-medias
+      - run: node tools/verifie_livre_medias.mjs --verifie
+      - run: node tools/retarget_livre_medias.mjs --verifie
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-pdf.yml
   site:
     runs-on: ubuntu-latest

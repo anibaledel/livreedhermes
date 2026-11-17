@@ -1,0 +1,927 @@
+{
+ "_doc": "Concordance des pages du livre entre l'ancienne édition (111 pages, PAGE_CODES) et la nouvelle (livre-medias, PAGE_CODES_115), calculée par tools/concordance_livre.py depuis le texte des deux PDF (alignement monotone). « ressemblance » : cosinus des mots des deux pages ; « approchee » : page sans correspondant de texte, rattachée à la page la plus proche dans l'ordre. scripts/livres.js (codeDansEdition) s'en sert pour tout lien qui désigne une page par son code.",
+ "langues": {
+  "fr": {
+   "table": {
+    "000A": {
+     "nouveau": "000B",
+     "approchee": true
+    },
+    "000B": {
+     "nouveau": "000B",
+     "ressemblance": 0.894
+    },
+    "001": {
+     "nouveau": "003",
+     "ressemblance": 0.982
+    },
+    "002": {
+     "nouveau": "004",
+     "ressemblance": 0.966
+    },
+    "003": {
+     "nouveau": "005",
+     "ressemblance": 0.998
+    },
+    "004A": {
+     "nouveau": "006",
+     "ressemblance": 0.99
+    },
+    "004B": {
+     "nouveau": "007",
+     "ressemblance": 0.951
+    },
+    "004C": {
+     "nouveau": "008",
+     "ressemblance": 0.657
+    },
+    "005": {
+     "nouveau": "009",
+     "ressemblance": 0.98
+    },
+    "006": {
+     "nouveau": "010",
+     "ressemblance": 0.963
+    },
+    "007": {
+     "nouveau": "011",
+     "approchee": true
+    },
+    "008A": {
+     "nouveau": "012",
+     "ressemblance": 0.973
+    },
+    "008B": {
+     "nouveau": "013",
+     "ressemblance": 0.995
+    },
+    "008C": {
+     "nouveau": "014",
+     "ressemblance": 0.969
+    },
+    "009": {
+     "nouveau": "015",
+     "ressemblance": 0.934
+    },
+    "010": {
+     "nouveau": "016",
+     "ressemblance": 0.989
+    },
+    "011": {
+     "nouveau": "017",
+     "ressemblance": 0.531
+    },
+    "012A": {
+     "nouveau": "018",
+     "ressemblance": 0.981
+    },
+    "012B": {
+     "nouveau": "019",
+     "ressemblance": 0.988
+    },
+    "012C": {
+     "nouveau": "020",
+     "ressemblance": 0.974
+    },
+    "013": {
+     "nouveau": "021",
+     "ressemblance": 0.926
+    },
+    "014": {
+     "nouveau": "022",
+     "approchee": true
+    },
+    "015": {
+     "nouveau": "023",
+     "ressemblance": 0.984
+    },
+    "016": {
+     "nouveau": "024",
+     "ressemblance": 0.966
+    },
+    "017": {
+     "nouveau": "025",
+     "ressemblance": 0.9
+    },
+    "018A": {
+     "nouveau": "026",
+     "ressemblance": 0.979
+    },
+    "018B": {
+     "nouveau": "027",
+     "ressemblance": 0.948
+    },
+    "018C": {
+     "nouveau": "028",
+     "ressemblance": 0.995
+    },
+    "019": {
+     "nouveau": "029",
+     "ressemblance": 0.404
+    },
+    "020": {
+     "nouveau": "030",
+     "ressemblance": 0.37
+    },
+    "021": {
+     "nouveau": "031",
+     "ressemblance": 0.82
+    },
+    "022": {
+     "nouveau": "032",
+     "ressemblance": 0.651
+    },
+    "023": {
+     "nouveau": "033",
+     "ressemblance": 0.958
+    },
+    "024A": {
+     "nouveau": "034",
+     "ressemblance": 0.843
+    },
+    "024B": {
+     "nouveau": "035",
+     "ressemblance": 0.985
+    },
+    "024C": {
+     "nouveau": "036",
+     "ressemblance": 0.998
+    },
+    "025": {
+     "nouveau": "037",
+     "ressemblance": 0.958
+    },
+    "026": {
+     "nouveau": "038",
+     "approchee": true
+    },
+    "027": {
+     "nouveau": "039",
+     "ressemblance": 0.966
+    },
+    "028A": {
+     "nouveau": "040",
+     "ressemblance": 0.951
+    },
+    "028B": {
+     "nouveau": "041",
+     "ressemblance": 0.861
+    },
+    "028C": {
+     "nouveau": "042",
+     "ressemblance": 0.99
+    },
+    "029": {
+     "nouveau": "043",
+     "ressemblance": 0.916
+    },
+    "030": {
+     "nouveau": "044",
+     "approchee": true
+    },
+    "031": {
+     "nouveau": "045",
+     "ressemblance": 0.998
+    },
+    "032": {
+     "nouveau": "046",
+     "ressemblance": 0.917
+    },
+    "033": {
+     "nouveau": "047",
+     "ressemblance": 0.929
+    },
+    "034": {
+     "nouveau": "048",
+     "ressemblance": 0.981
+    },
+    "035": {
+     "nouveau": "049",
+     "ressemblance": 0.358
+    },
+    "036": {
+     "nouveau": "050",
+     "ressemblance": 0.977
+    },
+    "037": {
+     "nouveau": "051",
+     "ressemblance": 0.696
+    },
+    "038A": {
+     "nouveau": "052",
+     "ressemblance": 0.985
+    },
+    "038B": {
+     "nouveau": "053",
+     "ressemblance": 0.964
+    },
+    "038C": {
+     "nouveau": "054",
+     "ressemblance": 0.995
+    },
+    "039": {
+     "nouveau": "055",
+     "approchee": true
+    },
+    "040": {
+     "nouveau": "056",
+     "ressemblance": 0.884
+    },
+    "041": {
+     "nouveau": "057",
+     "ressemblance": 0.652
+    },
+    "042": {
+     "nouveau": "058",
+     "ressemblance": 0.993
+    },
+    "043": {
+     "nouveau": "059",
+     "ressemblance": 0.957
+    },
+    "044": {
+     "nouveau": "060",
+     "ressemblance": 0.953
+    },
+    "045": {
+     "nouveau": "061",
+     "ressemblance": 0.988
+    },
+    "046": {
+     "nouveau": "062",
+     "ressemblance": 0.666
+    },
+    "047": {
+     "nouveau": "063",
+     "approchee": true
+    },
+    "048": {
+     "nouveau": "064",
+     "ressemblance": 0.894
+    },
+    "049": {
+     "nouveau": "065",
+     "ressemblance": 0.875
+    },
+    "050": {
+     "nouveau": "066",
+     "ressemblance": 0.995
+    },
+    "051": {
+     "nouveau": "067",
+     "ressemblance": 0.971
+    },
+    "052": {
+     "nouveau": "068",
+     "ressemblance": 0.866
+    },
+    "053": {
+     "nouveau": "069",
+     "approchee": true
+    },
+    "054": {
+     "nouveau": "070",
+     "ressemblance": 0.783
+    },
+    "055": {
+     "nouveau": "071",
+     "ressemblance": 0.909
+    },
+    "056": {
+     "nouveau": "072",
+     "ressemblance": 0.822
+    },
+    "057": {
+     "nouveau": "073",
+     "ressemblance": 0.822
+    },
+    "058": {
+     "nouveau": "074",
+     "ressemblance": 0.923
+    },
+    "059": {
+     "nouveau": "075",
+     "ressemblance": 0.938
+    },
+    "060": {
+     "nouveau": "076",
+     "ressemblance": 0.944
+    },
+    "061": {
+     "nouveau": "077",
+     "approchee": true
+    },
+    "062A": {
+     "nouveau": "078",
+     "ressemblance": 0.986
+    },
+    "062B": {
+     "nouveau": "079",
+     "ressemblance": 0.996
+    },
+    "062C": {
+     "nouveau": "080",
+     "ressemblance": 0.997
+    },
+    "063": {
+     "nouveau": "081",
+     "ressemblance": 0.991
+    },
+    "064": {
+     "nouveau": "082",
+     "ressemblance": 0.993
+    },
+    "065": {
+     "nouveau": "083",
+     "ressemblance": 0.939
+    },
+    "066": {
+     "nouveau": "084",
+     "ressemblance": 0.991
+    },
+    "067": {
+     "nouveau": "085",
+     "ressemblance": 0.971
+    },
+    "068": {
+     "nouveau": "086",
+     "ressemblance": 0.994
+    },
+    "069": {
+     "nouveau": "087",
+     "ressemblance": 0.714
+    },
+    "070": {
+     "nouveau": "088",
+     "ressemblance": 0.696
+    },
+    "071": {
+     "nouveau": "089",
+     "ressemblance": 0.751
+    },
+    "072": {
+     "nouveau": "090",
+     "ressemblance": 0.822
+    },
+    "073": {
+     "nouveau": "091",
+     "ressemblance": 0.998
+    },
+    "074": {
+     "nouveau": "092",
+     "ressemblance": 0.968
+    },
+    "075": {
+     "nouveau": "093",
+     "ressemblance": 0.958
+    },
+    "076A": {
+     "nouveau": "094",
+     "ressemblance": 0.411
+    },
+    "077": {
+     "nouveau": "095",
+     "ressemblance": 0.414
+    },
+    "078": {
+     "nouveau": "096",
+     "ressemblance": 0.996
+    },
+    "079": {
+     "nouveau": "097",
+     "ressemblance": 0.411
+    },
+    "080": {
+     "nouveau": "098",
+     "ressemblance": 0.451
+    },
+    "081": {
+     "nouveau": "099",
+     "ressemblance": 0.412
+    },
+    "082": {
+     "nouveau": "100",
+     "ressemblance": 0.411
+    },
+    "083": {
+     "nouveau": "101",
+     "ressemblance": 0.411
+    },
+    "084": {
+     "nouveau": "102",
+     "ressemblance": 0.411
+    },
+    "085": {
+     "nouveau": "103",
+     "ressemblance": 0.411
+    },
+    "086": {
+     "nouveau": "104",
+     "ressemblance": 0.411
+    },
+    "087": {
+     "nouveau": "105",
+     "ressemblance": 0.411
+    },
+    "088": {
+     "nouveau": "106",
+     "ressemblance": 0.41
+    },
+    "089": {
+     "nouveau": "107",
+     "ressemblance": 0.411
+    },
+    "090": {
+     "nouveau": "108",
+     "ressemblance": 0.411
+    },
+    "091": {
+     "nouveau": "109",
+     "ressemblance": 0.411
+    },
+    "092": {
+     "nouveau": "110",
+     "ressemblance": 0.996
+    },
+    "093": {
+     "nouveau": "111C",
+     "ressemblance": 0.482
+    }
+   },
+   "appariees": 102,
+   "approchees": [
+    "000A",
+    "007",
+    "014",
+    "026",
+    "030",
+    "039",
+    "047",
+    "053",
+    "061"
+   ]
+  },
+  "en": {
+   "table": {
+    "000A": {
+     "nouveau": "000B",
+     "approchee": true
+    },
+    "000B": {
+     "nouveau": "000B",
+     "ressemblance": 0.994
+    },
+    "001": {
+     "nouveau": "003",
+     "ressemblance": 0.824
+    },
+    "002": {
+     "nouveau": "004",
+     "ressemblance": 0.74
+    },
+    "003": {
+     "nouveau": "005",
+     "ressemblance": 0.566
+    },
+    "004A": {
+     "nouveau": "006",
+     "ressemblance": 0.739
+    },
+    "004B": {
+     "nouveau": "007",
+     "approchee": true
+    },
+    "004C": {
+     "nouveau": "008",
+     "ressemblance": 0.626
+    },
+    "005": {
+     "nouveau": "009",
+     "ressemblance": 0.882
+    },
+    "006": {
+     "nouveau": "010",
+     "ressemblance": 0.788
+    },
+    "007": {
+     "nouveau": "011",
+     "approchee": true
+    },
+    "008A": {
+     "nouveau": "012",
+     "ressemblance": 0.785
+    },
+    "008B": {
+     "nouveau": "013",
+     "ressemblance": 0.998
+    },
+    "008C": {
+     "nouveau": "014",
+     "ressemblance": 0.567
+    },
+    "009": {
+     "nouveau": "015",
+     "ressemblance": 0.982
+    },
+    "010": {
+     "nouveau": "016",
+     "ressemblance": 0.799
+    },
+    "011": {
+     "nouveau": "017",
+     "ressemblance": 0.878
+    },
+    "012A": {
+     "nouveau": "018",
+     "ressemblance": 0.753
+    },
+    "012B": {
+     "nouveau": "019",
+     "ressemblance": 0.809
+    },
+    "012C": {
+     "nouveau": "020",
+     "ressemblance": 0.824
+    },
+    "013": {
+     "nouveau": "021",
+     "ressemblance": 0.703
+    },
+    "014": {
+     "nouveau": "022",
+     "approchee": true
+    },
+    "015": {
+     "nouveau": "023",
+     "ressemblance": 0.819
+    },
+    "016": {
+     "nouveau": "024",
+     "ressemblance": 0.738
+    },
+    "017": {
+     "nouveau": "025",
+     "ressemblance": 0.717
+    },
+    "018A": {
+     "nouveau": "026",
+     "ressemblance": 0.853
+    },
+    "018B": {
+     "nouveau": "027",
+     "ressemblance": 0.809
+    },
+    "018C": {
+     "nouveau": "028",
+     "ressemblance": 0.802
+    },
+    "019": {
+     "nouveau": "029",
+     "ressemblance": 0.58
+    },
+    "020": {
+     "nouveau": "030",
+     "approchee": true
+    },
+    "021": {
+     "nouveau": "031",
+     "ressemblance": 0.921
+    },
+    "022": {
+     "nouveau": "032",
+     "ressemblance": 0.927
+    },
+    "023": {
+     "nouveau": "033",
+     "ressemblance": 0.973
+    },
+    "024A": {
+     "nouveau": "034",
+     "ressemblance": 0.707
+    },
+    "024B": {
+     "nouveau": "035",
+     "ressemblance": 0.813
+    },
+    "024C": {
+     "nouveau": "036",
+     "ressemblance": 0.827
+    },
+    "025": {
+     "nouveau": "037",
+     "ressemblance": 0.797
+    },
+    "026": {
+     "nouveau": "038",
+     "approchee": true
+    },
+    "027": {
+     "nouveau": "039",
+     "ressemblance": 0.826
+    },
+    "028A": {
+     "nouveau": "040",
+     "ressemblance": 0.851
+    },
+    "028B": {
+     "nouveau": "041",
+     "ressemblance": 0.833
+    },
+    "028C": {
+     "nouveau": "042",
+     "ressemblance": 0.807
+    },
+    "029": {
+     "nouveau": "043",
+     "ressemblance": 0.722
+    },
+    "030": {
+     "nouveau": "044",
+     "approchee": true
+    },
+    "031": {
+     "nouveau": "045",
+     "ressemblance": 0.758
+    },
+    "032": {
+     "nouveau": "046",
+     "ressemblance": 0.676
+    },
+    "033": {
+     "nouveau": "047",
+     "ressemblance": 0.679
+    },
+    "034": {
+     "nouveau": "048",
+     "ressemblance": 0.817
+    },
+    "035": {
+     "nouveau": "049",
+     "ressemblance": 0.546
+    },
+    "036": {
+     "nouveau": "050",
+     "ressemblance": 0.897
+    },
+    "037": {
+     "nouveau": "051",
+     "ressemblance": 0.653
+    },
+    "038A": {
+     "nouveau": "052",
+     "ressemblance": 0.795
+    },
+    "038B": {
+     "nouveau": "053",
+     "ressemblance": 0.79
+    },
+    "038C": {
+     "nouveau": "054",
+     "ressemblance": 0.79
+    },
+    "039": {
+     "nouveau": "055",
+     "ressemblance": 0.793
+    },
+    "040": {
+     "nouveau": "056",
+     "ressemblance": 0.799
+    },
+    "041": {
+     "nouveau": "057",
+     "ressemblance": 0.69
+    },
+    "042": {
+     "nouveau": "058",
+     "ressemblance": 0.793
+    },
+    "043": {
+     "nouveau": "059",
+     "ressemblance": 0.804
+    },
+    "044": {
+     "nouveau": "060",
+     "ressemblance": 0.813
+    },
+    "045": {
+     "nouveau": "061",
+     "ressemblance": 0.836
+    },
+    "046": {
+     "nouveau": "062",
+     "ressemblance": 0.893
+    },
+    "047": {
+     "nouveau": "063",
+     "approchee": true
+    },
+    "048": {
+     "nouveau": "064",
+     "ressemblance": 0.888
+    },
+    "049": {
+     "nouveau": "065",
+     "approchee": true
+    },
+    "050": {
+     "nouveau": "066",
+     "ressemblance": 0.855
+    },
+    "051": {
+     "nouveau": "067",
+     "ressemblance": 0.792
+    },
+    "052": {
+     "nouveau": "068",
+     "ressemblance": 0.761
+    },
+    "053": {
+     "nouveau": "069",
+     "approchee": true
+    },
+    "054": {
+     "nouveau": "070",
+     "ressemblance": 0.694
+    },
+    "055": {
+     "nouveau": "071",
+     "ressemblance": 0.877
+    },
+    "056": {
+     "nouveau": "072",
+     "ressemblance": 0.359
+    },
+    "057": {
+     "nouveau": "073",
+     "ressemblance": 0.359
+    },
+    "058": {
+     "nouveau": "074",
+     "ressemblance": 0.798
+    },
+    "059": {
+     "nouveau": "075",
+     "ressemblance": 0.862
+    },
+    "060": {
+     "nouveau": "076",
+     "ressemblance": 0.909
+    },
+    "061": {
+     "nouveau": "077",
+     "approchee": true
+    },
+    "062A": {
+     "nouveau": "078",
+     "ressemblance": 0.837
+    },
+    "062B": {
+     "nouveau": "079",
+     "ressemblance": 0.805
+    },
+    "062C": {
+     "nouveau": "080",
+     "ressemblance": 0.795
+    },
+    "063": {
+     "nouveau": "081",
+     "ressemblance": 0.725
+    },
+    "064": {
+     "nouveau": "082",
+     "ressemblance": 0.777
+    },
+    "065": {
+     "nouveau": "083",
+     "ressemblance": 0.754
+    },
+    "066": {
+     "nouveau": "084",
+     "ressemblance": 0.84
+    },
+    "067": {
+     "nouveau": "085",
+     "ressemblance": 0.776
+    },
+    "068": {
+     "nouveau": "086",
+     "ressemblance": 0.756
+    },
+    "069": {
+     "nouveau": "087",
+     "ressemblance": 0.812
+    },
+    "070": {
+     "nouveau": "088",
+     "ressemblance": 0.553
+    },
+    "071": {
+     "nouveau": "089",
+     "ressemblance": 0.607
+    },
+    "072": {
+     "nouveau": "090",
+     "ressemblance": 0.383
+    },
+    "073": {
+     "nouveau": "091",
+     "ressemblance": 0.998
+    },
+    "074": {
+     "nouveau": "092",
+     "ressemblance": 0.715
+    },
+    "075": {
+     "nouveau": "093",
+     "ressemblance": 0.999
+    },
+    "076A": {
+     "nouveau": "094",
+     "ressemblance": 0.523
+    },
+    "077": {
+     "nouveau": "095",
+     "ressemblance": 0.414
+    },
+    "078": {
+     "nouveau": "096",
+     "ressemblance": 0.996
+    },
+    "079": {
+     "nouveau": "097",
+     "ressemblance": 0.411
+    },
+    "080": {
+     "nouveau": "098",
+     "ressemblance": 0.451
+    },
+    "081": {
+     "nouveau": "099",
+     "ressemblance": 0.412
+    },
+    "082": {
+     "nouveau": "100",
+     "ressemblance": 0.411
+    },
+    "083": {
+     "nouveau": "101",
+     "ressemblance": 0.411
+    },
+    "084": {
+     "nouveau": "102",
+     "ressemblance": 0.411
+    },
+    "085": {
+     "nouveau": "103",
+     "ressemblance": 0.411
+    },
+    "086": {
+     "nouveau": "104",
+     "ressemblance": 0.411
+    },
+    "087": {
+     "nouveau": "105",
+     "ressemblance": 0.411
+    },
+    "088": {
+     "nouveau": "106",
+     "ressemblance": 0.41
+    },
+    "089": {
+     "nouveau": "107",
+     "ressemblance": 0.411
+    },
+    "090": {
+     "nouveau": "108",
+     "ressemblance": 0.411
+    },
+    "091": {
+     "nouveau": "109",
+     "ressemblance": 0.411
+    },
+    "092": {
+     "nouveau": "110",
+     "ressemblance": 0.996
+    },
+    "093": {
+     "nouveau": "111C",
+     "ressemblance": 0.586
+    }
+   },
+   "appariees": 100,
+   "approchees": [
+    "000A",
+    "004B",
+    "007",
+    "014",
+    "020",
+    "026",
+    "030",
+    "047",
+    "049",
+    "053",
+    "061"
+   ]
+  }
+ }
+}

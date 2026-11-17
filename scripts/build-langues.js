@@ -37,6 +37,10 @@ const LIVRES = livres();
 const PRETS = LIVRES.filter((l) => l.pret);
 const nomFr = (code) => new Intl.DisplayNames(['fr'], { type: 'language' }).of(code);
 const listeFr = (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} et ${xs[xs.length - 1]}`);
+// `download` n'a d'effet que vers le même domaine : sur livre-medias le PDF
+// s'ouvre dans le navigateur (qui propose de l'enregistrer). On n'écrit donc
+// l'attribut que là où il tient sa promesse.
+const dl = (l) => (l.externe ? '' : ' download');
 const attr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
 // Remplace le contenu entre deux marqueurs ; « debut » et « fin » sont les
@@ -71,7 +75,7 @@ function drapeaux(groupe, indent) {
     }
     if (groupe === 'pdf') {
       return l.pret
-        ? `${indent}<a class="flag-btn ready" href="${l.pdf}" download title="${titre} (${l.code.toUpperCase()})">${l.drapeau}</a>`
+        ? `${indent}<a class="flag-btn ready" href="${l.externe ? l.pdfUrl : l.pdf}"${dl(l)} title="${titre} (${l.code.toUpperCase()})">${l.drapeau}</a>`
         : `${indent}<span class="flag-btn" title="${titre} — bientôt">${l.drapeau}</span>`;
     }
     return l.docx
@@ -97,8 +101,11 @@ for (const f of BARRES) {
   // hreflang (<html lang> pendant la lecture), son PDF, et l'interface de la
   // visionneuse dans sa langue (scripts/langues.js, « lecteur » ; null : la
   // visionneuse garde le français et le dit — audit A09)
-  const langs = `const LANGS = {\n${LIVRES.map((l) => `  ${l.code}: { label: ${JSON.stringify(l.nom)}, pages: PAGE_CODES, ready: ${l.pret}, lang: ${JSON.stringify(l.hreflang)}, pdf: ${JSON.stringify(path.basename(l.pdf))}, evitement: ${JSON.stringify(LANGUES[l.code].evitement || null)},\n    ui: ${JSON.stringify(LANGUES[l.code].lecteur || null)} },`).join('\n')}\n};\n`;
+  const langs = `const LANGS = {\n${LIVRES.map((l) => `  ${l.code}: { label: ${JSON.stringify(l.nom)}, pages: ${l.externe ? 'PAGE_CODES_115' : 'PAGE_CODES'}, pagesBase: ${JSON.stringify(l.pagesUrl)}, ready: ${l.pret}, lang: ${JSON.stringify(l.hreflang)}, pdf: ${JSON.stringify(l.externe ? l.pdfUrl : path.basename(l.pdf))}, evitement: ${JSON.stringify(LANGUES[l.code].evitement || null)},\n    ui: ${JSON.stringify(LANGUES[l.code].lecteur || null)} },`).join('\n')}\n};\n`;
   t = region(t, '// @langues:start', '// @langues:end', langs, f);
+  // la concordance ancienne → nouvelle édition (le français sert de référence : la pagination est la même pour toutes les langues d'une édition)
+  const conc = JSON.parse(lire('data/livre/concordance.json')).langues.fr.table;
+  t = region(t, '// @concordance:start', '// @concordance:end', `const CONCORDANCE = ${JSON.stringify(Object.fromEntries(Object.entries(conc).map(([k, v]) => [k, v.nouveau])))};\n`, f);
   const canon = `const CANONICAL_BY_LANG = {\n${LIVRES.map((l) => `  ${l.code}: '${l.url}',`).join('\n')}\n};\n`;
   t = region(t, '// @canoniques:start', '// @canoniques:end', canon, f);
   const fr = LIVRES.find((l) => l.code === 'fr');
@@ -110,14 +117,14 @@ for (const f of BARRES) {
     name: "La Livrée d'Hermès",
     author: { '@id': `${SITE}/a-propos.html#anibal-amiot` },
     inLanguage: 'fr',
-    url: `${SITE}/${fr.pdf}`,
+    url: fr.pdfUrl,
     isAccessibleForFree: true,
     bookFormat: 'https://schema.org/EBook',
     workTranslation: PRETS.filter((l) => l.code !== 'fr').map((l) => ({
       '@type': 'Book',
       name: LANGUES[l.code].titreLivre || "La Livrée d'Hermès",
       inLanguage: l.hreflang,
-      url: `${SITE}/${l.pdf}`,
+      url: l.pdfUrl,
       isAccessibleForFree: true,
       bookFormat: 'https://schema.org/EBook',
       translationOfWork: { '@id': id },
@@ -137,7 +144,7 @@ for (const l of LIVRES) {
   let t = lire(f);
   const e = LANGUES[l.code].edition;
   const acces = l.pret
-    ? `    <div class="book-actions">\n      <a class="book-btn primary" href="${SITE}/book-viewer/index.html?read=${l.code}">${e.boutonLire}</a>\n      <a class="book-btn" href="${SITE}/${l.pdf}" download>${e.boutonPdf}</a>\n    </div>\n`
+    ? `    <div class="book-actions">\n      <a class="book-btn primary" href="${SITE}/book-viewer/index.html?read=${l.code}">${e.boutonLire}</a>\n      <a class="book-btn" href="${l.pdfUrl}"${dl(l)}>${e.boutonPdf}</a>\n    </div>\n`
     : `    <div class="book-actions">\n      <span class="book-btn disabled" aria-disabled="true">${e.boutonLire}</span>\n      <span class="book-btn disabled" aria-disabled="true">${e.boutonPdf}</span>\n    </div>\n    <p class="book-preparation">${e.preparation}</p>\n`;
   t = region(t, '<!-- @livre-acces:start', '<!-- @livre-acces:end', acces, f);
   const autres = LIVRES.filter((x) => x.code !== l.code)
@@ -170,10 +177,10 @@ for (const l of LIVRES.filter((x) => LANGUES[x.code].accueil)) {
   const a = LANGUES[l.code].accueil;
   const f = `${LANGUES[l.code].pages.accueil}index.html`;
   const en = LIVRES.find((x) => x.code === 'en');
-  const mo = (pdf) => Math.round(fs.statSync(path.join(ROOT, pdf)).size / 1e6);
+  const mo = (l) => Math.round(l.pdfOctets / 1e6);
   const pdf = l.pret
-    ? `<a href="${SITE}/${l.pdf}" download class="secondaire">${a.pdfPropre.replace('{mo}', mo(l.pdf))}</a>`
-    : `<a href="${SITE}/${en.pdf}" hreflang="en" download class="secondaire">${a.pdfAnglais.replace('{mo}', mo(en.pdf))}</a>`;
+    ? `<a href="${l.pdfUrl}"${dl(l)} class="secondaire">${a.pdfPropre.replace('{mo}', mo(l))}</a>`
+    : `<a href="${en.pdfUrl}" hreflang="en"${dl(en)} class="secondaire">${a.pdfAnglais.replace('{mo}', mo(en))}</a>`;
   let t = lire(f);
   t = region(t, '<!-- @accueil-livre:start', '<!-- @accueil-livre:end', `    <div class="home-cta">\n      <a href="${l.url}">${a.lire}</a>\n      ${pdf}\n    </div>\n`, f);
   t = region(t, '<!-- @carte-livre:start', '<!-- @carte-livre:end', `      <a class="en-card" href="${l.url}"><b>${a.carte}</b><span>${l.pret ? a.pret : a.preparation}</span></a>\n`, f);
@@ -186,10 +193,15 @@ for (const l of LIVRES.filter((x) => LANGUES[x.code].accueil)) {
   const ancien = fs.existsSync(path.join(ROOT, f)) ? lire(f) : '';
   const dates = new Map([...ancien.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)].map((m) => [m[1], m[2]]));
   const aujourdhui = new Date().toISOString().slice(0, 10);
-  const alternates = PRETS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l.hreflang}" href="${SITE}/${l.pdf}"/>`)
-    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/${PRETS.find((l) => l.code === 'fr').pdf}"/>`).join('\n');
-  const urls = PRETS.map((l) => {
-    const loc = `${SITE}/${l.pdf}`;
+  // Un sitemap ne peut pas lister d'URL d'un autre hôte : les PDF servis par
+  // livre-medias n'y figurent pas (ni comme <loc>, ni comme alternate) ;
+  // seuls ceux de ce site, pas encore passés sur livre-medias, y restent.
+  const SERVIS = PRETS.filter((l) => !l.externe);
+  const fr = SERVIS.find((l) => l.code === 'fr');
+  const alternates = SERVIS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l.hreflang}" href="${l.pdfUrl}"/>`)
+    .concat(fr ? `    <xhtml:link rel="alternate" hreflang="x-default" href="${fr.pdfUrl}"/>` : []).join('\n');
+  const urls = SERVIS.map((l) => {
+    const loc = l.pdfUrl;
     return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${dates.get(loc) || aujourdhui}</lastmod>\n${alternates}\n  </url>`;
   }).join('\n');
   ecrire(f, `<?xml version="1.0" encoding="UTF-8"?>
@@ -197,8 +209,10 @@ for (const l of LIVRES.filter((x) => LANGUES[x.code].accueil)) {
      relations hreflang portées ici en xhtml:link puisque <link rel="alternate"
      hreflang> dans un <head> ne peut pas cibler un fichier PDF directement — cette
      déclaration en sitemap est le mécanisme correct pour des ressources non-HTML.
-     Engendré par scripts/build-langues.js : un PDF par édition parue
-     (scripts/livres.js), ne pas éditer ici. -->
+     Engendré par scripts/build-langues.js : un PDF par édition parue SUR CE SITE
+     (scripts/livres.js) ; ceux de livre-medias (autre hôte) n'y sont pas, un
+     sitemap ne pouvant lister que les adresses de son propre site. Ne pas
+     éditer ici. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls}
