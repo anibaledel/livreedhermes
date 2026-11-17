@@ -14,3 +14,12 @@ Cette branche ne contient que des fichiers qui ont quitté `main` pour alléger 
 
 Pour remettre un fichier : `git fetch origin archive-medias` puis
 `git checkout origin/archive-medias -- <chemin>`.
+
+## Ajout du 2026-11-17 (prompt 200, étape B)
+
+- `assets/motifs-pinterest/` en entier (6 531 fichiers : pavages, cellules, corpus, encre crème, séries par
+  collection) et `assets/motifs-svg/` en entier (3 536 SVG), tels que `main` les portait au commit `f87f22547`,
+  aux mêmes chemins. Ils ne sont plus servis par le site ; aucune page indexée ne les chargeait.
+- Les contrôles `tools/check_export_pinterest.mjs`, `tools/check_epingles_images.mjs` et
+  `tools/check_echantillon_site.mjs` lisent cette branche (`tools/lib_archive.mjs`) et le disent (« ARCHIVÉ : … »).
+- Pour restaurer en local : `node tools/restaurer_archive.mjs assets/motifs-pinterest assets/motifs-svg`.
