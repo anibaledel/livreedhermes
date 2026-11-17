@@ -36,6 +36,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import zlib from 'node:zlib';
+import { assurer } from './lib_archive.mjs';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lireJson = (rel) => JSON.parse(fs.readFileSync(path.join(RACINE, rel), 'utf8'));
@@ -134,7 +135,16 @@ function controlerCsv(liste, lignes) {
 }
 
 const site = (process.argv.find((a) => a.startsWith('--site=')) || '').slice('--site='.length).replace(/\/$/, '');
+// Prompt 200 : assets/motifs-pinterest est ARCHIVÉ (branche archive-medias), le site ne le sert plus.
 if (site) {
+  console.log(`ARCHIVÉ : les ${lignesCsv().length} images des épingles (assets/motifs-pinterest/encre-creme) ne sont plus servies par ${site} — déplacées sur la branche archive-medias le 2026-11-17 ; contrôle en ligne sans objet (les épingles planifiées utilisent les images hébergées par Metricool). Le contrôle local lit l'archive.`);
+  process.exit(0);
+}
+for (const d of ['assets/motifs-pinterest/encre-creme', 'assets/motifs-pinterest/echantillon-encre-creme']) {
+  if (!assurer(d)) { console.error(`ÉCHEC : ${d} est absent de l'arbre ET de la branche archive-medias.`); process.exit(1); }
+}
+// (ancien contrôle en ligne, conservé pour mémoire et désactivé : les images ne sont plus servies, voir ci-dessus)
+if (false) {
   // chaque URL de la liste à programmer, sur le site déployé : 200 et la même empreinte
   const fautes = [];
   const lignes = lignesCsv();

@@ -18,6 +18,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { assurer, blobsArchive, shaBlob } from './lib_archive.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -25,6 +26,28 @@ const DOSSIER = (args.find((a) => a.startsWith('--dossier=')) || '--dossier=asse
 const essai = args.includes('--essai');
 const base = (args.find((a) => !a.startsWith('--')) || 'https://anibal-amiot.com').replace(/\/$/, '');
 const sha = (b) => createHash('sha256').update(b).digest('hex');
+
+// Prompt 200 : assets/motifs-pinterest est ARCHIVÉ sur la branche archive-medias ; le site ne sert plus ces images.
+// Le contrôle vérifie alors l'ARCHIVE : chaque fichier restauré a le blob (empreinte git) que l'archive déclare.
+const restaure = assurer(DOSSIER);
+if (!restaure) { console.error(`ÉCHEC ${DOSSIER} : absent de l'arbre et de la branche archive-medias.`); process.exit(1); }
+if (restaure.archive) {
+  const blobs = blobsArchive(DOSSIER);
+  const liste = [...blobs.keys()];
+  const erreursA = [];
+  for (const [i, f] of liste.entries()) {
+    const attendu = essai && i === 0 ? '0'.repeat(40) : blobs.get(f);
+    if (shaBlob(f) !== attendu) erreursA.push(`${f} : empreinte de la restauration différente de l'archive`);
+  }
+  if (!liste.length) erreursA.push(`aucune image dans l'archive pour ${DOSSIER}`);
+  if (essai) {
+    if (erreursA.length) { console.log(`\nEssai : empreinte faussée, le contrôle de l'archive échoue bien :\n  ${erreursA[0]}`); process.exit(0); }
+    console.error('\nEssai : empreinte faussée, et le contrôle ne le voit pas.'); process.exit(1);
+  }
+  for (const e of erreursA) console.error(`ÉCHEC ${e}`);
+  console.log(`ARCHIVÉ : ${DOSSIER} — ${liste.length - erreursA.length} / ${liste.length} images conformes à la branche archive-medias ; plus servies par ${base} (retirées de main le 2026-11-17), aucune requête au site.`);
+  process.exit(erreursA.length ? 1 : 0);
+}
 
 const fichiers = [];
 const marche = (d) => { for (const n of readdirSync(path.join(ROOT, d)).sort()) { const p = `${d}/${n}`; if (statSync(path.join(ROOT, p)).isDirectory()) marche(p); else if (n.endsWith('.png')) fichiers.push(p); } };

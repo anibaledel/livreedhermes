@@ -20,6 +20,7 @@ import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { assurer } from './lib_archive.mjs';
 import { servirDepot, lignesCanoniques } from './lib_fonds_site.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -28,6 +29,13 @@ const val = (nom, def) => (args.includes(nom) ? args[args.indexOf(nom) + 1] : de
 const code = val('--code', 'P');
 const taille = Number(val('--echantillon', 8));
 let base = args[0] && !args[0].startsWith('--') ? args[0] : 'https://anibal-amiot.com';
+// Prompt 200 : les images exportées (assets/motifs-pinterest/<code>/) sont ARCHIVÉES sur la branche archive-medias et ne
+// sont plus servies par le site : en ligne, rien à comparer ; en local, elles sont restaurées depuis l'archive.
+if (base !== 'local') {
+  console.log(`ARCHIVÉ : assets/motifs-pinterest/${code}/ n'est plus servi par ${base} (déplacé sur la branche archive-medias le 2026-11-17) ; comparaison page ↔ image exportée faite en local, depuis l'archive.`);
+  process.exit(0);
+}
+if (!assurer(`assets/motifs-pinterest/${code}`)) { console.error(`ÉCHEC assets/motifs-pinterest/${code} : absent de l'arbre et de la branche archive-medias.`); process.exit(1); }
 let serveur = null;
 if (base === 'local') { serveur = await servirDepot(ROOT); base = serveur.url; }
 base = base.replace(/\/$/, '');

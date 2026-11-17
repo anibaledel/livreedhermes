@@ -29,3 +29,7 @@ __pycache__/
 # portee_miroirs.py le relit s’il existe. Régénérable, jamais versé.
 /tools/pavables6.json
 /pins/
+
+# Archivés sur la branche archive-medias (prompt 200) : restaurés par tools/lib_archive.mjs pour les contrôles, jamais suivis
+/assets/motifs-pinterest/
+/assets/motifs-svg/
