@@ -26,17 +26,21 @@ export function refArchive() {
 
 const vide = (d) => { try { return !readdirSync(path.join(ROOT, d)).length; } catch { return true; } };
 
-// Garantit que `prefixe` (dossier relatif à la racine) est présent : tel quel s'il l'est, sinon restauré depuis
-// l'archive. Retourne { archive: bool, ref, fichiers } ; échoue (null) si ni l'un ni l'autre.
+// Garantit que `prefixe` (dossier relatif à la racine) est présent. Retourne { archive, ref, fichiers } :
+//   archive = false : le dossier est SUIVI par git (sur main) — rien à faire ;
+//   archive = true  : il est archivé ; restauré depuis la branche archive-medias s'il manquait (message « ARCHIVÉ : … »).
+// null si archivé mais introuvable dans l'archive.
 export function assurer(prefixe) {
-  if (!vide(prefixe)) return { archive: false, ref: null, fichiers: null };
+  if (git(['ls-files', '--', prefixe]).trim()) return { archive: false, ref: null, fichiers: null };
   const ref = refArchive();
   if (!ref) return null;
   const liste = git(['ls-tree', '-r', '--name-only', ref, '--', prefixe]).split('\n').filter(Boolean);
   if (!liste.length) return null;
-  const tar = execFileSync('git', ['archive', ref, '--', prefixe], { cwd: ROOT, maxBuffer: 1 << 30 });
-  execFileSync('tar', ['-x', '-C', ROOT], { input: tar });
-  console.log(`ARCHIVÉ : ${prefixe} n'est plus sur main ; ${liste.length} fichier(s) restauré(s) depuis ${ref} (dossier ignoré par git, non publié).`);
+  if (vide(prefixe)) {
+    const tar = execFileSync('git', ['archive', ref, '--', prefixe], { cwd: ROOT, maxBuffer: 1 << 30 });
+    execFileSync('tar', ['-x', '-C', ROOT], { input: tar });
+    console.log(`ARCHIVÉ : ${prefixe} n'est plus sur main ; ${liste.length} fichier(s) restauré(s) depuis ${ref} (dossier ignoré par git, non publié).`);
+  }
   return { archive: true, ref, fichiers: liste.length };
 }
 
