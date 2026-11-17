@@ -17,7 +17,7 @@
 #   4. pages/<langue>/ : exactement les noms de PAGE_CODES_115, tous en
 #      1920 × 1080, WebP avec perte (VP8) ;
 #   5. la page du lecteur et la page du PDF MONTRENT LA MÊME CHOSE, à six pages
-#      échantillons : le WebP ressemble au rendu de sa page (PSNR d'au moins
+#      échantillons (échantillon(), calculé sur le nombre de pages) : le WebP ressemble au rendu de sa page (PSNR d'au moins
 #      18 dB) et d'au moins 5 dB de plus qu'au rendu de toute autre page de
 #      l'échantillon.
 # NON repris : le contrôle de l'en-tête de check_livres.py (le lettrage comme
@@ -46,8 +46,12 @@ import check_livres as CL
 
 ROOT = CL.ROOT
 MEDIAS = os.environ.get('LIVRE_MEDIAS') or os.path.join(os.path.dirname(ROOT), 'livre-medias')
-ECHANTILLON = [1, 2, 3, 56, 113, 115]
 FORMAT = (768, 432)
+
+
+def echantillon(n):
+    # six pages du fichier : la couverture, les deux suivantes, le milieu, l'avant-dernière du livre numéroté, la dernière
+    return [1, 2, 3, n // 2, n - 2, n]
 
 
 def codes_115():
@@ -107,9 +111,10 @@ def controle(langue, cs, essai=None):
             if im.size != (1920, 1080):
                 echecs.append(f'{langue} : {code}.webp : {im.size[0]} × {im.size[1]}, attendu 1920 × 1080')
     # 5. la page du lecteur montre la page du PDF
-    rendus = {p: rendu(doc[p - 1]) for p in ECHANTILLON}
-    for p in ECHANTILLON:
-        code = cs[p - 1] if essai != 'image' or p != 56 else cs[2]
+    ech = echantillon(len(cs))
+    rendus = {p: rendu(doc[p - 1]) for p in ech}
+    for p in ech:
+        code = cs[p - 1] if essai != 'image' or p != ech[3] else cs[2]
         img = np.asarray(Image.open(os.path.join(dossier, f'{code}.webp')).convert('RGB'), float)
         avec = {q: CL.psnr(img, r) for q, r in rendus.items()}
         if avec[p] < 18 or any(q != p and avec[q] >= avec[p] - 5 for q in avec):
@@ -139,9 +144,9 @@ if __name__ == '__main__':
         e1 = controle('fr', cs, 'ecriture')
         e2 = controle('fr', cs, 'image')
         ok1 = any('écriture thaï' in e for e in e1)
-        ok2 = any('ne montre pas la page 56' in e for e in e2)
+        ok2 = any(f'ne montre pas la page {echantillon(len(cs))[3]}' in e for e in e2)
         print(f'Essai : une page thaïe glissée dans le français → {"détectée" if ok1 else "NON détectée"} ; '
-              f'l\'image d\'une autre page à la place de la 56 → {"détectée" if ok2 else "NON détectée"}')
+              f'l\'image d\'une autre page à la place de la {echantillon(len(cs))[3]} → {"détectée" if ok2 else "NON détectée"}')
         sys.exit(0 if ok1 and ok2 else 1)
     lues = json.load(open(os.path.join(ROOT, 'data/livre/editions-medias.json'), encoding='utf-8'))['editions']
     tous = []
@@ -149,7 +154,7 @@ if __name__ == '__main__':
         e = controle(langue, cs)
         tous += e
         print(f'OK    {langue} : {len(cs)} pages 768 × 432 pt, licence, remerciements, aucune écriture étrangère, '
-              f'pages du lecteur 1920 × 1080 VP8, lecteur = PDF aux pages {", ".join(map(str, ECHANTILLON))}' if not e else f'…     {langue}')
+              f'pages du lecteur 1920 × 1080 VP8, lecteur = PDF aux pages {", ".join(map(str, echantillon(len(cs))))}' if not e else f'…     {langue}')
     for e in tous:
         print(f'ÉCHEC {e}', file=sys.stderr)
     if tous:
