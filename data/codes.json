@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-17T14:00:06Z",
+ "generated_at_utc": "2026-11-17T15:19:50Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2203,9 +2203,9 @@
   {
    "chemin": "tools/check_livres_medias.py",
    "adresse": "https://anibal-amiot.com/tools/check_livres_medias.py",
-   "octets": 8775,
-   "sha256": "6927ebbc04c3de2f42d1341836b36d68b35fa6c0981bf4ac4836f393b97d1b8f",
-   "md5": "f381a62454c02e24915504e468fb0d50",
+   "octets": 9050,
+   "sha256": "cc2c310a6c00e6a205eede272a2b24154f2766a1f06dc60e8fbdd49c060c20d9",
+   "md5": "25b079c3bc568c188db4de513b4a59a5",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les éditions du livre servies par livre-medias (data/livre/editions-medias.json ; prompt 192, étape 2) : le PDF définitif et les pages WebP du lecteur, lus dans une copie du dépôt livre-medias (LIVRE_MEDIAS, par défaut ../livre-medias ; …",
