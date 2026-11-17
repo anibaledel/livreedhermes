@@ -40,7 +40,7 @@ const ROOT = path.resolve(__dirname, '..');
 const PREFIXE = '../../';
 const SITE = 'https://anibal-amiot.com';
 // un lien vers une page du site vise sa version dans la langue de la page, si elle existe
-const { adresseDans } = require('./langues.js');
+const { adresseDans, annonceVers, espaceAvant } = require('./langues.js');
 const TODAY = new Date().toISOString().slice(0, 10);
 const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -88,6 +88,9 @@ const MOIS = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   es: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
   th: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+  de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+  it: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+  ja: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
 };
 const L = {
   en: {
@@ -191,6 +194,106 @@ const L = {
     // Même mention que chladni.html (UI.th.i18nReviewNote).
     revue: 'การแปลอยู่ระหว่างการตรวจทาน — หากพบข้อผิดพลาด กรุณาแจ้งให้ทราบ',
   },
+
+  de: {
+    locale: 'de_DE', datePublished: '2026-11-17',
+    date: (y, m, d) => `${d}. ${MOIS.de[m - 1]} ${y}`,
+    home: 'Startseite', homeUrl: `${SITE}/de/`, book: 'Das Buch', bookUrl: `${SITE}/de/book/`, lexiconUrl: `${SITE}/de/lexicon/`,
+    hexagrams: 'Hexagramme', breadcrumb: 'Brotkrümelnavigation',
+    hexName: (c, n, kw) => `Hexagramm ${c} (King-Wen-Nr. ${kw}) — ${n}`,
+    title: (c, p, n, kw) => `Hexagramm ${c} (King-Wen-Nr. ${kw}) — ${p}, ${n}`,
+    description: (c, p, n, kw) => [`Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, Bild, Trigramme, magisches Quadrat.`, `Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, Bild, magisches Quadrat.`, `Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, magisches Quadrat.`],
+    sub: (c, kw, hz) => `Binärindex <b>${c}</b> (0 bis 63; „chronologische Nr.“ der Website, Ordnung nach Binärgewichten) · traditionelle King-Wen-Nr. <b>${kw}</b> · ${hz}`,
+    by: (date) => `Von <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Aktualisiert am ${date}`,
+    alt: (c, n, kw) => `Magisches Quadrat / Parkettierung zu Hexagramm ${c} (King-Wen-Nr. ${kw}, ${n})`,
+    figcaption: "Parkettierung des magischen Quadrats zu diesem Hexagramm, La Livrée d'Hermès.",
+    upper: 'Oberes Trigramm', lower: 'Unteres Trigramm', image: 'Bild', judgement: 'Urteil', sixLines: 'Die sechs Linien',
+    pos: ['Erste Linie', 'Zweite Linie', 'Dritte Linie', 'Vierte Linie', 'Fünfte Linie', 'Sechste Linie'],
+    readBook: 'Die Stelle im Buch lesen (Kap. 7.1) →', board: 'Auf dem interaktiven Brett ansehen →', create: 'Das Muster dieses Hexagramms erstellen →',
+    source: (bookHref, frHref) => `<b>Quelle</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">Kapitel 7.1 (S. 63–68)</a>. <a href="${frHref}" hreflang="fr">Französische Fassung dieser Seite</a>.`,
+    lexicon: (href) => `Zu den hier verwendeten Begriffen — magisches Quadrat, Schicht und Wurf, das I Ging — siehe das <a href="${href}">Lexikon des Projekts</a>.`,
+    motifsHeading: 'Die Muster dieses Hexagramms',
+    motifsIntro: 'Aus diesem Hexagramm entstehen acht Jacquard-Muster im Format 12×12, eines je zulässiger Familie des Systems. Jedes hat seine eigene Seite (auf Englisch): Zelle, Parkettierung, Umfärbungen und Daten.',
+    motifsComplement: (link, c, b, kwb) => `Dieses Hexagramm ist das binäre Komplement des Hexagramms ${link} (63 − ${c} = ${b}): Seine Muster haben genau dieselbe Form, nur ihre Farben sind vertauscht. Hier die acht Muster des Hexagramms ${b} (King-Wen-Nr. ${kwb}), eines je zulässiger Familie (Seiten auf Englisch).`,
+    neighbours: 'Benachbarte Hexagramme', sharing: 'Hexagramme mit gemeinsamem Trigramm',
+    sameUpper: (s, n) => `Gleiches oberes Trigramm (${s} ${n}): `, sameLower: (s, n) => `Gleiches unteres Trigramm (${s} ${n}): `,
+    back: '← Alle 64 Hexagramme',
+    indexTitle: "Die 64 Hexagramme des I Ging: Namen und Nummern | La Livrée d'Hermès",
+    indexDescription: "Die 64 Hexagramme des I Ging mit Name, Nummer (chronologisch und nach King Wen) und Trigrammen; zu jedem Urteil, Bild und magisches Quadrat.",
+    indexH1: 'Die 64 Hexagramme',
+    indexSub: 'Jedes Hexagramm des I Ging in der chronologischen Ordnung (nach Binärgewichten), die diese Website verwendet, mit Urteil, Bild, Trigrammen und zugehörigem magischem Quadrat.',
+    indexH2: 'Was ist ein Hexagramm?',
+    indexIntro: 'Ein Hexagramm des I Ging ist eine Figur aus sechs Linien, durchgezogen (Yang) oder unterbrochen (Yin): Es gibt 64, jedes aus zwei übereinanderliegenden Trigrammen gebildet. Diese Seite listet sie in der chronologischen Ordnung der Website (Binärgewichte, 0 bis 63) mit der traditionellen King-Wen-Nummer. Öffnen Sie eines, um sein Urteil, sein Bild, seine sechs Linien und das zugehörige magische Quadrat zu lesen. Um zufällig eines zu ziehen, probieren Sie das <a href="{TIRAGE}">kostenlose I-Ging-Orakel</a>.',
+    indexCaption: 'Die 64 Hexagramme: Nummer, Name und Trigramme',
+    indexCols: ['Nr. (Website)', 'King Wen', 'Hexagramm', 'Unteres Trigramm', 'Oberes Trigramm'],
+    revue: 'Übersetzung noch nicht geprüft — wenn Sie einen Fehler finden, melden Sie ihn bitte.',
+  },
+  it: {
+    locale: 'it_IT', datePublished: '2026-11-17',
+    date: (y, m, d) => `${d} ${MOIS.it[m - 1]} ${y}`,
+    home: 'Home', homeUrl: `${SITE}/it/`, book: 'Il libro', bookUrl: `${SITE}/it/book/`, lexiconUrl: `${SITE}/it/lexicon/`,
+    hexagrams: 'Esagrammi', breadcrumb: 'Percorso di navigazione',
+    hexName: (c, n, kw) => `Esagramma ${c} (n. King Wen ${kw}) — ${n}`,
+    title: (c, p, n, kw) => `Esagramma ${c} (n. King Wen ${kw}) — ${p}, ${n}`,
+    description: (c, p, n, kw) => [`Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, immagine, trigrammi, quadrato magico.`, `Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, immagine, quadrato magico.`, `Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, quadrato magico.`],
+    sub: (c, kw, hz) => `Indice binario <b>${c}</b> (da 0 a 63; «n. cronologico» del sito, ordine per pesi binari) · n. tradizionale King Wen <b>${kw}</b> · ${hz}`,
+    by: (date) => `Di <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Aggiornato il ${date}`,
+    alt: (c, n, kw) => `Quadrato magico / pavimentazione associati all'esagramma ${c} (n. King Wen ${kw}, ${n})`,
+    figcaption: "Pavimentazione del quadrato magico associato a questo esagramma, La Livrée d'Hermès.",
+    upper: 'Trigramma superiore', lower: 'Trigramma inferiore', image: 'Immagine', judgement: 'Giudizio', sixLines: 'Le sei linee',
+    pos: ['Prima linea', 'Seconda linea', 'Terza linea', 'Quarta linea', 'Quinta linea', 'Sesta linea'],
+    readBook: 'Leggere il passo nel libro (cap. 7.1) →', board: 'Vederlo sulla scacchiera interattiva →', create: 'Creare il motivo di questo esagramma →',
+    source: (bookHref, frHref) => `<b>Fonte</b>: <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="${bookHref}">capitolo 7.1 (pp. 63–68)</a>. <a href="${frHref}" hreflang="fr">Versione francese di questa pagina</a>.`,
+    lexicon: (href) => `Per le nozioni usate qui — quadrato magico, strato ed estrazione, l'I Ching — vedi il <a href="${href}">lessico del progetto</a>.`,
+    motifsHeading: 'I motivi di questo esagramma',
+    motifsIntro: 'Da questo esagramma si generano otto motivi Jacquard 12×12, uno per ogni famiglia ammissibile del sistema. Ciascuno ha la sua pagina (in inglese): cella, pavimentazione, ricolorazioni e dati.',
+    motifsComplement: (link, c, b, kwb) => `Questo esagramma è il complemento binario dell'esagramma ${link} (63 − ${c} = ${b}): i suoi motivi hanno esattamente la stessa forma, solo i colori sono permutati. Ecco gli otto motivi dell'esagramma ${b} (n. King Wen ${kwb}), uno per ogni famiglia ammissibile (pagine in inglese).`,
+    neighbours: 'Esagrammi vicini', sharing: 'Esagrammi che condividono un trigramma',
+    sameUpper: (s, n) => `Stesso trigramma superiore (${s} ${n}): `, sameLower: (s, n) => `Stesso trigramma inferiore (${s} ${n}): `,
+    back: '← Tutti i 64 esagrammi',
+    indexTitle: "I 64 esagrammi dell'I Ching: nomi e numeri | La Livrée d'Hermès",
+    indexDescription: "I 64 esagrammi dell'I Ching con nome, numero (cronologico e King Wen) e trigrammi; per ciascuno giudizio, immagine e quadrato magico.",
+    indexH1: 'I 64 esagrammi',
+    indexSub: "Ogni esagramma dell'I Ching, nell'ordine cronologico (per pesi binari) usato da questo sito, con il suo giudizio, la sua immagine, i suoi trigrammi e il quadrato magico associato.",
+    indexH2: "Che cos'è un esagramma?",
+    indexIntro: "Un esagramma dell'I Ching è una figura di sei linee, intere (yang) o spezzate (yin): sono 64, ciascuno formato da due trigrammi sovrapposti. Questa pagina li elenca nell'ordine cronologico del sito (pesi binari, da 0 a 63), con il numero tradizionale King Wen. Aprine uno per leggere il suo giudizio, la sua immagine, le sue sei linee e il quadrato magico associato. Per estrarne uno a caso, prova l'<a href=\"{TIRAGE}\">estrazione dell'I Ching gratis</a>.",
+    indexCaption: 'I 64 esagrammi: numero, nome e trigrammi',
+    indexCols: ['N. (sito)', 'King Wen', 'Esagramma', 'Trigramma inferiore', 'Trigramma superiore'],
+    revue: 'Traduzione non ancora rivista — se noti un errore, segnalacelo.',
+  },
+  ja: {
+    locale: 'ja_JP', datePublished: '2026-11-17',
+    date: (y, m, d) => `${y}年${MOIS.ja[m - 1]}${d}日`,
+    home: 'ホーム', homeUrl: `${SITE}/ja/`, book: '本', bookUrl: `${SITE}/ja/book/`, lexiconUrl: `${SITE}/ja/lexicon/`,
+    hexagrams: '六十四卦', breadcrumb: 'パンくずリスト',
+    hexName: (c, n, kw) => `卦 ${c}（文王の順序 ${kw}）— ${n}`,
+    title: (c, p, n, kw) => `卦 ${c}（文王の順序 ${kw}）— ${p}、${n}`,
+    description: (c, p, n, kw) => [`卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、象、八卦、魔方陣。`, `卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、象、魔方陣。`, `卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、魔方陣。`],
+    sub: (c, kw, hz) => `二進インデックス <b>${c}</b>（0〜63。サイトの「時系列番号」、二進の重みによる順序）· 伝統的な文王の順序 <b>${kw}</b> · ${hz}`,
+    by: (date) => `<a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> 著 — ${date}更新`,
+    alt: (c, n, kw) => `卦 ${c}（文王の順序 ${kw}、${n}）に対応する魔方陣と敷き詰め`,
+    figcaption: 'この卦に対応する魔方陣の敷き詰め。La Livrée d\'Hermès より。',
+    upper: '上卦', lower: '下卦', image: '象', judgement: '卦辞', sixLines: '六つの爻',
+    pos: ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'],
+    readBook: '本の該当箇所を読む（7.1章）→', board: 'インタラクティブな盤で見る →', create: 'この卦の紋様をつくる →',
+    source: (bookHref, frHref) => `<b>出典</b>：<i>La Livrée d'Hermès</i>、Anibal Amiot — <a href="${bookHref}">7.1章（63〜68ページ）</a>。<a href="${frHref}" hreflang="fr">このページのフランス語版</a>。`,
+    lexicon: (href) => `ここで使う概念――魔方陣、層とくじ、易経――は<a href="${href}">プロジェクトの用語集</a>を参照。`,
+    motifsHeading: 'この卦の紋様',
+    motifsIntro: 'この卦から、システムの許容される家族ごとに一つ、計八つの 12×12 ジャカード紋様が生まれます。それぞれに専用ページ（英語）があり、セル、敷き詰め、色替え、データを載せています。',
+    motifsComplement: (link, c, b, kwb) => `この卦は卦 ${link} の二進補数です（63 − ${c} = ${b}）。紋様の形はまったく同じで、色だけが入れ替わります。以下は卦 ${b}（文王の順序 ${kwb}）の八つの紋様で、許容される家族ごとに一つです（英語のページ）。`,
+    neighbours: '隣り合う卦', sharing: '同じ八卦を共有する卦',
+    sameUpper: (s, n) => `同じ上卦（${s} ${n}）：`, sameLower: (s, n) => `同じ下卦（${s} ${n}）：`,
+    back: '← 六十四卦の一覧',
+    indexTitle: '易経の六十四卦：名前と番号 | La Livrée d\'Hermès',
+    indexDescription: '易経の六十四卦を、名前、番号（時系列と文王の順序）、八卦とともに一覧。各卦に卦辞、象、魔方陣を付けています。',
+    indexH1: '六十四卦',
+    indexSub: 'このサイトで使う時系列（二進の重み）の順序で、易経の各卦を、卦辞、象、八卦、対応する魔方陣とともに載せています。',
+    indexH2: '卦とは何か',
+    indexIntro: '易経の卦は六つの爻でできた図形で、爻は陽（実線）か陰（破線）です。全部で六十四あり、それぞれ二つの八卦が上下に重なってできています。このページは、サイトの時系列の順序（二進の重み、0〜63）で、伝統的な文王の順序の番号とともに並べています。一つ開けば、その卦辞、象、六つの爻、対応する魔方陣が読めます。無作為に一つ引くには、<a href="{TIRAGE}">無料の易経占い</a>をお試しください。',
+    indexCaption: '六十四卦：番号、名前、八卦',
+    indexCols: ['番号（サイト）', '文王の順序', '卦', '下卦', '上卦'],
+    revue: 'この翻訳はまだ校閲されていません。誤りを見つけたらお知らせください。',
+  },
 };
 
 // Zones posées ensuite par build-header.js : reprises du fichier en place.
@@ -209,6 +312,8 @@ const STYLE_INDEX = stylePageFr(A.fichier(null, 'fr'));
 const NOTE_REVUE_CSS = '<style>.i18n-review-note{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); font-style:italic; margin:6px 0 0; }</style>';
 
 function genererLangue(lang) {
+  // la page de création de motifs n'existe pas encore dans toutes les langues : le lien l'annonce avant le clic
+  const annonceCreation = annonceVers('creation-motifs-yi-king.html', lang);
   const l = L[lang];
   const tx = textes(lang);
   fs.mkdirSync(path.join(ROOT, A.DOSSIER[lang]), { recursive: true });
@@ -245,7 +350,9 @@ ${cartes}
       </div>`;
   }
 
-  const bookHref = `${SITE}/book-viewer/index.html?read=${lang}&amp;page=063`;
+  // la visionneuse n'ouvre que les éditions parues (scripts/livres.js) : de, it, ja « en préparation » renvoient à l'anglaise
+  const lecture = ((require('./livres.js').livres().find((x) => x.code === lang)) || {}).pret ? lang : 'en';
+  const bookHref = `${SITE}/book-viewer/index.html?read=${lecture}&amp;page=063`;
   for (const h of info) {
     const { chrono, kw, pinyin, name, traits } = h;
     const { judgementTitle, judgement, image } = tx.hex(kw);
@@ -391,7 +498,7 @@ ${lines}
       <div class="cta-row">
         <a class="cta-btn" href="${bookHref}">${l.readBook}</a>
         <a class="cta-btn" href="${SITE}/?chrono=${chrono}">${l.board}</a>
-        <a class="cta-btn" href="${SITE}/${adresseDans('creation-motifs-yi-king.html', lang)}">${l.create}</a>
+        <a class="cta-btn" href="${SITE}/${adresseDans('creation-motifs-yi-king.html', lang)}"${annonceCreation ? ` hreflang="${annonceCreation.hreflang}"` : ''}>${l.create}${annonceCreation ? espaceAvant(annonceCreation.texte) + annonceCreation.texte : ''}</a>
       </div>
 
       <hr>
@@ -542,4 +649,4 @@ ${scriptAnnee}<script src="${PREFIXE}assets/share-widget.js"></script>
   console.log(`Généré 64 pages + index dans ${A.DOSSIER[lang]}/`);
 }
 
-for (const lang of ['en', 'es', 'th']) genererLangue(lang);
+for (const lang of ['en', 'es', 'th', 'de', 'it', 'ja']) genererLangue(lang);

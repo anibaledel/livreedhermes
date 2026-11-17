@@ -24,6 +24,16 @@ directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relanc
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## Allemand, italien, japonais : tirage et hexagrammes (prompts 197 et 199, 2026-11-17)
+
+Traductions faites par l'IA depuis le texte français du site — aucune relecture native. **Japonais d'abord**, puis allemand, italien.
+
+- **Les 64 hexagrammes** (`data/hexagrammes_traduits.json`, clés `de`, `it`, `ja`) : titre, jugement et image de chaque hexagramme (traduits du français du site, pas de texte classique repris de mémoire), les 12 commentaires de traits, les 8 trigrammes. Noms : en allemand ceux de Wilhelm (« Das Schöpferische »…), en italien les noms usuels (« Il Creativo »…), en japonais les noms classiques en kanji (乾, 坤, 屯…) — à confirmer. Un défaut du texte français source (« mindful » resté en anglais au n° 54) est traduit au sens.
+- **Pages d'hexagrammes** (`scripts/generate-hexagram-pages-traduites.js`, dictionnaires `L.de`, `L.it`, `L.ja`) : libellés, introduction de la liste, description (« le sens d'abord »).
+- **Tirage** (`data/outils-langues/tirage.json`, `data/outils-langues.json`) : les 100 textes de l'outil (de, it, ja), le paragraphe sous l'outil, titre et description (« I-Ging-Orakel kostenlos », « I Ching online gratis », 易経占い) — requêtes vérifiées dans les résultats de recherche seulement, sans volumes.
+- **Police japonaise** : relancer `python3 tools/police_ja.py` après toute correction (Noto Sans JP réduite aux caractères employés).
+- **Non fait** : les 13 autres outils (création de motifs, galeries, fonds d'écran, 360 calques, encodeur, téléchargements, chiffres et sources, profil, contact, Chladni) restent à traduire pour de, it, ja.
+
 ## Search Console : hexagrammes, tirage, aritmogeometría (prompt 196, 2026-11-16)
 
 Textes écrits par l'IA, à faire relire (thaï d'abord — le thaï est la langue du meilleur pays du site) :

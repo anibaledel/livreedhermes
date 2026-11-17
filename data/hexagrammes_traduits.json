@@ -1,5 +1,5 @@
 {
- "_doc": "Traductions espagnole et thaïe des textes des 64 hexagrammes (nom, jugement, image), des commentaires des six traits et des huit trigrammes. Traduites depuis le français (IMAGE_FR, HEX_KW, LINE_COMMENT, TRIGRAMS d'index.html), l'anglais servant d'appui. En cours de relecture par des lecteurs natifs. Lues par scripts/generate-hexagram-pages-traduites.js et scripts/hexagrammes-adresses.js.",
+ "_doc": "Traductions espagnole, thaïe, allemande, italienne et japonaise des textes des 64 hexagrammes (nom, jugement, image), des commentaires des six traits et des huit trigrammes. Traduites depuis le français (IMAGE_FR, HEX_KW, LINE_COMMENT, TRIGRAMS d'index.html), l'anglais servant d'appui. En cours de relecture par des lecteurs natifs. Lues par scripts/generate-hexagram-pages-traduites.js et scripts/hexagrammes-adresses.js. Les versions allemande, italienne et japonaise (2026-11-17) sont des traductions faites par l'IA depuis le texte français du site, à relire (TODO-RELECTURE.md, japonais d'abord) ; les noms des 64 hexagrammes suivent les usages courants (Wilhelm en allemand, éditions usuelles en italien, noms classiques en kanji en japonais).",
  "es": {
   "hexagrams": {
    "1": {
@@ -1069,6 +1069,1614 @@
     "nature": "ผู้สร้างสรรค์",
     "image": "ฟ้า",
     "role": "บิดา"
+   }
+  ]
+ },
+ "de": {
+  "hexagrams": {
+   "1": {
+    "pinyin": "Qian",
+    "name": "Das Schöpferische",
+    "judgementTitle": "Ansatz",
+    "judgement": "Die volle Linie schnellt allein empor, noch ohne Gewand. Auf der allerersten Stufe der Figur ist die Kraft schon ganz vorhanden, aber sie hat noch keine erkennbare Gestalt angenommen – sie ist in keine Funktion, in keine Rolle gekleidet. Es ist die Kraft im reinen Zustand, bevor sie sich einen Namen gibt. Diese Linie kündigt an, was die fünf folgenden sein werden: ein Fortschreiten, in dem sich die Fähigkeit zu handeln nach und nach ein Gewand schneidert, bis die ganze Figur auf dem Gipfel entdeckt, dass selbst die größte Kraft lernen muss, sich zurückzuhalten.",
+    "image": "Der Himmel bewegt sich unablässig über dem Himmel: zweimal die volle Linie, zweimal dieselbe Kraft, die eine trägt die andere, ohne je nachzugeben. Nichts begrenzt hier die Bewegung, nichts hält sie auf. Es ist das Bild reiner Stärke, die keine Ruhe kennt, weil sie noch nicht auf das gestoßen ist, was ihr widerstehen könnte. Der Weise, der diese Figur betrachtet, sieht darin keine Aufforderung zur Unruhe, sondern ein Vorbild: Wie der Himmel ohne Unterbrechung kreist, hört der Edle nicht auf, sich selbst zu festigen – nicht durch punktuelle Anstrengung, sondern durch eine Zucht, die so beständig ist wie die Bewegung der Gestirne."
+   },
+   "2": {
+    "pinyin": "Kun",
+    "name": "Das Empfangende",
+    "judgementTitle": "Grundlage",
+    "judgement": "Der Boden empfängt, die Form setzt sich. Noch ist nichts geschehen, und doch ist schon alles möglich geworden: Die Erde der ersten Linie fordert nichts, sie wartet. Das ist nicht die Passivität dessen, der verzichtet, sondern die Geduld dessen, der weiß, dass die recht verstandene Fügsamkeit alle kommende Fruchtbarkeit in sich trägt. Die ganze Figur wird sich aus dieser einen Eigenschaft entfalten: empfangen, bevor man etwas aufzwingen will, sich niederlassen, bevor man zu bauen beansprucht.",
+    "image": "Die Erde trägt und nährt ohne Unterschied: Sie wählt nicht, was sie stützt, sie stützt alles. Zweimal die gebrochene Linie, zweimal dieselbe Öffnung, die eine nimmt die andere auf, ohne sich je zu verschließen. Es ist das Bild der reinen Aufnahmefähigkeit – nicht jener, die zuerst handelt, sondern jener, die das Handeln von allem möglich macht, was zu ihr kommt. Der Weise, der diese Figur betrachtet, begreift, dass Großmut keinen Glanz braucht: So nimmt der Edle die Wesen mit großzügiger Tugend auf, weit wie der Boden, der kein Samenkorn zurückweist."
+   },
+   "3": {
+    "pinyin": "Zhun",
+    "name": "Die Anfangsschwierigkeit",
+    "judgementTitle": "Keimen",
+    "judgement": "Der Keim müht sich unter der Erde des Quadrats. Jede Geburt beginnt im Dunkel und im Widerstand: Das Samenkorn kennt die Gestalt, die es annehmen wird, noch nicht, es weiß nur zu wachsen. Diese Linie nennt die Schwierigkeit, die kein Scheitern ist, sondern die Bedingung jedes wahren Anfangs – nichts Großes ist je entstanden, ohne sich zuvor von dem lösen zu müssen, was es festhielt.",
+    "image": "Die Wolke und der Donner: das Bild der ersten Schwierigkeit. Oben das Wasser, das noch kein Regen ist; unten die Erschütterung, die ihren Weg sucht und ihn noch nicht findet. Nichts fließt frei, alles tastet, alles zögert am Rand der eigenen Geburt. Es ist die Figur des beengten Anfangs, der sich einen Weg bahnen muss, noch bevor er weiß, wohin er führt. So erzwingt der Edle angesichts der anfänglichen Unordnung nichts: Er schafft Ordnung, indem er geduldig seine Fäden webt, Faden um Faden, ohne der Ungeduld nach dem Ergebnis nachzugeben."
+   },
+   "4": {
+    "pinyin": "Meng",
+    "name": "Die Jugendtorheit",
+    "judgementTitle": "Lehre",
+    "judgement": "Die Unwissenheit des Schülers ruft den Meister. Nicht zu wissen ist keine Schwäche, sondern eine Öffnung: Wer noch nicht weiß, ist genau der, der lernen kann. Die ganze Figur dreht sich um diese notwendige Begegnung zwischen der suchenden Unerfahrenheit und der antwortenden Erfahrung – ohne diese erste Demut kann keine Unterweisung Halt finden.",
+    "image": "Am Fuß des Berges entspringt eine Quelle: das Bild der jugendlichen Torheit. Das Wasser ist da, lebendig, aber es weiß noch nicht, wohin es fließen soll; es hat die Kraft ohne die Richtung. Es ist das Porträt der Unerfahrenheit, die kein Mangel ist, sondern ein Zustand – der vor dem Lernen, wenn die Energie ohne Unterscheidung überströmt. So verachtet der Edle, der diese Figur in sich oder in einem anderen erkennt, die Unwissenheit nicht: Er nährt seinen Charakter durch entschlossenes Handeln und weiß, dass die Quelle, gut geleitet, zum Fluss wird."
+   },
+   "5": {
+    "pinyin": "Xu",
+    "name": "Das Warten",
+    "judgementTitle": "Haltung",
+    "judgement": "Das Wasser wartet unter dem Himmel auf seine rechte Stunde. Warten heißt nicht, nichts zu tun: Es heißt, seine Stellung beharrlich zu halten, während sich anderswo, außerhalb der Reichweite des Willens, die Bedingungen bilden. Diese Linie lehrt, dass Überstürzung zerstört, was nur Geduld vollenden kann – der Regen kommt, wenn Himmel und Erde bereit sind, sich zu begegnen, nicht früher.",
+    "image": "Die Wolken steigen über den Himmel: das Bild des Wartens. Alles ist bereit, damit der Regen fällt, und doch fällt er noch nicht – der Augenblick ist nicht reif. Es ist die Figur der stillen Vorbereitung, die die Stunde nicht erzwingt, sondern kommen lässt. So isst und trinkt der Edle heiter und gelassen, während er seine Stunde erwartet: Er erschöpft sich nicht darin, beschleunigen zu wollen, was seinen eigenen Rhythmus hat, er nährt seine Kraft für den Moment, in dem sie gebraucht wird."
+   },
+   "6": {
+    "pinyin": "Song",
+    "name": "Der Streit",
+    "judgementTitle": "Auflösung",
+    "judgement": "Der Zwist gegensätzlicher Kräfte sucht seinen Ausweg. Der Konflikt wird weder gemieden noch gesucht: Er wird als das erkannt, was er ist, eine Spannung zwischen zwei Bewegungen, die von Natur aus nicht ohne Reibung nebeneinander bestehen können. Die Weisheit besteht hier nicht darin, um jeden Preis zu gewinnen, sondern zu wissen, wann ein Streit es verdient, bis zum Ende geführt zu werden, und wann er es verdient, rechtzeitig verlassen zu werden.",
+    "image": "Der Himmel und das Wasser entfernen sich in entgegengesetzte Richtungen: das Bild des Streits. Das eine steigt, das andere sinkt; ihre Naturen trennen sie, und kein oberflächlicher Kompromiss kann sie vereinen. Es ist die Figur des grundlegenden Gegensatzes, der sich nicht durch guten Willen allein löst. So bedenkt der Edle zu Beginn jeder Angelegenheit ihr Ende: Er lässt sich auf keinen Streit ein, ohne vorher abgeschätzt zu haben, wohin dieser Weg ihn führen kann."
+   },
+   "7": {
+    "pinyin": "Shi",
+    "name": "Das Heer",
+    "judgementTitle": "Gleichschritt",
+    "judgement": "Die gemeinsame Zucht ordnet sich wie der Marsch einer Truppe. Keine zerstreute Kraft gilt so viel wie eine geordnete: Diese Linie sagt, dass wahre Macht nie die einer einzigen glänzenden Geste ist, sondern die einer geduldig aufrechterhaltenen Ordnung, in der jeder seinen Platz kennt und die Gesamtbewegung über den Schwung des Einzelnen siegt.",
+    "image": "Inmitten der Erde verbirgt sich das Wasser: das Bild des Heeres. Die Kraft ist da, aber sie stellt sich nicht zur Schau – sie hält sich bereit, unsichtbar, diszipliniert unter der ruhigen Oberfläche. Es ist die Figur der verhaltenen Macht, die sich nicht zeigen muss, um wirklich zu sein. So vermehrt der Edle sein Volk durch duldsame Großzügigkeit: Wahre Autorität setzt sich nicht durch zur Schau gestellte Gewalt durch, sondern baut sich in Beständigkeit und Zurückhaltung auf."
+   },
+   "8": {
+    "pinyin": "Bi",
+    "name": "Das Zusammenhalten",
+    "judgementTitle": "Gewebe",
+    "judgement": "Der Zusammenschluss der Sippen knüpft sich von unten, wie der Kettfaden. Was dauerhaft zusammenhält, webt sich im Verborgenen, Linie um Linie, noch bevor die Struktur von außen sichtbar ist. Wahre Solidarität lässt sich nicht von oben verordnen: Sie wird von der Basis her aufgebaut, Faden um Faden, bis ein Gewebe entsteht, das nichts mehr auflösen kann.",
+    "image": "Auf der Erde das Wasser: das Bild der Solidarität. Das Wasser schmiegt sich der Form des Bodens an, lagert sich in ihm, breitet sich aus, ohne ihn je zu bekämpfen – Vereinigung ohne Reibung, gegenseitige Stütze. Es ist die Figur des natürlichen Bündnisses, das sich nicht erzwingt, sondern erkannt wird. So versammelten die alten Könige die fernen Reiche und ehrten ihre Fürsten: Dauerhafte Solidarität entsteht nicht aus Zwang, sondern aus der gegenseitigen Anerkennung dessen, was jeder dem anderen bringt."
+   },
+   "9": {
+    "pinyin": "Xiao Chu",
+    "name": "Des Kleinen Zähmungskraft",
+    "judgementTitle": "Wanderschaft",
+    "judgement": "Die leichte Bremse, die dem großen Vorhaben angelegt wird. Jedes große Projekt kennt Augenblicke, in denen nur eine geringe Zurückhaltung möglich ist, in denen man den Lauf der Dinge nur leicht lenken, nicht grundlegend ändern kann. Diese Linie lehrt die Tugend der bescheidenen Geste: Es ist noch nicht die Stunde, im Großen zu handeln, es ist die Stunde, geduldig anzupassen, was sich anpassen lässt.",
+    "image": "Der Wind zieht über den Himmel: das Bild der gezähmten Kraft des Kleinen. Der Wind hat weder die Macht des Donners noch die Masse des Berges – er wirkt durch leichtes Beharren, durch wiederholtes Streicheln statt durch Stoß. Es ist die Figur des unaufdringlichen Einflusses, der zurückhält, ohne zu zwingen. So verfeinert der Edle die Züge seiner inneren Bildung: Wenn die große Kraft noch nicht am Platz ist, bereitet man durch die geduldige Verfeinerung des Details vor, was kommen wird."
+   },
+   "10": {
+    "pinyin": "Lu",
+    "name": "Das Auftreten",
+    "judgementTitle": "Fülle",
+    "judgement": "Jeder Schritt auf den Schwanz des Tigers, ohne abzuweichen. Die Gefahr ist nicht immer zu meiden – manchmal muss sie durchschritten werden, vorausgesetzt, man geht mit voller Aufmerksamkeit und ohne eine überflüssige Bewegung. Diese Linie sagt, dass Vorsicht nicht Furcht ist: Sie ist jene genaue Sammlung, die es erlaubt, dort voranzugehen, wo Unachtsamkeit tödlich wäre.",
+    "image": "Oben der Himmel, unten der See: das Bild des Auftretens. Jedes Ding behält seinen eigenen Platz – der Himmel bleibt oben, der See unten – und diese gewahrte Ordnung macht den Gang ohne Gefahr möglich. Es ist die Figur des rechten Abstands, der es erlaubt voranzugehen, selbst neben dem, was beißen könnte. So unterscheidet der Edle Oben und Unten und festigt den Willen des Volkes: Jeder mit Unterscheidungskraft gesetzte Schritt, selbst auf dem Schwanz des Tigers, wird zum sicheren Schritt."
+   },
+   "11": {
+    "pinyin": "Tai",
+    "name": "Der Friede",
+    "judgementTitle": "Bündnis",
+    "judgement": "Himmel und Erde begegnen sich und tauschen sich frei aus. Wenn das Obere bereit ist hinabzusteigen und das Untere bereit ist aufzusteigen, wird die Verbindung vollständig und fruchtbar. Diese Linie lehrt, dass dauerhafter Wohlstand immer aus diesem wechselseitigen Austausch entsteht – nie aus einer einzigen aufgezwungenen Richtung, immer aus einer Begegnung, in der jeder zugleich gibt und empfängt.",
+    "image": "Himmel und Erde vereinen sich: das Bild des Friedens. Was von Natur aus getrennt bleiben müsste – das Obere und das Untere – begegnet sich hier und verständigt sich frei, ohne Hindernis zwischen ihnen. Es ist die Figur vollendeter Harmonie, in der jede Kraft ihre Ergänzung statt ihres Gegners findet. So gestaltet der Herrscher den Weg von Himmel und Erde und kommt allen Wesen zu Hilfe: Frieden ist nicht die Abwesenheit von Bewegung, sondern der flüssig gewordene Austausch zwischen Kräften, die einander antworten."
+   },
+   "12": {
+    "pinyin": "Pi",
+    "name": "Die Stockung",
+    "judgementTitle": "Zähigkeit",
+    "judgement": "Wenn die Verbindung durch die Verweigerung des Systems unterbrochen ist. Das ist kein vorübergehender Zufall, sondern eine strukturelle Blockade: Die Kräfte, die einander antworten sollten, sind jede in ihrer eigenen Verweigerung erstarrt. Diese Linie sagt, dass es Zeiten gibt, in denen es nichts nützt, den Durchgang zu erzwingen – man muss warten, bis sich die Bedingungen selbst verschieben, oder sich zurückziehen, ohne seine Tugend in einem vergeblichen Kampf zu verlieren.",
+    "image": "Himmel und Erde verständigen sich nicht: das Bild der Stockung. Das Obere bleibt oben, das Untere bleibt unten, und nichts zirkuliert mehr zwischen ihnen – jedes verschließt sich in seiner eigenen Natur. Es ist die Figur des unfruchtbaren Bruchs, in dem selbst die mächtigsten Kräfte mangels Austausch aufgezehrt werden. So zieht sich der Edle in seine Tugend zurück, um der Gefahr zu entgehen: Wenn die Zeit das fruchtbare Handeln nicht mehr erlaubt, besteht die Weisheit darin, das Wesentliche zu bewahren, statt sich an einer Mauer zu erschöpfen."
+   },
+   "13": {
+    "pinyin": "Tong Ren",
+    "name": "Gemeinschaft mit Menschen",
+    "judgementTitle": "Beständigkeit",
+    "judgement": "Die Brüderlichkeit, die sich der Welt öffnet, findet ihren Sockel. Eine Gemeinschaft ist nur fest, wenn sie sich nicht in sich selbst verschließt: Gerade indem sie sich anderen öffnet und das sucht, was verbindet, statt dessen, was trennt, findet sie einen dauerhaften Halt. Diese Linie lehrt, dass die stärkste Zugehörigkeit oft in der Berührung mit dem Außen entsteht, nicht im Rückzug.",
+    "image": "Der Himmel und das Feuer verbinden sich: das Bild der Gemeinschaft mit Menschen. Die Flamme steigt zum Himmel empor und sucht ihre eigene Natur, und in dieser gemeinsamen Bewegung zeichnet sich eine Verwandtschaft zwischen Dingen ab, die dennoch verschieden bleiben. Es ist die Figur der Brüderlichkeit, die auf einer gemeinsamen Richtung statt auf Gleichförmigkeit beruht. So unterscheidet der Edle die Arten und ordnet die Kategorien: Wahre Gemeinschaft leugnet die Unterschiede nicht, sie erkennt sie an, um sie besser aufeinander abzustimmen."
+   },
+   "14": {
+    "pinyin": "Da You",
+    "name": "Der Besitz von Großem",
+    "judgementTitle": "Aufbäumen",
+    "judgement": "Der angehäufte Reichtum bemisst sich an seiner Fähigkeit, den Stoß zu überstehen. Nicht die Menge des Besitzes zählt, sondern die Festigkeit dessen, was aufgebaut wurde: Wahrer Besitz besteht die Prüfung, während schlecht gegründeter Überfluss beim ersten Aufprall zusammenbricht. Diese Linie mahnt, Anhäufung niemals mit wahrem Reichtum zu verwechseln, der sich in der Dauer bewährt.",
+    "image": "Das Feuer auf dem Gipfel des Himmels: das Bild des großen Besitzes. Das Licht, in die größte Höhe getragen, erhellt ausnahmslos alle Dinge – unter einer solchen Glut bleibt nichts im Schatten. Es ist die Figur sichtbarer Fülle, die so weit strahlt, dass sie zur Verantwortung verpflichtet. So hemmt der Edle das Böse und fördert das Gute, der himmlischen Gunst gehorchend: Viel zu besitzen ist nie neutral, es verpflichtet zu unterscheiden, was man nährt und was man beschneidet."
+   },
+   "15": {
+    "pinyin": "Qian",
+    "name": "Die Bescheidenheit",
+    "judgementTitle": "Alchemie",
+    "judgement": "Das Zurücktreten des Selbst nährt die Verwandlung im Schmelztiegel. Nichts verwandelt sich wirklich, ohne dass ein Teil des Selbst darin einwilligt, im Vorgang zu verschwinden. Diese Linie sagt, dass Demut keine passive Tugend ist: Sie ist die aktive Bedingung jeder tiefen Verwandlung, der Tiegel, in dem sich das Alte auflöst, damit das Neue Gestalt annehmen kann.",
+    "image": "Inmitten der Erde steht der Berg: das Bild der Bescheidenheit. Was am höchsten ist, lässt sich hier von dem enthalten, was es umgibt, ohne je die Landschaft durch bloße Höhe beherrschen zu wollen. Es ist die Figur der Größe, die sich freiwillig zurücknimmt. So verringert der Edle, was zu viel ist, und mehrt, was fehlt, und wägt die Dinge gleichmäßig ab: Bescheidenheit ist nicht Kleinheit, sie ist die Kraft, die ihrer selbst so sicher ist, dass sie sich nicht zeigen muss."
+   },
+   "16": {
+    "pinyin": "Yu",
+    "name": "Die Begeisterung",
+    "judgementTitle": "Schwung",
+    "judgement": "Der Donner tritt aus der Erde hervor und setzt die Körper in Bewegung. Es gibt eine Energie, die sich nicht befehlen lässt, die hervorbricht und von selbst mitreißt, ohne dass man sie zwingen müsste. Diese Linie lehrt, dass die wahre Macht zu versammeln nie aus Zwang kommt, sondern aus jener gemeinsamen Schwingung, die nur aufrichtige Begeisterung wecken kann.",
+    "image": "Der Donner tritt mit Macht aus der Erde hervor: das Bild der Begeisterung. Die verhaltene Energie befreit sich plötzlich, und dieses Hervorbrechen setzt alles in Bewegung, was sie umgibt – nichts bleibt vor einem solchen Glanz unbewegt. Es ist die Figur des ansteckenden Schwungs, der mitreißt, ohne zwingen zu müssen. So ehrten die alten Könige das Verdienst durch Musik und Tugend: Gut gelenkte Begeisterung wird zur sanftesten und mächtigsten Kraft, die Willen zu versammeln."
+   },
+   "17": {
+    "pinyin": "Sui",
+    "name": "Die Nachfolge",
+    "judgementTitle": "Tiefe",
+    "judgement": "Der Bewegung der Zeit zu folgen zwingt dazu, wieder hinabzusteigen und die Quelle auszugraben. Man kann nicht dauerhaft folgen, ohne von Zeit zu Zeit zu dem zurückzukehren, was die Bewegung selbst nährt. Diese Linie lehrt, dass die gerechteste Anpassung nicht die beweglichste ist, sondern die, die zu ihrem eigenen Ursprung zurückzukehren weiß, bevor sie wieder aufbricht.",
+    "image": "Inmitten des Sees der Donner: das Bild der Nachfolge. Die Bewegung, die in der Tiefe grollt, lässt sich von dem tragen, was sie umgibt, statt ihre eigene Bahn zu erzwingen – sie folgt dem Umriss des Sees, statt ihn zu brechen. Es ist die Figur der Anpassung an den Rhythmus anderer. So geht der Edle in der Dämmerung nach Hause, um sich auszuruhen: Folgen heißt nicht sich unterwerfen, es heißt den Augenblick erkennen, in dem das Handeln der Ruhe weichen muss, wie der Tag der Nacht weicht."
+   },
+   "18": {
+    "pinyin": "Gu",
+    "name": "Die Arbeit am Verdorbenen",
+    "judgementTitle": "Instandsetzung",
+    "judgement": "Die Verderbnis eines abgenutzten Erbes wieder aufrichten. Was zu lange vernachlässigt wurde, verlangt schließlich anspruchsvolle Arbeit, aber diese Arbeit ist kein Fluch – sie ist die Gelegenheit, auf gesünderen Grundlagen neu zu gründen. Diese Linie sagt, dass das beschädigte Erbe nur verloren ist, wenn man sich weigert, sich darum zu kümmern.",
+    "image": "Unter dem Berg der Wind: das Bild der Arbeit am Verdorbenen. Der Wind dringt in die Risse des Berges und offenbart, was mit der Zeit verdorben ist und darauf wartet, wieder aufgerichtet zu werden. Es ist die Figur der notwendigen Instandsetzung, die man nicht länger aufschieben kann. So regt der Edle das Volk an und nährt seine Tugend: Angesichts des Verdorbenen geht es nicht darum, die Vergangenheit zu verurteilen, sondern die Ärmel hochzukrempeln, um wiederherzustellen, was noch wiederherzustellen ist."
+   },
+   "19": {
+    "pinyin": "Lin",
+    "name": "Die Annäherung",
+    "judgementTitle": "Wachstum",
+    "judgement": "Die wohlwollende Annäherung an die lebendigen Kräfte regt den geduldigen Aufstieg an. Nichts Großes wird mit einem Schlag erobert; alles, was wirklich wächst, tut es in aufeinanderfolgenden Annäherungen, deren jede die nächste vorbereitet. Diese Linie lehrt, dass echtes Wachstum in Schritten gemessen wird, nicht in Sprüngen.",
+    "image": "Über dem See die Erde: das Bild der Annäherung. Die Erde neigt sich zum Wasser, nähert sich ihm, ohne es je völlig zu beherrschen – eine Bewegung fortschreitender Annäherung, nie grob. Es ist die Figur des Wohlwollens, das Schritt für Schritt voranschreitet. So lehrt der Edle unermüdlich und umfängt das Volk ohne Grenzen: Jemandem wirklich nahe zu kommen verlangt jene Geduld, die die Begegnung nie erzwingt."
+   },
+   "20": {
+    "pinyin": "Guan",
+    "name": "Die Betrachtung",
+    "judgementTitle": "Zusammenfluss",
+    "judgement": "Aus der Ferne vom Turm zu schauen vereint, was zerstreut war. Ein weiter Blick zerstreut die Aufmerksamkeit nicht, er sammelt sie: Erst wenn man Höhe gewinnt, entdeckt man die unsichtbaren Verbindungen zwischen Dingen, die aus der Nähe ohne Zusammenhang schienen. Diese Linie sagt, dass Verstehen der Fähigkeit, richtig zu handeln, immer vorausgeht.",
+    "image": "Der Wind streicht über die Erde: das Bild der Betrachtung. Der Wind berührt jeden Winkel des Bodens, ohne irgendwo lange zu verweilen – ein Blick, der weit umfasst, statt einer Geste, die sich aufhält. Es ist die Figur der Beobachtung, die dem Handeln vorausgeht. So besuchten die alten Könige die Gegenden, beobachteten das Volk und richteten die Unterweisung ein: Bevor man auf die Welt einwirkt, muss man zuerst lernen, sie zu sehen, wie sie ist, ohne Eile und ohne Voreingenommenheit."
+   },
+   "21": {
+    "pinyin": "Shi He",
+    "name": "Das Durchbeißen",
+    "judgementTitle": "Schärfe",
+    "judgement": "Das Falsche durchtrennen, um das Rechte zu verbinden. Es gibt Hindernisse, die sich nicht umgehen lassen – sie müssen durchschritten, durchgebissen, durch eine klare Entscheidung überwunden werden. Diese Linie lehrt, dass Klarheit sich manchmal nur mit Härte durchsetzt und dass diese Härte, mit Bedacht eingesetzt, keine Gewalt ist, sondern Gerechtigkeit.",
+    "image": "Donner und Blitz vereinen sich: das Bild des Durchbeißens. Stoß und Licht schlagen gemeinsam zu, das eine enthüllt, was das andere zerbricht – nichts kann sich unter einer solchen Verbindung von Kraft und Klarheit lange verbergen. Es ist die Figur der scharfen, von der Wahrheit erhellten Entscheidung. So machten die alten Könige die Strafen klar und die Gesetze wachsam: Gerecht zu entscheiden verlangt zuerst, gerecht zu sehen."
+   },
+   "22": {
+    "pinyin": "Bi",
+    "name": "Die Anmut",
+    "judgementTitle": "Läuterung",
+    "judgement": "Schmuck und Schönheit der Form weichen im Äußersten der Entscheidung. Jede Schönheit hat ihre nützliche Grenze: Jenseits eines bestimmten Punktes muss der Schmuck vor der Notwendigkeit zu handeln zurücktreten. Diese Linie erinnert daran, dass die Form dem Gehalt dient und nicht umgekehrt – sobald das eine auf das andere übergreift, muss man zu vereinfachen wissen.",
+    "image": "Unter dem Berg das Feuer: das Bild der Anmut. Die Flamme erhellt die Flanken des Berges, ohne je beanspruchen zu wollen, ihm an Höhe gleichzukommen – eine Verschönerung, die respektiert, was sie enthüllt, statt es zu beherrschen. Es ist die Figur des Schmucks im Dienst des Gehalts. So erhellt der Edle die vielfältigen Angelegenheiten, ohne je anzumaßen, Streitfälle allein im Licht des Scheins zu entscheiden: Die Anmut dient dazu zu enthüllen, nie zu urteilen."
+   },
+   "23": {
+    "pinyin": "Bo",
+    "name": "Die Zersplitterung",
+    "judgementTitle": "Wandlung",
+    "judgement": "Der Einsturz des alten Gebäudes setzt die Energie eines neuen Zuwachses frei. Was einstürzt, reißt nicht alles mit sich: Der Untergang einer erschöpften Form schafft den Raum und die Energie, die für das Folgende nötig sind. Diese Linie lehrt, das Aufbrechen hohl gewordener Strukturen nicht zu fürchten – es geht immer einer Erneuerung voraus.",
+    "image": "Der Berg ruht auf der Erde: das Bild des Zersplitterns. Was am festesten schien – die Masse des Berges selbst – wird in Wahrheit nur von einer Basis getragen, die nachgeben kann. Es ist die Figur des Einsturzes, der dem auflauert, was seine Fundamente vernachlässigt. So festigen die Großen, was unten ist, um ihrer Wohnstatt Ruhe zu geben: Bevor man höher baut, muss man immer festigen, was trägt."
+   },
+   "24": {
+    "pinyin": "Fu",
+    "name": "Die Wiederkehr",
+    "judgementTitle": "Wiedergeburt",
+    "judgement": "Das Lebensprinzip kehrt im Herzen der dichtesten Nacht zurück. Nichts ist je endgültig verloren, solange irgendwo jener winzige Keim fortbesteht, der neu beginnt. Diese Linie sagt, dass der tiefste Punkt bereits im Keim die Bewegung der Wiederkehr enthält – gerade in der völligen Finsternis beginnt das Licht wieder zu wachsen.",
+    "image": "Der Donner im Schoß der Erde: das Bild der Wiederkehr. Die Lebenskraft, tief im Winter vergraben, ist nicht verschwunden – sie wartet unsichtbar auf den Augenblick, wieder hervorzubrechen. Es ist die Figur der Erneuerung, die sich in scheinbarer Reglosigkeit verbirgt. So schlossen die alten Könige zur Sonnenwende die Durchgänge, Händler und Reisende zogen nicht mehr: Es gibt Augenblicke, in denen die größte Geste darin besteht, nichts zu überstürzen, damit sich die Wiederkehr von selbst vollziehen kann."
+   },
+   "25": {
+    "pinyin": "Wu Wang",
+    "name": "Die Unschuld",
+    "judgementTitle": "Auflösung",
+    "judgement": "Ohne Kunstgriff zu handeln löst die Knoten des Hindernisses von selbst. Die Verwicklung entsteht fast immer aus Berechnung; wahre Einfachheit entschärft die Hindernisse, noch bevor man ihnen begegnet. Diese Linie lehrt, dass spontane Geradheit oft löst, was die geschickteste List nur noch mehr verheddert.",
+    "image": "Unter dem Himmel wandert der Donner: das Bild der Unschuld. Die Bewegung folgt ihrem Lauf unter der weiten Himmelsfläche, ohne Berechnung und ohne Umweg, mit der Schlichtheit dessen, der nichts zu verbergen hat. Es ist die Figur des geraden, spontanen, unverstellten Handelns. So nährten die alten Könige, reich an Tugend und der Zeit gemäß, die zehntausend Wesen: Unschuld ist nicht Naivität, sie ist die vollkommene Ausrichtung zwischen Absicht und Geste."
+   },
+   "26": {
+    "pinyin": "Da Chu",
+    "name": "Des Großen Zähmungskraft",
+    "judgementTitle": "Zurückhaltung",
+    "judgement": "Die innere Ansammlung von Kraft trifft auf die Härte des Geländes. Was im Inneren unsichtbar wächst, stößt am Ende immer auf einen äußeren Widerstand – und gerade diese Begegnung offenbart und verfeinert die angesammelte Kraft. Diese Linie sagt, dass das Hindernis nicht der Feind der Macht ist, sondern ihre notwendige Prüfung.",
+    "image": "Im Schoß des Himmels der Berg: das Bild der gezähmten Kraft des Großen. Eine beträchtliche Macht hält sich gebändigt, zurückgehalten von etwas, das ihr an Größe nicht gleichkommt, sie aber dennoch zu bremsen weiß. Es ist die Figur der großen Kraft, die sich zähmen lässt. So bewahrt der Edle die Worte und Taten der Alten in seinem Gedächtnis: Wahre Größe beweist sich nicht nur durch das, was sie entfaltet, sondern durch das, was sie zu bändigen bereit ist."
+   },
+   "27": {
+    "pinyin": "Yi",
+    "name": "Die Ernährung",
+    "judgementTitle": "Unterscheidung",
+    "judgement": "Was den Geist nährt, steht dem entgegen, was die Ansichten spaltet. Nicht jede Nahrung erhebt gleichermaßen: Manche Worte, manche Gedanken stärken, andere zerstreuen und schwächen. Diese Linie lädt dazu ein, mit derselben Sorgfalt zu wählen, wovon man den Geist nährt, wie das, wovon man den Körper nährt.",
+    "image": "Unter dem Berg der Donner: das Bild der Ernährung. Die Bewegung regt sich am Fuß dessen, was fest steht, wie sich der Kiefer unter dem reglosen Gesicht regt – eine Erinnerung daran, dass selbst die größte Festigkeit davon abhängt, was sich darunter nährt. So hütet der Edle seine Worte und bemisst sein Essen und Trinken: Was in uns eingeht, durch den Mund oder durch Worte, formt, was wir werden."
+   },
+   "28": {
+    "pinyin": "Da Guo",
+    "name": "Des Großen Übergewicht",
+    "judgementTitle": "Tragwerk",
+    "judgement": "Der Firstbalken, der unter seinem eigenen Gewicht durchhängt. Ein Tragwerk, das bis an die Grenze seiner Leistungsfähigkeit getrieben wird, kündigt durch sein Durchbiegen den Moment an, in dem es entweder brechen oder entlastet werden muss. Diese Linie lehrt, die Vorzeichen des Bruchs zu erkennen, bevor er eintritt.",
+    "image": "Der See überflutet das Holz: das Bild des Übergewichts des Großen. Das Wasser steigt über das hinaus, was es normalerweise enthalten sollte – eine Last, zu schwer für das Gefüge, das sie trägt, bereit, unter ihrem eigenen Gewicht nachzugeben. Es ist die Figur der äußersten Bürde. So verlässt der Edle, allein und ohne Furcht, die Welt ohne Bitterkeit: Es gibt Augenblicke, in denen die Last übersteigt, was keine Stütze tragen kann, und in denen die einzig mögliche Würde darin besteht, sich ihr ohne Klage zu stellen."
+   },
+   "29": {
+    "pinyin": "Kan",
+    "name": "Das Abgründige",
+    "judgementTitle": "Prüfung",
+    "judgement": "Im Wasser steuern, das sich nicht ausloten lässt. Manche Tiefen lassen sich nie im Voraus vollständig ermessen – man kann nur lernen, sich in ihnen mit den Mitteln zu bewegen, die man hat, ohne je zu beanspruchen, sie ganz zu beherrschen. Diese Linie sagt, dass die wahre Kompetenz angesichts der Gefahr nicht darin besteht, sie zu beseitigen, sondern in ihr schwimmen zu lernen.",
+    "image": "Das Wasser kommt und kehrt wieder: das Bild des verdoppelten Abgründigen. Die Gefahr wiederholt sich, Welle um Welle, ohne je vollständige Ruhe zu lassen – aber das Wasser selbst findet in seiner beständigen Bewegung immer sein Niveau. Es ist die Figur der wiederholten Prüfung, die Beständigkeit schmiedet. So übt der Edle beständig die Tugend und lehrt die Geschäfte: Angesichts der wiederkehrenden Gefahr baut auch nur die wiederholte Übung Meisterschaft auf."
+   },
+   "30": {
+    "pinyin": "Li",
+    "name": "Das Haftende",
+    "judgementTitle": "Ausstrahlung",
+    "judgement": "Die Klarheit des Feuers haftet am Lebendigen, um ihren Glanz zu verbreiten. Nichts leuchtet im Leeren: Jede wahre Klarheit braucht einen Anker, eine Materie, an die sie sich bindet, um sich zu entfalten. Diese Linie lehrt, dass völlige Unabhängigkeit kein Ideal ist – selbst das reinste Licht braucht das, was es beleuchtet.",
+    "image": "Klarheit und abermals Klarheit: das Bild des haftenden Feuers. Das Licht leuchtet nie allein – es braucht das, woran es sich hält, um weiter zu strahlen, wie die Flamme das Holz braucht. Es ist die Figur des Glanzes, der von einem Träger abhängt. So erhellt der große Mensch durch seinen fortwährenden Glanz die vier Himmelsrichtungen: Dauerhaft zu strahlen setzt voraus, mit dem verbunden zu bleiben, was das eigene Licht nährt."
+   },
+   "31": {
+    "pinyin": "Xian",
+    "name": "Die Einwirkung",
+    "judgementTitle": "Resonanz",
+    "judgement": "Die feine, kaum wahrnehmbare Regung gegenseitigen Einflusses. Die tiefsten Bindungen zwischen Wesen knüpfen sich oft, noch bevor ein Wort gesprochen wird, in diesem unaufdringlichen Bereich des geteilten Empfindens. Diese Linie sagt, dass der dauerhafteste Einfluss nie der ist, der sich lautstark aufdrängt, sondern der, der sich fast unmerklich zwischen zwei füreinander offene Gegenwarten schiebt.",
+    "image": "Auf dem Berg ein See: das Bild der Einwirkung. Das Wasser ruht auf der Höhe, schmiegt sich an sie, ohne sie zu bedrängen, und diese gegenseitige Empfänglichkeit lässt den Einfluss zwischen beiden zirkulieren. Es ist die Figur der geteilten Empfindsamkeit, noch bevor Worte eingreifen. So nimmt der Edle die Leere in sich auf, um die Menschen zu empfangen: Einwirken beginnt immer damit, sich berühren lassen zu können."
+   },
+   "32": {
+    "pinyin": "Heng",
+    "name": "Die Dauer",
+    "judgementTitle": "Dauer",
+    "judgement": "Die Beständigkeit in der Zeit besteht die Prüfung des Rückzugs. Was wirklich dauert, ist nicht das, was jede Veränderung verweigert, sondern das, was sich, wenn nötig, eine Zeitlang zurückzuziehen weiß, ohne seine eigene Richtung zu verlieren. Diese Linie lehrt, dass wahre Dauer ihre eigenen Pausen einschließt.",
+    "image": "Donner und Wind: das Bild der Dauer. Zwei von Natur verschiedene Bewegungen verbinden sich hier, ohne einander zu widersprechen, jede verstärkt die andere in geteilter Beständigkeit. Es ist die Figur der Ausdauer, die sich nicht verbraucht. So steht der Edle aufrecht, ohne seine Richtung zu ändern: Dauern heißt nicht, dem Stillstand zu widerstehen, sondern die Bewegung zu finden, die sich unbegrenzt wiederholen kann, ohne sich zu verraten."
+   },
+   "33": {
+    "pinyin": "Dun",
+    "name": "Der Rückzug",
+    "judgementTitle": "Dauer",
+    "judgement": "Die Dauer bewährt sich darin, sich zurücknehmen zu können, um besser zu dauern. Paradoxerweise ist das, was am längsten besteht, oft das, was im rechten Augenblick von der Bühne abzutreten wusste. Diese Linie lehrt, dass der strategische Rückzug die Kontinuität nicht unterbricht – er schützt sie.",
+    "image": "Unter dem Himmel der Berg: das Bild des Rückzugs. Der Himmel entfernt sich nach und nach vom Berg, hält Abstand ohne Feindseligkeit, einfach aus der Notwendigkeit, seine eigene Bewegung zu wahren. Es ist die Figur des würdigen Rückzugs, nie schimpfliche Flucht. So hält der Edle die Kleinlichen auf Abstand, nicht aus Hass, sondern aus Würde: Sich rechtzeitig zurückzuziehen ist keine Schwäche, es ist die Weisheit dessen, der den Moment erkennt, in dem Bleiben mehr kosten würde als Gehen."
+   },
+   "34": {
+    "pinyin": "Da Zhuang",
+    "name": "Des Großen Macht",
+    "judgementTitle": "Resonanz",
+    "judgement": "Der Einfluss verstärkt sich, bis er zu einer Kraft wird, die sich nicht mehr zügeln lässt. Was als bloße Resonanz beginnt, kann, wenn nichts es einfasst, zu etwas anwachsen, das jeder Kontrolle entgleitet. Diese Linie warnt, dass Macht ohne Zucht sich früher oder später gegen den wendet, der sie entfaltet.",
+    "image": "Der Donner über dem Himmel: das Bild der Macht des Großen. Eine beträchtliche Kraft erhebt sich in die größte Höhe, für alle sichtbar, fähig, zu erschüttern, was ihr im Weg steht. Es ist die Figur der Macht auf ihrem Höhepunkt, die gerade deshalb lernen muss, sich zu beherrschen, weil sie alles mit sich reißen kann. So betritt der Edle nur Wege, die der Sitte gemäß sind: Die große Kraft ohne das rechte Maß wird zu ihrem eigenen Ruin."
+   },
+   "35": {
+    "pinyin": "Jin",
+    "name": "Der Fortschritt",
+    "judgementTitle": "Ausstrahlung",
+    "judgement": "Der Glanz steigt wie die Sonne der Anerkennung des Mittags entgegen. Jeder wahre Aufstieg folgt seinem eigenen Rhythmus, wie die Sonne, die nie direkt in ihren Zenit springt. Diese Linie sagt, dass verdiente Anerkennung immer zu ihrer Zeit kommt, nie früher, nie später.",
+    "image": "Die Sonne geht über der Erde auf: das Bild des Fortschritts. Das Licht gewinnt Raum, Grad um Grad, ohne einen einzigen jähen Sprung – eine aufsteigende Bewegung, ebenso sicher wie natürlich. Es ist die Figur des verdienten Vorankommens. So bringt der Edle von sich aus seine klare Tugend ans Licht: Wahrer Fortschritt wird nicht eingefordert, er zeigt sich von selbst dem, der bis zum Anbruch des Tages zu warten versteht."
+   },
+   "36": {
+    "pinyin": "Ming Yi",
+    "name": "Die Verfinsterung des Lichts",
+    "judgementTitle": "Prüfung",
+    "judgement": "Unter bewusst verhülltem Licht voranschreiten. Es geht nicht darum, die eigene Klarheit auszulöschen, sondern sie zurückzuhalten, wenn die Umstände ihren vollen Glanz gefährlich machen. Diese Linie lehrt die Zucht dessen, der weiter recht handelt, auch wenn niemand es noch sehen kann.",
+    "image": "Das Licht sinkt in den Schoß der Erde: das Bild der Verfinsterung. Was leuchten sollte, findet sich vergraben, gezwungen, den eigenen Glanz zu verhüllen, um weiterzuexistieren, ohne zerstört zu werden. Es ist die Figur der Klarheit, die sich eine Zeitlang verbergen muss, um zu überleben. So führt der Edle die Menge, indem er seine Klarheit verhüllt und doch hellsichtig bleibt: Es gibt Zeiten, in denen es ein Fehler wäre, sein volles Licht zu zeigen – die Weisheit besteht dann darin, im Stillen gerecht zu bleiben."
+   },
+   "37": {
+    "pinyin": "Jia Ren",
+    "name": "Die Sippe",
+    "judgementTitle": "Gefüge",
+    "judgement": "Die geordnete Strenge der Familienzelle. Keine größere Struktur hält, wenn nicht ihre innerste Zelle – die des Hauses – selbst geordnet und gerecht ist. Diese Linie sagt, dass die Ordnung der Welt immer mit der Ordnung des Hauses beginnt.",
+    "image": "Der Wind entsteht aus dem Feuer: das Bild der Sippe. Die innere Wärme erzeugt eine Bewegung, die sich nach außen ausbreitet – was am Herd beginnt, strahlt am Ende immer nach draußen. Es ist die Figur des häuslichen Einflusses, der die Welt formt. So gründet der Edle seine Worte auf Gehalt und sein Verhalten auf Beständigkeit: Was in der Vertrautheit des Hauses gelebt wird, wird früher oder später zu dem, was man überallhin trägt."
+   },
+   "38": {
+    "pinyin": "Kui",
+    "name": "Der Gegensatz",
+    "judgementTitle": "Unterscheidung",
+    "judgement": "Die Auswahl trifft sich zwischen den Worten, die erheben, und denen, die trennen. Nicht jede Abweichung ist ein Bruch: Manche Gegensätze, recht verstanden, verfeinern das Denken, statt es zu zerbrechen. Diese Linie lehrt, den fruchtbaren Dissens vom unfruchtbaren Konflikt zu unterscheiden.",
+    "image": "Oben das Feuer, unten der See: das Bild des Gegensatzes. Das Feuer steigt, das Wasser sinkt – zwei Naturen, die nebeneinander bestehen, ohne sich je zu vermischen, jede ihrer eigenen Richtung treu. Es ist die Figur des angenommenen Unterschieds ohne völligen Bruch. So unterscheidet der Edle in der Einheit, was verschieden ist: Einen Gegensatz zu erkennen verpflichtet nicht, ihn zu zerstören; man kann mit dem leben, was uns widerspricht, ohne zu beanspruchen, es auszulöschen."
+   },
+   "39": {
+    "pinyin": "Jian",
+    "name": "Das Hemmnis",
+    "judgementTitle": "Zurückhaltung",
+    "judgement": "Die Geduld wird selbst zum Schild gegenüber dem Gelände. Gegenüber dem, was sich nicht frontal überwinden lässt, ist Geduld keine Resignation, sondern ein aktiver Schutz – sie bewahrt die Energie für den Moment, in dem sich der Durchgang öffnet. Diese Linie sagt, dass jedes Hindernis im Hohlraum den Hinweis auf den rechten Umweg enthält.",
+    "image": "Auf dem Berg das Wasser: das Bild des Hemmnisses. Das Wasser trifft auf das Gefälle und kann nicht direkt vorankommen – es muss umgehen, einen anderen Weg suchen, seinen natürlichen Lauf verlangsamen. Es ist die Figur der Schwierigkeit, die einen Umweg auferlegt. So wendet sich der Edle zu sich selbst und bildet seine eigene Tugend: Das äußere Hindernis, wo es nicht erzwungen werden kann, wird zur Gelegenheit, an dem zu arbeiten, was in einem selbst noch wachsen kann."
+   },
+   "40": {
+    "pinyin": "Jie",
+    "name": "Die Befreiung",
+    "judgementTitle": "Auflösung",
+    "judgement": "Die Knoten des Hindernisses lösen sich, der Durchgang öffnet sich. Was unentwirrbar schien, löst sich am Ende mit der Zeit und der rechten, im rechten Moment gelockerten Spannung von selbst. Diese Linie lehrt, dass die Befreiung selten durch Gewalt kommt – sie kommt, wenn der Druck endlich seinen rechten Ausgang findet.",
+    "image": "Donner und Regen steigen auf: das Bild der Befreiung. Die in der Luft angesammelte Spannung entlädt sich endlich, das Gewitter bricht los und reinigt, was es durchzieht – eine Auflösung, die beruhigt, statt zu zerstören. Es ist die Figur der Erleichterung nach dem Zwang. So vergibt der Edle die Fehler und zeigt sich nachsichtig gegenüber Verfehlungen: Wahre Befreiung hört nicht bei einem selbst auf, sie erstreckt sich auch auf die, die man noch in ihren Irrtümern gefangen halten könnte."
+   },
+   "41": {
+    "pinyin": "Sun",
+    "name": "Die Minderung",
+    "judgementTitle": "Verzicht",
+    "judgement": "Zur Mitte zurückzukehren verlangt, in den Verlust dessen einzuwilligen, was belastete. Man kehrt zum Wesentlichen nur zurück, indem man loslässt, was sich mit der Zeit als überflüssig erwiesen hat. Diese Linie sagt, dass nicht jeder Verlust eine Verarmung ist – manche Minderungen sind selbst die Bedingung der Rückkehr zu dem, was wirklich zählt.",
+    "image": "Unter dem Berg der See: das Bild der Minderung. Das Wasser unten verdunstet zur Höhe hin und scheint zu verarmen, um zu nähren, was über ihm ragt – ein Verlust, der in Wirklichkeit einem umfassenderen Gleichgewicht dient. Es ist die Figur des Verzichts, der einem Ganzen zugutekommt, das größer ist als man selbst. So zügelt der Edle seinen Zorn und hält seine Begierden im Zaum: Das zu mindern, was bei einem selbst zu viel ist, ist oft die Bedingung dafür, dass etwas anderes wachsen kann."
+   },
+   "42": {
+    "pinyin": "Yi",
+    "name": "Die Mehrung",
+    "judgementTitle": "Wandlung",
+    "judgement": "Die Energie eines neuen Zuwachses wird frei. Was wirklich wächst, tut es nie allein: Echtes Wachstum setzt eine Energie frei, die weiteren zugutekommt als dem, der sie trägt. Diese Linie lehrt, dass wahrer Zuwachs sich daran erkennt, was er teilt, nicht daran, was er anhäuft.",
+    "image": "Wind und Donner: das Bild der Mehrung. Zwei Kräfte verstärken einander, der Wind vergrößert den Donner und der Donner gibt dem Wind sein volles Maß – ein Wachstum, das sich aus der Begegnung nährt statt aus der Vereinzelung. So wendet sich der Edle, wenn er das Gute sieht, ihm zu; hat er einen Fehler, so bessert er ihn: Wahre Mehrung beschränkt sich nicht aufs Anhäufen, sie besteht darin, sich zu bessern und gemeinsam zu wachsen."
+   },
+   "43": {
+    "pinyin": "Guai",
+    "name": "Der Durchbruch",
+    "judgementTitle": "Läuterung",
+    "judgement": "Die Entscheidung, die klar durchtrennt und das Überflüssige beseitigt. Es kommt ein Augenblick, in dem das Zögern selbst gefährlicher wird als die Schärfe der Entscheidung. Diese Linie sagt, dass der wahre Durchbruch nicht darin besteht, alles zu zerstören, sondern genau das zu entfernen, was im Übermaß das Ganze bedrohte.",
+    "image": "Der See steigt über den Himmel: das Bild des Durchbruchs. Das Wasser, höher getragen, als es normalerweise gehalten werden sollte, droht überzulaufen – eine äußerste Spannung, die nach einer klaren, unumkehrbaren Entscheidung ruft. Es ist die Figur der Entschlossenheit, die nicht länger warten kann. So verteilt der Edle seine Gaben bis nach unten, ohne sich allein auf seine Tugend zu stützen: Kraftvoll zu entscheiden muss stets mit Großzügigkeit gegenüber denen einhergehen, die die Entscheidung trifft."
+   },
+   "44": {
+    "pinyin": "Gou",
+    "name": "Das Entgegenkommen",
+    "judgementTitle": "Schärfe",
+    "judgement": "Die unvorhergesehene Begegnung setzt dem Risiko ebenso aus wie der Verbindung. Alles, was sich ohne Vorwarnung zeigt, trägt eine Zweideutigkeit in sich: Verheißung einer Bindung oder Keim einer Gefahr, man weiß es nie von vornherein. Diese Linie lehrt die Wachsamkeit, die nicht Misstrauen ist, sondern Unterscheidungskraft im Augenblick der Begegnung.",
+    "image": "Unter dem Himmel der Wind: das Bild des Entgegenkommens. Der Wind durchstreift den Raum, ohne gerufen worden zu sein, und berührt alles auf seinem Weg – eine Begegnung, die sich aufdrängt, statt geplant zu werden. Es ist die Figur des Unvorhergesehenen, das man mit Unterscheidung aufnehmen muss. So unterrichtet der Herrscher durch seine Erlasse die vier Himmelsrichtungen: Was uns ungebeten entgegenkommt, verdient, geprüft zu werden, bevor man es annimmt oder abweist."
+   },
+   "45": {
+    "pinyin": "Cui",
+    "name": "Die Sammlung",
+    "judgementTitle": "Zusammenfluss",
+    "judgement": "Die Betrachtung ist bereits eine stille Sammlung. Noch bevor die Körper sich versammeln, sind die Geister, die denselben Blick teilen, in gewissem Sinn schon versammelt. Diese Linie sagt, dass wahre Vereinigung immer im Unsichtbaren beginnt, lange bevor sie sichtbar wird.",
+    "image": "Der See steigt über die Erde: das Bild der Sammlung. Das Wasser sammelt sich und bildet eine gemeinsame Fläche, die an einem Ort vereint, was zerstreut weder Kraft noch Gesicht gehabt hätte. Es ist die Figur des Zusammenflusses, der dem Vielen Bestand gibt. So bessert der Edle seine Waffen aus, um Unvorhergesehenem zu begegnen: Versammeln genügt nicht, man muss sich auch darauf vorbereiten, das Versammelte zu schützen."
+   },
+   "46": {
+    "pinyin": "Sheng",
+    "name": "Das Empordringen",
+    "judgementTitle": "Wachstum",
+    "judgement": "Sich nähern und wachsen sind eine einzige vertikale Geste. Es gibt keine wirkliche Trennung zwischen dem Sich-Annähern an sein Ziel und dem Wachsen auf es zu – beide Bewegungen sind eine, wie der wachsende Stängel bereits im Keim der künftige Baum ist. Diese Linie lehrt die Kontinuität zwischen der kleinen Geste von heute und dem großen künftigen Ergebnis.",
+    "image": "Im Schoß der Erde wächst das Holz: das Bild des Emporsteigens. Das Samenkorn, unsichtbar unter der Oberfläche, drängt geduldig dem Licht entgegen, ohne je Stufen zu überspringen – ein langsames, aber unaufhaltsames Wachstum. Es ist die Figur des durch Beständigkeit verdienten Aufstiegs. So häuft der Edle, der Tugend gefügig, das Kleine an, um das Hohe und Große zu erreichen: Nichts, was wirklich wächst, überspringt eine Stufe, alles baut sich Schicht um Schicht auf."
+   },
+   "47": {
+    "pinyin": "Kun",
+    "name": "Die Bedrängnis",
+    "judgementTitle": "Instandsetzung",
+    "judgement": "Man stellt nichts wieder her, ohne zuvor in den Mangel einzuwilligen. Es gibt keine wahre Wiedergeburt, ohne zuvor durch die wirkliche Erfahrung der Entbehrung gegangen zu sein. Diese Linie sagt, dass die Bedrängnis, gut durchschritten, nicht nur eine zu erleidende Prüfung ist, sondern eine Läuterung, die die Rückkehr der Fülle vorbereitet.",
+    "image": "Der See ohne Wasser: das Bild der Bedrängnis. Was nähren und stützen sollte, ist ausgetrocknet und hinterlässt einen schreienden Mangel dort, wo man Fülle erwartete. Es ist die Figur der Erschöpfung, die die wahre Natur dessen prüft, der sie durchschreitet. So setzt der Edle sein Leben ein, um sein Vorhaben zu vollenden: Gerade im Mangel offenbart sich, woran man wirklich hängt, so sehr, dass man bereit ist, dafür alles zu riskieren."
+   },
+   "48": {
+    "pinyin": "Jing",
+    "name": "Der Brunnen",
+    "judgementTitle": "Tiefe",
+    "judgement": "Man folgt nur dem gut, was man zuerst aus der Tiefe geschöpft hat. Keine Ressource nützt dem, der an der Oberfläche bleibt: Man muss hinabsteigen, suchen, wirklich schöpfen, damit der Brunnen hergibt, was er enthält. Diese Linie lehrt, dass die Tiefe selbst die Bedingung des Nutzens ist.",
+    "image": "Über dem Holz das Wasser: das Bild des Brunnens. Das Wasser bleibt allen zugänglich, die es schöpfen kommen, unerschöpflich, solange man den Eimer an der rechten Stelle hinablässt – eine gemeinsame Ressource, die der Gebrauch nie wirklich versiegen lässt. Es ist die Figur des geteilten Gutes, das bleibt. So tröstet der Edle das Volk und mahnt es zu gegenseitiger Hilfe: Was eine Gemeinschaft wirklich nährt, gehört niemandem allein, es geht nur durch die Hände derer, die zu schöpfen verstehen."
+   },
+   "49": {
+    "pinyin": "Ge",
+    "name": "Die Umwälzung",
+    "judgementTitle": "Schwung",
+    "judgement": "Das Feuer unter dem See löst die alte Haut auf. Jede tiefgreifende Veränderung verlangt zuerst, dass sich die alte Form auflöst, so unbequem dieser Übergang auch sei. Diese Linie sagt, dass die gerechteste Umwälzung nie umsonst ist – sie antwortet auf eine Notwendigkeit, die die alte Form nicht mehr fassen konnte.",
+    "image": "Im Schoß des Sees das Feuer: das Bild der Umwälzung. Die Flamme brennt unter der Wasseroberfläche, zwei Naturen, die nicht nebeneinander bestehen können, ohne dass die eine am Ende die andere verwandelt – ein Aufeinandertreffen, das notwendig in einen Wechsel des Zustands mündet. So ordnet der Edle den Kalender und macht die Zeiten klar: Die wahre Umwälzung zerstört nicht um des Zerstörens willen, sie ordnet neu, was die alte Zeit unklar zurückgelassen hatte."
+   },
+   "50": {
+    "pinyin": "Ding",
+    "name": "Der Tiegel",
+    "judgementTitle": "Alchemie",
+    "judgement": "Die unauffälligste Form ist die, die das Wesen am besten aufnimmt. Nicht der äußere Glanz bestimmt den Wert eines Gefäßes, sondern seine Fähigkeit, zu bewahren und zu verwandeln, was es empfängt. Diese Linie lehrt, dass der wahre Wert sich oft in dem birgt, was dem Anschein nach am bescheidensten wirkt.",
+    "image": "Auf dem Holz das Feuer: das Bild des Tiegels. Die Flamme verwandelt den rohen Stoff in etwas Nährendes, Verfeinertes, Brauchbares – ein Gefäß, das die Verwandlung enthält, ohne sich selbst verzehren zu lassen. Es ist die Figur der Kultur, die verfeinert, ohne zu zerstören. So festigt der Edle sein Geschick, indem er es aufrichtet: Wie der Tiegel dem, was er empfängt, Gestalt gibt, formt jeder sein eigenes Schicksal durch das, was er darin zu kochen wählt."
+   },
+   "51": {
+    "pinyin": "Zhen",
+    "name": "Das Erregende",
+    "judgementTitle": "Aufbäumen",
+    "judgement": "Was nach dem Stoß aufrecht bleibt, ist das, was wirklich besessen war. Der Stoß schafft nichts, er offenbart: Was beim ersten Erschüttern einstürzt, war nie so fest, wie es schien. Diese Linie sagt, dass die Prüfung immer in gewisser Weise ein Offenbarer der Wahrheit ist.",
+    "image": "Der verdoppelte Donner: das Bild der Erschütterung. Der Stoß schlägt zweimal zu, der eine wiederholt den anderen, und was nach einem solchen Beben aufrecht bleibt, offenbart endlich seine wahre Festigkeit. Es ist die Figur der Prüfung, die testet, ohne zu zerstören, was wirklich gegründet ist. So pflegt und prüft der Edle in Furcht und Zittern sein eigenes Verhalten: Der äußere Stoß, so jäh er sei, kann zur Gelegenheit einer heilsamen inneren Prüfung werden."
+   },
+   "52": {
+    "pinyin": "Gen",
+    "name": "Das Stillehalten",
+    "judgementTitle": "Beständigkeit",
+    "judgement": "Die Bewegung hält inne, damit das Wesentliche sichtbar wird. Erst in der Reglosigkeit werden manche Dinge, die von der ständigen Unruhe verdeckt sind, endlich sichtbar. Diese Linie lehrt, dass Innehalten-Können nicht heißt, auf das Handeln zu verzichten, sondern sich die Mittel zu geben zu sehen, wo man wirklich handeln soll.",
+    "image": "Zwei Berge verbunden: das Bild des Stillehaltens. Zwei feste Massen legen sich übereinander, die eine verstärkt die Unbeweglichkeit der anderen – ein Halt, der keine Lähmung ist, sondern Fundament. Es ist die Figur der Ruhe, die Klarheit möglich macht. So lässt der Edle seine Gedanken nicht über den Platz hinausgehen, den er einnimmt: Am rechten Ort innezuhalten, ohne den Geist über die gegenwärtige Aufgabe hinaus schweifen zu lassen, ist die Bedingung jeder rechten Sicht."
+   },
+   "53": {
+    "pinyin": "Jian",
+    "name": "Die Entwicklung",
+    "judgementTitle": "Zähigkeit",
+    "judgement": "Wurzel, Stamm, Zweig – ein Schritt nach dem anderen richtet die Achse auf. Kein echtes Wachstum überspringt eine Stufe: Jeder Grad bereitet den nächsten vor, in einer Ordnung, die nichts umkehren kann, ohne alles zu gefährden. Diese Linie sagt, dass die Geduld der allmählichen Entwicklung selbst eine Form von Stärke ist.",
+    "image": "Auf dem Berg ein Baum: das Bild der allmählichen Entwicklung. Der Baum wächst langsam, Wurzel um Wurzel, Jahresring um Jahresring, ohne je eine einzige Stufe seines Wachstums zu überspringen – eine Geduld, die dem Holz selbst eingeschrieben ist. So hält der Edle in würdiger Tugend Stand und bessert die Sitten: Wahre Entwicklung, wie die des Baumes am Hang, bemisst sich in Jahren, nicht in Tagen."
+   },
+   "54": {
+    "pinyin": "Gui Mei",
+    "name": "Das heiratende Mädchen",
+    "judgementTitle": "Bündnis",
+    "judgement": "Die besiegelte Verbindung bindet zwei ungleiche Ordnungen in ein und dasselbe Gewebe. Nicht jede Verbindung entsteht in vollkommener Gleichheit; manche beginnen im Ungleichgewicht und müssen mit der Zeit ihre eigene Gerechtigkeit finden. Diese Linie lehrt, dass Treue in der Dauer wiedergutmachen kann, was die Anfangsbedingungen nicht gerecht gemacht hatten.",
+    "image": "Oben der Donner, unten der See: das Bild des heiratenden Mädchens. Die Bewegung oben zieht das, was unten ruht, in eine Verbindung, die nicht immer von beiden Seiten gleichermaßen gewählt wird – ein Band, das trotz des anfänglichen Ungleichgewichts verpflichtet. So erkennt der Edle, auf das Dauernde bedacht, was diese Verbindung verdirbt: Jedes Bündnis verdient es, in seiner Dauer geprüft zu werden, nicht allein nach seinem Anfang beurteilt."
+   },
+   "55": {
+    "pinyin": "Feng",
+    "name": "Die Fülle",
+    "judgementTitle": "Fülle",
+    "judgement": "Die Stunde des vollen Mittags, in der das Licht keinen Schatten mehr wirft. Es gibt einen Augenblick auf dem Gipfel jeder Fülle, in dem nichts mehr verborgen bleibt – doch dieser Augenblick kann danach von Natur aus nur schwinden. Diese Linie lehrt, den Überfluss zu genießen, ohne zu vergessen, dass er seine eigene Grenze in sich trägt.",
+    "image": "Donner und Blitz vollenden sich gemeinsam: das Bild der Fülle. Bewegung und Licht erreichen gleichzeitig ihre volle Entfaltung – ein Augenblick völliger Fülle, selten und notwendig vergänglich. Es ist die Figur des Höhepunkts, der nie ewig währt. So entscheidet der Edle Streitfälle und vollzieht Strafen: Auf dem Gipfel der Fülle wird die Klarheit des Urteils notwendiger denn je, denn auch hier kann alles kippen."
+   },
+   "56": {
+    "pinyin": "Lu",
+    "name": "Der Wanderer",
+    "judgementTitle": "Wanderschaft",
+    "judgement": "Ohne Feuer und Ort ersetzt das Gewand das Haus. Wo die Wohnstatt fehlt, müssen das Kleid, die Haltung, das Verhalten an ihre Stelle treten – eine Würde, die nicht mehr vom Ort abhängt, sondern von der Art zu sein. Diese Linie sagt, dass die festeste Identität die ist, die man bei sich trägt, unabhängig von jeder äußeren Verankerung.",
+    "image": "Auf dem Berg das Feuer: das Bild des Wanderers. Die Flamme wandert am Hang entlang, verweilt nirgends, verzehrt, was sich ihr bietet, ohne sich je an einem einzigen Ort zu verwurzeln. Es ist die Figur dessen, der weder Feuer noch festen Ort hat. So wendet der Edle die Strafe mit Klarheit und Bedacht an, ohne einen Prozess sich hinziehen zu lassen: Ohne dauerhafte Bindungen braucht es umso mehr Strenge, um sich nicht unterwegs zu verlieren."
+   },
+   "57": {
+    "pinyin": "Xun",
+    "name": "Das Sanfte",
+    "judgementTitle": "Gewebe",
+    "judgement": "Der Wind dringt lautlos überall ein, wie der Schuss. Die unauffälligste Kraft ist zuweilen die wirksamste: Sie stößt auf keinen frontalen Widerstand, weil sie sich nie als Kraft ankündigt. Diese Linie lehrt die Macht des stetigen und stillen Einflusses.",
+    "image": "Winde, die einander folgen: das Bild des verdoppelten Sanften. Der Wind weht und weht abermals, beharrlich, ohne je zu schlagen – ein Einfluss, der durch Wiederholung eindringt statt durch Gewalt. So verbreitet der Edle seine Weisungen und setzt seine Geschäfte ins Werk: Was sich nicht auf einmal aufzwingen lässt, setzt sich oft durch die sanfte Beständigkeit geduldigen Beharrens durch."
+   },
+   "58": {
+    "pinyin": "Dui",
+    "name": "Das Heitere",
+    "judgementTitle": "Gleichschritt",
+    "judgement": "Die Klarheit des Sees, die versammelt und gemeinsam macht. Was ohne Zwang versammelt, durch die bloße natürliche Anziehung dessen, was es bietet, schafft die dauerhaftesten Bindungen. Diese Linie sagt, dass sich wahre Gemeinschaft an der Leichtigkeit erkennen lässt, mit der sie sich bildet.",
+    "image": "Seen, die sich vereinen: das Bild des verdoppelten Heiteren. Zwei Wasserflächen verbinden sich, nähren einander, jede steigert die Freude der anderen durch bloße Nähe. Es ist die Figur des Teilens, das vervielfacht, statt zu teilen. So diskutiert und übt der Edle mit seinen Freunden: Wahre Freude, wie das Wasser vereinter Seen, erschöpft sich nie am Geteiltwerden – sie wird im Gegenteil dadurch gestärkt."
+   },
+   "59": {
+    "pinyin": "Huan",
+    "name": "Die Auflösung",
+    "judgementTitle": "Auflösung",
+    "judgement": "Was einander gegenüberstand, zerstreut sich und wird wieder flüssig. Die starrsten Blockaden zerstreuen sich am Ende mit der Zeit und der rechten Bewegung von selbst. Diese Linie lehrt, dass die Auflösung kein Verlust ist, sondern die Rückkehr in den flüssigen Zustand, Voraussetzung jeder neuen Form.",
+    "image": "Der Wind bewegt sich über dem Wasser: das Bild der Auflösung. Der Wind trübt die Oberfläche, zerstreut, was erstarrt war, bricht das Eis in fließende Bewegung – eine Auflösung, die befreit, statt zu zerstören. So brachten die alten Könige dem Herrscher droben Opfer dar und stifteten Tempel: Wenn sich beginnt aufzulösen, was die Wesen trennte, ist es Zeit, ein gemeinsames Band, eine geteilte Mitte neu zu errichten."
+   },
+   "60": {
+    "pinyin": "Jie",
+    "name": "Die Beschränkung",
+    "judgementTitle": "Haltung",
+    "judgement": "Der Bambus setzt seine Knoten, damit der Saft sich nicht zerstreut. Ohne die Grenzen, die es gliedern, würde das Wachstum selbst seine Kraft verlieren, indem es sich richtungslos verstreut. Diese Linie sagt, dass die recht gesetzte Beschränkung keine Bremse des Lebens ist, sondern die Bedingung seiner Kraft.",
+    "image": "Über dem See das Wasser: das Bild der Beschränkung. Das Wasser des Sees bleibt von seinen Ufern gehalten, und gerade diese Grenze lässt es als See bestehen, statt sich in formlosem Sumpf zu verlieren. Es ist die Figur des Zwangs, der strukturiert, statt zu ersticken. So erarbeitet der Edle Zahl und Maß und bedenkt Tugend und Wandel: Die mit Bedacht gewählte Beschränkung gibt allem Gestalt, auch einem selbst."
+   },
+   "61": {
+    "pinyin": "Zhong Fu",
+    "name": "Innere Wahrheit",
+    "judgementTitle": "Lehre",
+    "judgement": "Die leere Mitte des Herzens wird zum Ort, an dem das Vertrauen wohnt. Gerade weil das Herz sich nicht in sich selbst verschließt, weil ein offener Raum bleibt, kann sich dort echtes Vertrauen niederlassen. Diese Linie lehrt, dass die tiefste Aufrichtigkeit aus einer aufnehmenden Leere entsteht, nicht aus einer verschlossenen Gewissheit.",
+    "image": "Über dem See der Wind: das Bild der inneren Wahrheit. Der Wind streift die Wasseroberfläche und lässt sie bis in ihre Mitte erzittern – ein Widerhall, der von außen ausgeht, aber das innerste Innere berührt. Es ist die Figur der Aufrichtigkeit, die sich ohne Kunstgriff mitteilt. So berät der Edle über die Prozesse und schiebt Todesstrafen hinaus: Die innere Wahrheit verlangt, dass man sich die nötige Zeit nimmt, bevor man über das entscheidet, was das Wesentliche berührt."
+   },
+   "62": {
+    "pinyin": "Xiao Guo",
+    "name": "Des Kleinen Übergewicht",
+    "judgementTitle": "Keimen",
+    "judgement": "Die kleine Linie tritt über ihren Rahmen. Es gibt Augenblicke, in denen nur das Detail, die gemessene Geste noch wirken kann – dann das große Handeln zu wollen wäre ein Fehlurteil. Diese Linie sagt, dass Richtigkeit unter bestimmten Umständen gerade in der angenommenen Kleinheit liegt.",
+    "image": "Auf dem Berg der Donner: das Bild des Übergewichts des Kleinen. Die Bewegung regt sich auf dem Gipfel, von der Masse, die sie trägt, gebändigt, gezwungen, im Umfang bescheiden zu bleiben, obwohl intensiv in ihrer Energie. So neigt der Edle in seinem Verhalten zum Übermaß an Ehrerbietung, in der Trauer zum Übermaß an Schmerz, in seinen Ausgaben zum Übermaß an Sparsamkeit: Wenn die Umstände Zurückhaltung gebieten, ist es besser, aus Übermaß an Bescheidenheit zu fehlen als aus Übermaß an Ehrgeiz."
+   },
+   "63": {
+    "pinyin": "Ji Ji",
+    "name": "Nach der Vollendung",
+    "judgementTitle": "Grundlage",
+    "judgement": "Die Naht ist geschlossen, die Masche geknüpft. Was vollendet ist, trägt stets den Keim dessen in sich, was es wieder auflösen wird – nichts Beendetes ist ewig beendet. Diese Linie lehrt, dass wahre Vollendung das Bewusstsein ihrer eigenen Zerbrechlichkeit einschließt.",
+    "image": "Das Wasser über dem Feuer: das Bild der Vollendung. Jedes Element nimmt genau den ihm zukommenden Platz ein, das Wasser bändigt das Feuer, ohne es ganz zu löschen – ein so vollkommenes Gleichgewicht, dass es bereits im Keim sein eigenes künftiges Ungleichgewicht anruft. So bedenkt der Edle das Unheil und beugt ihm im Voraus vor: Die vollkommenste Vollendung ist nie ein endgültiger Zielpunkt, sie ist der genaue Augenblick, in dem die Wachsamkeit sich verdoppeln muss."
+   },
+   "64": {
+    "pinyin": "Wei Ji",
+    "name": "Vor der Vollendung",
+    "judgementTitle": "Ansatz",
+    "judgement": "Der Durchgang ist offen, aber das Gewebe ist noch nicht gewoben. Noch ist nichts vollbracht, aber auch nichts unmöglich: Die Tür bleibt offen für das, was geduldig noch zu bauen bleibt. Diese Linie sagt, dass das Unvollendete kein Scheitern ist – es ist die Bedingung alles dessen, was noch kommt, der Punkt, von dem aus der ganze Kreis der 64 Figuren unermüdlich neu beginnt.",
+    "image": "Das Feuer über dem Wasser: das Bild des Unvollendeten. Jedes Element befindet sich am umgekehrten Platz dessen, der ihre volle Begegnung erlauben würde – das Feuer kann das Wasser nicht erwärmen, das ihm nach oben entgeht. Es ist die Figur der Unordnung, die der kommenden Ordnung noch vorausgeht. So unterscheidet der Edle die Wesen sorgfältig und stellt jedes an seinen Ort: Bevor alles seinen rechten Platz findet, muss man zuerst die Klarsicht der gegenwärtigen Unordnung annehmen, ohne an der entstehenden Ordnung zu verzweifeln."
+   }
+  },
+  "lineComments": {
+   "1": {
+    "0": "Am Fuß der Erde schließt sich die Leere: Was bisher nur eine Öffnung war, beginnt sich zu füllen.",
+    "1": "Am Fuß der Erde regt sich das Volle: Der Yang-Ansatz, der die ganze Figur trug, willigt ein, seinen Platz zu räumen."
+   },
+   "2": {
+    "0": "Die empfangende Erde erreicht ihre Fülle: Die stille Aufnahme, die den unteren Teil der Figur trug, wird sich behaupten.",
+    "1": "Die gefestigte Erde berührt ihre Grenze: Die Festigkeit, die das Gebäude stützte, schickt sich an, ihre Natur zu wechseln."
+   },
+   "3": {
+    "0": "An der Schwelle zwischen Erde und Mensch lädt sich die Geschmeidigkeit auf: Was von Natur aus nachgab, schickt sich an zu erhärten.",
+    "1": "An der Schwelle zwischen Erde und Mensch wankt die Kraft: Was durch Festigkeit wirkte, zögert, bevor es sich wendet."
+   },
+   "4": {
+    "0": "Im Hören des Menschen füllt sich die Höhlung: Die Bereitschaft, die empfing, wird sich bald behaupten.",
+    "1": "Im Handeln des Menschen findet das Volle seine Grenze: Die Initiative, die die Figur führte, zieht sich in sich selbst zurück."
+   },
+   "5": {
+    "0": "Am Platz des Weisen füllt sich die Leere: Die Geschmeidigkeit, die mit Zurückhaltung regierte, lädt sich mit neuer Kraft auf.",
+    "1": "Am Platz des Weisen höhlt sich das Volle aus: Die Kraft, die die Figur von der Mitte aus regierte, schickt sich an, sich umzukehren."
+   },
+   "6": {
+    "0": "Auf dem Gipfel erreicht die Leere ihre Fülle und schließt sich: Die äußerste Öffnung kippt in ihr Gegenteil.",
+    "1": "Auf dem Gipfel vollendet das Volle seinen Lauf und bricht: Was kulminierte, kann nicht weiter gehen, ohne sich umzukehren."
+   }
+  },
+  "trigrams": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Das Empfangende",
+    "image": "die Erde",
+    "role": "die Mutter"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "Das Erregende",
+    "image": "der Donner",
+    "role": "der älteste Sohn"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "Das Abgründige",
+    "image": "das Wasser",
+    "role": "der mittlere Sohn"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Das Heitere",
+    "image": "der See",
+    "role": "die jüngste Tochter"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "Das Stillehalten",
+    "image": "der Berg",
+    "role": "der jüngste Sohn"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "Das Haftende",
+    "image": "das Feuer",
+    "role": "die mittlere Tochter"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Das Sanfte",
+    "image": "der Wind",
+    "role": "die älteste Tochter"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Das Schöpferische",
+    "image": "der Himmel",
+    "role": "der Vater"
+   }
+  ]
+ },
+ "it": {
+  "hexagrams": {
+   "1": {
+    "pinyin": "Qian",
+    "name": "Il Creativo",
+    "judgementTitle": "Germe",
+    "judgement": "La linea piena scatta da sola, ancora senza veste. Al primissimo grado della figura la potenza esiste già tutta intera, ma non ha ancora assunto alcuna forma riconoscibile: non è vestita di nessuna funzione, di nessun ruolo. È la forza allo stato puro, prima che si dia un nome. Questa linea annuncia ciò che saranno le cinque successive: una progressione in cui il potere di agire si confeziona a poco a poco un abito, finché l'intera figura, in cima, scopre che anche la forza più grande deve imparare a trattenersi.",
+    "image": "Il Cielo si muove senza posa sopra il Cielo: due volte la linea piena, due volte la stessa forza, l'una che porta l'altra senza mai cedere. Nulla qui limita il movimento, nulla lo ferma. È l'immagine del vigore puro, che non conosce riposo perché non ha ancora incontrato ciò che potrebbe resisterle. Il saggio che contempla questa figura non vi vede un invito all'agitazione, ma un modello: come il Cielo gira senza interruzione, l'uomo nobile non smette di rafforzare se stesso – non con uno sforzo puntuale, ma con una disciplina continua come il moto degli astri."
+   },
+   "2": {
+    "pinyin": "Kun",
+    "name": "Il Ricettivo",
+    "judgementTitle": "Fondamento",
+    "judgement": "Il suolo riceve, la forma si posa. Nulla è ancora accaduto, eppure tutto è già reso possibile: la terra della prima linea non esige nulla, attende. Non è la passività di chi rinuncia, ma la pazienza di chi sa che la docilità ben compresa porta in sé tutta la fecondità a venire. L'intera figura si dispiegherà a partire da questa sola qualità: accogliere prima di voler imporre, posarsi prima di pretendere di costruire.",
+    "image": "La Terra porta e nutre senza distinzione: non sceglie ciò che sostiene, sostiene tutto. Due volte la linea spezzata, due volte la stessa apertura, l'una che accoglie l'altra senza mai chiudersi. È l'immagine della capacità pura – non di quella che agisce per prima, ma di quella che rende possibile l'azione di tutto ciò che viene a lei. Il saggio che contempla questa figura comprende che la generosità non ha bisogno di splendore: così l'uomo nobile accoglie gli esseri con una virtù generosa, larga come il suolo che non rifiuta alcun seme."
+   },
+   "3": {
+    "pinyin": "Zhun",
+    "name": "La Difficoltà iniziale",
+    "judgementTitle": "Germinazione",
+    "judgement": "Il germe fatica sotto la terra del quadrato. Ogni nascita comincia nell'oscurità e nella resistenza: il seme ignora ancora la forma che assumerà, sa soltanto spingere. Questa linea dice la difficoltà che non è un fallimento, ma la condizione stessa di ogni vero inizio – nulla di grande è mai sorto senza doversi prima liberare da ciò che lo tratteneva.",
+    "image": "La Nuvola e il Tuono: l'immagine della prima difficoltà. In alto l'acqua che non è ancora pioggia; in basso lo scuotimento che cerca la sua via senza ancora trovarla. Nulla scorre libero, tutto cerca, tutto esita sul bordo della propria nascita. È la figura dell'inizio impacciato, che deve aprirsi un cammino prima ancora di sapere dove porta. Così l'uomo nobile, davanti al disordine iniziale, non forza nulla: mette ordine tessendo pazientemente i suoi fili, uno dopo l'altro, senza cedere all'impazienza del risultato."
+   },
+   "4": {
+    "pinyin": "Meng",
+    "name": "La Stoltezza giovanile",
+    "judgementTitle": "Apprendistato",
+    "judgement": "L'ignoranza del discepolo chiama il maestro. Ignorare non è una debolezza, è un'apertura: chi non sa ancora è proprio colui che può imparare. L'intera figura gira attorno a questo incontro necessario tra l'inesperienza che cerca e l'esperienza che risponde – senza questa prima umiltà nessun insegnamento può far presa.",
+    "image": "Ai piedi della montagna sgorga una sorgente: l'immagine della stoltezza giovanile. L'acqua è lì, viva, ma non sa ancora dove scorrere; ha la forza senza la direzione. È il ritratto dell'inesperienza che non è un difetto ma uno stato – quello che precede l'apprendimento, quando l'energia trabocca senza discernimento. Così l'uomo nobile, riconoscendo questa figura in sé o in un altro, non disprezza l'ignoranza: nutre il proprio carattere con un'azione risoluta, sapendo che la sorgente, ben guidata, diventerà fiume."
+   },
+   "5": {
+    "pinyin": "Xu",
+    "name": "L'Attesa",
+    "judgementTitle": "Contegno",
+    "judgement": "L'acqua attende sotto il cielo la sua ora giusta. Attendere non è non fare nulla: è tenere la propria posizione con costanza mentre le condizioni si formano altrove, fuori dalla portata della volontà. Questa linea insegna che la fretta distrugge ciò che solo la pazienza può compiere – la pioggia verrà quando il cielo e la terra saranno pronti a incontrarsi, non prima.",
+    "image": "Le nubi salgono sopra il Cielo: l'immagine dell'attesa. Tutto è pronto perché la pioggia cada, eppure non cade ancora – il momento non è maturo. È la figura della preparazione silenziosa, che non forza l'ora ma la lascia venire. Così l'uomo nobile mangia e beve, lieto e sereno, in attesa della sua ora: non si esaurisce nel voler precipitare ciò che ha il proprio ritmo, nutre la sua forza per il momento in cui sarà richiesta."
+   },
+   "6": {
+    "pinyin": "Song",
+    "name": "Il Conflitto",
+    "judgementTitle": "Scioglimento",
+    "judgement": "La discordia delle forze opposte cerca la sua via d'uscita. Il conflitto non è né evitato né cercato: è riconosciuto per ciò che è, una tensione tra due movimenti che per natura non possono coesistere senza attrito. La saggezza qui non è vincere a ogni costo, ma sapere quando una lite merita di essere condotta fino in fondo e quando merita di essere lasciata in tempo.",
+    "image": "Il Cielo e l'Acqua si allontanano in sensi contrari: l'immagine del conflitto. L'uno sale, l'altra scende; le loro nature stesse li separano, e nessun compromesso di superficie può riunirli. È la figura dell'opposizione fondamentale, che non si risolve con la sola buona volontà. Così l'uomo nobile, fin dall'inizio di ogni faccenda, ne pesa la fine: non si impegna in una controversia senza aver misurato in anticipo fin dove quella strada può condurlo."
+   },
+   "7": {
+    "pinyin": "Shi",
+    "name": "L'Esercito",
+    "judgementTitle": "Cadenza",
+    "judgement": "La disciplina collettiva si regola come la marcia di una truppa. Nessuna forza dispersa vale una forza organizzata: questa linea dice che la vera potenza non è mai quella di un solo gesto clamoroso, ma quella di un ordine pazientemente mantenuto, in cui ciascuno conosce il proprio posto e il movimento d'insieme prevale sullo slancio individuale.",
+    "image": "In mezzo alla Terra si nasconde l'Acqua: l'immagine dell'esercito. La forza c'è, ma non si espone – si tiene pronta, invisibile, disciplinata sotto la superficie calma. È la figura del potere contenuto, che non ha bisogno di mostrarsi per essere reale. Così l'uomo nobile accresce il suo popolo con una generosità tollerante: la vera autorità non si impone con la forza ostentata, ma si costruisce nella costanza e nel riserbo."
+   },
+   "8": {
+    "pinyin": "Bi",
+    "name": "La Solidarietà",
+    "judgementTitle": "Tessitura",
+    "judgement": "L'unione dei clan si annoda dal basso, come il filo d'ordito. Ciò che tiene insieme durevolmente si tesse nella discrezione, linea dopo linea, prima ancora che la struttura sia visibile dall'esterno. La vera solidarietà non si decreta dall'alto: si costruisce dalla base, filo dopo filo, fino a formare una trama che più nulla può disfare.",
+    "image": "Sulla Terra, l'Acqua: l'immagine della solidarietà. L'acqua sposa la forma del suolo, vi si accoccola, vi si diffonde senza mai combatterlo – unione senza attrito, sostegno reciproco. È la figura dell'alleanza naturale, che non si forza ma si riconosce. Così i re antichi riunivano i regni lontani e onoravano i loro principi: la solidarietà durevole non nasce dalla costrizione, ma dal riconoscimento reciproco di ciò che ciascuno porta all'altro."
+   },
+   "9": {
+    "pinyin": "Xiao Chu",
+    "name": "La Forza addomesticatrice del piccolo",
+    "judgementTitle": "Peregrinazione",
+    "judgement": "Il freno leggero posto sul grande disegno. Ogni grande progetto conosce momenti in cui è possibile soltanto una lieve ritenuta, in cui si può solo piegare un poco il corso delle cose senza cambiarlo radicalmente. Questa linea insegna la virtù del gesto modesto: non è ancora l'ora di agire in grande, è l'ora di aggiustare, con pazienza, ciò che può esserlo.",
+    "image": "Il Vento si muove sopra il Cielo: l'immagine della forza addomesticata del piccolo. Il vento non ha la potenza del tuono né la massa della montagna – agisce con una leggera insistenza, con carezze ripetute più che con l'urto. È la figura dell'influenza discreta, che trattiene senza costringere. Così l'uomo nobile affina i tratti della propria cultura interiore: quando la grande forza non è ancora il caso, è con il raffinamento paziente del dettaglio che si prepara ciò che verrà."
+   },
+   "10": {
+    "pinyin": "Lu",
+    "name": "Il Comportamento",
+    "judgementTitle": "Pienezza",
+    "judgement": "Ogni passo posato sulla coda della tigre senza deviare. Il pericolo non va sempre evitato – a volte va attraversato, a condizione di camminarvi con un'attenzione totale, senza un gesto di troppo. Questa linea dice che la prudenza non è paura: è quella concentrazione esatta che permette di avanzare dove la disattenzione sarebbe fatale.",
+    "image": "In alto il Cielo, in basso il Lago: l'immagine del camminare. Ogni cosa conserva il proprio posto – il cielo resta sopra, il lago sotto – ed è questo ordine rispettato che rende la marcia possibile senza pericolo. È la figura della giusta distanza, che permette di avanzare anche accanto a ciò che potrebbe mordere. Così l'uomo nobile distingue l'alto e il basso e rafforza la volontà del popolo: ogni passo posato con discernimento, sulla coda stessa della tigre, diventa un passo sicuro."
+   },
+   "11": {
+    "pinyin": "Tai",
+    "name": "La Pace",
+    "judgementTitle": "Alleanza",
+    "judgement": "Il Cielo e la Terra si incontrano e si scambiano liberamente. Quando l'alto acconsente a scendere e il basso acconsente a salire, la comunicazione diventa totale e feconda. Questa linea insegna che la prosperità durevole nasce sempre da questo scambio reciproco – mai da un'unica direzione imposta, sempre da un incontro in cui ciascuno dà e riceve insieme.",
+    "image": "Il Cielo e la Terra si uniscono: l'immagine della pace. Ciò che per natura dovrebbe restare separato – l'alto e il basso – qui si incontra e comunica liberamente, senza ostacoli tra loro. È la figura dell'armonia compiuta, in cui ogni forza trova il proprio complemento anziché il proprio avversario. Così il sovrano plasma la via del Cielo e della Terra e viene in aiuto di tutti gli esseri: la pace non è l'assenza di movimento, ma lo scambio diventato fluido tra forze che si rispondono."
+   },
+   "12": {
+    "pinyin": "Pi",
+    "name": "La Stagnazione",
+    "judgementTitle": "Lentezza",
+    "judgement": "Quando la comunicazione è interrotta dal rifiuto del sistema. Non è un incidente passeggero ma un blocco strutturale: le forze che dovrebbero rispondersi si sono irrigidite ciascuna nel proprio rifiuto. Questa linea dice che ci sono momenti in cui non serve a nulla forzare il passaggio – bisogna attendere che le condizioni stesse si spostino, o ritirarsi senza perdere la propria virtù in una lotta vana.",
+    "image": "Il Cielo e la Terra non comunicano: l'immagine della stagnazione. L'alto resta in alto, il basso resta in basso, e più nulla circola tra loro – ciascuno si chiude nella propria natura. È la figura della rottura sterile, in cui anche le forze più potenti si esauriscono per mancanza di scambio. Così l'uomo nobile si ritira nella sua virtù per sfuggire al pericolo: quando il tempo non permette più l'azione feconda, la saggezza consiste nel preservare l'essenziale piuttosto che esaurirsi contro un muro."
+   },
+   "13": {
+    "pinyin": "Tong Ren",
+    "name": "Comunione con gli uomini",
+    "judgementTitle": "Stabilità",
+    "judgement": "La fratellanza che si apre al mondo trova il suo zoccolo. Una comunità è solida solo se non si chiude in sé: è aprendosi agli altri, cercando ciò che unisce anziché ciò che divide, che trova un fondamento durevole. Questa linea insegna che l'appartenenza più forte nasce spesso al contatto con l'esterno, non nel ripiegamento.",
+    "image": "Il Cielo e il Fuoco si associano: l'immagine della comunione con gli uomini. La fiamma sale verso il cielo cercando la propria natura, e in questo movimento condiviso si disegna una parentela tra cose che pure restano distinte. È la figura della fratellanza fondata su una direzione comune anziché sull'uniformità. Così l'uomo nobile distingue le specie e ordina le categorie: la vera comunità non nega le differenze, le riconosce per meglio accordarle."
+   },
+   "14": {
+    "pinyin": "Da You",
+    "name": "Il Possesso di grandi cose",
+    "judgementTitle": "Sussulto",
+    "judgement": "La ricchezza accumulata si misura dalla sua capacità di attraversare l'urto. Non conta la quantità posseduta, ma la solidità di ciò che è stato costruito: un possesso vero resiste alla prova, mentre un'abbondanza mal fondata crolla al primo scontro. Questa linea invita a non confondere mai l'accumulo con la vera ricchezza, che si prova nella durata.",
+    "image": "Il Fuoco in cima al Cielo: l'immagine del grande possesso. La luce, portata al punto più alto, illumina ogni cosa senza eccezione – nulla resta nell'ombra sotto un tale incendio. È la figura dell'abbondanza visibile, che irradia al punto da obbligare alla responsabilità. Così l'uomo nobile frena il male ed esalta il bene, obbedendo al favore celeste: possedere molto non è mai neutro, obbliga a discernere ciò che si nutre e ciò che si recide."
+   },
+   "15": {
+    "pinyin": "Qian",
+    "name": "L'Umiltà",
+    "judgementTitle": "Alchimia",
+    "judgement": "L'annullamento di sé nutre la trasmutazione nel crogiolo. Nulla si trasforma davvero senza che una parte di sé acconsenta a sparire nel processo. Questa linea dice che l'umiltà non è una virtù passiva: è la condizione attiva di ogni trasformazione profonda, il crogiolo in cui l'antico si dissolve perché il nuovo possa prendere forma.",
+    "image": "In seno alla Terra sta la montagna: l'immagine della modestia. Ciò che è più alto si lascia qui contenere da ciò che lo circonda, senza mai cercare di dominare il paesaggio con la sola altezza. È la figura della grandezza che si cancella volontariamente. Così l'uomo nobile riduce ciò che è troppo e aumenta ciò che manca, pesando le cose con equità: la modestia non è piccolezza, è la forza abbastanza sicura di sé da non aver bisogno di mostrarsi."
+   },
+   "16": {
+    "pinyin": "Yu",
+    "name": "L'Entusiasmo",
+    "judgementTitle": "Slancio",
+    "judgement": "Il tuono esce dalla terra e mette in moto i corpi. Esiste un'energia che non si comanda, che scaturisce e trascina da sé, senza bisogno di forzarla. Questa linea insegna che il vero potere di radunare non viene mai dalla costrizione, ma da quella vibrazione comune che solo un entusiasmo sincero può destare.",
+    "image": "Il Tuono esce dalla Terra con forza: l'immagine dell'entusiasmo. L'energia contenuta si libera all'improvviso, e questo erompere mette in moto tutto ciò che lo circonda – nulla resta immobile davanti a un tale splendore. È la figura dello slancio comunicativo, che trascina senza bisogno di costringere. Così i re antichi onoravano il merito con la musica e la virtù: l'entusiasmo ben diretto diventa la forza più dolce e più potente per riunire le volontà."
+   },
+   "17": {
+    "pinyin": "Sui",
+    "name": "Il Seguire",
+    "judgementTitle": "Profondità",
+    "judgement": "Seguire il movimento del tempo obbliga a ridiscendere a scavare la sorgente. Non si può seguire a lungo senza tornare, di tanto in tanto, a ciò che nutre il movimento stesso. Questa linea insegna che l'adattamento più giusto non è il più mobile, ma quello che sa tornare alla propria origine prima di ripartire.",
+    "image": "In mezzo al Lago, il Tuono: l'immagine del seguire. Il movimento che rimbomba in profondità si lascia portare da ciò che lo circonda invece di forzare la propria traiettoria – segue il contorno del lago anziché spezzarlo. È la figura dell'adattamento al ritmo altrui. Così l'uomo nobile, al crepuscolo, rientra a casa per riposare: seguire non è sottomettersi, è riconoscere il momento in cui l'azione deve cedere il posto al riposo, come il giorno cede alla notte."
+   },
+   "18": {
+    "pinyin": "Gu",
+    "name": "Il Lavoro sul guasto",
+    "judgementTitle": "Riparazione",
+    "judgement": "Raddrizzare la corruzione di un'eredità consumata. Ciò che è stato trascurato troppo a lungo finisce per esigere un lavoro impegnativo, ma questo lavoro non è una maledizione – è l'occasione di rifondare su basi più sane. Questa linea dice che l'eredità danneggiata è perduta solo se si rifiuta di occuparsene.",
+    "image": "Sotto la montagna, il Vento: l'immagine del lavoro su ciò che è guasto. Il vento si insinua nelle fenditure della montagna, rivelando ciò che col tempo si è corrotto e attende di essere raddrizzato. È la figura della riparazione necessaria, che non si può più rimandare. Così l'uomo nobile stimola il popolo e nutre la sua virtù: di fronte a ciò che è guasto non si tratta di condannare il passato, ma di rimboccarsi le maniche per restaurare ciò che può ancora esserlo."
+   },
+   "19": {
+    "pinyin": "Lin",
+    "name": "L'Avvicinamento",
+    "judgementTitle": "Crescita",
+    "judgement": "L'avvicinamento benevolo alle forze vive stimola l'ascesa paziente. Nulla di grande si conquista d'un colpo; tutto ciò che cresce davvero lo fa per approcci successivi, ciascuno dei quali prepara il seguente. Questa linea insegna che la crescita autentica si misura in passi, non in salti.",
+    "image": "Sopra il Lago, la Terra: l'immagine dell'avvicinarsi. La terra si china verso l'acqua, le si avvicina senza mai dominarla del tutto – un movimento di approssimazione progressiva, mai brusca. È la figura della benevolenza che avanza passo dopo passo. Così l'uomo nobile insegna senza stancarsi e abbraccia il popolo senza limiti: avvicinare davvero qualcuno richiede quella pazienza che non forza mai l'incontro."
+   },
+   "20": {
+    "pinyin": "Guan",
+    "name": "La Contemplazione",
+    "judgementTitle": "Convergenza",
+    "judgement": "Guardare lontano dalla torre riunisce ciò che era sparso. Una visione ampia non disperde l'attenzione, la raccoglie: è prendendo altezza che si scoprono i legami invisibili tra cose che, da vicino, sembravano senza rapporto. Questa linea dice che comprendere precede sempre il potere di agire con giustezza.",
+    "image": "Il Vento percorre la Terra: l'immagine della contemplazione. Il vento tocca ogni angolo del suolo senza fermarsi a lungo in nessun luogo – uno sguardo che abbraccia in largo anziché un gesto che si attarda. È la figura dell'osservazione che precede l'azione. Così i re antichi visitavano le regioni, osservavano il popolo e istituivano l'insegnamento: prima di agire sul mondo bisogna imparare a vederlo com'è, senza fretta né pregiudizi."
+   },
+   "21": {
+    "pinyin": "Shi He",
+    "name": "Il Morso che spezza",
+    "judgementTitle": "Taglio netto",
+    "judgement": "Tagliare il falso per saldare ciò che è giusto. Ci sono ostacoli che non si aggirano – vanno attraversati, morsi, superati con una decisione netta. Questa linea insegna che la chiarezza ha talvolta bisogno di durezza per imporsi, e che questa durezza, usata a proposito, non è violenza ma giustizia.",
+    "image": "Il Tuono e il Lampo si uniscono: l'immagine del mordere attraverso. L'urto e la luce colpiscono insieme, l'uno rivelando ciò che l'altro spezza – nulla può nascondersi a lungo sotto una tale unione di forza e chiarezza. È la figura della decisione tagliente illuminata dalla verità. Così i re antichi rendevano chiare le pene e vigili le leggi: tagliare giusto esige prima di tutto di vedere giusto."
+   },
+   "22": {
+    "pinyin": "Bi",
+    "name": "La Grazia",
+    "judgementTitle": "Essenzialità",
+    "judgement": "L'ornamento e la bellezza della forma cedono, all'estremo, il posto alla decisione. Ogni bellezza ha il suo limite utile: oltre un certo punto l'ornamento deve cancellarsi davanti alla necessità di agire. Questa linea ricorda che la forma serve il contenuto, e non viceversa – appena l'uno invade l'altro, bisogna saper semplificare.",
+    "image": "Sotto la montagna, il Fuoco: l'immagine della grazia. La fiamma illumina i fianchi della montagna senza mai pretendere di eguagliarla in altezza – un abbellimento che rispetta ciò che rivela anziché dominarlo. È la figura dell'ornamento al servizio del contenuto. Così l'uomo nobile illumina i molteplici affari senza presumere di decidere le liti alla sola luce delle apparenze: la grazia serve a rivelare, mai a giudicare."
+   },
+   "23": {
+    "pinyin": "Bo",
+    "name": "Lo Sfaldamento",
+    "judgementTitle": "Mutazione",
+    "judgement": "Il crollo dell'antico edificio libera l'energia di una crescita nuova. Ciò che crolla non trascina via tutto: la rovina di una forma esaurita libera lo spazio e l'energia necessari a ciò che seguirà. Questa linea insegna a non temere lo sfaldarsi delle strutture divenute vuote – esso precede sempre un rinnovamento.",
+    "image": "La montagna riposa sulla Terra: l'immagine dello sfaldamento. Ciò che sembrava più solido – la massa stessa della montagna – è in realtà sostenuto solo da una base che può cedere. È la figura del crollo che insidia chi trascura le proprie fondamenta. Così i grandi rafforzano ciò che sta in basso per dare riposo alla propria dimora: prima di costruire più in alto bisogna sempre consolidare ciò che sorregge."
+   },
+   "24": {
+    "pinyin": "Fu",
+    "name": "Il Ritorno",
+    "judgementTitle": "Rinascita",
+    "judgement": "Il principio vitale ritorna nel cuore della notte più fitta. Nulla è mai definitivamente perduto finché sussiste, da qualche parte, quel minuscolo germe che ricomincia. Questa linea dice che il punto più basso contiene già, in germe, il movimento del ritorno – è proprio nell'oscurità più totale che la luce ricomincia a crescere.",
+    "image": "Il Tuono in seno alla Terra: l'immagine del ritorno. La forza vitale, sepolta nel profondo dell'inverno, non è scomparsa – attende, invisibile, il momento di riemergere. È la figura del rinnovamento nascosto nell'apparente immobilità. Così i re antichi, al solstizio, chiudevano i passaggi, mercanti e viaggiatori non circolavano più: ci sono momenti in cui il gesto più grande consiste nel non precipitare nulla, per lasciare che il ritorno si compia da sé."
+   },
+   "25": {
+    "pinyin": "Wu Wang",
+    "name": "L'Innocenza",
+    "judgementTitle": "Scioglimento",
+    "judgement": "Agire senza artificio scioglie da sé i nodi dell'ostacolo. La complicazione nasce quasi sempre dal calcolo; la vera semplicità disinnesca gli ostacoli prima ancora di affrontarli. Questa linea insegna che la rettitudine spontanea risolve spesso ciò che l'astuzia più abile non fa che ingarbugliare di più.",
+    "image": "Sotto il Cielo, il Tuono cammina: l'immagine dell'innocenza. Il movimento segue il proprio corso sotto la vasta distesa celeste, senza calcolo né deviazione, con la semplicità di ciò che non ha nulla da nascondere. È la figura dell'azione retta, spontanea, non finta. Così i re antichi, ricchi di virtù e conformi al tempo, nutrivano i diecimila esseri: l'innocenza non è ingenuità, è il perfetto allineamento tra intenzione e gesto."
+   },
+   "26": {
+    "pinyin": "Da Chu",
+    "name": "La Forza addomesticatrice del grande",
+    "judgementTitle": "Ritegno",
+    "judgement": "L'accumulo interiore di potenza affronta la durezza del rilievo. Ciò che cresce all'interno, invisibile, finisce sempre per incontrare una resistenza esterna – ed è proprio questo incontro a rivelare e affinare la forza accumulata. Questa linea dice che l'ostacolo non è il nemico della potenza, ne è la prova necessaria.",
+    "image": "In seno al Cielo, la montagna: l'immagine della forza addomesticata del grande. Una potenza considerevole si tiene contenuta, trattenuta da qualcosa che, pur non eguagliandola in grandezza, sa nondimeno frenarla. È la figura della grande forza che accetta di essere disciplinata. Così l'uomo nobile trattiene nella memoria le parole e gli atti antichi: la vera grandezza si prova non solo con ciò che dispiega, ma con ciò che accetta di contenere."
+   },
+   "27": {
+    "pinyin": "Yi",
+    "name": "Il Nutrimento",
+    "judgementTitle": "Distinzione",
+    "judgement": "Ciò che nutre lo spirito si oppone a ciò che divide le vedute. Non ogni nutrimento eleva allo stesso modo: certe parole, certi pensieri fortificano, altri disperdono e indeboliscono. Questa linea invita a scegliere con la stessa cura ciò di cui si nutre lo spirito e ciò di cui si nutre il corpo.",
+    "image": "Sotto la montagna, il Tuono: l'immagine del nutrimento. Il movimento si agita alla base di ciò che è stabile, come la mascella si muove sotto il volto immobile – un richiamo al fatto che anche la maggiore stabilità dipende da ciò che si nutre al di sotto. Così l'uomo nobile veglia sulle sue parole e misura il suo bere e il suo mangiare: ciò che entra in noi, per la bocca o per le parole, plasma ciò che diventiamo."
+   },
+   "28": {
+    "pinyin": "Da Guo",
+    "name": "La Preponderanza del grande",
+    "judgementTitle": "Struttura",
+    "judgement": "La trave di colmo che si piega sotto il proprio peso. Una struttura spinta all'estremo della sua capacità annuncia, con la sua stessa flessione, il momento in cui dovrà o spezzarsi o essere alleggerita. Questa linea insegna a riconoscere i segni premonitori della rottura prima che sopraggiunga.",
+    "image": "Il Lago sommerge il legno: l'immagine della preponderanza del grande. L'acqua sale al di sopra di ciò che dovrebbe normalmente contenerla – un carico troppo pesante per la struttura che lo porta, pronta a cedere sotto il proprio peso. È la figura del fardello estremo. Così l'uomo nobile, solo e senza timore, lascia il mondo senza amarezza: ci sono momenti in cui il carico supera ciò che nessun sostegno può portare, e in cui l'unica dignità possibile è affrontarlo senza lamento."
+   },
+   "29": {
+    "pinyin": "Kan",
+    "name": "L'Abissale",
+    "judgementTitle": "Prova",
+    "judgement": "Navigare nell'acqua che non si lascia scandagliare. Certe profondità non si misurano mai completamente in anticipo – si può solo imparare a muoversi in esse con i mezzi che si hanno, senza mai pretendere di dominarle del tutto. Questa linea dice che la vera competenza di fronte al pericolo non è eliminarlo, ma imparare a nuotarvi.",
+    "image": "L'Acqua viene e ritorna: l'immagine dell'abissale raddoppiato. Il pericolo si ripete, onda dopo onda, senza mai offrire un riposo completo – ma l'acqua stessa, nel suo movimento costante, trova sempre il proprio livello. È la figura della prova ripetuta che forgia la costanza. Così l'uomo nobile pratica costantemente la virtù e insegna le faccende: di fronte al pericolo che ritorna, solo la pratica ripetuta costruisce la maestria."
+   },
+   "30": {
+    "pinyin": "Li",
+    "name": "L'Aderente",
+    "judgementTitle": "Irradiamento",
+    "judgement": "La chiarezza del fuoco si attacca a ciò che vive per propagare il suo splendore. Nulla brilla nel vuoto: ogni vera chiarezza ha bisogno di un ancoraggio, di una materia a cui legarsi per dispiegarsi. Questa linea insegna che l'indipendenza totale non è un ideale – anche la luce più pura ha bisogno di ciò che illumina.",
+    "image": "Chiarezza e ancora Chiarezza: l'immagine del Fuoco che si attacca. La luce non brilla mai da sola – ha bisogno di ciò a cui si aggrappa per continuare a irradiare, come la fiamma ha bisogno del legno. È la figura dello splendore che dipende da un sostegno. Così il grande uomo, con il suo splendore continuo, illumina i quattro orizzonti: irradiare durevolmente suppone di restare legati a ciò che nutre la propria luce."
+   },
+   "31": {
+    "pinyin": "Xian",
+    "name": "L'Influenza",
+    "judgementTitle": "Risonanza",
+    "judgement": "L'emozione sottile dell'influenza reciproca, appena percettibile. I legami più profondi tra gli esseri si annodano spesso prima ancora che una parola sia pronunciata, in questo registro discreto del sentire condiviso. Questa linea dice che l'influenza più duratura non è mai quella che si impone rumorosamente, ma quella che si insinua, quasi impercettibile, tra due presenze aperte l'una all'altra.",
+    "image": "Sulla montagna, un Lago: l'immagine dell'influsso. L'acqua riposa sull'altura, vi si raccoglie senza forzarla, ed è questa reciproca recettività a permettere all'influsso di circolare tra i due. È la figura della sensibilità condivisa, prima ancora che le parole intervengano. Così l'uomo nobile accoglie in sé il vuoto per ricevere gli uomini: influenzare comincia sempre dal saper lasciarsi toccare."
+   },
+   "32": {
+    "pinyin": "Heng",
+    "name": "La Durata",
+    "judgementTitle": "Permanenza",
+    "judgement": "La costanza nel tempo attraversa la prova del ripiegamento. Ciò che dura davvero non è ciò che rifiuta ogni cambiamento, ma ciò che sa, quando occorre, ritirarsi per un tempo senza perdere la propria direzione. Questa linea insegna che la durata vera include le proprie pause.",
+    "image": "Il Tuono e il Vento: l'immagine della durata. Due movimenti diversi per natura si associano qui senza contraddirsi, ciascuno rafforzando l'altro in una costanza condivisa. È la figura della perseveranza che non si consuma. Così l'uomo nobile sta in piedi senza cambiare direzione: durare non è resistere all'immobile, è trovare il movimento che può ripetersi indefinitamente senza tradirsi."
+   },
+   "33": {
+    "pinyin": "Dun",
+    "name": "La Ritirata",
+    "judgementTitle": "Permanenza",
+    "judgement": "La durata si afferma sapendo cancellarsi per durare meglio. Paradossalmente, ciò che dura più a lungo è spesso ciò che ha saputo, al momento giusto, uscire di scena. Questa linea insegna che il ritiro strategico non interrompe la continuità – la protegge.",
+    "image": "Sotto il Cielo, la montagna: l'immagine del ritirarsi. Il cielo si allontana a poco a poco dalla montagna, prendendo distanza senza ostilità, per semplice necessità di preservare il proprio movimento. È la figura del ripiegamento dignitoso, mai fuga vergognosa. Così l'uomo nobile tiene a distanza i meschini, non per odio ma per dignità: ritirarsi in tempo non è debolezza, è la saggezza di chi sa riconoscere il momento in cui restare costerebbe più che andarsene."
+   },
+   "34": {
+    "pinyin": "Da Zhuang",
+    "name": "La Potenza del grande",
+    "judgementTitle": "Risonanza",
+    "judgement": "L'influenza si amplifica fino a diventare una forza che non si contiene più. Ciò che comincia come una semplice risonanza può, se nulla la inquadra, crescere fino a sfuggire a ogni controllo. Questa linea avverte che la potenza senza disciplina si ritorce, prima o poi, contro chi la dispiega.",
+    "image": "Il Tuono sopra il Cielo: l'immagine della potenza del grande. Una forza considerevole si innalza al punto più alto, visibile a tutti, capace di scuotere ciò che incontra sul suo cammino. È la figura della potenza al suo apogeo, che deve imparare a dominarsi proprio perché può travolgere tutto. Così l'uomo nobile percorre solo i sentieri conformi al rito: la grande forza senza la giusta misura diventa la propria rovina."
+   },
+   "35": {
+    "pinyin": "Jin",
+    "name": "Il Progresso",
+    "judgementTitle": "Irradiamento",
+    "judgement": "Lo splendore sale, come il sole, verso il riconoscimento del mezzogiorno. Ogni vera ascesa segue il proprio ritmo, come il sole che non salta mai direttamente al suo zenit. Questa linea dice che il riconoscimento meritato arriva sempre a suo tempo, mai prima, mai dopo.",
+    "image": "Il Sole si leva sopra la Terra: l'immagine del progresso. La luce guadagna terreno, grado dopo grado, senza un solo balzo brusco – un movimento ascendente tanto sicuro quanto naturale. È la figura dell'avanzamento meritato. Così l'uomo nobile, da sé, mette in luce la sua chiara virtù: il vero progresso non si rivendica, si manifesta da sé a chi sa pazientare fino all'alba."
+   },
+   "36": {
+    "pinyin": "Ming Yi",
+    "name": "L'Oscuramento della luce",
+    "judgementTitle": "Prova",
+    "judgement": "Avanzare sotto una luce volontariamente velata. Non si tratta di spegnere la propria chiarezza, ma di saperla contenere quando le circostanze rendono pericoloso il suo pieno splendore. Questa linea insegna la disciplina di chi continua ad agire con giustizia anche quando nessuno può ancora vederlo.",
+    "image": "La luce scende in seno alla Terra: l'immagine dell'oscuramento. Ciò che dovrebbe brillare si ritrova sepolto, costretto a velare il proprio splendore per continuare a esistere senza essere distrutto. È la figura della chiarezza che deve, per un tempo, nascondersi per sopravvivere. Così l'uomo nobile guida le moltitudini velando la sua chiarezza, pur restando lucido: ci sono epoche in cui mostrare tutta la propria luce sarebbe un errore – la saggezza è allora restare giusti, in silenzio."
+   },
+   "37": {
+    "pinyin": "Jia Ren",
+    "name": "Il Clan",
+    "judgementTitle": "Struttura",
+    "judgement": "Il rigore ordinato della cellula familiare. Nessuna struttura più ampia regge se la sua cellula più intima – quella del focolare – non è a sua volta ordinata e giusta. Questa linea dice che l'ordine del mondo comincia sempre dall'ordine della casa.",
+    "image": "Il Vento nasce dal Fuoco: l'immagine della gente di casa. Il calore interiore genera un movimento che si propaga verso l'esterno – ciò che comincia al focolare finisce sempre per irradiarsi fuori. È la figura dell'influenza domestica che plasma il mondo. Così l'uomo nobile ancora le sue parole nella sostanza e la sua condotta nella costanza: ciò che si vive nell'intimità della casa diventa, prima o poi, ciò che si porta ovunque altrove."
+   },
+   "38": {
+    "pinyin": "Kui",
+    "name": "L'Opposizione",
+    "judgementTitle": "Distinzione",
+    "judgement": "La cernita si opera tra le parole che elevano e quelle che separano. Non ogni divergenza è una rottura: certe opposizioni, ben comprese, affinano il pensiero anziché spezzarlo. Questa linea insegna a distinguere il disaccordo fecondo dal conflitto sterile.",
+    "image": "Sopra il Fuoco, sotto il Lago: l'immagine dell'opposizione. Il fuoco sale, l'acqua scende – due nature che si affiancano senza mai confondersi, ciascuna fedele alla propria direzione. È la figura della differenza assunta senza rottura totale. Così l'uomo nobile, nell'unità, distingue ciò che differisce: riconoscere un'opposizione non obbliga a distruggerla, si può convivere con ciò che ci contraddice senza pretendere di cancellarlo."
+   },
+   "39": {
+    "pinyin": "Jian",
+    "name": "L'Impedimento",
+    "judgementTitle": "Ritegno",
+    "judgement": "La pazienza diventa essa stessa uno scudo di fronte al rilievo. Di fronte a ciò che non si può superare frontalmente, la pazienza non è rassegnazione ma una protezione attiva – preserva l'energia per il momento in cui il passaggio si aprirà. Questa linea dice che ogni ostacolo contiene, in negativo, l'indicazione della giusta deviazione.",
+    "image": "Sulla montagna, l'Acqua: l'immagine dell'impedimento. L'acqua incontra il pendio e non può avanzare direttamente – deve aggirare, cercare un'altra via, rallentare il proprio corso naturale. È la figura della difficoltà che impone una deviazione. Così l'uomo nobile si volge a se stesso e plasma la propria virtù: l'ostacolo esterno, quando non può essere forzato, diventa l'occasione di lavorare su ciò che, in sé, può ancora crescere."
+   },
+   "40": {
+    "pinyin": "Jie",
+    "name": "La Liberazione",
+    "judgementTitle": "Scioglimento",
+    "judgement": "I nodi dell'ostacolo si sciolgono, il passaggio si apre. Ciò che sembrava inestricabile finisce, con il tempo e la giusta tensione allentata al momento giusto, per sciogliersi da sé. Questa linea insegna che la liberazione arriva di rado con la forza – viene quando la pressione trova finalmente la sua giusta uscita.",
+    "image": "Il Tuono e la Pioggia si levano: l'immagine della liberazione. La tensione accumulata nell'aria si libera finalmente, il temporale scoppia e purifica ciò che attraversa – uno scioglimento che placa anziché distruggere. È la figura del sollievo dopo la costrizione. Così l'uomo nobile perdona le colpe e si mostra clemente verso i torti: la vera liberazione non si ferma a sé, si estende anche a coloro che si potrebbe ancora tenere prigionieri dei loro errori."
+   },
+   "41": {
+    "pinyin": "Sun",
+    "name": "La Diminuzione",
+    "judgementTitle": "Rinuncia",
+    "judgement": "Tornare al centro esige di acconsentire a perdere ciò che ingombrava. Si ritorna all'essenziale solo accettando di lasciar andare ciò che, col tempo, si è rivelato superfluo. Questa linea dice che non ogni perdita è un impoverimento – certe diminuzioni sono la condizione stessa del ritorno a ciò che conta davvero.",
+    "image": "Sotto la montagna, il Lago: l'immagine della diminuzione. L'acqua del basso evapora verso l'altezza, sembrando impoverirsi per nutrire ciò che la sovrasta – una perdita che, in realtà, serve un equilibrio più vasto. È la figura della rinuncia che giova a un insieme più grande di sé. Così l'uomo nobile frena la sua collera e contiene i suoi desideri: diminuire ciò che in sé è di troppo è spesso la condizione perché qualcos'altro possa crescere."
+   },
+   "42": {
+    "pinyin": "Yi",
+    "name": "L'Aumento",
+    "judgementTitle": "Mutazione",
+    "judgement": "L'energia di una crescita nuova si libera. Ciò che cresce davvero non lo fa mai da solo: la crescita autentica libera un'energia che giova a più persone di quella che la porta. Questa linea insegna che il vero accrescimento si riconosce da ciò che condivide, non da ciò che accumula.",
+    "image": "Il Vento e il Tuono: l'immagine dell'aumento. Due forze si rafforzano a vicenda, il vento amplificando il tuono e il tuono dando al vento la sua piena misura – una crescita che si nutre dell'incontro anziché dell'isolamento. Così l'uomo nobile, vedendo il bene, vi si porta; avendo una colpa, la corregge: il vero aumento non si limita ad accumulare, consiste nel correggersi e nel crescere insieme."
+   },
+   "43": {
+    "pinyin": "Guai",
+    "name": "Lo Sfondamento",
+    "judgementTitle": "Essenzialità",
+    "judgement": "La decisione che taglia netto ed elimina il superfluo. Viene un momento in cui l'esitazione stessa diventa più pericolosa del taglio della decisione. Questa linea dice che la vera apertura non consiste nel distruggere tutto, ma nel togliere precisamente ciò che, in eccesso, minacciava l'insieme.",
+    "image": "Il Lago si innalza sopra il Cielo: l'immagine dello sfondamento. L'acqua, portata più in alto di ciò che dovrebbe normalmente contenerla, minaccia di straripare – una tensione estrema che chiede una decisione chiara e senza ritorno. È la figura della risoluzione che non può più attendere. Così l'uomo nobile diffonde i suoi doni fino in basso, senza riposare sulla sola virtù: decidere con forza deve sempre accompagnarsi alla generosità verso coloro che la decisione tocca."
+   },
+   "44": {
+    "pinyin": "Gou",
+    "name": "Il Venire incontro",
+    "judgementTitle": "Taglio netto",
+    "judgement": "L'incontro imprevisto espone al rischio quanto all'unione. Tutto ciò che si presenta senza preavviso porta in sé un'ambiguità: promessa di legame o germe di pericolo, non lo si sa mai di primo acchito. Questa linea insegna la vigilanza che non è diffidenza, ma discernimento nel momento stesso dell'incontro.",
+    "image": "Sotto il Cielo, il Vento: l'immagine del venire incontro. Il vento percorre lo spazio senza essere stato convocato, toccando tutto sul suo passaggio – un incontro che si impone anziché essere pianificato. È la figura dell'imprevisto che si deve saper accogliere con discernimento. Così il sovrano, con i suoi decreti, istruisce i quattro orizzonti: ciò che ci viene incontro senza essere invitato merita di essere esaminato prima di essere accettato o respinto."
+   },
+   "45": {
+    "pinyin": "Cui",
+    "name": "Il Raccogliersi",
+    "judgementTitle": "Convergenza",
+    "judgement": "La contemplazione è già un raccoglimento silenzioso. Prima ancora che i corpi si riuniscano, gli spiriti che condividono uno stesso sguardo sono già, in un certo senso, riuniti. Questa linea dice che la vera unione comincia sempre nell'invisibile, ben prima di diventare visibile.",
+    "image": "Il Lago sale sopra la Terra: l'immagine del raccogliersi. L'acqua si accumula e forma una distesa comune, riunendo in un solo luogo ciò che, disperso, non avrebbe avuto né forza né volto. È la figura della convergenza che dà consistenza al molteplice. Così l'uomo nobile ripara le sue armi per far fronte all'imprevisto: radunare non basta, occorre anche prepararsi a proteggere ciò che è stato radunato."
+   },
+   "46": {
+    "pinyin": "Sheng",
+    "name": "La Spinta verso l'alto",
+    "judgementTitle": "Crescita",
+    "judgement": "Avvicinarsi e crescere sono un solo gesto verticale. Non esiste vera separazione tra l'avvicinarsi alla propria meta e il crescere verso di essa – i due movimenti ne fanno uno solo, come lo stelo che cresce è già, in germe, l'albero futuro. Questa linea insegna la continuità tra il piccolo gesto presente e il grande risultato futuro.",
+    "image": "In seno alla Terra cresce il legno: l'immagine della spinta verso l'alto. Il seme, invisibile sotto la superficie, spinge pazientemente verso la luce senza mai bruciare le tappe – una crescita lenta ma inesorabile. È la figura dell'ascesa meritata dalla costanza. Così l'uomo nobile, docile alla virtù, accumula il piccolo per raggiungere l'alto e il grande: nulla di ciò che cresce davvero salta una tappa, tutto si costruisce strato dopo strato."
+   },
+   "47": {
+    "pinyin": "Kun",
+    "name": "L'Oppressione",
+    "judgementTitle": "Riparazione",
+    "judgement": "Non si restaura nulla senza acconsentire prima a mancare. Non c'è vera rinascita senza essere passati, prima, per l'esperienza reale della privazione. Questa linea dice che l'oppressione, ben attraversata, non è solo una prova da subire ma una purificazione che prepara il ritorno dell'abbondanza.",
+    "image": "Il Lago è senz'acqua: l'immagine dell'oppressione. Ciò che dovrebbe nutrire e sostenere si è prosciugato, lasciando dietro di sé una mancanza stridente là dove si attendeva l'abbondanza. È la figura dell'esaurimento che mette alla prova la vera natura di chi lo attraversa. Così l'uomo nobile impegna la propria vita per compiere il suo disegno: è proprio nella mancanza che si rivela ciò a cui si tiene davvero, al punto di essere pronti a rischiare tutto per esso."
+   },
+   "48": {
+    "pinyin": "Jing",
+    "name": "Il Pozzo",
+    "judgementTitle": "Profondità",
+    "judgement": "Si segue bene solo ciò che si è prima attinto dal fondo. Nessuna risorsa giova a chi resta in superficie: bisogna scendere, cercare, attingere davvero perché il pozzo dia ciò che contiene. Questa linea insegna che la profondità è la condizione stessa dell'utilità.",
+    "image": "Sul legno, l'Acqua: l'immagine del pozzo. L'acqua resta accessibile a tutti coloro che vengono ad attingerla, inesauribile finché si sa calare il secchio nel punto giusto – una risorsa comune che l'uso non prosciuga mai davvero. È la figura del bene condiviso che permane. Così l'uomo nobile conforta il popolo e lo esorta all'aiuto reciproco: ciò che nutre davvero una comunità non appartiene a nessuno in proprio, passa soltanto per le mani di coloro che sanno attingere."
+   },
+   "49": {
+    "pinyin": "Ge",
+    "name": "La Rivoluzione",
+    "judgementTitle": "Slancio",
+    "judgement": "Il fuoco sotto il lago dissolve l'antica pelle. Ogni cambiamento profondo esige prima di tutto che la vecchia forma si dissolva, per quanto scomodo sia questo momento di transizione. Questa linea dice che la rivoluzione più giusta non è mai gratuita – risponde a una necessità che la vecchia forma non poteva più contenere.",
+    "image": "In seno al Lago, il Fuoco: l'immagine della rivoluzione. La fiamma arde sotto la superficie dell'acqua, due nature che non possono coesistere senza che l'una finisca per trasformare l'altra – uno scontro che sfocia necessariamente in un cambiamento di stato. Così l'uomo nobile regola il calendario e rende chiari i tempi: la vera rivoluzione non distrugge per distruggere, riordina ciò che il vecchio tempo aveva lasciato confuso."
+   },
+   "50": {
+    "pinyin": "Ding",
+    "name": "Il Crogiolo",
+    "judgementTitle": "Alchimia",
+    "judgement": "La forma più discreta è quella che raccoglie meglio l'essenza. Non è lo splendore esteriore a definire il valore di un contenitore, ma la sua capacità di preservare e trasformare ciò che riceve. Questa linea insegna che il vero valore si annida spesso in ciò che appare più modesto.",
+    "image": "Sul legno, il Fuoco: l'immagine del calderone. La fiamma trasforma la materia grezza in qualcosa di nutriente, di raffinato, di utilizzabile – un recipiente che contiene la trasformazione senza lasciarsi consumare. È la figura della cultura che affina senza distruggere. Così l'uomo nobile rafforza il proprio destino rendendolo retto: come il calderone dà forma a ciò che riceve, ciascuno plasma il proprio destino con ciò che sceglie di farvi cuocere."
+   },
+   "51": {
+    "pinyin": "Zhen",
+    "name": "L'Eccitante",
+    "judgementTitle": "Sussulto",
+    "judgement": "Ciò che resta in piedi dopo l'urto è ciò che era davvero posseduto. L'urto non crea nulla, rivela: ciò che crolla al primo scuotimento non è mai stato solido come sembrava. Questa linea dice che la prova è sempre, in un certo senso, un rivelatore di verità.",
+    "image": "Il Tuono raddoppiato: l'immagine dello scuotimento. L'urto colpisce due volte, l'uno ripetendo l'altro, e ciò che resta in piedi dopo una tale scossa rivela finalmente la sua vera solidità. È la figura della prova che saggia senza distruggere ciò che è realmente fondato. Così l'uomo nobile, nel timore e nel tremore, coltiva ed esamina la propria condotta: l'urto esterno, per brusco che sia, può diventare l'occasione di un salutare esame interiore."
+   },
+   "52": {
+    "pinyin": "Gen",
+    "name": "L'Arresto",
+    "judgementTitle": "Stabilità",
+    "judgement": "Il movimento si ferma perché l'essenziale si veda. Solo nell'immobilità certe cose, mascherate dall'agitazione permanente, diventano finalmente visibili. Questa linea insegna che saper fermarsi non è rinunciare ad agire, è darsi i mezzi per vedere dove agire davvero.",
+    "image": "Montagne congiunte: l'immagine dell'arresto. Due masse stabili si sovrappongono, l'una rafforzando l'immobilità dell'altra – una sosta che non è paralisi ma fondazione. È la figura del riposo che rende possibile la chiarezza. Così l'uomo nobile non lascia che i suoi pensieri oltrepassino il posto che occupa: fermarsi al punto giusto, senza lasciare che lo spirito si smarrisca oltre il compito presente, è la condizione di ogni visione giusta."
+   },
+   "53": {
+    "pinyin": "Jian",
+    "name": "Lo Sviluppo",
+    "judgementTitle": "Lentezza",
+    "judgement": "Radice, tronco, ramo – un passo dopo l'altro raddrizza l'asse. Nessuna crescita autentica salta una tappa: ogni grado prepara il successivo, in un ordine che nulla può invertire senza compromettere tutto. Questa linea dice che la pazienza dello sviluppo graduale è essa stessa una forma di forza.",
+    "image": "Sulla montagna, un albero: l'immagine dello sviluppo graduale. L'albero cresce lentamente, radice dopo radice, anello dopo anello, senza mai bruciare una sola tappa della sua crescita – una pazienza iscritta nel legno stesso. Così l'uomo nobile si stabilisce nella virtù dignitosa e migliora i costumi: il vero sviluppo, come quello dell'albero sul pendio, si misura in anni, non in giorni."
+   },
+   "54": {
+    "pinyin": "Gui Mei",
+    "name": "La Fanciulla che sposa",
+    "judgementTitle": "Alleanza",
+    "judgement": "L'unione sigillata impegna due ordini ineguali in una stessa trama. Non ogni unione nasce nella perfetta uguaglianza; alcune cominciano nello squilibrio e devono trovare, col tempo, la propria giustizia. Questa linea insegna che la lealtà nella durata può riparare ciò che le condizioni iniziali non avevano reso giusto.",
+    "image": "Sopra il Tuono, sotto il Lago: l'immagine della fanciulla che sposa. Il movimento dall'alto trascina ciò che riposa al di sotto in un'unione non sempre scelta in modo uguale dalle due parti – un legame che impegna nonostante lo squilibrio iniziale. Così l'uomo nobile, attento a ciò che dura, discerne ciò che corrompe questa unione: ogni alleanza merita di essere esaminata nella sua durata, non giudicata sul solo inizio."
+   },
+   "55": {
+    "pinyin": "Feng",
+    "name": "L'Abbondanza",
+    "judgementTitle": "Pienezza",
+    "judgement": "L'ora del pieno mezzogiorno, in cui la luce non proietta più ombra. Esiste un istante, al culmine di ogni pienezza, in cui nulla resta nascosto – ma quell'istante, per natura, non può che declinare in seguito. Questa linea insegna a gustare l'abbondanza senza dimenticare che porta in sé il proprio limite.",
+    "image": "Il Tuono e il Lampo si compiono insieme: l'immagine dell'abbondanza. Il movimento e la luce raggiungono contemporaneamente il loro pieno dispiegamento – un istante di pienezza totale, raro e necessariamente passeggero. È la figura dell'apogeo che non dura mai in eterno. Così l'uomo nobile decide le liti e applica le pene: al culmine dell'abbondanza la chiarezza del giudizio diventa più necessaria che mai, perché è anche lì che tutto può rovesciarsi."
+   },
+   "56": {
+    "pinyin": "Lu",
+    "name": "Il Viandante",
+    "judgementTitle": "Peregrinazione",
+    "judgement": "Senza fuoco né luogo, la livrea sostituisce la casa. Quando manca la dimora, sono l'abito, la postura, la condotta a farne le veci – una dignità che non dipende più dal luogo ma dal modo di essere. Questa linea dice che l'identità più solida è quella che si porta con sé, indipendente da ogni ancoraggio esterno.",
+    "image": "Sulla montagna, il Fuoco: l'immagine del viandante. La fiamma si sposta lungo il pendio, senza attardarsi da nessuna parte, consumando ciò che si presenta senza mai radicarsi in un solo luogo. È la figura di chi non ha né fuoco né luogo fisso. Così l'uomo nobile applica la pena con chiarezza e prudenza, senza lasciare che un processo si trascini: senza legami duraturi occorre tanto più rigore per non perdersi per strada."
+   },
+   "57": {
+    "pinyin": "Xun",
+    "name": "Il Mite",
+    "judgementTitle": "Tessitura",
+    "judgement": "Il vento penetra ovunque senza rumore, come la trama. La forza più discreta è talvolta la più efficace: non incontra resistenza frontale perché non si annuncia mai come una forza. Questa linea insegna la potenza dell'influenza continua e silenziosa.",
+    "image": "Venti che si susseguono: l'immagine del mite raddoppiato. Il vento soffia, poi soffia ancora, insistente senza mai colpire – un'influenza che penetra per ripetizione anziché per forza. Così l'uomo nobile propaga i suoi ordini e mette in opera i suoi affari: ciò che non si può imporre d'un colpo finisce spesso per instaurarsi grazie alla dolce costanza di un'insistenza paziente."
+   },
+   "58": {
+    "pinyin": "Dui",
+    "name": "Il Sereno",
+    "judgementTitle": "Cadenza",
+    "judgement": "La chiarezza del lago che raccoglie e mette in comune. Ciò che riunisce senza costrizione, per la sola attrazione naturale di ciò che offre, crea i legami più durevoli. Questa linea dice che la vera comunità si riconosce dalla leggerezza con cui si forma.",
+    "image": "Laghi che si congiungono: l'immagine del sereno raddoppiato. Due distese d'acqua comunicano, nutrendosi a vicenda, ciascuna amplificando la gioia dell'altra con la semplice vicinanza. È la figura della condivisione che moltiplica anziché dividere. Così l'uomo nobile, con i suoi amici, discute e si esercita: la gioia vera, come l'acqua dei laghi congiunti, non si esaurisce mai a forza di essere condivisa – ne esce, al contrario, rafforzata."
+   },
+   "59": {
+    "pinyin": "Huan",
+    "name": "La Dissoluzione",
+    "judgementTitle": "Scioglimento",
+    "judgement": "Ciò che si fronteggiava si disperde e torna fluido. I blocchi più rigidi finiscono, col tempo e con il movimento giusto, per disperdersi da soli. Questa linea insegna che la dissoluzione non è una perdita ma un ritorno allo stato fluido, premessa di ogni nuova forma.",
+    "image": "Il Vento si muove sopra l'Acqua: l'immagine della dissoluzione. Il vento increspa la superficie, disperdendo ciò che si era irrigidito, spezzando il ghiaccio in movimento fluido – una dissoluzione che libera anziché distruggere. Così i re antichi offrivano sacrifici al Sovrano dell'alto e istituivano templi: quando ciò che separava gli esseri comincia a dissolversi, è il momento di ricostruire un legame comune, un centro condiviso."
+   },
+   "60": {
+    "pinyin": "Jie",
+    "name": "La Limitazione",
+    "judgementTitle": "Contegno",
+    "judgement": "Il bambù pone i suoi nodi perché la linfa non si disperda. Senza i limiti che la punteggiano, la crescita stessa perderebbe la sua forza disperdendosi senza direzione. Questa linea dice che la limitazione ben posta non è un freno alla vita, ma la condizione del suo vigore.",
+    "image": "Sul Lago, l'Acqua: l'immagine della limitazione. L'acqua del lago resta contenuta dalle sue rive, ed è questo limite stesso a permetterle di esistere come lago anziché perdersi in palude informe. È la figura della costrizione che struttura anziché soffocare. Così l'uomo nobile elabora il conto e la misura, e riflette sulla virtù e sulla condotta: la limitazione scelta con giustezza è ciò che dà forma a ogni cosa, compreso se stessi."
+   },
+   "61": {
+    "pinyin": "Zhong Fu",
+    "name": "La Verità interiore",
+    "judgementTitle": "Apprendistato",
+    "judgement": "Il centro vuoto del cuore diventa il luogo in cui si alloggia la fiducia. È proprio perché il cuore non si chiude in sé, perché resta uno spazio aperto, che la fiducia autentica può stabilircisi. Questa linea insegna che la sincerità più profonda nasce da un vuoto accogliente, non da una certezza chiusa.",
+    "image": "Sul Lago, il Vento: l'immagine della verità interiore. Il vento sfiora la superficie dell'acqua e la fa vibrare fino al centro – una risonanza che parte da fuori ma tocca l'interno più profondo. È la figura della sincerità che si trasmette senza artificio. Così l'uomo nobile delibera sui processi e rimanda le condanne a morte: la verità interiore esige che ci si prenda il tempo necessario prima di decidere su ciò che tocca l'essenziale."
+   },
+   "62": {
+    "pinyin": "Xiao Guo",
+    "name": "La Preponderanza del piccolo",
+    "judgementTitle": "Germinazione",
+    "judgement": "La piccola linea trabocca dalla sua cornice. Ci sono momenti in cui solo il dettaglio, il gesto misurato, può ancora agire – volere allora la grande azione sarebbe un errore di giudizio. Questa linea dice che la giustezza, in certe circostanze, si trova proprio nella piccolezza assunta.",
+    "image": "Sulla montagna, il Tuono: l'immagine della preponderanza del piccolo. Il movimento si agita sulla cima, contenuto dalla massa che lo porta, obbligato a restare modesto nella sua ampiezza benché intenso nella sua energia. Così l'uomo nobile, nella condotta, inclina verso l'eccesso di rispetto; nel lutto, verso l'eccesso di dolore; nelle spese, verso l'eccesso di economia: quando le circostanze impongono il ritegno, è meglio peccare per eccesso di modestia che per eccesso di ambizione."
+   },
+   "63": {
+    "pinyin": "Ji Ji",
+    "name": "Dopo il compimento",
+    "judgementTitle": "Fondamento",
+    "judgement": "La cucitura è chiusa, la maglia è annodata. Ciò che è compiuto porta sempre in sé il germe di ciò che verrà a disfarlo – nulla di finito è eternamente finito. Questa linea insegna che il vero compimento include la coscienza della propria fragilità.",
+    "image": "L'Acqua sopra il Fuoco: l'immagine del compimento. Ogni elemento occupa esattamente il posto che gli spetta, l'acqua padroneggia il fuoco senza spegnerlo del tutto – un equilibrio così perfetto da chiamare già, in germe, il proprio squilibrio futuro. Così l'uomo nobile pensa alla sventura e se ne premunisce in anticipo: il compimento più totale non è mai un punto d'arrivo definitivo, è il momento preciso in cui la vigilanza deve raddoppiare."
+   },
+   "64": {
+    "pinyin": "Wei Ji",
+    "name": "Prima del compimento",
+    "judgementTitle": "Germe",
+    "judgement": "Il passaggio è aperto ma la trama non è ancora tessuta. Nulla è ancora compiuto, ma nulla è nemmeno impossibile: la porta resta aperta a ciò che, con pazienza, resta da costruire. Questa linea dice che l'incompiuto non è un fallimento – è la condizione di tutto ciò che deve ancora venire, il punto da cui riparte, instancabilmente, l'intero ciclo delle 64 figure.",
+    "image": "Il Fuoco sopra l'Acqua: l'immagine dell'incompiuto. Ogni elemento si trova nel posto inverso a quello che permetterebbe il loro pieno incontro – il fuoco non può scaldare l'acqua che gli sfugge verso l'alto. È la figura del disordine che precede ancora l'ordine a venire. Così l'uomo nobile discerne con cura gli esseri e li colloca ciascuno al proprio posto: prima che tutto trovi il suo giusto posto bisogna accettare la lucidità del disordine presente, senza disperare dell'ordine che nascerà."
+   }
+  },
+  "lineComments": {
+   "1": {
+    "0": "Alla base della terra, il vuoto si chiude: ciò che non era ancora che un'apertura comincia a riempirsi.",
+    "1": "Alla base della terra, il pieno si scuote: l'impulso yang che portava l'intera figura acconsente a cedere il posto."
+   },
+   "2": {
+    "0": "La terra ricettiva raggiunge il suo colmo: l'accoglienza silenziosa che portava la parte bassa della figura sta per affermarsi.",
+    "1": "La terra consolidata tocca il suo limite: la solidità che sosteneva l'edificio si appresta a cambiare natura."
+   },
+   "3": {
+    "0": "Alla soglia tra terra e uomo, la duttilità si carica: ciò che cedeva per natura si appresta a indurirsi.",
+    "1": "Alla soglia tra terra e uomo, la forza vacilla: ciò che agiva con fermezza esita prima di rovesciarsi."
+   },
+   "4": {
+    "0": "Nell'ascolto dell'uomo, il cavo si colma: la disponibilità che riceveva sta per affermarsi.",
+    "1": "Nell'azione dell'uomo, il pieno trova il suo limite: l'iniziativa che guidava la figura si ripiega su se stessa."
+   },
+   "5": {
+    "0": "Al posto del saggio, il vuoto si riempie: la duttilità che governava con discrezione si carica di una forza nuova.",
+    "1": "Al posto del saggio, il pieno si scava: la forza che governava la figura dal centro si appresta a invertirsi."
+   },
+   "6": {
+    "0": "In cima, il vuoto raggiunge il colmo e si chiude: l'apertura più estrema precipita verso il suo contrario.",
+    "1": "In cima, il pieno compie la sua corsa e si spezza: ciò che culminava non può andare oltre senza rovesciarsi."
+   }
+  },
+  "trigrams": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Il Ricettivo",
+    "image": "la Terra",
+    "role": "la madre"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "L'Eccitante",
+    "image": "il Tuono",
+    "role": "il figlio maggiore"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "L'Abissale",
+    "image": "l'Acqua",
+    "role": "il figlio mediano"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Il Sereno",
+    "image": "il Lago",
+    "role": "la figlia minore"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "L'Arresto",
+    "image": "la Montagna",
+    "role": "il figlio minore"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "L'Aderente",
+    "image": "il Fuoco",
+    "role": "la figlia mediana"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Il Mite",
+    "image": "il Vento",
+    "role": "la figlia maggiore"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Il Creativo",
+    "image": "il Cielo",
+    "role": "il padre"
+   }
+  ]
+ },
+ "ja": {
+  "hexagrams": {
+   "1": {
+    "pinyin": "Qian",
+    "name": "乾",
+    "judgementTitle": "発端",
+    "judgement": "陽の爻がただ一つ、まだ衣をまとわずに躍り出る。図形の最初の段階で、力はすでに完全にそなわっているが、まだ見分けのつく形をとっていない――いかなる機能も役割も身につけていないのである。名を得る前の、純粋な状態の力。この爻は続く五つの爻のありさまを告げている。行う力が少しずつ自らの衣を仕立てていき、ついに頂点で図形全体が、どれほど大きな力でも自らを抑えることを学ばねばならないと悟る、その歩みである。",
+    "image": "天が天の上を休みなく巡る。陽の爻が二つ重なり、同じ力が二つ、一方が他方を支えて決してたわまない。ここには動きを制限するものも、止めるものもない。抗うものにまだ出会っていないがゆえに休みを知らない、純粋な活力の象である。この図形を見つめる賢者はそこに慌ただしさへの誘いではなく、手本を見る。天が絶え間なく巡るように、君子は自らを鍛えることをやめない――一時の努力によってではなく、星々の運行のように途切れない修養によって。"
+   },
+   "2": {
+    "pinyin": "Kun",
+    "name": "坤",
+    "judgementTitle": "礎",
+    "judgement": "大地は受け入れ、形は据えられる。まだ何も起こっていないが、すべてがすでに可能になっている。最初の爻の地は何も要求せず、待っている。それは諦める者の受け身ではなく、よく理解された従順がこれから来るすべての実りを内に宿すと知る者の忍耐である。図形全体はこのただ一つの性質から展開していく。押しつけようとする前に受け入れ、築こうとする前に腰を据えるのである。",
+    "image": "大地は区別なく担い、養う。何を支えるかを選ばず、すべてを支える。破れた爻が二つ、同じ開きが二つ、一方が他方を迎えて決して閉ざさない。先に動くものではなく、自らのもとに来るあらゆるものの働きを可能にする、純粋な受容力の象である。この図形を見つめる賢者は、寛大さに輝きは要らないと悟る。君子もまた、どんな種も拒まない大地のように広い徳をもって、ものを受け入れる。"
+   },
+   "3": {
+    "pinyin": "Zhun",
+    "name": "屯",
+    "judgementTitle": "萌芽",
+    "judgement": "芽は方形の大地の下で苦しむ。あらゆる誕生は闇と抵抗のなかで始まる。種はこれからとる形をまだ知らず、ただ伸びることだけを知っている。この爻が語るのは、失敗ではなく、あらゆる真の始まりの条件そのものである困難である。自らを引き止めるものから抜け出さずに生まれた偉大なものは、一つとしてない。",
+    "image": "雲と雷――最初の困難の象。上には、まだ雨になっていない水。下には、道を探しながらまだ見つけられない震え。何も自由に流れず、すべてが探り合い、自らの誕生の縁でためらっている。行き先を知る前にまず道を切り開かねばならない、ふさがれた始まりの図形である。ゆえに君子は、初めの混沌を前にして何も無理強いしない。結果を急ぐ気持ちに負けず、糸を一本ずつ辛抱強く織りながら秩序をもたらす。"
+   },
+   "4": {
+    "pinyin": "Meng",
+    "name": "蒙",
+    "judgementTitle": "学び",
+    "judgement": "弟子の無知は師を呼ぶ。知らないことは弱さではなく、開かれた入口である。まだ知らない者こそ、学ぶことのできる者だからだ。図形全体は、求める未熟と応える経験とのこの必然の出会いを軸に回っている。この最初の謙虚さがなければ、いかなる教えも根づくことができない。",
+    "image": "山のふもとに泉が湧く――若さゆえの蒙昧の象。水は生き生きとそこにあるが、どこへ流れるべきかをまだ知らない。力はあるが方向がない。これは欠点ではなく、学びの前の状態、エネルギーが見境なくあふれる時期としての未熟の肖像である。ゆえに君子は、この図形を自分や他人のうちに認めても無知を軽んじない。断固とした行いによって自らの性格を養い、よく導かれた泉がやがて川になると知っている。"
+   },
+   "5": {
+    "pinyin": "Xu",
+    "name": "需",
+    "judgementTitle": "構え",
+    "judgement": "水は天の下で、ふさわしい時を待つ。待つことは何もしないことではない。条件が意志の及ばぬところで整っていくあいだ、自分の位置を持ちこたえることである。この爻は、焦りは辛抱だけが成し遂げられるものを壊すと教える。雨は天と地が出会う備えができたときに降るのであって、それより前ではない。",
+    "image": "雲が天の上に昇る――待つことの象。雨が降るためのすべてが整っているのに、まだ降らない。時が熟していないのだ。時を急かさず、来るに任せる静かな備えの図形である。ゆえに君子は、自らの時を待ちながら、楽しく安らかに食べ、飲む。それぞれの拍子を持つものを急がせようとして消耗せず、力が求められる瞬間のために力を養う。"
+   },
+   "6": {
+    "pinyin": "Song",
+    "name": "訟",
+    "judgementTitle": "決着",
+    "judgement": "対立する力のいさかいが、出口を探す。争いは避けられもせず、求められもしない。両立すれば摩擦を免れない二つの動きのあいだの緊張として、あるがままに認められる。ここでの知恵は、何としても勝つことではなく、いさかいを最後まで戦うに値するときと、早めに離れるに値するときを見分けることである。",
+    "image": "天と水が反対の向きに遠ざかる――争いの象。一方は昇り、他方は降る。その本性が両者を隔てており、表面的な妥協では結び合わせられない。善意だけでは解けない根本的な対立の図形である。ゆえに君子は、あらゆる事の始めに終わりをはかる。その道がどこまで自分を導きうるかをあらかじめ測らずに、争いに踏み込まない。"
+   },
+   "7": {
+    "pinyin": "Shi",
+    "name": "師",
+    "judgementTitle": "歩調",
+    "judgement": "集団の規律は、軍の行進のように整えられる。散らばった力は、組織された力に及ばない。この爻は、真の力とは目覚ましい一撃のそれではなく、各自が自分の持ち場を知り、全体の動きが個人の勢いに勝つ、辛抱強く保たれた秩序のそれだと語る。",
+    "image": "大地の中に水が隠れている――軍の象。力はあるが、見せつけはしない。静かな表面の下で、見えないまま規律正しく備えている。実在するために姿を現す必要のない、抑えられた力の図形である。ゆえに君子は、寛容な心で民を増やす。真の権威は誇示された力によって押しつけるものではなく、恒常さと慎みのうちに築かれる。"
+   },
+   "8": {
+    "pinyin": "Bi",
+    "name": "比",
+    "judgementTitle": "織り",
+    "judgement": "一族の結びつきは、縦糸のように下から結ばれる。長く保たれるものは、外から構造が見えるようになる前に、一本一本、目立たぬまま織られていく。真の連帯は上から命じられるものではない。土台から、糸を重ねて築かれ、やがて何ものにも解けない織物となる。",
+    "image": "地の上に水がある――連帯の象。水は大地の形に寄り添い、そこに身を丸め、決して逆らうことなく広がる。摩擦のない結合、互いの支えである。無理強いされず、おのずと認め合う自然な同盟の図形である。ゆえに古の王たちは、遠い国々を集め、その諸侯を敬った。長続きする連帯は強制からではなく、各自が互いにもたらすものへの相互の承認から生まれる。"
+   },
+   "9": {
+    "pinyin": "Xiao Chu",
+    "name": "小畜",
+    "judgementTitle": "さすらい",
+    "judgement": "大きな企てにかけられる軽い制動。どんな大きな計画にも、わずかな抑制しかできない時がある。ものごとの流れを根本から変えることはできず、ほんの少し曲げることしかできない。この爻は、控えめな所作の徳を教える。大きく行動する時はまだではなく、できることを辛抱強く調える時なのである。",
+    "image": "風が天の上を行く――小さな者が従えた力の象。風には雷の力も山の量感もない。衝撃ではなく、軽い執拗さ、繰り返される愛撫によって働く。強いることなく引き止める、目立たない影響の図形である。ゆえに君子は、内なる教養の筋目を磨く。大きな力がまだふさわしくないときは、細部を辛抱強く洗練することによって、来たるものに備える。"
+   },
+   "10": {
+    "pinyin": "Lu",
+    "name": "履",
+    "judgementTitle": "充満",
+    "judgement": "虎の尾を踏む一歩一歩を、逸れることなく。危険はいつも避けるべきものとは限らず、ときには渡らなければならない。ただし、一つも余計な身振りをせず、全き注意をもって歩くことが条件である。この爻は、慎重さは恐れではないと語る。不注意なら命取りになる場所を進むことを可能にする、正確な集中である。",
+    "image": "上に天、下に沢――歩みの象。それぞれがおのれの位置を保つ。天は上に、沢は下にあり、この守られた秩序が危険なく歩くことを可能にする。噛みつきかねないものの傍らでさえ進める、適切な距離の図形である。ゆえに君子は上と下を弁え、民の志を定める。見分けをもって踏み出す一歩は、虎の尾の上でさえ、確かな一歩となる。"
+   },
+   "11": {
+    "pinyin": "Tai",
+    "name": "泰",
+    "judgementTitle": "同盟",
+    "judgement": "天と地が出会い、自由に交わる。上が降りることを受け入れ、下が昇ることを受け入れるとき、交流は全面的で実り豊かなものになる。この爻は、長続きする繁栄は常にこの相互の交換から生まれると教える。一方的に押しつけられた向きからではなく、各自が与えると同時に受け取る出会いからである。",
+    "image": "天と地が結ばれる――泰平の象。本来なら隔たったままのはずの上と下が、ここで出会い、妨げなく自由に交わる。それぞれの力が敵ではなく補い合う相手を見いだす、成就した調和の図形である。ゆえに君主は天地の道を裁ち整え、あらゆる生き物を助ける。平和とは動きの不在ではなく、応え合う力のあいだの交換がなめらかになったことである。"
+   },
+   "12": {
+    "pinyin": "Pi",
+    "name": "否",
+    "judgementTitle": "遅滞",
+    "judgement": "体制の拒絶によって交流が断たれるとき。それは一過性の事故ではなく、構造的な閉塞である。応じ合うべき力が、それぞれ自らの拒絶のなかに固まってしまった。この爻は、通り道を無理に開こうとしても無駄な時があると語る。条件そのものが動くのを待つか、無益な争いに徳を失わずに退くのである。",
+    "image": "天と地が通じ合わない――停滞の象。上は上に、下は下にとどまり、両者のあいだには何も流れない。それぞれが自らの本性に閉じこもる。最も強い力さえ、交換を欠いて消耗する不毛な断絶の図形である。ゆえに君子は、難を避けるために自らの徳のなかへ退く。実りある行動をもはや時が許さないとき、知恵とは、壁に向かって力尽きることではなく、本質を守ることである。"
+   },
+   "13": {
+    "pinyin": "Tong Ren",
+    "name": "同人",
+    "judgementTitle": "安定",
+    "judgement": "世界に開かれた兄弟愛は、その土台を見いだす。共同体は、自らのうちに閉じこもらないときにだけ堅固である。他者に開き、分かつものでなくつなぐものを求めることで、長続きする拠りどころを見いだす。この爻は、最も強い帰属はしばしば内への退きではなく、外との接触から生まれると教える。",
+    "image": "天と火が交わる――人と同じくする象。炎は自らの本性を求めて天へ昇り、その共有された動きのなかに、なお別々であるものたちのあいだの親しさが描かれる。画一性ではなく共通の方向に基づく兄弟愛の図形である。ゆえに君子は、種を弁え、類を分ける。真の共同体は違いを否定せず、それをよりよく調和させるために認める。"
+   },
+   "14": {
+    "pinyin": "Da You",
+    "name": "大有",
+    "judgementTitle": "奮起",
+    "judgement": "蓄えられた富は、衝撃をくぐり抜ける力で測られる。大切なのは所有の量ではなく、築かれたものの堅固さである。真の所有は試練に耐え、基礎の悪い豊かさは最初の衝突で崩れる。この爻は、蓄積を、時の長さで証される真の富と決して取り違えないよう促す。",
+    "image": "火が天の頂にある――大いに有つ象。最も高く掲げられた光は、例外なくあらゆるものを照らし、これほどの輝きの下で影に残るものはない。人に責任を負わせるほどに輝く、目に見える豊かさの図形である。ゆえに君子は悪を抑え善を揚げ、天の恵みに従う。多くを有つことは決して中立ではなく、何を養い何を断つかを見分けることを義務づける。"
+   },
+   "15": {
+    "pinyin": "Qian",
+    "name": "謙",
+    "judgementTitle": "錬金",
+    "judgement": "自己を消すことが、坩堝のなかの変成を養う。自分の一部がその過程で消えることを受け入れなければ、何も本当には変わらない。この爻は、謙虚さは受け身の徳ではないと語る。深い変容のための能動的な条件、古いものが溶けて新しいものが形をとるための坩堝である。",
+    "image": "大地の内に山がある――謙遜の象。最も高いものが、周囲に包まれることを許し、高さだけで景色を支配しようとしない。自らを進んで消す偉大さの図形である。ゆえに君子は、多すぎるものを減らし足りないものを増して、物事を等しく量る。謙遜は小ささではなく、見せる必要がないほど自らを確信した力である。"
+   },
+   "16": {
+    "pinyin": "Yu",
+    "name": "豫",
+    "judgementTitle": "勢い",
+    "judgement": "雷が地から出て、体を動かす。命じることのできない、無理強いするまでもなくおのずとほとばしり、引っぱっていく力がある。この爻は、人を集める真の力は決して強制からではなく、誠実な熱意だけが呼び覚ませる共通の震えから来ると教える。",
+    "image": "雷が力強く地から出る――熱狂の象。抑えられていたエネルギーが突然解き放たれ、そのほとばしりが周囲のすべてを動かす。これほどの輝きの前で動かずにいるものはない。強いることなく引っぱっていく、伝わっていく勢いの図形である。ゆえに古の王たちは、音楽と徳によって功を讃えた。よく導かれた熱意は、意志を集めるのに最もやさしく、最も強い力となる。"
+   },
+   "17": {
+    "pinyin": "Sui",
+    "name": "随",
+    "judgementTitle": "深み",
+    "judgement": "時の動きに従うには、降りていって源を掘り直さねばならない。動きそのものを養うものに時折立ち返らなければ、長く従い続けることはできない。この爻は、最も適切な適応とは最も機敏なものではなく、再び出発する前に自らの源に立ち返ることを知るものだと教える。",
+    "image": "沢の中に雷がある――随う象。深みでとどろく動きは、自らの軌道を押し通すのではなく、周囲に身を任せる。沢の輪郭を砕かず、それに沿って進むのである。他者の拍子に合わせる適応の図形である。ゆえに君子は、日暮れには家に帰って休む。随うことは服従ではなく、昼が夜に譲るように、行動が休息に席を譲るべき時を見分けることである。"
+   },
+   "18": {
+    "pinyin": "Gu",
+    "name": "蠱",
+    "judgementTitle": "修復",
+    "judgement": "すり減った遺産の腐敗を正す。長く放置されたものは、ついには骨の折れる仕事を求めるが、その仕事は呪いではなく、より健全な土台の上に建て直す機会である。この爻は、傷んだ遺産は、世話をするのを拒む場合にのみ失われると語る。",
+    "image": "山の下に風がある――腐ったものを正す仕事の象。風は山の裂け目に入り込み、時とともに腐り、正されるのを待っているものを明らかにする。もはや先送りできない、必要な修復の図形である。ゆえに君子は民を奮い立たせ、その徳を養う。腐ったものを前にして大切なのは、過去を断罪することではなく、まだ直せるものを回復するために袖をまくることである。"
+   },
+   "19": {
+    "pinyin": "Lin",
+    "name": "臨",
+    "judgementTitle": "成長",
+    "judgement": "生き生きとした力への好意ある接近が、辛抱強い上昇を促す。偉大なものは一挙に勝ち取られはしない。本当に成長するものはみな、次の接近を準備する接近を重ねて成長する。この爻は、真の成長は跳躍ではなく歩みで測られると教える。",
+    "image": "沢の上に地がある――臨む象。大地は水に身をかがめ、決して完全に支配することなく近づく。徐々に寄り添う、決して荒々しくない動きである。一歩ずつ進む好意の図形である。ゆえに君子は倦むことなく教え、限りなく民を包みこむ。誰かに本当に近づくには、出会いを決して無理強いしない辛抱が要る。"
+   },
+   "20": {
+    "pinyin": "Guan",
+    "name": "観",
+    "judgementTitle": "収斂",
+    "judgement": "塔から遠くを望むことは、散らばっていたものをまとめる。広い視野は注意を散らすのではなく集める。高みに立つことで、近くでは無関係に見えたもののあいだの見えない結びつきが見えてくる。この爻は、理解は常に、正しく行動する力に先立つと語る。",
+    "image": "風が地の上を行く――観る象。風は地のあらゆる隅に触れながら、どこにも長くとどまらない。とどまる所作ではなく、広く見渡す眼差しである。行動に先立つ観察の図形である。ゆえに古の王たちは、各地を巡り、民を観察し、教えを設けた。世界に働きかける前に、まず急がず偏見なく、あるがままに世界を見ることを学ばねばならない。"
+   },
+   "21": {
+    "pinyin": "Shi He",
+    "name": "噬嗑",
+    "judgementTitle": "切断",
+    "judgement": "偽りを断って、正しいものを接ぎ合わせる。迂回できない障害があり、それは明確な決断で貫き、噛み砕き、乗り越えねばならない。この爻は、明晰さが自らを通すために時に厳しさを必要とし、その厳しさは適切に用いられれば暴力ではなく正義であると教える。",
+    "image": "雷と電光が合わさる――噛み合わせの象。衝撃と光が共に打ち、一方が他方の砕いたものを明らかにする。力と明るさのこれほどの結合の下では、何も長くは隠れられない。真実に照らされた断固たる決断の図形である。ゆえに古の王たちは、罰を明らかにし、法を厳しく整えた。正しく断つには、まず正しく見ることが要る。"
+   },
+   "22": {
+    "pinyin": "Bi",
+    "name": "賁",
+    "judgementTitle": "簡素",
+    "judgement": "形の飾りと美しさは、極まれば決断に席を譲る。あらゆる美には有用な限度があり、その点を越えれば飾りは行動の必要の前に退かねばならない。この爻は、形は内容に仕えるものであって逆ではないことを思い出させる。一方が他方を侵すなら、簡素にすることを知らねばならない。",
+    "image": "山の下に火がある――飾りの象。炎は山の腹を照らすが、高さで山に並ぼうとはしない。見せるものを支配せず、敬う装いである。内容に仕える飾りの図形である。ゆえに君子は多くの事を明らかにするが、見かけの光だけで訴えを裁こうとはしない。飾りは明らかにするためにあり、裁くためにあるのではない。"
+   },
+   "23": {
+    "pinyin": "Bo",
+    "name": "剥",
+    "judgementTitle": "変転",
+    "judgement": "古い建物の崩壊は、新しい成長のエネルギーを解き放つ。崩れるものがすべてを道連れにするわけではない。尽きた形の滅びは、あとに来るものに必要な場所とエネルギーを空ける。この爻は、空洞になった構造が崩れ去ることを恐れるなと教える。それは常に刷新に先立つ。",
+    "image": "山が地の上にある――剥ぎ落とす象。最も堅固に見えたもの、山の質量そのものが、実は崩れうる土台に支えられているにすぎない。土台をおろそかにするものを待ち受ける崩壊の図形である。ゆえに上に立つ者は下を厚くして、おのれの住まいを安んじる。より高く建てる前に、支えているものを常に固めねばならない。"
+   },
+   "24": {
+    "pinyin": "Fu",
+    "name": "復",
+    "judgementTitle": "再生",
+    "judgement": "生命の原理は、最も濃い夜の中心に戻ってくる。再び始まる小さな芽がどこかに残っているかぎり、何ものも決定的には失われない。この爻は、最も低い所がすでに芽として復帰の動きを含んでいると語る。光が再び育ち始めるのは、まさに完全な闇のただ中である。",
+    "image": "雷が地の中にある――復の象。冬の最も深くに埋もれた生命の力は消えてはおらず、再び現れる時を、見えぬまま待っている。見かけの静止のなかに隠れた刷新の図形である。ゆえに古の王たちは、冬至に関所を閉ざし、商人も旅人も行き交わなかった。何も急がず、復帰がおのずと成し遂げられるに任せることが、最も大きな所作となる時がある。"
+   },
+   "25": {
+    "pinyin": "Wu Wang",
+    "name": "无妄",
+    "judgementTitle": "ほどけ",
+    "judgement": "作為なく行うことは、障害の結び目をおのずと解く。複雑さはほとんどいつも計算から生まれる。真の素朴さは、立ち向かう前から障害の信管を抜く。この爻は、自然な正直さが、最も巧みな策略がますますもつれさせるものをしばしば解決すると教える。",
+    "image": "天の下を雷が行く――无妄の象。動きは広大な天のもとを、計算も回り道もなく、隠すもののないものの素朴さで進む。まっすぐで自然な、偽りのない行いの図形である。ゆえに古の王たちは、徳に富み時に適って万物を育んだ。无妄とは愚直さではなく、意図と所作の完全な一致である。"
+   },
+   "26": {
+    "pinyin": "Da Chu",
+    "name": "大畜",
+    "judgementTitle": "抑制",
+    "judgement": "力が内にたくわえられ、地形の厳しさに向き合う。内側で目に見えず育つものは、ついに必ず外の抵抗に出会う。そしてこの出会いこそが、たくわえた力を明らかにし、磨く。この爻は、障害は力の敵ではなく、必要な試練だと語る。",
+    "image": "天の中に山がある――大いに蓄える象。大きな力が抑えられてとどまり、大きさでは及ばないがそれを制することのできるものに引き止められている。規律を受け入れる大きな力の図形である。ゆえに君子は、古人の言葉と行いを多く記憶に蓄える。真の偉大さは、繰り広げるものだけでなく、抑えることを受け入れるものによって証される。"
+   },
+   "27": {
+    "pinyin": "Yi",
+    "name": "頤",
+    "judgementTitle": "見分け",
+    "judgement": "精神を養うものは、見方を分かつものに対立する。養いはどれも同じように高めるわけではない。ある言葉やある考えは力づけ、別のものは散らして弱める。この爻は、体を養うものを選ぶのと同じ注意で、精神を養うものを選ぶよう促す。",
+    "image": "山の下に雷がある――頤の象。動きは、動かない顔の下で顎が動くように、安定したものの足元で揺れ動く。最大の安定さえ、下で養われるものに依存していることの想起である。ゆえに君子は言葉を慎み、飲食を節する。口からであれ言葉からであれ、私たちのうちに入るものが、私たちがなるものを形づくる。"
+   },
+   "28": {
+    "pinyin": "Da Guo",
+    "name": "大過",
+    "judgementTitle": "構造",
+    "judgement": "自らの重みでたわむ棟木。能力の極限まで押された構造は、そのたわみ自体で、折れるか荷を下ろされるかしなければならない時を告げる。この爻は、破断が起こる前にその前兆を見分けることを教える。",
+    "image": "沢が木を沈める――大いに過ぎる象。水が、本来それを収めるべきものを越えて高まる。支える構造には重すぎる荷が、自らの重みで崩れかけている。極限の重荷の図形である。ゆえに君子は、独り立って恐れず、世を離れても憂えない。いかなる支えも担えない荷がのしかかる時があり、そのときにありうる唯一の尊厳は、嘆かずにそれに向き合うことである。"
+   },
+   "29": {
+    "pinyin": "Kan",
+    "name": "坎",
+    "judgementTitle": "試練",
+    "judgement": "測りきれない水の中を進む。ある深みは、前もって完全に測ることができない。手持ちの手段でそこを動くことを学ぶほかなく、完全に支配できると思ってはならない。この爻は、危険を前にした真の力量は、それを除くことではなく、そこで泳ぐことを学ぶことだと語る。",
+    "image": "水が重なって至る――重なる険の象。危険は波また波と繰り返し、完全な休みを与えない。しかし水そのものは、絶えず動くなかで常に自らの水準を見いだす。恒常さを鍛える、繰り返される試練の図形である。ゆえに君子は常に徳を行い、事を教える。戻ってくる危険を前にしては、繰り返される実践だけが熟達を築く。"
+   },
+   "30": {
+    "pinyin": "Li",
+    "name": "離",
+    "judgementTitle": "輝き",
+    "judgement": "火の明るさは、その輝きを広げるために、生きているものに付く。何も虚空で輝きはしない。あらゆる真の明るさは、広がるための拠りどころ、結びつく物質を必要とする。この爻は、完全な独立は理想ではないと教える。最も純粋な光でさえ、照らすものを必要とする。",
+    "image": "明が重なる――離の象、付く火。光は決して独りでは輝かない。炎が薪を必要とするように、輝き続けるためにしがみつくものを必要とする。支えに依存する輝きの図形である。ゆえに大人は、絶えざる輝きによって四方を照らす。持続して輝くには、自らの光を養うものに結びついていなければならない。"
+   },
+   "31": {
+    "pinyin": "Xian",
+    "name": "咸",
+    "judgementTitle": "共鳴",
+    "judgement": "互いに及ぼし合う、ほとんど感じ取れない微かな心の動き。存在どうしの最も深い絆は、しばしば一言も発せられる前に、分かち合う感受というこの控えめな領域で結ばれる。この爻は、最も長続きする影響は決して騒がしく押しつけるものではなく、互いに開かれた二つの存在のあいだに、ほとんど気づかれずに滑り込むものだと語る。",
+    "image": "山の上に沢がある――咸の象。水は高みの上に休み、無理をせずにそこに身を寄せる。この互いの受容性が、影響が両者のあいだを巡ることを可能にする。言葉が介入する前の、分かち合われる感受性の図形である。ゆえに君子は、おのれの内を虚しくして人を受け入れる。影響を与えることは、常に、触れられるままになれることから始まる。"
+   },
+   "32": {
+    "pinyin": "Heng",
+    "name": "恒",
+    "judgementTitle": "持続",
+    "judgement": "時間における恒常さは、後退の試練をくぐり抜ける。本当に続くものとは、あらゆる変化を拒むものではなく、必要なときにしばらく退いても自らの方向を失わないものである。この爻は、真の持続は自らの休止をも含むと教える。",
+    "image": "雷と風――恒の象。本性の異なる二つの動きがここで矛盾なく結びつき、互いに支え合って共通の恒常さを保つ。すり減らない粘り強さの図形である。ゆえに君子は立って方向を変えない。続けるとは動かないものに抵抗することではなく、自らを裏切らずに無限に繰り返せる動きを見いだすことである。"
+   },
+   "33": {
+    "pinyin": "Dun",
+    "name": "遯",
+    "judgementTitle": "持続",
+    "judgement": "持続は、よりよく続くために身を引くことを知ることで確かめられる。逆説的だが、最も長く続くものは、しかるべき時に舞台から退くことを知っていたものであることが多い。この爻は、戦略的な退却は連続を断つのではなく、それを守ると教える。",
+    "image": "天の下に山がある――遯の象。天は山から少しずつ遠ざかり、敵意なくただ自らの動きを守る必要から距離をとる。恥ずべき逃走ではなく、品位ある退きの図形である。ゆえに君子は小人を遠ざける。憎しみからではなく、品位ゆえに。時宜を得て退くことは弱さではなく、とどまることが去ることより高くつく瞬間を見分ける者の知恵である。"
+   },
+   "34": {
+    "pinyin": "Da Zhuang",
+    "name": "大壮",
+    "judgementTitle": "共鳴",
+    "judgement": "影響は増幅して、もはや抑えられない力になる。単なる共鳴として始まったものが、何も枠をはめなければ、あらゆる制御を逃れるまでに育つこともある。この爻は、規律なき力は、遅かれ早かれ、それを繰り広げる者に跳ね返ると戒める。",
+    "image": "雷が天の上にある――大いに壮んな象。相当な力が最も高みに立ち、誰の目にも見え、行く手のものを揺るがしうる。頂点にある力の図形であり、すべてを押し流しうるがゆえに、自らを制することを学ばねばならない。ゆえに君子は礼にかなわない道を歩まない。ほどよい節度を欠いた大きな力は、自らの破滅となる。"
+   },
+   "35": {
+    "pinyin": "Jin",
+    "name": "晋",
+    "judgementTitle": "輝き",
+    "judgement": "輝きは太陽のように、正午の承認へと昇る。あらゆる真の上昇は、天頂へ一足飛びに跳ばない太陽のように、自らの拍子に従う。この爻は、ふさわしい承認は常に時をえて訪れ、早すぎも遅すぎもしないと語る。",
+    "image": "日が地の上に昇る――進む象。光は一度の急な跳躍もなく、段階を重ねて領域を広げていく。確かで自然な上昇の動きである。ふさわしい前進の図形である。ゆえに君子は、おのずからその明らかな徳を輝かせる。真の進歩は求めるものではなく、夜明けまで辛抱できる者に、おのずから現れる。"
+   },
+   "36": {
+    "pinyin": "Ming Yi",
+    "name": "明夷",
+    "judgementTitle": "試練",
+    "judgement": "意図的に覆われた光のもとを進む。自分の明るさを消すのではなく、状況がその全き輝きを危うくするとき、それを抑えることを知るのである。この爻は、まだ誰にも見えなくても正しく行い続ける者の規律を教える。",
+    "image": "光が地の中に沈む――明が傷つく象。輝くべきものが埋もれ、壊されずに存在し続けるために自らの輝きを覆うことを強いられる。生き延びるために、しばらく身を隠さねばならない明るさの図形である。ゆえに君子は、明を隠しながらも醒めたまま、衆に臨む。全き光を示すことが誤りとなる時代があり、そのとき知恵とは、静かに正しくあり続けることである。"
+   },
+   "37": {
+    "pinyin": "Jia Ren",
+    "name": "家人",
+    "judgementTitle": "構造",
+    "judgement": "家族という細胞の秩序だった厳格さ。最も内奥の細胞、家庭が自らも整い正しくなければ、より広い構造は成り立たない。この爻は、世界の秩序は常に家の秩序から始まると語る。",
+    "image": "火から風が生まれる――家人の象。内なる熱は外へ広がる動きを生む。家庭で始まったものは、必ず外にまで輝き出る。世界を形づくる家庭の影響の図形である。ゆえに君子は、言葉を実質に、行いを恒常さに根ざす。家の内輪で生きられたものは、遅かれ早かれ、どこへ行っても携えるものとなる。"
+   },
+   "38": {
+    "pinyin": "Kui",
+    "name": "睽",
+    "judgementTitle": "見分け",
+    "judgement": "高める言葉と隔てる言葉のあいだで、選り分けが行われる。あらゆる食い違いが断絶なのではない。ある対立はよく理解されれば、思考を砕くのでなく磨く。この爻は、実りある不一致と不毛な争いを見分けることを教える。",
+    "image": "上に火、下に沢――睽く象。火は昇り、水は降りる。互いに並び、混ざり合うことなく、それぞれ自らの向きに忠実な二つの本性。全き断絶なしに引き受けられた違いの図形である。ゆえに君子は、同じなかに違いを見分ける。対立を認めることはそれを壊す義務を負わせず、自分に反するものを消そうとせずに共に在ることができる。"
+   },
+   "39": {
+    "pinyin": "Jian",
+    "name": "蹇",
+    "judgementTitle": "抑制",
+    "judgement": "辛抱は、それ自体が地形に対する盾となる。正面から越えられないものを前にして、辛抱はあきらめではなく能動的な守りである。通り道が開く瞬間のために力を保つ。この爻は、あらゆる障害が、陰画としてふさわしい迂回の示唆を含むと語る。",
+    "image": "山の上に水がある――蹇の象。水は坂に出会い、まっすぐには進めない。迂回し、別の道を探し、本来の流れを緩めなければならない。迂回を強いる困難の図形である。ゆえに君子は自らを省みて徳を修める。外の障害は、無理に押し通せないとき、自分のうちでまだ育つものを磨く機会となる。"
+   },
+   "40": {
+    "pinyin": "Jie",
+    "name": "解",
+    "judgementTitle": "ほどけ",
+    "judgement": "障害の結び目はほどけ、通り道が開く。もつれきって見えたものも、時とともに、しかるべき時にゆるめられたほどよい張りによって、ついにおのずからほどける。この爻は、解放が力によって訪れることはまれで、圧力がついにふさわしい出口を見いだしたときに来ると教える。",
+    "image": "雷と雨が起こる――解の象。空気にたまっていた張りがついに解き放たれ、嵐が起こって通るものを清める。壊すのではなく鎮める解決である。強制ののちの安らぎの図形である。ゆえに君子は過ちを赦し、罪をゆるやかに扱う。真の解放は自分で終わらず、なお過ちにとらわれたままにしておけるかもしれない人々にまで及ぶ。"
+   },
+   "41": {
+    "pinyin": "Sun",
+    "name": "損",
+    "judgementTitle": "放棄",
+    "judgement": "中心に戻るには、邪魔になっていたものを失うことに同意せねばならない。時とともに余計と分かったものを手放すことを受け入れて初めて、本質に戻る。この爻は、あらゆる喪失が貧しくなることではなく、ある減少は本当に大切なものへ帰る条件そのものだと語る。",
+    "image": "山の下に沢がある――損の象。下の水は高みへ蒸発し、その上にそびえるものを養うために貧しくなるように見える。しかしその損は、実はより大きな均衡に役立つ。自分より大きな全体のためになる放棄の図形である。ゆえに君子は怒りを懲らし、欲を塞ぐ。自分のうちの余分を減らすことは、しばしば別の何かが育つための条件となる。"
+   },
+   "42": {
+    "pinyin": "Yi",
+    "name": "益",
+    "judgementTitle": "変転",
+    "judgement": "新しい成長のエネルギーが解き放たれる。本当に育つものは決して独りで育たない。真の成長は、それを担う者より広い範囲に益するエネルギーを放つ。この爻は、真の増しは蓄えるものではなく分かち合うもので見分けられると教える。",
+    "image": "風と雷――益の象。二つの力が互いを強め合い、風が雷を増幅し、雷が風に十分な力を与える。孤立ではなく出会いから養われる成長である。ゆえに君子は善を見ればそちらへ移り、過ちがあればそれを改める。真の増しは蓄えることに尽きず、自らを正し、共に育つことにある。"
+   },
+   "43": {
+    "pinyin": "Guai",
+    "name": "夬",
+    "judgementTitle": "簡素",
+    "judgement": "余計なものをすっぱりと断つ決断。ためらうこと自体が、決断の鋭さより危うくなる時が来る。この爻は、真の突破とはすべてを壊すことではなく、過剰さによって全体を脅かしていたものだけを取り除くことだと語る。",
+    "image": "沢が天の上に昇る――夬の象。水は本来それを収めるべきものより高く運ばれ、あふれそうになる。明確で後戻りのない決断を求める極度の張りである。もはや待てない決意の図形である。ゆえに君子は、おのれの徳にのみ安んじず、恵みを下にまで施す。力強く断つことには、その決断が及ぶ人々への寛大さが常に伴わねばならない。"
+   },
+   "44": {
+    "pinyin": "Gou",
+    "name": "姤",
+    "judgementTitle": "切断",
+    "judgement": "思いがけない出会いは、結びつきとともに危険にもさらす。予告なく現れるものはみな曖昧さをはらむ。絆の約束か危険の芽か、最初から知ることはできない。この爻は、出会いの瞬間に働く、疑いではなく見分けとしての用心を教える。",
+    "image": "天の下に風がある――姤の象。風は呼ばれもせずに空間を駆け、通りすがりのものすべてに触れる。計画されるのではなく押しかけてくる出会いである。見分けをもって迎えねばならない予期せぬものの図形である。ゆえに君主は命令を発して四方に告げる。招かれずに出会いに来るものは、受け入れるか退けるかする前に、吟味するに値する。"
+   },
+   "45": {
+    "pinyin": "Cui",
+    "name": "萃",
+    "judgementTitle": "収斂",
+    "judgement": "観ることは、すでに静かな集まりである。身体が集まる前から、同じ眼差しを分かち合う心は、ある意味ですでに集まっている。この爻は、真の結合は常に見えないところで始まり、見えるようになるずっと前にあると語る。",
+    "image": "沢が地の上に昇る――萃の象。水は集まって共有の広がりをなし、散らばっていれば力も顔も持たなかったものを一つの場所に集める。多なるものに実質を与える収斂の図形である。ゆえに君子は武器を整えて不測に備える。集めるだけでは足りず、集めたものを守る備えも要る。"
+   },
+   "46": {
+    "pinyin": "Sheng",
+    "name": "升",
+    "judgementTitle": "成長",
+    "judgement": "近づくことと育つことは、一つの垂直の動きである。目標に近づくことと目標へ向かって育つことのあいだに真の隔たりはない。二つの動きは一つであり、伸びる茎がすでに芽のうちに将来の木であるのと同じである。この爻は、今ここの小さな所作と未来の大きな成果の連続を教える。",
+    "image": "地の中に木が育つ――昇る象。種は表面の下に見えぬまま、段階を飛ばさず辛抱強く光に向かって伸びる。ゆっくりだが確実な成長である。恒常さによって得られた上昇の図形である。ゆえに君子は徳に従い、小さなものを積んで高く大きなものに至る。本当に育つものは何も段階を飛ばさず、すべてが層を重ねて築かれる。"
+   },
+   "47": {
+    "pinyin": "Kun",
+    "name": "困",
+    "judgementTitle": "修復",
+    "judgement": "まず欠けることに同意しなければ、何も回復しない。まず欠乏を現実に経験することなしに、真の再生はない。この爻は、困窮はよく通り抜ければ、ただ耐える試練ではなく、豊かさの帰還を備える浄めでもあると語る。",
+    "image": "沢に水がない――困の象。養い支えるはずのものが干上がり、豊かさを期待した所に、はっきりした欠乏が残る。通り抜ける者の本当の性質を試す、疲弊の図形である。ゆえに君子は命をかけて志を遂げる。欠乏のなかでこそ、本当に何を大切にしているかが現れ、そのために一切を賭ける覚悟ができる。"
+   },
+   "48": {
+    "pinyin": "Jing",
+    "name": "井",
+    "judgementTitle": "深み",
+    "judgement": "底から汲んだものだけが、よく従える。表面にとどまる者には、いかなる資源も益しない。井戸が中のものを差し出すには、降り、探し、本当に汲まねばならない。この爻は、深みこそ有用性の条件そのものだと教える。",
+    "image": "木の上に水がある――井の象。水は汲みに来るすべての人に開かれ、桶をふさわしい所に降ろしさえすれば尽きることがない。使っても本当には涸れない共有の資源である。残りつづける共有財の図形である。ゆえに君子は民をねぎらい、助け合いを勧める。共同体を本当に養うものは誰の私有でもなく、汲むことを知る人々の手を通り過ぎるだけである。"
+   },
+   "49": {
+    "pinyin": "Ge",
+    "name": "革",
+    "judgementTitle": "勢い",
+    "judgement": "沢の下の火が、古い皮膚を溶かす。深い変化はいずれも、まず古い形が溶けることを求める。その移行の時がどれほど居心地悪くても。この爻は、最も正しい革命は決してただではなく、古い形がもはや収めきれなくなった必然に応えるものだと語る。",
+    "image": "沢の中に火がある――革の象。炎は水面の下で燃える。一方が他方を変えずには共存できない二つの本性であり、その衝突は必ず状態の変化に至る。ゆえに君子は暦を整えて、時を明らかにする。真の革命は壊すために壊すのではなく、古い時が混沌のまま残したものを秩序づけ直す。"
+   },
+   "50": {
+    "pinyin": "Ding",
+    "name": "鼎",
+    "judgementTitle": "錬金",
+    "judgement": "最も目立たぬ形こそ、本質を最もよく受けとめる。器の価値を定めるのは外側の輝きではなく、受け取ったものを保ち、変える力である。この爻は、真の価値はしばしば、見かけ上最も慎ましいもののなかに宿ると教える。",
+    "image": "木の上に火がある――鼎の象。炎は生の素材を、滋養のある、洗練された、使えるものに変える。自らは焼け尽きることなく、変成を内に収める器である。壊すことなく磨く文化の図形である。ゆえに君子は位を正して命を定める。鼎が受けたものに形を与えるように、人はそこに何を煮るかを選ぶことで、自分の運命を形づくる。"
+   },
+   "51": {
+    "pinyin": "Zhen",
+    "name": "震",
+    "judgementTitle": "奮起",
+    "judgement": "衝撃のあとに立っているものこそ、本当に所有していたものである。衝撃は何も創らず、明らかにする。最初の揺れで崩れるものは、見かけほど堅固だったことはない。この爻は、試練とはある意味で常に、真実を現す現像液であると語る。",
+    "image": "雷が重なる――震の象。衝撃は二度打ち、一方が他方を繰り返す。そのような揺れののちに立っているものが、ついに真の堅固さを示す。本当に根づいたものを壊さずに試す、試練の図形である。ゆえに君子は恐れおののきつつ、自らの行いを修め省みる。外からの衝撃は、どれほど荒々しくても、内省の益ある機会となりうる。"
+   },
+   "52": {
+    "pinyin": "Gen",
+    "name": "艮",
+    "judgementTitle": "安定",
+    "judgement": "動きが止まるのは、本質が見えるためである。絶えざる騒がしさに覆われたものは、静止のなかでこそ、ようやく見えるようになる。この爻は、止まることを知るのは行動をあきらめることではなく、本当にどこで行うべきかを見る手立てを自分に与えることだと教える。",
+    "image": "山が重なる――艮の象。二つの安定した塊が重なり、一方が他方の不動を強める。麻痺ではなく土台としての静止である。明晰を可能にする休息の図形である。ゆえに君子は、思いをおのれの位から出させない。ふさわしい所で止まり、今の務めを越えて心をさまよわせないことが、あらゆる正しい見方の条件である。"
+   },
+   "53": {
+    "pinyin": "Jian",
+    "name": "漸",
+    "judgementTitle": "遅滞",
+    "judgement": "根、幹、枝――一歩ずつ軸を立て直す。真の成長は段階を飛ばさない。各段階が次を準備し、その順序は何ものも、すべてを損なわずには覆せない。この爻は、段階的な成長の辛抱はそれ自体が一つの強さだと語る。",
+    "image": "山の上に木がある――漸の象。木は根ごとに、年輪ごとに、成長の一段階も飛ばすことなくゆっくりと育つ。材そのものに刻まれた辛抱である。ゆえに君子は賢い徳にとどまり、風俗を善くする。坂に立つ木のように、真の成長は日ではなく年で測られる。"
+   },
+   "54": {
+    "pinyin": "Gui Mei",
+    "name": "帰妹",
+    "judgementTitle": "同盟",
+    "judgement": "結ばれた縁は、不揃いな二つの秩序を一つの織り目に引き入れる。どの縁も完全な対等のなかで生まれるわけではない。均衡を欠いて始まり、時とともに自らの公正を見いださねばならないものもある。この爻は、時を重ねる誠実さが、初めの条件が公正にしなかったものを償いうると教える。",
+    "image": "上に雷、下に沢――帰妹の象。上の動きが、下に休むものを、両者が必ずしも対等に選んだわけではない縁へ引き入れる。初めの不均衡にもかかわらず結ぶ絆である。ゆえに君子は、続くものに心を配り、この縁を損なうものを見分ける。あらゆる同盟は、初めだけで裁かれるのではなく、その持続のなかで吟味されるに値する。"
+   },
+   "55": {
+    "pinyin": "Feng",
+    "name": "豊",
+    "judgementTitle": "充満",
+    "judgement": "光がもはや影を落とさない、真昼の刻。あらゆる充満の頂には、何ひとつ隠れていない瞬間があるが、その瞬間は本性上、その後には衰えるほかない。この爻は、豊かさを、それが自らの限界をはらむことを忘れずに味わうことを教える。",
+    "image": "雷と電光が共に至る――豊の象。動きと光が同時に最大限に展開する。まれで、必ず束の間の、全き充満の瞬間である。決して永遠には続かない頂点の図形である。ゆえに君子は訴えを裁き、刑を施す。豊かさの頂では、判断の明晰さがかつてなく必要になる。すべてが傾きうるのもまたそこだからである。"
+   },
+   "56": {
+    "pinyin": "Lu",
+    "name": "旅",
+    "judgementTitle": "さすらい",
+    "judgement": "火も場所もなく、衣が家の代わりをする。住まいが欠けるとき、衣、姿勢、振る舞いがそれに代わらねばならない。もはや場所ではなくあり方に拠る品位である。この爻は、最も堅固な自己とは、外のいかなる拠りどころにも依らず、自らと共に携えるものだと語る。",
+    "image": "山の上に火がある――旅の象。炎は斜面に沿って移り、どこにもとどまらず、一か所に根づくことなく、出会うものを燃やしていく。火も定まった場所も持たない者の図形である。ゆえに君子は、刑を明らかに慎んで施し、訴えを長引かせない。永続的な拠りどころがないとき、道で自分を見失わないために、ますます厳しさが要る。"
+   },
+   "57": {
+    "pinyin": "Xun",
+    "name": "巽",
+    "judgementTitle": "織り",
+    "judgement": "風は、緯糸のように、音もなくどこへでも入り込む。最も控えめな力は、時に最も効果的である。力として名乗り出ないがゆえに、正面からの抵抗に出会わない。この爻は、絶え間ない静かな影響の力を教える。",
+    "image": "風が相次ぐ――巽が重なる象。風は吹き、また吹き、打つことなく執拗である。力ではなく反復によって浸み込む影響である。ゆえに君子は命令を広め、事を行う。一度には押しつけられないものは、辛抱強い執拗さのやさしい恒常さによって、しばしば根づいていく。"
+   },
+   "58": {
+    "pinyin": "Dui",
+    "name": "兌",
+    "judgementTitle": "歩調",
+    "judgement": "集め、共有にする沢の明るさ。強制なく、差し出すものの自然な引力だけで集めるものが、最も長続きする絆をつくる。この爻は、真の共同体は、それが形づくられる軽やかさで見分けられると語る。",
+    "image": "沢が連なる――兌が重なる象。二つの水面が通じ合い、互いを養い、近くにあるだけで互いの喜びを増幅する。割るのではなく増やす分かち合いの図形である。ゆえに君子は友と語り合い、習う。真の喜びは、連なる沢の水のように、分かち合って尽きることはなく、むしろそれによって強まる。"
+   },
+   "59": {
+    "pinyin": "Huan",
+    "name": "渙",
+    "judgementTitle": "ほどけ",
+    "judgement": "向かい合っていたものが散り、再び流れる。最も固い閉塞も、時とふさわしい動きとともに、おのずと散ってゆく。この爻は、溶解は喪失ではなく、あらゆる新しい形に先立つ、流動する状態への回帰だと教える。",
+    "image": "風が水の上を行く――渙の象。風は水面を乱し、固まっていたものを散らし、氷を流れる動きに砕く。壊すのではなく解き放つ溶解である。ゆえに古の王たちは、上帝に供え、廟を建てた。存在を隔てていたものが溶けはじめるときこそ、共通の絆、分かち合う中心を建て直す時である。"
+   },
+   "60": {
+    "pinyin": "Jie",
+    "name": "節",
+    "judgementTitle": "構え",
+    "judgement": "竹が節を置くのは、樹液が散らないためである。区切りがなければ、成長そのものが方向なく散って力を失う。この爻は、ほどよく置かれた制限は生の妨げではなく、その活力の条件だと語る。",
+    "image": "沢の上に水がある――節の象。沢の水は岸に抑えられており、まさにその限りがあるからこそ、形のない沼に散らず、沢として存在できる。窒息させず、形づくる制約の図形である。ゆえに君子は数と度を定め、徳と行いを論じる。ほどよく選ばれた制限こそが、自分自身も含め、あらゆるものに形を与える。"
+   },
+   "61": {
+    "pinyin": "Zhong Fu",
+    "name": "中孚",
+    "judgementTitle": "学び",
+    "judgement": "心の空なる中心が、信が宿る場となる。心が自らのうちに閉じず、開かれた空間が残っているからこそ、真の信がそこに据わる。この爻は、最も深い誠実さは、閉じた確信ではなく、迎え入れる空虚から生まれると教える。",
+    "image": "沢の上に風がある――中孚の象。風は水面に触れて、その中心まで震わせる。外から来て、最も深い内にまで届く共鳴である。飾りなく伝わる誠の図形である。ゆえに君子は訴えを審議し、死刑を猶予する。内なる真実は、本質に触れることを決する前に、必要な時間をかけることを求める。"
+   },
+   "62": {
+    "pinyin": "Xiao Guo",
+    "name": "小過",
+    "judgementTitle": "萌芽",
+    "judgement": "小さな爻が枠からあふれる。細部、慎重な所作だけがなお働きうる時がある。そのとき大きな行動を望むのは判断の誤りである。この爻は、ある状況では、正しさはまさに引き受けられた小ささのなかにあると語る。",
+    "image": "山の上に雷がある――小さく過ぎる象。動きは頂で揺れ動くが、それを担う塊に抑えられ、エネルギーは激しくとも規模は控えめにとどまらざるをえない。ゆえに君子は、行いでは敬に過ぎ、喪では哀に過ぎ、用いるものでは倹に過ぎる。状況が慎みを求めるときは、野心の過剰より、謙遜の過剰のほうに誤るがよい。"
+   },
+   "63": {
+    "pinyin": "Ji Ji",
+    "name": "既済",
+    "judgementTitle": "礎",
+    "judgement": "縫い目は閉じ、結び目は結ばれた。完成したものは常に、それを再びほどくものの芽を内に持つ。仕上がったものは永遠に仕上がったままではない。この爻は、真の成就は自らの脆さの自覚を含むと教える。",
+    "image": "水が火の上にある――既済の象。それぞれの要素がちょうど自らの位置にあり、水は火を完全には消さずに制している。あまりに完全な均衡のため、すでに芽として将来の不均衡を呼んでいる。ゆえに君子は禍を思って、あらかじめ防ぐ。最も完全な成就も決して最終の到達点ではなく、警戒を倍にすべき、まさにその時である。"
+   },
+   "64": {
+    "pinyin": "Wei Ji",
+    "name": "未済",
+    "judgementTitle": "発端",
+    "judgement": "通り道は開いているが、織物はまだ織られていない。まだ何も成し遂げられていないが、不可能なものもない。辛抱強くこれから築かれるべきものに向けて、扉は開いたままである。この爻は、未完は失敗ではなく、これから来るすべてのものの条件、六十四の図形の全環が絶えず再び出発する点だと語る。",
+    "image": "火が水の上にある――未済の象。それぞれの要素が、全き出会いを可能にする位置とは逆の位置にある。火は、上へ逃げる水を温められない。来るべき秩序にまだ先立つ、混沌の図形である。ゆえに君子は、ものを慎んで見分け、それぞれをふさわしい所に置く。すべてが正しい位置を見いだす前に、まず今の無秩序の明晰さを受け入れねばならない。生まれてくる秩序に絶望することなく。"
+   }
+  },
+  "lineComments": {
+   "1": {
+    "0": "地の底で、虚が閉じる。まだ開きにすぎなかったものが満ち始める。",
+    "1": "地の底で、実が動く。図形全体を支えていた陽の兆しが、座を譲ることを受け入れる。"
+   },
+   "2": {
+    "0": "受け入れる地はその極みに達する。図形の下半を支えていた静かな受容が、いまや立ち現れようとしている。",
+    "1": "固まった地は限りに触れる。建物を支えていた堅固さが、性質を変えようとしている。"
+   },
+   "3": {
+    "0": "地と人の境で、柔らかさが力を帯びる。本性として譲っていたものが、固くなろうとしている。",
+    "1": "地と人の境で、力がぐらつく。堅さによって働いていたものが、反転する前にためらう。"
+   },
+   "4": {
+    "0": "人が聞くところで、うつろが満ちる。受け入れていた開かれた心が、まもなく主張を始める。",
+    "1": "人が行うところで、実が限りを見いだす。図形を導いていた働きかけが、自らの内に折れ返る。"
+   },
+   "5": {
+    "0": "賢者の座で、虚が満ちる。静かに治めていた柔らかさが、新たな力を帯びる。",
+    "1": "賢者の座で、実が空になる。図形を中心から治めていた力が、逆転しようとしている。"
+   },
+   "6": {
+    "0": "頂で、虚はその極みに達して閉じる。最も極端な開きが、その反対へと傾く。",
+    "1": "頂で、実は歩みを終えて砕ける。頂点に立ったものは、反転せずにはこれ以上進めない。"
+   }
+  },
+  "trigrams": [
+   {
+    "name": "坤",
+    "symbol": "☷",
+    "nature": "受け入れるもの",
+    "image": "地",
+    "role": "母"
+   },
+   {
+    "name": "震",
+    "symbol": "☳",
+    "nature": "奮い起こすもの",
+    "image": "雷",
+    "role": "長男"
+   },
+   {
+    "name": "坎",
+    "symbol": "☵",
+    "nature": "底知れぬもの",
+    "image": "水",
+    "role": "中男"
+   },
+   {
+    "name": "兌",
+    "symbol": "☱",
+    "nature": "喜ばしいもの",
+    "image": "沢",
+    "role": "少女"
+   },
+   {
+    "name": "艮",
+    "symbol": "☶",
+    "nature": "止まるもの",
+    "image": "山",
+    "role": "少男"
+   },
+   {
+    "name": "離",
+    "symbol": "☲",
+    "nature": "付くもの",
+    "image": "火",
+    "role": "中女"
+   },
+   {
+    "name": "巽",
+    "symbol": "☴",
+    "nature": "柔らかなもの",
+    "image": "風",
+    "role": "長女"
+   },
+   {
+    "name": "乾",
+    "symbol": "☰",
+    "nature": "創造するもの",
+    "image": "天",
+    "role": "父"
    }
   ]
  }

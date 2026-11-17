@@ -147,7 +147,7 @@ const LANGUES = {
     lecteur: { titre: "पुस्तक — दर्शक", titreDoc: "La Livrée d'Hermès — पुस्तक", pageLabel: "पृष्ठ {code} — {i} / {n}", alt: "पृष्ठ {code}", allerA: "पृष्ठ पर जाएँ", exemple: "उदा. 042", voir: "देखें", aideClavier: "← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें", aideTactile: "पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें", prec: "पिछला पृष्ठ", suiv: "अगला पृष्ठ", pdf: "PDF डाउनलोड करें", langues: "पुस्तक की भाषा", repliPage: "इस संस्करण में पृष्ठ {code} नहीं है: निकटतम पृष्ठ {proche} दिखाया गया है।" },
   },
   de: {
-    nom: 'Deutsch', autres: 'Andere Sprachen:', hreflang: 'de', drapeau: '🇩🇪', titreLivre: 'Die Livree des Hermes',
+    nom: 'Deutsch', autres: 'Andere Sprachen:', hexagrammes: true, hreflang: 'de', drapeau: '🇩🇪', titreLivre: 'Die Livree des Hermes',
     pages: { livre: 'de/book/', accueil: 'de/', lexique: 'de/lexicon/', travaux: 'de/works/', outils: 'de/tools/', soutien: 'de/support/' },
     accueil: { lire: 'Online lesen', pdfPropre: 'PDF auf Deutsch ({mo} MB)', pdfAnglais: 'PDF auf Englisch ({mo} MB)', carte: 'Die Abhandlung', pret: "Das Buch <i>La Livrée d'Hermès</i> auf Deutsch: online Seite für Seite lesen, mit kostenlosem PDF. Auch in anderen Sprachen verfügbar.", preparation: "Das Buch <i>La Livrée d'Hermès</i>: online Seite für Seite lesen, mit kostenlosem PDF in anderen Sprachen. Die deutsche Ausgabe ist in Vorbereitung." },
     edition: { titre: 'Deutsche Ausgabe', lire: "Lesen Sie La Livrée d'Hermès online, Seite für Seite, mit kostenlosem PDF-Download.", preparation: 'Die deutsche Ausgabe ist in Vorbereitung. Bis dahin kann das Buch online in anderen Sprachen gelesen werden, mit kostenlosem PDF-Download.', boutonLire: 'Das Buch online lesen →', boutonPdf: 'PDF öffnen (DE)' },
@@ -155,7 +155,7 @@ const LANGUES = {
     lecteur: { titre: "Das Buch — Leseansicht", titreDoc: "La Livrée d'Hermès — Das Buch", pageLabel: "Seite {code} — {i} / {n}", alt: "Seite {code}", allerA: "Gehe zu", exemple: "z. B. 042", voir: "Anzeigen", aideClavier: "← → zum Blättern · Seite anklicken zum Vergrößern", aideTactile: "Nach links/rechts wischen zum Blättern · Seite antippen zum Vergrößern", prec: "Vorherige Seite", suiv: "Nächste Seite", pdf: "PDF öffnen", langues: "Sprache des Buches", repliPage: "Seite {code} gibt es in dieser Ausgabe nicht: angezeigt wird die nächstliegende Seite {proche}." },
   },
   it: {
-    nom: 'Italiano', autres: 'Altre lingue:', hreflang: 'it', drapeau: '🇮🇹', titreLivre: 'La Livrea di Ermes',
+    nom: 'Italiano', autres: 'Altre lingue:', hexagrammes: true, hreflang: 'it', drapeau: '🇮🇹', titreLivre: 'La Livrea di Ermes',
     pages: { livre: 'it/book/', accueil: 'it/', lexique: 'it/lexicon/', travaux: 'it/works/', outils: 'it/tools/', soutien: 'it/support/' },
     accueil: { lire: 'Leggi online', pdfPropre: 'PDF in italiano ({mo} MB)', pdfAnglais: 'PDF in inglese ({mo} MB)', carte: 'Il trattato', pret: "Il libro <i>La Livrée d'Hermès</i> in italiano: lettura online, pagina per pagina, e PDF gratuito. Disponibile anche in altre lingue.", preparation: "Il libro <i>La Livrée d'Hermès</i>: lettura online, pagina per pagina, e PDF gratuito in altre lingue. L'edizione italiana è in preparazione." },
     edition: { titre: 'Edizione italiana', lire: "Leggi La Livrée d'Hermès online, pagina per pagina, con download gratuito del PDF.", preparation: "L'edizione italiana è in preparazione. Nel frattempo il libro si può leggere online in altre lingue, con download gratuito del PDF.", boutonLire: 'Leggi il libro online →', boutonPdf: 'Apri il PDF (IT)' },
@@ -163,7 +163,7 @@ const LANGUES = {
     lecteur: { titre: "Il libro — visualizzatore", titreDoc: "La Livrée d'Hermès — Il libro", pageLabel: "Pagina {code} — {i} / {n}", alt: "Pagina {code}", allerA: "Vai a", exemple: "es. 042", voir: "Vai", aideClavier: "← → per cambiare pagina · clicca sulla pagina per ingrandire", aideTactile: "Scorri a sinistra/destra per cambiare pagina · tocca la pagina per ingrandire", prec: "Pagina precedente", suiv: "Pagina successiva", pdf: "Apri il PDF", langues: "Lingua del libro", repliPage: "La pagina {code} non esiste in questa edizione: mostrata la pagina {proche}, la più vicina." },
   },
   ja: {
-    nom: '日本語', autres: '他の言語：', hreflang: 'ja', drapeau: '🇯🇵', titreLivre: 'ヘルメスの制服',
+    nom: '日本語', autres: '他の言語：', hexagrammes: true, hreflang: 'ja', drapeau: '🇯🇵', titreLivre: 'ヘルメスの制服',
     pages: { livre: 'ja/book/', accueil: 'ja/', lexique: 'ja/lexicon/', travaux: 'ja/works/', outils: 'ja/tools/', soutien: 'ja/support/' },
     accueil: { lire: 'オンラインで読む', pdfPropre: '日本語版 PDF（{mo} MB）', pdfAnglais: '英語版 PDF（{mo} MB）', carte: '論考', pret: "La Livrée d'Hermès 日本語版：オンラインで1ページずつ読めます。無料の PDF もあります。他の言語でもお読みいただけます。", preparation: 'La Livrée d\'Hermès：他の言語版をオンラインで1ページずつ読めます（無料の PDF あり）。日本語版は準備中です。' },
     edition: { titre: '日本語版', lire: "La Livrée d'Hermès をオンラインで1ページずつ読み、PDF を無料でダウンロードできます。", preparation: '日本語版は準備中です。それまでは、他の言語版をオンラインで読み、PDF を無料でダウンロードできます。', boutonLire: '本をオンラインで読む →', boutonPdf: 'PDF を開く（日本語）' },

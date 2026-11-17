@@ -468,6 +468,276 @@
               "source": "SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le script)"
             }
           ]
+        },
+        "de": {
+          "dossier": "de/i-ging-orakel/",
+          "ogLocale": "de_DE",
+          "dictionnaire": "data/outils-langues/tirage.json",
+          "donnees": [
+            {
+              "const": "HEX_KW",
+              "forme": "hexKw"
+            },
+            {
+              "const": "IMAGE_FR",
+              "forme": "image"
+            },
+            {
+              "const": "LINE_COMMENT",
+              "forme": "dictionnaire"
+            },
+            {
+              "const": "TRIGRAMS",
+              "forme": "dictionnaire"
+            }
+          ],
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès</title>",
+              "trad": "<title>I-Ging-Orakel kostenlos: Hexagramm, Urteil und magisches Quadrat | La Livrée d'Hermès</title>",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Tirage du Yi King gratuit, en ligne et sans inscription : tirez un hexagramme, lisez son jugement, son image et son carré magique, ou parcourez les 64.",
+              "trad": "I-Ging-Orakel kostenlos, online und ohne Anmeldung: Münzen werfen, das Hexagramm mit Urteil, Bild und magischem Quadrat lesen oder alle 64 durchblättern.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "Arithmogeometrie, magische Quadrate, Sonnenquadrate, Henkelkreuz, I Ging, Jacquard, Vertikalität, Pythagoras, Platon, Anamnesis, zeremonielles Gewebe, Livrée, Anibal Edelberto Amiot, Q141191562",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — Von der Arithmogeometrie zum Gewebe\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité en 111 pages : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "Abhandlung auf 111 Seiten: eine originelle konstruktive Methode für magische Quadrate, vom Henkelkreuz bis zum Jacquard-Gewebe. Sonnenquadrate, Pektorale, Matrix der 360 Schichten.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogeometrie und Gewebe\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "Originelle konstruktive Methode für magische Quadrate aller Ordnungen. Vom pythagoreischen Psephos zum Henkelkreuz — Anibal Edelberto Amiot.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"Arithmogeometrie\",\n        \"Magische Quadrate\",\n        \"Jacquard-Weberei\",\n        \"Chladni-Figuren\",\n        \"Endliche Geometrie\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"Eine Abhandlung über Arithmogeometrie\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 pages. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "Abhandlung über Arithmogeometrie auf 111 Seiten. Originelle konstruktive Methode für magische Quadrate aller Kategorien, vom Henkelkreuz bis zum Jacquard-Gewebe.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"Prüfskripte zu La Livrée d'Hermès\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "LANG==='en' ? 'Hexagram' : 'Hexagramme'",
+              "trad": "LANG==='en' ? 'Hexagram' : 'Hexagramm'",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (libellé des cases de l’échiquier, écrit en dur "
+            },
+            {
+              "fr": ": \"L'échiquier : 64 hexagrammes, flèches pour se déplacer\");",
+              "trad": ": \"Das Schachbrett: 64 Hexagramme, Pfeiltasten zum Bewegen\");",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le"
+            }
+          ]
+        },
+        "it": {
+          "dossier": "it/estrazione-i-ching/",
+          "ogLocale": "it_IT",
+          "dictionnaire": "data/outils-langues/tirage.json",
+          "donnees": [
+            {
+              "const": "HEX_KW",
+              "forme": "hexKw"
+            },
+            {
+              "const": "IMAGE_FR",
+              "forme": "image"
+            },
+            {
+              "const": "LINE_COMMENT",
+              "forme": "dictionnaire"
+            },
+            {
+              "const": "TRIGRAMS",
+              "forme": "dictionnaire"
+            }
+          ],
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès</title>",
+              "trad": "<title>I Ching online gratis: esagramma, giudizio e quadrato magico | La Livrée d'Hermès</title>",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Tirage du Yi King gratuit, en ligne et sans inscription : tirez un hexagramme, lisez son jugement, son image et son carré magique, ou parcourez les 64.",
+              "trad": "I Ching online gratis e senza registrazione: lancia le monete, leggi l'esagramma con giudizio, immagine e quadrato magico, oppure sfoglia i 64 esagrammi.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "aritmogeometria, quadrati magici, quadrati solari, croce ansata, I Ching, Jacquard, verticalità, Pitagora, Platone, anamnesi, tessuto cerimoniale, livrea, Anibal Edelberto Amiot, Q141191562",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — Dall'aritmogeometria al tessuto\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité en 111 pages : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "Trattato di 111 pagine: metodo costruttivo originale per i quadrati magici, dalla croce ansata al tessuto Jacquard. Quadrati solari, Pettorale, matrice dei 360 strati.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Aritmogeometria e tessuto\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "Metodo costruttivo originale per i quadrati magici di tutti gli ordini. Dallo psefo pitagorico alla croce ansata — Anibal Edelberto Amiot.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"Aritmogeometria\",\n        \"Quadrati magici\",\n        \"Tessitura Jacquard\",\n        \"Figure di Chladni\",\n        \"Geometria finita\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"Trattato di aritmogeometria\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 pages. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "Trattato di aritmogeometria in 111 pagine. Metodo costruttivo originale per i quadrati magici di tutte le categorie, dalla croce ansata al tessuto Jacquard.",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"Script di verifica di La Livrée d'Hermès\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "LANG==='en' ? 'Hexagram' : 'Hexagramme'",
+              "trad": "LANG==='en' ? 'Hexagram' : 'Esagramma'",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (libellé des cases de l’échiquier, écrit en dur "
+            },
+            {
+              "fr": ": \"L'échiquier : 64 hexagrammes, flèches pour se déplacer\");",
+              "trad": ": \"La scacchiera: 64 esagrammi, frecce per spostarsi\");",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le"
+            }
+          ]
+        },
+        "ja": {
+          "dossier": "ja/yi-king-draw/",
+          "ogLocale": "ja_JP",
+          "dictionnaire": "data/outils-langues/tirage.json",
+          "donnees": [
+            {
+              "const": "HEX_KW",
+              "forme": "hexKw"
+            },
+            {
+              "const": "IMAGE_FR",
+              "forme": "image"
+            },
+            {
+              "const": "LINE_COMMENT",
+              "forme": "dictionnaire"
+            },
+            {
+              "const": "TRIGRAMS",
+              "forme": "dictionnaire"
+            }
+          ],
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès</title>",
+              "trad": "<title>易経占い 無料オンライン：卦、卦辞、魔方陣 | La Livrée d'Hermès</title>",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Tirage du Yi King gratuit, en ligne et sans inscription : tirez un hexagramme, lisez son jugement, son image et son carré magique, ou parcourez les 64.",
+              "trad": "易経の無料オンライン占い、登録不要。硬貨を投げて卦を引き、卦辞、象、魔方陣を読むか、六十四卦をたどれます。",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "算術幾何学、魔方陣、太陽方陣、取っ手付き十字、易経、ジャカード、垂直性、ピタゴラス、プラトン、想起、儀礼の織物、制服、Anibal Edelberto Amiot、Q141191562",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — 算術幾何学から織物へ\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité en 111 pages : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "111ページの論考：取っ手付き十字からジャカード織までの、魔方陣のための独創的な構成法。太陽方陣、胸飾り、360層の行列。",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — 算術幾何学と織物\">",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "あらゆる位数の魔方陣のための独創的な構成法。ピタゴラスの小石から取っ手付き十字へ — Anibal Edelberto Amiot。",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"算術幾何学\",\n        \"魔方陣\",\n        \"ジャカード織\",\n        \"クラドニ図形\",\n        \"有限幾何学\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"算術幾何学の論考\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 pages. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "111ページの算術幾何学の論考。取っ手付き十字からジャカード織までの、あらゆる種類の魔方陣のための独創的な構成法。",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"La Livrée d'Hermès の検証スクリプト\"",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (en-tête ; la ligne anglaise correspondante dit "
+            },
+            {
+              "fr": "LANG==='en' ? 'Hexagram' : 'Hexagramme'",
+              "trad": "LANG==='en' ? 'Hexagram' : '卦'",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (libellé des cases de l’échiquier, écrit en dur "
+            },
+            {
+              "fr": ": \"L'échiquier : 64 hexagrammes, flèches pour se déplacer\");",
+              "trad": ": \"盤面：64の卦、矢印キーで移動\");",
+              "source": "traduction IA 2026-11-17, à relire (TODO-RELECTURE.md) ; SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le"
+            }
+          ]
         }
       }
     },

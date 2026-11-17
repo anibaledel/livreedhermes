@@ -10,6 +10,7 @@
      EN  en/hexagrams/<chrono>-<pinyin>-<english name>.html
      ES  es/hexagramas/<chrono>-<pinyin>-<nombre>.html
      TH  th/hexagrams/<chrono>-<pinyin>.html   (le nom thaï ne donne pas d'adresse lisible)
+     DE  de/hexagramme/<chrono>-<pinyin>-<name>.html ; IT  it/esagrammi/… ; JA  ja/hexagrams/<chrono>-<pinyin>.html
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
@@ -27,13 +28,14 @@ function slugify(str) {
 function slug(chrono, lang) {
   const kw = DATA.KINGWEN_BY_CHRONO[chrono];
   const pinyin = DATA.HEX_KW[kw][0];
-  if (lang === 'th') return `${chrono}-${slugify(pinyin)}.html`;
-  const nom = lang === 'es' ? TRADUITS.es.hexagrams[kw].name
+  // th et ja : le nom (thaï, kanji) ne donne pas d'adresse lisible — le pinyin seul
+  if (lang === 'th' || lang === 'ja') return `${chrono}-${slugify(pinyin)}.html`;
+  const nom = (lang === 'es' || lang === 'de' || lang === 'it') ? TRADUITS[lang].hexagrams[kw].name
     : (lang === 'en' ? DATA.HEX_KW_EN : DATA.HEX_KW)[kw][1];
   return `${chrono}-${slugify(pinyin)}-${slugify(nom)}.html`;
 }
 
-const DOSSIER = { fr: 'hexagrammes', en: 'en/hexagrams', es: 'es/hexagramas', th: 'th/hexagrams' };
+const DOSSIER = { fr: 'hexagrammes', en: 'en/hexagrams', es: 'es/hexagramas', th: 'th/hexagrams', de: 'de/hexagramme', it: 'it/esagrammi', ja: 'ja/hexagrams' };
 
 // Fichier dans le dépôt et adresse publique d'une page (chrono) ou de l'index (null).
 function fichier(chrono, lang) {

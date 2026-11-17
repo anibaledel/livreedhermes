@@ -375,5 +375,569 @@
     "role": "บิดา"
    }
   ]
+ },
+ "de": {
+  "UI": {
+   "eyebrow": "La Livrée d'Hermès",
+   "title": "La Livrée d'Hermès — eine Abhandlung auf 111 Seiten",
+   "ctaLire": "Online lesen",
+   "ctaPdf": "PDF auf Englisch (16 MB)",
+   "ctaLireHref": "de/book/",
+   "ctaPdfHref": "book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf",
+   "menuNav": "Hauptmenü",
+   "menuTraite": "Die Abhandlung",
+   "menuOutils": "Werkzeuge",
+   "menuArticles": "Artikel",
+   "menuLexique": "Lexikon",
+   "menuAPropos": "Über den Autor",
+   "menuSoutenir": "Unterstützen",
+   "readBook": "Das Buch lesen",
+   "dlPdf": "PDF herunterladen",
+   "langBookTitle": "Sprache des Buches",
+   "dlYiKing": "Übersetzung des I Ging herunterladen",
+   "dl360": "Archiv der 360 Muster",
+   "grid": "Das Schachbrett",
+   "oracleTitle": "Das Orakel",
+   "bookTitle": "Das Buch",
+   "toolsTitle": "Die Werkzeuge",
+   "drawBtn": "Münzen werfen (6 Linien)",
+   "legendLabel": "Linien — traditionelle Symbolik",
+   "legendYangFixe": "Festes Yang",
+   "legendYangMut": "Wandelndes Yang — wird zerbrechen",
+   "legendYinFixe": "Festes Yin",
+   "legendYinMut": "Wandelndes Yin — wird sich füllen",
+   "emptyState": "Klicken Sie ein Feld des Schachbretts an, um ein Hexagramm nachzuschlagen,<br>oder werfen Sie die Münzen für eine Deutung — gegebenenfalls mit wandelnden Linien und dem daraus entstehenden Hexagramm.",
+   "axisNote": "Zeilen = <b>oberes</b> Trigramm (0 bis 7, von oben nach unten) · Spalten = <b>unteres</b> Trigramm (0 bis 7, von links nach rechts) · Nr. = Zeile×8 + Spalte",
+   "chronoLabel": "CHRONOLOGISCHE ORDNUNG",
+   "kingWenLabel": "King-Wen-Nr. (traditionell): ",
+   "kingWenShort": "King-Wen-Nr.",
+   "hexMoreInfo": "Mehr über dieses Hexagramm →",
+   "imageLabel": "Bild",
+   "judgementLabel": "Urteil",
+   "navHexagrammes": "Hexagramme",
+   "navMotif": "Muster erstellen",
+   "navUnified": "Unified Patterns",
+   "navGalerie": "Galerie",
+   "navMotifsSvg": "SVG-Muster",
+   "navCymatique": "Kymatik",
+   "navWallpaper": "Hintergrundbild",
+   "navPrint": "Druck",
+   "navEncodeur": "Kodierer",
+   "navContact": "Kontakt",
+   "navAbout": "Über den Autor",
+   "navLexique": "Lexikon",
+   "navArticles": "Artikel",
+   "navHexagrammesDesc": "Die 64 Hexagramme des I Ging: Urteil, Trigramme und magisches Quadrat zu jedem.",
+   "navMotifDesc": "Entwerfen Sie eigene Textilmuster aus den 60 Bildern des I Ging.",
+   "navUnifiedDesc": "Die 64 Muster der Hexagramme, anpassbar und in hoher Auflösung herunterladbar.",
+   "navGalerieDesc": "Unified Patterns, durch Mischen von Farbtönen erzeugt — wählen Sie ein Muster, um seine Parkettierung zu sehen.",
+   "navMotifsSvgDesc": "Laden Sie die Druckschichten in 4 Kategorien von Linienkombinationen als SVG herunter.",
+   "navCymatiqueDesc": "Die Parkettierung, deren Ortsfrequenz dem von Ihnen erzeugten Klang am nächsten kommt.",
+   "navWallpaperDesc": "Vollbild-Textilhintergründe, klangreaktiv oder im meditativen Modus mit einstellbarem Rhythmus.",
+   "navPrintDesc": "Ziehen und laden Sie die Druckschichten herunter, druckfertig.",
+   "navEncodeurDesc": "Geometrische steganografische Kodierung durch doppelten Referenten, Henkelkreuz und Jacquard.",
+   "navContactDesc": "Kontaktieren Sie den Autor für ein Projekt oder einen Auftrag für Textilmuster und -drucke.",
+   "navAboutDesc": "Der Autor und sein Buch an der Schnittstelle von Philosophie, Mathematik und angewandten Wissenschaften.",
+   "navLexiqueDesc": "Zehn Schlüsselbegriffe zum Verständnis von La Livrée d'Hermès.",
+   "navArticlesDesc": "Überlegungen und Forschungen rund um La Livrée d'Hermès.",
+   "superior": "Oberes",
+   "inferior": "Unteres",
+   "xrefBinome": "Paarling (umgedreht)",
+   "xrefOppose": "Gegenteil (invertiert)",
+   "pavageFixed": "Parkettierung — nur feste Linien",
+   "pavageReprod": "Parkettierung — unter dem Ausgangshexagramm wiedergegeben",
+   "traitMutant": "Wandelnde Linie — Position ",
+   "triadTerreBase": "Erde (Basis)",
+   "triadTerreFin": "Erde (Vollendung)",
+   "triadHommeBase": "Mensch (Basis)",
+   "triadHommeFin": "Mensch (Vollendung)",
+   "triadCielBase": "Himmel (Basis)",
+   "triadCielFin": "Himmel (Vollendung)",
+   "hexAnt": "Ausgangshexagramm",
+   "hexPost": "Folgehexagramm",
+   "movingLines": "Wandelnde Linien: ",
+   "movingLinesEnd": " — nur diese Linien kippen zwischen den beiden Situationen.",
+   "pavageAnt": "Parkettierung — Ausgangssituation",
+   "pavagePost": "Parkettierung — Folgesituation",
+   "situationTag": "Was aus der Situation wird",
+   "copyLink": "Link kopieren",
+   "copied": "Kopiert",
+   "footerNote1": "Binäre chronologische Nummerierung (Ihr System, S. 067) — Name und Urteil bleiben die des traditionellen I Ging, als Anhaltspunkt.",
+   "footerNote2Pre": "Parkettierung: tatsächliche Übertragung in ein Quadrat aus 144 Feldern, berechnet aus Ihren Schichten 1–6. Die vier Sätze — ",
+   "footerNote2Post": " — sind nun alle eingebunden.",
+   "footerNote3": "Ein vollzogener Wurf wird in der URL kodiert (<code>?tire=</code>) — kopieren Sie den Link, um ihn zu teilen oder genau so wiederzufinden.",
+   "yangFixeW": "Festes Yang",
+   "yinFixeW": "Festes Yin",
+   "yangMutW": "Wandelndes Yang",
+   "yinMutW": "Wandelndes Yin",
+   "paletteLabel": "Palette",
+   "paletteReset": "Palette zurücksetzen",
+   "positionsGuideToggle": "Bedeutung der 6 Positionen",
+   "positionsGuide": "<p class=\"positions-guide-title\">Bedeutung der 6 Positionen (von unten nach oben)</p><div class=\"positions-guide-item\"><b>1. Linie — Die Basis.</b> Der Ausgangspunkt der Situation. Eine Frage, die sich zu stellen beginnt, statt sich zu lösen.</div><div class=\"positions-guide-item\"><b>2. Linie — Die innere Stütze.</b> Die mittlere Position des unteren Trigramms, oft mit dem verbunden, was Sie von innen trägt — eine Vertrauensbeziehung, eine stabile Ressource.</div><div class=\"positions-guide-item\"><b>3. Linie — Der Übergang.</b> An der Grenze zwischen Innenwelt und Außenwelt. Von Natur aus instabile Position: die Spannung zwischen Zögern und Handeln.</div><div class=\"positions-guide-item\"><b>4. Linie — Die Schwelle.</b> Der Beginn des oberen Trigramms. Der Eintritt in die soziale oder berufliche Welt, oft unmittelbar neben der führenden Position (5. Linie).</div><div class=\"positions-guide-item\"><b>5. Linie — Der Lenker.</b> Die Mitte des oberen Trigramms — die rechteste und einflussreichste Position des Hexagramms.</div><div class=\"positions-guide-item\"><b>6. Linie — Die Vollendung.</b> Das Ende des Zyklus. Oft das Übermaß oder das Überschreiten einer Situation, die an ihr Ende gelangt ist.</div>",
+   "newOnSiteHtml": "Neu auf der Website: Entdecken Sie die Schlüsselbegriffe des Projekts im <a href=\"de/lexicon/\" style=\"color:var(--gold);\">Lexikon</a> oder lesen Sie die <a href=\"articles.html\" style=\"color:var(--gold);\">Artikel</a>, die den Ansatz fortführen. Alle <a href=\"de/tools/\" style=\"color:var(--gold);\">Werkzeuge</a> der Website und <a href=\"de/book/\" style=\"color:var(--gold);\">die Abhandlung</a> finden Sie außerdem an einem Ort.",
+   "bookIntro": "La Livrée d'Hermès ist ein Buch der Philosophie und Mathematik, frei zugänglich unter dem folgenden Link. Es handelt von der Konstruktion magischer Quadrate und ihrer Übertragung in Jacquard-Weberei.",
+   "tirageResultat": "<p>Das I-Ging-Orakel ist kostenlos, online und ohne Anmeldung. Drücken Sie auf „Münzen werfen (6 Linien)“: Sechs Würfe zeichnen ein Hexagramm, von der ersten Linie (unten) bis zur sechsten (oben). Jede Linie ist Yin oder Yang, fest oder wandelnd. Das Ergebnis zeigt das gezogene Hexagramm mit seinem Namen, seiner Nummer, seinem Urteil und seinem Bild, den Kommentar zu jeder der sechs Linien, seine beiden Trigramme und das zugehörige magische Quadrat. Sie können auch direkt ein Hexagramm auf dem Schachbrett der 64 anklicken. Der Text der 64 Hexagramme lässt sich außerdem als Word-Dokument herunterladen („Übersetzung des I Ging herunterladen“).</p>",
+   "tirageGuide": "<p>Das I Ging ist ein Weisheitsbuch, das sich als Orakel benutzen lässt. Wenn Sie eine konkrete Frage haben, verinnerlichen Sie sie, bevor Sie auf Wurf drücken. Ohne besondere Frage zeigt der Wurf die Situation des Augenblicks. Sie können mehrere Würfe für mehrere Fragen aneinanderreihen — doch ein einziger Wurf genügt schon für sich allein für die Botschaft, die Ihrer Befragung entspricht.</p><p>Wenn Sie einfach die Bedeutung der Hexagramme und der zugehörigen Bilder erkunden möchten, wählen Sie direkt ein Feld des Schachbretts. Für weitere Informationen zu den Bildern lesen Sie gern das Buch.</p>"
+  },
+  "LINE_COMMENT": {
+   "1": {
+    "0": "Am Fuß der Erde schließt sich die Leere: Was bisher nur eine Öffnung war, beginnt sich zu füllen.",
+    "1": "Am Fuß der Erde regt sich das Volle: Der Yang-Ansatz, der die ganze Figur trug, willigt ein, seinen Platz zu räumen."
+   },
+   "2": {
+    "0": "Die empfangende Erde erreicht ihre Fülle: Die stille Aufnahme, die den unteren Teil der Figur trug, wird sich behaupten.",
+    "1": "Die gefestigte Erde berührt ihre Grenze: Die Festigkeit, die das Gebäude stützte, schickt sich an, ihre Natur zu wechseln."
+   },
+   "3": {
+    "0": "An der Schwelle zwischen Erde und Mensch lädt sich die Geschmeidigkeit auf: Was von Natur aus nachgab, schickt sich an zu erhärten.",
+    "1": "An der Schwelle zwischen Erde und Mensch wankt die Kraft: Was durch Festigkeit wirkte, zögert, bevor es sich wendet."
+   },
+   "4": {
+    "0": "Im Hören des Menschen füllt sich die Höhlung: Die Bereitschaft, die empfing, wird sich bald behaupten.",
+    "1": "Im Handeln des Menschen findet das Volle seine Grenze: Die Initiative, die die Figur führte, zieht sich in sich selbst zurück."
+   },
+   "5": {
+    "0": "Am Platz des Weisen füllt sich die Leere: Die Geschmeidigkeit, die mit Zurückhaltung regierte, lädt sich mit neuer Kraft auf.",
+    "1": "Am Platz des Weisen höhlt sich das Volle aus: Die Kraft, die die Figur von der Mitte aus regierte, schickt sich an, sich umzukehren."
+   },
+   "6": {
+    "0": "Auf dem Gipfel erreicht die Leere ihre Fülle und schließt sich: Die äußerste Öffnung kippt in ihr Gegenteil.",
+    "1": "Auf dem Gipfel vollendet das Volle seinen Lauf und bricht: Was kulminierte, kann nicht weiter gehen, ohne sich umzukehren."
+   }
+  },
+  "TRIGRAMS": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Das Empfangende",
+    "image": "die Erde",
+    "role": "die Mutter"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "Das Erregende",
+    "image": "der Donner",
+    "role": "der älteste Sohn"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "Das Abgründige",
+    "image": "das Wasser",
+    "role": "der mittlere Sohn"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Das Heitere",
+    "image": "der See",
+    "role": "die jüngste Tochter"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "Das Stillehalten",
+    "image": "der Berg",
+    "role": "der jüngste Sohn"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "Das Haftende",
+    "image": "das Feuer",
+    "role": "die mittlere Tochter"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Das Sanfte",
+    "image": "der Wind",
+    "role": "die älteste Tochter"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Das Schöpferische",
+    "image": "der Himmel",
+    "role": "der Vater"
+   }
+  ]
+ },
+ "it": {
+  "UI": {
+   "eyebrow": "La Livrée d'Hermès",
+   "title": "La Livrée d'Hermès — un trattato di 111 pagine",
+   "ctaLire": "Leggi online",
+   "ctaPdf": "PDF in inglese (16 MB)",
+   "ctaLireHref": "it/book/",
+   "ctaPdfHref": "book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf",
+   "menuNav": "Menu principale",
+   "menuTraite": "Il trattato",
+   "menuOutils": "Strumenti",
+   "menuArticles": "Articoli",
+   "menuLexique": "Lessico",
+   "menuAPropos": "L'autore",
+   "menuSoutenir": "Sostieni",
+   "readBook": "Leggi il libro",
+   "dlPdf": "Scarica il PDF",
+   "langBookTitle": "Lingua del libro",
+   "dlYiKing": "Scarica la traduzione dell'I Ching",
+   "dl360": "Archivio dei 360 motivi",
+   "grid": "La scacchiera",
+   "oracleTitle": "L'oracolo",
+   "bookTitle": "Il libro",
+   "toolsTitle": "Gli strumenti",
+   "drawBtn": "Lancia le monete (6 linee)",
+   "legendLabel": "Linee — simbolica tradizionale",
+   "legendYangFixe": "Yang fisso",
+   "legendYangMut": "Yang mutevole — sta per spezzarsi",
+   "legendYinFixe": "Yin fisso",
+   "legendYinMut": "Yin mutevole — sta per riempirsi",
+   "emptyState": "Clicca una casella della scacchiera per consultare un esagramma,<br>oppure lancia le monete per una lettura — con, se del caso, le sue linee mutevoli e l'esagramma che ne risulta.",
+   "axisNote": "Righe = trigramma <b>superiore</b> (da 0 a 7, dall'alto in basso) · Colonne = trigramma <b>inferiore</b> (da 0 a 7, da sinistra a destra) · N. = riga×8 + colonna",
+   "chronoLabel": "ORDINE CRONOLOGICO",
+   "kingWenLabel": "n. King Wen (tradizionale): ",
+   "kingWenShort": "King Wen n.",
+   "hexMoreInfo": "Scopri di più su questo esagramma →",
+   "imageLabel": "Immagine",
+   "judgementLabel": "Giudizio",
+   "navHexagrammes": "Esagrammi",
+   "navMotif": "Crea un motivo",
+   "navUnified": "Unified Patterns",
+   "navGalerie": "Galleria",
+   "navMotifsSvg": "Motivi SVG",
+   "navCymatique": "Cimatica",
+   "navWallpaper": "Sfondo",
+   "navPrint": "Stampa",
+   "navEncodeur": "Codificatore",
+   "navContact": "Contatto",
+   "navAbout": "L'autore",
+   "navLexique": "Lessico",
+   "navArticles": "Articoli",
+   "navHexagrammesDesc": "I 64 esagrammi dell'I Ching: giudizio, trigrammi e quadrato magico per ciascuno.",
+   "navMotifDesc": "Componi i tuoi motivi tessili a partire dalle 60 immagini dell'I Ching.",
+   "navUnifiedDesc": "I 64 motivi degli esagrammi, personalizzabili e scaricabili in alta risoluzione.",
+   "navGalerieDesc": "Unified patterns, generati mescolando le tinte — seleziona un motivo per vederne la pavimentazione.",
+   "navMotifsSvgDesc": "Scarica gli strati di stampa in 4 categorie di combinazioni di linee, in formato SVG.",
+   "navCymatiqueDesc": "La pavimentazione la cui frequenza spaziale è più vicina al suono che emetti.",
+   "navWallpaperDesc": "Sfondi tessili a schermo intero, reattivi al suono o in modalità meditativa a ritmo regolabile.",
+   "navPrintDesc": "Estrai e scarica gli strati di stampa, pronti da stampare.",
+   "navEncodeurDesc": "Codifica steganografica geometrica a doppio referente, croce ansata e Jacquard.",
+   "navContactDesc": "Contatta l'autore per un progetto o un ordine di motivi e stampe tessili.",
+   "navAboutDesc": "L'autore e il suo libro, all'incrocio tra filosofia, matematica e scienze applicate.",
+   "navLexiqueDesc": "Dieci nozioni chiave per capire La Livrée d'Hermès.",
+   "navArticlesDesc": "Riflessioni e ricerche attorno a La Livrée d'Hermès.",
+   "superior": "Superiore",
+   "inferior": "Inferiore",
+   "xrefBinome": "Binomio (rovesciato)",
+   "xrefOppose": "Opposto (invertito)",
+   "pavageFixed": "Pavimentazione — solo linee fisse",
+   "pavageReprod": "Pavimentazione — riprodotta sotto l'esagramma di partenza",
+   "traitMutant": "Linea mutevole — posizione ",
+   "triadTerreBase": "Terra (base)",
+   "triadTerreFin": "Terra (compimento)",
+   "triadHommeBase": "Uomo (base)",
+   "triadHommeFin": "Uomo (compimento)",
+   "triadCielBase": "Cielo (base)",
+   "triadCielFin": "Cielo (compimento)",
+   "hexAnt": "Esagramma anteriore",
+   "hexPost": "Esagramma posteriore",
+   "movingLines": "Linee mutevoli: ",
+   "movingLinesEnd": " — sono le sole linee che si rovesciano tra le due situazioni.",
+   "pavageAnt": "Pavimentazione — situazione anteriore",
+   "pavagePost": "Pavimentazione — situazione posteriore",
+   "situationTag": "Ciò che la situazione diventa",
+   "copyLink": "Copia il link",
+   "copied": "Copiato",
+   "footerNote1": "Numerazione cronologica binaria (il vostro sistema, p. 067) — il nome e il giudizio restano quelli dell'I Ching tradizionale, come riferimento.",
+   "footerNote2Pre": "Pavimentazione: trascrizione reale in un quadrato di 144 celle, calcolata a partire dai vostri strati 1-6. I quattro insiemi — ",
+   "footerNote2Post": " — sono ormai tutti integrati.",
+   "footerNote3": "Un'estrazione effettuata è codificata nell'URL (<code>?tire=</code>) — copia il link per condividerla o ritrovarla tale e quale.",
+   "yangFixeW": "Yang fisso",
+   "yinFixeW": "Yin fisso",
+   "yangMutW": "Yang mutevole",
+   "yinMutW": "Yin mutevole",
+   "paletteLabel": "Tavolozza",
+   "paletteReset": "Reimposta la tavolozza",
+   "positionsGuideToggle": "Significato delle 6 posizioni",
+   "positionsGuide": "<p class=\"positions-guide-title\">Significato delle 6 posizioni (dal basso verso l'alto)</p><div class=\"positions-guide-item\"><b>1ª linea — La base.</b> Il punto di partenza della situazione. Una domanda che comincia a porsi più che a risolversi.</div><div class=\"positions-guide-item\"><b>2ª linea — Il sostegno interiore.</b> La posizione centrale del trigramma inferiore, spesso associata a ciò che ti sostiene dall'interno — un rapporto di fiducia, una risorsa stabile.</div><div class=\"positions-guide-item\"><b>3ª linea — La transizione.</b> Al confine tra il mondo interiore e il mondo esteriore. Posizione instabile per natura: la tensione tra l'esitazione e il passaggio all'azione.</div><div class=\"positions-guide-item\"><b>4ª linea — La soglia.</b> L'inizio del trigramma superiore. L'ingresso nel mondo sociale o professionale, spesso accanto alla posizione dirigente (5ª linea).</div><div class=\"positions-guide-item\"><b>5ª linea — Il dirigente.</b> Il centro del trigramma superiore — la posizione più giusta e più influente dell'esagramma.</div><div class=\"positions-guide-item\"><b>6ª linea — Il compimento.</b> La fine del ciclo. Spesso l'eccesso o il superamento di una situazione giunta al suo termine.</div>",
+   "newOnSiteHtml": "Novità sul sito: scopri le nozioni chiave del progetto nel <a href=\"it/lexicon/\" style=\"color:var(--gold);\">lessico</a>, oppure leggi gli <a href=\"articles.html\" style=\"color:var(--gold);\">articoli</a> che proseguono il percorso. Ritrovi inoltre tutti gli <a href=\"it/tools/\" style=\"color:var(--gold);\">strumenti</a> del sito e <a href=\"it/book/\" style=\"color:var(--gold);\">il trattato</a> in un unico posto.",
+   "bookIntro": "La Livrée d'Hermès è un libro di filosofia e di matematica, disponibile in accesso libero al link qui sotto. È incentrato sulla costruzione dei quadrati magici e sulla loro trascrizione in tessitura Jacquard.",
+   "tirageResultat": "<p>L'estrazione dell'I Ching è gratuita, online e senza registrazione. Premi «Lancia le monete (6 linee)»: sei lanci disegnano un esagramma, dalla prima linea (in basso) alla sesta (in alto). Ogni linea è yin o yang, fissa o mutevole. Il risultato mostra l'esagramma estratto con il suo nome, il suo numero, il suo giudizio e la sua immagine, il commento di ciascuna delle sei linee, i suoi due trigrammi e il quadrato magico associato. Puoi anche cliccare direttamente un esagramma sulla scacchiera dei 64. Il testo dei 64 esagrammi si scarica anche come documento Word («Scarica la traduzione dell'I Ching»).</p>",
+   "tirageGuide": "<p>L'I Ching è un libro di saggezza che può essere usato come un oracolo. Se hai una domanda precisa, interiorizzala prima di premere Estrazione. Senza una domanda particolare, l'estrazione indica la situazione del momento. Puoi concatenare più estrazioni per più domande — ma una sola estrazione basta già a se stessa per il messaggio che corrisponde alla tua consultazione.</p><p>Se vuoi semplicemente esplorare il significato degli esagrammi e delle immagini in correlazione, seleziona direttamente una casella della scacchiera. Per maggiori informazioni sulle immagini, non esitare a leggere il libro.</p>"
+  },
+  "LINE_COMMENT": {
+   "1": {
+    "0": "Alla base della terra, il vuoto si chiude: ciò che non era ancora che un'apertura comincia a riempirsi.",
+    "1": "Alla base della terra, il pieno si scuote: l'impulso yang che portava l'intera figura acconsente a cedere il posto."
+   },
+   "2": {
+    "0": "La terra ricettiva raggiunge il suo colmo: l'accoglienza silenziosa che portava la parte bassa della figura sta per affermarsi.",
+    "1": "La terra consolidata tocca il suo limite: la solidità che sosteneva l'edificio si appresta a cambiare natura."
+   },
+   "3": {
+    "0": "Alla soglia tra terra e uomo, la duttilità si carica: ciò che cedeva per natura si appresta a indurirsi.",
+    "1": "Alla soglia tra terra e uomo, la forza vacilla: ciò che agiva con fermezza esita prima di rovesciarsi."
+   },
+   "4": {
+    "0": "Nell'ascolto dell'uomo, il cavo si colma: la disponibilità che riceveva sta per affermarsi.",
+    "1": "Nell'azione dell'uomo, il pieno trova il suo limite: l'iniziativa che guidava la figura si ripiega su se stessa."
+   },
+   "5": {
+    "0": "Al posto del saggio, il vuoto si riempie: la duttilità che governava con discrezione si carica di una forza nuova.",
+    "1": "Al posto del saggio, il pieno si scava: la forza che governava la figura dal centro si appresta a invertirsi."
+   },
+   "6": {
+    "0": "In cima, il vuoto raggiunge il colmo e si chiude: l'apertura più estrema precipita verso il suo contrario.",
+    "1": "In cima, il pieno compie la sua corsa e si spezza: ciò che culminava non può andare oltre senza rovesciarsi."
+   }
+  },
+  "TRIGRAMS": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Il Ricettivo",
+    "image": "la Terra",
+    "role": "la madre"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "L'Eccitante",
+    "image": "il Tuono",
+    "role": "il figlio maggiore"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "L'Abissale",
+    "image": "l'Acqua",
+    "role": "il figlio mediano"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Il Sereno",
+    "image": "il Lago",
+    "role": "la figlia minore"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "L'Arresto",
+    "image": "la Montagna",
+    "role": "il figlio minore"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "L'Aderente",
+    "image": "il Fuoco",
+    "role": "la figlia mediana"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Il Mite",
+    "image": "il Vento",
+    "role": "la figlia maggiore"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Il Creativo",
+    "image": "il Cielo",
+    "role": "il padre"
+   }
+  ]
+ },
+ "ja": {
+  "UI": {
+   "eyebrow": "La Livrée d'Hermès",
+   "title": "La Livrée d'Hermès — 111ページの論考",
+   "ctaLire": "オンラインで読む",
+   "ctaPdf": "英語版 PDF（16 MB）",
+   "ctaLireHref": "ja/book/",
+   "ctaPdfHref": "book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf",
+   "menuNav": "メインメニュー",
+   "menuTraite": "論考",
+   "menuOutils": "ツール",
+   "menuArticles": "記事",
+   "menuLexique": "用語集",
+   "menuAPropos": "著者について",
+   "menuSoutenir": "支援する",
+   "readBook": "本を読む",
+   "dlPdf": "PDF をダウンロード",
+   "langBookTitle": "本の言語",
+   "dlYiKing": "易経の翻訳をダウンロード",
+   "dl360": "360紋様のアーカイブ",
+   "grid": "盤面",
+   "oracleTitle": "占い",
+   "bookTitle": "本",
+   "toolsTitle": "ツール",
+   "drawBtn": "硬貨を投げる（6つの爻）",
+   "legendLabel": "爻 — 伝統的な象徴",
+   "legendYangFixe": "不変の陽",
+   "legendYangMut": "変爻の陽 — 破れようとしている",
+   "legendYinFixe": "不変の陰",
+   "legendYinMut": "変爻の陰 — 満ちようとしている",
+   "emptyState": "盤面のマスをクリックして卦を調べるか、<br>硬貨を投げて占ってください。変爻があれば、そこから生じる卦も表示されます。",
+   "axisNote": "行 = <b>上</b>の八卦（0〜7、上から下）· 列 = <b>下</b>の八卦（0〜7、左から右）· 番号 = 行×8 + 列",
+   "chronoLabel": "時系列の順序",
+   "kingWenLabel": "文王の順序（伝統）：",
+   "kingWenShort": "文王の順序",
+   "hexMoreInfo": "この卦についてさらに →",
+   "imageLabel": "象",
+   "judgementLabel": "卦辞",
+   "navHexagrammes": "六十四卦",
+   "navMotif": "紋様をつくる",
+   "navUnified": "Unified Patterns",
+   "navGalerie": "ギャラリー",
+   "navMotifsSvg": "SVG 紋様",
+   "navCymatique": "キマティクス",
+   "navWallpaper": "壁紙",
+   "navPrint": "印刷",
+   "navEncodeur": "エンコーダー",
+   "navContact": "連絡",
+   "navAbout": "著者について",
+   "navLexique": "用語集",
+   "navArticles": "記事",
+   "navHexagrammesDesc": "易経の六十四卦：それぞれの卦辞、八卦、魔方陣。",
+   "navMotifDesc": "易経の60の図像から、自分だけの織物紋様を組み立てます。",
+   "navUnifiedDesc": "六十四卦の64の紋様を、カスタマイズして高解像度でダウンロード。",
+   "navGalerieDesc": "色合いを混ぜて生まれる統一紋様 — 紋様を選ぶと、その敷き詰めが見られます。",
+   "navMotifsSvgDesc": "爻の組み合わせ4分類の印刷用レイヤーを SVG でダウンロード。",
+   "navCymatiqueDesc": "あなたが発する音に最も近い空間周波数をもつ敷き詰め。",
+   "navWallpaperDesc": "音に反応する、またはテンポを調整できる瞑想モードの、全画面の織物壁紙。",
+   "navPrintDesc": "印刷用レイヤーを引いてダウンロード、すぐ印刷できます。",
+   "navEncodeurDesc": "二重の参照、取っ手付き十字、ジャカードによる幾何学的ステガノグラフィー。",
+   "navContactDesc": "プロジェクトや織物紋様・プリントの注文について、著者にご連絡ください。",
+   "navAboutDesc": "哲学、数学、応用科学の交わりにある、著者とその本。",
+   "navLexiqueDesc": "La Livrée d'Hermès を理解するための10の鍵概念。",
+   "navArticlesDesc": "La Livrée d'Hermès をめぐる考察と研究。",
+   "superior": "上",
+   "inferior": "下",
+   "xrefBinome": "対（反転）",
+   "xrefOppose": "反対（逆転）",
+   "pavageFixed": "敷き詰め — 不変の爻のみ",
+   "pavageReprod": "敷き詰め — 出発の卦の下に再現",
+   "traitMutant": "変爻 — 位置 ",
+   "triadTerreBase": "地（初め）",
+   "triadTerreFin": "地（終わり）",
+   "triadHommeBase": "人（初め）",
+   "triadHommeFin": "人（終わり）",
+   "triadCielBase": "天（初め）",
+   "triadCielFin": "天（終わり）",
+   "hexAnt": "本卦",
+   "hexPost": "之卦",
+   "movingLines": "変爻：",
+   "movingLinesEnd": " — 二つの状況のあいだで入れ替わるのは、これらの爻だけです。",
+   "pavageAnt": "敷き詰め — 前の状況",
+   "pavagePost": "敷き詰め — 後の状況",
+   "situationTag": "状況の行き先",
+   "copyLink": "リンクをコピー",
+   "copied": "コピーしました",
+   "footerNote1": "二進の時系列番号（あなたの体系、67ページ）— 名前と卦辞は目安として、伝統的な易経のままです。",
+   "footerNote2Pre": "敷き詰め：レイヤー1〜6から計算した、144マスの正方形への実際の転写。四つのセット — ",
+   "footerNote2Post": " — はすべて組み込まれています。",
+   "footerNote3": "行った占いは URL（<code>?tire=</code>）に符号化されます。リンクをコピーして共有するか、そのまま再び開けます。",
+   "yangFixeW": "不変の陽",
+   "yinFixeW": "不変の陰",
+   "yangMutW": "変爻の陽",
+   "yinMutW": "変爻の陰",
+   "paletteLabel": "パレット",
+   "paletteReset": "パレットをリセット",
+   "positionsGuideToggle": "6つの位置の意味",
+   "positionsGuide": "<p class=\"positions-guide-title\">6つの位置の意味（下から上へ）</p><div class=\"positions-guide-item\"><b>初爻 — 基礎。</b> 状況の出発点。解決されるより、問われ始めている問い。</div><div class=\"positions-guide-item\"><b>二爻 — 内なる支え。</b> 下卦の中心の位置で、しばしば内側からあなたを支えるもの、信頼関係や安定した資源と結びつきます。</div><div class=\"positions-guide-item\"><b>三爻 — 移行。</b> 内なる世界と外の世界の境。本性として不安定な位置で、ためらいと行動への移行のあいだの緊張です。</div><div class=\"positions-guide-item\"><b>四爻 — 敷居。</b> 上卦の始まり。社会や仕事の世界への入口で、しばしば指導的な位置（五爻）の隣にあります。</div><div class=\"positions-guide-item\"><b>五爻 — 指導者。</b> 上卦の中心 — 卦のなかで最も正しく、最も影響力のある位置。</div><div class=\"positions-guide-item\"><b>上爻 — 完結。</b> サイクルの終わり。終わりに達した状況の行き過ぎや踏み越えであることが多い。</div>",
+   "newOnSiteHtml": "サイトの新着：<a href=\"ja/lexicon/\" style=\"color:var(--gold);\">用語集</a>でプロジェクトの鍵概念を知るか、取り組みを広げる<a href=\"articles.html\" style=\"color:var(--gold);\">記事</a>をお読みください。サイトの<a href=\"ja/tools/\" style=\"color:var(--gold);\">ツール</a>すべてと<a href=\"ja/book/\" style=\"color:var(--gold);\">論考</a>も、一か所でご覧いただけます。",
+   "bookIntro": "La Livrée d'Hermès は哲学と数学の本で、下のリンクから自由に読めます。魔方陣の構成と、それをジャカード織に写すことが中心です。",
+   "tirageResultat": "<p>易経の占いは無料で、オンラインで、登録なしで使えます。「硬貨を投げる（6つの爻）」を押すと、六回の投擲が、初爻（下）から上爻（上）まで一つの卦を描きます。各爻は陰か陽、不変か変爻です。結果には、引いた卦の名前、番号、卦辞と象、六つの爻それぞれの解説、二つの八卦、対応する魔方陣が表示されます。六十四の盤面から卦を直接クリックすることもできます。六十四卦のテキストは Word 文書としてもダウンロードできます（「易経の翻訳をダウンロード」）。</p>",
+   "tirageGuide": "<p>易経は、占いとして使える知恵の書です。具体的な問いがあれば、押す前にそれを心に収めてください。特に問いがなければ、結果はそのときの状況を示します。複数の問いのために何度か続けて占うこともできますが、一度の結果だけでも、あなたの相談に対応するメッセージとして十分です。</p><p>卦と、対応する象の意味をただ探ってみたいなら、盤面のマスを直接選んでください。象について詳しくは、遠慮なく本をお読みください。</p>"
+  },
+  "LINE_COMMENT": {
+   "1": {
+    "0": "地の底で、虚が閉じる。まだ開きにすぎなかったものが満ち始める。",
+    "1": "地の底で、実が動く。図形全体を支えていた陽の兆しが、座を譲ることを受け入れる。"
+   },
+   "2": {
+    "0": "受け入れる地はその極みに達する。図形の下半を支えていた静かな受容が、いまや立ち現れようとしている。",
+    "1": "固まった地は限りに触れる。建物を支えていた堅固さが、性質を変えようとしている。"
+   },
+   "3": {
+    "0": "地と人の境で、柔らかさが力を帯びる。本性として譲っていたものが、固くなろうとしている。",
+    "1": "地と人の境で、力がぐらつく。堅さによって働いていたものが、反転する前にためらう。"
+   },
+   "4": {
+    "0": "人が聞くところで、うつろが満ちる。受け入れていた開かれた心が、まもなく主張を始める。",
+    "1": "人が行うところで、実が限りを見いだす。図形を導いていた働きかけが、自らの内に折れ返る。"
+   },
+   "5": {
+    "0": "賢者の座で、虚が満ちる。静かに治めていた柔らかさが、新たな力を帯びる。",
+    "1": "賢者の座で、実が空になる。図形を中心から治めていた力が、逆転しようとしている。"
+   },
+   "6": {
+    "0": "頂で、虚はその極みに達して閉じる。最も極端な開きが、その反対へと傾く。",
+    "1": "頂で、実は歩みを終えて砕ける。頂点に立ったものは、反転せずにはこれ以上進めない。"
+   }
+  },
+  "TRIGRAMS": [
+   {
+    "name": "坤",
+    "symbol": "☷",
+    "nature": "受け入れるもの",
+    "image": "地",
+    "role": "母"
+   },
+   {
+    "name": "震",
+    "symbol": "☳",
+    "nature": "奮い起こすもの",
+    "image": "雷",
+    "role": "長男"
+   },
+   {
+    "name": "坎",
+    "symbol": "☵",
+    "nature": "底知れぬもの",
+    "image": "水",
+    "role": "中男"
+   },
+   {
+    "name": "兌",
+    "symbol": "☱",
+    "nature": "喜ばしいもの",
+    "image": "沢",
+    "role": "少女"
+   },
+   {
+    "name": "艮",
+    "symbol": "☶",
+    "nature": "止まるもの",
+    "image": "山",
+    "role": "少男"
+   },
+   {
+    "name": "離",
+    "symbol": "☲",
+    "nature": "付くもの",
+    "image": "火",
+    "role": "中女"
+   },
+   {
+    "name": "巽",
+    "symbol": "☴",
+    "nature": "柔らかなもの",
+    "image": "風",
+    "role": "長女"
+   },
+   {
+    "name": "乾",
+    "symbol": "☰",
+    "nature": "創造するもの",
+    "image": "天",
+    "role": "父"
+   }
+  ]
  }
 }
