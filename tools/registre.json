@@ -967,8 +967,10 @@
    "fichier": "tools/check_series_pinterest.py",
    "role": "Les quatre séries du corpus Pinterest (data/fonds/collections-pinterest.json, « series ») contre leurs images, assets/motifs-pinterest/<série>/*.png.",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json",
-    "data/motifs-index.csv"
+    "data/motifs-index.csv",
+    "tools/restaurer_archive.mjs"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1342,6 +1344,7 @@
    "fichier": "tools/epingles_pinterest.mjs",
    "role": "la liste des épingles de la campagne Pinterest, à reprogrammer, tirée du registre (data/fonds/collections-pinterest.json, « campagne ») : l'attribution page → série y est ENREGISTRÉE ; ce script ne la calcule pas, il la lit, la vérifie e…",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json",
     "data/fonds/epingles-pinterest.csv",
     "data/motifs-index.csv"
@@ -1370,6 +1373,7 @@
    "fichier": "tools/export_pinterest_fonds.mjs",
    "role": "Une collection Pinterest : les 256 motifs du corpus, chacun dans un fond (et une superposition facultative), au format assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500 (le 2:3 de Pinterest, le motif répété 6 × 9).",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json"
    ],
    "ecrit": [],
@@ -1717,6 +1721,7 @@
     "tools/check_echantillon_site.mjs",
     "tools/check_epingles_images.mjs",
     "tools/check_export_pinterest.mjs",
+    "tools/epingles_pinterest.mjs",
     "tools/restaurer_archive.mjs"
    ],
    "etat": "actif",
@@ -2335,7 +2340,9 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/check_series_pinterest.py"
+   ],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -2343,6 +2350,7 @@
    "fichier": "tools/restaurer_collection.mjs",
    "role": "remet en place une exportation GARDÉE d'une collection Pinterest (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), au lieu de la refabriquer.",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json"
    ],
    "ecrit": [],

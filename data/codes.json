@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-17T02:32:51Z",
+ "generated_at_utc": "2026-11-17T03:27:29Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2496,9 +2496,9 @@
   {
    "chemin": "tools/check_series_pinterest.py",
    "adresse": "https://anibal-amiot.com/tools/check_series_pinterest.py",
-   "octets": 6613,
-   "sha256": "b7779970087d8621bb2e0d1f48e82a4d04fb6762bc02689df466389187439614",
-   "md5": "2fe640f1952529e3e300a7df53f8cbc9",
+   "octets": 7120,
+   "sha256": "4ee5e6a664d7c9a5e8a54d160cdee42f95915400a28c2b365bb6054b25aed2fb",
+   "md5": "4e0d6e09220eeb38a155bd0e0742ca8a",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Les quatre séries du corpus Pinterest (data/fonds/collections-pinterest.json, « series ») contre leurs images, assets/motifs-pinterest/<série>/*.png.",
@@ -3004,9 +3004,9 @@
   {
    "chemin": "tools/epingles_pinterest.mjs",
    "adresse": "https://anibal-amiot.com/tools/epingles_pinterest.mjs",
-   "octets": 8552,
-   "sha256": "f18770ba0fa245acc3e61ef4f53435e09f3c7d2a5cb3944b2be020d71113347f",
-   "md5": "85d3d26bd6d326e9dc90af884fad1049",
+   "octets": 8820,
+   "sha256": "cb8869b09f65c55e5225a97f87a9d5c6fd33ea14d0ad1d381c537d87e61c738d",
+   "md5": "ff3b892c6d8c1d8180b9d8d63c986777",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "la liste des épingles de la campagne Pinterest, à reprogrammer, tirée du registre (data/fonds/collections-pinterest.json, « campagne ») : l'attribution page → série y est ENREGISTRÉE ; ce script ne la calcule pas, il la lit, la vérifie e…",

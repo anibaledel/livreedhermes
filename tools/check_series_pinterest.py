@@ -42,6 +42,11 @@ echecs = []
 hexa = lambda h: tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 paquet = lambda a: (a[..., 0].astype(np.uint32) << 16) | (a[..., 1].astype(np.uint32) << 8) | a[..., 2]
 
+# assets/motifs-pinterest est ARCHIVÉ (branche archive-medias, prompt 200) : restauré pour ce contrôle (il le dit)
+import subprocess
+_r = subprocess.run(['node', os.path.join(ROOT, 'tools/restaurer_archive.mjs')] + sorted({f'assets/motifs-pinterest/{n}' for n in reg} | {'/'.join(d['fichier'].split('/')[:3]) for d in (registre.get('campagne') or {}).get('deja_sur_le_tableau', [])}), cwd=ROOT)
+if _r.returncode != 0:
+    sys.exit('ÉCHEC : séries absentes de l\'arbre et de la branche archive-medias')
 for nom, s in reg.items():
     dossier = os.path.join(ROOT, 'assets/motifs-pinterest', nom)
     fichiers = sorted(f for f in os.listdir(dossier) if f.endswith('.png'))

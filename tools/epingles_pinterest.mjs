@@ -34,6 +34,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { assurer } from './lib_archive.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://anibal-amiot.com';
@@ -108,6 +109,8 @@ for (const a of att) {
 const ecarts = att.filter((a) => recalcul[a.page] !== a.serie);
 for (const a of ecarts) echecs.push(`${a.page} : inscrite en ${a.serie}, la règle donne ${recalcul[a.page]}`);
 // 5
+// assets/motifs-pinterest est ARCHIVÉ (branche archive-medias, prompt 200) : restauré pour ce contrôle, et dit
+for (const serie of new Set(lignes.slice(1).map((l) => l[3]))) assurer(`assets/motifs-pinterest/${serie}`);
 const manquants = lignes.slice(1).filter((l) => !existsSync(path.join(ROOT, 'assets/motifs-pinterest', l[3], l[4])));
 for (const l of manquants) echecs.push(`image absente : ${l[3]}/${l[4]}`);
 // 6. les 1024 titres possibles
