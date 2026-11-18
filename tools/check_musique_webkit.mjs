@@ -27,10 +27,13 @@ let navigateur;
 try { navigateur = await webkit.launch(); } catch (e) { console.error(`WebKit indisponible : ${String(e.message).split('\n')[0]}`); process.exit(2); }
 try {
   const ctx = await navigateur.newContext({ ...devices['iPhone 13'], acceptDownloads: true }), pg = await ctx.newPage(), errs = [], reqs = [];
-  pg.on('pageerror', (e) => errs.push(e.message)); pg.on('request', (r) => reqs.push(r.url()));
+  // La balise de mesure Cloudflare (sur la page, comme sur tout le site) envoie sa mesure vers cloudflareinsights.com : depuis une origine locale WebKit la refuse
+  // (CORS), en message de console ET en erreur de page non interceptée. Ce ne sont pas des erreurs de la page : on les écarte QUAND la page a bien fait cette requête.
+  const balise = () => reqs.some((u) => /cloudflareinsights/i.test(u)), CORS = /Access-Control-Allow-Origin|access control checks|cloudflareinsights/i;
+  pg.on('pageerror', (e) => { if (!(CORS.test(e.message) && balise())) errs.push(e.message); }); pg.on('request', (r) => reqs.push(r.url()));
   // les erreurs de la balise de mesure Cloudflare (une origine locale n'est pas celle qu'elle attend) ne sont pas celles de la page :
   // WebKit les formule autrement que Chromium (« not allowed by Access-Control-Allow-Origin »), on les reconnaît à l'adresse de la ressource
-  pg.on('console', (m) => { if (m.type() === 'error' && !TIERS.test(m.text()) && !/cloudflareinsights/i.test(`${m.text()} ${m.location().url || ''}`)) errs.push(m.text()); });
+  pg.on('console', (m) => { if (m.type() === 'error' && !TIERS.test(m.text()) && !(CORS.test(`${m.text()} ${m.location().url || ''}`) && balise())) errs.push(m.text()); });
   await pg.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
   await pg.waitForFunction(() => window.__voirSaMusique, null, { timeout: 30000 });
   await pg.waitForTimeout(800);
