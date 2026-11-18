@@ -16,7 +16,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `h1` | Voir sa musique | 看见你的音乐 |
 | `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | 每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。点击“聆听”：本页测量这份能量，画出声音的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。 |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | 任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。 |
-| `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | 注意：画面可能快速变化并闪烁。“减少快速变化”选项可使其放慢。 |
+| `flash` | Attention : les images peuvent changer vite et clignoter. Dans « Plus d'options », le réglage « réduire les changements rapides » les ralentit. | 注意：画面可能快速变化并闪烁。在“更多选项”中，“减少快速变化”选项可使其放慢。 |
 | `sonTitre` | Le son | 声音 |
 | `sonChoix` | Son | 声音 |
 | `morceau` | Morceau fourni {n} — {note} | 内置曲目 {n}——{note} |

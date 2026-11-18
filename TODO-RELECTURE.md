@@ -33,6 +33,7 @@ Nouveaux textes (26 clés : bouton « Écouter », « Plus d'options », image, 
 - **Informations sur l'appareil** : phrase d'aide (« rien n'est envoyé : c'est vous qui la copiez ») à relire pour le ton. Les noms techniques de la ligne copiée (`navigateur`, `audioContext`, `MediaRecorder`…) restent en français/anglais : la ligne est destinée à l'auteur.
 - **Introduction raccourcie** (trois phrases) : elle ne mentionne plus « les cercles de modes d'une plaque carrée » ; la phrase « un motif n'« exprime » pas un morceau » est conservée dans chaque langue.
 - **Police japonaise** : `tools/police_ja.py` relancé (1 205 caractères, « 情 » ajouté pour デバイス情報).
+- **Avertissement de scintillement** (clé `flash`, 18 novembre) : « dans Plus d'options » (le réglage « réduire les changements rapides » est dans l'Avancé) ; la tournure change selon la langue (« In “More options”, … », « Unter „Mehr Optionen“ … », 「オプションを増やす」の中の…). À relire avec le reste.
 
 ## Allemand, italien, japonais : tirage et hexagrammes (prompts 197 et 199, 2026-11-17)
 

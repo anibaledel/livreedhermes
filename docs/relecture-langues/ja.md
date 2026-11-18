@@ -16,7 +16,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `h1` | Voir sa musique | 自分の音楽を見る |
 | `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | どんな音楽にも署名があります。エネルギーが周波数ごとにどう分かれているか、ということです。「聴く」を押すと、このページはそのエネルギーを測り、音が描くクラドニ図形を描いて、La Livrée d'Hermès の統一紋様の中から、スペクトルが最もよく似たものを探します。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。 |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | 何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。 |
-| `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | 注意：画像が素早く切り替わったり、点滅したりすることがあります。「急な変化を抑える」設定で、動きがゆるやかになります。 |
+| `flash` | Attention : les images peuvent changer vite et clignoter. Dans « Plus d'options », le réglage « réduire les changements rapides » les ralentit. | 注意：画像が素早く切り替わったり、点滅したりすることがあります。「オプションを増やす」の中の「急な変化を抑える」設定で、動きがゆるやかになります。 |
 | `sonTitre` | Le son | 音 |
 | `sonChoix` | Son | 音 |
 | `morceau` | Morceau fourni {n} — {note} | 付属の曲 {n} — {note} |

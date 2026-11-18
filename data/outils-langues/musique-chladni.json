@@ -107,16 +107,16 @@
     },
     {
       "fr": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\"></p>",
-      "en": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Warning: the images can change fast and flicker. The “reduce rapid changes” setting slows them down.</p>",
-      "es": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atención: las imágenes pueden cambiar rápido y parpadear. El ajuste «reducir los cambios rápidos» las ralentiza.</p>",
-      "th": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">คำเตือน: ภาพอาจเปลี่ยนเร็วและกะพริบ ตัวเลือก “ลดการเปลี่ยนแปลงที่รวดเร็ว” จะทำให้ช้าลง</p>",
-      "zh": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">注意：画面可能快速变化并闪烁。“减少快速变化”选项可使其放慢。</p>",
-      "ru": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Внимание: изображения могут быстро меняться и мигать. Параметр «уменьшить быстрые изменения» замедляет их.</p>",
-      "pt": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atenção: as imagens podem mudar depressa e piscar. A opção «reduzir as mudanças rápidas» abranda-as.</p>",
-      "hi": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है।</p>",
-      "de": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Achtung: Die Bilder können schnell wechseln und flackern. Die Einstellung „Schnelle Wechsel reduzieren“ verlangsamt sie.</p>",
-      "it": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Attenzione: le immagini possono cambiare in fretta e lampeggiare. L'impostazione «riduci i cambiamenti rapidi» le rallenta.</p>",
-      "ja": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">注意：画像が素早く切り替わったり、点滅したりすることがあります。「急な変化を抑える」設定で、動きがゆるやかになります。</p>"
+      "en": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Warning: the images can change fast and flicker. In “More options”, the “reduce rapid changes” setting slows them down.</p>",
+      "es": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atención: las imágenes pueden cambiar rápido y parpadear. En «Más opciones», el ajuste «reducir los cambios rápidos» las ralentiza.</p>",
+      "th": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">คำเตือน: ภาพอาจเปลี่ยนเร็วและกะพริบ ใน “ตัวเลือกเพิ่มเติม” ตัวเลือก “ลดการเปลี่ยนแปลงที่รวดเร็ว” จะทำให้ช้าลง</p>",
+      "zh": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">注意：画面可能快速变化并闪烁。在“更多选项”中，“减少快速变化”选项可使其放慢。</p>",
+      "ru": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Внимание: изображения могут быстро меняться и мигать. В разделе «Больше настроек» параметр «уменьшить быстрые изменения» замедляет их.</p>",
+      "pt": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Atenção: as imagens podem mudar depressa e piscar. Em «Mais opções», a opção «reduzir as mudanças rápidas» abranda-as.</p>",
+      "hi": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “और विकल्प” में “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है।</p>",
+      "de": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Achtung: Die Bilder können schnell wechseln und flackern. Unter „Mehr Optionen“ verlangsamt die Einstellung „Schnelle Wechsel reduzieren“ sie.</p>",
+      "it": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">Attenzione: le immagini possono cambiare in fretta e lampeggiare. In «Più opzioni», l'impostazione «riduci i cambiamenti rapidi» le rallenta.</p>",
+      "ja": "<p class=\"vm-flash\" role=\"note\" data-t=\"flash\">注意：画像が素早く切り替わったり、点滅したりすることがあります。「オプションを増やす」の中の「急な変化を抑える」設定で、動きがゆるやかになります。</p>"
     },
     {
       "fr": "<label id=\"vmSonLabel\" for=\"vmSource\">Son</label>",

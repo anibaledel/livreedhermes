@@ -5,7 +5,7 @@
 "h1": "See your music",
 "intro": "Every piece of music has a signature: the way its energy is spread across frequencies. Press “Listen”: the page measures that energy, draws the Chladni figure of the sound and looks, among the La Livrée d'Hermès patterns, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a law of music: a pattern does not “express” a piece.",
 "discretion": "Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.",
-"flash": "Warning: the images can change fast and flicker. The “reduce rapid changes” setting slows them down.",
+"flash": "Warning: the images can change fast and flicker. In “More options”, the “reduce rapid changes” setting slows them down.",
 "sonTitre": "The sound",
 "sonChoix": "Sound",
 "morceau": "Provided track {n} — {note}",
