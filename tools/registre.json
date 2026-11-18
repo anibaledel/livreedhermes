@@ -719,7 +719,33 @@
     "assets/musique-chladni-ui.js",
     "data/musique-chladni/semaine.json",
     "en/see-your-music",
-    "tools/semaine.mjs"
+    "es/ver-tu-musica",
+    "hi/see-your-music",
+    "pt/see-your-music",
+    "ru/see-your-music",
+    "th/see-your-music",
+    "tools/semaine.mjs",
+    "zh/see-your-music"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_musique_statique.mjs",
+   "role": "« Voir sa musique » se lit SANS JavaScript (prompt 202 : Bing, Copilot, Google lisent d'abord le HTML ; un texte écrit seulement par script est un contenu essentiel masqué).",
+   "lit": [
+    "en/see-your-music/index.html",
+    "es/ver-tu-musica/index.html",
+    "hi/see-your-music/index.html",
+    "pt/see-your-music/index.html",
+    "ru/see-your-music/index.html",
+    "th/see-your-music/index.html",
+    "zh/see-your-music/index.html"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1491,6 +1517,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/figure_exemple_musique.mjs",
+   "role": "l'image statique de référence de « Voir sa musique » (prompt 202) : une figure RÉELLEMENT produite par le moteur de la page (assets/musique-chladni-moteur.js, inchangé) sur un des 7 morceaux d'exemple.",
+   "lit": [
+    "data/musique-chladni/figure-exemple.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/filtre_unified.py",
    "role": "Reproduit le Théorème 2 de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube » : construit les candidats (famille, teinteA, teinteB, n) pour les 15 familles, les deux couples (yang,yang_mut) et…",
    "lit": [],
@@ -1799,6 +1839,7 @@
     "tools/epingles_echantillon.mjs",
     "tools/epingles_encre_creme.mjs",
     "tools/export_pinterest_fonds.mjs",
+    "tools/figure_exemple_musique.mjs",
     "tools/pins/fabriquer.mjs",
     "tools/pins/fabriquer_12.mjs",
     "tools/pins/fabriquer_gris.mjs",

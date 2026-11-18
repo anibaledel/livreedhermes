@@ -543,7 +543,9 @@ function annoncerLiens(html, lang, fichierPage) {
     let rel;
     if (href.startsWith(`${SITE}/`)) rel = href.slice(SITE.length + 1);
     else if (/^[a-z][a-z0-9+.-]*:|^\/\//i.test(href)) return m;
-    else rel = path.posix.normalize(path.posix.join(dossier, href.startsWith('/') ? `.${href}` : href));
+    // un lien « /page.html » part de la RACINE du site, pas du dossier de la page (la liste « Voir aussi » de « Voir sa musique » en porte, prompt 202)
+    else if (href.startsWith('/')) rel = path.posix.normalize(href.slice(1));
+    else rel = path.posix.normalize(path.posix.join(dossier, href));
     rel = rel.split(/[?#]/)[0].replace(/^\.\//, '');
     if (rel.startsWith('../')) return m;
     const a = annonceVers(rel === '.' ? '' : rel, lang);
