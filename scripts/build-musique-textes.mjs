@@ -92,6 +92,7 @@ const table = [
   { fr: dansPage('<button type="button" id="vmValider" class="vm-av">Valider l\'essai</button><button type="button" id="vmAnnuler" class="vm-av">Annuler</button><button type="button" id="vmPleinBtn">Plein écran</button>'), cle: (l) => `<button type="button" id="vmValider" class="vm-av">${traductions[l].validerEssai}</button><button type="button" id="vmAnnuler" class="vm-av">${traductions[l].annuler}</button><button type="button" id="vmPleinBtn">${traductions[l].pleinEcran}</button>` },
   // les deux boutons du mode (« Plus d'options ») et le volet « Informations sur l'appareil » : leur texte est posé en dur, comme les autres libellés
   { fr: dansPage('<button type="button" id="vmPlus" aria-expanded="false">Plus d\'options</button>'), cle: (l) => `<button type="button" id="vmPlus" aria-expanded="false">${traductions[l].plusOptions}</button>` },
+  { fr: dansPage('<button type="button" id="vmAppareilCopier">Copier</button>'), cle: (l) => `<button type="button" id="vmAppareilCopier">${traductions[l].appareilCopier}</button>` },
   { fr: dansPage('<summary id="vmTitreAppareil">Informations sur l\'appareil</summary>'), cle: (l) => `<summary id="vmTitreAppareil">${traductions[l].appareilTitre}</summary>` },
   { fr: dansPage('<summary id="vmTitreReglages">Réglages</summary>'), cle: (l) => `<summary id="vmTitreReglages">${traductions[l].reglagesTitre}</summary>` },
   { fr: dansPage('<summary id="vmTitreScene">La scène</summary>'), cle: (l) => `<summary id="vmTitreScene">${traductions[l].sceneTitre}</summary>` },

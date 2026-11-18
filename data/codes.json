@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-18T12:11:02Z",
+ "generated_at_utc": "2026-11-18T13:16:21Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -811,9 +811,9 @@
   {
    "chemin": "scripts/build-musique-textes.mjs",
    "adresse": "https://anibal-amiot.com/scripts/build-musique-textes.mjs",
-   "octets": 17084,
-   "sha256": "f80c2907b6407b1359c904b57d5cba9c9de3228b6a14d414e5e51b39fe8deeef",
-   "md5": "bfd25d506f1a2d55f8725fc0dd2b4497",
+   "octets": 17268,
+   "sha256": "074b6ba32c576dfb4dc3f9c383dcaa6ce19aae54a3400dc2972db304eec4d6bf",
+   "md5": "d4372a7049c63d4c46b9f92a0747ffd8",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les textes de « Voir sa musique » dans 7 langues (en, es, th, zh, ru, pt, hi).",

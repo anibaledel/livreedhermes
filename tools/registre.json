@@ -404,6 +404,9 @@
    "fichier": "tools/check_epingles_images.mjs",
    "role": "les images des épingles encre et crème sont là, à leur taille, et sont bien celles de la liste.",
    "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme",
+    "assets/motifs-pinterest/echantillon-encre-creme/cellule-calee/bases-yang-h2.png",
+    "assets/motifs-pinterest/encre-creme",
     "data/fonds/epingles-encre-creme.csv",
     "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json"
@@ -997,6 +1000,7 @@
    "fichier": "tools/check_series_pinterest.py",
    "role": "Les quatre séries du corpus Pinterest (data/fonds/collections-pinterest.json, « series ») contre leurs images, assets/motifs-pinterest/<série>/*.png.",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json",
     "data/motifs-index.csv",
     "tools/restaurer_archive.mjs"
@@ -1346,6 +1350,7 @@
    "fichier": "tools/epingles_echantillon.mjs",
    "role": "l'échantillon des nouvelles épingles Pinterest, à valider sur image avant toute production (consigne « épingles — les images d'abord », 2026-10-05).",
    "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme",
     "data/fonds/epingles-pinterest.csv",
     "tools/epingles_mesures.py"
    ],
@@ -1359,6 +1364,8 @@
    "fichier": "tools/epingles_encre_creme.mjs",
    "role": "le parcours des épingles encre et crème, et leurs images (décisions d'Anibal, 2026-10-05) : - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN SITUATION en 2 × 3 DÉCALÉ d'un demi-carreau, 1000 × 1500 (décision d'Anibal, 7 o…",
    "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme",
+    "assets/motifs-pinterest/encre-creme",
     "data/fonds/epingles-encre-creme.csv",
     "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json",
@@ -1388,6 +1395,7 @@
    "fichier": "tools/epingles_pinterest.mjs",
    "role": "la liste des épingles de la campagne Pinterest, à reprogrammer, tirée du registre (data/fonds/collections-pinterest.json, « campagne ») : l'attribution page → série y est ENREGISTRÉE ; ce script ne la calcule pas, il la lit, la vérifie e…",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json",
     "data/fonds/epingles-pinterest.csv",
     "data/motifs-index.csv"
@@ -1416,6 +1424,7 @@
    "fichier": "tools/export_pinterest_fonds.mjs",
    "role": "Une collection Pinterest : les 256 motifs du corpus, chacun dans un fond (et une superposition facultative), au format assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500 (le 2:3 de Pinterest, le motif répété 6 × 9).",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json"
    ],
    "ecrit": [],
@@ -2378,6 +2387,7 @@
    "fichier": "tools/restaurer_collection.mjs",
    "role": "remet en place une exportation GARDÉE d'une collection Pinterest (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), au lieu de la refabriquer.",
    "lit": [
+    "assets/motifs-pinterest",
     "data/fonds/collections-pinterest.json"
    ],
    "ecrit": [],

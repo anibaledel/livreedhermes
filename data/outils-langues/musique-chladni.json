@@ -223,6 +223,19 @@
       "ja": "<button type=\"button\" id=\"vmPlus\" aria-expanded=\"false\">オプションを増やす</button>"
     },
     {
+      "fr": "<button type=\"button\" id=\"vmAppareilCopier\">Copier</button>",
+      "en": "<button type=\"button\" id=\"vmAppareilCopier\">Copy</button>",
+      "es": "<button type=\"button\" id=\"vmAppareilCopier\">Copiar</button>",
+      "th": "<button type=\"button\" id=\"vmAppareilCopier\">คัดลอก</button>",
+      "zh": "<button type=\"button\" id=\"vmAppareilCopier\">复制</button>",
+      "ru": "<button type=\"button\" id=\"vmAppareilCopier\">Копировать</button>",
+      "pt": "<button type=\"button\" id=\"vmAppareilCopier\">Copiar</button>",
+      "hi": "<button type=\"button\" id=\"vmAppareilCopier\">कॉपी करें</button>",
+      "de": "<button type=\"button\" id=\"vmAppareilCopier\">Kopieren</button>",
+      "it": "<button type=\"button\" id=\"vmAppareilCopier\">Copia</button>",
+      "ja": "<button type=\"button\" id=\"vmAppareilCopier\">コピー</button>"
+    },
+    {
       "fr": "<summary id=\"vmTitreAppareil\">Informations sur l'appareil</summary>",
       "en": "<summary id=\"vmTitreAppareil\">Device information</summary>",
       "es": "<summary id=\"vmTitreAppareil\">Información del dispositivo</summary>",
