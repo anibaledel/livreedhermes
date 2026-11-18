@@ -66,6 +66,18 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `non` | non | 否 |
 | `appareilSansContexte` | pas encore créé | 尚未创建 |
 | `appareilSansEnregistreur` | enregistreur absent | 没有录制器 |
+| `commentTitre` | Comment ça marche | 工作原理 |
+| `comment1` | La page mesure l'énergie du son aux fréquences des cercles de modes d'une plaque carrée, dessine la figure de Chladni correspondante et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre ressemble le plus à celui du son. | 本页在方形板各个振动模式圆环所对应的频率上测量声音的能量，画出相应的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与声音频谱最相似的那一个。 |
+| `comment2` | Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré. | Chladni 图形是沙子在振动的板上形成的图案：沙子会聚集在不动的线上。这里的板是方形的。 |
+| `comment3` | Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | 这里的“相似”指两个频谱相近：能量在各个频率上的分布方式相同。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。 |
+| `comment4` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil. | 任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。录制的图片和视频在您的浏览器中生成，并下载到您的设备上。 |
+| `comment5` | Appuyez sur « Écouter » pour jouer le premier morceau d'exemple, ou choisissez un autre morceau, un fichier audio ou le micro. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 点击“聆听”播放第一首示例曲目，也可以选择其他曲目、音频文件或麦克风。在“更多选项”中可以录制图形的图片，或带声音的 15 秒视频。 |
+| `comment6` | Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot. | 内容采用 CC BY-NC 4.0 许可，代码采用 AGPL v3 许可（商业许可可应请求提供）。作者：Anibal Edelberto Amiot。 |
+| `commentAuteur` | À propos de l'auteur | 关于作者 |
+| `refAlt` | Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements. | 本页生成的图形示例：由黑色和奶油色的大菱形组成的棋盘，交叉处有小的圆形。 |
+| `refLegende` | Exemple réel : après {s} secondes du morceau d'exemple n° {m}, le motif n° {i} sur {n} est celui dont le spectre ressemble le plus à celui du son. | 真实示例：示例曲目第 {m} 首播放 {s} 秒后，在 {n} 个图案中，第 {i} 个图案的频谱与声音最相似。 |
+| `sansJs` | L'écoute demande JavaScript : activez-le pour entendre un morceau et voir la figure bouger. Le texte et l'image d'exemple ci-dessous se lisent sans lui. | 聆听需要 JavaScript：请启用它，以听曲目并看图形移动。下面的文字和示例图片无需它也可阅读。 |
+| `figureAria` | Figure du motif retenu : {nom} | 所选图案的图形：{nom} |
 | `entree` | Entrée audio | 音频输入 |
 | `entreeDefaut` | Entrée par défaut | 默认输入 |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | 调音台、声卡：接好设备，允许使用麦克风，然后在此选择。 |

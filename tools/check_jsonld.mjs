@@ -27,7 +27,8 @@ const ATTENDUS = [
   [/^(carre-magique-ordre-6\.html|carres-magiques-ordre-pair\.html)$/, ['Article']],
   [/^la-livree-d-hermes\.html$/, ['Book']],
   [/^(animations\/[^/]+\.html|[a-z]{2}\/(animations|animaciones)\/.*index\.html)$/, ['WebPage']],
-  [/^[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html$/, ['WebPage']],
+  [/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/, ['WebPage']],
+  [/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/, ['WebApplication']],
 ];
 
 const pages = [];
@@ -58,6 +59,20 @@ const licences = (o, rel) => {
   }
 };
 
+// « Voir sa musique » (prompt 202) : le WebApplication ne dit que ce que la page dit — mêmes nom, description, langue, adresse ; ni note, ni avis, ni prix
+const meta = (s, re) => { const m = re.exec(s); return m ? m[1].replace(/&#x27;/g, "'").replace(/&amp;/g, '&').replace(/&quot;/g, '"') : null; };
+function appliCorrecte(j, s, rel) {
+  const lang = /<html lang="([^"]+)"/.exec(s), attendue = lang ? (lang[1] === 'zh' ? 'zh-Hans' : lang[1]) : 'fr';
+  const ok = (c, m) => { if (!c) echecs.push(`${rel} : WebApplication : ${m}`); };
+  ok(j.applicationCategory === 'MultimediaApplication' && j.operatingSystem === 'Web' && j.isAccessibleForFree === true, 'applicationCategory MultimediaApplication, operatingSystem Web, isAccessibleForFree true attendus');
+  ok(j.description === meta(s, /<meta name="description" content="([^"]*)"/), 'la description doit être celle de la balise meta');
+  ok(j.name === (meta(s, /<meta property="og:title" content="([^"]*)"/) || meta(s, /<title>([^<]*)<\/title>/)), 'le nom doit être celui de la page');
+  ok(j.inLanguage === attendue, `inLanguage ${j.inLanguage}, attendu ${attendue}`);
+  ok(j.url === meta(s, /<link rel="canonical" href="([^"]*)"/), 'url doit être la canonique');
+  ok(j.author && j.author['@type'] === 'Person' && /a-propos\.html#anibal-amiot$/.test(j.author['@id'] || ''), 'author : le Person de la page');
+  for (const k of ['aggregateRating', 'review', 'offers', 'screenshot', 'ratingValue', 'reviewCount', 'price']) ok(!(k in j), `« ${k} » interdit (rien d'inventé : aucun avis, note, prix ni capture)`);
+}
+
 for (const rel of pages) {
   const s = fs.readFileSync(path.join(RACINE, rel), 'utf8');
   const lds = [...s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
@@ -67,6 +82,7 @@ for (const rel of pages) {
     try { j = JSON.parse(m[1]); blocs++; } catch (e) { echecs.push(`${rel} : JSON-LD invalide (${e.message})`); continue; }
     licences(j, rel);
     types(j, ts);
+    if (j && j['@type'] === 'WebApplication' && /^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/.test(rel)) appliCorrecte(j, s, rel);
   }
   if (/noindex/.test(s) || SANS.has(rel)) continue;
   indexables++;

@@ -79,7 +79,7 @@ try {
   const choisir = async (g, v) => { await ouvrir(g); await page.click(`#vm-o-${g}-${v}`); };
 
   // six en-têtes, deux fenêtres, ordre 12 seul
-  ok((await page.$$('.vm-opts .vm-grp > h3 > button')).length === 6, 'six en-têtes attendus');
+  ok((await page.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6, 'six en-têtes attendus');
   ok(!(await page.isDisabled('#vm-o-fmt-18')) && !(await page.isDisabled('#vm-o-fmt-30')), 'les ordres 18 et 30 doivent être proposés');
   ok(!demandes.some((u) => /bloc-(18|30)-structure/.test(u)), 'les ordres 18 et 30 ne doivent pas se charger avant le premier choix du format');
   ok((await page.$$('#vm-g-fond .vm-o')).length === 6, 'six variantes de case attendues (B3x, BA33, BA50 sont des alias, jamais proposés)');
@@ -338,7 +338,7 @@ try {
       await va(pg);
       await pg.click('#vmPlus'); await pg.waitForTimeout(300);
       ok(await visible(pg, '.vm-opts') && await visible(pg, '#vmEssaiToile') && await visible(pg, '#vmValider') && await visible(pg, '#vmEntreeLigne'), 'Avancé : les groupes, la fenêtre Essai et l\'entrée audio doivent apparaître');
-      ok((await pg.$$('.vm-opts .vm-grp > h3 > button')).length === 6 && (await pg.$$('.vm-details:not([hidden])')).length >= 5, 'Avancé : six groupes et les volets');
+      ok((await pg.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6 && (await pg.$$('.vm-details:not([hidden])')).length >= 5, 'Avancé : six groupes et les volets');
       ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic,essai,onglet', 'Avancé : musique d\'essai et audio d\'un onglet proposés');
       ok(await pg.getAttribute('#vmPlus', 'aria-expanded') === 'true' && (await pg.evaluate(() => localStorage.getItem('vm-mode'))) === 'avance', 'Avancé : aria-expanded et mémorisation attendus');
       await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.__voirSaMusique);
@@ -471,6 +471,43 @@ try {
       ok(/\.png$/.test(f.suggestedFilename()), 'mobile émulé : le PNG doit se télécharger');
       ok((await pg.evaluate(() => document.documentElement.scrollWidth)) <= 390, 'mobile émulé : pas de défilement horizontal à 390 px');
       ok(errs.length === 0, `mobile émulé : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+
+    // 9. rendu SANS JavaScript (prompt 202) : le texte, la section « Comment ça marche », l'image d'exemple et « Voir aussi » s'affichent ; un message dit que l'écoute demande JavaScript
+    {
+      const PAGES = ['musique-chladni.html', 'en/see-your-music/', 'es/ver-tu-musica/', 'th/see-your-music/', 'zh/see-your-music/', 'ru/see-your-music/', 'pt/see-your-music/', 'hi/see-your-music/', 'de/see-your-music/', 'it/see-your-music/', 'ja/see-your-music/'];
+      for (const chemin of PAGES) {
+        const c = await navigateur.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false }), pg = await c.newPage();
+        await pg.goto(`${base}/${chemin}`, { waitUntil: 'load' }); await pg.waitForTimeout(300);
+        const vu = await pg.evaluate(() => {
+          const v = (s) => { const e = document.querySelector(s); if (!e) return false; const r = e.getBoundingClientRect(), st = getComputedStyle(e); return st.display !== 'none' && st.visibility !== 'hidden' && r.width > 0 && r.height > 0; };
+          const im = document.querySelector('#comment img');
+          return {
+            h1: v('h1'), intro: v('.vm-intro') && document.querySelector('.vm-intro').textContent.trim().length > 40, sansJs: v('.vm-sans-js'), comment: v('#comment h2'),
+            paras: [...document.querySelectorAll('#comment p')].filter((p) => p.getBoundingClientRect().height > 0).length, img: v('#comment img') && im.complete && im.naturalWidth > 0,
+            legende: v('#comment figcaption'), cartes: document.querySelectorAll('.vm-cartes a').length, ecoute: v('.vm-demarrage') || v('.vm-main'), sw: document.documentElement.scrollWidth,
+            discretion: v('.vm-discretion'), flash: v('.vm-flash'),
+          };
+        });
+        ok(vu.h1 && vu.intro && vu.sansJs && vu.comment && vu.paras >= 6 && vu.img && vu.legende && vu.cartes >= 4 && vu.discretion && vu.flash, `sans JavaScript, ${chemin} : titre, introduction, message, « Comment ça marche », image, légende, « Voir aussi », discrétion, avertissement attendus (${JSON.stringify(vu)})`);
+        ok(!vu.ecoute && vu.sw <= 390, `sans JavaScript, ${chemin} : l'écoute (inutilisable sans script) doit être masquée et rien ne dépasse à 390 px (${JSON.stringify({ ecoute: vu.ecoute, sw: vu.sw })})`);
+        if (process.env.CAPTURE_SANSJS && /^(musique-chladni|ja|hi)/.test(chemin)) await pg.screenshot({ path: `${process.env.CAPTURE_SANSJS}-${chemin.split('/')[0].replace('musique-chladni.html', 'fr')}-390.png`, fullPage: true });
+        await c.close();
+      }
+    }
+
+    // 10. titres et nom accessible, JavaScript exécuté (Avancé, volets ouverts) : un seul h1, aucun saut de niveau, les fenêtres Validé / Essai ne sont pas des titres ; le canvas porte le nom du motif retenu
+    {
+      const { c, pg, errs } = await ouvre(1000, 1200);
+      await va(pg, '?mode=avance'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      for (const d of await pg.$$('.vm-details')) await d.evaluate((n) => { n.open = true; });
+      await pg.waitForTimeout(600);
+      const niv = await pg.evaluate(() => [...document.querySelectorAll('main h1,main h2,main h3,main h4')].filter((h) => h.getBoundingClientRect().width > 0).map((h) => Number(h.tagName[1])));
+      ok(niv.filter((n) => n === 1).length === 1 && niv.every((n, i) => i === 0 || n <= niv[i - 1] + 1), `hiérarchie des titres après chargement (Avancé, volets ouverts) : ${niv.join(' ')}`);
+      ok(!(await pg.$('main h2#vmValideTitre, main h2#vmEssaiTitre, main h3[id^="vm-g-"]')), 'les fenêtres Validé / Essai et les groupes de l\'Avancé ne sont pas des titres');
+      const aria = await pg.getAttribute('#vmValideToile', 'aria-label'), nom = await pg.textContent('#vmNomMotif');
+      ok(/Tricolore|Bicolore/.test(aria) && aria.includes(nom.split(' · ').slice(0, 2).join(' · ')) && (await pg.getAttribute('#vmValideToile', 'role')) === 'img', `le canvas doit garder role="img" et un aria-label qui porte le motif retenu (« ${aria} » / « ${nom} »)`);
+      ok(errs.length === 0, `titres : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
     }
 
     // 8. fluidité : temps d'image de la figure animée, processeur ralenti ×4 (profil mobile) — voir tools/mesure_fluidite_musique.mjs pour la mesure détaillée

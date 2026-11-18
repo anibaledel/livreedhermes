@@ -66,6 +66,18 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `non` | non | いいえ |
 | `appareilSansContexte` | pas encore créé | まだ作成されていません |
 | `appareilSansEnregistreur` | enregistreur absent | 録画機能なし |
+| `commentTitre` | Comment ça marche | 仕組み |
+| `comment1` | La page mesure l'énergie du son aux fréquences des cercles de modes d'une plaque carrée, dessine la figure de Chladni correspondante et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre ressemble le plus à celui du son. | このページは、正方形の板の振動モードの各円の周波数で音のエネルギーを測り、対応するクラドニ図形を描いて、La Livrée d'Hermès の紋様の中から、スペクトルが音のスペクトルに最もよく似たものを探します。 |
+| `comment2` | Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré. | クラドニ図形とは、振動する板の上で砂が作る模様のことです。砂は動かない線に沿って集まります。ここでは板は正方形です。 |
+| `comment3` | Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | ここでの「似ている」とは、2つのスペクトルが近いということです。エネルギーが周波数ごとに同じように分かれています。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。 |
+| `comment4` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil. | 何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。録画した画像や動画はお使いのブラウザ内で作られ、お使いのデバイスにダウンロードされます。 |
+| `comment5` | Appuyez sur « Écouter » pour jouer le premier morceau d'exemple, ou choisissez un autre morceau, un fichier audio ou le micro. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 「聴く」を押すと最初の例の曲が再生されます。別の曲、音声ファイル、マイクを選ぶこともできます。「オプションを増やす」では、図形の画像や、音付きの15秒の動画を録画できます。 |
+| `comment6` | Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot. | コンテンツは CC BY-NC 4.0 ライセンス、コードは AGPL v3 ライセンスです（商用ライセンスは要望に応じて提供）。作者：Anibal Edelberto Amiot。 |
+| `commentAuteur` | À propos de l'auteur | 作者について |
+| `refAlt` | Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements. | ページが生成した図形の例：大きな黒とクリーム色の菱形の市松模様で、交点に小さな丸い形があります。 |
+| `refLegende` | Exemple réel : après {s} secondes du morceau d'exemple n° {m}, le motif n° {i} sur {n} est celui dont le spectre ressemble le plus à celui du son. | 実際の例：例の曲 {m} を {s} 秒再生したところ、{n} 個の紋様のうち {i} 番目が、音のスペクトルに最もよく似たものです。 |
+| `sansJs` | L'écoute demande JavaScript : activez-le pour entendre un morceau et voir la figure bouger. Le texte et l'image d'exemple ci-dessous se lisent sans lui. | 聴くには JavaScript が必要です。有効にすると曲が聞こえ、図形が動くのが見えます。下の文章と例の画像は、JavaScript なしでも読めます。 |
+| `figureAria` | Figure du motif retenu : {nom} | 選ばれた紋様の図形：{nom} |
 | `entree` | Entrée audio | オーディオ入力 |
 | `entreeDefaut` | Entrée par défaut | 既定の入力 |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | ミキサー、サウンドカード：接続し、マイクを許可してから、ここで選んでください。 |

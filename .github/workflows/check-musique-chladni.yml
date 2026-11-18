@@ -13,7 +13,9 @@ name: Voir sa musique — le moteur et la page
 # six en-têtes, deux fenêtres, six variantes de case, trois ordres, trois modes, enregistrement, 390 et 360 px,
 # rien d'envoyé.
 # tools/check_musique_webkit.mjs : la même page dans WebKit (profil iPhone), parcours Écouter → figure → Pause → Image.
-# --essai : un moteur faussé, une page privée de son moteur doivent échouer.
+# tools/check_musique_statique.mjs : les 11 pages se lisent sans JavaScript (aucun data-t vide, section « Comment ça marche »,
+#   image d'exemple, « Voir aussi », titres en ordre) ; tools/figure_exemple_musique.mjs : l'image d'exemple et son JSON s'accordent.
+# --essai : un moteur faussé, une page privée de son moteur, un texte vidé du HTML doivent échouer.
 
 on:
   push:
@@ -59,3 +61,15 @@ jobs:
       - run: npm install playwright@1
       - run: npx playwright install --with-deps webkit
       - run: node tools/check_musique_webkit.mjs local
+  statique:
+    # la page se lit SANS JavaScript (prompt 202 : Bing, Copilot, Google) : le texte est dans le HTML des 11 pages,
+    # la section « Comment ça marche », l'image d'exemple (vraie sortie du moteur) et « Voir aussi » aussi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_musique_statique.mjs
+      - run: node tools/check_musique_statique.mjs --essai
+      - run: node tools/figure_exemple_musique.mjs --verifie

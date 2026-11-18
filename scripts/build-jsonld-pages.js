@@ -67,7 +67,28 @@ for (const rel of pages) {
     ...(modif ? { dateModified: modif } : {}),
     license: 'https://creativecommons.org/licenses/by-nc/4.0/',
   };
-  const bloc = `<!-- @jsonld-page:start — engendré par scripts/build-jsonld-pages.js, ne pas éditer ici -->\n<script type="application/ld+json">\n${JSON.stringify(noeud, null, 2)}\n</script>\n<!-- @jsonld-page:end -->\n`;
+  // « Voir sa musique » est un OUTIL, pas seulement une page : un WebApplication à côté du WebPage (prompt 202). Les valeurs reprennent ce que la page
+  // dit déjà (nom, description identique à la meta, langue, licence, auteur) ; ni note, ni avis, ni prix, ni capture : rien qui ne soit visible sur la page.
+  let appli = '';
+  if (/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/.test(rel)) {
+    const app = {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      '@id': `${url}#application`,
+      url,
+      name,
+      ...(description ? { description } : {}),
+      applicationCategory: 'MultimediaApplication',
+      operatingSystem: 'Web',
+      isAccessibleForFree: true,
+      inLanguage: lang,
+      license: 'https://creativecommons.org/licenses/by-nc/4.0/',
+      author: noeud.author,
+      mainEntityOfPage: { '@id': `${url}#page` },
+    };
+    appli = `<script type="application/ld+json">\n${JSON.stringify(app, null, 2)}\n</script>\n`;
+  }
+  const bloc = `<!-- @jsonld-page:start — engendré par scripts/build-jsonld-pages.js, ne pas éditer ici -->\n<script type="application/ld+json">\n${JSON.stringify(noeud, null, 2)}\n</script>\n${appli}<!-- @jsonld-page:end -->\n`;
   const suite = sansZone.replace('</head>', `${bloc}</head>`);
   if (suite === s) continue;
   // --verifie ignore les dates (l'historique git est tronqué en CI)

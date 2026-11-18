@@ -279,5 +279,17 @@
 "oui": "yes",
 "non": "no",
 "appareilSansContexte": "not created yet",
-"appareilSansEnregistreur": "recorder missing"
+"appareilSansEnregistreur": "recorder missing",
+"commentTitre": "How it works",
+"comment1": "The page measures the sound's energy at the frequencies of the mode circles of a square plate, draws the corresponding Chladni figure and looks, among the La Livrée d'Hermès patterns, for the one whose spectrum most resembles that of the sound.",
+"comment2": "A Chladni figure is the drawing sand makes on a vibrating plate: it settles along the lines that do not move. Here, the plate is a square.",
+"comment3": "Here, “resemble” means that two spectra are close: the energy is spread across the frequencies in the same way. The choice rests on the resemblance of two spectra, not on a law of music: a pattern does not “express” a piece.",
+"comment4": "Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere. Recorded images and videos are made in your browser and downloaded to your device.",
+"comment5": "Press “Listen” to play the first example track, or choose another track, an audio file or the microphone. In “More options” you can record an image of the figure or a 15-second video with the sound.",
+"comment6": "Content under the CC BY-NC 4.0 licence, code under the AGPL v3 licence (commercial licence on request). Author: Anibal Edelberto Amiot.",
+"commentAuteur": "About the author",
+"refAlt": "Example of a figure produced by the page: a checkerboard of large black and cream diamonds, with small round shapes at the crossings.",
+"refLegende": "Real example: after {s} seconds of example track no. {m}, pattern no. {i} of {n} is the one whose spectrum most resembles the sound's.",
+"sansJs": "Listening needs JavaScript: turn it on to hear a track and see the figure move. The text and the example image below can be read without it.",
+"figureAria": "Figure of the chosen pattern: {nom}"
 }

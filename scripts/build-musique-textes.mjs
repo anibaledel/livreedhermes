@@ -68,7 +68,26 @@ for (const l of ['th', 'zh', 'ru', 'pt', 'hi', 'de', 'it', 'ja']) fichiers.set(`
 fichiers.set('docs/relecture-langues/en-es.md', ENTETE('Relecture — « Voir sa musique » en anglais et en espagnol', 'Relues par Anibal lui-même.') + md('en') + '\n' + md('es'));
 
 // la page traduite : ce que le HTML porte avant le script (métadonnées, titre, introduction), écrit pour scripts/build-outils-langues.js
-const PAGE = readFileSync(path.join(ROOT, 'musique-chladni.html'), 'utf8');
+const PAGE_BRUT = readFileSync(path.join(ROOT, 'musique-chladni.html'), 'utf8');
+// Le texte de la page est dans le HTML, écrit ICI à la construction (prompt 202) : tout élément `data-t="clé"` reçoit le texte de
+// assets/musique-chladni-textes.js (français), et tout `data-ta="clé"` son attribut alt. Une seule source : le JavaScript de la page ne
+// réécrit plus que ce qui change (état du bouton, nom du motif). Les variables {s} {m} {i} {n} de la légende de l'image d'exemple viennent de
+// data/musique-chladni/figure-exemple.json (valeurs MESURÉES par tools/figure_exemple_musique.mjs, pas écrites à la main).
+const EXEMPLE = JSON.parse(readFileSync(path.join(ROOT, 'data/musique-chladni/figure-exemple.json'), 'utf8'));
+const VARS = { s: EXEMPLE.seconde, m: Number(/^j(\d)/.exec(EXEMPLE.morceau)[1]), i: EXEMPLE.motif, n: EXEMPLE.sur };
+const subst = (t) => t.replace(/\{(\w+)\}/g, (x, k) => (k in VARS ? String(VARS[k]) : x));
+const echHtml = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'), echAttr = (t) => echHtml(t).replace(/"/g, '&quot;');
+const RE_DATA_T = /(<(\w+)\b[^>]*\bdata-t="(\w+)"[^>]*>)([^<]*)(<\/\2>)/g, RE_DATA_TA = /(<img\b[^>]*?\balt=")([^"]*)("[^>]*\bdata-ta="(\w+)")/g;
+const remplir = (html, texteDe) => html
+  .replace(RE_DATA_T, (m, ouvrante, balise, cle, contenu, fermante) => `${ouvrante}${echHtml(subst(texteDe(cle)))}${fermante}`)
+  .replace(RE_DATA_TA, (m, avant, alt, apres, cle) => `${avant}${echAttr(subst(texteDe(cle)))}${apres}`);
+const manquantes = [];
+// la liste « Voir aussi » : écrite dans le HTML aussi (même structure que celle que la page construit au chargement)
+const RE_CARTES = /<div class="vm-cartes" id="vmVoirAussi">[\s\S]*?<\/div>/;
+const cartesDe = (get) => { const o = []; for (let i = 0; get(`voirAussi.${i}.href`) !== undefined; i++) o.push(`<a class="vm-carte" href="${echAttr(get(`voirAussi.${i}.href`))}"><b>${echHtml(get(`voirAussi.${i}.titre`))}</b><span>${echHtml(get(`voirAussi.${i}.texte`))}</span></a>`); return o.join(''); };
+const PAGE_TEXTES = remplir(PAGE_BRUT, (cle) => { if (typeof fr[cle] !== 'string') { manquantes.push(cle); return ''; } return fr[cle]; });
+const PAGE = PAGE_TEXTES.replace(RE_CARTES, () => `<div class="vm-cartes" id="vmVoirAussi">${cartesDe((k) => plat[k])}</div>`);
+if (manquantes.length) { console.error(`ÉCHEC musique-chladni.html : data-t sans texte français dans musique-chladni-textes.js : ${[...new Set(manquantes)].join(', ')}`); process.exit(1); }
 const dansPage = (x) => { if (!PAGE.includes(x)) throw new Error(`musique-chladni.html : texte français introuvable : « ${x.slice(0, 70)} »`); return x; };
 const FR_STATIQUE = { titre: "Voir sa musique — La Livrée d'Hermès", og: statique.fr.ogDescription, twitter: statique.fr.twitterDescription };
 const metaDescription = /<meta name="description" content="([^"]*)">/.exec(PAGE)[1];
@@ -77,18 +96,13 @@ const table = [
   { fr: dansPage(metaDescription), cle: (l) => traductions[l].description },
   { fr: dansPage(FR_STATIQUE.og), cle: (l) => statique[l].ogDescription },
   { fr: dansPage(FR_STATIQUE.twitter), cle: (l) => statique[l].twitterDescription },
-  { fr: dansPage('<span aria-current="page" data-t="ariane">Voir sa musique</span>'), cle: (l) => `<span aria-current="page" data-t="ariane">${traductions[l].ariane}</span>` },
-  { fr: dansPage('<h1 data-t="h1">Voir sa musique</h1>'), cle: (l) => `<h1 data-t="h1">${traductions[l].h1}</h1>` },
-  { fr: dansPage('<p class="vm-intro" data-t="intro"></p>'), cle: (l) => `<p class="vm-intro" data-t="intro">${traductions[l].intro}</p>` },
-  { fr: dansPage('<p class="vm-discretion" data-t="discretion"></p>'), cle: (l) => `<p class="vm-discretion" data-t="discretion">${traductions[l].discretion}</p>` },
-  { fr: dansPage('<p class="vm-flash" role="note" data-t="flash"></p>'), cle: (l) => `<p class="vm-flash" role="note" data-t="flash">${traductions[l].flash}</p>` },
   // les libellés que le script de la page pose au chargement : écrits en dur aussi (tools/check_outils_langues.mjs : la page se lit sans JavaScript)
   { fr: dansPage('<label id="vmSonLabel" for="vmSource">Son</label>'), cle: (l) => `<label id="vmSonLabel" for="vmSource">${traductions[l].sonChoix}</label>` },
   { fr: dansPage('<button type="button" id="vmLecture" class="vm-ecouter">Écouter</button>'), cle: (l) => `<button type="button" id="vmLecture" class="vm-ecouter">${traductions[l].ecouter}</button>` },
   { fr: dansPage('<label id="vmEntreeLabel" for="vmEntree">Entrée audio</label>'), cle: (l) => `<label id="vmEntreeLabel" for="vmEntree">${traductions[l].entree}</label>` },
   { fr: dansPage('<button type="button" id="vmBasculeValide">Validé</button><button type="button" id="vmBasculeEssai">Essai</button>'), cle: (l) => `<button type="button" id="vmBasculeValide">${traductions[l].basculeValide}</button><button type="button" id="vmBasculeEssai">${traductions[l].basculeEssai}</button>` },
-  { fr: dansPage('<h2 id="vmValideTitre">Validé</h2>'), cle: (l) => `<h2 id="vmValideTitre">${traductions[l].valide}</h2>` },
-  { fr: dansPage('<h2 id="vmEssaiTitre">Essai</h2>'), cle: (l) => `<h2 id="vmEssaiTitre">${traductions[l].essai}</h2>` },
+  { fr: dansPage('<p class="vm-fen-titre" id="vmValideTitre">Validé</p>'), cle: (l) => `<p class="vm-fen-titre" id="vmValideTitre">${traductions[l].valide}</p>` },
+  { fr: dansPage('<p class="vm-fen-titre" id="vmEssaiTitre">Essai</p>'), cle: (l) => `<p class="vm-fen-titre" id="vmEssaiTitre">${traductions[l].essai}</p>` },
   { fr: dansPage('<button type="button" id="vmValider" class="vm-av">Valider l\'essai</button><button type="button" id="vmAnnuler" class="vm-av">Annuler</button><button type="button" id="vmPleinBtn">Plein écran</button>'), cle: (l) => `<button type="button" id="vmValider" class="vm-av">${traductions[l].validerEssai}</button><button type="button" id="vmAnnuler" class="vm-av">${traductions[l].annuler}</button><button type="button" id="vmPleinBtn">${traductions[l].pleinEcran}</button>` },
   // les deux boutons du mode (« Plus d'options ») et le volet « Informations sur l'appareil » : leur texte est posé en dur, comme les autres libellés
   { fr: dansPage('<button type="button" id="vmPlus" aria-expanded="false">Plus d\'options</button>'), cle: (l) => `<button type="button" id="vmPlus" aria-expanded="false">${traductions[l].plusOptions}</button>` },
@@ -103,8 +117,17 @@ const table = [
   { fr: dansPage('<button type="button" id="vmQuitter">Quitter le plein écran</button>'), cle: (l) => `<button type="button" id="vmQuitter">${traductions[l].quitterPleinEcran}</button>` },
   { fr: dansPage('<h2 id="vmSemaineTitre">La semaine</h2>'), cle: (l) => `<h2 id="vmSemaineTitre">${traductions[l].semaineTitre}</h2>` },
   { fr: dansPage('<p class="vm-aide" id="vmSemaineMention">Musique composée avec l\'IA par MC Claude.</p>'), cle: (l) => `<p class="vm-aide" id="vmSemaineMention">${traductions[l].semaineMention}</p>` },
-  { fr: dansPage('<h2 id="vmVoirTitre" data-t="voirAussiTitre">Voir aussi</h2>'), cle: (l) => `<h2 id="vmVoirTitre" data-t="voirAussiTitre">${traductions[l].voirAussiTitre}</h2>` },
 ];
+// les éléments `data-t` (et les alt `data-ta`) de la page : une entrée chacun, engendrée — le français est le texte écrit ci-dessus, la traduction celle du JSON de la langue
+for (const m of PAGE.matchAll(RE_DATA_T)) {
+  const [tout, ouvrante, balise, cle] = m;
+  table.push({ fr: dansPage(tout), cle: (l) => { if (typeof traductions[l][cle] !== 'string') throw new Error(`${l} : « ${cle} » manque`); return `${ouvrante}${echHtml(subst(traductions[l][cle]))}</${balise}>`; } });
+}
+table.push({ fr: dansPage(PAGE.match(RE_CARTES)[0]), cle: (l) => `<div class="vm-cartes" id="vmVoirAussi">${cartesDe((k) => traductions[l][k])}</div>` });
+for (const m of PAGE.matchAll(RE_DATA_TA)) {
+  const [tout, avant, alt, apres, cle] = m;
+  table.push({ fr: dansPage(`alt="${alt}"`), cle: (l) => `alt="${echAttr(subst(traductions[l][cle]))}"` });
+}
 const tableJson = { _doc: "Textes statiques de musique-chladni.html et leurs traductions (engendré par scripts/build-musique-textes.mjs depuis data/musique-chladni/traductions/). « fr » : sous-chaîne EXACTE de la page française. Les traductions viennent de l'IA, à relire (docs/relecture-langues/).", textes: table.map((r) => ({ fr: r.fr, ...Object.fromEntries(LANGUES.map((l) => [l, r.cle(l)])) })) };
 const entree = { source: 'musique-chladni.html', priorite: '0.8', textes: 'data/outils-langues/musique-chladni.json', langues: Object.fromEntries(LANGUES.map((l) => [l, { dossier: statique[l].dossier, ogLocale: statique[l].ogLocale, ...(statique[l].accueil ? { remplacements: [
   { fr: '<nav class="breadcrumb" aria-label="Fil d\'Ariane">', trad: `<nav class="breadcrumb" aria-label="${statique[l].ariaFil}">`, source: 'fil d\'Ariane des pages d\'outils de la langue (zh/tools/, ru/tools/, pt/tools/, hi/tools/)' },
@@ -113,6 +136,7 @@ const entree = { source: 'musique-chladni.html', priorite: '0.8', textes: 'data/
 const cheminOutils = path.join(ROOT, 'data/outils-langues.json'), outils = JSON.parse(readFileSync(cheminOutils, 'utf8'));
 const i = outils.pages.findIndex((p) => p.source === 'musique-chladni.html'); if (i >= 0) outils.pages[i] = entree; else outils.pages.push(entree);
 fichiers.set('data/outils-langues/musique-chladni.json', JSON.stringify(tableJson, null, 2) + '\n');
+fichiers.set('musique-chladni.html', PAGE);
 fichiers.set('data/outils-langues.json', JSON.stringify(outils, null, 2) + '\n');
 
 if (verifie) {

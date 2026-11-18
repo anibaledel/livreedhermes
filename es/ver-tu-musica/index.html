@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="../../assets/breadcrumb.css">
 <link rel="stylesheet" href="../../assets/trois-portes.css">
 <link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<noscript><style>.vm-demarrage,.vm-main,.vm-details,.vm-plein{ display:none !important; } .vm-sans-js{ border-left:3px solid var(--gold); padding-left:10px; }</style></noscript>
 <style>
   * { box-sizing:border-box; }
   html { overflow-x:hidden; }
@@ -49,7 +50,7 @@
   .vm-simple .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
   .vm-simple .vm-fen canvas{ max-width:min(100%,560px); margin:0 auto; }
   .vm-simple .vm-fen-btns{ justify-content:center; }
-  .vm-simple .vm-fen-valide h2{ display:none; } /* « Validé » n'a de sens qu'en face de la fenêtre Essai (Avancé) */
+  .vm-simple .vm-fen-valide .vm-fen-titre{ display:none; } /* « Validé » n'a de sens qu'en face de la fenêtre Essai (Avancé) */
   /* Grand écran, mode Simple : le texte et le bouton à gauche, la figure à droite — on la voit bouger au moment où l'on appuie sur Écouter */
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
@@ -69,7 +70,7 @@
   .vm-main{ display:grid; gap:18px; grid-template-columns:minmax(0,1fr) minmax(0,260px); align-items:start; margin:14px 0; }
   .vm-fenetres{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); }
   .vm-fen{ min-width:0; }
-  .vm-fen h2{ font-size:14px; margin:0 0 6px; font-weight:600; }
+  .vm-fen-titre{ font-size:14px; margin:0 0 6px; font-weight:600; }
   .vm-tag{ font-size:11px; color:var(--bg); background:var(--gold); padding:1px 6px; border-radius:3px; margin-left:4px; font-weight:400; }
   .vm-tag.e{ background:var(--dim); }
   .vm-fen canvas{ display:block; width:100%; max-width:260px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); }
@@ -77,10 +78,10 @@
   .vm-fen-btns{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; grid-column:1 / -1; }
   .vm-bascule{ display:none; gap:8px; margin:0 0 8px; }
   .vm-opts{ display:flex; flex-direction:column; gap:6px; }
-  .vm-grp h3{ margin:0; font-size:inherit; font-weight:inherit; }
-  .vm-grp > h3 > button{ width:100%; text-align:left; display:flex; justify-content:space-between; }
-  .vm-grp > h3 > button::after{ content:"▾"; color:var(--dim); }
-  .vm-grp.open > h3 > button{ border-color:var(--gold); }
+  .vm-grp-titre{ margin:0; }
+  .vm-grp > .vm-grp-titre > button{ width:100%; text-align:left; display:flex; justify-content:space-between; }
+  .vm-grp > .vm-grp-titre > button::after{ content:"▾"; color:var(--dim); }
+  .vm-grp.open > .vm-grp-titre > button{ border-color:var(--gold); }
   .vm-pan{ display:none; border:1px solid var(--line-strong); padding:8px; margin-top:4px; background:var(--bg); max-height:60vh; overflow:auto; }
   .vm-grp.open .vm-pan{ display:grid; gap:6px; }
   .vm-o{ display:flex; gap:8px; align-items:center; text-align:left; width:100%; }
@@ -104,6 +105,9 @@
   .vm-plein button{ position:absolute; top:10px; right:10px; background:#000; }
   .vm-plein.vm-masque{ cursor:none; } .vm-plein.vm-masque button{ display:none; }
   .vm-info{ color:var(--dim); font-size:12.5px; margin:8px 0 0; min-height:1.6em; overflow-wrap:anywhere; }
+  .vm-comment{ margin:28px 0 0; max-width:70ch; } .vm-comment h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
+  .vm-comment p{ color:var(--dim); line-height:1.6; overflow-wrap:anywhere; }
+  .vm-ref{ margin:14px 0; } .vm-ref img{ display:block; width:100%; max-width:360px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); } .vm-ref figcaption{ color:var(--dim); font-size:12.5px; line-height:1.5; margin-top:6px; overflow-wrap:anywhere; max-width:360px; }
   .vm-semaine{ margin:28px 0 0; } .vm-semaine h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
   .vm-semaine-grille{ display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(min(100%,150px), 1fr)); margin-top:12px; }
   .vm-jour{ min-width:0; border:1px solid var(--line-strong); padding:8px; display:flex; flex-direction:column; gap:6px; }
@@ -183,6 +187,33 @@
   "license": "https://creativecommons.org/licenses/by-nc/4.0/"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://anibal-amiot.com/es/ver-tu-musica/#application",
+  "url": "https://anibal-amiot.com/es/ver-tu-musica/",
+  "name": "Ver tu música — La Livrée d'Hermès",
+  "description": "Ver tu música: elige una pieza, un archivo o el micrófono, mira la figura de Chladni del sonido y el motivo de La Livrée d'Hermès más parecido. Graba 15 segundos.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "es",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "author": {
+    "@type": "Person",
+    "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+    "name": "Anibal Edelberto Amiot",
+    "sameAs": [
+      "https://www.wikidata.org/wiki/Q141191562",
+      "https://orcid.org/0009-0002-6414-9448"
+    ]
+  },
+  "mainEntityOfPage": {
+    "@id": "https://anibal-amiot.com/es/ver-tu-musica/#page"
+  }
+}
+</script>
 <!-- @jsonld-page:end -->
 </head>
 <body>
@@ -200,8 +231,9 @@
   <div class="vm-page vm-simple" id="vmPage">
     <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="https://anibal-amiot.com/es/">Inicio</a><span class="sep">/</span><span aria-current="page" data-t="ariane">Ver tu música</span></nav>
     <h1 data-t="h1">Ver tu música</h1>
+    <noscript><p class="vm-sans-js" data-t="sansJs">Escuchar requiere JavaScript: actívalo para oír una pieza y ver cómo se mueve la figura. El texto y la imagen de ejemplo de abajo se pueden leer sin él.</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
-    <p class="vm-intro" data-t="intro">Toda música tiene una firma: la manera en que su energía se reparte entre las frecuencias. Pulse «Escuchar»: la página mide esa energía, dibuja la figura de Chladni del sonido y busca, entre los motivos de La Livrée d'Hermès, aquel cuyo espectro más se le parece. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>
+    <p class="vm-intro" data-t="intro">Toda música tiene una firma: la manera en que su energía se reparte entre las frecuencias. Pulsa «Escuchar»: la página mide esa energía, dibuja la figura de Chladni del sonido y busca, entre los motivos de La Livrée d'Hermès, aquel cuyo espectro más se le parece. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
       <button type="button" id="vmLecture" class="vm-ecouter">Escuchar</button>
@@ -215,8 +247,8 @@
     <div class="vm-main">
       <div>
         <div class="vm-fenetres">
-          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">Validada</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap" class="vm-av"></figcaption></figure>
-          <figure class="vm-fen vm-fen-essai vm-av" style="margin:0"><h2 id="vmEssaiTitre">Prueba</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
+          <figure class="vm-fen vm-fen-valide" style="margin:0"><p class="vm-fen-titre" id="vmValideTitre">Validada</p><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap" class="vm-av"></figcaption></figure>
+          <figure class="vm-fen vm-fen-essai vm-av" style="margin:0"><p class="vm-fen-titre" id="vmEssaiTitre">Prueba</p><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
         </div>
         <p class="vm-nom" id="vmNomMotif" aria-live="off"></p>
         <div class="vm-fen-btns"><button type="button" id="vmValider" class="vm-av">Validar la prueba</button><button type="button" id="vmAnnuler" class="vm-av">Cancelar</button><button type="button" id="vmPleinBtn">Pantalla completa</button><button type="button" id="vmAnimer" aria-pressed="false" hidden></button><button type="button" id="vmPlus" aria-expanded="false">Más opciones</button></div>
@@ -235,6 +267,16 @@
 
     <p class="vm-discretion" data-t="discretion">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte.</p>
     <p class="vm-aide" id="vmMentionIA"></p>
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">Cómo funciona</h2>
+      <p data-t="comment1">La página mide la energía del sonido en las frecuencias de los círculos de modos de una placa cuadrada, dibuja la figura de Chladni correspondiente y busca, entre los motivos de La Livrée d'Hermès, aquel cuyo espectro más se parece al del sonido.</p>
+      <p data-t="comment2">Una figura de Chladni es el dibujo que forma la arena sobre una placa que vibra: se coloca a lo largo de las líneas que no se mueven. Aquí, la placa es un cuadrado.</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Ejemplo de figura producida por la página: un tablero de grandes rombos negros y crema, con pequeñas formas redondas en los cruces." data-ta="refAlt"><figcaption data-t="refLegende">Ejemplo real: tras 8 segundos de la pieza de ejemplo n.º 3, el motivo n.º 192 de 512 es aquel cuyo espectro más se parece al del sonido.</figcaption></figure>
+      <p data-t="comment3">Aquí, «parecerse» significa que dos espectros están próximos: la energía se reparte de la misma manera entre las frecuencias. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>
+      <p data-t="comment4">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte. Las imágenes y los vídeos grabados se hacen en tu navegador y se descargan en tu dispositivo.</p>
+      <p data-t="comment5">Pulsa «Escuchar» para reproducir la primera pieza de ejemplo, o elige otra pieza, un archivo de audio o el micrófono. En «Más opciones» puedes guardar una imagen de la figura o un vídeo de 15 segundos con el sonido.</p>
+      <p><span data-t="comment6">Contenidos con licencia CC BY-NC 4.0, código con licencia AGPL v3 (licencia comercial bajo petición). Autor: Anibal Edelberto Amiot.</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">Sobre el autor <span class="lien-langue">(francés)</span></a></p>
+    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">Ajustes en directo</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">La escena</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">Grabar</summary><div id="vmEnregistrement"></div></details>
@@ -254,7 +296,7 @@
 
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">Ver también</h2>
-      <div class="vm-cartes" id="vmVoirAussi"></div>
+      <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/es/galeria-bicolor/"><b>Galería bicolor</b><span>Los motivos bicolores engendrados por los ejes, cerrados sobre el cubo: grano, pavimentación, exportación.</span></a><a class="vm-carte" href="/es/galeria-tricolor/"><b>Galería tricolor</b><span>Los motivos unificados, engendrados por mezcla de tonos: selecciona un motivo para ver su pavimentación.</span></a><a class="vm-carte" href="/es/fondos-de-pantalla/"><b>Fondos de pantalla</b><span>Fondos textiles a pantalla completa, reactivos al sonido o en modo meditativo.</span></a><a class="vm-carte" href="/es/animaciones/"><b>Galería de animaciones</b><span>Las animaciones de las colecciones de fondos, para ver y descargar en MP4.</span></a><a class="vm-carte" href="/es/chladni/"><b>Chladni</b><span>Figuras, escalas y frecuencias: la página que une el vocabulario de los motivos con los modos de una placa.</span></a><a class="vm-carte" href="/es/libro/"><b>El libro</b><span>La Livrée d'Hermès en línea, página por página, con el PDF gratuito.</span></a></div>
     </section>
   </div>
 </main>

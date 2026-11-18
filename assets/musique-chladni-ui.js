@@ -234,7 +234,10 @@ function majInfo() {
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
   if (S.resReduite) p.push(T('infoResolution'));
   $('vmInfo').textContent = p.join(' · ');
-  const nom = $('vmNomMotif'); if (nom) nom.textContent = `${T('collections')[valCfg.col][0]} · ${T('infoMotif', { i: j + 1, n })}${S.figureFixe && !S.animer ? ` · ${T('figureFixeAide')}` : ''}`;
+  const libelleMotif = `${T('collections')[valCfg.col][0]} · ${T('infoMotif', { i: j + 1, n })}`, nom = $('vmNomMotif');
+  if (nom) nom.textContent = `${libelleMotif}${S.figureFixe && !S.animer ? ` · ${T('figureFixeAide')}` : ''}`;
+  // le canvas est une image pour les technologies d'assistance : son nom suit le motif retenu
+  const cv = $('vmValideToile'), aria = T('figureAria', { nom: libelleMotif }); if (cv && cv.getAttribute('aria-label') !== aria) cv.setAttribute('aria-label', aria);
   majCles();
   const pu = valide.p.pulsation(), sel = $('vmPulsation'), aide = $('vmAidePulsation');
   if (sel) for (const o of sel.options) o.disabled = o.value !== M.PULSATIONS.ATTAQUE && !pu.regulier;
@@ -556,7 +559,7 @@ function option(groupe, cle, valeur, titre, detail, miniature, desactive = false
 }
 function groupe(id, cle, titre, options) {
   const g = $(id), btn = el('button', { type: 'button', id: `${id}-btn`, 'aria-expanded': 'false', 'aria-controls': `${id}-pan` }, titre), pan = el('div', { class: 'vm-pan', id: `${id}-pan`, role: 'group', 'aria-label': titre }, options);
-  g.replaceChildren(el('h3', {}, btn), pan);
+  g.replaceChildren(el('div', { class: 'vm-grp-titre' }, btn), pan);
   btn.addEventListener('click', (ev) => { ev.stopPropagation(); const ouvrir = !g.classList.contains('open'); fermerTout(); if (ouvrir) { g.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); } });
   g.addEventListener('mouseleave', () => viser(esel));
   g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget)) viser(esel); });
@@ -655,7 +658,9 @@ function construireSon() {
   $('vmEntree').replaceChildren(el('option', { value: '' }, T('entreeDefaut')));
 }
 function habiller() {
-  for (const e of document.querySelectorAll('[data-t]')) e.textContent = T(e.dataset.t);
+  // les textes du HTML statique (intro, avertissement…) : déjà écrits à la construction (scripts/build-musique-textes.mjs), on ne les réécrit que s'ils diffèrent ;
+  // la section « Comment ça marche » (légende à variables comprise) n'est jamais touchée
+  for (const e of document.querySelectorAll('[data-t]')) if (!e.closest('.vm-comment') && e.textContent !== T(e.dataset.t)) e.textContent = T(e.dataset.t);
   document.title = T('titrePage');
   $('vmVoirAussi').replaceChildren(...T('voirAussi').map((c) => el('a', { class: 'vm-carte', href: c.href }, el('b', {}, c.titre), el('span', {}, c.texte))));
   $('vmValideTitre').replaceChildren(T('valide'), ' ', el('span', { class: 'vm-tag' }, T('valideTag')));
