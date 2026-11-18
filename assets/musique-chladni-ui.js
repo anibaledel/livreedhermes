@@ -9,12 +9,12 @@
 // Aucune phrase ici (tout est dans musique-chladni-textes.js), aucun réglage de fonctionnalité
 // (tout est dans musique-chladni-config.js), aucune couleur recopiée (assets/couleurs.js).
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
-import * as M from './musique-chladni-moteur.js';
-import { CONFIG } from './musique-chladni-config.js';
-import { texte as T } from './musique-chladni-textes.js';
-import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js';
-import { chargerCollection, rasteriser } from './bicolore-fonds.js';
-import { monterSemaine } from './musique-chladni-semaine.js';
+import * as M from './musique-chladni-moteur.js?v=3199491d0d';
+import { CONFIG } from './musique-chladni-config.js?v=e33faae4a4';
+import { texte as T } from './musique-chladni-textes.js?v=91b879e8f3';
+import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
+import { chargerCollection, rasteriser } from './bicolore-fonds.js?v=c2addde38c';
+import { monterSemaine } from './musique-chladni-semaine.js?v=0987dbd051';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -191,7 +191,7 @@ async function majCles() {
   const d = $('vmCles'); if (!d || !CONFIG.options.lectureEnCles) return;
   d.hidden = valCfg.fmt !== 12; if (d.hidden || !d.open) return;
   const j = valide.dernier.motif, cle = `${valCfg.col}|${j}`; if (cle === clesAffiche) return; clesAffiche = cle;
-  clesModule ||= await import('./cles-axes.js');
+  clesModule ||= await import('./cles-axes.js?v=93c542646f');
   const b = S.blocs.get(valCfg.col), l = clesModule.lectureEnCles(b, j), nom = (c) => `${T('clesNatures')[c.nature]} ${c.e > 0 ? '+' : ''}${String(c.e).replace('.', ',').replace('-', '−')}`;
   $('vmClesCorps').replaceChildren(el('p', { class: 'vm-aide' }, T('clesAide')), el('p', { class: 'vm-aide' }, T('clesMotif', { i: j + 1, n: b.n, collection: T('collections')[valCfg.col][0] })),
     ...l.figures.map((f) => el('div', { class: 'vm-ligne' }, el('b', {}, T('clesFigure')[f.nom]), ' : ', f.cles ? (f.cles.length ? T('clesActives', { n: f.cles.length, liste: f.cles.map(nom).join(' ; ') }) + (f.complement ? T('clesComplement') : '') : T('clesAucune')) : T('clesHors'))));

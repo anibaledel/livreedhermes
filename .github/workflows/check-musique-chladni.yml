@@ -15,6 +15,7 @@ name: Voir sa musique — le moteur et la page
 # tools/check_musique_webkit.mjs : la même page dans WebKit (profil iPhone), parcours Écouter → figure → Pause → Image.
 # tools/check_musique_statique.mjs : les 11 pages se lisent sans JavaScript (aucun data-t vide, section « Comment ça marche »,
 #   image d'exemple, « Voir aussi », titres en ordre) ; tools/figure_exemple_musique.mjs : l'image d'exemple et son JSON s'accordent.
+# scripts/build-versions-modules.mjs --verifie : les ?v= des imports et des 11 pages suivent le contenu des modules.
 # --essai : un moteur faussé, une page privée de son moteur, un texte vidé du HTML doivent échouer.
 
 on:
@@ -73,3 +74,5 @@ jobs:
       - run: node tools/check_musique_statique.mjs
       - run: node tools/check_musique_statique.mjs --essai
       - run: node tools/figure_exemple_musique.mjs --verifie
+      # chaque import des modules porte ?v=<hash du fichier importé> (cache : les modules JS restent 4 h chez le visiteur, le HTML 10 min)
+      - run: node scripts/build-versions-modules.mjs --verifie

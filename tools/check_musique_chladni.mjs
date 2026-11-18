@@ -59,7 +59,7 @@ try {
   const origine = new URL(base).origin;
   page.on('pageerror', (e) => erreurs.push(e.message));
   page.on('request', (r) => { demandes.push(r.url()); const u = new URL(r.url()); if (u.origin !== origine && !/^(data|blob):/.test(r.url()) && !/cloudflareinsights|google|fonts\./.test(u.host)) externes.add(u.host); });
-  if (essai) await page.route('**/assets/musique-chladni-moteur.js', (r) => r.fulfill({ contentType: 'text/javascript', body: 'export * from "/assets/musique-chladni-moteur-absent.js";' }));
+  if (essai) await page.route('**/assets/musique-chladni-moteur.js*', (r) => r.fulfill({ contentType: 'text/javascript', body: 'export * from "/assets/musique-chladni-moteur-absent.js";' }));
   // Par défaut l'interface ne propose que l'ordre 12 (CONFIG.ordresProposes) : on le vérifie sur une page à part, avec ?ordre=18 (sans effet).
   {
     const p0 = await ctx.newPage(); await p0.goto(`${base}/musique-chladni.html?ordre=18`, { waitUntil: 'load' }); await p0.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
@@ -68,7 +68,7 @@ try {
     await p0.close();
   }
   // Le reste du contrôle essaie le code des ordres 18 et 30 : on rouvre ces ordres, par la seule valeur du réglage.
-  await page.route('**/assets/musique-chladni-config.js', async (r) => { const rep = await r.fetch(), t = await rep.text(), n = t.replace('ordresProposes: Object.freeze([12])', 'ordresProposes: Object.freeze([12, 18, 30])'); ok(n !== t, 'CONFIG.ordresProposes introuvable'); await r.fulfill({ response: rep, body: n }); });
+  await page.route('**/assets/musique-chladni-config.js*', async (r) => { const rep = await r.fetch(), t = await rep.text(), n = t.replace('ordresProposes: Object.freeze([12])', 'ordresProposes: Object.freeze([12, 18, 30])'); ok(n !== t, 'CONFIG.ordresProposes introuvable'); await r.fulfill({ response: rep, body: n }); });
   await page.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
   const etat = () => page.evaluate(() => window.__voirSaMusique.etat());

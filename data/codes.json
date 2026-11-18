@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-18T16:17:29Z",
+ "generated_at_utc": "2026-11-18T17:23:19Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 284,
+  "scripts": 285,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -921,6 +921,21 @@
    "licence_declaree": false,
    "licence": null,
    "role": "Liste des dépôts (Zenodo) d'Anibal Amiot, depuis data/travaux.json.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/build-versions-modules.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/build-versions-modules.mjs",
+   "octets": 4980,
+   "sha256": "ca654ccd9f8829dc239700736f9b1838588ce32ae9fafdd751b4e5a4e8fafb8b",
+   "md5": "9dd3ec8b398b07d8c01f02c5566d76fa",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande (contact : page « À propos » du site)",
+   "role": "une VERSION sur chaque module JavaScript de « Voir sa musique » (prompt 202, ajout).",
    "lit": [],
    "ecrit": null,
    "durees": [],
@@ -2250,9 +2265,9 @@
   {
    "chemin": "tools/check_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_chladni.mjs",
-   "octets": 56673,
-   "sha256": "91ebd5f28e88d7948ec4c82b218cf5682b179b34fef6c283db1225032c2e2474",
-   "md5": "803d8024a808faddb039b05b67a67b5a",
+   "octets": 56675,
+   "sha256": "519ba48984324bd3c812ef4ae4649222ce25ca1d3112a52cd1bd845f357db823",
+   "md5": "918a00f190bf5c33945120519536c96e",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",

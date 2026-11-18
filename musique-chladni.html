@@ -107,6 +107,7 @@
   .vm-info{ color:var(--dim); font-size:12.5px; margin:8px 0 0; min-height:1.6em; overflow-wrap:anywhere; }
   .vm-comment{ margin:28px 0 0; max-width:70ch; } .vm-comment h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
   .vm-comment p{ color:var(--dim); line-height:1.6; overflow-wrap:anywhere; }
+  .vm-comment a{ color:var(--gold); text-decoration:underline; text-underline-offset:2px; } /* le bleu de lien par défaut du navigateur n'a pas le contraste voulu sur fond noir (WCAG 2 AA) */
   .vm-ref{ margin:14px 0; } .vm-ref img{ display:block; width:100%; max-width:360px; height:auto; aspect-ratio:1; border:1px solid var(--line-strong); } .vm-ref figcaption{ color:var(--dim); font-size:12.5px; line-height:1.5; margin-top:6px; overflow-wrap:anywhere; max-width:360px; }
   .vm-semaine{ margin:28px 0 0; } .vm-semaine h2{ color:var(--gold); font-size:15px; letter-spacing:.08em; text-transform:uppercase; font-weight:400; }
   .vm-semaine-grille{ display:grid; gap:12px; grid-template-columns:repeat(auto-fill, minmax(min(100%,150px), 1fr)); margin-top:12px; }
@@ -302,7 +303,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "./assets/musique-chladni-ui.js";
+import { monter } from "./assets/musique-chladni-ui.js?v=8c5a2b1d88";
 monter();
 </script>
 </div>
