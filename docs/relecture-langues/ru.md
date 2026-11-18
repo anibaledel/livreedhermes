@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Увидеть свою музыку: выберите композицию, файл или микрофон, посмотрите фигуру Хладни и самый похожий узор La Livrée d'Hermès. Запишите 15 секунд. |
 | `ariane` | Voir sa musique | Увидеть свою музыку |
 | `h1` | Voir sa musique | Увидеть свою музыку |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | У каждой музыки есть подпись: то, как её энергия распределяется по частотам. Выберите композицию, файл или микрофон: страница измеряет эту энергию на частотах каждого круга мод квадратной пластины, а затем ищет среди унифицированных узоров La Livrée d'Hermès тот, чей спектр больше всего на неё похож. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» композицию. |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | У каждой музыки есть подпись: то, как её энергия распределяется по частотам. Нажмите «Слушать»: страница измеряет эту энергию, рисует фигуру Хладни этого звука и ищет среди узоров La Livrée d'Hermès тот, чей спектр больше всего на неё похож. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» произведение. |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | Ничто не покидает ваш браузер: файл, микрофон и захваченный звук анализируются на месте и никуда не отправляются. |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | Внимание: изображения могут быстро меняться и мигать. Параметр «уменьшить быстрые изменения» замедляет их. |
 | `sonTitre` | Le son | Звук |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | Воспроизвести |
 | `pause` | Pause | Пауза |
 | `arreter` | Arrêter | Остановить |
+| `ecouter` | Écouter | Слушать |
+| `plusOptions` | Plus d'options | Больше настроек |
+| `moinsOptions` | Moins d'options | Меньше настроек |
+| `animerFigure` | Animer la figure | Запустить анимацию фигуры |
+| `figerFigure` | Figer la figure | Остановить фигуру |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | анимация остановлена (запрошено уменьшение движения): кнопка «Запустить анимацию фигуры» |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | Звук прерван (звонок, другое приложение, спящий режим). Нажмите «Слушать», чтобы продолжить. |
+| `image` | Image | Изображение |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | Изображение сохранено: загрузка началась. |
+| `imageErreur` | Impossible de produire l'image. | Не удалось создать изображение. |
+| `partager` | Partager | Поделиться |
+| `partageErreur` | Le partage a échoué : {message} | Не удалось поделиться: {message} |
+| `copierLien` | Copier le lien | Скопировать ссылку |
+| `lienCopie` | Lien copié : {lien} | Ссылка скопирована: {lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | Скопируйте эту ссылку вручную: {lien} |
+| `appareilTitre` | Informations sur l'appareil | Сведения об устройстве |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | Строка текста, которую можно отправить автору при неполадке: браузер и система (только семейство и версия), состояние звука, средство записи и форматы видео, функция «Поделиться», экран. Ничего не отправляется: вы копируете её сами. |
+| `appareilLigne` | Informations à copier | Сведения для копирования |
+| `appareilCopier` | Copier | Копировать |
+| `appareilCopie` | Informations copiées. | Сведения скопированы. |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | Выделите текст и скопируйте его вручную. |
+| `oui` | oui | да |
+| `non` | non | нет |
+| `appareilSansContexte` | pas encore créé | ещё не создан |
+| `appareilSansEnregistreur` | enregistreur absent | средство записи отсутствует |
 | `entree` | Entrée audio | Аудиовход |
 | `entreeDefaut` | Entrée par défaut | Вход по умолчанию |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | Микшерный пульт, звуковая карта: подключите её, разрешите микрофон и выберите её здесь. |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | Минимальный интервал между двумя атаками (с) |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | По умолчанию 0,45 с: не более примерно 133 атак в минуту. Уменьшите для быстрого темпа. |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | Готовые композиции созданы с помощью ИИ («Музыка, созданная с помощью ИИ — MC Claude.»). |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | Нажмите «Воспроизвести». Готовые композиции созданы с помощью ИИ. |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | Нажмите «Слушать». Готовые композиции созданы с помощью ИИ. |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | Готовая композиция, созданная с помощью ИИ. |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | Файл: {nom} (он остаётся в вашем браузере). |
 | `etatMicro` | Micro actif. | Микрофон включён. |
 | `etatEntree` | Entrée « {nom} » active. | Вход «{nom}» включён. |
 | `etatOnglet` | Audio d'un onglet actif. | Звук вкладки включён. |
 | `etatEssai` | Musique d'essai. | Пробная музыка. |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | Доступ к микрофону запрещён. Разрешите его в настройках сайта (замок слева от адреса), затем снова нажмите «Воспроизвести». Можно также выбрать файл или готовую композицию. |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | Доступ к микрофону запрещён. Разрешите его в настройках сайта (замок слева от адреса), затем снова нажмите «Слушать». Можно также выбрать файл или готовую композицию. |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | На этом устройстве нет доступного микрофона. |
 | `erreurMicro` | Le micro ne démarre pas : {message} | Микрофон не запускается: {message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | Захват звука вкладки здесь невозможен. Нужен свежий браузер для компьютера (Chrome, Edge); на мобильных устройствах и в Safari его нет. |

@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | มองเห็นดนตรีของคุณ: เลือกเพลง ไฟล์ หรือไมโครโฟน ดูรูป Chladni ที่เสียงวาด และลวดลายของ La Livrée d'Hermès ที่คล้ายที่สุด บันทึก 15 วินาที |
 | `ariane` | Voir sa musique | มองเห็นดนตรีของคุณ |
 | `h1` | Voir sa musique | มองเห็นดนตรีของคุณ |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | ดนตรีทุกชิ้นมีลายเซ็นของตัวเอง คือวิธีที่พลังงานของมันกระจายไปตามความถี่ต่าง ๆ เลือกเพลง ไฟล์ หรือไมโครโฟน หน้านี้จะวัดพลังงานนั้นที่ความถี่ของวงโหมดแต่ละวงของแผ่นสี่เหลี่ยมจัตุรัส แล้วค้นหาในบรรดาลวดลายรวมเป็นหนึ่งของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด การเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | ดนตรีทุกชิ้นมีลายเซ็นของตัวเอง คือวิธีที่พลังงานของมันกระจายไปตามความถี่ต่าง ๆ กด “ฟัง” แล้วหน้านี้จะวัดพลังงานนั้น วาดรูป Chladni ที่เสียงสร้างขึ้น และค้นหาในบรรดาลวดลายรวมเป็นหนึ่งของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด การเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | ไม่มีสิ่งใดออกจากเบราว์เซอร์ของคุณ: ไฟล์ ไมโครโฟน และเสียงที่จับได้ จะถูกวิเคราะห์ในเครื่องและไม่ถูกส่งไปที่ใดเลย |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | คำเตือน: ภาพอาจเปลี่ยนเร็วและกะพริบ ตัวเลือก “ลดการเปลี่ยนแปลงที่รวดเร็ว” จะทำให้ช้าลง |
 | `sonTitre` | Le son | เสียง |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | เล่น |
 | `pause` | Pause | หยุดชั่วคราว |
 | `arreter` | Arrêter | หยุด |
+| `ecouter` | Écouter | ฟัง |
+| `plusOptions` | Plus d'options | ตัวเลือกเพิ่มเติม |
+| `moinsOptions` | Moins d'options | ตัวเลือกน้อยลง |
+| `animerFigure` | Animer la figure | ทำให้ภาพเคลื่อนไหว |
+| `figerFigure` | Figer la figure | หยุดภาพ |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | หยุดภาพเคลื่อนไหวแล้ว (ขอให้ลดการเคลื่อนไหว): ปุ่ม “ทำให้ภาพเคลื่อนไหว” |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | เสียงถูกขัดจังหวะ (สายเรียกเข้า แอปอื่น โหมดพัก) กด “ฟัง” เพื่อเล่นต่อ |
+| `image` | Image | ภาพ |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | บันทึกภาพแล้ว: เริ่มดาวน์โหลดแล้ว |
+| `imageErreur` | Impossible de produire l'image. | ไม่สามารถสร้างภาพได้ |
+| `partager` | Partager | แชร์ |
+| `partageErreur` | Le partage a échoué : {message} | แชร์ไม่สำเร็จ: {message} |
+| `copierLien` | Copier le lien | คัดลอกลิงก์ |
+| `lienCopie` | Lien copié : {lien} | คัดลอกลิงก์แล้ว: {lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | โปรดคัดลอกลิงก์นี้ด้วยตนเอง: {lien} |
+| `appareilTitre` | Informations sur l'appareil | ข้อมูลอุปกรณ์ |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | ข้อความหนึ่งบรรทัดที่ส่งกลับให้ผู้เขียนได้เมื่อมีปัญหา: เบราว์เซอร์และระบบ (เฉพาะตระกูลและเวอร์ชัน) สถานะเสียง เครื่องบันทึกและรูปแบบวิดีโอ การแชร์ หน้าจอ ไม่มีอะไรถูกส่งออกไป: คุณคัดลอกเอง |
+| `appareilLigne` | Informations à copier | ข้อมูลที่จะคัดลอก |
+| `appareilCopier` | Copier | คัดลอก |
+| `appareilCopie` | Informations copiées. | คัดลอกข้อมูลแล้ว |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | เลือกข้อความแล้วคัดลอกด้วยตนเอง |
+| `oui` | oui | ใช่ |
+| `non` | non | ไม่ใช่ |
+| `appareilSansContexte` | pas encore créé | ยังไม่ได้สร้าง |
+| `appareilSansEnregistreur` | enregistreur absent | ไม่มีเครื่องบันทึก |
 | `entree` | Entrée audio | อินพุตเสียง |
 | `entreeDefaut` | Entrée par défaut | อินพุตเริ่มต้น |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | มิกเซอร์ การ์ดเสียง: เสียบอุปกรณ์ อนุญาตให้ใช้ไมโครโฟน แล้วเลือกที่นี่ |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | ระยะห่างต่ำสุดระหว่างจังหวะโน้ตสองครั้ง (วินาที) |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | ค่าเริ่มต้น 0.45 วินาที: มากที่สุดราว 133 ครั้งต่อนาที ลดค่าลงสำหรับจังหวะเร็ว |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | เพลงที่มีให้แต่งขึ้นด้วยความช่วยเหลือของ AI (“Musique composée avec l'IA par MC Claude.” หรือ “ดนตรีที่แต่งด้วย AI โดย MC Claude”) |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | กดเล่น เพลงที่มีให้แต่งขึ้นด้วยความช่วยเหลือของ AI |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | กดฟัง เพลงที่มีให้แต่งขึ้นด้วยความช่วยเหลือของ AI |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | เพลงที่มีให้ แต่งขึ้นด้วยความช่วยเหลือของ AI |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | ไฟล์: {nom} (อยู่ในเบราว์เซอร์ของคุณเท่านั้น) |
 | `etatMicro` | Micro actif. | ไมโครโฟนทำงานอยู่ |
 | `etatEntree` | Entrée « {nom} » active. | อินพุต “{nom}” ทำงานอยู่ |
 | `etatOnglet` | Audio d'un onglet actif. | เสียงจากแท็บทำงานอยู่ |
 | `etatEssai` | Musique d'essai. | เพลงทดลอง |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | ไมโครโฟนถูกปฏิเสธ โปรดอนุญาตในการตั้งค่าของเว็บไซต์ (รูปแม่กุญแจทางซ้ายของที่อยู่) แล้วกดเล่นอีกครั้ง หรือเลือกไฟล์หรือเพลงที่มีให้ก็ได้ |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | ไมโครโฟนถูกปฏิเสธ โปรดอนุญาตในการตั้งค่าของเว็บไซต์ (รูปแม่กุญแจทางซ้ายของที่อยู่) แล้วกดฟังอีกครั้ง หรือเลือกไฟล์หรือเพลงที่มีให้ก็ได้ |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | อุปกรณ์นี้ไม่มีไมโครโฟนให้ใช้ |
 | `erreurMicro` | Le micro ne démarre pas : {message} | ไมโครโฟนไม่เริ่มทำงาน: {message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | ไม่สามารถจับเสียงจากแท็บที่นี่ได้ ต้องใช้เบราว์เซอร์บนคอมพิวเตอร์รุ่นใหม่ (Chrome, Edge) ซึ่งไม่มีบนมือถือและบน Safari |

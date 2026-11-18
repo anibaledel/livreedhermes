@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | 看见你的音乐：选择一首曲子、一个文件或麦克风，观看声音描绘出的 Chladni 图形，以及与之最相似的 La Livrée d'Hermès 图案。可随声音录制 15 秒。 |
 | `ariane` | Voir sa musique | 看见你的音乐 |
 | `h1` | Voir sa musique | 看见你的音乐 |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | 每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。选择一首曲子、一个文件或麦克风：本页在方形板每个振动模式圆环所对应的频率上测量这份能量，然后在 La Livrée d'Hermès 的统一图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。 |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | 每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。点击“聆听”：本页测量这份能量，画出声音的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。 |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | 任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。 |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | 注意：画面可能快速变化并闪烁。“减少快速变化”选项可使其放慢。 |
 | `sonTitre` | Le son | 声音 |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | 播放 |
 | `pause` | Pause | 暂停 |
 | `arreter` | Arrêter | 停止 |
+| `ecouter` | Écouter | 聆听 |
+| `plusOptions` | Plus d'options | 更多选项 |
+| `moinsOptions` | Moins d'options | 更少选项 |
+| `animerFigure` | Animer la figure | 让图形动起来 |
+| `figerFigure` | Figer la figure | 让图形静止 |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | 动画已停止（已要求减少动态效果）：点击“让图形动起来” |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | 声音被中断（来电、其他应用、休眠）。点击“聆听”继续。 |
+| `image` | Image | 图片 |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | 图片已保存：下载已开始。 |
+| `imageErreur` | Impossible de produire l'image. | 无法生成图片。 |
+| `partager` | Partager | 分享 |
+| `partageErreur` | Le partage a échoué : {message} | 分享失败：{message} |
+| `copierLien` | Copier le lien | 复制链接 |
+| `lienCopie` | Lien copié : {lien} | 链接已复制：{lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | 请手动复制此链接：{lien} |
+| `appareilTitre` | Informations sur l'appareil | 设备信息 |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | 出现问题时可发给作者的一行文字：浏览器与系统（仅系列和版本）、声音状态、录制器与视频格式、分享、屏幕。页面不会发送任何内容：由您自己复制。 |
+| `appareilLigne` | Informations à copier | 待复制的信息 |
+| `appareilCopier` | Copier | 复制 |
+| `appareilCopie` | Informations copiées. | 信息已复制。 |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | 请选中文字并手动复制。 |
+| `oui` | oui | 是 |
+| `non` | non | 否 |
+| `appareilSansContexte` | pas encore créé | 尚未创建 |
+| `appareilSansEnregistreur` | enregistreur absent | 没有录制器 |
 | `entree` | Entrée audio | 音频输入 |
 | `entreeDefaut` | Entrée par défaut | 默认输入 |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | 调音台、声卡：接好设备，允许使用麦克风，然后在此选择。 |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | 两次起音之间的最短间隔（秒） |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 默认 0.45 秒：每分钟最多约 133 次起音。节奏较快时请调低。 |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | 内置曲目由人工智能协助创作（“Musique composée avec l'IA par MC Claude.”，即“由 MC Claude 借助人工智能创作的音乐。”）。 |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | 请点击“播放”。内置曲目由人工智能协助创作。 |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | 请点击“聆听”。内置曲目由人工智能协助创作。 |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | 内置曲目，由人工智能协助创作。 |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | 文件：{nom}（保留在您的浏览器中）。 |
 | `etatMicro` | Micro actif. | 麦克风已开启。 |
 | `etatEntree` | Entrée « {nom} » active. | 输入“{nom}”已启用。 |
 | `etatOnglet` | Audio d'un onglet actif. | 标签页音频已启用。 |
 | `etatEssai` | Musique d'essai. | 试听音乐。 |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | 麦克风被拒绝。请在网站设置中允许使用（地址栏左侧的锁形图标），然后再次点击“播放”。您也可以选择一个文件或一首内置曲目。 |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | 麦克风被拒绝。请在网站设置中允许使用（地址栏左侧的锁形图标），然后再次点击“聆听”。您也可以选择一个文件或一首内置曲目。 |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | 此设备上没有可用的麦克风。 |
 | `erreurMicro` | Le micro ne démarre pas : {message} | 麦克风无法启动：{message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | 此处无法捕获标签页音频。需要较新的桌面浏览器（Chrome、Edge）；手机和 Safari 不支持。 |

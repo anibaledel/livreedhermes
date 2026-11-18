@@ -17,7 +17,12 @@
 //   - l'enregistrement fournit une vidéo (MP4 si le navigateur l'écrit, sinon WebM), avec du son ;
 //   - 390 et 360 px : rien ne dépasse le bord droit ;
 //   - la cadence : au moins 15 images par seconde sur la machine du contrôle (la cible de la
-//     page est 30 ; elle la mesure et le dit), à ne pas confondre avec la cible.
+//     page est 30 ; elle la mesure et le dit), à ne pas confondre avec la cible ;
+//   - le démarrage simple (prompt 201) : à l'arrivée (1000 et 390 px) un grand bouton Écouter avant la figure, le mode Simple ne montre que
+//     bouton, morceau, figure, nom du motif et Plein écran ; Écouter lance le premier morceau, Pause l'arrête, « Plus d'options » ouvre l'Avancé
+//     (mémorisé, et la page marche sans localStorage) ; ?morceau= (7 exemples) et ?mode= seuls, toute autre valeur ignorée ; l'image PNG, Partager
+//     (seulement si canShare({files})), Copier le lien, les informations de l'appareil ; mouvement réduit : figure fixe + bouton Animer ;
+//     contexte audio suspendu, onglet caché, micro absent ; mobile émulé ; temps d'image processeur ×4.
 //
 // Usage : node tools/check_musique_chladni.mjs [base|local] [--essai]
 //   --essai : une page privée de sa fonction de pilotage doit échouer.
@@ -64,7 +69,7 @@ try {
   }
   // Le reste du contrôle essaie le code des ordres 18 et 30 : on rouvre ces ordres, par la seule valeur du réglage.
   await page.route('**/assets/musique-chladni-config.js', async (r) => { const rep = await r.fetch(), t = await rep.text(), n = t.replace('ordresProposes: Object.freeze([12])', 'ordresProposes: Object.freeze([12, 18, 30])'); ok(n !== t, 'CONFIG.ordresProposes introuvable'); await r.fulfill({ response: rep, body: n }); });
-  await page.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
+  await page.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
   const etat = () => page.evaluate(() => window.__voirSaMusique.etat());
   const couleurs = async (id, part = 0.75) => { for (let t = 0; t < 40 && (await etat()).fondu < 1; t++) await page.waitForTimeout(100); return couleursBrut(id, part); };
@@ -157,7 +162,7 @@ try {
   });
   for (const [w, h] of [[1920, 1080], [390, 844]]) {
     const pg = await (await navigateur.newContext({ viewport: { width: w, height: h } })).newPage();
-    await pg.goto(`${base}/musique-chladni.html`); await pg.waitForFunction(() => window.__voirSaMusique); await pg.selectOption('#vmSource', 'j2'); await pg.click('#vmLecture');
+    await pg.goto(`${base}/musique-chladni.html?mode=avance`); await pg.waitForFunction(() => window.__voirSaMusique); await pg.selectOption('#vmSource', 'j2'); await pg.click('#vmLecture');
     await pg.click('#vm-g-view-btn'); await pg.click('#vm-o-view-pavage'); await pg.click('#vmValider'); await pg.waitForTimeout(500);
     await pg.click('#vmPleinBtn'); await pg.waitForTimeout(900);
     const m = await mesurePlein(pg);
@@ -264,7 +269,7 @@ try {
   // 390 et 360 px
   for (const w of [390, 360]) {
     const mobile = await (await navigateur.newContext({ viewport: { width: w, height: 800 } })).newPage();
-    await mobile.goto(`${base}/musique-chladni.html`); await mobile.waitForFunction(() => window.__voirSaMusique); await mobile.waitForTimeout(500);
+    await mobile.goto(`${base}/musique-chladni.html?mode=avance`); await mobile.waitForFunction(() => window.__voirSaMusique); await mobile.waitForTimeout(500);
     await mobile.click('#vm-g-col-btn');
     const largeur = await mobile.evaluate(() => {
       let max = document.documentElement.scrollWidth;
@@ -272,6 +277,208 @@ try {
       return Math.ceil(max);
     });
     ok(largeur <= w, `${w} px : la page fait ${largeur} px de large`);
+  }
+
+  // ---------- le démarrage simple (prompt 201) : arrivée → Écouter → figure → Avancé ----------
+  {
+    const ERR_TIERS = /Failed to load resource|ERR_|cloudflareinsights|CORS policy|Permissions policy|compute-pressure|\[TikTok\]/i;
+    const ouvre = async (largeur, hauteur, opts = {}, init) => {
+      const c = await navigateur.newContext({ viewport: { width: largeur, height: hauteur }, acceptDownloads: true, ...opts }), pg = await c.newPage(), errs = [], reqs = [];
+      pg.on('pageerror', (e) => errs.push(e.message)); pg.on('request', (r) => reqs.push(r.url()));
+      pg.on('console', (m) => { if (m.type() === 'error' && !ERR_TIERS.test(m.text())) errs.push(m.text()); });
+      if (init) await pg.addInitScript(init);
+      return { c, pg, errs, reqs };
+    };
+    const va = async (pg, q = '', chemin = 'musique-chladni.html') => { await pg.goto(`${base}/${chemin}${q}`, { waitUntil: 'load' }); await pg.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 }); };
+    const visible = (pg, sel) => pg.evaluate((s) => { const e = document.querySelector(s); if (!e) return false; const r = e.getBoundingClientRect(), st = getComputedStyle(e); return st.display !== 'none' && st.visibility !== 'hidden' && r.width > 0 && r.height > 0; }, sel);
+    const nCouleurs = (pg) => pg.evaluate(() => { const c = document.getElementById('vmValideToile'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data, s = new Set(); for (let k = 0; k < d.length; k += 68) s.add(`${d[k]},${d[k + 1]},${d[k + 2]}`); return s.size; });
+    const S = (pg) => pg.evaluate(() => ({ source: window.__voirSaMusique.etat().source, tSim: window.__voirSaMusique.S.tSim, motif: window.__voirSaMusique.etat().motif }));
+
+    // 1. l'arrivée, à 1000 et à 390 px : un grand bouton d'abord, la figure grande, le reste dans « Avancé »
+    for (const [w, h] of [[1000, 1200], [390, 844]]) {
+      const { c, pg, errs } = await ouvre(w, h);
+      await va(pg); await pg.waitForTimeout(800);
+      ok(await pg.evaluate(() => document.getElementById('vmPage').classList.contains('vm-simple')), `${w} px : la page doit s'ouvrir en mode Simple`);
+      for (const s of ['#vmLecture', '#vmSource', '#vmValideToile', '#vmNomMotif', '#vmPleinBtn', '#vmPlus']) ok(await visible(pg, s), `${w} px, Simple : ${s} doit être visible`);
+      for (const s of ['.vm-opts', '#vmEssaiToile', '#vmValider', '#vmAnnuler', '#vmEntreeLigne', '#vmInfo', '#vmValideCap']) ok(!(await visible(pg, s)), `${w} px, Simple : ${s} doit être caché`);
+      ok(await pg.evaluate(() => [...document.querySelectorAll('.vm-details')].every((d) => getComputedStyle(d).display === 'none')), `${w} px, Simple : les volets doivent être cachés`);
+      const g = await pg.evaluate(() => { const b = document.getElementById('vmLecture').getBoundingClientRect(), f = document.getElementById('vmValideToile').getBoundingClientRect(); return { bh: b.height, bw: b.width, btop: b.top, bbas: b.bottom, ftop: f.top, fw: f.width, iw: innerWidth, ih: innerHeight, sw: document.documentElement.scrollWidth, intro: document.querySelector('.vm-intro').textContent }; });
+      ok(g.bh >= 56 && g.bw >= 200, `${w} px : le bouton Écouter doit être grand (${Math.round(g.bw)} × ${Math.round(g.bh)})`);
+      ok(g.btop < g.ftop && g.bbas <= g.ih, `${w} px : le bouton doit venir avant la figure et se voir sans défiler (haut ${Math.round(g.btop)}, bas ${Math.round(g.bbas)}, fenêtre ${g.ih})`);
+      ok(g.fw >= (w <= 400 ? 0.8 * w : 400) && g.sw <= w, `${w} px : figure de ${Math.round(g.fw)} px (pleine largeur à 390, grande à 1000), défilement horizontal ${g.sw}`);
+      ok((g.intro.match(/[.!?。！？](\s|$)/g) || []).length <= 3 && g.intro.length > 40, `${w} px : l'introduction doit tenir en 3 phrases (« ${g.intro.slice(0, 80)}… »)`);
+      ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic', `${w} px, Simple : 7 morceaux, un fichier, le micro (sans musique d'essai ni audio d'onglet)`);
+      ok(/Écouter/.test(await pg.textContent('#vmLecture')) && (await pg.getAttribute('#vmFichier', 'accept')) === 'audio/*', `${w} px : bouton « Écouter » et accept="audio/*"`);
+      // Écouter : un geste, un morceau, une figure qui bouge, le bouton devient Pause
+      await pg.click('#vmLecture'); await pg.waitForTimeout(2500);
+      let e = await S(pg), ctxEtat = await pg.evaluate(() => window.__voirSaMusique.contexte().state);
+      ok(e.source === 'morceau' && ctxEtat === 'running' && e.tSim > 0.5, `${w} px : Écouter doit lancer le premier morceau (${JSON.stringify(e)}, contexte ${ctxEtat})`);
+      ok(/Pause/.test(await pg.textContent('#vmLecture')) && (await nCouleurs(pg)) >= 2, `${w} px : le bouton doit devenir « Pause » et la figure se dessiner`);
+      ok(/·/.test(await pg.textContent('#vmNomMotif')), `${w} px : le nom du motif retenu doit s'afficher (« ${await pg.textContent('#vmNomMotif')} »)`);
+      // Pause : le morceau et la figure s'arrêtent, le bouton redit Écouter ; reprise
+      await pg.click('#vmLecture'); await pg.waitForTimeout(400); const t1 = (await S(pg)).tSim; await pg.waitForTimeout(900); const t2 = (await S(pg)).tSim;
+      ok(/Écouter/.test(await pg.textContent('#vmLecture')) && t2 === t1 && (await pg.evaluate(() => window.__voirSaMusique.elementAudio().paused)), `${w} px : Pause doit arrêter le son et la figure (${t1} → ${t2})`);
+      await pg.click('#vmLecture'); await pg.waitForTimeout(1200);
+      ok(/Pause/.test(await pg.textContent('#vmLecture')) && (await S(pg)).tSim > t2, `${w} px : la reprise doit relancer le son et la figure`);
+      // le bouton se voit au clavier : focus visible, nom accessible
+      await pg.focus('#vmLecture'); ok(await pg.evaluate(() => { const b = document.getElementById('vmLecture'); return b.matches(':focus-visible') && b.textContent.trim().length > 0 && getComputedStyle(b).outlineStyle !== 'none'; }), `${w} px : le bouton doit avoir un nom et un focus visible`);
+      ok(errs.length === 0, `${w} px, Simple : erreurs ${errs.slice(0, 2).join(' | ')}`);
+      if (process.env.CAPTURE_SIMPLE) await pg.screenshot({ path: `${process.env.CAPTURE_SIMPLE}-simple-${w}.png` });
+      await c.close();
+    }
+
+    // 2. le mode « Avancé » : tout ce qui existait, mémorisé (et la page marche sans stockage)
+    {
+      const { c, pg, errs } = await ouvre(1000, 1200);
+      await va(pg);
+      await pg.click('#vmPlus'); await pg.waitForTimeout(300);
+      ok(await visible(pg, '.vm-opts') && await visible(pg, '#vmEssaiToile') && await visible(pg, '#vmValider') && await visible(pg, '#vmEntreeLigne'), 'Avancé : les groupes, la fenêtre Essai et l\'entrée audio doivent apparaître');
+      ok((await pg.$$('.vm-opts .vm-grp > h3 > button')).length === 6 && (await pg.$$('.vm-details:not([hidden])')).length >= 5, 'Avancé : six groupes et les volets');
+      ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic,essai,onglet', 'Avancé : musique d\'essai et audio d\'un onglet proposés');
+      ok(await pg.getAttribute('#vmPlus', 'aria-expanded') === 'true' && (await pg.evaluate(() => localStorage.getItem('vm-mode'))) === 'avance', 'Avancé : aria-expanded et mémorisation attendus');
+      await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.__voirSaMusique);
+      ok(!(await pg.evaluate(() => document.getElementById('vmPage').classList.contains('vm-simple'))), 'Avancé : le mode doit être mémorisé au rechargement');
+      await pg.click('#vmPlus'); await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.__voirSaMusique);
+      ok(await pg.evaluate(() => document.getElementById('vmPage').classList.contains('vm-simple')), 'retour en Simple : mémorisé aussi');
+      ok(errs.length === 0, `mode : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+    {
+      // localStorage absent ou qui lève : la page marche
+      const { c, pg, errs } = await ouvre(1000, 1200, {}, () => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('stockage refusé'); } }); });
+      await va(pg); await pg.click('#vmPlus'); await pg.waitForTimeout(300);
+      ok(await visible(pg, '.vm-opts'), 'sans localStorage : « Plus d\'options » doit marcher');
+      await pg.click('#vmPlus'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      ok((await S(pg)).source === 'morceau' && errs.length === 0, `sans localStorage : la page doit marcher (${errs.slice(0, 2).join(' | ')})`); await c.close();
+    }
+
+    // 3. l'adresse : ?morceau= (les 7 exemples) et ?mode= (simple | avance), rien d'autre, jamais une URL arbitraire
+    {
+      const { c, pg, errs, reqs } = await ouvre(1000, 1200);
+      const lire = async (q, chemin) => { await va(pg, q, chemin); return pg.evaluate(() => ({ src: document.getElementById('vmSource').value, simple: document.getElementById('vmPage').classList.contains('vm-simple'), source: window.__voirSaMusique.etat().source, fmt: window.__voirSaMusique.etat().valide.fmt })); };
+      let r = await lire('?morceau=j3-re'); ok(r.src === 'j3' && r.simple && r.source === null, `?morceau=j3-re : j3 sélectionné, rien de lancé (${JSON.stringify(r)})`);
+      for (const bad of ['j3', 'j9', 'J3-RE', 'http://evil.test/a.mp3', '//evil.test/a.mp3', '../../etc/passwd', 'j3-re%00', 'file:///x', 'data:audio/mp3;base64,AAAA']) {
+        r = await lire(`?morceau=${bad}`); ok(r.src === 'j1' && r.source === null, `?morceau=${bad} doit être ignoré (${JSON.stringify(r)})`);
+      }
+      ok(![...reqs].some((u) => /evil\.test|etc\/passwd|^data:audio/.test(u)), 'aucune requête vers une adresse donnée dans ?morceau=');
+      r = await lire('?mode=avance'); ok(!r.simple, '?mode=avance : mode Avancé');
+      r = await lire('?mode=simple'); ok(r.simple, '?mode=simple : mode Simple');
+      for (const bad of ['AVANCE', 'avance%20', '1', '<script>', '']) { r = await lire(`?mode=${bad}`); ok(r.simple, `?mode=${bad} doit être ignoré`); }
+      r = await lire('?ordre=18'); ok(r.fmt === 12, '?ordre=18 reste sans effet');
+      r = await lire('?morceau=j5-sol&mode=avance&autre=1'); ok(r.src === 'j5' && !r.simple, '?morceau= et ?mode= ensemble');
+      // le lien copié : la page de CETTE langue
+      await va(pg, '', 'musique-chladni.html'); await pg.selectOption('#vmSource', 'j4');
+      const o = new URL(base).origin;
+      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/musique-chladni.html?morceau=j4-mi`, 'le lien direct doit être ?morceau=j4-mi sur la page française');
+      await pg.evaluate(() => window.__voirSaMusique.appliquerMode('avance', false));
+      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/musique-chladni.html?morceau=j4-mi&mode=avance`, 'le lien direct doit ajouter &mode=avance en Avancé');
+      await va(pg, '', 'en/see-your-music/'); await pg.selectOption('#vmSource', 'j2');
+      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/en/see-your-music/?morceau=j2-la`, 'le lien direct reste sur la page de la langue (en/see-your-music/)');
+      await va(pg, '', 'ja/see-your-music/'); await pg.selectOption('#vmSource', 'file');
+      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/ja/see-your-music/`, 'un fichier ou le micro : pas de ?morceau= dans le lien');
+      ok(errs.length === 0, `adresse : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+
+    // 4. l'image PNG, le partage, le lien copié, les informations de l'appareil (Avancé)
+    {
+      const { c, pg, errs, reqs } = await ouvre(1000, 1200, { permissions: ['clipboard-read', 'clipboard-write'] });
+      await va(pg, '?mode=avance'); await pg.selectOption('#vmSource', 'j2'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      await pg.locator('#vmEnregistrement').evaluate((n) => { n.closest('details').open = true; });
+      const dl = pg.waitForEvent('download', { timeout: 15000 }); await pg.click('#vmImage'); const f = await dl;
+      ok(/^voir-sa-musique-j2-la-\d{4}-\d{2}-\d{2}\.png$/.test(f.suggestedFilename()), `nom du PNG inattendu : ${f.suggestedFilename()}`);
+      const chemin = await f.path(), buf = (await import('node:fs')).readFileSync(chemin);
+      ok(buf.subarray(0, 8).toString('hex') === '89504e470d0a1a0a' && buf.readUInt32BE(16) === 360 && buf.readUInt32BE(20) === 360, 'le PNG doit être un vrai PNG de 360 × 360 (la taille du canvas)');
+      ok((await pg.evaluate(() => window.__derniereImage.type)) === 'image/png', 'type MIME image/png attendu');
+      ok(!/@|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(f.suggestedFilename()), 'le nom du fichier ne doit embarquer aucune donnée personnelle');
+      ok(!(await visible(pg, '#vmPartager')) === !(await pg.evaluate(() => Boolean(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'a.png', { type: 'image/png' })] })))), 'le bouton « Partager » ne s\'affiche que si le navigateur sait partager le fichier');
+      // le lien copié
+      await pg.click('#vmLien'); await pg.waitForTimeout(300);
+      ok((await pg.evaluate(() => navigator.clipboard.readText())) === `${new URL(base).origin}/musique-chladni.html?morceau=j2-la&mode=avance` && /Lien copié/.test(await pg.textContent('#vmMessage')), 'Copier le lien : le presse-papiers doit porter ?morceau=j2-la&mode=avance');
+      // les informations de l'appareil
+      await pg.click('#vmTitreAppareil'); await pg.waitForTimeout(200);
+      const ligne = await pg.inputValue('#vmAppareilTexte');
+      for (const re of [/navigateur: \S+/, /systeme: \S+/, /audioContext: running/, /MediaRecorder: (oui|non)/, /getUserMedia: (oui|non)/, /share: (oui|non)/, /canShare\(files\): (oui|non)/, /ecran: \d+x\d+/, /dpr: [\d.]+/, /video\/mp4;codecs="avc1\.640028,mp4a\.40\.2" = (oui|non)/, /video\/webm/]) ok(re.test(ligne), `informations de l'appareil : ${re} absent de « ${ligne.slice(0, 140)}… »`);
+      ok(!/@|\b\d{1,3}(\.\d{1,3}){3}\b|deviceId/i.test(ligne), 'informations de l\'appareil : ni adresse, ni identifiant');
+      await pg.click('#vmAppareilCopier'); await pg.waitForTimeout(300);
+      ok((await pg.evaluate(() => navigator.clipboard.readText())) === await pg.inputValue('#vmAppareilTexte') && /copiées/.test(await pg.textContent('#vmMessage')), 'Copier : la ligne doit être dans le presse-papiers');
+      ok(!reqs.some((u) => { const x = new URL(u); return x.origin !== new URL(base).origin && !/^(data|blob):/.test(u) && !/cloudflareinsights|google|fonts\./.test(x.host); }), 'aucune requête hors du site');
+      ok(errs.length === 0, `image et appareil : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+    {
+      // Partager : avec une Web Share API simulée, le bouton apparaît et partage le FICHIER (jamais d'envoi ailleurs)
+      const { c, pg, errs } = await ouvre(1000, 1200, {}, () => { navigator.canShare = (d) => Boolean(d && d.files && d.files.length); navigator.share = async (d) => { window.__partage = { n: d.files.length, nom: d.files[0].name, type: d.files[0].type, titre: d.title }; }; });
+      await va(pg, '?mode=avance'); await pg.locator('#vmEnregistrement').evaluate((n) => { n.closest('details').open = true; });
+      ok(!(await visible(pg, '#vmPartager')), 'Partager : caché tant qu\'il n\'y a rien à partager');
+      const dl = pg.waitForEvent('download'); await pg.click('#vmImage'); await dl; await pg.waitForTimeout(200);
+      ok(await visible(pg, '#vmPartager'), 'Partager : visible après une image si canShare({files}) répond oui');
+      await pg.click('#vmPartager'); await pg.waitForTimeout(200);
+      const p = await pg.evaluate(() => window.__partage);
+      ok(p && p.n === 1 && /\.png$/.test(p.nom) && p.type === 'image/png', `Partager : un fichier PNG attendu (${JSON.stringify(p)})`);
+      ok(errs.length === 0, `partage : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+
+    // 5. « réduire les animations » : une image fixe, et un bouton explicite pour animer
+    {
+      const { c, pg, errs } = await ouvre(1000, 1200, { reducedMotion: 'reduce' });
+      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1800);
+      ok(await visible(pg, '#vmAnimer'), 'mouvement réduit : le bouton « Animer la figure » doit apparaître');
+      const a = await S(pg); await pg.waitForTimeout(1200); const b = await S(pg);
+      ok(a.source === 'morceau' && a.tSim === 0 && b.tSim === 0, `mouvement réduit : le son joue mais la figure reste fixe (${a.tSim} → ${b.tSim})`);
+      await pg.click('#vmAnimer'); await pg.waitForTimeout(1800);
+      ok((await S(pg)).tSim > 0.5 && (await pg.getAttribute('#vmAnimer', 'aria-pressed')) === 'true' && /Figer/.test(await pg.textContent('#vmAnimer')), 'mouvement réduit : « Animer la figure » doit lancer l\'animation');
+      ok(errs.length === 0, `mouvement réduit : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+      const sans = await ouvre(1000, 1200); await va(sans.pg); ok(!(await visible(sans.pg, '#vmAnimer')), 'sans demande de mouvement réduit : pas de bouton « Animer la figure »'); await sans.c.close();
+    }
+
+    // 6. iOS / Safari : le contexte audio suspendu ou interrompu, l'onglet caché, le micro absent
+    {
+      const { c, pg, errs } = await ouvre(390, 844);
+      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      // « suspended » (et « interrupted », que Safari pose de la même façon) : le bouton redit Écouter, un message le dit, un geste reprend
+      await pg.evaluate(() => window.__voirSaMusique.contexte().suspend()); await pg.waitForTimeout(500);
+      ok(/Écouter/.test(await pg.textContent('#vmLecture')) && /interrompu/.test(await pg.textContent('#vmMessage')), 'contexte suspendu : « Écouter » et un message attendus');
+      await pg.click('#vmLecture'); await pg.waitForTimeout(900);
+      ok((await pg.evaluate(() => window.__voirSaMusique.contexte().state)) === 'running' && /Pause/.test(await pg.textContent('#vmLecture')) && (await pg.textContent('#vmMessage')) === '', 'contexte suspendu : un geste doit reprendre (état running, message effacé)');
+      // onglet caché : le morceau se met en pause ; retour : il reprend
+      await pg.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => true }); document.dispatchEvent(new Event('visibilitychange')); });
+      await pg.waitForTimeout(300);
+      ok(await pg.evaluate(() => window.__voirSaMusique.elementAudio().paused), 'onglet caché : le morceau doit se mettre en pause');
+      await pg.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => false }); document.dispatchEvent(new Event('visibilitychange')); });
+      await pg.waitForTimeout(900);
+      ok(!(await pg.evaluate(() => window.__voirSaMusique.elementAudio().paused)) && /Pause/.test(await pg.textContent('#vmLecture')), 'retour sur l\'onglet : le morceau doit reprendre');
+      ok(errs.length === 0, `iOS : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+      // micro absent : message clair
+      const sans = await ouvre(390, 844, {}, () => { Object.defineProperty(navigator, 'mediaDevices', { value: undefined, configurable: true }); });
+      await va(sans.pg); await sans.pg.selectOption('#vmSource', 'mic'); await sans.pg.click('#vmLecture'); await sans.pg.waitForTimeout(500);
+      ok(/Aucun micro/.test(await sans.pg.textContent('#vmMessage')), `micro absent : message clair attendu (« ${await sans.pg.textContent('#vmMessage')} »)`); await sans.c.close();
+    }
+
+    // 7. mobile émulé (Chromium, profil iPhone) : Écouter → figure → Pause → Image, sans erreur, sans défilement horizontal
+    {
+      const { devices } = await import('playwright');
+      const { c, pg, errs } = await ouvre(390, 844, { ...devices['iPhone 13'], acceptDownloads: true });
+      await va(pg); await pg.waitForTimeout(500);
+      await pg.tap('#vmLecture'); await pg.waitForTimeout(2000);
+      ok((await S(pg)).source === 'morceau' && (await nCouleurs(pg)) >= 2, 'mobile émulé : Écouter doit lancer le morceau et dessiner la figure');
+      await pg.tap('#vmLecture'); await pg.waitForTimeout(300);
+      ok(/Écouter/.test(await pg.textContent('#vmLecture')), 'mobile émulé : Pause');
+      await pg.tap('#vmPlus'); await pg.waitForTimeout(300); await pg.locator('#vmEnregistrement').evaluate((n) => { n.closest('details').open = true; });
+      const dl = pg.waitForEvent('download', { timeout: 15000 }); await pg.tap('#vmImage'); const f = await dl;
+      ok(/\.png$/.test(f.suggestedFilename()), 'mobile émulé : le PNG doit se télécharger');
+      ok((await pg.evaluate(() => document.documentElement.scrollWidth)) <= 390, 'mobile émulé : pas de défilement horizontal à 390 px');
+      ok(errs.length === 0, `mobile émulé : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
+    }
+
+    // 8. fluidité : temps d'image de la figure animée, processeur ralenti ×4 (profil mobile) — voir tools/mesure_fluidite_musique.mjs pour la mesure détaillée
+    {
+      const { c, pg } = await ouvre(390, 844, { isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+      const cdp = await c.newCDPSession(pg); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      const ft = await pg.evaluate(() => new Promise((fin) => { const t = []; let p = performance.now(), n = 0; const f = (ms) => { t.push(ms - p); p = ms; if (++n < 150) requestAnimationFrame(f); else fin(t.slice(10)); }; requestAnimationFrame(f); }));
+      const moy = ft.reduce((a, b) => a + b, 0) / ft.length;
+      ok(moy <= 50, `fluidité : ${moy.toFixed(1)} ms par image avec le processeur ralenti ×4 (50 ms au plus)`);
+      console.log(`  fluidité mobile (CPU ×4) : ${moy.toFixed(1)} ms par image en moyenne, pire ${Math.max(...ft).toFixed(0)} ms`);
+      await c.close();
+    }
   }
 } catch (err) { echecs.push(`la page ne se charge pas ou le contrôle s'arrête : ${String(err.message).split('\n')[0]}`); } finally { await navigateur.close(); }
 

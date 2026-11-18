@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Vedere la propria musica: scegli un brano, un file o il microfono e guarda la figura di Chladni del suono e il motivo di La Livrée d'Hermès più simile. 15 secondi. |
 | `ariane` | Voir sa musique | Vedere la propria musica |
 | `h1` | Voir sa musique | Vedere la propria musica |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | Ogni musica ha una firma: il modo in cui la sua energia si ripartisce tra le frequenze. Scegli un brano, un file o il microfono: la pagina misura questa energia alle frequenze di ciascun cerchio di modi di una piastra quadrata, poi cerca, tra i motivi unificati di La Livrée d'Hermès, quello il cui spettro le somiglia di più. La scelta poggia sulla somiglianza di due spettri, non su una legge musicale: un motivo non «esprime» un brano. |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | Ogni musica ha una firma: il modo in cui la sua energia si distribuisce tra le frequenze. Premi «Ascolta»: la pagina misura quell'energia, disegna la figura di Chladni del suono e cerca, tra i motivi di La Livrée d'Hermès, quello il cui spettro le somiglia di più. La scelta si basa sulla somiglianza di due spettri, non su una legge musicale: un motivo non «esprime» un brano. |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | Nulla lascia il tuo browser: il file, il microfono e l'audio catturato sono analizzati sul posto e non vengono inviati da nessuna parte. |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | Attenzione: le immagini possono cambiare in fretta e lampeggiare. L'impostazione «riduci i cambiamenti rapidi» le rallenta. |
 | `sonTitre` | Le son | Il suono |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | Riproduci |
 | `pause` | Pause | Pausa |
 | `arreter` | Arrêter | Ferma |
+| `ecouter` | Écouter | Ascolta |
+| `plusOptions` | Plus d'options | Più opzioni |
+| `moinsOptions` | Moins d'options | Meno opzioni |
+| `animerFigure` | Animer la figure | Anima la figura |
+| `figerFigure` | Figer la figure | Ferma la figura |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | animazione ferma (movimento ridotto richiesto): pulsante «Anima la figura» |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | Il suono è stato interrotto (chiamata, altra app, sospensione). Premi «Ascolta» per riprendere. |
+| `image` | Image | Immagine |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | Immagine salvata: il download è iniziato. |
+| `imageErreur` | Impossible de produire l'image. | Impossibile produrre l'immagine. |
+| `partager` | Partager | Condividi |
+| `partageErreur` | Le partage a échoué : {message} | Condivisione non riuscita: {message} |
+| `copierLien` | Copier le lien | Copia il link |
+| `lienCopie` | Lien copié : {lien} | Link copiato: {lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | Copia questo link a mano: {lien} |
+| `appareilTitre` | Informations sur l'appareil | Informazioni sul dispositivo |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | Una riga di testo da rimandare all'autore in caso di problema: browser e sistema (solo famiglia e versione), stato del suono, registratore e formati video, condivisione, schermo. Non viene inviato nulla: la copi tu. |
+| `appareilLigne` | Informations à copier | Informazioni da copiare |
+| `appareilCopier` | Copier | Copia |
+| `appareilCopie` | Informations copiées. | Informazioni copiate. |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | Seleziona il testo e copialo a mano. |
+| `oui` | oui | sì |
+| `non` | non | no |
+| `appareilSansContexte` | pas encore créé | non ancora creato |
+| `appareilSansEnregistreur` | enregistreur absent | registratore assente |
 | `entree` | Entrée audio | Ingresso audio |
 | `entreeDefaut` | Entrée par défaut | Ingresso predefinito |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | Mixer, scheda audio: collegala, consenti il microfono, poi sceglila qui. |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | Intervallo minimo tra due attacchi (s) |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 0,45 s per impostazione predefinita: al massimo circa 133 attacchi al minuto. Abbassalo per un tempo veloce. |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | I brani forniti sono composti con l'aiuto dell'IA («Musica composta con l'IA da MC Claude.»). |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | Premi Riproduci. I brani forniti sono composti con l'aiuto dell'IA. |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | Premi Ascolta. I brani forniti sono composti con l'aiuto dell'IA. |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | Brano fornito, composto con l'aiuto dell'IA. |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | File: {nom} (resta nel tuo browser). |
 | `etatMicro` | Micro actif. | Microfono attivo. |
 | `etatEntree` | Entrée « {nom} » active. | Ingresso «{nom}» attivo. |
 | `etatOnglet` | Audio d'un onglet actif. | Audio di una scheda attivo. |
 | `etatEssai` | Musique d'essai. | Musica di prova. |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | Il microfono è stato rifiutato. Consentilo nelle impostazioni del sito (il lucchetto, a sinistra dell'indirizzo), poi fai di nuovo clic su Riproduci. Puoi anche scegliere un file o un brano. |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | Il microfono è stato rifiutato. Consentilo nelle impostazioni del sito (il lucchetto, a sinistra dell'indirizzo), poi fai di nuovo clic su Ascolta. Puoi anche scegliere un file o un brano. |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | Nessun microfono è disponibile su questo dispositivo. |
 | `erreurMicro` | Le micro ne démarre pas : {message} | Il microfono non si avvia: {message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | La cattura dell'audio di una scheda non è possibile qui. Richiede un browser desktop recente (Chrome, Edge); manca su dispositivi mobili e su Safari. |

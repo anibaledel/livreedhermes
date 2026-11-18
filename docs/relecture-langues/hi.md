@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | अपना संगीत देखें: रचना, फ़ाइल या माइक्रोफ़ोन चुनें, ध्वनि की Chladni आकृति और La Livrée d'Hermès का सबसे मिलता पैटर्न देखें। 15 सेकंड रिकॉर्ड करें। |
 | `ariane` | Voir sa musique | अपने संगीत को देखें |
 | `h1` | Voir sa musique | अपने संगीत को देखें |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | हर संगीत का एक हस्ताक्षर होता है: उसकी ऊर्जा आवृत्तियों में किस तरह बँटी है। कोई रचना, फ़ाइल या माइक्रोफ़ोन चुनें: पृष्ठ वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर यह ऊर्जा मापता है, फिर La Livrée d'Hermès के एकीकृत पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता हो। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता। |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | हर संगीत का एक हस्ताक्षर होता है: उसकी ऊर्जा आवृत्तियों में किस तरह बँटी है। “सुनें” दबाएँ: पृष्ठ इस ऊर्जा को मापता है, ध्वनि की Chladni आकृति बनाता है और La Livrée d'Hermès के एकीकृत पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता हो। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता। |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं। |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है। |
 | `sonTitre` | Le son | ध्वनि |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | चलाएँ |
 | `pause` | Pause | रोकें |
 | `arreter` | Arrêter | बंद करें |
+| `ecouter` | Écouter | सुनें |
+| `plusOptions` | Plus d'options | और विकल्प |
+| `moinsOptions` | Moins d'options | कम विकल्प |
+| `animerFigure` | Animer la figure | आकृति को चलाएँ |
+| `figerFigure` | Figer la figure | आकृति को रोकें |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | एनिमेशन रुका हुआ है (कम गति का अनुरोध किया गया है): “आकृति को चलाएँ” बटन |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | ध्वनि बाधित हो गई (कॉल, दूसरा ऐप, स्लीप)। जारी रखने के लिए “सुनें” दबाएँ। |
+| `image` | Image | चित्र |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | चित्र सहेजा गया: डाउनलोड शुरू हो गया है। |
+| `imageErreur` | Impossible de produire l'image. | चित्र नहीं बन सका। |
+| `partager` | Partager | साझा करें |
+| `partageErreur` | Le partage a échoué : {message} | साझा करना विफल रहा: {message} |
+| `copierLien` | Copier le lien | लिंक कॉपी करें |
+| `lienCopie` | Lien copié : {lien} | लिंक कॉपी हो गया: {lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | यह लिंक हाथ से कॉपी करें: {lien} |
+| `appareilTitre` | Informations sur l'appareil | डिवाइस की जानकारी |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | समस्या होने पर लेखक को भेजने के लिए पाठ की एक पंक्ति: ब्राउज़र और सिस्टम (केवल परिवार और संस्करण), ध्वनि की स्थिति, रिकॉर्डर और वीडियो प्रारूप, साझा करना, स्क्रीन। कुछ भी भेजा नहीं जाता: आप इसे स्वयं कॉपी करते हैं। |
+| `appareilLigne` | Informations à copier | कॉपी करने की जानकारी |
+| `appareilCopier` | Copier | कॉपी करें |
+| `appareilCopie` | Informations copiées. | जानकारी कॉपी हो गई। |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | पाठ चुनें और उसे हाथ से कॉपी करें। |
+| `oui` | oui | हाँ |
+| `non` | non | नहीं |
+| `appareilSansContexte` | pas encore créé | अभी बना नहीं |
+| `appareilSansEnregistreur` | enregistreur absent | रिकॉर्डर उपलब्ध नहीं |
 | `entree` | Entrée audio | ऑडियो इनपुट |
 | `entreeDefaut` | Entrée par défaut | डिफ़ॉल्ट इनपुट |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | मिक्सिंग डेस्क, साउंड कार्ड: उसे जोड़ें, माइक्रोफ़ोन की अनुमति दें, फिर उसे यहाँ चुनें। |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | दो आघातों के बीच न्यूनतम अंतराल (से.) |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | डिफ़ॉल्ट 0.45 से.: अधिकतम लगभग 133 आघात प्रति मिनट। तेज़ गति के लिए इसे घटाएँ। |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | उपलब्ध रचनाएँ AI की सहायता से रची गई हैं (“Musique composée avec l'IA par MC Claude.” अर्थात् “MC Claude द्वारा AI से रचा गया संगीत।”)। |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | “चलाएँ” दबाएँ। उपलब्ध रचनाएँ AI की सहायता से रची गई हैं। |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | “सुनें” दबाएँ। उपलब्ध रचनाएँ AI की सहायता से रची गई हैं। |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | उपलब्ध रचना, AI की सहायता से रची गई। |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | फ़ाइल: {nom} (वह आपके ब्राउज़र में ही रहती है)। |
 | `etatMicro` | Micro actif. | माइक्रोफ़ोन चालू है। |
 | `etatEntree` | Entrée « {nom} » active. | इनपुट “{nom}” चालू है। |
 | `etatOnglet` | Audio d'un onglet actif. | टैब की ध्वनि चालू है। |
 | `etatEssai` | Musique d'essai. | परीक्षण संगीत। |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | माइक्रोफ़ोन अस्वीकृत है। साइट की सेटिंग में उसकी अनुमति दें (पते के बाईं ओर ताला), फिर दोबारा “चलाएँ” पर क्लिक करें। आप कोई फ़ाइल या उपलब्ध रचना भी चुन सकते हैं। |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | माइक्रोफ़ोन अस्वीकृत है। साइट की सेटिंग में उसकी अनुमति दें (पते के बाईं ओर ताला), फिर दोबारा “सुनें” पर क्लिक करें। आप कोई फ़ाइल या उपलब्ध रचना भी चुन सकते हैं। |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | इस उपकरण पर कोई माइक्रोफ़ोन उपलब्ध नहीं है। |
 | `erreurMicro` | Le micro ne démarre pas : {message} | माइक्रोफ़ोन शुरू नहीं होता: {message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | यहाँ किसी टैब की ध्वनि कैप्चर करना संभव नहीं है। इसके लिए डेस्कटॉप का नया ब्राउज़र (Chrome, Edge) चाहिए; मोबाइल और Safari पर यह नहीं है। |

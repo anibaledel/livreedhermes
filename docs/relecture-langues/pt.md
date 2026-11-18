@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Ver a sua música: escolha uma peça, um ficheiro ou o microfone, veja a figura de Chladni do som e o padrão de La Livrée d'Hermès mais parecido. Grave 15 segundos. |
 | `ariane` | Voir sa musique | Ver a sua música |
 | `h1` | Voir sa musique | Ver a sua música |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | Cada música tem uma assinatura: a forma como a sua energia se reparte pelas frequências. Escolha uma peça, um ficheiro ou o microfone: a página mede essa energia nas frequências de cada círculo de modos de uma placa quadrada e procura, entre os padrões unificados de La Livrée d'Hermès, aquele cujo espetro mais se lhe assemelha. A escolha assenta na semelhança de dois espetros, não numa lei musical: um padrão não «exprime» uma peça. |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | Cada música tem uma assinatura: a forma como a sua energia se reparte pelas frequências. Prima «Ouvir»: a página mede essa energia, desenha a figura de Chladni do som e procura, entre os padrões de La Livrée d'Hermès, aquele cujo espectro mais se lhe assemelha. A escolha assenta na semelhança de dois espectros, não numa lei musical: um padrão não «exprime» uma peça. |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | Nada sai do seu navegador: o ficheiro, o microfone e o áudio captado são analisados no próprio aparelho e não são enviados para parte nenhuma. |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | Atenção: as imagens podem mudar depressa e piscar. A opção «reduzir as mudanças rápidas» abranda-as. |
 | `sonTitre` | Le son | O som |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | Reproduzir |
 | `pause` | Pause | Pausa |
 | `arreter` | Arrêter | Parar |
+| `ecouter` | Écouter | Ouvir |
+| `plusOptions` | Plus d'options | Mais opções |
+| `moinsOptions` | Moins d'options | Menos opções |
+| `animerFigure` | Animer la figure | Animar a figura |
+| `figerFigure` | Figer la figure | Parar a figura |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | animação parada (foi pedido movimento reduzido): botão «Animar a figura» |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | O som foi interrompido (chamada, outra aplicação, suspensão). Prima «Ouvir» para retomar. |
+| `image` | Image | Imagem |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | Imagem guardada: a transferência começou. |
+| `imageErreur` | Impossible de produire l'image. | Não foi possível produzir a imagem. |
+| `partager` | Partager | Partilhar |
+| `partageErreur` | Le partage a échoué : {message} | A partilha falhou: {message} |
+| `copierLien` | Copier le lien | Copiar a ligação |
+| `lienCopie` | Lien copié : {lien} | Ligação copiada: {lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | Copie esta ligação à mão: {lien} |
+| `appareilTitre` | Informations sur l'appareil | Informações do dispositivo |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | Uma linha de texto a enviar ao autor em caso de problema: navegador e sistema (apenas família e versão), estado do som, gravador e formatos de vídeo, partilha, ecrã. Nada é enviado: é você quem a copia. |
+| `appareilLigne` | Informations à copier | Informações a copiar |
+| `appareilCopier` | Copier | Copiar |
+| `appareilCopie` | Informations copiées. | Informações copiadas. |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | Selecione o texto e copie-o à mão. |
+| `oui` | oui | sim |
+| `non` | non | não |
+| `appareilSansContexte` | pas encore créé | ainda não criado |
+| `appareilSansEnregistreur` | enregistreur absent | gravador ausente |
 | `entree` | Entrée audio | Entrada de áudio |
 | `entreeDefaut` | Entrée par défaut | Entrada predefinida |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | Mesa de mistura, placa de som: ligue-a, autorize o microfone e escolha-a aqui. |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | Intervalo mínimo entre dois ataques (s) |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 0,45 s por predefinição: no máximo cerca de 133 ataques por minuto. Baixe-o para um andamento rápido. |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | As peças fornecidas são compostas com a ajuda da IA («Música composta com IA por MC Claude.»). |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | Prima Reproduzir. As peças fornecidas são compostas com a ajuda da IA. |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | Prima Ouvir. As peças fornecidas são compostas com a ajuda da IA. |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | Peça fornecida, composta com a ajuda da IA. |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | Ficheiro: {nom} (fica no seu navegador). |
 | `etatMicro` | Micro actif. | Microfone ativo. |
 | `etatEntree` | Entrée « {nom} » active. | Entrada «{nom}» ativa. |
 | `etatOnglet` | Audio d'un onglet actif. | Áudio de um separador ativo. |
 | `etatEssai` | Musique d'essai. | Música de teste. |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | O microfone está bloqueado. Autorize-o nas definições do site (o cadeado, à esquerda do endereço) e clique de novo em Reproduzir. Pode também escolher um ficheiro ou uma peça. |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | O microfone está bloqueado. Autorize-o nas definições do site (o cadeado, à esquerda do endereço) e clique de novo em Ouvir. Pode também escolher um ficheiro ou uma peça. |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | Não há nenhum microfone disponível neste aparelho. |
 | `erreurMicro` | Le micro ne démarre pas : {message} | O microfone não arranca: {message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | A captação do áudio de um separador não é possível aqui. Exige um navegador de computador recente (Chrome, Edge); não existe em telemóvel nem no Safari. |

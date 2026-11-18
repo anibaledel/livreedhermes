@@ -14,7 +14,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | 自分の音楽を見る：曲、ファイル、またはマイクを選ぶと、音が描くクラドニ図形と、それに最もよく似た La Livrée d'Hermès の紋様が見られます。音とともに15秒間を録画できます。 |
 | `ariane` | Voir sa musique | 自分の音楽を見る |
 | `h1` | Voir sa musique | 自分の音楽を見る |
-| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Choisissez un morceau, un fichier ou le micro : la page mesure cette énergie aux fréquences de chaque cercle de modes d'une plaque carrée, puis cherche, parmi les motifs unifiés de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | どんな音楽にも署名があります。エネルギーが周波数ごとにどう分かれているか、ということです。曲、ファイル、またはマイクを選ぶと、このページは正方形の板の振動モードの各円の周波数でそのエネルギーを測り、La Livrée d'Hermès の統一紋様の中から、スペクトルが最もよく似たものを探します。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。 |
+| `intro` | Chaque musique a une signature : la façon dont son énergie se répartit entre les fréquences. Appuyez sur « Écouter » : la page mesure cette énergie, dessine la figure de Chladni du son et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre lui ressemble le plus. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | どんな音楽にも署名があります。エネルギーが周波数ごとにどう分かれているか、ということです。「聴く」を押すと、このページはそのエネルギーを測り、音が描くクラドニ図形を描いて、La Livrée d'Hermès の統一紋様の中から、スペクトルが最もよく似たものを探します。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。 |
 | `discretion` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. | 何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。 |
 | `flash` | Attention : les images peuvent changer vite et clignoter. Le réglage « réduire les changements rapides » les ralentit. | 注意：画像が素早く切り替わったり、点滅したりすることがあります。「急な変化を抑える」設定で、動きがゆるやかになります。 |
 | `sonTitre` | Le son | 音 |
@@ -41,6 +41,31 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `lecture` | Lecture | 再生 |
 | `pause` | Pause | 一時停止 |
 | `arreter` | Arrêter | 停止 |
+| `ecouter` | Écouter | 聴く |
+| `plusOptions` | Plus d'options | オプションを増やす |
+| `moinsOptions` | Moins d'options | オプションを減らす |
+| `animerFigure` | Animer la figure | 図形を動かす |
+| `figerFigure` | Figer la figure | 図形を止める |
+| `figureFixeAide` | animation arrêtée (réduction des mouvements demandée) : bouton « Animer la figure » | アニメーションを停止中（動きを減らす設定）：「図形を動かす」ボタン |
+| `audioInterrompu` | Le son a été interrompu (appel, autre application, veille). Appuyez sur « Écouter » pour reprendre. | 音が中断されました（通話、他のアプリ、スリープ）。「聴く」を押すと再開します。 |
+| `image` | Image | 画像 |
+| `imagePrete` | Image enregistrée : le téléchargement a commencé. | 画像を保存しました。ダウンロードが始まりました。 |
+| `imageErreur` | Impossible de produire l'image. | 画像を作成できませんでした。 |
+| `partager` | Partager | 共有 |
+| `partageErreur` | Le partage a échoué : {message} | 共有に失敗しました：{message} |
+| `copierLien` | Copier le lien | リンクをコピー |
+| `lienCopie` | Lien copié : {lien} | リンクをコピーしました：{lien} |
+| `lienManuel` | Copiez ce lien à la main : {lien} | このリンクを手動でコピーしてください：{lien} |
+| `appareilTitre` | Informations sur l'appareil | デバイス情報 |
+| `appareilAide` | Une ligne de texte à renvoyer à l'auteur en cas de problème : navigateur et système (famille et version seulement), état du son, enregistreur et formats vidéo, partage, écran. Rien n'est envoyé : c'est vous qui la copiez. | 問題が起きたときに作者へ送るための1行のテキストです。ブラウザとシステム（種類とバージョンのみ）、音の状態、録画機能と動画形式、共有、画面。何も送信されません。コピーするのはあなたです。 |
+| `appareilLigne` | Informations à copier | コピーする情報 |
+| `appareilCopier` | Copier | コピー |
+| `appareilCopie` | Informations copiées. | 情報をコピーしました。 |
+| `appareilManuel` | Sélectionnez le texte et copiez-le à la main. | テキストを選択して手動でコピーしてください。 |
+| `oui` | oui | はい |
+| `non` | non | いいえ |
+| `appareilSansContexte` | pas encore créé | まだ作成されていません |
+| `appareilSansEnregistreur` | enregistreur absent | 録画機能なし |
 | `entree` | Entrée audio | オーディオ入力 |
 | `entreeDefaut` | Entrée par défaut | 既定の入力 |
 | `entreeAide` | Table de mixage, carte son : branchez-la, autorisez le micro, puis choisissez-la ici. | ミキサー、サウンドカード：接続し、マイクを許可してから、ここで選んでください。 |
@@ -49,14 +74,14 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | 2つのアタックの最小間隔（秒） |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 既定は 0.45 秒で、1分あたり最大およそ133回のアタックです。速いテンポでは下げてください。 |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | 付属の曲は AI の助けを借りて作曲されています（「MC Claude が AI で作曲した音楽。」）。 |
-| `etatDepart` | Appuyez sur Lecture. Les morceaux fournis sont composés avec l'aide de l'IA. | 「再生」を押してください。付属の曲は AI の助けを借りて作曲されています。 |
+| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | 「聴く」を押してください。付属の曲は AI の助けを借りて作曲されています。 |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | 付属の曲。AI の助けを借りて作曲されています。 |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | ファイル：{nom}（ブラウザの中にとどまります）。 |
 | `etatMicro` | Micro actif. | マイクがオンです。 |
 | `etatEntree` | Entrée « {nom} » active. | 入力「{nom}」がオンです。 |
 | `etatOnglet` | Audio d'un onglet actif. | タブの音声がオンです。 |
 | `etatEssai` | Musique d'essai. | テスト用の音楽。 |
-| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Lecture. Vous pouvez aussi choisir un fichier ou un morceau. | マイクが拒否されました。サイトの設定（アドレスの左の鍵のアイコン）で許可してから、もう一度「再生」を押してください。ファイルや付属の曲を選ぶこともできます。 |
+| `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | マイクが拒否されました。サイトの設定（アドレスの左の鍵のアイコン）で許可してから、もう一度「聴く」を押してください。ファイルや付属の曲を選ぶこともできます。 |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | この端末で使えるマイクがありません。 |
 | `erreurMicro` | Le micro ne démarre pas : {message} | マイクが起動しません：{message} |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | ここではタブの音声を取り込めません。最新のデスクトップ用ブラウザ（Chrome、Edge）が必要で、モバイルと Safari では使えません。 |

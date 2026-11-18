@@ -37,6 +37,7 @@ const S = {
   seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
   calme: MQ_CALME.matches, figure: 'motif', loi: M.LOIS.RACINE, cPlaque: C.cPlaque, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
   perso: { ink: rgb(ENCRE), bg: rgb(CREME) }, tuileEssai: C.tuileFenetre, lent: 0, resReduite: false, ia: false,
+  mode: 'simple', enPause: false, pauseCache: false, figureFixe: MQ_CALME.matches, animer: false,
 };
 const DIR = 'data/musique-chladni/';
 const FMT_DE = {}; for (const o of CONFIG.ordres) for (const c of o.collections) FMT_DE[c] = o.ordre;
@@ -167,7 +168,8 @@ function boucle(ms) {
   requestAnimationFrame(boucle);
   const dt = Math.min(100, ms - dernierMs); dernierMs = ms;
   S.acc = Math.min(100, S.acc + dt); // borné : un onglet resté en arrière-plan ne rejoue pas des secondes
-  const actif = A.ctx && S.source && A.ctx.state === 'running' && !document.hidden;
+  const fige = S.figureFixe && !S.animer; // « réduire les animations » : la figure reste fixe tant que l'utilisateur ne la lance pas
+  const actif = A.ctx && S.source && A.ctx.state === 'running' && !document.hidden && !S.enPause && !fige;
   if (actif) { let pas = 0; while (S.acc >= 33 && pas < 3) { S.acc -= 33; pas++; S.tSim += 0.033; const att = analyser(); valide.pas(att); essaiF.pas(att); } }
   else S.acc = 0;
   if (valide.dernier.fondu < 1) { valide.dernier.fondu = Math.min(1, valide.dernier.fondu + dt / 1000 / (C.fonduSecondes * (S.calme ? 3 : 1))); }
@@ -232,13 +234,22 @@ function majInfo() {
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
   if (S.resReduite) p.push(T('infoResolution'));
   $('vmInfo').textContent = p.join(' · ');
+  const nom = $('vmNomMotif'); if (nom) nom.textContent = `${T('collections')[valCfg.col][0]} · ${T('infoMotif', { i: j + 1, n })}${S.figureFixe && !S.animer ? ` · ${T('figureFixeAide')}` : ''}`;
   majCles();
   const pu = valide.p.pulsation(), sel = $('vmPulsation'), aide = $('vmAidePulsation');
   if (sel) for (const o of sel.options) o.disabled = o.value !== M.PULSATIONS.ATTAQUE && !pu.regulier;
   if (!pu.regulier && S.pulsation !== M.PULSATIONS.ATTAQUE) { S.pulsation = M.PULSATIONS.ATTAQUE; if (sel) sel.value = S.pulsation; valide.reglages(); essaiF.reglages(); }
   if (aide) aide.textContent = `${T('pulsationAide')} ${pu.regulier ? T('pulsationDetectee', { bpm: Math.round(pu.bpm) }) : T('pulsationAucune')}`;
 }
-function message(t, bon = false) { const e = $('vmMessage'); e.textContent = t || ''; e.dataset.etat = t ? (bon ? 'ok' : 'erreur') : ''; }
+function message(t, bon = false) { const e = $('vmMessage'); e.textContent = t || ''; e.dataset.etat = t ? (bon ? 'ok' : 'erreur') : ''; delete e.dataset.audio; }
+function messageAudio(t) { message(t); if (t) $('vmMessage').dataset.audio = '1'; } // un message sur l'état du son : il s'efface quand le son revient
+// Le grand bouton : « Écouter » à l'arrêt ou en pause (et quand le système a interrompu le son), « Pause » pendant la lecture.
+// Le texte change (pas d'aria-pressed en plus : « Pause, enfoncé » dirait deux fois la même chose).
+function majBouton() {
+  const b = $('vmLecture'); if (!b) return;
+  const joue = S.source && !S.enPause && !(A.ctx && A.ctx.state !== 'running');
+  b.textContent = T(joue ? 'pause' : 'ecouter');
+}
 
 // ---------- l'audio ----------
 async function audioPret() {
@@ -248,6 +259,12 @@ async function audioPret() {
   A.an2 = A.ctx.createAnalyser(); A.an2.fftSize = 2048; A.an2.smoothingTimeConstant = 0; A.an2.minDecibels = -110;
   A.entree = A.ctx.createGain(); A.sortie = A.ctx.createGain(); A.dest = A.ctx.createMediaStreamDestination();
   A.entree.connect(A.an8); A.entree.connect(A.an2); A.entree.connect(A.dest); A.entree.connect(A.sortie); A.sortie.connect(A.ctx.destination);
+  // Safari/iOS suspend (« suspended ») ou interrompent (« interrupted » : appel, autre application) le contexte : on le dit, et le bouton redevient « Écouter »
+  A.ctx.addEventListener('statechange', () => {
+    majBouton(); majAppareil();
+    if (S.source && A.ctx.state !== 'running' && A.ctx.state !== 'closed') messageAudio(T('audioInterrompu'));
+    else if (A.ctx.state === 'running' && $('vmMessage').dataset.audio) message('');
+  });
   await A.ctx.resume();
 }
 function arreterSource() {
@@ -258,12 +275,12 @@ function arreterSource() {
   if (A.wake) { A.wake.release().catch(() => {}); A.wake = null; }
   S.source = null; S.ia = false; for (const pr of S.profils.values()) pr.lisse.fill(0); detecteur.reinitialiser(); valide.p.reinitialiser(); essaiF.p.reinitialiser();
   valide.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; essaiF.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 };
-  $('vmLecture').textContent = T('lecture'); $('vmLecture').setAttribute('aria-pressed', 'false');
+  S.enPause = false; S.pauseCache = false; majBouton();
 }
 async function demarrer(source, etat, audible, ia = false) {
   message(''); await audioPret();
   S.source = source; S.etat = etat; S.ia = ia; S.tSim = 0; A.sortie.gain.value = audible ? 1 : 0; detecteur.reinitialiser();
-  $('vmLecture').textContent = T('arreter'); $('vmLecture').setAttribute('aria-pressed', 'true');
+  S.enPause = false; S.pauseCache = false; majBouton();
   if (CONFIG.scene.veilleEmpechee && navigator.wakeLock) navigator.wakeLock.request('screen').then((w) => { A.wake = w; }).catch(() => {});
 }
 function elementAudio() {
@@ -271,11 +288,14 @@ function elementAudio() {
   return A.el;
 }
 async function lireElement(url, source, etat, ia) {
-  arreterSource(); await audioPret(); const e = elementAudio(); e.src = url;
+  // La lecture et la reprise du contexte partent TOUT DE SUITE, dans le geste de l'utilisateur : Safari/iOS refuse un play() lancé après des attentes.
+  arreterSource(); const pret = audioPret(), e = elementAudio(); e.src = url;
+  const jeu = e.play();
+  await pret;
   if (!A.srcEl) A.srcEl = A.ctx.createMediaElementSource(e);
   A.srcNode = A.srcEl; A.srcEl.connect(A.entree);
   await demarrer(source, etat, true, ia);
-  try { await e.play(); } catch (err) { message(T('erreurAudio', { message: err.message })); arreterSource(); }
+  try { await jeu; } catch (err) { message(T('erreurAudio', { message: err.message })); arreterSource(); }
 }
 async function depuisFlux(flux, source, etat) {
   arreterSource(); await audioPret(); A.flux = flux; A.srcNode = A.ctx.createMediaStreamSource(flux); A.srcNode.connect(A.entree);
@@ -314,8 +334,18 @@ function musiqueEssai() { // les accords de la page test de l'auteur, sur l'ancr
     A.essai = { noeuds, timer: setInterval(jouer, 260) }; jouer();
   }).catch((err) => message(T('erreurAudio', { message: err.message })));
 }
+function mettreEnPause() { if (A.el) A.el.pause(); S.enPause = true; majBouton(); }
+async function reprendre() { // sortie de pause, ou retour sur l'onglet : le contexte, puis l'élément audio
+  S.enPause = false; S.pauseCache = false; majBouton();
+  try { await A.ctx.resume(); if (A.el && A.el.paused && (S.source === 'morceau' || S.source === 'fichier')) await A.el.play(); message(''); }
+  catch (err) { S.enPause = true; majBouton(); messageAudio(T('audioInterrompu')); }
+}
 async function lecture() {
-  if (S.source) return arreterSource();
+  if (S.source) {
+    if (S.enPause || (A.ctx && A.ctx.state !== 'running')) return reprendre();
+    if (S.source === 'morceau' || S.source === 'fichier') return mettreEnPause(); // un morceau se met en pause ; le micro, l'audio d'un onglet et la musique d'essai s'arrêtent
+    return arreterSource();
+  }
   const v = $('vmSource').value;
   if (v === 'mic') return ouvrirMicro();
   if (v === 'onglet') return capturerOnglet();
@@ -362,7 +392,7 @@ async function lancerEnregistrement() {
     clearInterval(rec.minuteur); flux.getTracks().forEach((p) => p.stop());
     const type = mr.mimeType || mime || 'video/webm', mp4 = /mp4/.test(type), blob = new Blob(morceaux, { type });
     const a = el('a', { href: URL.createObjectURL(blob), download: `voir-sa-musique-${valCfg.col}-${valCfg.view}-${W}x${H}-${Date.now()}.${mp4 ? 'mp4' : 'webm'}` });
-    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); fichierAPartager(blob, a.download);
     message(mp4 ? (avecAac(type) ? T('enregPret') : `${T('enregPret')} ${T('enregOpus')}`) : `${T('enregPret')} ${T('enregWebm')}`, true);
     window.__derniereVideo = { type, aac: avecAac(type), octets: blob.size, largeur: W, hauteur: H }; rec = null; $('vmEnreg').textContent = T('enreg'); $('vmEnreg').setAttribute('aria-pressed', 'false');
   };
@@ -370,6 +400,92 @@ async function lancerEnregistrement() {
   rec.minuteur = setInterval(() => { const s = Math.ceil(CONFIG.enregistrement.dureesSecondes[0] - (performance.now() - rec.debut) / 1000); $('vmEnreg').textContent = T('enregEnCours', { s: Math.max(0, s) }); if (s <= 0) arreterEnregistrement(); }, 250);
 }
 function arreterEnregistrement() { if (rec && rec.mr.state !== 'inactive') rec.mr.stop(); }
+
+// ---------- le mode (Simple par défaut, Avancé) et les paramètres d'adresse ----------
+const MODE_CLE = 'vm-mode';
+const lireMode = () => { try { const v = localStorage.getItem(MODE_CLE); return v === 'avance' || v === 'simple' ? v : null; } catch { return null; } };
+const ecrireMode = (m) => { try { localStorage.setItem(MODE_CLE, m); } catch { /* stockage absent ou refusé : la page marche sans */ } };
+const slugMorceau = (m) => m.fichier.split('/').pop().replace(/\.mp3$/, ''); // j3-re : la valeur de ?morceau=
+/** UNIQUEMENT `morceau` (une valeur parmi les 7 exemples) et `mode` (simple | avance). Tout autre paramètre, toute autre valeur, est ignoré : la page ne lit jamais une adresse arbitraire. */
+function parametres() {
+  const q = new URLSearchParams(location.search), r = {}, m = q.get('morceau'), mode = q.get('mode');
+  const x = CONFIG.morceaux.find((c) => slugMorceau(c) === m); if (x) r.morceau = x.id;
+  if (mode === 'simple' || mode === 'avance') r.mode = mode;
+  return r;
+}
+function appliquerMode(m, memoriser = true) {
+  S.mode = m; $('vmPage').classList.toggle('vm-simple', m === 'simple');
+  if (memoriser) ecrireMode(m);
+  if (m === 'simple' && (S.source === 'essai' || S.source === 'onglet')) arreterSource(); // ces deux sources ne sont proposées qu'en « Avancé »
+  remplirSource(); fermerTout();
+  const b = $('vmPlus'); b.textContent = T(m === 'simple' ? 'plusOptions' : 'moinsOptions'); b.setAttribute('aria-expanded', String(m === 'avance'));
+  majAppareil();
+}
+function majAnimer() { // « réduire les animations » : une image fixe, et un bouton explicite pour lancer l'animation
+  const b = $('vmAnimer'); if (!b) return;
+  b.hidden = !S.figureFixe; b.textContent = T(S.animer ? 'figerFigure' : 'animerFigure'); b.setAttribute('aria-pressed', String(S.animer));
+}
+
+// ---------- enregistrer l'image, partager, copier le lien ----------
+const dateLocale = () => { const d = new Date(), p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; };
+function nomDuMorceau() { const m = CONFIG.morceaux.find((x) => x.id === $('vmSource').value); return m ? slugMorceau(m) : (S.source || 'figure'); }
+function telecharger(blob, nom) { const a = el('a', { href: URL.createObjectURL(blob), download: nom }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }
+function majPartage() { // le bouton « Partager » n'existe que si le navigateur sait partager CE fichier (Web Share API, niveau 2)
+  const b = $('vmPartager'); if (!b) return;
+  let ok = false; try { ok = Boolean(A.partage && navigator.canShare && navigator.canShare({ files: [A.partage] })); } catch { ok = false; }
+  b.hidden = !ok;
+}
+function fichierAPartager(blob, nom) { A.partage = new File([blob], nom, { type: String(blob.type).split(';')[0] }); majPartage(); }
+function enregistrerImage() { // la figure affichée, au format du canvas, sans la page autour ; aucun filigrane ; aucun envoi
+  const c = $('vmValideToile');
+  c.toBlob((blob) => {
+    if (!blob) return message(T('imageErreur'));
+    const nom = `voir-sa-musique-${nomDuMorceau()}-${dateLocale()}.png`;
+    telecharger(blob, nom); fichierAPartager(blob, nom);
+    window.__derniereImage = { nom, type: blob.type, octets: blob.size, largeur: c.width, hauteur: c.height };
+    message(T('imagePrete'), true);
+  }, 'image/png');
+}
+async function partager() {
+  if (!A.partage) return;
+  try { await navigator.share({ files: [A.partage], title: T('titrePage') }); }
+  catch (err) { if (!err || err.name !== 'AbortError') message(T('partageErreur', { message: err && err.message })); }
+}
+async function copierTexte(texte) { // presse-papiers ; repli : sélection d'un champ, pour les navigateurs sans l'API asynchrone
+  try { await navigator.clipboard.writeText(texte); return true; } catch { /* repli ci-dessous */ }
+  const ta = el('textarea', { readonly: true, style: 'position:fixed;left:-9999px;top:0' }); ta.value = texte; document.body.append(ta); ta.select();
+  let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+  ta.remove(); return ok;
+}
+/** Le lien vers CETTE page (donc dans la langue de la page) : ?morceau=<un des 7 exemples>, et &mode=avance si utile. */
+function lienDirect() {
+  const u = new URL(location.pathname, location.origin), m = CONFIG.morceaux.find((x) => x.id === $('vmSource').value);
+  if (m) u.searchParams.set('morceau', slugMorceau(m));
+  if (S.mode === 'avance') u.searchParams.set('mode', 'avance');
+  return u.href;
+}
+async function copierLien() { const l = lienDirect(); message((await copierTexte(l)) ? T('lienCopie', { lien: l }) : T('lienManuel', { lien: l }), true); }
+
+// ---------- « Informations sur l'appareil » : une ligne à renvoyer à l'auteur, rien n'est envoyé ----------
+function navigateurEtSysteme() { // famille et version seulement : ni identifiant, ni adresse
+  const u = navigator.userAgent, v = (re) => { const m = re.exec(u); return m ? m[1].split('.').slice(0, 2).join('.') : ''; };
+  let nav = 'unknown', os = 'unknown';
+  if (/Edg\//.test(u)) nav = `Edge ${v(/Edg\/([\d.]+)/)}`; else if (/OPR\//.test(u)) nav = `Opera ${v(/OPR\/([\d.]+)/)}`; else if (/SamsungBrowser\//.test(u)) nav = `Samsung ${v(/SamsungBrowser\/([\d.]+)/)}`;
+  else if (/FxiOS\//.test(u)) nav = `Firefox-iOS ${v(/FxiOS\/([\d.]+)/)}`; else if (/CriOS\//.test(u)) nav = `Chrome-iOS ${v(/CriOS\/([\d.]+)/)}`; else if (/Firefox\//.test(u)) nav = `Firefox ${v(/Firefox\/([\d.]+)/)}`;
+  else if (/Chrome\//.test(u)) nav = `Chrome ${v(/Chrome\/([\d.]+)/)}`; else if (/Safari\//.test(u) && /Version\//.test(u)) nav = `Safari ${v(/Version\/([\d.]+)/)}`;
+  if (/iPhone|iPad|iPod/.test(u)) os = `iOS ${v(/OS (\d+[_.]\d+)/).replace('_', '.')}`; else if (/Android/.test(u)) os = `Android ${v(/Android ([\d.]+)/)}`;
+  else if (/Windows/.test(u)) os = 'Windows'; else if (/Mac OS X|Macintosh/.test(u)) os = navigator.maxTouchPoints > 1 ? 'iPadOS' : 'macOS'; else if (/CrOS/.test(u)) os = 'ChromeOS'; else if (/Linux/.test(u)) os = 'Linux';
+  return { nav, os };
+}
+function infosAppareil() {
+  const oui = T('oui'), non = T('non'), b = (x) => (x ? oui : non), { nav, os } = navigateurEtSysteme();
+  let partageFichiers = false; try { partageFichiers = Boolean(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'a.png', { type: 'image/png' })] })); } catch { partageFichiers = false; }
+  const types = window.MediaRecorder ? FORMATS_VIDEO.map((x) => `${x} = ${b(MediaRecorder.isTypeSupported(x))}`).join(' | ') : T('appareilSansEnregistreur');
+  return [`navigateur: ${nav}`, `systeme: ${os}`, `audioContext: ${A.ctx ? A.ctx.state : T('appareilSansContexte')}`, `MediaRecorder: ${b(window.MediaRecorder)}`,
+    `getUserMedia: ${b(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)}`, `share: ${b(navigator.share)}`, `canShare(files): ${b(partageFichiers)}`,
+    `ecran: ${screen.width}x${screen.height}`, `dpr: ${window.devicePixelRatio || 1}`, `video: ${types}`].join(' ; ');
+}
+function majAppareil() { const a = $('vmAppareilTexte'); if (a && $('vmAppareil') && $('vmAppareil').open) a.value = infosAppareil(); }
 
 // ---------- plein écran (toujours la fenêtre validée) et projection ----------
 // Le plein écran. Cause de l'ancien défaut : le canvas était dimensionné à l'écran (largeur × hauteur) mais la
@@ -515,19 +631,26 @@ function commandesScene() {
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmSignature', checked: S.signature || null, onchange: (ev) => { S.signature = ev.target.checked; } }), T('signature', { texte: CONFIG.enregistrement.signatureTexte })),
     window.MediaRecorder ? el('p', { class: 'vm-aide', id: 'vmAideAudio' }, avecAac(typeVideo()) ? T('enregAac') : /mp4/.test(typeVideo()) ? T('enregOpusAvant') : T('enregWebm')) : null,
     el('button', { type: 'button', id: 'vmEnreg', 'aria-pressed': 'false', onclick: lancerEnregistrement }, T('enreg')));
+  e.append(el('div', { class: 'vm-fen-btns' }, el('button', { type: 'button', id: 'vmImage', onclick: enregistrerImage }, T('image')), el('button', { type: 'button', id: 'vmPartager', hidden: true, onclick: partager }, T('partager')), el('button', { type: 'button', id: 'vmLien', onclick: copierLien }, T('copierLien'))));
   $('vmRaccourcis').replaceChildren(...T('raccourcis').flatMap(([k, v]) => [el('dt', {}, el('kbd', {}, k)), el('dd', {}, v)]));
 }
-function construireSon() {
-  const src = $('vmSource'); src.replaceChildren(
+// Les options du sélecteur : en « Simple », les 7 morceaux, « un fichier » et « le micro » ; en « Avancé », aussi la musique d'essai et l'audio d'un onglet.
+function remplirSource() {
+  const src = $('vmSource'), v = src.value, avance = S.mode === 'avance';
+  src.replaceChildren(
     ...(CONFIG.entrees.morceaux ? CONFIG.morceaux.map((m, i) => el('option', { value: m.id }, T('morceau', { n: i + 1, note: T('notes')[m.id] }))) : []),
     CONFIG.entrees.fichier ? el('option', { value: 'file' }, T('sourceFichier')) : null, CONFIG.entrees.micro ? el('option', { value: 'mic' }, T('sourceMicro')) : null,
-    CONFIG.entrees.musiqueEssai ? el('option', { value: 'essai' }, T('sourceEssai')) : null, CONFIG.entrees.captureOnglet ? el('option', { value: 'onglet' }, T('sourceOnglet')) : null);
+    avance && CONFIG.entrees.musiqueEssai ? el('option', { value: 'essai' }, T('sourceEssai')) : null, avance && CONFIG.entrees.captureOnglet ? el('option', { value: 'onglet' }, T('sourceOnglet')) : null);
+  if ([...src.options].some((o) => o.value === v)) src.value = v;
+}
+function construireSon() {
+  const src = $('vmSource'); remplirSource();
   let precedent = src.value;
   src.addEventListener('change', () => { if (S.source) arreterSource(); if (src.value === 'file') { $('vmFichier').click(); } else precedent = src.value; });
   const f = $('vmFichier');
   f.addEventListener('change', (e) => { const fi = e.target.files[0]; if (!fi) { src.value = precedent; return; } if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); A.fichierUrl = URL.createObjectURL(fi); A.fichierNom = fi.name; precedent = 'file'; if (S.source) arreterSource(); S.etat = T('etatFichier', { nom: fi.name }); });
   f.addEventListener('cancel', () => { src.value = precedent; }); // le choix de fichier annulé
-  $('vmLecture').addEventListener('click', lecture); $('vmLecture').textContent = T('lecture');
+  $('vmLecture').addEventListener('click', lecture); majBouton();
   $('vmEntreeLigne').hidden = !CONFIG.entrees.peripheriques;
   $('vmEntree').replaceChildren(el('option', { value: '' }, T('entreeDefaut')));
 }
@@ -539,6 +662,7 @@ function habiller() {
   $('vmEssaiTitre').replaceChildren(T('essai'), ' ', el('span', { class: 'vm-tag e' }, T('essaiTag')));
   $('vmValider').textContent = T('validerEssai'); $('vmAnnuler').textContent = T('annuler'); $('vmPleinBtn').textContent = T('pleinEcran'); $('vmQuitter').textContent = T('quitterPleinEcran');
   $('vmFenAide').textContent = T('fenetresAide'); $('vmMentionIA').textContent = T('mentionIA'); $('vmEntreeAide').textContent = T('entreeAide');
+  $('vmTitreAppareil').textContent = T('appareilTitre'); $('vmAppareilAide').textContent = T('appareilAide'); $('vmAppareilLabel').textContent = T('appareilLigne'); $('vmAppareilCopier').textContent = T('appareilCopier'); $('vmPlus').textContent = T('plusOptions'); majBouton(); majAnimer();
   $('vmValideToile').setAttribute('aria-label', T('fenetreValide')); $('vmEssaiToile').setAttribute('aria-label', T('fenetreEssai'));
   $('vmBasculeValide').textContent = T('basculeValide'); $('vmBasculeEssai').textContent = T('basculeEssai'); $('vmEntreeLabel').textContent = T('entree');
   $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre'); $('vmTitreCles').textContent = T('clesTitre'); $('vmTitreComprendre').textContent = T('comprendreTitre');
@@ -547,6 +671,7 @@ function clavier(e) {
   if (e.target.closest && e.target.closest('input,select,textarea')) return;
   const k = e.key.toLowerCase(), vues = Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]);
   if (e.key === 'Escape') { if (enPleinEcran) quitterPlein(); fermerTout(); return; }
+  if (S.mode === 'simple') { if (k === 'f') pleinEcran(); return; } // les autres raccourcis pilotent les réglages de l'« Avancé »
   if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; viser(esel); rafraichir(); }
   else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m] && m !== M.MODES.OCTAVES); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; viser(esel); rafraichir(); }
   else if (k === 'p') { S.pause = !S.pause; $('vmPause').setAttribute('aria-pressed', String(S.pause)); }
@@ -560,7 +685,15 @@ export async function monter() {
   detecteur = M.creerDetecteurAttaques({ intervalleMin: S.intervalle, sigma: S.seuil });
   valide = new Fenetre($('vmValideToile'), $('vmValideCap')); essaiF = new Fenetre($('vmEssaiToile'), $('vmEssaiCap'));
   valide.setCfg(valCfg); essaiF.setCfg(esel);
+  const param = parametres(); S.mode = param.mode || lireMode() || 'simple'; // le mode demandé par l'adresse vaut pour cette visite et n'est pas mémorisé
   construireSon(); construireGroupes(); reglagesAvances(); commandesScene(); rafraichir();
+  if (param.morceau) $('vmSource').value = param.morceau; // le morceau choisi par l'adresse : sélectionné, jamais lancé (les navigateurs interdisent la lecture sans geste)
+  appliquerMode(S.mode, false);
+  $('vmPlus').addEventListener('click', () => appliquerMode(S.mode === 'simple' ? 'avance' : 'simple'));
+  $('vmAnimer').addEventListener('click', () => { S.animer = !S.animer; majAnimer(); });
+  if (MQ_CALME.addEventListener) MQ_CALME.addEventListener('change', (e) => { S.figureFixe = e.matches; S.animer = false; majAnimer(); });
+  majAnimer();
+  $('vmAppareil').addEventListener('toggle', majAppareil); $('vmAppareilCopier').addEventListener('click', async () => { majAppareil(); message((await copierTexte($('vmAppareilTexte').value)) ? T('appareilCopie') : T('appareilManuel'), true); });
   if (CONFIG.options.pourComprendre) { const d = $('vmComprendre'); d.hidden = false; d.addEventListener('toggle', () => { if (d.open) monterComprendre(); }); }
   $('vmValider').addEventListener('click', valider); $('vmAnnuler').addEventListener('click', annuler); $('vmPleinBtn').addEventListener('click', pleinEcran);
   $('vmQuitter').addEventListener('click', quitterPlein);
@@ -572,9 +705,16 @@ export async function monter() {
   for (const ev of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(ev, changePlein);
   for (const ev of ['resize', 'orientationchange']) window.addEventListener(ev, () => { if (enPleinEcran) calerPlein(); });
   for (const ev of ['mousemove', 'pointerdown', 'keydown', 'touchstart']) document.addEventListener(ev, veilleScene);
-  document.addEventListener('visibilitychange', () => { S.acc = 0; });
+  document.addEventListener('visibilitychange', () => {
+    S.acc = 0;
+    if (document.hidden) { // onglet caché : la figure ne se calcule plus (boucle), le morceau se met en pause
+      if ((S.source === 'morceau' || S.source === 'fichier') && !S.enPause && A.el && !A.el.paused) { A.el.pause(); S.pauseCache = true; }
+    } else if (S.pauseCache) reprendre(); // retour sur l'onglet : le contexte et le morceau reprennent (sinon le bouton redit « Écouter »)
+    else if (S.source && A.ctx && A.ctx.state !== 'running') reprendre();
+  });
+  window.addEventListener('pageshow', (e) => { if (e.persisted && S.source && A.ctx && A.ctx.state !== 'running') reprendre(); });
   if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', listerEntrees);
   window.addEventListener('pagehide', () => { arreterSource(); if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); });
   requestAnimationFrame(boucle);
-  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile, tuilesParCote, caseAttendue: () => tuilePleinEcran($('vmPleinToile')) / M.GRILLE[valCfg.fmt] };
+  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile, tuilesParCote, infosAppareil, lienDirect, parametres, appliquerMode, contexte: () => A.ctx, elementAudio: () => A.el, caseAttendue: () => tuilePleinEcran($('vmPleinToile')) / M.GRILLE[valCfg.fmt] };
 }

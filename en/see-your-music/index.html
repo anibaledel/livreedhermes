@@ -33,9 +33,21 @@
   .vm-flash{ border-left:3px solid var(--gold); padding-left:10px; }
   .vm-message{ min-height:1.4em; margin:6px 0; color:var(--dim); overflow-wrap:anywhere; }
   .vm-message[data-etat=erreur]{ color:var(--white); border-left:3px solid var(--gold); padding-left:10px; }
-  .vm-son{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); align-items:start; margin:14px 0; }
-  .vm-son label{ display:block; color:var(--dim); font-size:13px; margin-bottom:4px; }
-  .vm-son select,.vm-ligne select{ width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-demarrage{ display:grid; gap:14px; justify-items:center; margin:16px 0 8px; }
+  .vm-morceau{ display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; justify-content:center; width:100%; }
+  .vm-morceau label{ color:var(--dim); font-size:13px; }
+  .vm-morceau select,.vm-ligne select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-morceau select{ min-width:min(100%,280px); max-width:100%; }
+  .vm-ligne select{ width:100%; }
+  .vm-page .vm-ecouter{ font-size:22px; letter-spacing:.05em; padding:16px 44px; min-height:64px; min-width:min(100%,280px); border:2px solid var(--gold); }
+  .vm-nom{ text-align:center; color:var(--dim); margin:8px 0 0; min-height:1.4em; overflow-wrap:anywhere; }
+  /* Le mode « Simple » (par défaut) : le bouton, le morceau, la figure, son nom, Plein écran. Tout le reste (.vm-av) est dans « Avancé » : rien n'est supprimé. */
+  .vm-simple .vm-av{ display:none !important; }
+  .vm-simple .vm-main{ grid-template-columns:minmax(0,1fr); }
+  .vm-simple .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
+  .vm-simple .vm-fen canvas{ max-width:min(100%,560px); margin:0 auto; }
+  .vm-simple .vm-fen-btns{ justify-content:center; }
+  #vmAppareilTexte{ display:block; width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace; margin:6px 0 10px; resize:vertical; }
   .vm-page button{ background:transparent; color:var(--white); border:1px solid var(--line-strong); border-radius:3px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer; min-height:40px; }
   .vm-page button:hover:not(:disabled){ border-color:var(--gold); }
   .vm-page button[aria-pressed=true]{ border-color:var(--gold); color:var(--gold); }
@@ -169,34 +181,35 @@
 <!-- @header:end -->
 <!-- @main:start -->
 <main id="contenu">
-  <div class="vm-page">
+  <div class="vm-page vm-simple" id="vmPage">
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><span aria-current="page" data-t="ariane">See your music</span></nav>
     <h1 data-t="h1">See your music</h1>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
-    <p class="vm-intro" data-t="intro">Every piece of music has a signature: the way its energy is spread across frequencies. Choose a track, a file or the microphone: the page measures that energy at the frequencies of each circle of modes of a square plate, then looks, among the unified patterns of La Livrée d'Hermès, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a musical law: a pattern does not “express” a piece.</p>
+    <p class="vm-intro" data-t="intro">Every piece of music has a signature: the way its energy is spread across frequencies. Press “Listen”: the page measures that energy, draws the Chladni figure of the sound and looks, among the La Livrée d'Hermès patterns, for the one whose spectrum resembles it most. The choice rests on the resemblance of two spectra, not on a law of music: a pattern does not “express” a piece.</p>
     <p class="vm-discretion" data-t="discretion">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.</p>
     <p class="vm-flash" role="note" data-t="flash">Warning: the images can change fast and flicker. The “reduce rapid changes” setting slows them down.</p>
 
-    <section class="vm-son" aria-labelledby="vmSonLabel">
-      <div><label id="vmSonLabel" for="vmSource">Sound</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
-      <div><button type="button" id="vmLecture" aria-pressed="false">Play</button></div>
-      <div id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Audio input</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
+    <section class="vm-demarrage" aria-labelledby="vmSonLabel">
+      <button type="button" id="vmLecture" class="vm-ecouter">Listen</button>
+      <div class="vm-morceau"><label id="vmSonLabel" for="vmSource">Sound</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
+      <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Audio input</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
-    <div class="vm-bascule"><button type="button" id="vmBasculeValide">Validated</button><button type="button" id="vmBasculeEssai">Trial</button></div>
+    <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">Validated</button><button type="button" id="vmBasculeEssai">Trial</button></div>
     <div class="vm-main">
       <div>
         <div class="vm-fenetres">
-          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">Validated</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap"></figcaption></figure>
-          <figure class="vm-fen vm-fen-essai" style="margin:0"><h2 id="vmEssaiTitre">Trial</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
+          <figure class="vm-fen vm-fen-valide" style="margin:0"><h2 id="vmValideTitre">Validated</h2><canvas id="vmValideToile" width="360" height="360" role="img"></canvas><figcaption id="vmValideCap" class="vm-av"></figcaption></figure>
+          <figure class="vm-fen vm-fen-essai vm-av" style="margin:0"><h2 id="vmEssaiTitre">Trial</h2><canvas id="vmEssaiToile" width="360" height="360" role="img"></canvas><figcaption id="vmEssaiCap"></figcaption></figure>
         </div>
-        <div class="vm-fen-btns"><button type="button" id="vmValider">Validate the trial</button><button type="button" id="vmAnnuler">Cancel</button><button type="button" id="vmPleinBtn">Full screen</button></div>
-        <p class="vm-aide" id="vmFenAide"></p>
-        <p class="vm-info" id="vmInfo" aria-live="off"></p>
+        <p class="vm-nom" id="vmNomMotif" aria-live="off"></p>
+        <div class="vm-fen-btns"><button type="button" id="vmValider" class="vm-av">Validate the trial</button><button type="button" id="vmAnnuler" class="vm-av">Cancel</button><button type="button" id="vmPleinBtn">Full screen</button><button type="button" id="vmAnimer" aria-pressed="false" hidden></button><button type="button" id="vmPlus" aria-expanded="false">More options</button></div>
+        <p class="vm-aide vm-av" id="vmFenAide"></p>
+        <p class="vm-info vm-av" id="vmInfo" aria-live="off"></p>
       </div>
-      <div class="vm-opts">
+      <div class="vm-opts vm-av">
         <div class="vm-grp" id="vm-g-mode"></div>
         <div class="vm-grp" id="vm-g-fmt"></div>
         <div class="vm-grp" id="vm-g-col"></div>
@@ -206,12 +219,13 @@
       </div>
     </div>
 
-    <details class="vm-details"><summary id="vmTitreReglages">Live settings</summary><div id="vmReglages"></div></details>
-    <details class="vm-details"><summary id="vmTitreScene">The stage</summary><div id="vmScene"></div></details>
-    <details class="vm-details"><summary id="vmTitreEnreg">Record</summary><div id="vmEnregistrement"></div></details>
-    <details class="vm-details" id="vmComprendre" hidden><summary id="vmTitreComprendre">To understand</summary><div id="vmComprendreCorps"></div></details>
-    <details class="vm-details" id="vmCles" hidden><summary id="vmTitreCles">Reading in keys</summary><div id="vmClesCorps"></div></details>
-    <details class="vm-details"><summary id="vmTitreRacc">Keyboard shortcuts</summary><div><dl class="vm-raccourcis" id="vmRaccourcis"></dl></div></details>
+    <details class="vm-details vm-av"><summary id="vmTitreReglages">Live settings</summary><div id="vmReglages"></div></details>
+    <details class="vm-details vm-av"><summary id="vmTitreScene">The stage</summary><div id="vmScene"></div></details>
+    <details class="vm-details vm-av"><summary id="vmTitreEnreg">Record</summary><div id="vmEnregistrement"></div></details>
+    <details class="vm-details vm-av" id="vmComprendre" hidden><summary id="vmTitreComprendre">To understand</summary><div id="vmComprendreCorps"></div></details>
+    <details class="vm-details vm-av" id="vmCles" hidden><summary id="vmTitreCles">Reading in keys</summary><div id="vmClesCorps"></div></details>
+    <details class="vm-details vm-av"><summary id="vmTitreRacc">Keyboard shortcuts</summary><div><dl class="vm-raccourcis" id="vmRaccourcis"></dl></div></details>
+    <details class="vm-details vm-av" id="vmAppareil"><summary id="vmTitreAppareil">Device information</summary><div><p class="vm-aide" id="vmAppareilAide"></p><label class="vm-aide" for="vmAppareilTexte" id="vmAppareilLabel"></label><textarea id="vmAppareilTexte" rows="7" readonly spellcheck="false"></textarea><button type="button" id="vmAppareilCopier"></button></div></details>
 
     <div class="vm-plein" id="vmPlein" hidden><canvas id="vmPleinToile" width="720" height="720"></canvas><button type="button" id="vmQuitter">Exit full screen</button></div>
 
