@@ -24,6 +24,16 @@ directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relanc
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## « Voir sa musique » : démarrage simple, partage, appareil (prompt 201, 2026-11-18)
+
+Nouveaux textes (26 clés : bouton « Écouter », « Plus d'options », image, partage, lien, informations sur l'appareil, nouvelle introduction de trois phrases) dans les **onze langues**. Le français, l'anglais et l'espagnol sont de la main de l'assistant (l'anglais et l'espagnol à relire par Anibal, `docs/relecture-langues/en-es.md`) ; les huit autres sont traduits **depuis le français par l'IA, sans relecture native**. **Thaï et japonais d'abord**, puis hindi, chinois, russe, portugais, allemand, italien. Le tableau clé / français / traduction de chaque langue est dans `docs/relecture-langues/<langue>.md` (engendré : corriger le JSON `data/musique-chladni/traductions/<langue>.json`, puis `node scripts/build-musique-textes.mjs`).
+
+- **Le verbe du bouton** : « Écouter » est rendu par ฟัง (th), 聴く (ja), सुनें (hi), 聆听 (zh), Слушать (ru), Ouvir (pt), Anhören (de), Ascolta (it) — l'ancien « Lecture » (เล่น, 再生…) disparaît aussi des messages de départ et de micro refusé. À vérifier : le registre (« Écoutez » / « Écouter ») et, en japonais, 聴く plutôt que 聞く.
+- **« Animer la figure » / « Figer la figure »** (réduction des mouvements demandée) : 图形、図形、आकृति, ภาพ — le mot « figure » varie selon la langue ; c'est le même que celui de « figure de Chladni » dans l'introduction.
+- **Informations sur l'appareil** : phrase d'aide (« rien n'est envoyé : c'est vous qui la copiez ») à relire pour le ton. Les noms techniques de la ligne copiée (`navigateur`, `audioContext`, `MediaRecorder`…) restent en français/anglais : la ligne est destinée à l'auteur.
+- **Introduction raccourcie** (trois phrases) : elle ne mentionne plus « les cercles de modes d'une plaque carrée » ; la phrase « un motif n'« exprime » pas un morceau » est conservée dans chaque langue.
+- **Police japonaise** : `tools/police_ja.py` relancé (1 205 caractères, « 情 » ajouté pour デバイス情報).
+
 ## Allemand, italien, japonais : tirage et hexagrammes (prompts 197 et 199, 2026-11-17)
 
 Traductions faites par l'IA depuis le texte français du site — aucune relecture native. **Japonais d'abord**, puis allemand, italien.

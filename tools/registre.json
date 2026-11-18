@@ -718,6 +718,7 @@
    "lit": [
     "assets/musique-chladni-ui.js",
     "data/musique-chladni/semaine.json",
+    "en/see-your-music",
     "tools/semaine.mjs"
    ],
    "ecrit": [],
@@ -727,6 +728,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_musique_webkit.mjs",
+   "role": "« Voir sa musique » dans WebKit (le moteur de Safari), avec le profil d'un iPhone 13 (390 × 844, tactile) : à l'arrivée, un grand bouton « Écouter » sans défiler ; Écouter lance le premier morceau et la figure se dessine ; Pause arrête ;…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/check_navigation.mjs",
@@ -1776,6 +1789,7 @@
     "tools/check_galerie_bicolore_ordres.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_musique_chladni.mjs",
+    "tools/check_musique_webkit.mjs",
     "tools/check_navigation.mjs",
     "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",

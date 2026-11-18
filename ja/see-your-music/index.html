@@ -36,9 +36,11 @@
   .vm-demarrage{ display:grid; gap:14px; justify-items:center; margin:16px 0 8px; }
   .vm-morceau{ display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; justify-content:center; width:100%; }
   .vm-morceau label{ color:var(--dim); font-size:13px; }
-  .vm-morceau select,.vm-ligne select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
+  .vm-morceau select,.vm-ligne select,#vmEntreeLigne select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:inherit; min-height:40px; }
   .vm-morceau select{ min-width:min(100%,280px); max-width:100%; }
-  .vm-ligne select{ width:100%; }
+  .vm-ligne select,#vmEntreeLigne select{ width:100%; }
+  #vmEntreeLigne{ width:100%; max-width:560px; display:grid; gap:4px; }
+  #vmEntreeLigne label{ color:var(--dim); font-size:13px; }
   .vm-page .vm-ecouter{ font-size:22px; letter-spacing:.05em; padding:16px 44px; min-height:64px; min-width:min(100%,280px); border:2px solid var(--gold); }
   .vm-nom{ text-align:center; color:var(--dim); margin:8px 0 0; min-height:1.4em; overflow-wrap:anywhere; }
   /* Le mode « Simple » (par défaut) : le bouton, le morceau, la figure, son nom, Plein écran. Tout le reste (.vm-av) est dans « Avancé » : rien n'est supprimé. */
@@ -47,6 +49,16 @@
   .vm-simple .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
   .vm-simple .vm-fen canvas{ max-width:min(100%,560px); margin:0 auto; }
   .vm-simple .vm-fen-btns{ justify-content:center; }
+  .vm-simple .vm-fen-valide h2{ display:none; } /* « Validé » n'a de sens qu'en face de la fenêtre Essai (Avancé) */
+  /* Grand écran, mode Simple : le texte et le bouton à gauche, la figure à droite — on la voit bouger au moment où l'on appuie sur Écouter */
+  @media (min-width:900px){
+    .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
+    .vm-page.vm-simple > *{ grid-column:1 / -1; }
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
+    .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
+  }
   #vmAppareilTexte{ display:block; width:100%; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:8px; font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace; margin:6px 0 10px; resize:vertical; }
   .vm-page button{ background:transparent; color:var(--white); border:1px solid var(--line-strong); border-radius:3px; padding:8px 12px; font:inherit; font-size:13px; cursor:pointer; min-height:40px; }
   .vm-page button:hover:not(:disabled){ border-color:var(--gold); }
@@ -110,7 +122,11 @@
   .vm-carte:hover{ border-color:var(--gold); } .vm-carte b{ display:block; color:var(--white); font-weight:600; margin-bottom:4px; }
   .vm-carte span{ font-size:13px; line-height:1.5; overflow-wrap:anywhere; }
   @media (max-width:760px){
-    .wrap{ padding:20px 12px 48px; }
+    .wrap{ padding:12px 12px 48px; }
+    .vm-page h1{ margin:8px 0 6px; }
+    .vm-intro{ font-size:14.5px; line-height:1.5; margin:8px 0; }
+    .vm-demarrage{ margin:10px 0 6px; gap:10px; }
+    .vm-page .vm-ecouter{ min-height:56px; padding:12px 32px; font-size:20px; }
     .vm-main{ grid-template-columns:minmax(0,1fr); }
     .vm-fenetres{ grid-template-columns:minmax(0,1fr); }
     .vm-bascule{ display:flex; }
@@ -192,9 +208,7 @@
       <div class="vm-morceau"><label id="vmSonLabel" for="vmSource">音</label><select id="vmSource"></select><input type="file" id="vmFichier" accept="audio/*" hidden></div>
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">オーディオ入力</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
-    <p class="vm-discretion" data-t="discretion">何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。</p>
     <p class="vm-flash" role="note" data-t="flash">注意：画像が素早く切り替わったり、点滅したりすることがあります。「急な変化を抑える」設定で、動きがゆるやかになります。</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">確定済み</button><button type="button" id="vmBasculeEssai">試用</button></div>
@@ -219,6 +233,8 @@
       </div>
     </div>
 
+    <p class="vm-discretion" data-t="discretion">何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">その場での設定</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">ステージ</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">録画</summary><div id="vmEnregistrement"></div></details>

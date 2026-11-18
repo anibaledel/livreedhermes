@@ -304,7 +304,8 @@ try {
       ok(await pg.evaluate(() => [...document.querySelectorAll('.vm-details')].every((d) => getComputedStyle(d).display === 'none')), `${w} px, Simple : les volets doivent être cachés`);
       const g = await pg.evaluate(() => { const b = document.getElementById('vmLecture').getBoundingClientRect(), f = document.getElementById('vmValideToile').getBoundingClientRect(); return { bh: b.height, bw: b.width, btop: b.top, bbas: b.bottom, ftop: f.top, fw: f.width, iw: innerWidth, ih: innerHeight, sw: document.documentElement.scrollWidth, intro: document.querySelector('.vm-intro').textContent }; });
       ok(g.bh >= 56 && g.bw >= 200, `${w} px : le bouton Écouter doit être grand (${Math.round(g.bw)} × ${Math.round(g.bh)})`);
-      ok(g.btop < g.ftop && g.bbas <= g.ih, `${w} px : le bouton doit venir avant la figure et se voir sans défiler (haut ${Math.round(g.btop)}, bas ${Math.round(g.bbas)}, fenêtre ${g.ih})`);
+      // petit écran : le bouton avant la figure, visible sans défiler ; grand écran (deux colonnes) : le bouton ET le haut de la figure se voient ensemble, pour la voir bouger au clic
+      ok(w >= 900 ? (g.bbas <= g.ih && g.ftop < g.ih - 100) : (g.btop < g.ftop && g.bbas <= g.ih), `${w} px : le bouton (et, en grand écran, la figure) doivent se voir sans défiler (bouton ${Math.round(g.btop)}–${Math.round(g.bbas)}, figure dès ${Math.round(g.ftop)}, fenêtre ${g.ih})`);
       ok(g.fw >= (w <= 400 ? 0.8 * w : 400) && g.sw <= w, `${w} px : figure de ${Math.round(g.fw)} px (pleine largeur à 390, grande à 1000), défilement horizontal ${g.sw}`);
       ok((g.intro.match(/[.!?。！？](\s|$)/g) || []).length <= 3 && g.intro.length > 40, `${w} px : l'introduction doit tenir en 3 phrases (« ${g.intro.slice(0, 80)}… »)`);
       ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic', `${w} px, Simple : 7 morceaux, un fichier, le micro (sans musique d'essai ni audio d'onglet)`);
@@ -322,8 +323,7 @@ try {
       ok(/Pause/.test(await pg.textContent('#vmLecture')) && (await S(pg)).tSim > t2, `${w} px : la reprise doit relancer le son et la figure`);
       // le bouton se voit au clavier : focus visible, nom accessible
       // au clavier : on atteint le bouton par Tab, son focus se voit, et l'ordre de tabulation suit l'écran (bouton, morceau, plein écran, plus d'options)
-      await pg.evaluate(() => document.activeElement && document.activeElement.blur());
-      let ordre = []; for (let k = 0; k < 40 && !ordre.includes('vmLecture'); k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
+      let ordre = []; await pg.focus('#vmLecture'); await pg.keyboard.press('Shift+Tab'); await pg.keyboard.press('Tab'); // le focus revient sur le bouton PAR LE CLAVIER (seul cas où :focus-visible s'applique)
       ok(await pg.evaluate(() => { const b = document.getElementById('vmLecture'); return document.activeElement === b && b.matches(':focus-visible') && b.textContent.trim().length > 0 && getComputedStyle(b).outlineStyle !== 'none'; }), `${w} px : le bouton doit avoir un nom et un focus visible au clavier`);
       ordre = []; for (let k = 0; k < 3; k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
       ok(ordre.join() === 'vmSource,vmPleinBtn,vmPlus', `${w} px, Simple : ordre de tabulation attendu vmSource, vmPleinBtn, vmPlus (obtenu ${ordre.join()})`);
