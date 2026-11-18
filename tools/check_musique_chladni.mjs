@@ -321,7 +321,12 @@ try {
       await pg.click('#vmLecture'); await pg.waitForTimeout(1200);
       ok(/Pause/.test(await pg.textContent('#vmLecture')) && (await S(pg)).tSim > t2, `${w} px : la reprise doit relancer le son et la figure`);
       // le bouton se voit au clavier : focus visible, nom accessible
-      await pg.focus('#vmLecture'); ok(await pg.evaluate(() => { const b = document.getElementById('vmLecture'); return b.matches(':focus-visible') && b.textContent.trim().length > 0 && getComputedStyle(b).outlineStyle !== 'none'; }), `${w} px : le bouton doit avoir un nom et un focus visible`);
+      // au clavier : on atteint le bouton par Tab, son focus se voit, et l'ordre de tabulation suit l'écran (bouton, morceau, plein écran, plus d'options)
+      await pg.evaluate(() => document.activeElement && document.activeElement.blur());
+      let ordre = []; for (let k = 0; k < 40 && !ordre.includes('vmLecture'); k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
+      ok(await pg.evaluate(() => { const b = document.getElementById('vmLecture'); return document.activeElement === b && b.matches(':focus-visible') && b.textContent.trim().length > 0 && getComputedStyle(b).outlineStyle !== 'none'; }), `${w} px : le bouton doit avoir un nom et un focus visible au clavier`);
+      ordre = []; for (let k = 0; k < 3; k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
+      ok(ordre.join() === 'vmSource,vmPleinBtn,vmPlus', `${w} px, Simple : ordre de tabulation attendu vmSource, vmPleinBtn, vmPlus (obtenu ${ordre.join()})`);
       ok(errs.length === 0, `${w} px, Simple : erreurs ${errs.slice(0, 2).join(' | ')}`);
       if (process.env.CAPTURE_SIMPLE) await pg.screenshot({ path: `${process.env.CAPTURE_SIMPLE}-simple-${w}.png` });
       await c.close();
@@ -359,7 +364,7 @@ try {
       for (const bad of ['j3', 'j9', 'J3-RE', 'http://evil.test/a.mp3', '//evil.test/a.mp3', '../../etc/passwd', 'j3-re%00', 'file:///x', 'data:audio/mp3;base64,AAAA']) {
         r = await lire(`?morceau=${bad}`); ok(r.src === 'j1' && r.source === null, `?morceau=${bad} doit être ignoré (${JSON.stringify(r)})`);
       }
-      ok(![...reqs].some((u) => /evil\.test|etc\/passwd|^data:audio/.test(u)), 'aucune requête vers une adresse donnée dans ?morceau=');
+      ok(![...reqs].filter((u) => !u.startsWith(`${base}/musique-chladni.html`)).some((u) => /evil\.test|etc\/passwd|^data:audio/.test(u)), 'aucune requête (hors la navigation elle-même) vers une adresse donnée dans ?morceau=');
       r = await lire('?mode=avance'); ok(!r.simple, '?mode=avance : mode Avancé');
       r = await lire('?mode=simple'); ok(r.simple, '?mode=simple : mode Simple');
       for (const bad of ['AVANCE', 'avance%20', '1', '<script>', '']) { r = await lire(`?mode=${bad}`); ok(r.simple, `?mode=${bad} doit être ignoré`); }
@@ -373,8 +378,8 @@ try {
       ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/musique-chladni.html?morceau=j4-mi&mode=avance`, 'le lien direct doit ajouter &mode=avance en Avancé');
       await va(pg, '', 'en/see-your-music/'); await pg.selectOption('#vmSource', 'j2');
       ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/en/see-your-music/?morceau=j2-la`, 'le lien direct reste sur la page de la langue (en/see-your-music/)');
-      await va(pg, '', 'ja/see-your-music/'); await pg.selectOption('#vmSource', 'file');
-      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/ja/see-your-music/`, 'un fichier ou le micro : pas de ?morceau= dans le lien');
+      await va(pg, '', 'ja/see-your-music/'); await pg.evaluate(() => { document.getElementById('vmSource').value = 'mic'; });
+      ok((await pg.evaluate(() => window.__voirSaMusique.lienDirect())) === `${o}/ja/see-your-music/`, 'le micro (ou un fichier) : pas de ?morceau= dans le lien');
       ok(errs.length === 0, `adresse : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
     }
 
