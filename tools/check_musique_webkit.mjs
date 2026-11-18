@@ -28,7 +28,9 @@ try { navigateur = await webkit.launch(); } catch (e) { console.error(`WebKit in
 try {
   const ctx = await navigateur.newContext({ ...devices['iPhone 13'], acceptDownloads: true }), pg = await ctx.newPage(), errs = [], reqs = [];
   pg.on('pageerror', (e) => errs.push(e.message)); pg.on('request', (r) => reqs.push(r.url()));
-  pg.on('console', (m) => { if (m.type() === 'error' && !TIERS.test(m.text())) errs.push(m.text()); });
+  // les erreurs de la balise de mesure Cloudflare (une origine locale n'est pas celle qu'elle attend) ne sont pas celles de la page :
+  // WebKit les formule autrement que Chromium (« not allowed by Access-Control-Allow-Origin »), on les reconnaît à l'adresse de la ressource
+  pg.on('console', (m) => { if (m.type() === 'error' && !TIERS.test(m.text()) && !/cloudflareinsights/i.test(`${m.text()} ${m.location().url || ''}`)) errs.push(m.text()); });
   await pg.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
   await pg.waitForFunction(() => window.__voirSaMusique, null, { timeout: 30000 });
   await pg.waitForTimeout(800);
