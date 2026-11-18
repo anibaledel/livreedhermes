@@ -17,8 +17,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { chromium } from 'playwright';
-import { servirDepot } from './lib_fonds_site.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const MORCEAU = { id: 'j3', slug: 'j3-re' }, SECONDES = 8;
@@ -44,6 +42,8 @@ if (process.argv.includes('--verifie')) {
   console.log(`Figure d'exemple : ${IMAGE} et son JSON s'accordent.`); process.exit(0);
 }
 
+// playwright n'est chargé qu'ici : --verifie (job « statique » de la CI) n'installe pas de navigateur
+const { chromium } = await import('playwright'), { servirDepot } = await import('./lib_fonds_site.mjs');
 const serveur = await servirDepot(ROOT);
 const nav = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
 try {

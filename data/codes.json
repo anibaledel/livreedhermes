@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-18T17:23:19Z",
+ "generated_at_utc": "2026-11-18T17:36:46Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3199,9 +3199,9 @@
   {
    "chemin": "tools/figure_exemple_musique.mjs",
    "adresse": "https://anibal-amiot.com/tools/figure_exemple_musique.mjs",
-   "octets": 4580,
-   "sha256": "7ec743655609c1b604063974396e4ffbd138478b59138dd0fd56a5add6cbe534",
-   "md5": "84947d194ae0ffd64b8c51cab9204c79",
+   "octets": 4700,
+   "sha256": "6b07acf61630d6586026e41b199580ae88138c873ccc0087c702b3f97ccba5f6",
+   "md5": "ea056e293cdffed6888af2681efc0d09",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'image statique de référence de « Voir sa musique » (prompt 202) : une figure RÉELLEMENT produite par le moteur de la page (assets/musique-chladni-moteur.js, inchangé) sur un des 7 morceaux d'exemple.",
