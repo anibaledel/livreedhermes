@@ -208,7 +208,8 @@ const STR = {
     unifiedPatterns: 'Unified Patterns',
     titleOf: (familyShort, hexName) => `${hexName} — ${familyShort}`,
     // <title> complet (prompt 203) : numéro, nom, famille, site. Du plus riche au plus court ; on prend le premier qui tient en 60 caractères.
-    titreCandidats: (fam, nom, n) => [`Hexagram ${n} ${nom} — ${fam} pattern | ${SITE}`, `Hexagram ${n} ${nom} — ${fam} | ${SITE}`, `${nom} (${n}) — ${fam} | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
+    // convention du site (tools/check_hexagrammes_deux_numeros.mjs) : un « hexagram N » est suivi de son numéro King Wen ; sans numéro, le nom seul.
+    titreCandidats: (fam, nom, n, kw) => [`Hexagram ${n} (King Wen no. ${kw}): ${nom} — ${fam} | ${SITE}`, `${nom} (hexagram ${n}, King Wen ${kw}) — ${fam} | ${SITE}`, `${nom} (${n}, King Wen ${kw}) — ${fam} | ${SITE}`, `${nom} — ${fam} pattern | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
     headingOf: (familyLabel, n, hexName, kw) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName} — King Wen no. ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}en/lexicon/`,
     otherLangLink: (href) => `<a href="${href}" hreflang="fr" lang="fr">Version française</a>`,
@@ -268,7 +269,7 @@ const STR = {
     home: 'Accueil',
     unifiedPatterns: 'Patterns unifiés',
     titleOf: (familyShort, hexName) => `${hexName} — motif ${familyShort}`,
-    titreCandidats: (fam, nom, n) => [`Hexagramme ${n} ${nom} — motif ${fam} | ${SITE}`, `${nom} (${n}) — motif ${fam} | ${SITE}`, `${nom} (${n}) — ${fam} | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
+    titreCandidats: (fam, nom, n, kw) => [`Hexagramme ${n} (n° King Wen ${kw}) : ${nom} — motif ${fam} | ${SITE}`, `${nom} (hexagramme ${n}, King Wen ${kw}) — motif ${fam} | ${SITE}`, `${nom} (${n}, King Wen ${kw}) — motif ${fam} | ${SITE}`, `${nom} — motif ${fam} | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
     headingOf: (familyLabel, n, hexName, kw) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName} — n° King Wen ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}lexique.html`,
     otherLangLink: (href) => `<a href="${href}" hreflang="en" lang="en">English version</a>`,
@@ -323,7 +324,7 @@ const SITE = "La Livrée d'Hermès", TITRE_MAX = 60;
 // Premier candidat de 60 caractères au plus ; si le nom de l'hexagramme est si long qu'aucun ne tient (les 5 noms
 // de plus de 35 caractères du français), le titre court d'avant (sans le nom du site) : une exception écrite dans tools/check_titres.mjs.
 function titreComplet(lang, familyShort, hexName, n) {
-  const s = STR[lang], c = s.titreCandidats(familyShort, hexName, n);
+  const s = STR[lang], c = s.titreCandidats(familyShort, hexName, n, kingWenDe(n));
   return c.find((x) => [...x].length <= TITRE_MAX) || s.titleOf(familyShort, hexName);
 }
 

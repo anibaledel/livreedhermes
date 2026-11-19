@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-19T12:25:33Z",
+ "generated_at_utc": "2026-11-19T12:51:47Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1257,9 +1257,9 @@
   {
    "chemin": "scripts/generate-motif-pages.js",
    "adresse": "https://anibal-amiot.com/scripts/generate-motif-pages.js",
-   "octets": 55830,
-   "sha256": "4d9d85830deb66231f239a7a5a1da5a3742bb2c9ed9f48f63b84cd5b850d564e",
-   "md5": "dbb66c6d97731b06a64f06dc8d10d852",
+   "octets": 56202,
+   "sha256": "ee762221153a50ba3bcebd4f43c76c66f2ff633644c78592ea03cac2f7f915a8",
+   "md5": "010b18a48628793c06801b9182596da1",
    "licence_declaree": false,
    "licence": null,
    "role": "Génère les pages individuelles des motifs Unified Patterns, un motif = une page adressable, sur le modèle de generate-hexagram-pages.js (même mécanisme : en-tête, pied de page et bloc de tuiles depuis includes/ et scripts/nav-tiles.js vi…",
