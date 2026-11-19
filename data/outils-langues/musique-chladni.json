@@ -2,13 +2,13 @@
   "_doc": "Textes statiques de musique-chladni.html et leurs traductions (engendré par scripts/build-musique-textes.mjs depuis data/musique-chladni/traductions/). « fr » : sous-chaîne EXACTE de la page française. Les traductions viennent de l'IA, à relire (docs/relecture-langues/).",
   "textes": [
     {
-      "fr": "Voir sa musique — La Livrée d'Hermès",
-      "en": "See your music — La Livrée d'Hermès",
-      "es": "Ver tu música — La Livrée d'Hermès",
+      "fr": "Voir sa musique : figure de Chladni — La Livrée d'Hermès",
+      "en": "See your music: Chladni figure — La Livrée d'Hermès",
+      "es": "Ver tu música: figura de Chladni — La Livrée d'Hermès",
       "th": "มองเห็นดนตรีของคุณ — La Livrée d'Hermès",
       "zh": "看见你的音乐——La Livrée d'Hermès",
       "ru": "Увидеть свою музыку — La Livrée d'Hermès",
-      "pt": "Ver a sua música — La Livrée d'Hermès",
+      "pt": "Ver a sua música: figura de Chladni — La Livrée d'Hermès",
       "hi": "अपने संगीत को देखें — La Livrée d'Hermès",
       "de": "Die eigene Musik sehen — La Livrée d'Hermès",
       "it": "Vedere la propria musica — La Livrée d'Hermès",

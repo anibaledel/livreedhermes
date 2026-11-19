@@ -135,7 +135,7 @@ function page(d, f) {
         ...(d.premiere && d.premiere !== date ? { dateModified: date } : {}),
         ...(f.version ? { version: f.version } : {}),
         ...(LICENCES[d.licence] ? { license: LICENCES[d.licence] } : {}),
-        isPartOf: { '@type': 'CollectionPage', '@id': `${SITE}/travaux.html`, name: 'Travaux — Anibal Amiot' },
+        isPartOf: { '@type': 'CollectionPage', '@id': `${SITE}/travaux.html`, name: 'Travaux : dépôts horodatés, code et articles — Anibal Amiot' },
         description: desc,
       },
     ],

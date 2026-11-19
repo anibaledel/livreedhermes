@@ -25,16 +25,12 @@ const ECRITURE_ASIE = new Set(['ja', 'zh', 'zh-Hans', 'th', 'hi']);
 // Familles dont le titre, l'og:title, le twitter:title et le JSON-LD « name » doivent être identiques (les gabarits de prompt 203).
 const FAMILLES_ALIGNEES = [/^motifs\/(?!index\.html).+\.html$/, /^fr\/motifs\/(?!index\.html).+\.html$/, /^ja\/hexagrams\/(?!index\.html).+\.html$/];
 
-// Pages au titre court qu'on garde pour l'instant : chacune avec sa raison. Une page qui allonge son titre doit sortir d'ici (le contrôle l'exige).
-const ATTENTE = "titre proposé dans docs/titres-courts-proposes.md, en attente de la validation d'Anibal (prompt 203, point 5)";
-const EXCEPTIONS = new Map(); // rempli plus bas depuis docs/titres-courts-proposes.md (une ligne « | page | actuel | proposé | »)
-const fichierPropositions = path.join(ROOT, 'docs/titres-courts-proposes.md');
-if (fs.existsSync(fichierPropositions)) {
-  for (const l of fs.readFileSync(fichierPropositions, 'utf8').split('\n')) {
-    const m = l.match(/^\|\s*`([^`]+\.html)`\s*\|/);
-    if (m) EXCEPTIONS.set(m[1], ATTENTE);
-  }
-}
+// Pages dont le titre reste sous le plancher, chacune avec sa raison. Une page qui allonge son titre doit sortir d'ici (le contrôle l'exige).
+// Les 50 autres titres courts ont été allongés (prompt 203, docs/titres-courts-proposes.md garde la liste : titre d'avant, titre d'après).
+const EXCEPTIONS = new Map([
+  ['ja/works/index.html', "« 研究成果 — Anibal Amiot » : 19 caractères japonais, complets pour leur écriture ; Anibal : ne pas rallonger sans raison (prompt 203)"],
+  ['zh/works/index.html', "« 研究存档——Anibal Amiot » : 18 caractères chinois, complets pour leur écriture ; Anibal : ne pas rallonger sans raison (prompt 203)"],
+]);
 
 const decode = (s) => s.replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const longueur = (s) => [...s].length;
@@ -76,7 +72,7 @@ function verifier(liste, exceptions) {
   for (const [rel] of exceptions) {
     const p = liste.find((x) => x.rel === rel);
     if (!p) e.push(`exception périmée : ${rel} n'est plus une page indexable avec un titre`);
-    else if (!utilisees.has(rel)) e.push(`exception périmée : ${rel} a maintenant un titre assez long (${longueur(p.titre)} caractères) — la retirer de docs/titres-courts-proposes.md`);
+    else if (!utilisees.has(rel)) e.push(`exception périmée : ${rel} a maintenant un titre assez long (${longueur(p.titre)} caractères) — la retirer d'EXCEPTIONS`);
   }
   return e;
 }

@@ -1,6 +1,6 @@
 # Titres courts à allonger — propositions (prompt 203, point 5)
 
-Pages isolées dont le `<title>` est sous le plancher de `tools/check_titres.mjs` (40 caractères pour les écritures latine et cyrillique, 20 pour le chinois, le japonais, le thaï et le hindi). **Rien n'est appliqué ici** : chaque ligne attend la validation d'Anibal, et `tools/check_titres.mjs` lit cette liste comme sa liste d'exceptions (une page qui reçoit son nouveau titre doit en sortir).
+Pages isolées dont le `<title>` était sous le plancher de `tools/check_titres.mjs` (40 caractères pour les écritures latine et cyrillique, 20 pour le chinois, le japonais, le thaï et le hindi). **Appliqué** (prompt 203, validation d'Anibal) : le titre proposé est maintenant celui de la page, sauf pour `ja/works/` et `zh/works/`, conservés. Cette liste n'est plus lue par `tools/check_titres.mjs`, dont la liste d'exceptions est dans le fichier.
 
 Règle des titres proposés : 45 à 60 caractères, le nom du site à la fin et compris dans le compte, de l'information réelle prise dans la description de la page. Les textes en espagnol, allemand, italien, portugais et russe sont à relire par un lecteur natif.
 

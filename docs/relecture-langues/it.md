@@ -308,7 +308,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | Italiano |
 |---|---|---|
-| `titre, h1` | Voir sa musique — La Livrée d'Hermès | Vedere la propria musica — La Livrée d'Hermès |
+| `titre, h1` | Voir sa musique : figure de Chladni — La Livrée d'Hermès | Vedere la propria musica — La Livrée d'Hermès |
 | `og:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Vedere la propria musica: la figura di Chladni che il suono disegna e il motivo di La Livrée d'Hermès che più gli somiglia. Registra 15 secondi con il suono. |
 | `twitter:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. | Vedere la propria musica: la figura di Chladni che il suono disegna e il motivo di La Livrée d'Hermès che più gli somiglia. |
 

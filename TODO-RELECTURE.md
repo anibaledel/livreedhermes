@@ -1258,3 +1258,41 @@ De moi, à relire :
 - **Définition de « les coins font écho au centre »** : tirée de `tools/filtre_unified.py` (Théorème 2 de la note du demi-décalage) : une construction est retenue si la grille décalée de 6 cases en ligne et en colonne (tore 12 × 12) est égale, case par case, à la grille aux deux teintes échangées. La formulation « font écho au centre » reste dans les FAQ et le JSON-LD de la galerie (`galerie-patterns-unifies.html`, `unified-patterns.html`), comme intuition ; `unified-patterns.html` n'a pas reçu l'encadré.
 - **CSP des pages de l'encodeur** : `en/encoder/`, `es/codificador/`, `th/encoder/` (comme `encodeur.html`, `soutenir.html`, `soutien-succes.html`) portent la politique imposée par `tools/check_csp.mjs`, qui n'autorise ni `static.cloudflareinsights.com` ni `cloudflareinsights.com`. Le job « site » de « Fonds des cases » signale 33 lignes (3 pages × 11 essais) parce que Cloudflare y injecte sa balise d'analyse. Aucune page du site n'autorise ces hôtes ; les pages qui chargent la balise n'ont pas de CSP. Rien n'a été changé : l'ajouter exige de modifier `check_csp.mjs` et `scripts/build-outils-langues.js`, et d'ouvrir une page de chiffrement à un script tiers.
 - **Langues, premier bloc (prompt 185, 14 nov. 2026)** — « Voir sa musique » en 7 langues (en, es, th, zh, ru, pt, hi), les pages « Outils » et « Soutenir » en anglais, espagnol et thaï, la carte « Voir sa musique » des huit pages « Outils », la barre « Trois portes » et la tuile de navigation, **traduits par IA**. Les tableaux clé / français / traduction sont dans `docs/relecture-langues/` : `th.md`, `zh.md`, `ru.md`, `pt.md`, `hi.md` pour des lecteurs natifs, `en-es.md` pour Anibal. On corrige dans `data/musique-chladni/traductions/<langue>.json` (et `statique.json`, `data/outils-langues/outils-support.json`, `assets/trois-portes.js`, `scripts/nav-tiles-libelles.js`), puis `node scripts/build-musique-textes.mjs`, `node scripts/build-outils-langues.js`, `node scripts/build-outils-support-langues.js` et `node scripts/build-header.js` ; après un texte chinois, `python3 tools/police_zh.py`.
+
+## Prompt 203 — titres de page allongés (19 nov. 2026)
+
+- **Titres à relire (traductions faites par IA)** : les titres allongés des pages es, de, it, pt et ru ci-dessous (balise `<title>` ; `og:title` et JSON-LD reprennent le même texte quand la page le recopie). Les titres en français et en anglais sont de la main de l'auteur du site ou une reprise de la description de la page. Règle : 45 à 60 caractères, nom du site à la fin. Avant / après : `docs/titres-courts-proposes.md`.
+
+  - **espagnol**
+    - `es/360-capas/index.html` : « 360 capas: SVG listo para imprimir — La Livrée d'Hermès » (avant : « La Livrée d'Hermès — 360 capas »)
+    - `es/apoyar/index.html` : « Apoyar a precio libre, sitio gratuito — La Livrée d'Hermès » (avant : « Apoyar — La Livrée d'Hermès »)
+    - `es/chladni/index.html` : « Chladni: figuras, escalas, frecuencias — La Livrée d'Hermès » (avant : « Chladni — escalas y frecuencias »)
+    - `es/cifras-y-fuentes/index.html` : « Cifras y fuentes de cada número — La Livrée d'Hermès » (avant : « Cifras y fuentes — La Livrée d'Hermès »)
+    - `es/fondos-de-pantalla/index.html` : « Fondos textiles reactivos al sonido — La Livrée d'Hermès » (avant : « La Livrée d'Hermès — Fondos de pantalla »)
+    - `es/galeria-bicolor/index.html` : « 142 motivos bicolores, SVG, bordado — La Livrée d'Hermès » (avant : « Galería bicolor — La Livrée d'Hermès »)
+    - `es/herramientas/index.html` : « Herramientas: componer e imprimir — La Livrée d'Hermès » (avant : « Herramientas — La Livrée d'Hermès »)
+    - `es/motivos-bicolores/index.html` : « Componer una celda bicolor de 12×12 — La Livrée d'Hermès » (avant : « Motivos bicolores — La Livrée d'Hermès »)
+    - `es/ver-tu-musica/index.html` : « Ver tu música: figura de Chladni — La Livrée d'Hermès » (avant : « Ver tu música — La Livrée d'Hermès »)
+  - **allemand**
+    - `de/lexicon/index.html` : « Lexikon: die zentralen Begriffe — La Livrée d'Hermès » (avant : « Lexikon — La Livrée d'Hermès verstehen »)
+    - `de/support/index.html` : « Unterstützen zum Wunschpreis — La Livrée d'Hermès » (avant : « Unterstützen — La Livrée d'Hermès »)
+    - `de/tools/index.html` : « Werkzeuge: komponieren, drucken — La Livrée d'Hermès » (avant : « Werkzeuge — La Livrée d'Hermès »)
+    - `de/works/index.html` : « Forschungsarbeiten: Zenodo und Code — Anibal Amiot » (avant : « Forschungsarbeiten — Anibal Amiot »)
+  - **italien**
+    - `it/lexicon/index.html` : « Lessico: le nozioni chiave spiegate — La Livrée d'Hermès » (avant : « Lessico — Capire La Livrée d'Hermès »)
+    - `it/support/index.html` : « Sostieni a un prezzo a tua scelta — La Livrée d'Hermès » (avant : « Sostieni — La Livrée d'Hermès »)
+    - `it/tools/index.html` : « Strumenti: comporre, stampare, cifrare — La Livrée d'Hermès » (avant : « Strumenti — La Livrée d'Hermès »)
+    - `it/works/index.html` : « Lavori di ricerca: depositi e codice — Anibal Amiot » (avant : « Lavori di ricerca — Anibal Amiot »)
+  - **portugais**
+    - `pt/book/index.html` : « Ler o livro online e baixar o PDF — La Livrée d'Hermès » (avant : « La Livrée d'Hermès — ler o livro online »)
+    - `pt/lexicon/index.html` : « Léxico: as noções-chave explicadas — La Livrée d'Hermès » (avant : « Léxico — Compreender La Livrée d'Hermès »)
+    - `pt/see-your-music/index.html` : « Ver a sua música: figura de Chladni — La Livrée d'Hermès » (avant : « Ver a sua música — La Livrée d'Hermès »)
+    - `pt/support/index.html` : « Apoiar a preço livre, site gratuito — La Livrée d'Hermès » (avant : « Apoiar — La Livrée d'Hermès »)
+    - `pt/tools/index.html` : « Ferramentas: compor e imprimir — La Livrée d'Hermès » (avant : « Ferramentas — La Livrée d'Hermès »)
+  - **russe**
+    - `ru/animations/index.html` : « Анимации коллекций фонов, MP4 — La Livrée d'Hermès » (avant : « Анимации коллекций — La Livrée d'Hermès »)
+    - `ru/lexicon/index.html` : « Глоссарий: ключевые понятия — La Livrée d'Hermès » (avant : « Глоссарий — La Livrée d'Hermès »)
+    - `ru/support/index.html` : « Поддержать по свободной цене — La Livrée d'Hermès » (avant : « Поддержать — La Livrée d'Hermès »)
+    - `ru/tools/index.html` : « Инструменты: составлять, печатать — La Livrée d'Hermès » (avant : « Инструменты — La Livrée d'Hermès »)
+    - `ru/works/index.html` : « Научные публикации: Zenodo и код — Anibal Amiot » (avant : « Научные публикации — Anibal Amiot »)
+- Titres de motifs : les 512 titres sont composés par `scripts/generate-motif-pages.js` à partir du nom de l'hexagramme (déjà traduit) ; aucun texte nouveau à relire, mais « pattern » (en) et « motif » (fr) y sont accolés au libellé de famille.

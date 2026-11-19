@@ -308,7 +308,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | हिन्दी |
 |---|---|---|
-| `titre, h1` | Voir sa musique — La Livrée d'Hermès | अपने संगीत को देखें — La Livrée d'Hermès |
+| `titre, h1` | Voir sa musique : figure de Chladni — La Livrée d'Hermès | अपने संगीत को देखें — La Livrée d'Hermès |
 | `og:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। ध्वनि के साथ 15 सेकंड रिकॉर्ड करें। |
 | `twitter:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. | अपने संगीत को देखें: ध्वनि जो Chladni आकृति बनाती है, और La Livrée d'Hermès का वह पैटर्न जो उससे सबसे अधिक मिलता है। |
 

@@ -2,9 +2,9 @@
  "_doc": "Textes de bicolore.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française, balises et guillemets compris ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
  "textes": [
   {
-   "fr": "<title>Motifs bicolores — La Livrée d'Hermès</title>",
+   "fr": "<title>Composer une cellule bicolore 12×12 — La Livrée d'Hermès</title>",
    "en": "<title>Two-colour patterns — La Livrée d'Hermès</title>",
-   "es": "<title>Motivos bicolores — La Livrée d'Hermès</title>",
+   "es": "<title>Componer una celda bicolor de 12×12 — La Livrée d'Hermès</title>",
    "th": "<title>ลวดลายสองสี — La Livrée d'Hermès</title>",
    "source": "nav-tiles (bicolore)"
   },

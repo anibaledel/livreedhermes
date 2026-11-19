@@ -308,7 +308,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | ไทย |
 |---|---|---|
-| `titre, h1` | Voir sa musique — La Livrée d'Hermès | มองเห็นดนตรีของคุณ — La Livrée d'Hermès |
+| `titre, h1` | Voir sa musique : figure de Chladni — La Livrée d'Hermès | มองเห็นดนตรีของคุณ — La Livrée d'Hermès |
 | `og:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด บันทึกวิดีโอพร้อมเสียง 15 วินาที |
 | `twitter:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. | มองเห็นดนตรีของคุณ: รูปแบบของ Chladni ที่เสียงวาดขึ้น และลวดลายของ La Livrée d'Hermès ที่คล้ายกับมันที่สุด |
 

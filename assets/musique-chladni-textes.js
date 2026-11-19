@@ -261,7 +261,7 @@ export const TEXTES = {
   },
   // @langues:start — engendré par scripts/build-musique-textes.mjs depuis data/musique-chladni/traductions/<langue>.json, ne pas éditer ici
   en: {
-    "titrePage": "See your music — La Livrée d'Hermès",
+    "titrePage": "See your music: Chladni figure — La Livrée d'Hermès",
     "description": "See your music: pick a track, a file or the microphone, watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most.",
     "ariane": "See your music",
     "h1": "See your music",
@@ -654,7 +654,7 @@ export const TEXTES = {
     ]
   },
   es: {
-    "titrePage": "Ver tu música — La Livrée d'Hermès",
+    "titrePage": "Ver tu música: figura de Chladni — La Livrée d'Hermès",
     "description": "Ver tu música: elige una pieza, un archivo o el micrófono, mira la figura de Chladni del sonido y el motivo de La Livrée d'Hermès más parecido. Graba 15 segundos.",
     "ariane": "Ver tu música",
     "h1": "Ver tu música",
@@ -2226,7 +2226,7 @@ export const TEXTES = {
     ]
   },
   pt: {
-    "titrePage": "Ver a sua música — La Livrée d'Hermès",
+    "titrePage": "Ver a sua música: figura de Chladni — La Livrée d'Hermès",
     "description": "Ver a sua música: escolha uma peça, um ficheiro ou o microfone, veja a figura de Chladni do som e o padrão de La Livrée d'Hermès mais parecido. Grave 15 segundos.",
     "ariane": "Ver a sua música",
     "h1": "Ver a sua música",

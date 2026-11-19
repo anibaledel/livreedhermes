@@ -52,7 +52,7 @@ const md = (l) => {
   const tuile = TUILES.find((t) => t.id === 'voir-sa-musique'), tl = l === 'en' ? tuile.en : LIB.TUILES_I18N['voir-sa-musique'][l];
   const portes = ['titre', 'chladni', 'musique', 'fonds'].map((k) => [`trois-portes.${k}`, [].concat(PORTES.TEXTES.fr[k]).join(' · '), [].concat(PORTES.TEXTES[l][k]).join(' · ')]);
   let out = `## ${NOMS[l]} (\`${l}\`)\n` + tableau('Voir sa musique — interface (`assets/musique-chladni-textes.js`)', Object.keys(plat).map((k) => [k, plat[k], traductions[l][k]]), l)
-    + tableau('Voir sa musique — métadonnées de la page', [['titre, h1', "Voir sa musique — La Livrée d'Hermès", traductions[l].titrePage], ['og:description', statique.fr.ogDescription, statique[l].ogDescription], ['twitter:description', statique.fr.twitterDescription, statique[l].twitterDescription]], l)
+    + tableau('Voir sa musique — métadonnées de la page', [['titre, h1', "Voir sa musique : figure de Chladni — La Livrée d'Hermès", traductions[l].titrePage], ['og:description', statique.fr.ogDescription, statique[l].ogDescription], ['twitter:description', statique.fr.twitterDescription, statique[l].twitterDescription]], l)
     + tableau("Barre « Trois portes » (`assets/trois-portes.js`)", portes, l)
     + tableau('Tuile de navigation « Voir sa musique » (`scripts/nav-tiles-libelles.js`)', [['label', tuile.fr.label, tl.label], ['excerpt', tuile.fr.excerpt, tl.excerpt]], l);
   if (OUTILS_SUPPORT[l]) {
@@ -89,7 +89,7 @@ const PAGE_TEXTES = remplir(PAGE_BRUT, (cle) => { if (typeof fr[cle] !== 'string
 const PAGE = PAGE_TEXTES.replace(RE_CARTES, () => `<div class="vm-cartes" id="vmVoirAussi">${cartesDe((k) => plat[k])}</div>`);
 if (manquantes.length) { console.error(`ÉCHEC musique-chladni.html : data-t sans texte français dans musique-chladni-textes.js : ${[...new Set(manquantes)].join(', ')}`); process.exit(1); }
 const dansPage = (x) => { if (!PAGE.includes(x)) throw new Error(`musique-chladni.html : texte français introuvable : « ${x.slice(0, 70)} »`); return x; };
-const FR_STATIQUE = { titre: "Voir sa musique — La Livrée d'Hermès", og: statique.fr.ogDescription, twitter: statique.fr.twitterDescription };
+const FR_STATIQUE = { titre: "Voir sa musique : figure de Chladni — La Livrée d'Hermès", og: statique.fr.ogDescription, twitter: statique.fr.twitterDescription };
 const metaDescription = /<meta name="description" content="([^"]*)">/.exec(PAGE)[1];
 const table = [
   { fr: dansPage(FR_STATIQUE.titre), cle: (l) => traductions[l].titrePage },

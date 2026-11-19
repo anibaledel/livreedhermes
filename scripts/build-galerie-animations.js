@@ -204,7 +204,7 @@ async function main() {
       synonymes(T),
       donnees({ page: 'entree', textes: pourLaPage(T), groupeDe }),
     ].join('\n');
-    const titre = `${T.titre} — La Livrée d'Hermès`;
+    const titre = T.titrePage || `${T.titre} — La Livrée d'Hermès`; // titrePage : titre plus long de la balise <title> (prompt 203)
     return { u, tete: tete(l, u, titre, T.description, `${SITE}/assets/animations/vignettes/${G.groupes[0].temoin}-720.webp`), corps };
   }
 

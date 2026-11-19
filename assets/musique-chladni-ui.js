@@ -11,10 +11,10 @@
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
 import * as M from './musique-chladni-moteur.js?v=3199491d0d';
 import { CONFIG } from './musique-chladni-config.js?v=e33faae4a4';
-import { texte as T } from './musique-chladni-textes.js?v=91b879e8f3';
+import { texte as T } from './musique-chladni-textes.js?v=228cdaed45';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser } from './bicolore-fonds.js?v=c2addde38c';
-import { monterSemaine } from './musique-chladni-semaine.js?v=0987dbd051';
+import { monterSemaine } from './musique-chladni-semaine.js?v=12d1359a49';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {

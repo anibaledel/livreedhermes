@@ -10,7 +10,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | English |
 |---|---|---|
-| `titrePage` | Voir sa musique — La Livrée d'Hermès | See your music — La Livrée d'Hermès |
+| `titrePage` | Voir sa musique — La Livrée d'Hermès | See your music: Chladni figure — La Livrée d'Hermès |
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | See your music: pick a track, a file or the microphone, watch the Chladni figure the sound draws, then the La Livrée d'Hermès pattern that resembles it most. |
 | `ariane` | Voir sa musique | See your music |
 | `h1` | Voir sa musique | See your music |
@@ -308,7 +308,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | English |
 |---|---|---|
-| `titre, h1` | Voir sa musique — La Livrée d'Hermès | See your music — La Livrée d'Hermès |
+| `titre, h1` | Voir sa musique : figure de Chladni — La Livrée d'Hermès | See your music: Chladni figure — La Livrée d'Hermès |
 | `og:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most. Record 15 seconds with the sound. |
 | `twitter:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. | See your music: the Chladni figure the sound draws, and the La Livrée d'Hermès pattern that resembles it most. |
 
@@ -357,7 +357,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | Español |
 |---|---|---|
-| `titrePage` | Voir sa musique — La Livrée d'Hermès | Ver tu música — La Livrée d'Hermès |
+| `titrePage` | Voir sa musique — La Livrée d'Hermès | Ver tu música: figura de Chladni — La Livrée d'Hermès |
 | `description` | Voir sa musique : choisissez un morceau, un fichier ou le micro, et regardez la figure de Chladni que dessine le son, puis le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Ver tu música: elige una pieza, un archivo o el micrófono, mira la figura de Chladni del sonido y el motivo de La Livrée d'Hermès más parecido. Graba 15 segundos. |
 | `ariane` | Voir sa musique | Ver tu música |
 | `h1` | Voir sa musique | Ver tu música |
@@ -655,7 +655,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 
 | Clé | Français | Español |
 |---|---|---|
-| `titre, h1` | Voir sa musique — La Livrée d'Hermès | Ver tu música — La Livrée d'Hermès |
+| `titre, h1` | Voir sa musique : figure de Chladni — La Livrée d'Hermès | Ver tu música: figura de Chladni — La Livrée d'Hermès |
 | `og:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. Enregistrez 15 secondes avec le son. | Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece. Graba 15 segundos con el sonido. |
 | `twitter:description` | Voir sa musique : la figure de Chladni que dessine le son, et le motif de La Livrée d'Hermès qui lui ressemble le plus. | Ver tu música: la figura de Chladni que dibuja el sonido y el motivo de La Livrée d'Hermès que más se le parece. |
 

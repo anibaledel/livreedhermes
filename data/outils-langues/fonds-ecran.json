@@ -2,9 +2,9 @@
  "_doc": "Textes de fonds-ecran.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md). Les libellés de l'outil lui-même (cartes, aide, barre de l'écran plein) sont dans assets/outil-fond-ecran.js, qui lit la langue de la page ; les 32 textes de paires (PAIRS32, affichés à la pause) sont restés en français au premier lot ; ils sont traduits depuis le 9 octobre 2026 dans data/outils-langues/paires-32.json, une fois pour cette page et pour 360-calques (« donnees » de data/outils-langues.json) ; la phrase du sélecteur (assets/vue-fond-ecran.js, module partagé) aussi. Les liens vers les galeries mènent à celles de la langue ; ceux du script (« Figer », lien du fond fixe) restent vers la galerie bicolore française.",
  "textes": [
   {
-   "fr": "La Livrée d'Hermès — Fonds d'écran",
-   "en": "La Livrée d'Hermès — Wallpapers",
-   "es": "La Livrée d'Hermès — Fondos de pantalla",
+   "fr": "Fonds d'écran textiles réactifs au son — La Livrée d'Hermès",
+   "en": "Textile wallpapers that react to sound — La Livrée d'Hermès",
+   "es": "Fondos textiles reactivos al sonido — La Livrée d'Hermès",
    "th": "La Livrée d'Hermès — วอลเปเปอร์",
    "source": "nav-tiles (fonds-ecran) pour es et th ; SANS SOURCE pour en"
   },

@@ -11,7 +11,7 @@
           "ogLocale": "en_GB",
           "remplacements": [
             {
-              "fr": "Chladni — figures, gammes et fréquences",
+              "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
               "trad": "Chladni — figures, scales and frequencies",
               "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
             },
@@ -47,8 +47,8 @@
           "ogLocale": "es_ES",
           "remplacements": [
             {
-              "fr": "Chladni — figures, gammes et fréquences",
-              "trad": "Chladni — escalas y frecuencias",
+              "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
+              "trad": "Chladni: figuras, escalas, frecuencias — La Livrée d'Hermès",
               "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
             },
             {
@@ -78,7 +78,7 @@
           "ogLocale": "th_TH",
           "remplacements": [
             {
-              "fr": "Chladni — figures, gammes et fréquences",
+              "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
               "trad": "Chladni — บันไดเสียงและความถี่",
               "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
             },
@@ -116,8 +116,8 @@
           "ogLocale": "en_GB",
           "remplacements": [
             {
-              "fr": "La Livrée d'Hermès — 360 calques",
-              "trad": "La Livrée d'Hermès — 360 layers",
+              "fr": "360 calques à tirer, SVG à imprimer — La Livrée d'Hermès",
+              "trad": "360 layers: draw, print-ready SVG — La Livrée d'Hermès",
               "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
             },
             {
@@ -147,8 +147,8 @@
           "ogLocale": "es_ES",
           "remplacements": [
             {
-              "fr": "La Livrée d'Hermès — 360 calques",
-              "trad": "La Livrée d'Hermès — 360 capas",
+              "fr": "360 calques à tirer, SVG à imprimer — La Livrée d'Hermès",
+              "trad": "360 capas: SVG listo para imprimir — La Livrée d'Hermès",
               "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
             },
             {
@@ -178,7 +178,7 @@
           "ogLocale": "th_TH",
           "remplacements": [
             {
-              "fr": "La Livrée d'Hermès — 360 calques",
+              "fr": "360 calques à tirer, SVG à imprimer — La Livrée d'Hermès",
               "trad": "La Livrée d'Hermès — แผ่นลาย 360 แผ่น",
               "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
             },

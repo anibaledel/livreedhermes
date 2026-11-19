@@ -2,9 +2,9 @@
  "_doc": "Textes de galerie-bicolore.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md). Les réponses de la FAQ sont remplacées dans le corps ET dans les données structurées. La phrase sous l'aperçu du fond d'écran fixe vient de assets/vue-fond-ecran.js, module partagé, et reste en français.",
  "textes": [
   {
-   "fr": "<title>Galerie bicolore — La Livrée d'Hermès</title>",
-   "en": "<title>Two-colour gallery — La Livrée d'Hermès</title>",
-   "es": "<title>Galería bicolor — La Livrée d'Hermès</title>",
+   "fr": "<title>142 motifs bicolores, SVG, broderie — La Livrée d'Hermès</title>",
+   "en": "<title>142 two-colour patterns and embroidery — La Livrée d'Hermès</title>",
+   "es": "<title>142 motivos bicolores, SVG, bordado — La Livrée d'Hermès</title>",
    "th": "<title>แกลเลอรีสองสี — La Livrée d'Hermès</title>",
    "source": "nav-tiles (galerie-bicolore)"
   },

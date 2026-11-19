@@ -39,7 +39,7 @@ for (const l of ['en', 'es', 'th', 'de', 'it', 'ja']) {
   const rem = [
     ['<html lang="zh-Hans">', `<html lang="${H}">`], ['aria-label="面包屑导航"', `aria-label="${d.ariaFil}"`], [accueilZh, `<a href="${SITE}/${l}/">${esc(d.home)}</a>`], [`>工具</span>`, `>${esc(t.titre)}</span>`], ['<h1>工具</h1>', `<h1>${esc(t.titre)}</h1>`],
     ["<p>La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。各工具的界面目前只有法文。</p>", `<p>${esc(t.intro)}</p>`],
-    ["工具——La Livrée d'Hermès", `${t.titre} — La Livrée d'Hermès`], ["La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。", t.desc],
+    ["工具——La Livrée d'Hermès", t.titrePage || `${t.titre} — La Livrée d'Hermès`], ["La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。", t.desc],
     ['"name": "首页"', `"name": "${d.home}"`], ['"name": "工具"', `"name": "${t.titre}"`], ['"inLanguage": "zh-Hans"', `"inLanguage": "${H}"`], ['content="zh_CN"', `content="${d.ogLocale}"`],
   ];
   s = s.split(`${SITE}/zh/tools/`).join(`${SITE}/${d.dossierOutils}`);
@@ -59,7 +59,7 @@ for (const l of ['en', 'es', 'th', 'de', 'it', 'ja']) {
     ['<p class="pro-intro">一切都是开放的。论著、图案以及各工具生成的文件均可无条件下载，采用 CC BY-NC 4.0 许可。您的支持金额自定，用于资助项目的后续发展：新的图案、新的工具，以及纺织方面的工作。</p>', `<p class="pro-intro">${esc(u.intro)}</p>`],
     ['>前往法文页面付款<', `>${esc(u.cta)}<`], ['<p class="pro-note">付款由 Stripe 安全处理。金额自定，捐助自愿。付款页面为法文。</p>', `<p class="pro-note">${esc(u.nota)}</p>`], ['<h2>您的支持用于什么</h2>', `<h2>${esc(u.h2)}</h2>`], ['<b>研究、开发与翻译的时间</b>', `<b>${esc(u.b)}</b>`],
     ['<p>图案与网站工具的构建，以及它们的说明文档：目前有法文、英文、西班牙文和泰文版本，中文版与俄文版正在翻译中。</p>', `<p>${esc(u.p)}</p>`],
-    ["支持——La Livrée d'Hermès", `${u.titre} — La Livrée d'Hermès`], ["以自定金额支持 La Livrée d'Hermès：金额由您决定。网站及其全部内容仍然完全免费。", u.desc],
+    ["支持——La Livrée d'Hermès", u.titrePage || `${u.titre} — La Livrée d'Hermès`], ["以自定金额支持 La Livrée d'Hermès：金额由您决定。网站及其全部内容仍然完全免费。", u.desc],
     ['"name": "首页"', `"name": "${d.home}"`], ['"name": "支持"', `"name": "${u.titre}"`], ['"inLanguage": "zh-Hans"', `"inLanguage": "${H}"`], ['content="zh_CN"', `content="${d.ogLocale}"`],
   ];
   s = s.split(`${SITE}/zh/support/`).join(`${SITE}/${d.dossierSoutien}`);
