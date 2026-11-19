@@ -1063,6 +1063,20 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_titres.mjs",
+   "role": "les titres de page (prompt 203 : Bing Webmaster Tools « Many of your page titles are too short »).",
+   "lit": [
+    "docs/titres-courts-proposes.md"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_tuiles.mjs",
    "role": "les tuiles de navigation (les boutons animés du bas de page) sont sur TOUTES les adresses du sitemap, dans la langue de la page.",
    "lit": [

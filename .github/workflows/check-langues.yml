@@ -68,6 +68,9 @@ jobs:
       - run: node scripts/build-couverture.js --verifie
       - run: node scripts/build-langues.js --verifie
       - run: node tools/check_doi_licences.mjs
+      # titres de page (prompt 203) : aucun doublon, planchers de longueur, motifs et hexagrammes japonais alignés sur og/twitter/JSON-LD
+      - run: node tools/check_titres.mjs --verifie
+      - run: node tools/check_titres.mjs --essai
       - run: node tools/check_police_zh.mjs
       - run: node scripts/build-outils-langues.js --verifie
       - run: node tools/check_langue_des_liens.mjs

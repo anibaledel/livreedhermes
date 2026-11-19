@@ -367,6 +367,9 @@ ${cartes}
     const sameUpper = info.filter((x) => x.chrono !== chrono && x.upperVal === h.upperVal);
     const sameLower = info.filter((x) => x.chrono !== chrono && x.lowerVal === h.lowerVal);
     const title = l.title(chrono, pinyin, name, kw);
+    // <title>, og:title, twitter:title et JSON-LD name : le titre du <h1> suivi du nom du site (prompt 203 : « 卦 34（文王の順序 4）— Meng、蒙 » faisait 21 caractères,
+    // trop court pour Bing). Seul le japonais est concerné : les autres langues dépassent déjà 40 caractères. Le <h1> garde le titre court.
+    const titleMeta = lang === 'ja' ? `${title} | La Livrée d'Hermès` : title;
     const description = HEXDESC.description(judgement, l.description(chrono, pinyin, name, kw));
 
     const lines = traits.map((bit, i) => `      <div class="hexline">
@@ -385,9 +388,9 @@ ${cartes}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(title)}</title>
+<title>${escapeHtml(titleMeta)}</title>
 <meta name="description" content="${escapeHtml(description)}">
-<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:title" content="${escapeHtml(titleMeta)}">
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:image" content="${SITE}/assets/hexagrammes/${chrono}.png">
 <meta property="og:url" content="${url}">
@@ -395,7 +398,7 @@ ${cartes}
 <meta property="og:locale" content="${l.locale}">
 <link rel="canonical" href="${url}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${escapeHtml(title)}">
+<meta name="twitter:title" content="${escapeHtml(titleMeta)}">
 <meta name="twitter:description" content="${escapeHtml(description)}">
 <meta name="twitter:image" content="${SITE}/assets/hexagrammes/${chrono}.png">
 <script type="application/ld+json">
@@ -422,7 +425,7 @@ ${cartes}
   "@type": "WebPage",
   "@id": "${url}#page",
   "url": "${url}",
-  "name": ${JSON.stringify(title)},
+  "name": ${JSON.stringify(titleMeta)},
   "description": ${JSON.stringify(description)},
   "inLanguage": "${lang}",
   "isPartOf": { "@id": "${SITE}/#website" },

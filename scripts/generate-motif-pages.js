@@ -207,6 +207,8 @@ const STR = {
     home: 'Home',
     unifiedPatterns: 'Unified Patterns',
     titleOf: (familyShort, hexName) => `${hexName} — ${familyShort}`,
+    // <title> complet (prompt 203) : numéro, nom, famille, site. Du plus riche au plus court ; on prend le premier qui tient en 60 caractères.
+    titreCandidats: (fam, nom, n) => [`Hexagram ${n} ${nom} — ${fam} pattern | ${SITE}`, `Hexagram ${n} ${nom} — ${fam} | ${SITE}`, `${nom} (${n}) — ${fam} | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
     headingOf: (familyLabel, n, hexName, kw) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName} — King Wen no. ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}en/lexicon/`,
     otherLangLink: (href) => `<a href="${href}" hreflang="fr" lang="fr">Version française</a>`,
@@ -266,6 +268,7 @@ const STR = {
     home: 'Accueil',
     unifiedPatterns: 'Patterns unifiés',
     titleOf: (familyShort, hexName) => `${hexName} — motif ${familyShort}`,
+    titreCandidats: (fam, nom, n) => [`Hexagramme ${n} ${nom} — motif ${fam} | ${SITE}`, `${nom} (${n}) — motif ${fam} | ${SITE}`, `${nom} (${n}) — ${fam} | ${SITE}`, `${nom} — ${fam} | ${SITE}`],
     headingOf: (familyLabel, n, hexName, kw) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName} — n° King Wen ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}lexique.html`,
     otherLangLink: (href) => `<a href="${href}" hreflang="en" lang="en">English version</a>`,
@@ -315,6 +318,15 @@ const EN_TETE = { en: rendre('header', prefixFor('en'), 'en'), fr: rendre('heade
 const FOOTER_CTA_SCRIPT = { en: `<script src="${prefixFor('en')}assets/share-widget.js"></script>\n<script src="${prefixFor('en')}assets/soutien-gate.js"></script>`,
   fr: `<script src="${prefixFor('fr')}assets/share-widget.js"></script>\n<script src="${prefixFor('fr')}assets/soutien-gate.js"></script>` };
 
+// ---------- le titre d'une page (prompt 203 : Bing signalait des titres trop courts) ----------
+const SITE = "La Livrée d'Hermès", TITRE_MAX = 60;
+// Premier candidat de 60 caractères au plus ; si le nom de l'hexagramme est si long qu'aucun ne tient (les 5 noms
+// de plus de 35 caractères du français), le titre court d'avant (sans le nom du site) : une exception écrite dans tools/check_titres.mjs.
+function titreComplet(lang, familyShort, hexName, n) {
+  const s = STR[lang], c = s.titreCandidats(familyShort, hexName, n);
+  return c.find((x) => [...x].length <= TITRE_MAX) || s.titleOf(familyShort, hexName);
+}
+
 // ---------- une page ----------
 function renderPage(fam, n, lang) {
   const other = lang === 'fr' ? 'en' : 'fr';
@@ -338,7 +350,7 @@ function renderPage(fam, n, lang) {
     ? `${prefixFor(lang)}${ADRESSES_HEXAGRAMMES.fichier(n, 'en')}`
     : `${prefixFor(lang)}hexagrammes/${hexagramSlug(n)}`;
   const hexName = hexagramName(n, lang);
-  const title = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexName);
+  const title = titreComplet(lang, FAMILY_SHORT[lang][fam] || familyLabel, hexName, n);
   const description = s.descriptionOf(familyLabel, n, hexName, kingWenDe(n));
   const canonical = canonicalUrl(lang, slug);
   const canonicalOther = canonicalUrl(other, slug);
@@ -782,7 +794,7 @@ function renderIndexPage(lang) {
     const familyLabel = FAMILY_LABEL[lang][fam] || fam;
     const items = [];
     for (let n = 0; n < 32; n++) {
-      const titre = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexagramName(n, lang)); // le titre de la fiche, tel quel
+      const titre = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexagramName(n, lang)); // libellé court de la fiche (grille de 32 liens : le titre complet y serait illisible)
       items.push(`        <a class="motif-grid-item" href="${motifSlug(fam, n)}.html">${escapeHtml(titre)}</a>`);
     }
     return `  <section class="family-block">
