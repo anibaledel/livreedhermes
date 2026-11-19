@@ -232,6 +232,14 @@
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
   .tirage-explication{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  /* prompt 207 : « Comment lire un tirage », texte statique écrit par scripts/build-tirage-texte.js */
+  .tirage-lire{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  .tirage-lire h2{ font-size:calc(20px + var(--fs-bump)); margin:32px 0 8px; color:var(--white); }
+  .tirage-lire h3{ font-size:calc(15px + var(--fs-bump)); margin:20px 0 6px; color:var(--white); }
+  .tirage-lire p, .tirage-lire li{ margin:0 0 10px; }
+  .tirage-lire ol, .tirage-lire ul{ margin:0 0 10px; padding-left:1.4em; }
+  .tirage-lire a{ color:var(--gold); text-decoration:underline; }
+  .tirage-noscript{ max-width:68ch; margin:0 0 14px; padding:10px 14px; border:1px solid var(--gold); border-radius:8px; color:var(--white); line-height:1.5; }
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
@@ -560,6 +568,31 @@
 <link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/yi-king-draw/">
 <link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/">
 <!-- @hreflang:end -->
+<!-- @tirage-webapp:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://anibal-amiot.com/th/yi-king-draw/#application",
+  "url": "https://anibal-amiot.com/th/yi-king-draw/",
+  "name": "ทอยอี้จิงฟรี ออนไลน์: ฉักลักษณ์ คำตัดสิน และจัตุรัสกล | La Livrée d'Hermès",
+  "description": "ทอยอี้จิงฟรี ออนไลน์ ไม่ต้องสมัครสมาชิก: โยนเหรียญรับฉักลักษณ์ อ่านคำตัดสิน ภาพลักษณ์ และจัตุรัสกล หรือเปิดดูทั้ง 64 รูป",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "th",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Anibal Edelberto Amiot",
+    "url": "https://anibal-amiot.com/a-propos.html",
+    "sameAs": [
+      "https://orcid.org/0009-0002-6414-9448"
+    ]
+  }
+}
+</script>
+<!-- @tirage-webapp:end -->
 </head>
 <body>
 <div class="wrap">
@@ -670,6 +703,9 @@
       <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">คำพยากรณ์</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>อี้จิงเป็นคัมภีร์แห่งปัญญาที่ใช้เป็นเครื่องเสี่ยงทายได้ หากคุณมีคำถามที่ชัดเจน จงตั้งคำถามนั้นไว้ในใจก่อนกดปุ่ม “โยนเหรียญ” หากไม่มีคำถามเฉพาะ การเสี่ยงทายจะบ่งบอกสถานการณ์ในขณะนั้น คุณอาจเสี่ยงทายต่อเนื่องหลายครั้งสำหรับหลายคำถามก็ได้ — แต่การเสี่ยงทายเพียงครั้งเดียวก็เพียงพอในตัวเองแล้วสำหรับสารที่ตรงกับการปรึกษาของคุณ</p><p>หากคุณเพียงต้องการสำรวจความหมายของฉักลักษณ์และภาพที่สัมพันธ์กัน ให้เลือกช่องบนกระดานได้โดยตรง สำหรับข้อมูลเพิ่มเติมเกี่ยวกับภาพ เชิญอ่านหนังสือ</p></div>
+      <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+      <noscript><p class="tirage-noscript" role="note">การทอยและกระดานต้องใช้ JavaScript: เปิดใช้งานเพื่อโยนเหรียญ ส่วนข้อความ “วิธีอ่านผลการทอยอี้จิง” ด้านล่างอ่านได้โดยไม่ต้องใช้</p></noscript>
+      <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">โยนเหรียญ (6 เส้น)</button>
 
       <div class="legend">
@@ -696,6 +732,36 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <section class="tirage-explication" id="txt-tirageResultat"><p>การเสี่ยงทายอี้จิงนี้ฟรี ใช้ได้ทางออนไลน์ และไม่ต้องสมัครสมาชิก กดปุ่ม “โยนเหรียญ (6 เส้น)” โยนหกครั้งจะได้ฉักลักษณ์หนึ่งรูป จากเส้นที่หนึ่ง (ล่าง) ถึงเส้นที่หก (บน) แต่ละเส้นเป็นหยินหรือหยาง เส้นคงที่หรือเส้นแปรเปลี่ยน ผลลัพธ์แสดงฉักลักษณ์ที่ได้พร้อมชื่อ เลขลำดับ คำตัดสิน และภาพลักษณ์ คำอธิบายของทั้งหกเส้น ตรีลักษณ์สองตัว และจัตุรัสกลที่เกี่ยวข้อง หรือจะคลิกฉักลักษณ์บนกระดานทั้ง 64 โดยตรงก็ได้ ข้อความของฉักลักษณ์ทั้ง 64 ยังดาวน์โหลดเป็นเอกสาร Word ได้ (“ดาวน์โหลดคำแปลอี้จิง”)</p></section>
+
+  <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
+  <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
+    <h2 id="lire-un-tirage-titre">วิธีอ่านผลการทอยอี้จิง</h2>
+    <h3>ผลการทอยคืออะไร</h3>
+    <p>การทอยหนึ่งครั้งให้เส้นหกเส้น วางจากล่างขึ้นบน แต่ละเส้นเป็นยิน (ขาด) หรือหยาง (เต็ม) และทั้งหกเส้นรวมกันเป็นฉักลักษณ์หนึ่งใน 64 ฉักลักษณ์</p>
+    <h3>หน้านี้ทอยอย่างไร</h3>
+    <p>หน้านี้โยนเหรียญสามเหรียญต่อหนึ่งเส้น ทำติดกันหกครั้ง การโยนครั้งแรกเป็นเส้นล่างสุด เหรียญแต่ละเหรียญมีค่า 2 หรือ 3 โอกาสเท่ากัน สุ่มด้วยตัวสร้างเลขสุ่มเทียมของเบราว์เซอร์ (Math.random)</p>
+    <p>ผลรวมของเหรียญสามเหรียญกำหนดเส้น: 6 คือยินกลายพันธุ์ 7 คือหยางคงที่ 8 คือยินคงที่ 9 คือหยางกลายพันธุ์ โอกาสคือ 1 ใน 8 สำหรับ 6, 3 ใน 8 สำหรับ 7, 3 ใน 8 สำหรับ 8 และ 1 ใน 8 สำหรับ 9 ดังนั้นสี่เส้นจะมีหนึ่งเส้นที่กลายพันธุ์</p>
+    <h3>ผลลัพธ์ประกอบด้วยอะไร</h3>
+    <p>ผลลัพธ์แสดงหมายเลขของฉักลักษณ์ตามลำดับตามเวลาของเว็บไซต์ (0 ถึง 63) จากนั้นเป็นลำดับ King Wen ดั้งเดิม ชื่อ เส้นทั้งหก การปูลายของจัตุรัสกลที่สัมพันธ์กัน ตรีลักษณ์ทั้งสอง ภาพลักษณ์ และคำตัดสิน ลิงก์ “ข้อมูลเพิ่มเติมเกี่ยวกับฉักลักษณ์นี้” เปิดหน้าของฉักลักษณ์ที่ทอยได้ <a href="../../th/hexagrams/">รายการฉักลักษณ์ทั้ง 64</a> แสดงหมายเลขทั้งสองคู่กัน</p>
+    <h3>เส้นกลายพันธุ์และฉักลักษณ์ที่สอง</h3>
+    <p>เส้นที่ออก 6 หรือ 9 เป็นเส้นกลายพันธุ์ หน้านี้จะทำเครื่องหมายไว้ แล้วแสดงฉักลักษณ์ก่อนหน้า (ผลการทอย) และฉักลักษณ์ภายหลัง ซึ่งทุกเส้นกลายพันธุ์ถูกกลับค่า (ยินเป็นหยาง หยางเป็นยิน) พร้อมตำแหน่งและคำอธิบายของแต่ละเส้นกลายพันธุ์ ถ้าไม่มีเส้นกลายพันธุ์ ก็มีฉักลักษณ์เดียว คำอธิบายของทั้งหกเส้นอ่านได้ในหน้าของฉักลักษณ์</p>
+    <h3>อ่านโดยไม่รีบร้อน</h3>
+    <ol>
+      <li>อ่านคำตัดสิน</li>
+      <li>อ่านภาพลักษณ์</li>
+      <li>ดูจัตุรัสในหนังสือ ตามตอนที่หน้าของฉักลักษณ์ชี้ไป</li>
+    </ol>
+    <h3>สิ่งที่เหลืออยู่ในอุปกรณ์</h3>
+    <p>การทอยคำนวณในเบราว์เซอร์ของคุณ โดยไม่ต้องมีบัญชี หน้านี้ไม่เก็บประวัติการทอย และจำในอุปกรณ์เฉพาะการตั้งค่าการแสดงผล (ภาษา, ชุดสี) ผลลัพธ์ถูกเขียนลงในที่อยู่ของหน้า (?tire=…) จึงคัดลอกลิงก์ได้</p>
+    <p>เว็บไซต์นี้เป็นของ <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a> ภายใต้สัญญาอนุญาต CC BY-NC 4.0</p>
+    <h3>อ่านต่อ</h3>
+    <ul>
+      <li><a href="../../th/hexagrams/">ฉักลักษณ์ทั้ง 64</a> พร้อมหมายเลขทั้งสอง</li>
+      <li><a href="../../th/book/">หนังสือ La Livrée d’Hermès</a></li>
+      <li><a href="../../th/lexicon/">อภิธานศัพท์ของโครงการ</a></li>
+    </ul>
+  </section>
+  <!-- @tirage-lire:end -->
 
   </main>
 <!-- @main:end -->

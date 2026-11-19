@@ -28,6 +28,8 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #   - check_langue_des_liens.mjs : un lien vise la page dans la langue de celle
 #     qui le porte quand elle existe (audit du 7 octobre 2026), et --essai
 #     montre qu'il échoue sur un lien faussé ;
+#   - build-tirage-texte.js --verifie et check_tirage_texte.mjs (prompt 207) : la section « Comment lire un tirage »
+#     est dans le HTML statique des sept pages du tirage, avec son WebApplication et son noscript ;
 #   - build-outils-langues.js --verifie : les outils dont le texte était déjà
 #     traduit (cymatique, 360 calques, tirage) ont une page par langue, écrite
 #     depuis la page française et data/outils-langues.json — une page française
@@ -73,5 +75,10 @@ jobs:
       - run: node tools/check_titres.mjs --essai
       - run: node tools/check_police_zh.mjs
       - run: node scripts/build-outils-langues.js --verifie
+      # la page du tirage du Yi King (prompt 207) : « Comment lire un tirage » écrit dans le HTML statique depuis data/tirage-lire-textes.json,
+      # avec son WebApplication et son noscript ; --essai : section vide, écrite par script, lien perdu, WebApplication ou noscript retiré, il échoue
+      - run: node scripts/build-tirage-texte.js --verifie
+      - run: node tools/check_tirage_texte.mjs --verifie
+      - run: node tools/check_tirage_texte.mjs --essai
       - run: node tools/check_langue_des_liens.mjs
       - run: node tools/check_langue_des_liens.mjs --essai

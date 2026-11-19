@@ -232,6 +232,14 @@
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
   .tirage-explication{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  /* prompt 207 : « Comment lire un tirage », texte statique écrit par scripts/build-tirage-texte.js */
+  .tirage-lire{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  .tirage-lire h2{ font-size:calc(20px + var(--fs-bump)); margin:32px 0 8px; color:var(--white); }
+  .tirage-lire h3{ font-size:calc(15px + var(--fs-bump)); margin:20px 0 6px; color:var(--white); }
+  .tirage-lire p, .tirage-lire li{ margin:0 0 10px; }
+  .tirage-lire ol, .tirage-lire ul{ margin:0 0 10px; padding-left:1.4em; }
+  .tirage-lire a{ color:var(--gold); text-decoration:underline; }
+  .tirage-noscript{ max-width:68ch; margin:0 0 14px; padding:10px 14px; border:1px solid var(--gold); border-radius:8px; color:var(--white); line-height:1.5; }
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
@@ -560,6 +568,31 @@
 <link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/yi-king-draw/">
 <link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/">
 <!-- @hreflang:end -->
+<!-- @tirage-webapp:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://anibal-amiot.com/ja/yi-king-draw/#application",
+  "url": "https://anibal-amiot.com/ja/yi-king-draw/",
+  "name": "易経占い 無料オンライン：卦、卦辞、魔方陣 | La Livrée d'Hermès",
+  "description": "易経の無料オンライン占い、登録不要。硬貨を投げて卦を引き、卦辞、象、魔方陣を読むか、六十四卦をたどれます。",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "ja",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Anibal Edelberto Amiot",
+    "url": "https://anibal-amiot.com/a-propos.html",
+    "sameAs": [
+      "https://orcid.org/0009-0002-6414-9448"
+    ]
+  }
+}
+</script>
+<!-- @tirage-webapp:end -->
 </head>
 <body>
 <div class="wrap">
@@ -670,6 +703,9 @@
       <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">占い</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>易経は、占いとして使える知恵の書です。具体的な問いがあれば、押す前にそれを心に収めてください。特に問いがなければ、結果はそのときの状況を示します。複数の問いのために何度か続けて占うこともできますが、一度の結果だけでも、あなたの相談に対応するメッセージとして十分です。</p><p>卦と、対応する象の意味をただ探ってみたいなら、盤面のマスを直接選んでください。象について詳しくは、遠慮なく本をお読みください。</p></div>
+      <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+      <noscript><p class="tirage-noscript" role="note">占いと盤面にはJavaScriptが必要です。硬貨を投げるには有効にしてください。下の「易経占いの結果の読み方」は、JavaScriptなしでも読めます。</p></noscript>
+      <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">硬貨を投げる（6つの爻）</button>
 
       <div class="legend">
@@ -696,6 +732,36 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <section class="tirage-explication" id="txt-tirageResultat"><p>易経の占いは無料で、オンラインで、登録なしで使えます。「硬貨を投げる（6つの爻）」を押すと、六回の投擲が、初爻（下）から上爻（上）まで一つの卦を描きます。各爻は陰か陽、不変か変爻です。結果には、引いた卦の名前、番号、卦辞と象、六つの爻それぞれの解説、二つの八卦、対応する魔方陣が表示されます。六十四の盤面から卦を直接クリックすることもできます。六十四卦のテキストは Word 文書としてもダウンロードできます（「易経の翻訳をダウンロード」）。</p></section>
+
+  <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
+  <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
+    <h2 id="lire-un-tirage-titre">易経占いの結果の読み方</h2>
+    <h3>占いとは</h3>
+    <p>一回の占いで、六つの爻が下から上へ並びます。爻は陰（破線）か陽（実線）のどちらかで、六つ合わせて64ある卦のうちの一つになります。</p>
+    <h3>このページの占い方</h3>
+    <p>このページは、爻ごとに三枚の硬貨を投げ、これを六回続けます。最初の一投が一番下の爻になります。硬貨は一枚ごとに2か3で、出る確率は同じです。ブラウザの擬似乱数生成器（Math.random）で決めます。</p>
+    <p>三枚の合計が爻を決めます。6は変爻の陰、7は不変の陽、8は不変の陰、9は変爻の陽です。確率は、6が8分の1、7が8分の3、8が8分の3、9が8分の1で、四つに一つの爻が変爻になります。</p>
+    <h3>結果に表示されるもの</h3>
+    <p>結果には、サイトの時系列の順序での卦の番号（0から63）、次に伝統的な文王の番号、名前、六つの爻、対応する魔方陣の敷き詰め、二つの八卦、象、卦辞が表示されます。「この卦についてさらに」のリンクは、出た卦のページを開きます。<a href="../../ja/hexagrams/">64卦の一覧</a>では、二つの番号が並んで見られます。</p>
+    <h3>変爻と之卦</h3>
+    <p>6か9が出た爻は変爻で、ページが印を付けます。このとき、本卦（占いの結果）と之卦を示します。之卦では、変爻がすべて反転します（陰は陽に、陽は陰に）。各変爻の位置とその解説も表示されます。変爻がなければ、卦は一つだけです。六つすべての爻の解説は、卦のページで読めます。</p>
+    <h3>急がずに読む</h3>
+    <ol>
+      <li>卦辞を読む。</li>
+      <li>象を読む。</li>
+      <li>本で魔方陣を見る。卦のページが示す箇所を開く。</li>
+    </ol>
+    <h3>端末に残るもの</h3>
+    <p>占いはあなたのブラウザの中で計算され、アカウントは要りません。ページは占いの履歴を保存せず、端末に記憶するのは表示の設定（言語、パレット）だけです。結果はページのアドレス（?tire=…）に書き込まれるので、リンクをコピーできます。</p>
+    <p>このサイトは<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot<span class="lien-langue">（フランス語）</span></a>によるもので、ライセンスはCC BY-NC 4.0です。</p>
+    <h3>さらに読む</h3>
+    <ul>
+      <li><a href="../../ja/hexagrams/">64卦</a>（二つの番号つき）</li>
+      <li><a href="../../ja/book/">書籍『La Livrée d’Hermès』</a></li>
+      <li><a href="../../ja/lexicon/">プロジェクトの用語集</a></li>
+    </ul>
+  </section>
+  <!-- @tirage-lire:end -->
 
   </main>
 <!-- @main:end -->

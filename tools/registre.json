@@ -1076,6 +1076,24 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_tirage_texte.mjs",
+   "role": "la page du tirage du Yi King a du vrai texte sous l'outil, dans son HTML STATIQUE (prompt 207).",
+   "lit": [
+    "data/outils-langues.json",
+    "data/tirage-lire-textes.json",
+    "en/hexagrams",
+    "es/hexagramas",
+    "th/hexagrams"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_titres.mjs",
    "role": "les titres de page (prompt 203 : Bing Webmaster Tools « Many of your page titles are too short »).",
    "lit": [

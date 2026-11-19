@@ -232,6 +232,14 @@
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
   .tirage-explication{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  /* prompt 207 : « Comment lire un tirage », texte statique écrit par scripts/build-tirage-texte.js */
+  .tirage-lire{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  .tirage-lire h2{ font-size:calc(20px + var(--fs-bump)); margin:32px 0 8px; color:var(--white); }
+  .tirage-lire h3{ font-size:calc(15px + var(--fs-bump)); margin:20px 0 6px; color:var(--white); }
+  .tirage-lire p, .tirage-lire li{ margin:0 0 10px; }
+  .tirage-lire ol, .tirage-lire ul{ margin:0 0 10px; padding-left:1.4em; }
+  .tirage-lire a{ color:var(--gold); text-decoration:underline; }
+  .tirage-noscript{ max-width:68ch; margin:0 0 14px; padding:10px 14px; border:1px solid var(--gold); border-radius:8px; color:var(--white); line-height:1.5; }
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
@@ -560,6 +568,31 @@
 <link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/yi-king-draw/">
 <link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/">
 <!-- @hreflang:end -->
+<!-- @tirage-webapp:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://anibal-amiot.com/es/tirada-del-yi-king/#application",
+  "url": "https://anibal-amiot.com/es/tirada-del-yi-king/",
+  "name": "Tirada del I Ching gratis: hexagrama, juicio y cuadrado mágico | La Livrée d'Hermès",
+  "description": "Tirada del I Ching (Yi King) gratis, en línea y sin registro: saque un hexagrama, lea su juicio, su imagen y su cuadrado mágico, o recorra los 64.",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "es",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Anibal Edelberto Amiot",
+    "url": "https://anibal-amiot.com/a-propos.html",
+    "sameAs": [
+      "https://orcid.org/0009-0002-6414-9448"
+    ]
+  }
+}
+</script>
+<!-- @tirage-webapp:end -->
 </head>
 <body>
 <div class="wrap">
@@ -670,6 +703,9 @@
       <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">El oráculo</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>El Yi King es un libro de sabiduría que puede utilizarse como oráculo. Si tiene una pregunta concreta, interiorícela antes de pulsar el botón de tirada. Sin pregunta particular, la tirada indica la situación del momento. Puede encadenar varias tiradas para varias preguntas — pero una sola tirada ya basta por sí misma para el mensaje que corresponde a su consulta.</p><p>Si simplemente desea explorar el significado de los hexagramas y de las imágenes correlacionadas, seleccione directamente una casilla del tablero. Para más información sobre las imágenes, no dude en leer el libro.</p></div>
+      <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+      <noscript><p class="tirage-noscript" role="note">La tirada y el tablero necesitan JavaScript: actívelo para lanzar las monedas. El texto «Cómo leer una tirada», más abajo, se lee sin él.</p></noscript>
+      <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">Tirar las monedas (6 rasgos)</button>
 
       <div class="legend">
@@ -696,6 +732,36 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <section class="tirage-explication" id="txt-tirageResultat"><p>La tirada del Yi King es gratuita, en línea y sin registro. Pulse «Tirar las monedas (6 rasgos)»: seis lanzamientos dibujan un hexagrama, del primer rasgo (abajo) al sexto (arriba). Cada rasgo es yin o yang, fijo o mutante. El resultado muestra el hexagrama obtenido con su nombre, su número, su juicio y su imagen, el comentario de cada uno de los seis rasgos, sus dos trigramas y el cuadrado mágico asociado. También puede hacer clic directamente en un hexagrama del tablero de 64. El texto de los 64 hexagramas también se descarga como documento Word («Descargar la traducción del Yi-King»).</p></section>
+
+  <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
+  <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
+    <h2 id="lire-un-tirage-titre">Cómo leer una tirada del Yi King</h2>
+    <h3>Qué es una tirada</h3>
+    <p>Una tirada da seis rasgos, colocados de abajo arriba. Cada rasgo es yin (partido) o yang (entero), y los seis juntos forman un hexagrama, uno de los 64.</p>
+    <h3>Cómo hace la tirada esta página</h3>
+    <p>La página lanza tres monedas por cada rasgo, seis veces seguidas; el primer lanzamiento hace el rasgo de abajo. Cada moneda vale 2 o 3 con las mismas probabilidades, sorteada por el generador pseudoaleatorio del navegador (Math.random).</p>
+    <p>La suma de las tres monedas da el rasgo: 6, yin mutante; 7, yang fijo; 8, yin fijo; 9, yang mutante. Las probabilidades son 1 de cada 8 para el 6, 3 de cada 8 para el 7, 3 de cada 8 para el 8 y 1 de cada 8 para el 9: uno de cada cuatro rasgos es mutante.</p>
+    <h3>Qué contiene el resultado</h3>
+    <p>El resultado da el número del hexagrama en el orden cronológico del sitio (de 0 a 63), después su número tradicional King Wen, su nombre, sus seis rasgos, el teselado del cuadrado mágico que le corresponde, sus dos trigramas, su imagen y su juicio. El enlace «Más sobre este hexagrama» abre la página del hexagrama obtenido. La <a href="../../es/hexagramas/">lista de los 64 hexagramas</a> pone los dos números lado a lado.</p>
+    <h3>Rasgos mutantes y segundo hexagrama</h3>
+    <p>Un rasgo que sale 6 o 9 es mutante: la página lo marca. Muestra entonces el hexagrama anterior (la tirada) y el hexagrama posterior, en el que cada rasgo mutante se invierte (el yin pasa a yang, el yang a yin), con la posición y el comentario de cada rasgo mutante. Sin rasgo mutante solo hay un hexagrama. Los comentarios de los seis rasgos se leen en la página del hexagrama.</p>
+    <h3>Leer sin prisa</h3>
+    <ol>
+      <li>Leer el juicio.</li>
+      <li>Leer la imagen.</li>
+      <li>Mirar el cuadrado en el libro, en el pasaje que indica la página del hexagrama.</li>
+    </ol>
+    <h3>Qué queda en el dispositivo</h3>
+    <p>La tirada se calcula en su navegador, sin cuenta. La página no guarda ningún historial de tiradas: solo recuerda en el dispositivo ajustes de visualización (idioma, paleta). El resultado se escribe en la dirección de la página (?tire=…), lo que permite copiar el enlace.</p>
+    <p>El sitio es de <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(francés)</span></a>, bajo licencia CC BY-NC 4.0.</p>
+    <h3>Para ir más lejos</h3>
+    <ul>
+      <li><a href="../../es/hexagramas/">Los 64 hexagramas</a>, con sus dos números</li>
+      <li><a href="../../es/libro/">El libro La Livrée d’Hermès</a></li>
+      <li><a href="../../es/lexico/">El léxico del proyecto</a></li>
+    </ul>
+  </section>
+  <!-- @tirage-lire:end -->
 
   </main>
 <!-- @main:end -->

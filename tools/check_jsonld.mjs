@@ -28,7 +28,8 @@ const ATTENDUS = [
   [/^la-livree-d-hermes\.html$/, ['Book']],
   [/^(animations\/[^/]+\.html|[a-z]{2}\/(animations|animaciones)\/.*index\.html)$/, ['WebPage']],
   [/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/, ['WebPage']],
-  [/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/, ['WebApplication']],
+  [/^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/, ['WebApplication']],  // la page du tirage du Yi King est un outil (prompt 207) : un WebApplication, dans sept langues
+  [/^(tirage-livree-hermes\.html|en\/yi-king-draw\/index\.html|es\/tirada-del-yi-king\/index\.html|th\/yi-king-draw\/index\.html|de\/i-ging-orakel\/index\.html|it\/estrazione-i-ching\/index\.html|ja\/yi-king-draw\/index\.html)$/, ['WebApplication']],
 ];
 
 const pages = [];
@@ -73,6 +74,22 @@ function appliCorrecte(j, s, rel) {
   for (const k of ['aggregateRating', 'review', 'offers', 'screenshot', 'ratingValue', 'reviewCount', 'price']) ok(!(k in j), `« ${k} » interdit (rien d'inventé : aucun avis, note, prix ni capture)`);
 }
 
+// Le tirage du Yi King (prompt 207) : WebApplication complet — mêmes nom, description, langue, adresse que la page ; EntertainmentApplication ;
+// licence en URL ; créateur = le Person complet (nom, url, sameAs) ; ni note, ni avis, ni prix ; pas de FAQPage.
+const TIRAGE = /^(tirage-livree-hermes\.html|en\/yi-king-draw\/index\.html|es\/tirada-del-yi-king\/index\.html|th\/yi-king-draw\/index\.html|de\/i-ging-orakel\/index\.html|it\/estrazione-i-ching\/index\.html|ja\/yi-king-draw\/index\.html)$/;
+function tirageCorrect(j, s, rel) {
+  const lang = /<html lang="([^"]+)"/.exec(s);
+  const ok = (c, m) => { if (!c) echecs.push(`${rel} : WebApplication : ${m}`); };
+  ok(j.applicationCategory === 'EntertainmentApplication' && j.operatingSystem === 'Web' && j.isAccessibleForFree === true, 'applicationCategory EntertainmentApplication, operatingSystem Web, isAccessibleForFree true');
+  ok(j.description === meta(s, /<meta name="description" content="([^"]*)"/), 'la description doit être celle de la balise meta');
+  ok(j.name === meta(s, /<title>([^<]*)<\/title>/), 'le nom doit être le <title> de la page');
+  ok(lang && j.inLanguage === lang[1], `inLanguage ${j.inLanguage}, attendu ${lang && lang[1]}`);
+  ok(j.url === meta(s, /<link rel="canonical" href="([^"]*)"/), 'url doit être la canonique');
+  ok(/^https?:\/\//.test(String(j.license || '')), 'license doit être une URL');
+  ok(j.creator && j.creator['@type'] === 'Person' && j.creator.name && j.creator.url && Array.isArray(j.creator.sameAs) && j.creator.sameAs.length, 'creator : le Person complet (nom, url, sameAs)');
+  for (const k of ['aggregateRating', 'review', 'offers', 'screenshot', 'ratingValue', 'reviewCount', 'price']) ok(!(k in j), `« ${k} » interdit (rien d'inventé)`);
+}
+
 for (const rel of pages) {
   const s = fs.readFileSync(path.join(RACINE, rel), 'utf8');
   const lds = [...s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
@@ -82,6 +99,8 @@ for (const rel of pages) {
     try { j = JSON.parse(m[1]); blocs++; } catch (e) { echecs.push(`${rel} : JSON-LD invalide (${e.message})`); continue; }
     licences(j, rel);
     types(j, ts);
+    if (j && j['@type'] === 'WebApplication' && TIRAGE.test(rel)) tirageCorrect(j, s, rel);
+    if (j && j['@type'] === 'FAQPage' && TIRAGE.test(rel)) echecs.push(`${rel} : FAQPage interdit sur la page du tirage`);
     if (j && j['@type'] === 'WebApplication' && /^(musique-chladni\.html|[a-z]{2}\/(see-your-music|ver-tu-musica)\/index\.html)$/.test(rel)) appliCorrecte(j, s, rel);
   }
   if (/noindex/.test(s) || SANS.has(rel)) continue;

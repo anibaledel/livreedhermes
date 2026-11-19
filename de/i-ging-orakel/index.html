@@ -232,6 +232,14 @@
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
   .tirage-explication{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  /* prompt 207 : « Comment lire un tirage », texte statique écrit par scripts/build-tirage-texte.js */
+  .tirage-lire{ max-width:68ch; margin:0 auto 28px; color:var(--dim); line-height:1.7; font-size:calc(13.5px + var(--fs-bump)); }
+  .tirage-lire h2{ font-size:calc(20px + var(--fs-bump)); margin:32px 0 8px; color:var(--white); }
+  .tirage-lire h3{ font-size:calc(15px + var(--fs-bump)); margin:20px 0 6px; color:var(--white); }
+  .tirage-lire p, .tirage-lire li{ margin:0 0 10px; }
+  .tirage-lire ol, .tirage-lire ul{ margin:0 0 10px; padding-left:1.4em; }
+  .tirage-lire a{ color:var(--gold); text-decoration:underline; }
+  .tirage-noscript{ max-width:68ch; margin:0 0 14px; padding:10px 14px; border:1px solid var(--gold); border-radius:8px; color:var(--white); line-height:1.5; }
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
@@ -560,6 +568,31 @@
 <link rel="alternate" hreflang="ja" href="https://anibal-amiot.com/ja/yi-king-draw/">
 <link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/">
 <!-- @hreflang:end -->
+<!-- @tirage-webapp:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://anibal-amiot.com/de/i-ging-orakel/#application",
+  "url": "https://anibal-amiot.com/de/i-ging-orakel/",
+  "name": "I-Ging-Orakel kostenlos: Hexagramm, Urteil und magisches Quadrat | La Livrée d'Hermès",
+  "description": "I-Ging-Orakel kostenlos, online und ohne Anmeldung: Münzen werfen, das Hexagramm mit Urteil, Bild und magischem Quadrat lesen oder alle 64 durchblättern.",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "isAccessibleForFree": true,
+  "inLanguage": "de",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Anibal Edelberto Amiot",
+    "url": "https://anibal-amiot.com/a-propos.html",
+    "sameAs": [
+      "https://orcid.org/0009-0002-6414-9448"
+    ]
+  }
+}
+</script>
+<!-- @tirage-webapp:end -->
 </head>
 <body>
 <div class="wrap">
@@ -670,6 +703,9 @@
       <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">Das Orakel</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>Das I Ging ist ein Weisheitsbuch, das sich als Orakel benutzen lässt. Wenn Sie eine konkrete Frage haben, verinnerlichen Sie sie, bevor Sie auf Wurf drücken. Ohne besondere Frage zeigt der Wurf die Situation des Augenblicks. Sie können mehrere Würfe für mehrere Fragen aneinanderreihen — doch ein einziger Wurf genügt schon für sich allein für die Botschaft, die Ihrer Befragung entspricht.</p><p>Wenn Sie einfach die Bedeutung der Hexagramme und der zugehörigen Bilder erkunden möchten, wählen Sie direkt ein Feld des Schachbretts. Für weitere Informationen zu den Bildern lesen Sie gern das Buch.</p></div>
+      <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
+      <noscript><p class="tirage-noscript" role="note">Die Ziehung und das Schachbrett brauchen JavaScript: Schalten Sie es ein, um die Münzen zu werfen. Der Text „So liest man eine I-Ging-Ziehung“ weiter unten lässt sich ohne lesen.</p></noscript>
+      <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">Münzen werfen (6 Linien)</button>
 
       <div class="legend">
@@ -696,6 +732,36 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <section class="tirage-explication" id="txt-tirageResultat"><p>Das I-Ging-Orakel ist kostenlos, online und ohne Anmeldung. Drücken Sie auf „Münzen werfen (6 Linien)“: Sechs Würfe zeichnen ein Hexagramm, von der ersten Linie (unten) bis zur sechsten (oben). Jede Linie ist Yin oder Yang, fest oder wandelnd. Das Ergebnis zeigt das gezogene Hexagramm mit seinem Namen, seiner Nummer, seinem Urteil und seinem Bild, den Kommentar zu jeder der sechs Linien, seine beiden Trigramme und das zugehörige magische Quadrat. Sie können auch direkt ein Hexagramm auf dem Schachbrett der 64 anklicken. Der Text der 64 Hexagramme lässt sich außerdem als Word-Dokument herunterladen („Übersetzung des I Ging herunterladen“).</p></section>
+
+  <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
+  <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
+    <h2 id="lire-un-tirage-titre">So liest man eine I-Ging-Ziehung</h2>
+    <h3>Was eine Ziehung ist</h3>
+    <p>Eine Ziehung liefert sechs Linien, von unten nach oben gelegt. Jede Linie ist Yin (unterbrochen) oder Yang (durchgezogen), und alle sechs zusammen bilden ein Hexagramm, eines von 64.</p>
+    <h3>Wie die Seite die Ziehung macht</h3>
+    <p>Die Seite wirft für jede Linie drei Münzen, sechsmal hintereinander; der erste Wurf ergibt die unterste Linie. Jede Münze zählt 2 oder 3, mit gleicher Wahrscheinlichkeit, gezogen vom Pseudozufallsgenerator des Browsers (Math.random).</p>
+    <p>Die Summe der drei Münzen ergibt die Linie: 6, wandelndes Yin; 7, festes Yang; 8, festes Yin; 9, wandelndes Yang. Die Wahrscheinlichkeiten betragen 1 von 8 für die 6, 3 von 8 für die 7, 3 von 8 für die 8 und 1 von 8 für die 9: Jede vierte Linie ist wandelnd.</p>
+    <h3>Was das Ergebnis enthält</h3>
+    <p>Das Ergebnis nennt die Nummer des Hexagramms in der chronologischen Ordnung der Seite (0 bis 63), dann seine traditionelle King-Wen-Nummer, seinen Namen, seine sechs Linien, die Parkettierung des zugehörigen magischen Quadrats, seine beiden Trigramme, sein Bild und sein Urteil. Der Link „Mehr über dieses Hexagramm“ öffnet die Seite des gezogenen Hexagramms. Die <a href="../../de/hexagramme/">Liste der 64 Hexagramme</a> stellt beide Nummern nebeneinander.</p>
+    <h3>Wandelnde Linien und zweites Hexagramm</h3>
+    <p>Eine Linie, die 6 oder 9 ergibt, ist wandelnd: Die Seite markiert sie. Sie zeigt dann das Ausgangshexagramm (die Ziehung) und das Folgehexagramm, in dem jede wandelnde Linie umgekehrt ist (Yin wird Yang, Yang wird Yin), mit der Position und dem Kommentar jeder wandelnden Linie. Ohne wandelnde Linie gibt es nur ein Hexagramm. Die Kommentare aller sechs Linien stehen auf der Seite des Hexagramms.</p>
+    <h3>Ohne Eile lesen</h3>
+    <ol>
+      <li>Das Urteil lesen.</li>
+      <li>Das Bild lesen.</li>
+      <li>Das Quadrat im Buch ansehen, an der Stelle, auf die die Seite des Hexagramms verweist.</li>
+    </ol>
+    <h3>Was auf dem Gerät bleibt</h3>
+    <p>Die Ziehung wird in Ihrem Browser berechnet, ohne Konto. Die Seite führt keinen Verlauf der Ziehungen: Sie speichert auf dem Gerät nur Anzeigeeinstellungen (Sprache, Palette). Das Ergebnis wird in die Adresse der Seite geschrieben (?tire=…), sodass sich der Link kopieren lässt.</p>
+    <p>Die Seite stammt von <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(auf Französisch)</span></a>, unter der Lizenz CC BY-NC 4.0.</p>
+    <h3>Weiterlesen</h3>
+    <ul>
+      <li><a href="../../de/hexagramme/">Die 64 Hexagramme</a> mit ihren beiden Nummern</li>
+      <li><a href="../../de/book/">Das Buch La Livrée d’Hermès</a></li>
+      <li><a href="../../de/lexicon/">Das Lexikon des Projekts</a></li>
+    </ul>
+  </section>
+  <!-- @tirage-lire:end -->
 
   </main>
 <!-- @main:end -->
