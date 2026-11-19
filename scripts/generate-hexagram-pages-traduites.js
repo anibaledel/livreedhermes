@@ -28,6 +28,7 @@
    ============================================================ */
 const fs = require('fs');
 const HEXDESC = require('./hexagram-description.js');
+const HT = require('./hexagram-titres.js'); // titres : le numéro King Wen d'abord (prompt 205)
 const path = require('path');
 const crypto = require('crypto');
 const DATA = require('./extract-hexagram-data.js');
@@ -98,9 +99,9 @@ const L = {
     date: (y, m, d) => `${MOIS.en[m - 1]} ${d}, ${y}`,
     home: 'Home', homeUrl: `${SITE}/en/`, book: 'The book', bookUrl: `${SITE}/en/book/`, lexiconUrl: `${SITE}/en/lexicon/`,
     hexagrams: 'Hexagrams', breadcrumb: 'Breadcrumb',
-    hexName: (c, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${n}`,
-    title: (c, p, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => [`Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, trigrams, magic square.`, `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, magic square.`, `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, magic square.`],
+    hexName: (c, n, kw) => HT.nomCourt('en', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('en', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('en', c, p, n, kw)}: judgement, image, trigrams, magic square.`, `${HT.enTete('en', c, p, n, kw)}: judgement, image, magic square.`, `${HT.enTete('en', c, p, n, kw)}: judgement, magic square.`],
     sub: (c, kw, hz) => `Binary index <b>${c}</b> (0 to 63; the site's "chronological no.", binary-weight order) · traditional King Wen no. <b>${kw}</b> · ${hz}`,
     by: (date) => `By <a href="${SITE}/${adresseDans('a-propos.html', 'en')}">Anibal Edelberto Amiot</a> — Updated ${date}`,
     alt: (c, n, kw) => `Magic square / tiling associated with hexagram ${c} (King Wen no. ${kw}, ${n})`,
@@ -131,9 +132,9 @@ const L = {
     date: (y, m, d) => `${d} de ${MOIS.es[m - 1]} de ${y}`,
     home: 'Inicio', homeUrl: `${SITE}/es/`, book: 'El libro', bookUrl: `${SITE}/es/libro/`, lexiconUrl: `${SITE}/es/lexico/`,
     hexagrams: 'Hexagramas', breadcrumb: 'Ruta de navegación',
-    hexName: (c, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${n}`,
-    title: (c, p, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => [`Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen, trigramas y cuadrado mágico.`, `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen y cuadrado mágico.`, `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio y cuadrado mágico.`],
+    hexName: (c, n, kw) => HT.nomCourt('es', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('es', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('es', c, p, n, kw)}: juicio, imagen, trigramas y cuadrado mágico.`, `${HT.enTete('es', c, p, n, kw)}: juicio, imagen y cuadrado mágico.`, `${HT.enTete('es', c, p, n, kw)}: juicio y cuadrado mágico.`],
     sub: (c, kw, hz) => `Índice binario <b>${c}</b> (0 a 63; «n.º cronológico» del sitio, orden por pesos binarios) · n.º tradicional King Wen <b>${kw}</b> · ${hz}`,
     by: (date) => `Por <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Actualizado el ${date}`,
     alt: (c, n, kw) => `Cuadrado mágico / teselado asociado al hexagrama ${c} (n.º King Wen ${kw}, ${n})`,
@@ -165,9 +166,9 @@ const L = {
     date: (y, m, d) => `${d} ${MOIS.th[m - 1]} ${y}`,
     home: 'หน้าแรก', homeUrl: `${SITE}/th/`, book: 'หนังสือ', bookUrl: `${SITE}/th/book/`, lexiconUrl: `${SITE}/th/lexicon/`,
     hexagrams: 'ฉักลักษณ์', breadcrumb: 'เส้นทางนำทาง',
-    hexName: (c, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${n}`,
-    title: (c, p, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => [`ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ จัตุรัสกล`, `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ จัตุรัสกล`, `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน จัตุรัสกล`],
+    hexName: (c, n, kw) => HT.nomCourt('th', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('th', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('th', c, p, n, kw)}: คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ จัตุรัสกล`, `${HT.enTete('th', c, p, n, kw)}: คำตัดสิน ภาพลักษณ์ จัตุรัสกล`, `${HT.enTete('th', c, p, n, kw)}: คำตัดสิน จัตุรัสกล`],
     sub: (c, kw, hz) => `ดัชนีฐานสอง <b>${c}</b> (0 ถึง 63 ; ลำดับตามเวลาของเว็บไซต์ เรียงตามน้ำหนักฐานสอง) · ลำดับ King Wen (ดั้งเดิม) <b>${kw}</b> · ${hz}`,
     by: (date) => `โดย <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — ปรับปรุงเมื่อ ${date}`,
     alt: (c, n, kw) => `จัตุรัสกล / การปูลายที่สัมพันธ์กับฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}, ${n})`,
@@ -200,9 +201,9 @@ const L = {
     date: (y, m, d) => `${d}. ${MOIS.de[m - 1]} ${y}`,
     home: 'Startseite', homeUrl: `${SITE}/de/`, book: 'Das Buch', bookUrl: `${SITE}/de/book/`, lexiconUrl: `${SITE}/de/lexicon/`,
     hexagrams: 'Hexagramme', breadcrumb: 'Brotkrümelnavigation',
-    hexName: (c, n, kw) => `Hexagramm ${c} (King-Wen-Nr. ${kw}) — ${n}`,
-    title: (c, p, n, kw) => `Hexagramm ${c} (King-Wen-Nr. ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => [`Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, Bild, Trigramme, magisches Quadrat.`, `Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, Bild, magisches Quadrat.`, `Hexagramm ${c} (${p}, ${n}, King-Wen-Nr. ${kw}): Urteil, magisches Quadrat.`],
+    hexName: (c, n, kw) => HT.nomCourt('de', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('de', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('de', c, p, n, kw)}: Urteil, Bild, Trigramme, magisches Quadrat.`, `${HT.enTete('de', c, p, n, kw)}: Urteil, Bild, magisches Quadrat.`, `${HT.enTete('de', c, p, n, kw)}: Urteil, magisches Quadrat.`],
     sub: (c, kw, hz) => `Binärindex <b>${c}</b> (0 bis 63; „chronologische Nr.“ der Website, Ordnung nach Binärgewichten) · traditionelle King-Wen-Nr. <b>${kw}</b> · ${hz}`,
     by: (date) => `Von <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Aktualisiert am ${date}`,
     alt: (c, n, kw) => `Magisches Quadrat / Parkettierung zu Hexagramm ${c} (King-Wen-Nr. ${kw}, ${n})`,
@@ -233,9 +234,9 @@ const L = {
     date: (y, m, d) => `${d} ${MOIS.it[m - 1]} ${y}`,
     home: 'Home', homeUrl: `${SITE}/it/`, book: 'Il libro', bookUrl: `${SITE}/it/book/`, lexiconUrl: `${SITE}/it/lexicon/`,
     hexagrams: 'Esagrammi', breadcrumb: 'Percorso di navigazione',
-    hexName: (c, n, kw) => `Esagramma ${c} (n. King Wen ${kw}) — ${n}`,
-    title: (c, p, n, kw) => `Esagramma ${c} (n. King Wen ${kw}) — ${p}, ${n}`,
-    description: (c, p, n, kw) => [`Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, immagine, trigrammi, quadrato magico.`, `Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, immagine, quadrato magico.`, `Esagramma ${c} (${p}, ${n}, n. King Wen ${kw}): giudizio, quadrato magico.`],
+    hexName: (c, n, kw) => HT.nomCourt('it', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('it', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('it', c, p, n, kw)}: giudizio, immagine, trigrammi, quadrato magico.`, `${HT.enTete('it', c, p, n, kw)}: giudizio, immagine, quadrato magico.`, `${HT.enTete('it', c, p, n, kw)}: giudizio, quadrato magico.`],
     sub: (c, kw, hz) => `Indice binario <b>${c}</b> (da 0 a 63; «n. cronologico» del sito, ordine per pesi binari) · n. tradizionale King Wen <b>${kw}</b> · ${hz}`,
     by: (date) => `Di <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Aggiornato il ${date}`,
     alt: (c, n, kw) => `Quadrato magico / pavimentazione associati all'esagramma ${c} (n. King Wen ${kw}, ${n})`,
@@ -266,9 +267,9 @@ const L = {
     date: (y, m, d) => `${y}年${MOIS.ja[m - 1]}${d}日`,
     home: 'ホーム', homeUrl: `${SITE}/ja/`, book: '本', bookUrl: `${SITE}/ja/book/`, lexiconUrl: `${SITE}/ja/lexicon/`,
     hexagrams: '六十四卦', breadcrumb: 'パンくずリスト',
-    hexName: (c, n, kw) => `卦 ${c}（文王の順序 ${kw}）— ${n}`,
-    title: (c, p, n, kw) => `卦 ${c}（文王の順序 ${kw}）— ${p}、${n}`,
-    description: (c, p, n, kw) => [`卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、象、八卦、魔方陣。`, `卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、象、魔方陣。`, `卦 ${c}（${p}、${n}、文王の順序 ${kw}）：卦辞、魔方陣。`],
+    hexName: (c, n, kw) => HT.nomCourt('ja', c, n, kw),
+    title: (c, p, n, kw) => HT.titre('ja', c, p, n, kw),
+    description: (c, p, n, kw) => [`${HT.enTete('ja', c, p, n, kw)}：卦辞、象、八卦、魔方陣。`, `${HT.enTete('ja', c, p, n, kw)}：卦辞、象、魔方陣。`, `${HT.enTete('ja', c, p, n, kw)}：卦辞、魔方陣。`],
     sub: (c, kw, hz) => `二進インデックス <b>${c}</b>（0〜63。サイトの「時系列番号」、二進の重みによる順序）· 伝統的な文王の順序 <b>${kw}</b> · ${hz}`,
     by: (date) => `<a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> 著 — ${date}更新`,
     alt: (c, n, kw) => `卦 ${c}（文王の順序 ${kw}、${n}）に対応する魔方陣と敷き詰め`,
@@ -334,7 +335,7 @@ function genererLangue(lang) {
     const h = tx.hex(kw);
     info.push({ chrono, kw, pinyin: h.pinyin, name: h.name, traits, lowerVal: trigramValue(traits.slice(0, 3)), upperVal: trigramValue(traits.slice(3, 6)) });
   }
-  const hexLink = (i) => `<a href="${A.url(i.chrono, lang)}">${i.chrono} — ${escapeHtml(i.pinyin)}, ${escapeHtml(i.name)}</a>`;
+  const hexLink = (i) => `<a href="${A.url(i.chrono, lang)}">${escapeHtml(HT.lien(lang, i.chrono, i.pinyin, i.name, i.kw))}</a>`;
 
   function motifsHtml(chrono) {
     const base = chrono < 32 ? chrono : 63 - chrono;
@@ -367,9 +368,8 @@ ${cartes}
     const sameUpper = info.filter((x) => x.chrono !== chrono && x.upperVal === h.upperVal);
     const sameLower = info.filter((x) => x.chrono !== chrono && x.lowerVal === h.lowerVal);
     const title = l.title(chrono, pinyin, name, kw);
-    // <title>, og:title, twitter:title et JSON-LD name : le titre du <h1> suivi du nom du site (prompt 203 : « 卦 34（文王の順序 4）— Meng、蒙 » faisait 21 caractères,
-    // trop court pour Bing). Seul le japonais est concerné : les autres langues dépassent déjà 40 caractères. Le <h1> garde le titre court.
-    const titleMeta = lang === 'ja' ? `${title} | La Livrée d'Hermès` : title;
+    // <title>, og:title, twitter:title et JSON-LD name : le titre du <h1> suivi du nom du site (retiré d'abord, en écriture latine, quand le tout dépasse 60 caractères : scripts/hexagram-titres.js)
+    const titleMeta = HT.titreMeta(lang, chrono, pinyin, name, kw);
     const description = HEXDESC.description(judgement, l.description(chrono, pinyin, name, kw));
 
     const lines = traits.map((bit, i) => `      <div class="hexline">

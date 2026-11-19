@@ -1296,3 +1296,13 @@ De moi, à relire :
     - `ru/tools/index.html` : « Инструменты: составлять, печатать — La Livrée d'Hermès » (avant : « Инструменты — La Livrée d'Hermès »)
     - `ru/works/index.html` : « Научные публикации: Zenodo и код — Anibal Amiot » (avant : « Научные публикации — Anibal Amiot »)
 - Titres de motifs : les 512 titres sont composés par `scripts/generate-motif-pages.js` à partir du nom de l'hexagramme (déjà traduit) ; aucun texte nouveau à relire, mais « pattern » (en) et « motif » (fr) y sont accolés au libellé de famille.
+
+## Prompt 205 — pages d'hexagrammes : le numéro King Wen d'abord (19 nov. 2026)
+
+- **Libellés nouveaux à relire** (`scripts/hexagram-titres.js`) : le « numéro du site » écrit après le numéro King Wen dans le titre, le `<h1>`, `og:title`, la description et les liens « Voir aussi » des 64 pages de chaque langue. Thaï et japonais d'abord.
+  - **thaï** : « ฉักลักษณ์ที่ 12 — Pi, … (เลขของเว็บไซต์ 56) » — `เลขของเว็บไซต์` (« numéro du site ») est tiré de la colonne « เลข (เว็บไซต์) » de la table des 64 ; à confirmer par un lecteur thaï.
+  - **japonais** : « 卦 12 — Pi、否（サイトの番号 56） » — `サイトの番号` (« numéro du site ») est tiré de la colonne « 番号（サイト） » de la table ; à confirmer par un lecteur japonais.
+  - **allemand** : « Hexagramm 12 — Pi, Die Stockung (Nr. 56 der Website) » — `Nr. … der Website`, de la colonne « Nr. (Website) ».
+  - **italien** : « Esagramma 12 — Pi, La Stagnazione (n. 56 del sito) » — `n. … del sito`, de la colonne « N. (sito) ».
+  - espagnol (`n.º … del sitio`), anglais (`no. … on this site`) et français (`n° … du site`) : formes de l'énoncé du prompt.
+- Les langues zh, ru, pt et hi n'ont pas de pages d'hexagrammes : rien à relire pour elles.

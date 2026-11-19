@@ -554,6 +554,7 @@
     "es/hexagramas",
     "fr/motifs",
     "scripts/extract-hexagram-data.js",
+    "scripts/hexagram-titres.js",
     "th/hexagrams"
    ],
    "ecrit": [],
@@ -1078,6 +1079,9 @@
    "fichier": "tools/check_titres.mjs",
    "role": "les titres de page (prompt 203 : Bing Webmaster Tools « Many of your page titles are too short »).",
    "lit": [
+    "en/hexagrams",
+    "es/hexagramas",
+    "th/hexagrams",
     "zh/works/index.html"
    ],
    "ecrit": [],

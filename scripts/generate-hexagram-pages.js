@@ -10,6 +10,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
 const HEXDESC = require('./hexagram-description.js');
+const HT = require('./hexagram-titres.js'); // titres : le numéro King Wen d'abord (prompt 205)
 
 // L'en-tête et les icônes viennent des fragments de includes/, exactement
 // comme pour les 98 autres pages : voir scripts/build-header.js et
@@ -149,7 +150,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 }
 
 function hexLinkHtml(info){
-  return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
+  return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${escapeHtml(HT.lien('fr', info.chrono, info.pinyin, info.nameFr, info.kwNum))}</a>`;
 }
 
 // Les motifs d'un hexagramme : les 256 motifs unifiés portent sur les
@@ -191,8 +192,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   const nextInfo = allInfo[(chrono + 1) % 64];
   const sameUpper = allInfo.filter(h => h.chrono !== chrono && h.upperVal === allInfo[chrono].upperVal);
   const sameLower = allInfo.filter(h => h.chrono !== chrono && h.lowerVal === allInfo[chrono].lowerVal);
-  const title = `Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${pinyin}, ${nameFr}`;
-  const baseDesc = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum})`;
+  // le numéro King Wen d'abord, le numéro du site ensuite (prompt 205 ; scripts/hexagram-titres.js)
+  const title = HT.titre('fr', chrono, pinyin, nameFr, kwNum);
+  const titleMeta = HT.titreMeta('fr', chrono, pinyin, nameFr, kwNum);
+  const baseDesc = HT.enTete('fr', chrono, pinyin, nameFr, kwNum);
   const description = HEXDESC.description(jugementText, [`${baseDesc} : jugement, image, trigrammes, carré magique.`, `${baseDesc} : jugement, image, carré magique.`, `${baseDesc} : jugement, carré magique.`]);
 
   const linesHtml = traits.map((bit, i) => {
@@ -213,23 +216,23 @@ for(let chrono = 0; chrono < 64; chrono++){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(title)}</title>
+<title>${escapeHtml(titleMeta)}</title>
 <meta name="description" content="${escapeHtml(description)}">
-<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:title" content="${escapeHtml(titleMeta)}">
 <meta property="og:description" content="${escapeHtml(description)}">
 <meta property="og:image" content="https://anibal-amiot.com/assets/hexagrammes/${chrono}.png">
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="article">
 <link rel="canonical" href="${url}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${escapeHtml(title)}">
+<meta name="twitter:title" content="${escapeHtml(titleMeta)}">
 <meta name="twitter:description" content="${escapeHtml(description)}">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/hexagrammes/${chrono}.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "DefinedTerm",
-  "name": "Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${escapeHtml(nameFr)}",
+  "name": ${JSON.stringify(HT.nomCourt('fr', chrono, nameFr, kwNum))},
   "description": ${JSON.stringify(description)},
   "inDefinedTermSet": "https://anibal-amiot.com/lexique.html",
   "url": "${url}",
@@ -248,7 +251,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   "@type": "WebPage",
   "@id": "${url}#page",
   "url": "${url}",
-  "name": ${JSON.stringify(title)},
+  "name": ${JSON.stringify(titleMeta)},
   "description": ${JSON.stringify(description)},
   "inLanguage": "fr",
   "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
@@ -263,7 +266,7 @@ for(let chrono = 0; chrono < 64; chrono++){
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
     { "@type": "ListItem", "position": 2, "name": "Le traité", "item": "https://anibal-amiot.com/la-livree-d-hermes.html" },
     { "@type": "ListItem", "position": 3, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
-    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(`Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${nameFr}`)}, "item": "${url}" }
+    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(HT.nomCourt('fr', chrono, nameFr, kwNum))}, "item": "${url}" }
   ]
 }
 </script>
@@ -377,7 +380,7 @@ ${EN_TETE}
 
       <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
-      <h1 class="article-title">Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
+      <h1 class="article-title">${escapeHtml(title)}</h1>
       <p class="article-sub">Index binaire <b>${chrono}</b> (0 à 63 ; « n° chronologique » du site, ordre par poids binaires) · n° traditionnel King Wen <b>${kwNum}</b> · ${escapeHtml(hanzi || '')}</p>
       <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${DATE_FR_PLACEHOLDER}</p>
     </div>
@@ -524,7 +527,7 @@ const listingHtml = `<!DOCTYPE html>
   "description": ${JSON.stringify(listingDescription)},
   "url": "${listingUrl}",
   "hasPart": [
-${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.nameFr)}", "url": "https://anibal-amiot.com/hexagrammes/${info.slug}" }`).join(',\n')}
+${allInfo.map(info => `    { "@type": "DefinedTerm", "name": ${JSON.stringify(HT.nomCourt('fr', info.chrono, info.nameFr, info.kwNum))}, "url": "https://anibal-amiot.com/hexagrammes/${info.slug}" }`).join(',\n')}
   ]
 }
 </script>

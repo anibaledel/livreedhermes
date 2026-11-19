@@ -23,7 +23,10 @@ const EXCLUS = ['node_modules', '.git', 'assets', 'data', 'tools', 'docs', 'incl
 const PLANCHER_LATIN = 40, PLANCHER_ASIE = 20, PLAFOND = 60;
 const ECRITURE_ASIE = new Set(['ja', 'zh', 'zh-Hans', 'th', 'hi']);
 // Familles dont le titre, l'og:title, le twitter:title et le JSON-LD « name » doivent être identiques (les gabarits de prompt 203).
-const FAMILLES_ALIGNEES = [/^motifs\/(?!index\.html).+\.html$/, /^fr\/motifs\/(?!index\.html).+\.html$/, /^ja\/hexagrams\/(?!index\.html).+\.html$/];
+const DOSSIERS_HEX = ['hexagrammes', 'en/hexagrams', 'es/hexagramas', 'de/hexagramme', 'it/esagrammi', 'th/hexagrams', 'ja/hexagrams'];
+const ESTHEX = (rel) => DOSSIERS_HEX.some((d) => rel.startsWith(`${d}/`) && /\/\d+-[^/]+\.html$/.test(rel));
+const FAMILLES_ALIGNEES = [/^motifs\/(?!index\.html).+\.html$/, /^fr\/motifs\/(?!index\.html).+\.html$/, ESTHEX];
+const NOM_SITE = " | La Livrée d'Hermès";
 
 // Pages dont le titre reste sous le plancher, chacune avec sa raison. Une page qui allonge son titre doit sortir d'ici (le contrôle l'exige).
 // Les 50 autres titres courts ont été allongés (prompt 203, docs/titres-courts-proposes.md garde la liste : titre d'avant, titre d'après).
@@ -63,7 +66,14 @@ function verifier(liste, exceptions) {
     if (vus.has(p.titre)) e.push(`titre en double : « ${p.titre} » (${vus.get(p.titre)} et ${p.rel})`); else vus.set(p.titre, p.rel);
     const plancher = ECRITURE_ASIE.has(p.lang.split('-')[0]) || ECRITURE_ASIE.has(p.lang) ? PLANCHER_ASIE : PLANCHER_LATIN, n = longueur(p.titre);
     if (n < plancher) { if (exceptions.has(p.rel)) utilisees.add(p.rel); else e.push(`${p.rel} : titre de ${n} caractères (plancher ${plancher}) et absent des exceptions : « ${p.titre} »`); }
-    if (FAMILLES_ALIGNEES.some((re) => re.test(p.rel))) {
+    // Pages d'hexagrammes (prompt 205) : le titre finit par « | La Livrée d'Hermès » ; en écriture latine, le nom du site est retiré D'ABORD quand le tout dépasse 60 caractères
+    // (jamais le numéro, jamais le nom de l'hexagramme) : c'est la seule exception acceptée, vérifiée page par page.
+    if (ESTHEX(p.rel) && !p.titre.endsWith(NOM_SITE)) {
+      const latin = !ECRITURE_ASIE.has(p.lang.split('-')[0]);
+      if (!latin) e.push(`${p.rel} : le titre d'une page d'hexagramme en ${p.lang} doit finir par « ${NOM_SITE.trim()} »`);
+      else if (longueur(p.titre + NOM_SITE) <= PLAFOND) e.push(`${p.rel} : le nom du site a été retiré alors que le titre complet tient en ${PLAFOND} caractères (${longueur(p.titre + NOM_SITE)})`);
+    }
+    if (FAMILLES_ALIGNEES.some((re) => (typeof re === 'function' ? re(p.rel) : re.test(p.rel)))) {
       if (p.og !== p.titre) e.push(`${p.rel} : og:title « ${p.og} » ≠ <title> « ${p.titre} »`);
       if (p.tw !== p.titre) e.push(`${p.rel} : twitter:title « ${p.tw} » ≠ <title> « ${p.titre} »`);
       if (p.ld !== undefined && !p.ld.includes(p.titre)) e.push(`${p.rel} : aucun JSON-LD « name » n'est égal au <title> « ${p.titre} » (trouvés : ${p.ld.join(' | ')})`);
@@ -95,14 +105,15 @@ if (argv.includes('--essai')) {
     ['titre en double', [...base, { ...base[0], rel: 'c.html' }], new Map(), /en double/],
     ['titre trop court', [...base, { rel: 'd.html', lang: 'fr', titre: 'Trop court', og: 'x', tw: 'x' }], new Map(), /plancher/],
     ['exception périmée', base, new Map([['a.html', 'x']]), /périmée/],
+    ['nom du site retiré sans raison', [{ rel: 'hexagrammes/12-pi.html', lang: 'fr', titre: 'Hexagramme 62 — Pi (n° 12 du site)', og: 'Hexagramme 62 — Pi (n° 12 du site)', tw: 'Hexagramme 62 — Pi (n° 12 du site)' }], new Map(), /nom du site a été retiré/],
     ['og:title écarté', [{ rel: 'motifs/z-h1.html', lang: 'en', titre: 'Hexagram 1 Fu, Return — Yang pattern | La Livrée d\'Hermès', og: 'autre', tw: 'autre' }], new Map(), /og:title/]];
   let ko = 0;
   if (verifier(base, new Map()).length) { console.error('ÉCHEC : le cas sain échoue'); ko++; }
   for (const [nom, l, ex, re] of cas) { const e = verifier(l, ex); if (!e.some((x) => re.test(x))) { console.error(`ÉCHEC essai : « ${nom} » n'a pas échoué`); ko++; } }
   if (ko) process.exit(1);
-  console.log('Essai : le cas sain passe ; un doublon, un titre court, une exception périmée et un og:title écarté échouent.');
+  console.log('Essai : le cas sain passe ; un doublon, un titre court, une exception périmée, un og:title écarté et un nom du site retiré sans raison échouent.');
   process.exit(0);
 }
 const e = verifier(liste, EXCEPTIONS);
 if (e.length) { for (const x of e.slice(0, 40)) console.error('ÉCHEC ' + x); if (e.length > 40) console.error(`… ${e.length - 40} autres`); process.exit(1); }
-console.log(`Titres : ${liste.length} pages indexables, aucun doublon, planchers tenus (${EXCEPTIONS.size} exceptions écrites), motifs et hexagrammes japonais alignés sur og/twitter/JSON-LD.`);
+console.log(`Titres : ${liste.length} pages indexables, aucun doublon, planchers tenus (${EXCEPTIONS.size} exceptions écrites), motifs et pages d'hexagrammes alignés sur og/twitter/JSON-LD, nom du site retiré seulement au-delà de ${PLAFOND} caractères.`);
