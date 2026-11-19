@@ -25,8 +25,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - name: Serveur statique local
         run: |
           npx --yes http-server . -p 8123 -s &

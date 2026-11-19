@@ -48,8 +48,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       # sitemap.xml engendré d'abord : une PR ne le commite pas (update-sitemap.yml
       # le régénère sur main après la fusion)
       - run: node scripts/generate-sitemap.js
@@ -64,8 +65,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - if: github.event_name == 'push'
         run: sleep 240
       - run: |

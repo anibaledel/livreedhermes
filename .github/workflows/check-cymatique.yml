@@ -26,8 +26,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - run: node tools/check_cymatique_outils.mjs local
       - run: node tools/check_cymatique_outils.mjs local --essai
 
@@ -39,8 +40,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - if: github.event_name == 'push'
         run: sleep 240
       - run: |

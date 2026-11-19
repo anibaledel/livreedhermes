@@ -1,0 +1,38 @@
+name: Playwright, version fixée, navigateur en cache, installation reprise
+description: >
+  Installe la bibliothèque Playwright à une version FIXE puis le navigateur demandé, avec le dossier des navigateurs en cache
+  (clé = version de Playwright + navigateur) et trois essais, à l'attente croissante (prompt 206 : « npx playwright install --with-deps chromium »
+  échouait par intermittence sur les runners, six fois en trois jours, et « playwright@1 » flottait : la version 1.65.1, Chromium 159, rend la
+  colonne x = 0 des images par2 à 6/255 au plus de leurs références B6D, ce qui rougissait le job « rendu » de « Fonds des cases »).
+  Monter la version est un geste explicite : changer `version` ici, rejouer « Fonds des cases » et, si les références B6D diffèrent, le dire.
+inputs:
+  navigateur:
+    description: chromium ou webkit
+    default: chromium
+  version:
+    description: 'version de Playwright (Chromium 158 pour 1.65.0, la dernière dont le rendu est identique aux références B6D)'
+    default: '1.65.0'
+  paquets:
+    description: 'autres paquets npm à installer avec Playwright, par exemple axe-core@4'
+    default: ''
+runs:
+  using: composite
+  steps:
+    - name: Bibliothèque Playwright ${{ inputs.version }}
+      shell: bash
+      run: npm install playwright@${{ inputs.version }} ${{ inputs.paquets }}
+    - name: Navigateurs en cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ inputs.version }}-${{ inputs.navigateur }}
+    - name: Navigateur ${{ inputs.navigateur }} (3 essais)
+      shell: bash
+      run: |
+        for essai in 1 2 3; do
+          if npx playwright install --with-deps ${{ inputs.navigateur }}; then exit 0; fi
+          echo "::warning::npx playwright install ${{ inputs.navigateur }} : essai $essai sur 3 échoué"
+          [ "$essai" -lt 3 ] && sleep $((essai * 30))
+        done
+        echo "::error::npx playwright install ${{ inputs.navigateur }} : trois essais échoués"
+        exit 1

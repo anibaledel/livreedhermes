@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-19T14:33:38Z",
+ "generated_at_utc": "2026-11-19T15:16:19Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1971,9 +1971,9 @@
   {
    "chemin": "tools/check_export_pinterest.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_export_pinterest.mjs",
-   "octets": 6946,
-   "sha256": "d4f09e2ca83373fdc5470c3b5095b85499520093aa6ca5fc9e53029b913d0472",
-   "md5": "10b5e44590a5c3c5e55e8f1dc869bbbd",
+   "octets": 7166,
+   "sha256": "9bcd5ffdda9654a2a0fb3dac7a1aff84a909fc359c8663a3627f01390d8dc496",
+   "md5": "847416053f055a9d079dcdc3db88bcba",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Une image exportée d'une collection (assets/motifs-pinterest/<code>/<fichier>.png) est IDENTIQUE au rendu de la page du même motif, dans le même fond : sur un échantillon de pages de motifs (tirage fixe), la page est ouverte avec ?fond=……",

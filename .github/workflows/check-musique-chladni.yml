@@ -45,8 +45,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - run: node tools/musique_chladni_donnees.mjs
       - run: node tools/check_musique_chladni.mjs local
       - run: node tools/check_musique_chladni.mjs local --essai
@@ -59,8 +60,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps webkit
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: webkit
       - run: node tools/check_musique_webkit.mjs local
   statique:
     # la page se lit SANS JavaScript (prompt 202 : Bing, Copilot, Google) : le texte est dans le HTML des 11 pages,

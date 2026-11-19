@@ -11,9 +11,14 @@
           "ogLocale": "en_GB",
           "remplacements": [
             {
+              "fr": "Chladni — figures, gammes et fréquences",
+              "trad": "Chladni — figures, scales and frequencies",
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; le titre court de la page (h1, dictionnaire)"
+            },
+            {
               "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
               "trad": "Chladni — figures, scales and frequencies",
-              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; prompt 203 : le titre plus long de la balise <title> (title, og:title, twitter:title, JSON-LD name)"
             },
             {
               "fr": "Les figures de Chladni du système de motifs : lignes de niveau d'un mode propre de plaque, classification des figures réalisables, lien avec la cymatique.",
@@ -47,9 +52,14 @@
           "ogLocale": "es_ES",
           "remplacements": [
             {
+              "fr": "Chladni — figures, gammes et fréquences",
+              "trad": "Chladni — escalas y frecuencias",
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; le titre court de la page (h1, dictionnaire)"
+            },
+            {
               "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
               "trad": "Chladni: figuras, escalas, frecuencias — La Livrée d'Hermès",
-              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; prompt 203 : le titre plus long de la balise <title> (title, og:title, twitter:title, JSON-LD name)"
             },
             {
               "fr": "Les figures de Chladni du système de motifs : lignes de niveau d'un mode propre de plaque, classification des figures réalisables, lien avec la cymatique.",
@@ -78,9 +88,14 @@
           "ogLocale": "th_TH",
           "remplacements": [
             {
+              "fr": "Chladni — figures, gammes et fréquences",
+              "trad": "Chladni — บันไดเสียงและความถี่",
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; le titre court de la page (h1, dictionnaire)"
+            },
+            {
               "fr": "Chladni : figures, gammes, fréquences — La Livrée d'Hermès",
               "trad": "Chladni — บันไดเสียงและความถี่",
-              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title"
+              "source": "envoi 61 (page Chladni) : pageTitle en ; es, th : le titre de la page avec « Chladni » pour seul changement ; titre, og:title, twitter:title ; prompt 203 : le titre plus long de la balise <title> (title, og:title, twitter:title, JSON-LD name)"
             },
             {
               "fr": "Les figures de Chladni du système de motifs : lignes de niveau d'un mode propre de plaque, classification des figures réalisables, lien avec la cymatique.",

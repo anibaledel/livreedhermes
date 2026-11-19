@@ -58,6 +58,7 @@ const [c0, c1] = collection.palette.map((c) => c.replace('#', ''));
 const requete = `?fond=${encodeURIComponent(fond)}${sup ? `&sup=${encodeURIComponent(sup)}` : ''}&c0=${c0}&c1=${c1}`;
 
 const navigateur = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+console.log(`Navigateur : Chromium ${navigateur.version()} (la version de Playwright est fixée dans .github/actions/playwright/action.yml : le rendu de la colonne x = 0 des images par2 dépend du moteur, prompt 206)`);
 const echecs = [];
 for (const l of echantillon) {
   for (const page of [l.page, `fr/${l.page}`]) {

@@ -28,6 +28,9 @@ name: Fonds des cases conformes au calcul
 #   - check_export_pinterest.mjs local : les images des collections
 #     sont identiques, pixel par pixel, au rendu des pages (dans les couleurs
 #     de chaque collection, data/fonds/collections-pinterest.json).
+#     Playwright est à VERSION FIXE (.github/actions/playwright/action.yml : 1.65.0, Chromium 158) : avec Chromium 159 (Playwright 1.65.1, le 13
+#     novembre), 16 pages par2 diffèrent de leurs références B6D par la seule colonne x = 0 (45 à 89 pixels sur 1,5 million, 6/255 au plus ; prompt 206).
+#     On ne régénère pas les références ; on monte la version quand on a regardé l'écart.
 # Et, sans navigateur : check_couleurs.mjs (un seul jeu de couleurs par
 # défaut, assets/couleurs.js, et le contraste gris / crème) ;
 # correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json) ;
@@ -116,8 +119,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       - run: node tools/check_selecteur_fonds.mjs local
       - run: node tools/check_export_pinterest.mjs local --code P --echantillon 8
       - run: node tools/check_export_pinterest.mjs local --code B2D --echantillon 8
@@ -162,8 +166,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install playwright@1
-      - run: npx playwright install --with-deps chromium
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
       # laisser à GitHub Pages le temps de publier, puis réessayer jusqu'à 10 min
       - if: github.event_name == 'push'
         run: sleep 240
