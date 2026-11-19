@@ -31,3 +31,6 @@ jobs:
         with:
           node-version: '20'
       - run: node scripts/build-header.js --verifie
+      # les générateurs des 64 pages d'hexagrammes (français, puis six langues) : un rejeu ne modifie plus rien ; --verifie écrit rien et échoue sur un écart (prompt 208)
+      - run: node scripts/generate-hexagram-pages.js --verifie
+      - run: node scripts/generate-hexagram-pages-traduites.js --verifie

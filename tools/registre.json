@@ -208,11 +208,13 @@
     "en/hexagrams/63-qian-the-creative.html",
     "en/lexicon",
     "en/works",
+    "en/yi-king-draw",
     "es/buscar",
     "es/hexagramas",
     "es/hexagramas/0-kun-lo-receptivo.html",
     "es/lexico",
     "es/libro",
+    "es/tirada-del-yi-king",
     "fr/livre",
     "fr/motifs",
     "fr/motifs/bases-yang-h0.html",
@@ -225,7 +227,8 @@
     "th/hexagrams",
     "th/hexagrams/0-kun.html",
     "th/lexicon",
-    "th/search"
+    "th/search",
+    "th/yi-king-draw"
    ],
    "ecrit": [],
    "appele_par": [
@@ -527,6 +530,24 @@
    "ecrit": [],
    "appele_par": [
     "check-galerie-bicolore-ordres.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_galerie_unifies_texte.mjs",
+   "role": "la FAQ et la figure de la galerie des Patterns Unifiés disent le critère exact (prompt 208, B).",
+   "lit": [
+    "assets/figures/demi-decalage-patterns-unifies.svg",
+    "en/three-colour-gallery/index.html",
+    "es/galeria-tricolor/index.html",
+    "th/three-colour-gallery/index.html",
+    "tools/filtre_unified.py"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
@@ -1076,6 +1097,23 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_tirage_outil.mjs",
+   "role": "l'outil de tirage du Yi King fait ce que ses textes disent (prompts 207 et 208).",
+   "lit": [
+    "en/yi-king-draw",
+    "es/tirada-del-yi-king",
+    "scripts/extract-hexagram-data.js",
+    "th/yi-king-draw"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-accessibilite.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_tirage_texte.mjs",
    "role": "la page du tirage du Yi King a du vrai texte sous l'outil, dans son HTML STATIQUE (prompt 207).",
    "lit": [
@@ -1550,6 +1588,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/figure_demi_decalage.py",
+   "role": "la figure « avant / après la translation » de la galerie des Patterns Unifiés (prompt 208).",
+   "lit": [
+    "assets/figures/demi-decalage-patterns-unifies.svg"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/figure_en_ligne.mjs",
    "role": "une figure SVG d'article, incluse EN LIGNE dans sa page depuis son fichier, sans copie à la main.",
    "lit": [
@@ -1584,8 +1636,11 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
-   "etat": "ponctuel",
+   "utilise_par": [
+    "tools/check_galerie_unifies_texte.mjs",
+    "tools/figure_demi_decalage.py"
+   ],
+   "etat": "actif",
    "sait_echouer": false
   },
   {

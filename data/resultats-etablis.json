@@ -3429,7 +3429,7 @@
     "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
    },
    "valeur": {
-    "ordres": "2 à 52",
+    "ordres": "4 à 52",
     "ordre_2": "impossible",
     "n_mod_4_egal_0": "motif classique B/R",
     "n_mod_4_egal_2": "croix ansée canonique"
@@ -3457,7 +3457,7 @@
    ],
    "statut": "verifie_ci",
    "statut_depot": "1. démontré",
-   "note": "Démontré dans DEPOT.md (deux branches explicites, et b = c pour l'ordre 2) ; construction.py --existence en est l'assertion exécutable de 2 à 52 et sort en erreur si une branche échoue. 2 s dans le conteneur. Journal d'ici : docs/journaux/2026-10-09/construction-depot-15.34.log."
+   "note": "Démontré dans DEPOT.md (deux branches explicites, et b = c pour l'ordre 2) ; construction.py --existence en est l'assertion exécutable : il construit un étiquetage magique à chaque ordre pair de 4 à 52, contrôle l'ordre 2 (les 256 étiquetages énumérés, aucun magique ; les 24 carrés 2 × 2 normaux, aucun à lignes et colonnes égales) et sort en erreur si une branche ou ce contrôle échoue. 2 s dans le conteneur. Journal d'ici : docs/journaux/2026-10-09/construction-depot-15.34.log."
   },
   {
    "id": "croix-ansee-theoreme-positif",

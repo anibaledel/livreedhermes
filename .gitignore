@@ -33,3 +33,6 @@ __pycache__/
 # Archivés sur la branche archive-medias (prompt 200) : restaurés par tools/lib_archive.mjs pour les contrôles, jamais suivis
 /assets/motifs-pinterest/
 /assets/motifs-svg/
+
+# Listes d'URL de travail (IndexNow, etc.) : jamais suivies ; le workflow indexnow.yml calcule la liste depuis git diff
+/urls-indexnow-*.txt

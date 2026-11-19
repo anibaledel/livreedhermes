@@ -31,4 +31,8 @@ jobs:
         run: |
           npx --yes http-server . -p 8123 -s &
           npx --yes wait-on http://localhost:8123/index.html
+      # la page du tirage du Yi King est auditée aussi APRÈS un tirage (le champ « Copier le lien » est écrit par le JavaScript de l'outil : prompt 208)
       - run: node tools/check_accessibilite.mjs --base-url http://localhost:8123
+      # l'outil de tirage : King Wen d'abord, puis le numéro du site ; traits mutants et second hexagramme ; --essai : des résultats faussés sont refusés
+      - run: node tools/check_tirage_outil.mjs --essai
+      - run: node tools/check_tirage_outil.mjs --base-url http://localhost:8123

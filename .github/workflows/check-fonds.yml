@@ -111,6 +111,9 @@ jobs:
       - run: pip install pillow
       - run: python3 tools/vignettes_animations.py --verifie
       - run: python3 tools/vignettes_animations.py --essai
+      # la figure « avant / après le demi-décalage » de la galerie des Patterns Unifiés, tirée du référent (prompt 208) : à jour, et --essai : une teinte faussée est refusée
+      - run: python3 tools/figure_demi_decalage.py --verifie
+      - run: python3 tools/figure_demi_decalage.py --essai
 
   rendu:
     runs-on: ubuntu-latest

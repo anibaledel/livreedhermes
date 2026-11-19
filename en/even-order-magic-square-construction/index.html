@@ -340,8 +340,11 @@
       <pre><code>python tools/construction.py --existence
 python tools/construction.py --toutes
 python tools/parite.py</code></pre>
-      <p>The first builds a magic square at every even order from 2 to 52 through the branch that
-      applies, and exits with an error if one fails. The second rebuilds <strong>all</strong>
+      <p>The first builds a magic square at every even order from 4 to 52 through the branch that
+      applies, and exits with an error if one fails. For order 2, which is impossible, it builds
+      nothing: it enumerates the 256 labellings of order 2 and finds none magic, then enumerates the
+      24 normal 2 × 2 squares and finds none whose rows and columns have the same sum; it also exits
+      with an error if either check fails. The second rebuilds <strong>all</strong>
       candidate figures of orders 6 and 10 — 2 out of 2, then 2,048 out of 2,048 — with no solver.
       The third checks the parity obstruction on the 279,616 configurations of orders 4 to 10.</p>
     </div>
@@ -481,8 +484,5 @@ python tools/parite.py</code></pre>
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

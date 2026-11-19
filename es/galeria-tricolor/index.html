@@ -55,6 +55,9 @@
   .critere{ max-width:62ch; margin:16px auto 0; padding:12px 16px; text-align:left; border:1px solid var(--line-strong); border-radius:3px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); overflow-wrap:anywhere; }
   .critere h2{ margin:0 0 6px; font-size:calc(12.5px + var(--fs-bump)); font-weight:400; color:var(--gold); letter-spacing:.04em; }
   .critere p{ margin:6px 0 0; }
+  .figure-demi-decalage{ margin:12px 0 0; }
+  .figure-demi-decalage img{ display:block; max-width:100%; height:auto; margin:0 auto; border-radius:3px; }
+  .figure-demi-decalage figcaption{ margin-top:8px; font-size:calc(10.5px + var(--fs-bump)); line-height:1.5; }
   .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
   .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
 
@@ -221,7 +224,7 @@
       "name": "¿Cuáles son las restricciones de creación de los motivos unificados?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dos restricciones definen un motivo unificado. La primera: asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada. La segunda: los bordes de la cuadrícula deben hacer eco del centro."
+        "text": "Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición."
       }
     },
     {
@@ -229,7 +232,7 @@
       "name": "¿Cómo se identifican los motivos unificados entre las cuadrículas equilibradas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La primera restricción (un único matiz en las dos mitades de 6 niveles) aísla 8 de las 15 familias como motivos unificados, dentro de las 512 cuadrículas distintas que engendra el sistema. Es lo que permite distinguir, entre todas las cuadrículas equilibradas, las que son específicamente motivos unificados."
+        "text": "La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento."
       }
     },
     {
@@ -365,16 +368,20 @@
     </div>
     <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 cuenta las construcciones (familia × par de matices × hexagrama), no las formas: varias construcciones pueden dibujar la misma cuadrícula, o una cuadrícula y su desplazada de medio período la misma pavimentación — de ahí 512 cuadrículas distintas y 256 pavimentaciones.</p>
     <ul class="comptes" id="comptes-unifies">
-      <li><b>1 024 constructions</b> — des triplets (famille, couple de teintes, hexagramme) retenus par le critère ci-dessous, sur 8 des 15 familles. Aucune équivalence : chaque triplet compte pour un.</li>
-      <li><b>512 grilles distinctes</b> — les constructions qui dessinent la même grille de 12 × 12 sont comptées une fois.</li>
-      <li><b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.</li>
-      <li><b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.</li>
+      <li><b>1 024 construcciones</b> — tripletes (familia, par de matices, hexagrama) retenidos por el criterio de abajo, en 8 de las 15 familias. Ninguna equivalencia: cada triplete cuenta como uno.</li>
+      <li><b>512 cuadrículas distintas</b> — las construcciones que dibujan la misma cuadrícula de 12 × 12 se cuentan una vez.</li>
+      <li><b>256 teselados</b> — una cuadrícula y su desplazada de medio período (6 casillas en fila y en columna) dan el mismo teselado del plano: se cuentan juntas.</li>
+      <li><b>128 órbitas</b> — las 512 cuadrículas distintas agrupadas bajo el grupo de simetría completo (rotaciones, espejo, semidesplazamiento); cada órbita contiene 4 cuadrículas del corpus.</li>
     </ul>
     <div class="critere" id="critere-exact">
-      <h2>Le critère exact</h2>
-      <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>
-      <p>C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).</p>
-      <p><b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.</p>
+      <h2>El criterio exacto</h2>
+      <p>Una construcción (familia, matiz A, matiz B, hexagrama <i>n</i>) da la cuadrícula <i>g</i> de 12 × 12. Sea <i>d</i> la cuadrícula <i>g</i> desplazada 6 casillas en fila y 6 casillas en columna, uniendo los bordes (toro): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Sea <i>s</i> la cuadrícula del mismo hexagrama con sus dos matices A y B intercambiados. La construcción se retiene si y solo si <i>d</i> = <i>s</i>, casilla por casilla, sin excepción.</p>
+      <figure class="figure-demi-decalage">
+        <img src="../../assets/figures/demi-decalage-patterns-unifies.svg" width="624" height="200" loading="lazy" alt="Tres cuadrículas de 12 × 12 casillas, violetas, magenta y naranjas, de una construcción real retenida por el criterio (familia BASE-YANG, matices yang y yang_mut, hexagrama n.º 0). A la izquierda, la cuadrícula g. En el centro, la misma cuadrícula desplazada seis casillas en fila y en columna: sus casillas violetas y magenta quedan intercambiadas. A la derecha, la cuadrícula del mismo hexagrama con sus dos matices de construcción intercambiados: es idéntica a la del centro, casilla por casilla.">
+        <figcaption>Familia BASE-YANG, matices A = yang y B = yang_mut, hexagrama n.º 0: una construcción realmente retenida por el criterio. De izquierda a derecha: la cuadrícula <i>g</i>; <i>g</i> desplazada 6 casillas en fila y en columna (<i>d</i>); la cuadrícula del mismo hexagrama con los matices A y B intercambiados (<i>s</i>). Las dos líneas blancas marcan el medio período de 6 casillas. <i>d</i> y <i>s</i> son idénticas casilla por casilla: es lo que exige el criterio, y lo que <code>tools/figure_demi_decalage.py</code> comprueba antes de escribir la figura.</figcaption>
+      </figure>
+      <p>Es el criterio del semidesplazamiento, tal como lo calcula <code>tools/filtre_unified.py</code> (retiene 1 024 construcciones en 8 familias); <code>tools/cube_edges.py</code> comprueba sus consecuencias (512 cuadrículas distintas, 256 teselados, 128 órbitas).</p>
+      <p><b>Intuición, sin valor de definición:</b> «las esquinas hacen eco del centro» — el desplazamiento de medio período lleva el centro a las esquinas, y el criterio exige que ese desplazamiento equivalga a intercambiar los dos matices.</p>
     </div>
   </header>
   </div>
@@ -388,11 +395,11 @@
     </details>
     <details class="faq-item">
       <summary>¿Cuáles son las restricciones de creación de los motivos unificados?<span class="q-mark">＋</span></summary>
-      <p>Dos restricciones definen un motivo unificado. La primera: asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada. La segunda: los bordes de la cuadrícula deben hacer eco del centro.</p>
+      <p>Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición.</p>
     </details>
     <details class="faq-item">
       <summary>¿Cómo se identifican los motivos unificados entre las cuadrículas equilibradas?<span class="q-mark">＋</span></summary>
-      <p>La primera restricción (un único matiz en las dos mitades de 6 niveles) aísla 8 de las 15 familias como motivos unificados, dentro de las 512 cuadrículas distintas que engendra el sistema. Es lo que permite distinguir, entre todas las cuadrículas equilibradas, las que son específicamente motivos unificados.</p>
+      <p>La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento.</p>
     </details>
     <details class="faq-item">
       <summary>¿Cómo se clasifican estas familias?<span class="q-mark">＋</span></summary>
@@ -1031,8 +1038,5 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

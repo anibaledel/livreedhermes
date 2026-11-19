@@ -43,8 +43,12 @@ let vues = 0;
 for (const t of [...FIXES, ...TUILES]) {
   if (SANS_TUILES.has(t.href)) { console.log(`—     ${t.href} : hors bloc (SANS_TUILES), rangée dans ${t.categories[0]}`); continue; }
   const p = await contexte.newPage();
-  const rep = await p.goto(`${BASE}/${t.href}`, { waitUntil: 'domcontentloaded' });
+  // `load`, pas `domcontentloaded` (prompt 208) : la largeur se mesure une fois les feuilles de style, les images et les polices chargées. Sur le site déployé,
+  // `domcontentloaded` arrive avant elles : la mesure dépendait alors du temps de réponse (428 px à 390 sur galerie-animations, 399 sur 360-calques,
+  // puis plus rien à la mesure suivante). Le seuil (390 px) ne change pas.
+  const rep = await p.goto(`${BASE}/${t.href}`, { waitUntil: 'load' });
   if (!rep || rep.status() !== 200) { echec(`${t.href} : ${rep ? rep.status() : 'pas de réponse'}`); await p.close(); continue; }
+  await p.evaluate(() => document.fonts.ready);
   const bloc = await p.evaluate(() => {
     const nav = document.querySelector('nav.nav-categories');
     if (!nav) return null;

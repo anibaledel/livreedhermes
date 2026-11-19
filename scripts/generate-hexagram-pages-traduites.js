@@ -38,6 +38,16 @@ const { rendre } = require('./build-header.js');
 const { htmlNavTiles } = require('./nav-tiles.js');
 
 const ROOT = path.resolve(__dirname, '..');
+
+// --verifie (prompt 208, D6) : rien n'est écrit ; chaque page est engendrée en mémoire, passée par build-header.js (traiter) et comparée au fichier en place.
+const VERIFIE = process.argv.includes('--verifie');
+const PERIMEES = [];
+function ecrire(chemin, contenu) {
+  if (!VERIFIE) { fs.writeFileSync(chemin, contenu, 'utf8'); return; }
+  const rel = path.relative(ROOT, chemin).split(path.sep).join('/');
+  const attendu = require('./build-header.js').traiter(rel, contenu);
+  if (!fs.existsSync(chemin) || fs.readFileSync(chemin, 'utf8') !== attendu) PERIMEES.push(rel);
+}
 const PREFIXE = '../../';
 const SITE = 'https://anibal-amiot.com';
 // un lien vers une page du site vise sa version dans la langue de la page, si elle existe
@@ -549,7 +559,7 @@ ${scriptAnnee}<script src="${PREFIXE}assets/share-widget.js"></script>
 
     const rendu = html.split('@@DATE_ISO@@').join(dateModified).split('@@DATE_TEXTE@@').join(l.date(y, m, d))
       .replace('<head>', `<head>\n<!-- @contenu sha256:${empreinte} — empreinte du texte éditorial seul ; voir scripts/generate-hexagram-pages-traduites.js -->`);
-    fs.writeFileSync(outPath, garderZones(rendu, ancien), 'utf8');
+    ecrire(outPath, garderZones(rendu, ancien));
   }
 
   // ---------- index ----------
@@ -651,8 +661,17 @@ ${scriptAnnee}<script src="${PREFIXE}assets/share-widget.js"></script>
 </body>
 </html>
 `;
-  fs.writeFileSync(outPath, garderZones(html, ancien), 'utf8');
-  console.log(`Généré 64 pages + index dans ${A.DOSSIER[lang]}/`);
+  ecrire(outPath, garderZones(html, ancien));
+  if (!VERIFIE) console.log(`Généré 64 pages + index dans ${A.DOSSIER[lang]}/`);
 }
 
 for (const lang of ['en', 'es', 'th', 'de', 'it', 'ja']) genererLangue(lang);
+if (VERIFIE) {
+  if (PERIMEES.length) {
+    console.error(`${PERIMEES.length} fichier(s) ne correspondent pas à ce que le générateur produit :`);
+    for (const f of PERIMEES.slice(0, 20)) console.error(`   ${f}`);
+    console.error('\nRelancer : node scripts/generate-hexagram-pages.js && node scripts/generate-hexagram-pages-traduites.js && node scripts/build-header.js');
+    process.exit(1);
+  }
+  console.log('OK    generate-hexagram-pages-traduites : 6 langues × (64 pages + listing) à jour (rien écrit).');
+}

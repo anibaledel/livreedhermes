@@ -55,6 +55,9 @@
   .critere{ max-width:62ch; margin:16px auto 0; padding:12px 16px; text-align:left; border:1px solid var(--line-strong); border-radius:3px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); overflow-wrap:anywhere; }
   .critere h2{ margin:0 0 6px; font-size:calc(12.5px + var(--fs-bump)); font-weight:400; color:var(--gold); letter-spacing:.04em; }
   .critere p{ margin:6px 0 0; }
+  .figure-demi-decalage{ margin:12px 0 0; }
+  .figure-demi-decalage img{ display:block; max-width:100%; height:auto; margin:0 auto; border-radius:3px; }
+  .figure-demi-decalage figcaption{ margin-top:8px; font-size:calc(10.5px + var(--fs-bump)); line-height:1.5; }
   .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
   .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
 
@@ -221,7 +224,7 @@
       "name": "ข้อกำหนดในการสร้างลวดลายรวมเป็นหนึ่งมีอะไรบ้าง",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ข้อกำหนดสองข้อนิยามลวดลายรวมเป็นหนึ่ง ข้อแรก: การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล ข้อที่สอง: ขอบของตารางต้องสะท้อนจุดศูนย์กลาง"
+        "text": "เกณฑ์เดียวเป็นตัวตัดสิน คือเกณฑ์การเลื่อนครึ่งคาบ ลวดลายหนึ่งเป็นลวดลายรวมเป็นหนึ่งเมื่อการเลื่อนหกช่องทั้งในแนวนอนและแนวตั้งให้ตารางที่ตรงกับตารางที่ได้จากการสลับโทนสีสองสีที่ใช้สร้างลวดลายนั้นทุกประการ tools/filtre_unified.py ตรวจสอบทีละช่อง “มุมสะท้อนจุดศูนย์กลาง” เป็นเพียงสัญชาตญาณ ไม่ใช่นิยาม"
       }
     },
     {
@@ -229,7 +232,7 @@
       "name": "ลวดลายรวมเป็นหนึ่งถูกระบุจากตารางที่สมดุลได้อย่างไร",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ข้อกำหนดข้อแรก (โทนสีเดียวบนทั้งสองครึ่งที่มีครึ่งละ 6 ระดับ) แยกตระกูล 8 จาก 15 ตระกูลออกมาเป็นลวดลายรวมเป็นหนึ่ง ภายในตารางที่ต่างกัน 512 แบบที่ระบบสร้างขึ้น นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุลทั้งหมด ตารางใดเป็นลวดลายรวมเป็นหนึ่งโดยเฉพาะ"
+        "text": "การทดสอบเดียวกันนี้ เมื่อใช้กับการสร้างที่เป็นตัวเลือกทั้งหมด 1,920 แบบ (15 ตระกูล 2 คู่โทนสี 64 ฉักลักษณ์) คัดไว้ 1,024 แบบ ทั้งหมดอยู่ใน 8 จาก 15 ตระกูล และให้ตารางที่ต่างกัน 512 แบบ การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล แต่ไม่ได้เป็นตัวกำหนดการคัดเลือก ซึ่งเกณฑ์การเลื่อนครึ่งคาบเป็นตัวกำหนดเพียงอย่างเดียว"
       }
     },
     {
@@ -365,16 +368,20 @@
     </div>
     <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 คือจำนวนการสร้าง (ตระกูล × คู่โทนสี × ฉักลักษณ์) ไม่ใช่จำนวนรูปร่าง: การสร้างหลายแบบอาจวาดตารางเดียวกัน หรือตารางหนึ่งกับตารางที่เลื่อนครึ่งคาบอาจให้ลายปูพื้นเดียวกัน — จึงได้ตารางที่ต่างกัน 512 แบบ และลายปูพื้น 256 แบบ</p>
     <ul class="comptes" id="comptes-unifies">
-      <li><b>1 024 constructions</b> — des triplets (famille, couple de teintes, hexagramme) retenus par le critère ci-dessous, sur 8 des 15 familles. Aucune équivalence : chaque triplet compte pour un.</li>
-      <li><b>512 grilles distinctes</b> — les constructions qui dessinent la même grille de 12 × 12 sont comptées une fois.</li>
-      <li><b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.</li>
-      <li><b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.</li>
+      <li><b>1,024 แบบ</b> — ชุดสามสิ่ง (ตระกูล คู่โทนสี ฉักลักษณ์) ที่เกณฑ์ด้านล่างคัดไว้ จาก 8 ใน 15 ตระกูล ไม่นับเทียบเท่า: แต่ละชุดนับเป็นหนึ่ง</li>
+      <li><b>ตารางที่ต่างกัน 512 แบบ</b> — การสร้างที่วาดตาราง 12 × 12 เหมือนกันนับเป็นหนึ่ง</li>
+      <li><b>การปูลาย 256 แบบ</b> — ตารางหนึ่งกับตารางที่เลื่อนครึ่งคาบ (6 ช่องตามแถวและคอลัมน์) ให้การปูลายระนาบเดียวกัน จึงนับรวมกัน</li>
+      <li><b>วงโคจร 128 วง</b> — ตาราง 512 แบบที่ต่างกันจัดกลุ่มตามกลุ่มสมมาตรเต็มรูป (การหมุน กระจก การเลื่อนครึ่งคาบ) แต่ละวงโคจรมี 4 ตารางของคลัง</li>
     </ul>
     <div class="critere" id="critere-exact">
-      <h2>Le critère exact</h2>
-      <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>
-      <p>C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).</p>
-      <p><b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.</p>
+      <h2>เกณฑ์ที่แน่นอน</h2>
+      <p>การสร้างหนึ่งแบบ (ตระกูล โทนสี A โทนสี B ฉักลักษณ์ <i>n</i>) ให้ตาราง <i>g</i> ขนาด 12 × 12 ให้ <i>d</i> เป็นตาราง <i>g</i> ที่เลื่อน 6 ช่องตามแถวและ 6 ช่องตามคอลัมน์ โดยต่อขอบเข้าด้วยกัน (ทอรัส): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12] ให้ <i>s</i> เป็นตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B การสร้างนั้นจะถูกคัดไว้ก็ต่อเมื่อ <i>d</i> = <i>s</i> ทีละช่อง โดยไม่มีข้อยกเว้น</p>
+      <figure class="figure-demi-decalage">
+        <img src="../../assets/figures/demi-decalage-patterns-unifies.svg" width="624" height="200" loading="lazy" alt="ตารางสามตาราง ขนาด 12 × 12 ช่อง สีม่วง สีบานเย็น และสีส้ม จากการสร้างจริงที่เกณฑ์คัดไว้ (ตระกูล BASE-YANG โทนสี yang และ yang_mut ฉักลักษณ์ที่ 0) ซ้ายคือตาราง g กลางคือตารางเดียวกันที่เลื่อนหกช่องตามแถวและคอลัมน์ ช่องสีม่วงกับสีบานเย็นสลับกัน ขวาคือตารางของฉักลักษณ์เดียวกันที่สลับโทนสีสองสีที่ใช้สร้าง ซึ่งเหมือนกับตารางกลางทุกช่อง">
+        <figcaption>ตระกูล BASE-YANG โทนสี A = yang และ B = yang_mut ฉักลักษณ์ที่ 0 เป็นการสร้างที่เกณฑ์คัดไว้จริง จากซ้ายไปขวา: ตาราง <i>g</i>; <i>g</i> ที่เลื่อน 6 ช่องตามแถวและคอลัมน์ (<i>d</i>); ตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B (<i>s</i>) เส้นขาวสองเส้นแสดงครึ่งคาบ 6 ช่อง <i>d</i> และ <i>s</i> เหมือนกันทุกช่อง ซึ่งเป็นสิ่งที่เกณฑ์ต้องการ และเป็นสิ่งที่ <code>tools/figure_demi_decalage.py</code> ตรวจก่อนเขียนรูป</figcaption>
+      </figure>
+      <p>นี่คือเกณฑ์การเลื่อนครึ่งคาบ ตามที่ <code>tools/filtre_unified.py</code> คำนวณ (คัดไว้ 1,024 แบบจาก 8 ตระกูล) ส่วน <code>tools/cube_edges.py</code> ตรวจผลที่ตามมา (ตารางที่ต่างกัน 512 แบบ การปูลาย 256 แบบ วงโคจร 128 วง)</p>
+      <p><b>สัญชาตญาณ ไม่ใช่นิยาม:</b> “มุมสะท้อนจุดศูนย์กลาง” — การเลื่อนครึ่งคาบนำจุดศูนย์กลางไปอยู่ที่มุม และเกณฑ์ต้องการให้การเลื่อนนี้เทียบเท่ากับการสลับโทนสีทั้งสอง</p>
     </div>
   </header>
   </div>
@@ -388,11 +395,11 @@
     </details>
     <details class="faq-item">
       <summary>ข้อกำหนดในการสร้างลวดลายรวมเป็นหนึ่งมีอะไรบ้าง<span class="q-mark">＋</span></summary>
-      <p>ข้อกำหนดสองข้อนิยามลวดลายรวมเป็นหนึ่ง ข้อแรก: การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล ข้อที่สอง: ขอบของตารางต้องสะท้อนจุดศูนย์กลาง</p>
+      <p>เกณฑ์เดียวเป็นตัวตัดสิน คือเกณฑ์การเลื่อนครึ่งคาบ ลวดลายหนึ่งเป็นลวดลายรวมเป็นหนึ่งเมื่อการเลื่อนหกช่องทั้งในแนวนอนและแนวตั้งให้ตารางที่ตรงกับตารางที่ได้จากการสลับโทนสีสองสีที่ใช้สร้างลวดลายนั้นทุกประการ tools/filtre_unified.py ตรวจสอบทีละช่อง “มุมสะท้อนจุดศูนย์กลาง” เป็นเพียงสัญชาตญาณ ไม่ใช่นิยาม</p>
     </details>
     <details class="faq-item">
       <summary>ลวดลายรวมเป็นหนึ่งถูกระบุจากตารางที่สมดุลได้อย่างไร<span class="q-mark">＋</span></summary>
-      <p>ข้อกำหนดข้อแรก (โทนสีเดียวบนทั้งสองครึ่งที่มีครึ่งละ 6 ระดับ) แยกตระกูล 8 จาก 15 ตระกูลออกมาเป็นลวดลายรวมเป็นหนึ่ง ภายในตารางที่ต่างกัน 512 แบบที่ระบบสร้างขึ้น นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุลทั้งหมด ตารางใดเป็นลวดลายรวมเป็นหนึ่งโดยเฉพาะ</p>
+      <p>การทดสอบเดียวกันนี้ เมื่อใช้กับการสร้างที่เป็นตัวเลือกทั้งหมด 1,920 แบบ (15 ตระกูล 2 คู่โทนสี 64 ฉักลักษณ์) คัดไว้ 1,024 แบบ ทั้งหมดอยู่ใน 8 จาก 15 ตระกูล และให้ตารางที่ต่างกัน 512 แบบ การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล แต่ไม่ได้เป็นตัวกำหนดการคัดเลือก ซึ่งเกณฑ์การเลื่อนครึ่งคาบเป็นตัวกำหนดเพียงอย่างเดียว</p>
     </details>
     <details class="faq-item">
       <summary>ตระกูลเหล่านี้จัดหมวดหมู่อย่างไร<span class="q-mark">＋</span></summary>
@@ -1031,8 +1038,5 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

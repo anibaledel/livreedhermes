@@ -80,5 +80,8 @@ jobs:
       - run: node scripts/build-tirage-texte.js --verifie
       - run: node tools/check_tirage_texte.mjs --verifie
       - run: node tools/check_tirage_texte.mjs --essai
+      # la galerie des Patterns Unifiés (prompt 208) : la FAQ dit le critère exact (visible = structurée, ancienne formulation absente), la figure est décrite par ses données
+      - run: node tools/check_galerie_unifies_texte.mjs
+      - run: node tools/check_galerie_unifies_texte.mjs --essai
       - run: node tools/check_langue_des_liens.mjs
       - run: node tools/check_langue_des_liens.mjs --essai

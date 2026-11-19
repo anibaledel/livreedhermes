@@ -1,4 +1,4 @@
 {
-  "_doc": "Mesure d'audience Cloudflare Web Analytics (sans cookie, sans bandeau de consentement). Coller ici le jeton du site (Cloudflare > Analytics & Logs > Web Analytics > Add a site > anibal-amiot.com, champ « token » du fragment JavaScript), puis lancer node scripts/build-header.js. Vide : aucun script posé. Voir includes/README.md.",
-  "cloudflareToken": "8fe648755f2f4ccd92fc5d60014ccac0"
+  "_doc": "Mesure d'audience Cloudflare Web Analytics : DÉSACTIVÉE chez Cloudflare le 18 novembre 2026 (prompt 208), donc jeton vide et aucun script posé sur les pages (scripts/build-header.js retire la zone @analytics quand le jeton est vide). Pour la rétablir : réactiver le site dans Cloudflare > Analytics & Logs > Web Analytics, coller ici le jeton (champ « token » du fragment JavaScript), puis lancer node scripts/build-header.js. Voir includes/README.md.",
+  "cloudflareToken": ""
 }

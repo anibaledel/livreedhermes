@@ -117,6 +117,19 @@ const context = await browser.newContext({ bypassCSP: true, viewport: { width: 1
 // une visite (voir check_pages_console.mjs).
 await context.route('https://static.cloudflareinsights.com/**',
   (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+// l'audit axe d'une page déjà chargée (axe injecté) : la liste de ses infractions
+async function infractionsDe(p) {
+  return p.evaluate(async () => {
+    const r = await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa'] });
+    return r.violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      aide: v.help,
+      noeuds: v.nodes.map((n) => `${n.target.join(' ')} — ${(n.failureSummary || '').split('\n').slice(1).join(' ').trim()}`),
+    }));
+  });
+}
+
 let echecs = 0;
 for (const page of PAGES) {
   const p = await context.newPage();
@@ -129,15 +142,7 @@ for (const page of PAGES) {
     continue;
   }
   await p.addScriptTag({ content: AXE });
-  const infractions = await p.evaluate(async () => {
-    const r = await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa'] });
-    return r.violations.map((v) => ({
-      id: v.id,
-      impact: v.impact,
-      aide: v.help,
-      noeuds: v.nodes.map((n) => `${n.target.join(' ')} — ${(n.failureSummary || '').split('\n').slice(1).join(' ').trim()}`),
-    }));
-  });
+  const infractions = await infractionsDe(p);
   if (infractions.length) {
     echecs++;
     console.error(`ÉCHEC ${page}`);
@@ -151,9 +156,50 @@ for (const page of PAGES) {
   }
   await p.close();
 }
+
+// La page du tirage du Yi King (prompt 208, D3) : ce que le JavaScript de l'outil écrit après un tirage — le résultat, le champ « Copier le lien »,
+// la zone des traits mutants — est audité aussi : avant, une violation « label » y est passée entre les mailles, puisqu'on n'auditait que la page à
+// son chargement. Le hasard est fixé (premiers lancers : 9, 6, 8, 7, 7, 6 : trois traits mutants, donc un second hexagramme), puis laissé libre.
+const PAGES_TIRAGE = ['tirage-livree-hermes.html', 'en/yi-king-draw/', 'es/tirada-del-yi-king/', 'th/yi-king-draw/', 'de/i-ging-orakel/', 'it/estrazione-i-ching/', 'ja/yi-king-draw/'];
+const contexteTirage = await browser.newContext({ bypassCSP: true, viewport: { width: 1280, height: 900 } });
+await contexteTirage.route('https://static.cloudflareinsights.com/**',
+  (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+await contexteTirage.addInitScript(() => {
+  const sortie = [0, 0, 0, 0.9, 0.9, 0.9, 0.9, 0.9, 0, 0, 0, 0.9, 0, 0.9, 0.9, 0.9, 0.9, 0.9];
+  let i = 0; const vrai = Math.random.bind(Math);
+  window.__hasardFixe = () => { i = 0; };
+  Math.random = () => (window.__fixe && i < sortie.length ? sortie[i++] : vrai());
+});
+for (const page of PAGES_TIRAGE) {
+  const p = await contexteTirage.newPage();
+  const rep = await p.goto(`${BASE_URL}/${encodeURI(page)}`, { waitUntil: 'networkidle' }).catch((e) => e);
+  if (!rep || rep instanceof Error || rep.status() >= 400) { echecs++; console.error(`ÉCHEC ${page} : chargement impossible`); await p.close(); continue; }
+  await p.addScriptTag({ content: AXE });
+  for (const etat of ['au chargement', 'après un tirage']) {
+    if (etat === 'après un tirage') {
+      await p.evaluate(() => { window.__fixe = true; window.__hasardFixe(); });
+      await p.click('#drawBtn');
+      await p.waitForSelector('#detail .num-big');
+      await p.waitForSelector('#mutationZone', { timeout: 8000 }).catch(() => {});
+      await p.waitForTimeout(1500);
+    }
+    const infractions = await infractionsDe(p);
+    if (infractions.length) {
+      echecs++;
+      console.error(`ÉCHEC ${page} (${etat})`);
+      for (const v of infractions) {
+        console.error(`  ${v.id} (${v.impact}) : ${v.aide}`);
+        for (const n of v.noeuds.slice(0, 5)) console.error(`    ${n}`);
+      }
+    } else {
+      console.log(`OK    ${page} (${etat})`);
+    }
+  }
+  await p.close();
+}
 await browser.close();
 if (echecs) {
-  console.error(`\n${echecs} page(s) en infraction sur ${PAGES.length}.`);
+  console.error(`\n${echecs} page(s) en infraction sur ${PAGES.length + PAGES_TIRAGE.length * 2} états.`);
   process.exit(1);
 }
-console.log(`\n${PAGES.length} pages conformes (axe-core, WCAG 2 A et AA).`);
+console.log(`\n${PAGES.length} pages et ${PAGES_TIRAGE.length * 2} états de la page du tirage (au chargement, après un tirage) conformes (axe-core, WCAG 2 A et AA).`);

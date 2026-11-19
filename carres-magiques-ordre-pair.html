@@ -309,8 +309,11 @@
       <pre><code>python tools/construction.py --existence
 python tools/construction.py --toutes
 python tools/parite.py</code></pre>
-      <p>La première construit un carré magique à chaque ordre pair de 2 à 52 par la branche qui lui
-      revient, et sort en erreur si l'une échoue. La deuxième reconstruit <strong>toutes</strong> les
+      <p>La première construit un carré magique à chaque ordre pair de 4 à 52 par la branche qui lui
+      revient, et sort en erreur si l'une échoue. Pour l'ordre 2, impossible, elle ne construit rien :
+      elle énumère ses 256 étiquetages et n'en trouve aucun de magique, puis énumère les 24 carrés
+      2 × 2 normaux et n'en trouve aucun dont les lignes et les colonnes aient la même somme ; elle
+      sort aussi en erreur si l'un de ces deux contrôles échoue. La deuxième reconstruit <strong>toutes</strong> les
       figures candidates des ordres 6 et 10 — 2 sur 2, puis 2 048 sur 2 048 — sans solveur. La
       troisième contrôle l'obstruction de parité sur les 279 616 configurations des ordres 4 à 10.</p>
     </div>
@@ -456,8 +459,5 @@ python tools/parite.py</code></pre>
 <script>
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

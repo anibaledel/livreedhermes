@@ -55,6 +55,9 @@
   .critere{ max-width:62ch; margin:16px auto 0; padding:12px 16px; text-align:left; border:1px solid var(--line-strong); border-radius:3px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); overflow-wrap:anywhere; }
   .critere h2{ margin:0 0 6px; font-size:calc(12.5px + var(--fs-bump)); font-weight:400; color:var(--gold); letter-spacing:.04em; }
   .critere p{ margin:6px 0 0; }
+  .figure-demi-decalage{ margin:12px 0 0; }
+  .figure-demi-decalage img{ display:block; max-width:100%; height:auto; margin:0 auto; border-radius:3px; }
+  .figure-demi-decalage figcaption{ margin-top:8px; font-size:calc(10.5px + var(--fs-bump)); line-height:1.5; }
   .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
   .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
 
@@ -221,7 +224,7 @@
       "name": "Quelles sont les contraintes de création des Unified Patterns ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée. La seconde : les bords de la grille doivent faire écho au centre."
+        "text": "Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition."
       }
     },
     {
@@ -229,7 +232,7 @@
       "name": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La première contrainte (teinte unique sur les deux moitiés de 6 niveaux) isole 8 des 15 familles comme Unified Patterns, au sein des 512 grilles distinctes que le système engendre. C'est ce qui permet de distinguer, parmi toutes les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns."
+        "text": "Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul."
       }
     },
     {
@@ -373,6 +376,10 @@
     <div class="critere" id="critere-exact">
       <h2>Le critère exact</h2>
       <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>
+      <figure class="figure-demi-decalage">
+        <img src="assets/figures/demi-decalage-patterns-unifies.svg" width="624" height="200" loading="lazy" alt="Trois grilles de 12 × 12 cases, violettes, magenta et orange, d'une construction réelle retenue par le critère (famille BASE-YANG, teintes yang et yang_mut, hexagramme n° 0). À gauche, la grille g. Au milieu, la même grille décalée de six cases en ligne et en colonne : les cases violettes et magenta y sont échangées. À droite, la grille du même hexagramme dont les deux teintes de construction sont échangées : elle est identique à celle du milieu, case par case.">
+        <figcaption>Famille BASE-YANG, teintes A = yang et B = yang_mut, hexagramme n° 0 : une construction réellement retenue par le critère. De gauche à droite : la grille <i>g</i> ; <i>g</i> décalée de 6 cases en ligne et en colonne (<i>d</i>) ; la grille du même hexagramme aux teintes A et B échangées (<i>s</i>). Les deux traits blancs marquent la demi-période de 6 cases. <i>d</i> et <i>s</i> sont identiques case par case : c'est ce que le critère exige, et ce que <code>tools/figure_demi_decalage.py</code> vérifie avant d'écrire la figure.</figcaption>
+      </figure>
       <p>C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).</p>
       <p><b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.</p>
     </div>
@@ -388,11 +395,11 @@
     </details>
     <details class="faq-item">
       <summary>Quelles sont les contraintes de création des Unified Patterns ?<span class="q-mark">＋</span></summary>
-      <p>Deux contraintes définissent un Unified Pattern. La première : associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée. La seconde : les bords de la grille doivent faire écho au centre.</p>
+      <p>Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition.</p>
     </details>
     <details class="faq-item">
       <summary>Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?<span class="q-mark">＋</span></summary>
-      <p>La première contrainte (teinte unique sur les deux moitiés de 6 niveaux) isole 8 des 15 familles comme Unified Patterns, au sein des 512 grilles distinctes que le système engendre. C'est ce qui permet de distinguer, parmi toutes les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.</p>
+      <p>Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul.</p>
     </details>
     <details class="faq-item">
       <summary>Comment ces familles sont-elles classifiées ?<span class="q-mark">＋</span></summary>
@@ -1035,8 +1042,5 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

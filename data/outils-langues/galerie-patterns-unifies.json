@@ -100,10 +100,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée. La seconde : les bords de la grille doivent faire écho au centre.",
-   "en": "Two constraints define a Unified Pattern. The first: assigning one and the same tint to both 6-level halves of a family produces a balanced grid. The second: the edges of the grid must echo the centre.",
-   "es": "Dos restricciones definen un motivo unificado. La primera: asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada. La segunda: los bordes de la cuadrícula deben hacer eco del centro.",
-   "th": "ข้อกำหนดสองข้อนิยามลวดลายรวมเป็นหนึ่ง ข้อแรก: การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล ข้อที่สอง: ขอบของตารางต้องสะท้อนจุดศูนย์กลาง",
+   "fr": "Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition.",
+   "en": "One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition.",
+   "es": "Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición.",
+   "th": "เกณฑ์เดียวเป็นตัวตัดสิน คือเกณฑ์การเลื่อนครึ่งคาบ ลวดลายหนึ่งเป็นลวดลายรวมเป็นหนึ่งเมื่อการเลื่อนหกช่องทั้งในแนวนอนและแนวตั้งให้ตารางที่ตรงกับตารางที่ได้จากการสลับโทนสีสองสีที่ใช้สร้างลวดลายนั้นทุกประการ tools/filtre_unified.py ตรวจสอบทีละช่อง “มุมสะท้อนจุดศูนย์กลาง” เป็นเพียงสัญชาตญาณ ไม่ใช่นิยาม",
    "source": "SANS SOURCE"
   },
   {
@@ -114,10 +114,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "La première contrainte (teinte unique sur les deux moitiés de 6 niveaux) isole 8 des 15 familles comme Unified Patterns, au sein des 512 grilles distinctes que le système engendre. C'est ce qui permet de distinguer, parmi toutes les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.",
-   "en": "The first constraint (a single tint on both 6-level halves) singles out 8 of the 15 families as Unified Patterns, within the 512 distinct grids the system generates. This is what distinguishes, among all balanced grids, those that are specifically Unified Patterns.",
-   "es": "La primera restricción (un único matiz en las dos mitades de 6 niveles) aísla 8 de las 15 familias como motivos unificados, dentro de las 512 cuadrículas distintas que engendra el sistema. Es lo que permite distinguir, entre todas las cuadrículas equilibradas, las que son específicamente motivos unificados.",
-   "th": "ข้อกำหนดข้อแรก (โทนสีเดียวบนทั้งสองครึ่งที่มีครึ่งละ 6 ระดับ) แยกตระกูล 8 จาก 15 ตระกูลออกมาเป็นลวดลายรวมเป็นหนึ่ง ภายในตารางที่ต่างกัน 512 แบบที่ระบบสร้างขึ้น นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุลทั้งหมด ตารางใดเป็นลวดลายรวมเป็นหนึ่งโดยเฉพาะ",
+   "fr": "Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul.",
+   "en": "The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides.",
+   "es": "La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento.",
+   "th": "การทดสอบเดียวกันนี้ เมื่อใช้กับการสร้างที่เป็นตัวเลือกทั้งหมด 1,920 แบบ (15 ตระกูล 2 คู่โทนสี 64 ฉักลักษณ์) คัดไว้ 1,024 แบบ ทั้งหมดอยู่ใน 8 จาก 15 ตระกูล และให้ตารางที่ต่างกัน 512 แบบ การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล แต่ไม่ได้เป็นตัวกำหนดการคัดเลือก ซึ่งเกณฑ์การเลื่อนครึ่งคาบเป็นตัวกำหนดเพียงอย่างเดียว",
    "source": "SANS SOURCE"
   },
   {
@@ -286,6 +286,76 @@
    "en": "title=\"Choose a tint\"",
    "es": "title=\"Elegir un matiz\"",
    "th": "title=\"เลือกโทนสี\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Le critère exact</h2>",
+   "en": "<h2>The exact criterion</h2>",
+   "es": "<h2>El criterio exacto</h2>",
+   "th": "<h2>เกณฑ์ที่แน่นอน</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.",
+   "en": "A construction (family, tint A, tint B, hexagram <i>n</i>) gives the 12 × 12 grid <i>g</i>. Let <i>d</i> be the grid <i>g</i> shifted by 6 cells along rows and 6 cells along columns, wrapping the edges (torus): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Let <i>s</i> be the grid of the same hexagram with its two tints A and B swapped. The construction is kept if and only if <i>d</i> = <i>s</i>, cell by cell, without exception.",
+   "es": "Una construcción (familia, matiz A, matiz B, hexagrama <i>n</i>) da la cuadrícula <i>g</i> de 12 × 12. Sea <i>d</i> la cuadrícula <i>g</i> desplazada 6 casillas en fila y 6 casillas en columna, uniendo los bordes (toro): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Sea <i>s</i> la cuadrícula del mismo hexagrama con sus dos matices A y B intercambiados. La construcción se retiene si y solo si <i>d</i> = <i>s</i>, casilla por casilla, sin excepción.",
+   "th": "การสร้างหนึ่งแบบ (ตระกูล โทนสี A โทนสี B ฉักลักษณ์ <i>n</i>) ให้ตาราง <i>g</i> ขนาด 12 × 12 ให้ <i>d</i> เป็นตาราง <i>g</i> ที่เลื่อน 6 ช่องตามแถวและ 6 ช่องตามคอลัมน์ โดยต่อขอบเข้าด้วยกัน (ทอรัส): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12] ให้ <i>s</i> เป็นตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B การสร้างนั้นจะถูกคัดไว้ก็ต่อเมื่อ <i>d</i> = <i>s</i> ทีละช่อง โดยไม่มีข้อยกเว้น",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).",
+   "en": "This is the half-shift criterion, as computed by <code>tools/filtre_unified.py</code> (it keeps 1,024 constructions across 8 families); <code>tools/cube_edges.py</code> checks its consequences (512 distinct grids, 256 tilings, 128 orbits).",
+   "es": "Es el criterio del semidesplazamiento, tal como lo calcula <code>tools/filtre_unified.py</code> (retiene 1 024 construcciones en 8 familias); <code>tools/cube_edges.py</code> comprueba sus consecuencias (512 cuadrículas distintas, 256 teselados, 128 órbitas).",
+   "th": "นี่คือเกณฑ์การเลื่อนครึ่งคาบ ตามที่ <code>tools/filtre_unified.py</code> คำนวณ (คัดไว้ 1,024 แบบจาก 8 ตระกูล) ส่วน <code>tools/cube_edges.py</code> ตรวจผลที่ตามมา (ตารางที่ต่างกัน 512 แบบ การปูลาย 256 แบบ วงโคจร 128 วง)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.",
+   "en": "<b>Intuition, not a definition:</b> “the corners echo the centre” — shifting by half a period brings the centre onto the corners, and the criterion asks that this shift amount to swapping the two tints.",
+   "es": "<b>Intuición, sin valor de definición:</b> «las esquinas hacen eco del centro» — el desplazamiento de medio período lleva el centro a las esquinas, y el criterio exige que ese desplazamiento equivalga a intercambiar los dos matices.",
+   "th": "<b>สัญชาตญาณ ไม่ใช่นิยาม:</b> “มุมสะท้อนจุดศูนย์กลาง” — การเลื่อนครึ่งคาบนำจุดศูนย์กลางไปอยู่ที่มุม และเกณฑ์ต้องการให้การเลื่อนนี้เทียบเท่ากับการสลับโทนสีทั้งสอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>1 024 constructions</b> — des triplets (famille, couple de teintes, hexagramme) retenus par le critère ci-dessous, sur 8 des 15 familles. Aucune équivalence : chaque triplet compte pour un.",
+   "en": "<b>1,024 constructions</b> — triplets (family, pair of tints, hexagram) kept by the criterion below, across 8 of the 15 families. No equivalence: each triplet counts as one.",
+   "es": "<b>1 024 construcciones</b> — tripletes (familia, par de matices, hexagrama) retenidos por el criterio de abajo, en 8 de las 15 familias. Ninguna equivalencia: cada triplete cuenta como uno.",
+   "th": "<b>1,024 แบบ</b> — ชุดสามสิ่ง (ตระกูล คู่โทนสี ฉักลักษณ์) ที่เกณฑ์ด้านล่างคัดไว้ จาก 8 ใน 15 ตระกูล ไม่นับเทียบเท่า: แต่ละชุดนับเป็นหนึ่ง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>512 grilles distinctes</b> — les constructions qui dessinent la même grille de 12 × 12 sont comptées une fois.",
+   "en": "<b>512 distinct grids</b> — constructions that draw the same 12 × 12 grid are counted once.",
+   "es": "<b>512 cuadrículas distintas</b> — las construcciones que dibujan la misma cuadrícula de 12 × 12 se cuentan una vez.",
+   "th": "<b>ตารางที่ต่างกัน 512 แบบ</b> — การสร้างที่วาดตาราง 12 × 12 เหมือนกันนับเป็นหนึ่ง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.",
+   "en": "<b>256 tilings</b> — a grid and its half-period shift (6 cells along rows and columns) give the same tiling of the plane: they are counted together.",
+   "es": "<b>256 teselados</b> — una cuadrícula y su desplazada de medio período (6 casillas en fila y en columna) dan el mismo teselado del plano: se cuentan juntas.",
+   "th": "<b>การปูลาย 256 แบบ</b> — ตารางหนึ่งกับตารางที่เลื่อนครึ่งคาบ (6 ช่องตามแถวและคอลัมน์) ให้การปูลายระนาบเดียวกัน จึงนับรวมกัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.",
+   "en": "<b>128 orbits</b> — the 512 distinct grids grouped under the full symmetry group (rotations, mirror, half-shift); each orbit contains 4 grids of the corpus.",
+   "es": "<b>128 órbitas</b> — las 512 cuadrículas distintas agrupadas bajo el grupo de simetría completo (rotaciones, espejo, semidesplazamiento); cada órbita contiene 4 cuadrículas del corpus.",
+   "th": "<b>วงโคจร 128 วง</b> — ตาราง 512 แบบที่ต่างกันจัดกลุ่มตามกลุ่มสมมาตรเต็มรูป (การหมุน กระจก การเลื่อนครึ่งคาบ) แต่ละวงโคจรมี 4 ตารางของคลัง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Trois grilles de 12 × 12 cases, violettes, magenta et orange, d'une construction réelle retenue par le critère (famille BASE-YANG, teintes yang et yang_mut, hexagramme n° 0). À gauche, la grille g. Au milieu, la même grille décalée de six cases en ligne et en colonne : les cases violettes et magenta y sont échangées. À droite, la grille du même hexagramme dont les deux teintes de construction sont échangées : elle est identique à celle du milieu, case par case.",
+   "en": "Three 12 × 12 grids in violet, magenta and orange, from a real construction kept by the criterion (family BASE-YANG, tints yang and yang_mut, hexagram no. 0). On the left, the grid g. In the middle, the same grid shifted by six cells along rows and columns: its violet and magenta cells are swapped. On the right, the grid of the same hexagram with its two construction tints swapped: it is identical to the middle one, cell by cell.",
+   "es": "Tres cuadrículas de 12 × 12 casillas, violetas, magenta y naranjas, de una construcción real retenida por el criterio (familia BASE-YANG, matices yang y yang_mut, hexagrama n.º 0). A la izquierda, la cuadrícula g. En el centro, la misma cuadrícula desplazada seis casillas en fila y en columna: sus casillas violetas y magenta quedan intercambiadas. A la derecha, la cuadrícula del mismo hexagrama con sus dos matices de construcción intercambiados: es idéntica a la del centro, casilla por casilla.",
+   "th": "ตารางสามตาราง ขนาด 12 × 12 ช่อง สีม่วง สีบานเย็น และสีส้ม จากการสร้างจริงที่เกณฑ์คัดไว้ (ตระกูล BASE-YANG โทนสี yang และ yang_mut ฉักลักษณ์ที่ 0) ซ้ายคือตาราง g กลางคือตารางเดียวกันที่เลื่อนหกช่องตามแถวและคอลัมน์ ช่องสีม่วงกับสีบานเย็นสลับกัน ขวาคือตารางของฉักลักษณ์เดียวกันที่สลับโทนสีสองสีที่ใช้สร้าง ซึ่งเหมือนกับตารางกลางทุกช่อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Famille BASE-YANG, teintes A = yang et B = yang_mut, hexagramme n° 0 : une construction réellement retenue par le critère. De gauche à droite : la grille <i>g</i> ; <i>g</i> décalée de 6 cases en ligne et en colonne (<i>d</i>) ; la grille du même hexagramme aux teintes A et B échangées (<i>s</i>). Les deux traits blancs marquent la demi-période de 6 cases. <i>d</i> et <i>s</i> sont identiques case par case : c'est ce que le critère exige, et ce que <code>tools/figure_demi_decalage.py</code> vérifie avant d'écrire la figure.",
+   "en": "Family BASE-YANG, tints A = yang and B = yang_mut, hexagram no. 0: a construction actually kept by the criterion. From left to right: the grid <i>g</i>; <i>g</i> shifted by 6 cells along rows and columns (<i>d</i>); the grid of the same hexagram with tints A and B swapped (<i>s</i>). The two white lines mark the 6-cell half-period. <i>d</i> and <i>s</i> are identical cell by cell: this is what the criterion requires, and what <code>tools/figure_demi_decalage.py</code> checks before writing the figure.",
+   "es": "Familia BASE-YANG, matices A = yang y B = yang_mut, hexagrama n.º 0: una construcción realmente retenida por el criterio. De izquierda a derecha: la cuadrícula <i>g</i>; <i>g</i> desplazada 6 casillas en fila y en columna (<i>d</i>); la cuadrícula del mismo hexagrama con los matices A y B intercambiados (<i>s</i>). Las dos líneas blancas marcan el medio período de 6 casillas. <i>d</i> y <i>s</i> son idénticas casilla por casilla: es lo que exige el criterio, y lo que <code>tools/figure_demi_decalage.py</code> comprueba antes de escribir la figura.",
+   "th": "ตระกูล BASE-YANG โทนสี A = yang และ B = yang_mut ฉักลักษณ์ที่ 0 เป็นการสร้างที่เกณฑ์คัดไว้จริง จากซ้ายไปขวา: ตาราง <i>g</i>; <i>g</i> ที่เลื่อน 6 ช่องตามแถวและคอลัมน์ (<i>d</i>); ตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B (<i>s</i>) เส้นขาวสองเส้นแสดงครึ่งคาบ 6 ช่อง <i>d</i> และ <i>s</i> เหมือนกันทุกช่อง ซึ่งเป็นสิ่งที่เกณฑ์ต้องการ และเป็นสิ่งที่ <code>tools/figure_demi_decalage.py</code> ตรวจก่อนเขียนรูป",
    "source": "SANS SOURCE"
   }
  ]

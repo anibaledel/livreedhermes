@@ -731,7 +731,7 @@
 
   <div class="detail-below" id="detailBelow"></div>
 
-  <section class="tirage-explication" id="txt-tirageResultat"><p>The Yi King draw is free, online and needs no sign-up. Press “Cast the coins (6 lines)”: six casts build a hexagram, from the first line (bottom) to the sixth (top). Each line is yin or yang, fixed or changing. The result shows the hexagram drawn with its name, number, judgement and image, the comment on each of the six lines, its two trigrams and the associated magic square. You can also click any hexagram on the board of 64. The text of the 64 hexagrams can also be downloaded as a Word document (“Download the Yi-King translation”).</p></section>
+  <section class="tirage-explication" id="txt-tirageResultat"><p>The Yi King draw is free, online and needs no sign-up. Press “Cast the coins (6 lines)”: six casts build a hexagram, from the first line (bottom) to the sixth (top). Each line is yin or yang, fixed or changing. The result shows the hexagram drawn with its King Wen number, then its number on this site, its name, judgement and image, its two trigrams and the associated magic square; for each moving line it also shows that line’s comment. The comments on all six lines are on the hexagram’s page, through the “More about this hexagram” link. You can also click any hexagram on the board of 64. The text of the 64 hexagrams can also be downloaded as a Word document (“Download the Yi-King translation”).</p></section>
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
@@ -742,7 +742,7 @@
     <p>The page casts three coins for each line, six times in a row; the first cast makes the bottom line. Each coin is worth 2 or 3 with equal chances, drawn by the browser’s pseudo-random generator (Math.random).</p>
     <p>The sum of the three coins gives the line: 6, moving yin; 7, fixed yang; 8, fixed yin; 9, moving yang. The odds are 1 in 8 for a 6, 3 in 8 for a 7, 3 in 8 for an 8 and 1 in 8 for a 9: one line in four is moving.</p>
     <h3>What the result contains</h3>
-    <p>The result gives the hexagram’s number in the site’s chronological order (0 to 63), then its traditional King Wen number, its name, its six lines, the tiling of the magic square that corresponds to it, its two trigrams, its image and its judgment. The link “More about this hexagram” opens the page of the hexagram drawn. The <a href="../../en/hexagrams/">list of the 64 hexagrams</a> puts the two numbers side by side.</p>
+    <p>The result gives the hexagram’s traditional King Wen number, then its number in the site’s chronological order (0 to 63), its name, its six lines, the tiling of the magic square that corresponds to it, its two trigrams, its image and its judgment. The link “More about this hexagram” opens the page of the hexagram drawn. The <a href="../../en/hexagrams/">list of the 64 hexagrams</a> puts the two numbers side by side.</p>
     <h3>Moving lines and the second hexagram</h3>
     <p>A line that comes up 6 or 9 is moving: the page marks it. It then shows the hexagram before (the draw) and the hexagram after, in which each moving line is reversed (yin becomes yang, yang becomes yin), with the position and the commentary of each moving line. With no moving line there is only one hexagram. The commentaries on all six lines are on the hexagram’s page.</p>
     <h3>Reading without hurrying</h3>
@@ -1416,7 +1416,7 @@ const UI = {
     legendYinFixe:"Yin fixe", legendYinMut:"Yin mutant — va se remplir",
     emptyState:"Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.",
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
-    chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
+    chronoLabel:"ORDRE CHRONOLOGIQUE", sitePre:"n° ", sitePost:" du site", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     hexMoreInfo:"En savoir plus sur cet hexagramme →",
     imageLabel:"Image", judgementLabel:"Jugement", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
     navHexagrammesDesc:"Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.",
@@ -1441,7 +1441,7 @@ const UI = {
     movingLines:"Traits mutants : ", movingLinesEnd:" — ce sont les seuls traits qui basculent entre les deux situations.",
     pavageAnt:"Pavage — situation antérieure", pavagePost:"Pavage — situation postérieure",
     situationTag:"Ce que devient la situation",
-    copyLink:"Copier le lien", copied:"Copié",
+    copyLink:"Copier le lien", linkFieldLabel:"Adresse de ce résultat", copied:"Copié",
     footerNote1:"Numérotation chronologique binaire (votre système, p.067) — le nom et le jugement restent ceux du Yi-king traditionnel, à titre de repère.",
     footerNote2Pre:"Pavage : transcription réelle en carré de 144, calculée à partir de vos calques 1-6. Les quatre jeux — ", footerNote2Post:" — sont désormais tous intégrés.",
     footerNote3:'Un tirage effectué est encodé dans l\'URL (<code>?tire=</code>) — copiez le lien pour le partager ou le retrouver tel quel.',
@@ -1457,7 +1457,7 @@ const UI = {
       + '<div class="positions-guide-item"><b>6e trait — L\'achèvement.</b> La fin du cycle. Souvent l\'excès ou le dépassement d\'une situation arrivée à son terme.</div>',
     newOnSiteHtml:"Nouveau sur le site : découvrez les notions clés du projet dans le <a href=\"../../lexique.html\" style=\"color:var(--gold);\">lexique</a>, ou lisez les <a href=\"../../articles.html\" style=\"color:var(--gold);\">articles</a> qui prolongent la démarche. Retrouvez aussi tous les <a href=\"../../outils.html\" style=\"color:var(--gold);\">outils</a> du site et <a href=\"../../la-livree-d-hermes.html\" style=\"color:var(--gold);\">le traité</a> en un seul endroit.",
     bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
-    tirageResultat:'<p>Le tirage du Yi King est gratuit, en ligne et sans inscription. Appuyez sur « Tirer aux pièces (6 traits) » : six lancers dessinent un hexagramme, du premier trait (en bas) au sixième (en haut). Chaque trait est yin ou yang, fixe ou mutant. Le résultat affiche l\'hexagramme tiré avec son nom, son numéro, son jugement et son image, le commentaire de chacun des six traits, ses deux trigrammes et le carré magique associé. Vous pouvez aussi cliquer directement un hexagramme sur l\'échiquier des 64. Le texte des 64 hexagrammes se télécharge aussi en document Word (« Télécharger la traduction du Yi-King »).</p>',
+    tirageResultat:'<p>Le tirage du Yi King est gratuit, en ligne et sans inscription. Appuyez sur « Tirer aux pièces (6 traits) » : six lancers dessinent un hexagramme, du premier trait (en bas) au sixième (en haut). Chaque trait est yin ou yang, fixe ou mutant. Le résultat affiche l\'hexagramme tiré avec son numéro King Wen puis son numéro du site, son nom, son jugement et son image, ses deux trigrammes et le carré magique associé ; pour chaque trait mutant, il affiche aussi le commentaire de ce trait. Les commentaires des six traits se lisent sur la page de l\'hexagramme, par le lien « En savoir plus sur cet hexagramme ». Vous pouvez aussi cliquer directement un hexagramme sur l\'échiquier des 64. Le texte des 64 hexagrammes se télécharge aussi en document Word (« Télécharger la traduction du Yi-King »).</p>',
     tirageGuide:'<p>Le Yi King est un livre de sagesse qui peut s\'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d\'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>'
       + '<p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, sélectionnez directement une case de l\'échiquier. Pour plus d\'informations sur les images, n\'hésitez pas à lire le livre.</p>'
   },
@@ -1473,7 +1473,7 @@ const UI = {
     legendYinFixe:"Fixed yin", legendYinMut:"Moving yin — about to fill",
     emptyState:"Click a square on the board to consult a hexagram,<br>or cast the coins for a reading — with, where relevant, its moving lines and the hexagram that results.",
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
-    chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
+    chronoLabel:"CHRONOLOGICAL ORDER", sitePre:"site no. ", sitePost:"", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     hexMoreInfo:"More about this hexagram →",
     imageLabel:"Image", judgementLabel:"Judgment", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
     /* TODO Claude Code (draft, à valider) : traductions EN des descriptions de nav-tiles */
@@ -1499,7 +1499,7 @@ const UI = {
     movingLines:"Moving lines: ", movingLinesEnd:" — these are the only lines that shift between the two situations.",
     pavageAnt:"Tiling — situation before", pavagePost:"Tiling — situation after",
     situationTag:"What the situation becomes",
-    copyLink:"Copy link", copied:"Copied",
+    copyLink:"Copy link", linkFieldLabel:"Address of this result", copied:"Copied",
     footerNote1:"Chronological binary numbering (your own system, p.067) — the name and judgment remain those of the traditional I Ching, as a reference point.",
     footerNote2Pre:"Tiling: a true transcription into a square of 144, calculated from your layers 1-6. All four sets — ", footerNote2Post:" — are now fully integrated.",
     footerNote3:'A completed casting is encoded in the URL (<code>?tire=</code>) — copy the link to share it or find it again exactly as it was.',
@@ -1515,7 +1515,7 @@ const UI = {
       + '<div class="positions-guide-item"><b>6th line — Completion.</b> The end of the cycle. Often excess, or the overshooting of a situation that has run its course.</div>',
     newOnSiteHtml:"New to the site? The project's key notions are explained in the <a href=\"../../en/lexicon/\" style=\"color:var(--gold);\">lexicon</a>, and the <a href=\"../../articles.html\" style=\"color:var(--gold);\">articles</a> (in French) take the approach further. All the site's <a href=\"../../outils.html\" style=\"color:var(--gold);\">tools</a> and <a href=\"../../en/book/\" style=\"color:var(--gold);\">the treatise</a> are also gathered in one place.",
     bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
-    tirageResultat:'<p>The Yi King draw is free, online and needs no sign-up. Press “Cast the coins (6 lines)”: six casts build a hexagram, from the first line (bottom) to the sixth (top). Each line is yin or yang, fixed or changing. The result shows the hexagram drawn with its name, number, judgement and image, the comment on each of the six lines, its two trigrams and the associated magic square. You can also click any hexagram on the board of 64. The text of the 64 hexagrams can also be downloaded as a Word document (“Download the Yi-King translation”).</p>',
+    tirageResultat:'<p>The Yi King draw is free, online and needs no sign-up. Press “Cast the coins (6 lines)”: six casts build a hexagram, from the first line (bottom) to the sixth (top). Each line is yin or yang, fixed or changing. The result shows the hexagram drawn with its King Wen number, then its number on this site, its name, judgement and image, its two trigrams and the associated magic square; for each moving line it also shows that line’s comment. The comments on all six lines are on the hexagram’s page, through the “More about this hexagram” link. You can also click any hexagram on the board of 64. The text of the 64 hexagrams can also be downloaded as a Word document (“Download the Yi-King translation”).</p>',
     tirageGuide:'<p>The Yi Jing is a book of wisdom that can be used as an oracle. If you have a specific question, hold it in mind before pressing Cast. Without a particular question, the casting shows the situation of the moment. You can chain several castings for several questions — but a single casting is already enough on its own for the message that corresponds to your consultation.</p>'
       + '<p>If you simply want to explore the meaning of the hexagrams and their related images, select a square on the board directly. For more information about the images, feel free to read the book.</p>'
   }
@@ -1671,6 +1671,7 @@ function buildShareRow(){
   const input = document.createElement('input');
   input.readOnly = true;
   input.value = location.href;
+  input.setAttribute('aria-label', t('linkFieldLabel')); // nom accessible du champ (axe : label)
   const btn = document.createElement('button');
   btn.textContent = t('copyLink');
   btn.addEventListener('click', ()=>{
@@ -1706,12 +1707,12 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
 
   const numBig=document.createElement('div');
   numBig.className='num-big';
-  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — ' + t('chronoLabel');
+  numBig.textContent = t('kingWenLabel') + kwNum;
   wrap.appendChild(numBig);
 
   const h2=document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
   const pin=document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
-  const alt=document.createElement('div'); alt.className='altnum'; alt.textContent = t('kingWenLabel')+kwNum; wrap.appendChild(alt);
+  const alt=document.createElement('div'); alt.className='altnum'; alt.textContent = t('sitePre') + chrono + t('sitePost') + ' — ' + t('chronoLabel'); wrap.appendChild(alt);
   const moreLink=document.createElement('a'); moreLink.className='hex-more-link'; moreLink.href=hexagramPageUrl(chrono); moreLink.textContent=t('hexMoreInfo'); wrap.appendChild(moreLink);
 
   const hexBlock = document.createElement('div'); hexBlock.className='hex-block';
@@ -1965,7 +1966,7 @@ function drawTirage(presetTosses){
 
       const infoA = curHexKW()[kwNum];
       const miniA = document.createElement('div'); miniA.className='hex-mini';
-      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('kingWenShort')}${kwNum}</div><a class="hex-more-link" href="${hexagramPageUrl(chrono)}">${t('hexMoreInfo')}</a>`;
+      miniA.innerHTML = `<div class="num-big">${t('kingWenShort')}${kwNum}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('sitePre')}${chrono}${t('sitePost')}</div><a class="hex-more-link" href="${hexagramPageUrl(chrono)}">${t('hexMoreInfo')}</a>`;
       const linesA = document.createElement('div'); linesA.className='lines';
       // .lines est en column-reverse : ajouter dans l'ordre naturel (trait 1 = bas, en premier
       // dans le DOM) place bien le trait 1 en bas et le trait 6 en haut, comme dans le bloc principal
@@ -1978,7 +1979,7 @@ function drawTirage(presetTosses){
 
       const infoB = curHexKW()[dKwNum];
       const miniB = document.createElement('div'); miniB.className='hex-mini';
-      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('kingWenShort')}${dKwNum}</div><a class="hex-more-link" href="${hexagramPageUrl(dChrono)}">${t('hexMoreInfo')}</a>`;
+      miniB.innerHTML = `<div class="num-big">${t('kingWenShort')}${dKwNum}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('sitePre')}${dChrono}${t('sitePost')}</div><a class="hex-more-link" href="${hexagramPageUrl(dChrono)}">${t('hexMoreInfo')}</a>`;
       const linesB = document.createElement('div'); linesB.className='lines';
       // les traits postérieurs sont désormais fixes : la mutation est résolue, plus de jaune/or ici
       derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('beforeend', traitSVG(b, false)));
@@ -2360,8 +2361,5 @@ setTimeout(syncEmptyCaduceusHeight, 0);
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

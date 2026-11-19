@@ -55,6 +55,9 @@
   .critere{ max-width:62ch; margin:16px auto 0; padding:12px 16px; text-align:left; border:1px solid var(--line-strong); border-radius:3px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); overflow-wrap:anywhere; }
   .critere h2{ margin:0 0 6px; font-size:calc(12.5px + var(--fs-bump)); font-weight:400; color:var(--gold); letter-spacing:.04em; }
   .critere p{ margin:6px 0 0; }
+  .figure-demi-decalage{ margin:12px 0 0; }
+  .figure-demi-decalage img{ display:block; max-width:100%; height:auto; margin:0 auto; border-radius:3px; }
+  .figure-demi-decalage figcaption{ margin-top:8px; font-size:calc(10.5px + var(--fs-bump)); line-height:1.5; }
   .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
   .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
 
@@ -221,7 +224,7 @@
       "name": "What constraints define the creation of Unified Patterns?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Two constraints define a Unified Pattern. The first: assigning one and the same tint to both 6-level halves of a family produces a balanced grid. The second: the edges of the grid must echo the centre."
+        "text": "One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition."
       }
     },
     {
@@ -229,7 +232,7 @@
       "name": "How are Unified Patterns identified among the balanced grids?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The first constraint (a single tint on both 6-level halves) singles out 8 of the 15 families as Unified Patterns, within the 512 distinct grids the system generates. This is what distinguishes, among all balanced grids, those that are specifically Unified Patterns."
+        "text": "The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides."
       }
     },
     {
@@ -365,16 +368,20 @@
     </div>
     <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 counts constructions (family × pair of tints × hexagram), not shapes: several constructions can draw the same grid, or a grid and its half-period shift the same tiling — hence 512 distinct grids and 256 tilings.</p>
     <ul class="comptes" id="comptes-unifies">
-      <li><b>1 024 constructions</b> — des triplets (famille, couple de teintes, hexagramme) retenus par le critère ci-dessous, sur 8 des 15 familles. Aucune équivalence : chaque triplet compte pour un.</li>
-      <li><b>512 grilles distinctes</b> — les constructions qui dessinent la même grille de 12 × 12 sont comptées une fois.</li>
-      <li><b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.</li>
-      <li><b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.</li>
+      <li><b>1,024 constructions</b> — triplets (family, pair of tints, hexagram) kept by the criterion below, across 8 of the 15 families. No equivalence: each triplet counts as one.</li>
+      <li><b>512 distinct grids</b> — constructions that draw the same 12 × 12 grid are counted once.</li>
+      <li><b>256 tilings</b> — a grid and its half-period shift (6 cells along rows and columns) give the same tiling of the plane: they are counted together.</li>
+      <li><b>128 orbits</b> — the 512 distinct grids grouped under the full symmetry group (rotations, mirror, half-shift); each orbit contains 4 grids of the corpus.</li>
     </ul>
     <div class="critere" id="critere-exact">
-      <h2>Le critère exact</h2>
-      <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>
-      <p>C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).</p>
-      <p><b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.</p>
+      <h2>The exact criterion</h2>
+      <p>A construction (family, tint A, tint B, hexagram <i>n</i>) gives the 12 × 12 grid <i>g</i>. Let <i>d</i> be the grid <i>g</i> shifted by 6 cells along rows and 6 cells along columns, wrapping the edges (torus): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Let <i>s</i> be the grid of the same hexagram with its two tints A and B swapped. The construction is kept if and only if <i>d</i> = <i>s</i>, cell by cell, without exception.</p>
+      <figure class="figure-demi-decalage">
+        <img src="../../assets/figures/demi-decalage-patterns-unifies.svg" width="624" height="200" loading="lazy" alt="Three 12 × 12 grids in violet, magenta and orange, from a real construction kept by the criterion (family BASE-YANG, tints yang and yang_mut, hexagram no. 0). On the left, the grid g. In the middle, the same grid shifted by six cells along rows and columns: its violet and magenta cells are swapped. On the right, the grid of the same hexagram with its two construction tints swapped: it is identical to the middle one, cell by cell.">
+        <figcaption>Family BASE-YANG, tints A = yang and B = yang_mut, hexagram no. 0: a construction actually kept by the criterion. From left to right: the grid <i>g</i>; <i>g</i> shifted by 6 cells along rows and columns (<i>d</i>); the grid of the same hexagram with tints A and B swapped (<i>s</i>). The two white lines mark the 6-cell half-period. <i>d</i> and <i>s</i> are identical cell by cell: this is what the criterion requires, and what <code>tools/figure_demi_decalage.py</code> checks before writing the figure.</figcaption>
+      </figure>
+      <p>This is the half-shift criterion, as computed by <code>tools/filtre_unified.py</code> (it keeps 1,024 constructions across 8 families); <code>tools/cube_edges.py</code> checks its consequences (512 distinct grids, 256 tilings, 128 orbits).</p>
+      <p><b>Intuition, not a definition:</b> “the corners echo the centre” — shifting by half a period brings the centre onto the corners, and the criterion asks that this shift amount to swapping the two tints.</p>
     </div>
   </header>
   </div>
@@ -388,11 +395,11 @@
     </details>
     <details class="faq-item">
       <summary>What constraints define the creation of Unified Patterns?<span class="q-mark">＋</span></summary>
-      <p>Two constraints define a Unified Pattern. The first: assigning one and the same tint to both 6-level halves of a family produces a balanced grid. The second: the edges of the grid must echo the centre.</p>
+      <p>One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition.</p>
     </details>
     <details class="faq-item">
       <summary>How are Unified Patterns identified among the balanced grids?<span class="q-mark">＋</span></summary>
-      <p>The first constraint (a single tint on both 6-level halves) singles out 8 of the 15 families as Unified Patterns, within the 512 distinct grids the system generates. This is what distinguishes, among all balanced grids, those that are specifically Unified Patterns.</p>
+      <p>The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides.</p>
     </details>
     <details class="faq-item">
       <summary>How are these families classified?<span class="q-mark">＋</span></summary>
@@ -1035,8 +1042,5 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
   </p>
 </footer>
 <!-- @footer:end -->
-<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
-<!-- @analytics:end -->
 </body>
 </html>

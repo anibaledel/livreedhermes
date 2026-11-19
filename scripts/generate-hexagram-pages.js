@@ -25,6 +25,17 @@ const EN_TETE = rendre('header', '../');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(REPO_ROOT, 'hexagrammes');
+
+// --verifie (prompt 208, D6) : rien n'est écrit. Chaque page est engendrée en mémoire, passée par build-header.js (traiter : l'étape qui suit toujours
+// ce générateur), et comparée au fichier en place ; l'écart fait échouer. Sans l'option, le comportement est celui d'avant.
+const VERIFIE = process.argv.includes('--verifie');
+const PERIMEES = [];
+function ecrire(chemin, contenu) {
+  if (!VERIFIE) { fs.writeFileSync(chemin, contenu, 'utf8'); return; }
+  const rel = path.relative(REPO_ROOT, chemin).split(path.sep).join('/');
+  const attendu = rel.endsWith('.html') ? require('./build-header.js').traiter(rel, contenu) : contenu;
+  if (!fs.existsSync(chemin) || fs.readFileSync(chemin, 'utf8') !== attendu) PERIMEES.push(rel);
+}
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function traitsFromChrono(chrono){
@@ -485,11 +496,11 @@ ${FOOTER_CTA_SCRIPT}
     .split(DATE_FR_PLACEHOLDER).join(formatDateFr(dateModified))
     .replace('<head>', `<head>\n<!-- @contenu sha256:${empreinte} — empreinte du texte éditorial seul ; voir scripts/generate-hexagram-pages.js -->`);
 
-  fs.writeFileSync(outPath, garderZonesLangues(rendu, ancien), 'utf8');
+  ecrire(outPath, garderZonesLangues(rendu, ancien));
   pages.push({ chrono, kwNum, slug, url });
 }
 
-fs.writeFileSync(path.join(__dirname, 'hexagram-pages-manifest.json'), JSON.stringify(pages, null, 2));
+ecrire(path.join(__dirname, 'hexagram-pages-manifest.json'), JSON.stringify(pages, null, 2));
 
 // ============================================================
 // Page de listing /hexagrammes/ — cible du fil d'Ariane "Hexagrammes" de
@@ -739,8 +750,18 @@ ${FOOTER_CTA_SCRIPT}
 
 const listingDir = path.join(OUT_DIR);
 const listingPath = path.join(listingDir, 'index.html');
-fs.writeFileSync(listingPath, garderZonesLangues(listingHtml, fs.existsSync(listingPath) ? fs.readFileSync(listingPath, 'utf8') : null), 'utf8');
+ecrire(listingPath, garderZonesLangues(listingHtml, fs.existsSync(listingPath) ? fs.readFileSync(listingPath, 'utf8') : null));
 
+if (VERIFIE) {
+  if (PERIMEES.length) {
+    console.error(`${PERIMEES.length} fichier(s) ne correspondent pas à ce que le générateur produit :`);
+    for (const f of PERIMEES.slice(0, 20)) console.error(`   ${f}`);
+    console.error('\nRelancer : node scripts/generate-hexagram-pages.js && node scripts/build-header.js');
+    process.exit(1);
+  }
+  console.log(`OK    generate-hexagram-pages : ${pages.length} pages d'hexagrammes et leur listing à jour (rien écrit).`);
+  process.exit(0);
+}
 console.log('Généré', pages.length, 'pages dans', OUT_DIR, '+ la page de listing hexagrammes/index.html');
 
 // Garde-fou : refuse de laisser passer une régression gk2.net dans le
