@@ -22,4 +22,7 @@ jobs:
         with:
           node-version: '20'
       - run: node tools/check_jsonld.mjs
+      # Search Console, « Ensembles de données » (prompt 204) : chaque Dataset a name, description, creator objet, license en URL, citations typées
+      - run: node tools/check_datasets.mjs
+      - run: node tools/check_datasets.mjs --essai
       - run: node scripts/build-jsonld-pages.js --verifie

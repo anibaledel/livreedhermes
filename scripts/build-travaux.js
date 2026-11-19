@@ -191,42 +191,9 @@ function listeHtml(lang) {
     + blocs.join('\n\n') + `\n    <!-- @travaux:end -->`;
 }
 
-// Un dépôt sans DOI ni adresse (article en évaluation) a pour identifiant son ancre sur /research/.
-function idDepot(d) { return d.doi ? doiUrl(d.doi) : d.url || `${SITE}/research/#en-${d.research_id}`; }
-
-function noeud(d) {
-  const type = TYPES[d.type].schema;
-  const n = { '@type': type, '@id': idDepot(d), name: d.titre, author: { '@id': AUTEUR } };
-  if (d.statut) n.creativeWorkStatus = d.statut.en;
-  if (d.doi) {
-    n.url = doiUrl(d.doi);
-    n.identifier = [{ '@type': 'PropertyValue', propertyID: 'DOI', value: d.doi }];
-    n.sameAs = doiUrl(d.doi);
-  } else if (d.url) {
-    n.codeRepository = d.url;
-  } else {
-    n.url = `${SITE}/research/#en-${d.research_id}`;
-  }
-  if (d.premiere) n.datePublished = d.premiere;
-  else if (d.date && !d.version) n.datePublished = d.date;
-  if (d.date && d.version) n.dateModified = d.date;
-  if (d.version) n.version = d.version;
-  if (d.langues) n.inLanguage = d.langues.length === 1 ? d.langues[0] : d.langues;
-  if (d.en) n.description = d.en;
-  if (d.licence) n.license = LICENCES[d.licence];
-  if (d.doi) {
-    n.isAccessibleForFree = true;
-    n.publisher = { '@type': 'Organization', name: 'Zenodo' };
-  }
-  if (d.versionDoi) {
-    n.workExample = { '@type': type, '@id': doiUrl(d.versionDoi), version: d.version || undefined,
-      identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: d.versionDoi } };
-    if (!d.version) delete n.workExample.version;
-  }
-  if (d.cite) n.citation = d.cite.map((doi) => ({ '@id': doiUrl(doi) }));
-  if (d.anterieur) n.isBasedOn = { '@id': doiUrl(d.anterieur.doi) };
-  return n;
-}
+// Les nœuds JSON-LD des dépôts viennent de scripts/dataset-jsonld.js (prompt 204 : une seule source, partagée avec les pages des dépôts et /research/).
+const { noeudDepot, idDepot } = require('./dataset-jsonld.js');
+const noeud = (d, lang) => noeudDepot(d, { lang, depots: DONNEES.depots });
 
 function ldHtml(lang, url, nom) {
   const graphe = [
@@ -235,7 +202,7 @@ function ldHtml(lang, url, nom) {
       hasPart: DONNEES.depots.map((d) => ({ '@id': idDepot(d) })) },
     { '@type': 'Person', '@id': AUTEUR, name: 'Anibal Edelberto Amiot',
       sameAs: ['https://www.wikidata.org/wiki/Q141191562', 'https://orcid.org/0009-0002-6414-9448'] },
-    ...DONNEES.depots.map(noeud),
+    ...DONNEES.depots.map((d) => noeud(d, lang)),
   ];
   return `<!-- @travaux-ld:start — engendré depuis data/travaux.json (scripts/build-travaux.js) -->\n`
     + `<script type="application/ld+json">\n${JSON.stringify({ '@context': 'https://schema.org', '@graph': graphe }, null, 2)}\n</script>\n`

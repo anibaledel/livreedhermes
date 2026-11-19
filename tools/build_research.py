@@ -24,6 +24,7 @@ ne les efface pas, et une seconde exécution ne change aucun fichier.
 """
 import html
 import json
+import subprocess
 import re
 import sys
 from pathlib import Path
@@ -255,6 +256,13 @@ def jsonld(data):
             el["identifier"] = f"https://doi.org/{w['doi']}"
         if w.get("license"):
             el["license"] = licence_url(w["license"])
+        if w["type"] == "dataset":
+            # prompt 204 : un Dataset complet (name, description, creator, license, citation typée…) vient de la source unique
+            # scripts/dataset-jsonld.js, la même que travaux.html et */works/ ; seul l'@id garde l'ancre de cette page.
+            complet = json.loads(subprocess.run(["node", str(ROOT / "scripts" / "dataset-jsonld.js"), "--research", w["id"], "--lang", "en"],
+                                                check=True, capture_output=True, text=True, encoding="utf-8").stdout)
+            complet["@id"] = el["@id"]
+            el = complet
         items.append({"@type": "ListItem", "position": n, "item": el})
     graph = {
         "@context": "https://schema.org",
@@ -410,6 +418,10 @@ def main():
     ld = json.loads(m.group(1).replace("<\\/", "</"))
     for el in ld["@graph"][1]["itemListElement"]:
         ident = el["item"].get("identifier")
+        if isinstance(ident, list):
+            ident = ident[0].get("value") and "https://doi.org/" + ident[0]["value"]
+        elif isinstance(ident, dict):
+            ident = "https://doi.org/" + ident.get("value", "")
         if ident and not ident.startswith("https://doi.org/"):
             sys.exit("build_research.py : identifier JSON-LD qui n'est pas une URL doi.org")
     print("écrit : " + ", ".join(changed) if changed else "rien à changer")

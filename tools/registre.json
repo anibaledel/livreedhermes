@@ -335,6 +335,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_datasets.mjs",
+   "role": "les objets `Dataset` du JSON-LD sont complets pour la Search Console (prompt 204, rapport « Ensembles de données »).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-jsonld.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_doi_licences.mjs",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
    "lit": [

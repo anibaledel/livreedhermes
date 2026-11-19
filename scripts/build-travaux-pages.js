@@ -129,6 +129,7 @@ function page(d, f) {
       {
         '@type': schema, '@id': `${url}#travail`, name: f.titre, url, inLanguage: lang,
         author: { '@id': AUTEUR },
+        ...(schema === 'Dataset' ? { creator: require('./dataset-jsonld.js').createur() } : {}), // prompt 204 : Google lit `creator`, pas la référence `author`
         identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: d.doi },
         sameAs: `https://doi.org/${d.doi}`,
         datePublished: d.premiere || date,
