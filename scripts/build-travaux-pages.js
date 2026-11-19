@@ -252,7 +252,8 @@ ${r.html}
 // Les zones entre marqueurs appartiennent à build-header.js : la comparaison
 // les ignore, pour que les deux scripts ne se contredisent pas.
 const ZONES_HEADER = 'head-icons|hreflang|header|langues|navtiles|footer|analytics';
-const sansZones = (s) => s.replace(new RegExp(`(<!-- @(${ZONES_HEADER}):start[^>]*-->)[\\s\\S]*?(<!-- @\\2:end -->)`, 'g'), '$1$3');
+// la zone @analytics est à build-header.js, qui la retire quand includes/analytics.json n'a pas de jeton (prompt 208) : ni d'un côté ni de l'autre
+const sansZones = (s) => s.replace(/[ \t]*<!-- @analytics:start[\s\S]*?<!-- @analytics:end -->\n?/g, '').replace(new RegExp(`(<!-- @(${ZONES_HEADER}):start[^>]*-->)[\\s\\S]*?(<!-- @\\2:end -->)`, 'g'), '$1$3');
 const verifie = process.argv.includes('--verifie');
 const ecarts = [];
 let n = 0;

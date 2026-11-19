@@ -427,6 +427,9 @@ def adopter(existant, neuf):
         if nom == 'main':
             continue
         neuf = re.sub(rf'<!-- @{nom}:start[^>]*-->.*?<!-- @{nom}:end -->', lambda _: m.group(0), neuf, flags=re.S)
+    # la zone @analytics est à build-header.js, qui la retire quand includes/analytics.json n'a pas de jeton (prompt 208) : absente de la page en place, absente du neuf
+    if '<!-- @analytics:start' not in existant:
+        neuf = re.sub(r'[ \t]*<!-- @analytics:start[^>]*-->.*?<!-- @analytics:end -->\n?', '', neuf, flags=re.S)
     return neuf
 
 

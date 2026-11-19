@@ -301,6 +301,11 @@ def page(data):
     def zone(name):
         return z.get(name, f"<!-- @{name}:start -->\n<!-- @{name}:end -->")
 
+    # @analytics : à build-header.js, qui retire la zone quand includes/analytics.json n'a pas de jeton (prompt 208) ; page déjà écrite sans la zone : pas de zone
+    zone_analytics = (z["analytics"] + "\n") if "analytics" in z or not PAGE.exists() else ""
+    if "analytics" not in z and not PAGE.exists():
+        zone_analytics = '<!-- @analytics:start -->\n<!-- @analytics:end -->\n'
+
     title = "Research — current state / Travaux — état actuel | Anibal Amiot"
     desc = ("Reference state of the work of Anibal Edelberto Amiot: each paper, deposit and dataset with version, "
             "status and DOIs. État de référence : versions, statuts, DOI.")
@@ -352,8 +357,7 @@ def page(data):
 </div>
 {zone("navtiles")}
 {zone("footer")}
-{zone("analytics")}
-</body>
+{zone_analytics}</body>
 </html>
 """
     return head
