@@ -139,6 +139,9 @@ jobs:
       - run: node tools/check_galerie_animations.mjs local
       # le sélecteur 64 · 128 · 256 de la page des animations (FR, ja, th ; 390 et 1280 px) : clavier, focus, adresse, stockage local, aperçu, sans débordement
       - run: node tools/check_galerie_corpus.mjs local
+      # les variantes de fonds sur le corpus de 64 (prompt 210) : 512 rendus à 1200 px, symétries du motif tenues, pavage sans rupture (B2D : 0 raccord brisé)
+      - run: node tools/check_symetries_rendu.mjs
+      - run: node tools/check_symetries_rendu.mjs --essai
       # la navigation en cinq catégories (scripts/nav-tiles.js), JavaScript coupé :
       # une catégorie principale par page, ouverte et marquée ; clic, clavier, 390 px, cibles en 200
       - run: node tools/check_navigation.mjs local

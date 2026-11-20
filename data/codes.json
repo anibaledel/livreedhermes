@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T11:14:20Z",
+ "generated_at_utc": "2026-11-20T11:45:20Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 299,
+  "scripts": 302,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2723,6 +2723,41 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_symetries_corpus.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_symetries_corpus.mjs",
+   "octets": 3073,
+   "sha256": "bc5df5752f5f6c9ea86c751647a04110bb231f505c124806d1ca2ccfcea43e32",
+   "md5": "bb46b1bc0eb7bb2db598fe145045d696",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le groupe de symétrie de chacune des 64 classes du corpus, mesuré (prompt 210, §3).",
+   "lit": [
+    "corpus-256"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_symetries_rendu.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_symetries_rendu.mjs",
+   "octets": 9117,
+   "sha256": "b8d3cbf6f431a2e26570dabfefa94b994e6fdb008bbb47f95b33e9e76a921af7",
+   "md5": "1fd785b3937bd5643b9781f3ac97eed4",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les variantes de fonds respectent les symétries du motif, et se pavent sans rupture (prompt 210, §6.1 et §6.4), en navigateur.",
+   "lit": [
+    "corpus-256",
+    "phases-b2d-64"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_tirage_outil.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_tirage_outil.mjs",
    "octets": 9177,
@@ -3677,9 +3712,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 11997,
-   "sha256": "ec1fd4fd4f59c2ac360b5c83f61d56b298ee5f66bdf8002b36188842e28c5c3d",
-   "md5": "484e084eefe9193aa8687045e0dca9a4",
+   "octets": 12576,
+   "sha256": "e0d63ea1e01a370e202a212d1457437ff186e361ad65af56ca98e6ce6e261e26",
+   "md5": "db8744337b52e5db3336050c77a9a57b",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
@@ -3687,7 +3722,8 @@
     "carres-ordre-6",
     "calques-360",
     "constructions-1024",
-    "corpus-256"
+    "corpus-256",
+    "phases-b2d-64"
    ],
    "ecrit": [],
    "durees": [],
@@ -4036,6 +4072,24 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m aux ordres testés ici ; sa validité pour tout m reste à démontrer.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/phases_b2d.mjs",
+   "adresse": "https://anibal-amiot.com/tools/phases_b2d.mjs",
+   "octets": 11850,
+   "sha256": "8fd038e8b86f3e90c9a532654166da3ea4a8a78dd83b5a36164507850a0d2db9",
+   "md5": "caf935f112a0026015561d38abcdc721",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les rotations du fond B2D sur les 64 représentants du corpus : 0 raccord brisé (prompt 210, §4).",
+   "lit": [
+    "corpus-256",
+    "phases-b2d-64"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

@@ -277,20 +277,6 @@
    "sait_echouer": true
   },
   {
-   "fichier": "tools/check_spectre_classes.mjs",
-   "role": "les quatre motifs d'une classe de translation du corpus (prompt 211, §3) ont le MÊME spectre d'amplitude.",
-   "lit": [
-    "data/corpus-256.json"
-   ],
-   "ecrit": [],
-   "appele_par": [
-    "check-referents.yml"
-   ],
-   "utilise_par": [],
-   "etat": "actif",
-   "sait_echouer": true
-  },
-  {
    "fichier": "tools/check_article.mjs",
    "role": "un article du site, tel qu'un lecteur le reçoit : 1.",
    "lit": [],
@@ -1141,6 +1127,51 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_spectre_classes.mjs",
+   "role": "les quatre motifs d'une classe de translation du corpus (prompt 211, §3) ont le MÊME spectre d'amplitude.",
+   "lit": [
+    "data/corpus-256.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_symetries_corpus.mjs",
+   "role": "le groupe de symétrie de chacune des 64 classes du corpus, mesuré (prompt 210, §3).",
+   "lit": [
+    "data/corpus-256.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_symetries_rendu.mjs",
+   "role": "les variantes de fonds respectent les symétries du motif, et se pavent sans rupture (prompt 210, §6.1 et §6.4), en navigateur.",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/phases-b2d-64.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_tirage_outil.mjs",
    "role": "l'outil de tirage du Yi King fait ce que ses textes disent (prompts 207 et 208).",
    "lit": [
@@ -1924,9 +1955,12 @@
    "fichier": "tools/index_referents.mjs",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
    "lit": [
+    "assets/fonds-variantes.js",
     "assets/lecture-binaire.js",
     "data/SHA256SUMS.txt",
     "data/corpus-256.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/phases-b2d-64.json",
     "data/fonds_ecran_v1.json",
     "data/referent_256_src/MANIFEST.json",
     "data/referent_256_v3.json",
@@ -1941,6 +1975,7 @@
     "tools/generate_fonds_ecran.py",
     "tools/generate_referent_256.py",
     "tools/generate_referent_360.py",
+    "tools/phases_b2d.mjs",
     "tools/validate_referent.py",
     "tools/verif_protocole.py"
    ],
@@ -2263,6 +2298,23 @@
    ],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/phases_b2d.mjs",
+   "role": "les rotations du fond B2D sur les 64 représentants du corpus : 0 raccord brisé (prompt 210, §4).",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/phases-b2d-64.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/pins/fabriquer.mjs",
