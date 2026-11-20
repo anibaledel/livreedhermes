@@ -257,6 +257,24 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Corpus of 256 unified 12 × 12 grids — La Livrée d'Hermès",
+  "description": "256 three-colour grids of 12 × 12 cells (yang / yang_mut pair of tints, 4 pairs of families × 64 hexagrams), unified and readable by the binary reading, with 72 dark and 72 light cells, whose reading the (6, 6) shift inverts; 128 {pattern, negative} pairs and 64 classes up to toroidal translation. File data/corpus-256.json, with a CSV and a verification script.",
+  "url": "https://anibal-amiot.com/en/three-colour-gallery/",
+  "inLanguage": "en",
+  "identifier": "https://doi.org/10.5281/zenodo.24396534",
+  "sameAs": "https://doi.org/10.5281/zenodo.24396535",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "version": "1.0",
+  "datePublished": "2026-11-20",
+  "creator": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "https://anibal-amiot.com/a-propos.html" },
+  "isAccessibleForFree": true,
+  "distribution": [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://doi.org/10.5281/zenodo.24396535" }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
@@ -373,6 +391,7 @@
       <li><b>256 tilings</b> — a grid and its half-period shift (6 cells along rows and columns) give the same tiling of the plane: they are counted together.</li>
       <li><b>128 orbits</b> — the 512 distinct grids grouped under the full symmetry group (rotations, mirror, half-shift); each orbit contains 4 grids of the corpus.</li>
     </ul>
+    <p class="corpus-citable" id="corpus-citable">Citable corpus: <a href="https://doi.org/10.5281/zenodo.24396534" rel="noopener">DOI 10.5281/zenodo.24396534</a> (all versions) — version 1.0: <a href="https://doi.org/10.5281/zenodo.24396535" rel="noopener">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>
     <div class="critere" id="critere-exact">
       <h2>The exact criterion</h2>
       <p>A construction (family, tint A, tint B, hexagram <i>n</i>) gives the 12 × 12 grid <i>g</i>. Let <i>d</i> be the grid <i>g</i> shifted by 6 cells along rows and 6 cells along columns, wrapping the edges (torus): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Let <i>s</i> be the grid of the same hexagram with its two tints A and B swapped. The construction is kept if and only if <i>d</i> = <i>s</i>, cell by cell, without exception.</p>

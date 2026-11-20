@@ -93,6 +93,7 @@ Statuts tels que dans https://anibal-amiot.com/data/resultats-etablis.json ; lis
 - Fibres de la projection « étiquetage ↦ figure » : 4 096 par figure à l'ordre 6, trois tailles à l'ordre 10 — vérifié (relancé en CI)
 - Règle des miroirs à l'ordre 12, ensemble par ensemble : 0 désaccord sur les 8 192 graines qui pavent — vérifié (relancé en CI)
 - Le corpus binaire des animations : 256 grilles, 128 paires {motif, négatif}, 64 classes — vérifié (relancé en CI)
+- Le corpus de 256 grilles est déposé sur Zenodo : DOI du concept et de la version 1.0 — vérifié (relancé en CI)
 
 ### Travaux déposés (DOI Zenodo)
 
@@ -276,6 +277,7 @@ Statuses as in https://anibal-amiot.com/data/resultats-etablis.json; read that f
 - Fibres de la projection « étiquetage ↦ figure » : 4 096 par figure à l'ordre 6, trois tailles à l'ordre 10 — verified (rerun in CI)
 - Règle des miroirs à l'ordre 12, ensemble par ensemble : 0 désaccord sur les 8 192 graines qui pavent — verified (rerun in CI)
 - Le corpus binaire des animations : 256 grilles, 128 paires {motif, négatif}, 64 classes — verified (rerun in CI)
+- Le corpus de 256 grilles est déposé sur Zenodo : DOI du concept et de la version 1.0 — verified (rerun in CI)
 
 ### Deposits (Zenodo DOI)
 

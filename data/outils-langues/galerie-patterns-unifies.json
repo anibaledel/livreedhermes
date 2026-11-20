@@ -357,6 +357,41 @@
    "es": "Familia BASE-YANG, matices A = yang y B = yang_mut, hexagrama n.º 0: una construcción realmente retenida por el criterio. De izquierda a derecha: la cuadrícula <i>g</i>; <i>g</i> desplazada 6 casillas en fila y en columna (<i>d</i>); la cuadrícula del mismo hexagrama con los matices A y B intercambiados (<i>s</i>). Las dos líneas blancas marcan el medio período de 6 casillas. <i>d</i> y <i>s</i> son idénticas casilla por casilla: es lo que exige el criterio, y lo que <code>tools/figure_demi_decalage.py</code> comprueba antes de escribir la figura.",
    "th": "ตระกูล BASE-YANG โทนสี A = yang และ B = yang_mut ฉักลักษณ์ที่ 0 เป็นการสร้างที่เกณฑ์คัดไว้จริง จากซ้ายไปขวา: ตาราง <i>g</i>; <i>g</i> ที่เลื่อน 6 ช่องตามแถวและคอลัมน์ (<i>d</i>); ตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B (<i>s</i>) เส้นขาวสองเส้นแสดงครึ่งคาบ 6 ช่อง <i>d</i> และ <i>s</i> เหมือนกันทุกช่อง ซึ่งเป็นสิ่งที่เกณฑ์ต้องการ และเป็นสิ่งที่ <code>tools/figure_demi_decalage.py</code> ตรวจก่อนเขียนรูป",
    "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Corpus de 256 grilles unifiées 12 × 12 — La Livrée d'Hermès\",",
+   "en": "\"name\": \"Corpus of 256 unified 12 × 12 grids — La Livrée d'Hermès\",",
+   "es": "\"name\": \"Corpus de 256 cuadrículas unificadas de 12 × 12 — La Livrée d'Hermès\",",
+   "th": "\"name\": \"คลังตารางรวมเป็นหนึ่ง 256 ตาราง ขนาด 12 × 12 — La Livrée d'Hermès\",",
+   "source": "dépôt Zenodo du corpus (prompt 182) ; EN/ES de la main de CC, TH traduit depuis le français, à relire"
+  },
+  {
+   "fr": "\"description\": \"256 grilles tricolores de 12 × 12 cases (couple de teintes yang / yang_mut, 4 paires de familles × 64 hexagrammes), unifiées et lisibles par la lecture binaire, de 72 cases sombres et 72 claires, dont la lecture est inversée par le décalage (6, 6) ; 128 paires {motif, négatif} et 64 classes à translation torique près. Fichier data/corpus-256.json, avec CSV et script de vérification.\",",
+   "en": "\"description\": \"256 three-colour grids of 12 × 12 cells (yang / yang_mut pair of tints, 4 pairs of families × 64 hexagrams), unified and readable by the binary reading, with 72 dark and 72 light cells, whose reading the (6, 6) shift inverts; 128 {pattern, negative} pairs and 64 classes up to toroidal translation. File data/corpus-256.json, with a CSV and a verification script.\",",
+   "es": "\"description\": \"256 cuadrículas tricolores de 12 × 12 casillas (par de matices yang / yang_mut, 4 pares de familias × 64 hexagramas), unificadas y legibles por la lectura binaria, con 72 casillas oscuras y 72 claras, cuya lectura invierte el desplazamiento (6, 6); 128 pares {motivo, negativo} y 64 clases salvo traslación toroidal. Archivo data/corpus-256.json, con un CSV y un script de verificación.\",",
+   "th": "\"description\": \"ตารางสามสี 256 ตาราง ขนาด 12 × 12 ช่อง (โทนสีคู่ yang / yang_mut, 4 คู่ตระกูล × 64 ฉักลักษณ์) รวมเป็นหนึ่งและอ่านได้ด้วยการอ่านแบบไบนารี มีช่องมืด 72 ช่องและช่องสว่าง 72 ช่อง และการเลื่อน (6, 6) ทำให้ผลการอ่านกลับด้าน; 128 คู่ {ลวดลาย, ภาพกลับ} และ 64 ชั้นเมื่อไม่นับการเลื่อนบนทอรัส ไฟล์ data/corpus-256.json พร้อม CSV และสคริปต์ตรวจสอบ\",",
+   "source": "dépôt Zenodo du corpus (prompt 182) ; EN/ES de la main de CC, TH traduit depuis le français, à relire"
+  },
+  {
+   "fr": "\"inLanguage\": \"fr\",",
+   "en": "\"inLanguage\": \"en\",",
+   "es": "\"inLanguage\": \"es\",",
+   "th": "\"inLanguage\": \"th\",",
+   "source": "dépôt Zenodo du corpus (prompt 182) ; EN/ES de la main de CC, TH traduit depuis le français, à relire"
+  },
+  {
+   "fr": "<p class=\"corpus-citable\" id=\"corpus-citable\">Corpus citable : <a href=\"https://doi.org/10.5281/zenodo.24396534\" rel=\"noopener\">DOI 10.5281/zenodo.24396534</a> (toutes versions) — version 1.0 : <a href=\"https://doi.org/10.5281/zenodo.24396535\" rel=\"noopener\">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>",
+   "en": "<p class=\"corpus-citable\" id=\"corpus-citable\">Citable corpus: <a href=\"https://doi.org/10.5281/zenodo.24396534\" rel=\"noopener\">DOI 10.5281/zenodo.24396534</a> (all versions) — version 1.0: <a href=\"https://doi.org/10.5281/zenodo.24396535\" rel=\"noopener\">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>",
+   "es": "<p class=\"corpus-citable\" id=\"corpus-citable\">Corpus citable: <a href=\"https://doi.org/10.5281/zenodo.24396534\" rel=\"noopener\">DOI 10.5281/zenodo.24396534</a> (todas las versiones) — versión 1.0: <a href=\"https://doi.org/10.5281/zenodo.24396535\" rel=\"noopener\">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>",
+   "th": "<p class=\"corpus-citable\" id=\"corpus-citable\">คลังตารางที่อ้างอิงได้: <a href=\"https://doi.org/10.5281/zenodo.24396534\" rel=\"noopener\">DOI 10.5281/zenodo.24396534</a> (ทุกเวอร์ชัน) — เวอร์ชัน 1.0: <a href=\"https://doi.org/10.5281/zenodo.24396535\" rel=\"noopener\">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0</p>",
+   "source": "dépôt Zenodo du corpus (prompt 182) ; EN/ES de la main de CC, TH traduit depuis le français, à relire"
+  },
+  {
+   "fr": "\"url\": \"https://anibal-amiot.com/galerie-patterns-unifies.html\",",
+   "source": "dépôt Zenodo du corpus (prompt 182) ; adresse de la page dans sa langue",
+   "en": "\"url\": \"https://anibal-amiot.com/en/three-colour-gallery/\",",
+   "es": "\"url\": \"https://anibal-amiot.com/es/galeria-tricolor/\",",
+   "th": "\"url\": \"https://anibal-amiot.com/th/three-colour-gallery/\","
   }
  ]
 }

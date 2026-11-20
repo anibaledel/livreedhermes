@@ -46,6 +46,9 @@ jobs:
       - run: node tools/check_symetries_corpus.mjs --essai
       - run: node tools/symetries_64.mjs --verifie
       - run: node tools/symetries_64.mjs --essai
+      # le corpus déposé sur Zenodo (prompt 182) : l'empreinte déposée est celle du dépôt, les DOI sont dans les pages
+      - run: node tools/check_corpus_depot.mjs
+      - run: node tools/check_corpus_depot.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
       - run: python3 tools/verify_quadricolore.py --json
       - run: python3 tools/verify_cle_couleurs.py

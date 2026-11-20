@@ -257,6 +257,24 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "คลังตารางรวมเป็นหนึ่ง 256 ตาราง ขนาด 12 × 12 — La Livrée d'Hermès",
+  "description": "ตารางสามสี 256 ตาราง ขนาด 12 × 12 ช่อง (โทนสีคู่ yang / yang_mut, 4 คู่ตระกูล × 64 ฉักลักษณ์) รวมเป็นหนึ่งและอ่านได้ด้วยการอ่านแบบไบนารี มีช่องมืด 72 ช่องและช่องสว่าง 72 ช่อง และการเลื่อน (6, 6) ทำให้ผลการอ่านกลับด้าน; 128 คู่ {ลวดลาย, ภาพกลับ} และ 64 ชั้นเมื่อไม่นับการเลื่อนบนทอรัส ไฟล์ data/corpus-256.json พร้อม CSV และสคริปต์ตรวจสอบ",
+  "url": "https://anibal-amiot.com/th/three-colour-gallery/",
+  "inLanguage": "th",
+  "identifier": "https://doi.org/10.5281/zenodo.24396534",
+  "sameAs": "https://doi.org/10.5281/zenodo.24396535",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "version": "1.0",
+  "datePublished": "2026-11-20",
+  "creator": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "https://anibal-amiot.com/a-propos.html" },
+  "isAccessibleForFree": true,
+  "distribution": [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://doi.org/10.5281/zenodo.24396535" }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://anibal-amiot.com/th/" },
@@ -373,6 +391,7 @@
       <li><b>การปูลาย 256 แบบ</b> — ตารางหนึ่งกับตารางที่เลื่อนครึ่งคาบ (6 ช่องตามแถวและคอลัมน์) ให้การปูลายระนาบเดียวกัน จึงนับรวมกัน</li>
       <li><b>วงโคจร 128 วง</b> — ตาราง 512 แบบที่ต่างกันจัดกลุ่มตามกลุ่มสมมาตรเต็มรูป (การหมุน กระจก การเลื่อนครึ่งคาบ) แต่ละวงโคจรมี 4 ตารางของคลัง</li>
     </ul>
+    <p class="corpus-citable" id="corpus-citable">คลังตารางที่อ้างอิงได้: <a href="https://doi.org/10.5281/zenodo.24396534" rel="noopener">DOI 10.5281/zenodo.24396534</a> (ทุกเวอร์ชัน) — เวอร์ชัน 1.0: <a href="https://doi.org/10.5281/zenodo.24396535" rel="noopener">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0</p>
     <div class="critere" id="critere-exact">
       <h2>เกณฑ์ที่แน่นอน</h2>
       <p>การสร้างหนึ่งแบบ (ตระกูล โทนสี A โทนสี B ฉักลักษณ์ <i>n</i>) ให้ตาราง <i>g</i> ขนาด 12 × 12 ให้ <i>d</i> เป็นตาราง <i>g</i> ที่เลื่อน 6 ช่องตามแถวและ 6 ช่องตามคอลัมน์ โดยต่อขอบเข้าด้วยกัน (ทอรัส): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12] ให้ <i>s</i> เป็นตารางของฉักลักษณ์เดียวกันที่สลับโทนสี A และ B การสร้างนั้นจะถูกคัดไว้ก็ต่อเมื่อ <i>d</i> = <i>s</i> ทีละช่อง โดยไม่มีข้อยกเว้น</p>

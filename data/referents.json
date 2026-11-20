@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-11-20T14:50:23Z",
+ "generated_at_utc": "2026-11-20T14:57:07Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -243,14 +243,24 @@
     "fichier": "data/resultats-etablis.json",
     "adresse": "https://anibal-amiot.com/data/resultats-etablis.json",
     "ids": [
-     "corpus-256-128-64"
+     "corpus-256-128-64",
+     "corpus-256-depose"
     ]
    },
    "sources": [
     "data/referent_360_v3.json",
     "assets/lecture-binaire.js"
    ],
-   "pages": [],
+   "pages": [
+    "chiffres-et-sources.html",
+    "en/figures-and-sources/index.html",
+    "en/three-colour-gallery/index.html",
+    "es/cifras-y-fuentes/index.html",
+    "es/galeria-tricolor/index.html",
+    "galerie-patterns-unifies.html",
+    "th/figures-and-sources/index.html",
+    "th/three-colour-gallery/index.html"
+   ],
    "cles": [
     "_doc",
     "couple",

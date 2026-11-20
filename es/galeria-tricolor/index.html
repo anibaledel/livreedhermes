@@ -257,6 +257,24 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Corpus de 256 cuadrículas unificadas de 12 × 12 — La Livrée d'Hermès",
+  "description": "256 cuadrículas tricolores de 12 × 12 casillas (par de matices yang / yang_mut, 4 pares de familias × 64 hexagramas), unificadas y legibles por la lectura binaria, con 72 casillas oscuras y 72 claras, cuya lectura invierte el desplazamiento (6, 6); 128 pares {motivo, negativo} y 64 clases salvo traslación toroidal. Archivo data/corpus-256.json, con un CSV y un script de verificación.",
+  "url": "https://anibal-amiot.com/es/galeria-tricolor/",
+  "inLanguage": "es",
+  "identifier": "https://doi.org/10.5281/zenodo.24396534",
+  "sameAs": "https://doi.org/10.5281/zenodo.24396535",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "version": "1.0",
+  "datePublished": "2026-11-20",
+  "creator": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "https://anibal-amiot.com/a-propos.html" },
+  "isAccessibleForFree": true,
+  "distribution": [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://doi.org/10.5281/zenodo.24396535" }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://anibal-amiot.com/es/" },
@@ -373,6 +391,7 @@
       <li><b>256 teselados</b> — una cuadrícula y su desplazada de medio período (6 casillas en fila y en columna) dan el mismo teselado del plano: se cuentan juntas.</li>
       <li><b>128 órbitas</b> — las 512 cuadrículas distintas agrupadas bajo el grupo de simetría completo (rotaciones, espejo, semidesplazamiento); cada órbita contiene 4 cuadrículas del corpus.</li>
     </ul>
+    <p class="corpus-citable" id="corpus-citable">Corpus citable: <a href="https://doi.org/10.5281/zenodo.24396534" rel="noopener">DOI 10.5281/zenodo.24396534</a> (todas las versiones) — versión 1.0: <a href="https://doi.org/10.5281/zenodo.24396535" rel="noopener">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>
     <div class="critere" id="critere-exact">
       <h2>El criterio exacto</h2>
       <p>Una construcción (familia, matiz A, matiz B, hexagrama <i>n</i>) da la cuadrícula <i>g</i> de 12 × 12. Sea <i>d</i> la cuadrícula <i>g</i> desplazada 6 casillas en fila y 6 casillas en columna, uniendo los bordes (toro): <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Sea <i>s</i> la cuadrícula del mismo hexagrama con sus dos matices A y B intercambiados. La construcción se retiene si y solo si <i>d</i> = <i>s</i>, casilla por casilla, sin excepción.</p>

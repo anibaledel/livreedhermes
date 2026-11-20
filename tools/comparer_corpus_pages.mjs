@@ -26,6 +26,7 @@ const data = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds_ecran_v1.json')
 const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 'utf8'));
 const cle = (g) => g.map((l) => (typeof l === 'string' ? l : l.join(''))).join('/');
 const decalee = (g) => g.map((_, r) => g[0].map((__, c) => g[(r + 6) % 12][(c + 6) % 12]));
+const depot = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256-depot.json'), 'utf8'));
 const dansCorpus = new Map(corpus.entrees.map((e) => [e.tricolore.join('/'), e]));
 const FAM_DU_SLUG = new Map(FAMILLES.map((f) => [slugDe(f, 0).replace(/-h0$/, ''), f]));
 const nom = (f) => f.replace(/[:+_]/g, ' ');
@@ -66,6 +67,8 @@ const horsPages = corpus.entrees.filter((e) => !couvertes.has(e.id));
 const sortie = [];
 const p = (s = '') => sortie.push(s);
 p('# Le corpus de 256 grilles (prompt 209) comparé aux 256 pages `motifs/`');
+p();
+p(`**Corpus déposé et citable** : DOI ${depot.doi_concept} (toutes versions, à citer par défaut) ; version ${depot.version} (${depot.date}) : DOI ${depot.doi_version} ; ${depot.licence} ; \`data/corpus-256.json\`, SHA-256 \`${depot.sha256}\`. Le dépôt (data/corpus-256-depot.json) ne contient pas les variantes de fonds.`);
 p();
 p('Écrit par `tools/comparer_corpus_pages.mjs`. **Rien n\'est changé** : ni les pages, ni le registre Pinterest. Numéros : King Wen d\'abord, puis le numéro du site.');
 p();

@@ -257,6 +257,24 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Corpus de 256 grilles unifiées 12 × 12 — La Livrée d'Hermès",
+  "description": "256 grilles tricolores de 12 × 12 cases (couple de teintes yang / yang_mut, 4 paires de familles × 64 hexagrammes), unifiées et lisibles par la lecture binaire, de 72 cases sombres et 72 claires, dont la lecture est inversée par le décalage (6, 6) ; 128 paires {motif, négatif} et 64 classes à translation torique près. Fichier data/corpus-256.json, avec CSV et script de vérification.",
+  "url": "https://anibal-amiot.com/galerie-patterns-unifies.html",
+  "inLanguage": "fr",
+  "identifier": "https://doi.org/10.5281/zenodo.24396534",
+  "sameAs": "https://doi.org/10.5281/zenodo.24396535",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "version": "1.0",
+  "datePublished": "2026-11-20",
+  "creator": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "https://anibal-amiot.com/a-propos.html" },
+  "isAccessibleForFree": true,
+  "distribution": [{ "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://doi.org/10.5281/zenodo.24396535" }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
@@ -373,6 +391,7 @@
       <li><b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.</li>
       <li><b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.</li>
     </ul>
+    <p class="corpus-citable" id="corpus-citable">Corpus citable : <a href="https://doi.org/10.5281/zenodo.24396534" rel="noopener">DOI 10.5281/zenodo.24396534</a> (toutes versions) — version 1.0 : <a href="https://doi.org/10.5281/zenodo.24396535" rel="noopener">DOI 10.5281/zenodo.24396535</a>, CC BY-NC 4.0.</p>
     <div class="critere" id="critere-exact">
       <h2>Le critère exact</h2>
       <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>

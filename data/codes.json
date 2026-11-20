@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T14:50:40Z",
+ "generated_at_utc": "2026-11-20T14:54:52Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 305,
+  "scripts": 306,
   "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1851,6 +1851,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_corpus_depot.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_corpus_depot.mjs",
+   "octets": 6566,
+   "sha256": "b240f601e833844b0daedcb76354650ab4bf4e9eaf4ee073b258523416f22dba",
+   "md5": "22d1a294164712b4bb182bf779d3aab1",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le DOI du corpus de 256 grilles déposé sur Zenodo (prompt 182) est partout où il doit être, et la version déposée est celle du dépôt.",
+   "lit": [
+    "corpus-256"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_couleurs.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_couleurs.mjs",
    "octets": 6681,
@@ -2903,9 +2920,9 @@
   {
    "chemin": "tools/comparer_corpus_pages.mjs",
    "adresse": "https://anibal-amiot.com/tools/comparer_corpus_pages.mjs",
-   "octets": 7592,
-   "sha256": "16cdee5f9dcfad6ba5ed08d169080f31d395623c6d18477f991771118f9bfb63",
-   "md5": "f06c9c42c1ace01422feae25c63f0d91",
+   "octets": 8022,
+   "sha256": "63242254fb94d6b0c6babefacacaecf709338bb9e5479148f5f7ee857d52bff2",
+   "md5": "19a3cf39066ace49bfbef2c76c7e1408",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le corpus binaire de 256 grilles (data/corpus-256.json) comparé au corpus actuel des 256 pages motifs/ (prompt 209, 1.5).",

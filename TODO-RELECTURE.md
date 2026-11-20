@@ -1338,3 +1338,11 @@ De moi, à relire :
   - **italien** : « Esagramma 12 — Pi, La Stagnazione (n. 56 del sito) » — `n. … del sito`, de la colonne « N. (sito) ».
   - espagnol (`n.º … del sitio`), anglais (`no. … on this site`) et français (`n° … du site`) : formes de l'énoncé du prompt.
 - Les langues zh, ru, pt et hi n'ont pas de pages d'hexagrammes : rien à relire pour elles.
+
+## Prompt 182 — DOI du corpus de 256 grilles (Zenodo)
+
+À relire (anglais et espagnol de la main de CC, thaï traduit depuis le français ; pages à 4 langues seulement : fr, en, es, th — les sept autres éditions n'ont pas ces pages) :
+- la ligne « Corpus citable : DOI … » (galerie des Patterns Unifiés — `en/three-colour-gallery/`, `es/galeria-tricolor/`, `th/three-colour-gallery/` —, et Unified Patterns) ;
+- le nom et la description du JSON-LD Dataset (galerie et chiffres et sources) ;
+- la phrase « Déposé sur Zenodo… » ajoutée à la ligne « 256 / 128 / 64 » de chiffres et sources.
+Mot à confirmer en thaï : « คลังตาราง » pour « corpus » (la page de chiffres emploie « คลังอ้างอิง »).

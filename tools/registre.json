@@ -306,6 +306,33 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_corpus_depot.mjs",
+   "role": "le DOI du corpus de 256 grilles déposé sur Zenodo (prompt 182) est partout où il doit être, et la version déposée est celle du dépôt.",
+   "lit": [
+    "data/corpus-256-depot.json",
+    "data/corpus-256.json",
+    "data/referents.json",
+    "data/resultats-etablis.json",
+    "docs/corpus-256-comparaison-pages.md",
+    "en/figures-and-sources/index.html",
+    "en/three-colour-gallery/index.html",
+    "en/unified-patterns/index.html",
+    "es/cifras-y-fuentes/index.html",
+    "es/galeria-tricolor/index.html",
+    "es/motivos-unificados/index.html",
+    "th/figures-and-sources/index.html",
+    "th/three-colour-gallery/index.html",
+    "th/unified-patterns/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_couleurs.mjs",
    "role": "Les couleurs par défaut viennent d'UN SEUL jeu de constantes, assets/couleurs.js : 1.",
    "lit": [
@@ -1313,6 +1340,7 @@
    "fichier": "tools/comparer_corpus_pages.mjs",
    "role": "le corpus binaire de 256 grilles (data/corpus-256.json) comparé au corpus actuel des 256 pages motifs/ (prompt 209, 1.5).",
    "lit": [
+    "data/corpus-256-depot.json",
     "data/corpus-256.json",
     "data/fonds_ecran_v1.json",
     "scripts/extract-hexagram-data.js"

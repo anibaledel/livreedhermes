@@ -1,5 +1,7 @@
 # Le corpus de 256 grilles (prompt 209) comparé aux 256 pages `motifs/`
 
+**Corpus déposé et citable** : DOI 10.5281/zenodo.24396534 (toutes versions, à citer par défaut) ; version 1.0 (2026-11-20) : DOI 10.5281/zenodo.24396535 ; CC BY-NC 4.0 ; `data/corpus-256.json`, SHA-256 `61fc8864de64403710da17b33500b90c872da3872882df0da79e844388ed97aa`. Le dépôt (data/corpus-256-depot.json) ne contient pas les variantes de fonds.
+
 Écrit par `tools/comparer_corpus_pages.mjs`. **Rien n'est changé** : ni les pages, ni le registre Pinterest. Numéros : King Wen d'abord, puis le numéro du site.
 
 - **Couple de teintes des pages : yang / yang_mut.** Chaque page écrit sa grille dans `motifDataJSON.grille_polarite_yang` (celle que la lecture binaire et l'export Pinterest emploient ; les images portent « yang-yang-mut » dans leur nom). Les 256 pages relues sont identiques à la grille recalculée du couple yang / yang_mut de `data/fonds_ecran_v1.json` : aucune différence.
