@@ -618,12 +618,12 @@
       "decimale": ".",
       "corpusTitre": "二进制语料：64、128 或 256 个图案",
       "corpusTexte": "256 个可按二进制读取的图案，组成 128 对{图案，负片}，平移意义下共 64 类。在 128 级，动画从每个图案切换到它的负片。",
-      "corpusLegende": "语料级别",
+      "corpusLegende": "语料等级",
       "corpusN64": "64：每类一个代表",
       "corpusN128": "128：图案及其负片",
       "corpusN256": "256：全部图案",
       "corpusMeta": "{n} 块 · {s} 秒",
-      "corpusEtat": "级别 {niveau}：{n} 块，{s} 秒。"
+      "corpusEtat": "等级 {niveau}：{n} 块，{s} 秒。"
     },
     "ru": {
       "titre": "Анимации коллекций",
