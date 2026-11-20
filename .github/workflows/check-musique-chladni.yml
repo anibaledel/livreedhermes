@@ -38,6 +38,9 @@ jobs:
       - run: pip install numpy
       - run: node tools/verify_musique_chladni.mjs
       - run: node tools/verify_musique_chladni.mjs --essai
+      # le moteur de « Pavane — Voir sa musique » (prompt 211) : défilé, spectre, entre-deux, sur du son synthétique, sans navigateur
+      - run: node tools/check_pavane_moteur.mjs
+      - run: node tools/check_pavane_moteur.mjs --essai
   page:
     runs-on: ubuntu-latest
     steps:

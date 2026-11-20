@@ -960,6 +960,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_pavane_moteur.mjs",
+   "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
+   "lit": [
+    "data/corpus-256.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_pdf.py",
    "role": "Les PDF du dépôt (suivis par git, hors archives « anciens/ ») : 1.",
    "lit": [],

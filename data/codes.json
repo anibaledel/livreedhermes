@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T14:54:52Z",
+ "generated_at_utc": "2026-11-20T15:15:50Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 306,
+  "scripts": 307,
   "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2520,6 +2520,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "dans chaque langue du livre, le parcours accueil → page du livre → visionneuse → PDF se fait dans cette langue (audit A09 du 4 octobre 2026 : un lecteur russe ouvrait un livre russe piloté en français).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_pavane_moteur.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_pavane_moteur.mjs",
+   "octets": 11477,
+   "sha256": "32e12e557b96ff50871fd00c4a76542c4da3f0b8336fe19dce28b6a8051f491a",
+   "md5": "2ee7c6033d7d738153eb00de0d426a7f",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
+   "lit": [
+    "corpus-256"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
