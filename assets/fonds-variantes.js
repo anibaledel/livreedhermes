@@ -28,6 +28,7 @@ export const FONDS_A_PHASES = Object.freeze(['B2D']);
 export const ISOMETRIES = Object.freeze([[1, 0, 0, 1], [0, 1, -1, 0], [-1, 0, 0, -1], [0, -1, 1, 0], [-1, 0, 0, 1], [1, 0, 0, -1], [0, 1, 1, 0], [0, -1, -1, 0]]);
 export const INVERSANTES = Object.freeze(new Set([1, 3, 6, 7]));
 export const GRILLE = 12;
+const DEBORD = 0.015; // le débord des symboles de bicolore-fonds.js
 const C = GRILLE / 2; // le centre, 6
 
 // l'image [ligne, colonne] de la case (r, c) par l'isométrie g
@@ -200,10 +201,138 @@ export function raccordsBrises(v, m = 16, eps = 1e-5) {
   return brises;
 }
 
+// ---------- le tracé : la frontière entre régions de couleurs différentes ----------
+// Calcul VECTORIEL, à partir des polygones du rendu (jamais par traitement d'image) : chaque élément donne des morceaux de couleur (le dessous de la case ou du
+// triangle, puis les bandes du fond, découpées au triangle), posés dans la grille par l'isométrie, la rotation et la translation de l'élément. Chaque arête de
+// morceau est coupée aux sommets des polygones voisins qui tombent sur elle ; un segment est de FRONTIÈRE quand les deux côtés ont des couleurs différentes.
+// Renvoie des segments [x1, y1, x2, y2] en unités de case (0 à 12), dédoublonnés.
+const rogner = (sujet, [a, b, c]) => { // un polygone convexe rogné au triangle convexe [a, b, c]
+  const aire = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+  const T = aire < 0 ? [a, c, b] : [a, b, c];
+  let sortie = sujet;
+  for (let i = 0; i < 3 && sortie.length; i++) {
+    const p = T[i], q = T[(i + 1) % 3], dedans = (r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]) >= -1e-12;
+    const entree = sortie; sortie = [];
+    for (let j = 0; j < entree.length; j++) {
+      const u = entree[j], w = entree[(j + 1) % entree.length], du = dedans(u), dw = dedans(w);
+      const croise = () => {
+        const d1 = (q[0] - p[0]) * (u[1] - p[1]) - (q[1] - p[1]) * (u[0] - p[0]), d2 = (q[0] - p[0]) * (w[1] - p[1]) - (q[1] - p[1]) * (w[0] - p[0]);
+        const t = d1 / (d1 - d2); return [u[0] + t * (w[0] - u[0]), u[1] + t * (w[1] - u[1])];
+      };
+      if (du) sortie.push(u);
+      if (du !== dw) sortie.push(croise());
+    }
+  }
+  return sortie.length >= 3 ? sortie : null;
+};
+export function morceauxDeVariante(v) {
+  const morceaux = []; // { pts (grille globale), couleur }
+  const t = v.translation;
+  for (const e of v.elements) {
+    const [a, b, c, d] = ISOMETRIES[e.g];
+    const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cible[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cible[0];
+    const rd = v.rendus[e.bit];
+    const locaux = [];
+    const base = e.poly ? e.poly.map(([x, y]) => [x, y]) : [[0, 0], [1, 0], [1, 1], [0, 1]];
+    if (!rd.sansDessous) locaux.push({ pts: base, couleur: rd.dessous });
+    for (const p of rd.parts) {
+      const tournes = p.points.map(([x, y]) => tourne(x, y, e.phase)); // le symbole est d'abord tourné, puis découpé au triangle (comme dans le SVG)
+      const pts = e.poly ? rogner(tournes, e.poly) : tournes;
+      if (pts) locaux.push({ pts, couleur: p.couleur });
+    }
+    for (const m of locaux) {
+      const pts = m.pts.map(([x, y]) => {
+        const X = e.q + x - C, Y = e.r + y - C;
+        return [a * X + b * Y + C + tx, c * X + d * Y + C + ty];  // l'isométrie autour du centre, puis la translation du tore
+      });
+      morceaux.push({ pts, couleur: m.couleur ^ e.inv ^ t.echange });
+    }
+  }
+  return morceaux;
+}
+export function frontieres(v) {
+  const morceaux = morceauxDeVariante(v);
+  // les arêtes, rangées par case (avec les copies de part et d'autre du tore, pour les sommets qui tombent sur un bord)
+  const arêtes = [];
+  for (const m of morceaux) for (let i = 0; i < m.pts.length; i++) arêtes.push([m.pts[i], m.pts[(i + 1) % m.pts.length]]);
+  const seau = new Map();
+  const range = (x, y, e) => { const k = `${x},${y}`; if (!seau.has(k)) seau.set(k, []); seau.get(k).push(e); };
+  for (const [p, q] of arêtes) {
+    for (const ox of [-GRILLE, 0, GRILLE]) for (const oy of [-GRILLE, 0, GRILLE]) {
+      const P = [p[0] + ox, p[1] + oy], Q = [q[0] + ox, q[1] + oy];
+      const x0 = Math.floor(Math.min(P[0], Q[0]) - 1e-9), x1 = Math.floor(Math.max(P[0], Q[0]) + 1e-9), y0 = Math.floor(Math.min(P[1], Q[1]) - 1e-9), y1 = Math.floor(Math.max(P[1], Q[1]) + 1e-9);
+      if (x1 < -1 || x0 > GRILLE || y1 < -1 || y0 > GRILLE) continue;
+      for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) range(x, y, [P, Q]);
+    }
+  }
+  const EPSG = 1e-6, vus = new Set(), segments = [];
+  const arrondi = (x) => Math.round(x * 1e6) / 1e6;
+  for (const [p, q] of arêtes) {
+    const dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy);
+    if (L < 1e-9) continue;
+    const ts = new Set([0, 1]);
+    const x0 = Math.floor(Math.min(p[0], q[0]) - 1e-9), x1 = Math.floor(Math.max(p[0], q[0]) + 1e-9), y0 = Math.floor(Math.min(p[1], q[1]) - 1e-9), y1 = Math.floor(Math.max(p[1], q[1]) + 1e-9);
+    for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) for (const [r, s] of seau.get(`${x},${y}`) || []) {
+      for (const w of [r, s]) { // un sommet voisin tombe sur l'arête : on la coupe là
+        const tt = ((w[0] - p[0]) * dx + (w[1] - p[1]) * dy) / (L * L);
+        if (tt > 1e-9 && tt < 1 - 1e-9 && Math.abs((w[0] - p[0]) * dy - (w[1] - p[1]) * dx) / L < 1e-7) ts.add(tt);
+      }
+      const rx = s[0] - r[0], ry = s[1] - r[1], den = dx * ry - dy * rx; // les arêtes qui la traversent
+      if (Math.abs(den) > 1e-12) {
+        const tt = ((r[0] - p[0]) * ry - (r[1] - p[1]) * rx) / den, uu = ((r[0] - p[0]) * dy - (r[1] - p[1]) * dx) / den;
+        if (tt > 1e-9 && tt < 1 - 1e-9 && uu >= -1e-9 && uu <= 1 + 1e-9) ts.add(tt);
+      }
+    }
+    const t = [...ts].sort((m, n) => m - n);
+    const nx = -dy / L, ny = dx / L;
+    for (let i = 0; i + 1 < t.length; i++) {
+      if (t[i + 1] - t[i] < 1e-9) continue;
+      const mid = (t[i] + t[i + 1]) / 2, mx = p[0] + mid * dx, my = p[1] + mid * dy;
+      const c1 = v.couleurAu(mx + EPSG * nx, my + EPSG * ny), c2 = v.couleurAu(mx - EPSG * nx, my - EPSG * ny);
+      if (c1 === null || c2 === null || c1 === c2) continue;
+      let A = [p[0] + t[i] * dx, p[1] + t[i] * dy], B = [p[0] + t[i + 1] * dx, p[1] + t[i + 1] * dy];
+      if (A[0] > B[0] || (A[0] === B[0] && A[1] > B[1])) [A, B] = [B, A];
+      // la grille est un tore : un segment est ramené dans le carré 0..12 par la case de son milieu
+      const sx = Math.floor((A[0] + B[0]) / 2 / GRILLE) * GRILLE, sy = Math.floor((A[1] + B[1]) / 2 / GRILLE) * GRILLE;
+      const seg = [arrondi(A[0] - sx), arrondi(A[1] - sy), arrondi(B[0] - sx), arrondi(B[1] - sy)];
+      const cle = seg.join(',');
+      if (!vus.has(cle)) { vus.add(cle); segments.push(seg); }
+    }
+  }
+  return segments;
+}
+
+export const COULEUR_TRACE = '#d62828';
+// le tracé en SVG : un trait fin (1 à 2 px quelle que soit la taille : vector-effect), posé par-dessus le rendu
+export function traceSvg(segments, size, { couleur = COULEUR_TRACE, largeur = 1.5 } = {}) {
+  const k = size / GRILLE, n = (x) => String(Math.round(x * k * 100) / 100);
+  const d = segments.map(([a, b, c, e]) => `M${n(a)} ${n(b)}L${n(c)} ${n(e)}`).join('');
+  return `<path d="${d}" fill="none" stroke="${couleur}" stroke-width="${largeur}" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+}
+
+// un triangle élargi : chaque arête reculée vers l'extérieur de `bord` (arête sur le bord de la case) ou de `diagonale` (arête intérieure), puis les sommets
+// recalculés à l'intersection des arêtes voisines
+const DIAGONALE = 0.003;
+function elargi(poly) {
+  const n = poly.length, cx = poly.reduce((m, p) => m + p[0], 0) / n, cy = poly.reduce((m, p) => m + p[1], 0) / n;
+  const droites = poly.map((p, i) => {
+    const q = poly[(i + 1) % n], dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy);
+    let nx = dy / L, ny = -dx / L;
+    if (nx * (cx - p[0]) + ny * (cy - p[1]) > 0) { nx = -nx; ny = -ny; } // la normale sort du triangle
+    const surBord = (p[0] === q[0] && (p[0] === 0 || p[0] === 1)) || (p[1] === q[1] && (p[1] === 0 || p[1] === 1));
+    const delta = surBord ? DEBORD : DIAGONALE;
+    return { nx, ny, c: nx * p[0] + ny * p[1] + delta };
+  });
+  return poly.map((_, i) => { // le sommet i est à l'intersection de l'arête i-1 et de l'arête i
+    const A = droites[(i + n - 1) % n], B = droites[i], det = A.nx * B.ny - A.ny * B.nx;
+    return [(A.c * B.ny - A.ny * B.c) / det, (A.nx * B.c - A.c * B.nx) / det];
+  });
+}
+
 // ---------- le SVG ----------
 // Le motif dans le fond, variante : les éléments transportés (matrice SVG autour du centre), chacun découpé à son triangle. `translation` : le dessin du
 // représentant translaté sur le tore (les 256 se déduisent des 64) ; `echange` inverse les couleurs, comme la lecture.
-export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', phases = null, translation = null } = {}) {
+export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', phases = null, translation = null, trace = false } = {}) {
   const A = symbolesDe(fond, palette, { prefixe: `${prefixe}a-` });
   const B = symbolesDe(fond, [palette[1], palette[0]], { prefixe: `${prefixe}b-` });
   const s = size / GRILLE, ctr = size / 2;
@@ -211,7 +340,8 @@ export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', 
   const n = (x) => String(Math.round(x * 1000) / 1000);
   let uid = 0, corps = '';
   const defs = [A.defs, B.defs];
-  for (const e of new Variante(cases, fond, phases).elements) {
+  const variante = new Variante(cases, fond, phases, translation);
+  for (const e of variante.elements) {
     const [a, b, c, d] = ISOMETRIES[e.g];
     const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cible[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cible[0];
     const M = `translate(${n(tx * s)} ${n(ty * s)}) matrix(${a} ${c} ${b} ${d} ${n(ctr - a * ctr - b * ctr)} ${n(ctr - c * ctr - d * ctr)})`;
@@ -220,11 +350,14 @@ export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', 
     if (e.phase) uti = `<g transform="rotate(${90 * e.phase} ${n(e.q * s + s / 2)} ${n(e.r * s + s / 2)})">${uti}</g>`;
     if (e.poly) {
       const id = `${prefixe}cl${uid++}`;
-      defs.push(`<clipPath id="${id}"><polygon points="${e.poly.map(([x, y]) => `${n(e.q * s + x * s)},${n(e.r * s + y * s)}`).join(' ')}"/></clipPath>`);
+      // le triangle est élargi : de 1,5 % (comme les symboles de bicolore-fonds.js) là où il touche le bord de la case — deux cases voisines se recouvrent d'un trait et
+      // le fond de page ne passe jamais entre elles —, et de 0,3 % le long de la diagonale commune à deux triangles — leurs deux anticrénelages de bande ne laissent
+      // pas de liseré clair ou sombre là où la frontière d'une bande tombe sur la diagonale
+      defs.push(`<clipPath id="${id}"><polygon points="${elargi(e.poly).map(([x, y]) => `${n(e.q * s + x * s)},${n(e.r * s + y * s)}`).join(' ')}"/></clipPath>`);
       uti = `<g clip-path="url(#${id})">${uti}</g>`;
     }
     corps += `<g transform="${M}">${uti}</g>\n`;
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n<defs>${defs.join('')}</defs>\n`
-    + `<rect width="${size}" height="${size}" fill="${palette[0]}"/>\n${corps}</svg>\n`;
+    + `<rect width="${size}" height="${size}" fill="${palette[0]}"/>\n${corps}${trace ? traceSvg(frontieres(variante), size) + '\n' : ''}</svg>\n`;
 }
