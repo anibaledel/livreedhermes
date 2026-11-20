@@ -1025,6 +1025,21 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_pavane_son.mjs",
+   "role": "les sources du son et l'enregistrement de « Pavane — Voir sa musique » (prompt 211 §2, §9.4 : audio simulé, pas de micro réel), en navigateur.",
+   "lit": [
+    "assets/musiques-chladni/j5-sol.mp3",
+    "data/corpus-256.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_pavane_ui.mjs",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
    "lit": [
@@ -2229,6 +2244,7 @@
     "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",
     "tools/check_parcours_langues.mjs",
+    "tools/check_pavane_son.mjs",
     "tools/check_pavane_ui.mjs",
     "tools/check_selecteur_fonds.mjs",
     "tools/check_selection_clavier.mjs",

@@ -34,3 +34,12 @@
 .pv :focus-visible { outline: 3px solid var(--pv-or); outline-offset: 2px; }
 .pv [hidden] { display: none !important; }
 @media (max-width: 760px) { .pv-modes { grid-template-columns: 1fr; } .pv-corps { grid-template-columns: 1fr; } .pv { padding: 12px; } }
+.pv-sources { display: grid; gap: 10px; border-style: solid; }
+.pv-source-reglage { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pv-source-reglage select, .pv-source-reglage button { min-height: 44px; font: inherit; color: var(--pv-texte); background: #22222b; border: 1px solid var(--pv-trait); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 700; }
+.pv-source-reglage input[type=file] { min-height: 44px; color: var(--pv-doux); max-width: 100%; }
+.pv-source-reglage label { display: flex; align-items: center; gap: 8px; min-height: 44px; flex: 1 1 220px; }
+.pv-source-reglage input[type=range] { flex: 1; min-height: 44px; accent-color: var(--pv-or); }
+.pv-mention { margin: 0; color: var(--pv-doux); font-size: 13px; }
+.pv-actions button[aria-pressed=true] { border-color: var(--pv-or); }
+.pv-choix label { display: flex; align-items: center; gap: 8px; min-height: 44px; }

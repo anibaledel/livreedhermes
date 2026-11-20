@@ -1351,3 +1351,8 @@ Mot à confirmer en thaï : « คลังตาราง » pour « corpus » 
 
 `assets/pavane-textes.js` : 39 libellés × 11 langues. Français, anglais, espagnol : de la main de CC. **À relire** : thaï et japonais d'abord, puis chinois, russe, portugais, hindi, allemand, italien (traduits depuis le français).
 Mots à confirmer : « Défilé » (th ขบวน, ja パレード), « Entre-deux » (th ระหว่างกลาง, ja 中間), « Spectre » ; la phrase des sources sonores (« au prochain bloc ») est provisoire, elle est remplacée au bloc 2 ; « Hexagramme {kw} · n° {n} du site » (King Wen d'abord).
+
+## Prompt 211 — Pavane, bloc 2 (sources du son, enregistrement)
+
+`assets/pavane-textes.js` : 24 libellés de plus × 11 langues (la clé « sources » devient le titre du groupe « Source du son » ; le texte provisoire « au prochain bloc » est retiré). Fr, en, es de CC ; les huit autres à relire, thaï et japonais d'abord.
+Mots à confirmer : « Morceau fourni », « Note pure », « Enregistrer 15 s de vidéo » ; la mention « Morceaux originaux composés avec l'aide de l'IA » (même sens que celle de « La semaine »).

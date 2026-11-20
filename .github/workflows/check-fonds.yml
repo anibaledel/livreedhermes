@@ -152,6 +152,8 @@ jobs:
       # l'interface de « Pavane — Voir sa musique » (prompt 211, bloc 1) : trois modes (fr, ja, th ; 390 et 1280 px), fonds proposés seuls, pause, état dans l'adresse, contraste imposé, axe-core
       - run: node tools/check_pavane_ui.mjs local
       - run: node tools/check_pavane_ui.mjs local --essai
+      # le son de Pavane (bloc 2) : morceau fourni, note pure, fichier local, micro simulé, enregistrement d'image et de vidéo
+      - run: node tools/check_pavane_son.mjs local
       # les variantes de fonds sur le corpus de 64 (prompt 210) : 512 rendus à 1200 px, symétries du motif tenues, pavage sans rupture (B2D : 0 raccord brisé)
       - run: node tools/check_symetries_rendu.mjs
       - run: node tools/check_symetries_rendu.mjs --essai

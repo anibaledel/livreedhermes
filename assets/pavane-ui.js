@@ -1,23 +1,25 @@
 // pavane-ui.js — La Livrée d'Hermès
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// L'INTERFACE de « Pavane — Voir sa musique » (prompt 211, §2 et §4) — premier bloc : le sélecteur des trois modes (Défilé, Spectre, Entre-deux), les réglages communs (fond parmi
-// les fonds proposés, motifs 64 · 128 · 256, couleurs, tracé rouge, rythme, densité), la scène, la pause, le plein écran, l'état dans l'adresse. Le Défilé au minuteur marche ; les sources
-// sonores (morceau fourni, fichier, micro, note pure) et les modes Spectre et Entre-deux sonores viennent au bloc suivant. Rien n'est lu hors du site : le corpus, les fonds et la liste des fonds proposés
-// viennent de data/ ; aucun chargement distant. L'interface n'est que de l'affichage : le choix des motifs est celui du moteur (assets/pavane-moteur.js).
+// L'INTERFACE de « Pavane — Voir sa musique » (prompt 211, §2 et §4). Bloc 1 : le sélecteur des trois modes (Défilé, Spectre, Entre-deux), les réglages communs (fond parmi les fonds proposés, motifs 64 · 128 · 256,
+// couleurs, tracé rouge, rythme, densité), la scène, la pause, le plein écran, l'état dans l'adresse. Bloc 2 : les sources du son (morceau fourni, fichier, micro, note pure — assets/pavane-son.js), le chef d'orchestre
+// du moteur image après image (assets/pavane-moteur.js), le déclencheur du défilé (minuteur ou pulsation), l'enregistrement de l'image et de 15 s de vidéo. Rien n'est lu hors du site : le corpus, les fonds, la liste
+// des fonds proposés et les morceaux viennent du site ; le fichier et le micro restent sur l'appareil. L'interface n'est que de l'affichage : le choix des motifs est celui du moteur.
 import { APLAT } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { varianteSvg } from './fonds-variantes.js';
 import { fondsRetenus } from './fonds-retenus.js';
 import { NOM_COMPLET } from './pavane-nom.js';
-import { lireEtat, ecrireEtat, MODES, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX } from './pavane-etat.js';
+import { lireEtat, ecrireEtat, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';
 import { NIVEAUX_CORPUS } from './corpus-animation.js';
-import { creerDefile, listeDuNiveau, distancesDe } from './pavane-moteur.js';
+import { creerDefile, creerChef, listeDuNiveau, distancesDe, blocDuCorpus64, membreAffiche } from './pavane-moteur.js';
+import { creerSon, frequenceDuCurseur, curseurDeFrequence } from './pavane-son.js';
 import { texte } from './pavane-textes.js';
 
 const RACINE = new URL('../', import.meta.url);
 const PERIODE_MIN_REDUIT_S = 3; // « réduire les changements rapides » : jamais un motif plus court que 3 s
+const FORMATS_VIDEO = ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1,mp4a.40.2"', 'video/mp4;codecs="h264,aac"', 'video/mp4;codecs="avc1.42E01E,opus"', 'video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm']; // ceux de « Voir sa musique » : l'AAC d'abord
 let compteur = 0;
 
 const el = (tag, attrs = {}, ...enfants) => {
@@ -28,8 +30,9 @@ const el = (tag, attrs = {}, ...enfants) => {
 };
 async function json(chemin) { const r = await fetch(new URL(chemin, RACINE)); if (!r.ok) throw new Error(`${chemin} : ${r.status}`); return r.json(); }
 function ajouterCss() { const href = new URL('assets/pavane.css', RACINE).href; if (!document.querySelector(`link[href="${href}"]`)) document.head.append(el('link', { rel: 'stylesheet', href })); }
+function telecharger(blob, nom) { const a = el('a', { href: URL.createObjectURL(blob), download: nom }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }
 
-/** Monte l'application dans `racine`. Rend { etat(), motif(), arreter() }. */
+/** Monte l'application dans `racine`. Rend { etat(), motif(), arreter(), enregistrerImage(), enregistrerVideo(secondes) … }. */
 export async function monterPavane(racine, { langue = 'fr', recherche = location.search, historique = true } = {}) {
   ajouterCss();
   const T = (cle, v) => texte(langue, cle, v), id = `pv${++compteur}`;
@@ -44,9 +47,11 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   for (const code of proposes) if (!fonds.has(code)) throw new Error(`pavane-ui.js : le fond proposé « ${code} » n'a pas de définition`);
   const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
   const reduitMq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false, addEventListener() {} };
+  const bloc64 = blocDuCorpus64(corpus), ids64 = listeDuNiveau(corpus, 64), distance64 = distancesDe(corpus, ids64);
+  const son = creerSon();
 
   let { etat } = lireEtat(recherche, proposes);
-  let reduit = reduitMq.matches, enPause = false, ids = [], defile = null, idCourant = null, minuteur = null, couche = 0, dernierePaireValide = null;
+  let reduit = reduitMq.matches, enPause = false, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
   const cache = new Map();
 
   // ---------- le DOM ----------
@@ -56,7 +61,19 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     return { m, radio, boite: el('div', { class: 'pv-mode' }, el('label', {}, radio, el('span', { text: T(m === 'entre-deux' ? 'entreDeux' : m) })), phrase) };
   });
   const modes = el('fieldset', { class: 'pv-modes' }, el('legend', { text: T('modes') }), ...radiosMode.map((r) => r.boite));
-  const sources = el('div', { class: 'pv-sources', id: `${id}-sources`, hidden: true, text: T('sources') });
+  // les sources du son
+  const radiosSource = SOURCES.map((sr) => ({ sr, radio: el('input', { type: 'radio', name: `${id}-source`, value: sr }) }));
+  const choixSource = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('sources') }), ...radiosSource.map(({ sr, radio }) => el('label', {}, radio, el('span', { text: T(`src${sr[0].toUpperCase()}${sr.slice(1)}`) }))));
+  const selMorceau = el('select', { id: `${id}-morceau`, 'aria-label': T('srcMorceau') }, ...MORCEAUX.map((m, i) => el('option', { value: m, text: T('morceauN', { n: i + 1 }) })));
+  const inFichier = el('input', { type: 'file', accept: 'audio/*', id: `${id}-fichier`, 'aria-label': T('choisirFichier') });
+  const bMicro = el('button', { type: 'button', text: T('activerMicro') });
+  const rNote = el('input', { type: 'range', min: '0', max: '1000', step: '1', id: `${id}-note`, 'aria-label': T('srcNote') }), nNote = el('span'), lNote = el('label', {}, nNote, rNote);
+  const bJouer = el('button', { type: 'button' });
+  const mention = el('p', { class: 'pv-mention', hidden: true, text: T('mentionIA') });
+  const erreurSon = el('p', { class: 'pv-erreur', role: 'alert', hidden: true });
+  const sources = el('div', { class: 'pv-sources', id: `${id}-sources`, hidden: true }, choixSource, el('div', { class: 'pv-source-reglage' }, selMorceau, inFichier, bMicro, lNote, bJouer), mention, erreurSon);
+  const radiosDecl = DECLENCHEURS.map((d) => ({ d, radio: el('input', { type: 'radio', name: `${id}-decl`, value: d }) }));
+  const choixDecl = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('declencheur') }), ...radiosDecl.map(({ d, radio }) => el('label', {}, radio, el('span', { text: T(d === 'minuteur' ? 'declMinuteur' : 'declPulsation') }))));
   const couches = [el('div', { class: 'pv-couche' }), el('div', { class: 'pv-couche' })];
   const scene = el('div', { class: 'pv-scene', role: 'img', 'aria-label': T('scene'), tabindex: '0' }, ...couches);
   const statut = el('p', { class: 'pv-etat', role: 'status', 'aria-live': 'polite' });
@@ -74,69 +91,127 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const rDensite = el('input', { type: 'range', min: String(DENSITE_MIN), max: String(DENSITE_MAX), step: '1', id: `${id}-densite` });
   const nDensite = el('span'), lDensite = el('label', {}, nDensite, rDensite);
   const bPause = el('button', { type: 'button' }), bPlein = el('button', { type: 'button', text: T('pleinEcran') });
+  const bImage = el('button', { type: 'button', text: T('enregImage') }), bVideo = el('button', { type: 'button', text: T('enregVideo') });
   const reglages = el('div', { class: 'pv-reglages', role: 'group', 'aria-label': T('reglages') },
-    el('label', {}, el('span', { text: T('fond') }), selFond), choixCorpus,
+    choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
-    el('label', {}, cTrace, el('span', { text: T('trace') })), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein));
+    el('label', {}, cTrace, el('span', { text: T('trace') })), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo));
   racine.replaceChildren(modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
   racine.classList.toggle('pv-reduit', reduit);
 
   // ---------- le rendu ----------
   const paire = () => paireDe(etat.palette, etat.c0, etat.c1) || [...PALETTES['creme-encre']];
-  function svgDe(idMotif) {
-    const cle = [idMotif, etat.fond, paire().join(), etat.trace].join('|');
+  function svgDe(idMotif, taille = 480) {
+    const cle = [idMotif, etat.fond, paire().join(), etat.trace, taille].join('|');
     if (!cache.has(cle)) {
       if (cache.size > 40) cache.delete(cache.keys().next().value);
       const cases = lectureBinaire(parId.get(idMotif).tricolore, idMotif).cases;
-      cache.set(cle, `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(varianteSvg(cases, paire(), fonds.get(etat.fond), { size: 480, prefixe: `${id}-`, trace: etat.trace }))}")`);
+      cache.set(cle, varianteSvg(cases, paire(), fonds.get(etat.fond), { size: taille, prefixe: `${id}-`, trace: etat.trace }));
     }
     return cache.get(cle);
   }
-  function afficher(idMotif) {
-    idCourant = idMotif;
+  const urlDe = (svg) => `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+  function libelle(idMotif) { const e = parId.get(idMotif), f = e.familles[0]; return T('motif', { kw: e.kingwen_par_famille[f], n: e.n_site_par_famille[f] }); }
+  function afficher(idMotif, note = '') {
+    idCourant = idMotif; noteStatut = note;
     const prochaine = couches[1 - couche], actuelle = couches[couche];
-    const taille = `${100 / etat.densite}% auto`; // des tuiles carrées : la hauteur suit la largeur de l'image
-    prochaine.style.backgroundImage = svgDe(idMotif); prochaine.style.backgroundSize = taille;
+    svgCourant = svgDe(idMotif);
+    prochaine.style.backgroundImage = urlDe(svgCourant); prochaine.style.backgroundSize = `${100 / etat.densite}% auto`; // des tuiles carrées : la hauteur suit la largeur de l'image
     prochaine.classList.add('visible'); actuelle.classList.remove('visible'); couche = 1 - couche;
-    const e = parId.get(idMotif), f = e.familles[0];
     scene.dataset.motif = idMotif;
-    statut.textContent = enPause ? T('enPause') : (etat.mode === 'defile' ? T('motif', { kw: e.kingwen_par_famille[f], n: e.n_site_par_famille[f] }) : T('attenteSon'));
+    dire();
   }
+  function dire() {
+    if (!idCourant) return;
+    const sonne = son.actif !== null;
+    let t = libelle(idCourant);
+    if (etat.mode !== 'defile' || etat.declencheur === 'pulsation') { if (!sonne) t = `${t} — ${T('rienNeJoue')}`; }
+    if (noteStatut) t = `${t} — ${noteStatut}`;
+    statut.textContent = enPause ? T('enPause') : t;
+  }
+  // le motif à montrer pour un indice du moteur : dans la liste du défilé, ou le membre voulu de la classe du représentant (spectre, entre-deux)
+  const motifDe = (i) => (etat.mode === 'defile' ? ids[i] : membreAffiche(corpus, bloc64.ids[i], etat.corpus, 0));
 
   // ---------- le moteur ----------
+  const besoinSon = () => etat.mode !== 'defile' || etat.declencheur === 'pulsation';
   function reconstruire() {
-    ids = etat.mode === 'defile' ? listeDuNiveau(corpus, etat.corpus) : listeDuNiveau(corpus, 64);
-    defile = creerDefile({ n: ids.length, distance: distancesDe(corpus, ids), graine: 1 });
-    afficher(ids[etat.mode === 'defile' ? defile.suivant().i : 0]);
+    cancelAnimationFrame(rafId); rafId = null; clearInterval(minuteur); minuteur = null;
+    ids = etat.mode === 'defile' ? listeDuNiveau(corpus, etat.corpus) : ids64;
+    const distance = etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64;
+    defile = creerDefile({ n: ids.length, distance, graine: 1 });
+    chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 });
+    if (etat.mode === 'defile') afficher(ids[defile.suivant().i]); else afficher(ids64[0]);
     armer();
   }
   function armer() {
-    clearInterval(minuteur); minuteur = null;
-    if (etat.mode !== 'defile' || enPause) return;
-    const s = Math.max(etat.rythme, reduit ? PERIODE_MIN_REDUIT_S : 0.5);
-    minuteur = setInterval(() => afficher(ids[defile.suivant().i]), s * 1000);
+    clearInterval(minuteur); minuteur = null; cancelAnimationFrame(rafId); rafId = null;
+    if (enPause) return;
+    if (etat.mode === 'defile' && etat.declencheur === 'minuteur') {
+      const s = Math.max(etat.rythme, reduit ? PERIODE_MIN_REDUIT_S : 0.5);
+      minuteur = setInterval(() => afficher(ids[defile.suivant().i]), s * 1000);
+    } else if (besoinSon()) boucle();
+  }
+  function boucle() {
+    rafId = requestAnimationFrame(() => {
+      const im = son.image();
+      if (im) {
+        const r = chef.image({ db: im.db, sampleRate: im.sampleRate, t: performance.now() / 1000 });
+        if (r.changer && r.i >= 0) afficher(motifDe(r.i), r.repli ? T('repli') : '');
+        else if (r.repli !== undefined && (r.repli ? T('repli') : '') !== noteStatut) { noteStatut = r.repli ? T('repli') : ''; dire(); }
+      }
+      if (!enPause && besoinSon()) boucle();
+    });
   }
 
   // ---------- l'état ----------
   function ecrireAdresse() { if (historique) history.replaceState(null, '', `${location.pathname}${ecrireEtat(etat)}${location.hash}`); }
   function refleter() {
     for (const r of radiosMode) r.radio.checked = r.m === etat.mode;
-    sources.hidden = etat.mode === 'defile';
+    const audio = etat.mode !== 'defile' || etat.declencheur === 'pulsation';
+    sources.hidden = !audio;
+    for (const { sr, radio } of radiosSource) radio.checked = sr === etat.source;
+    selMorceau.value = etat.morceau; selMorceau.hidden = etat.source !== 'morceau';
+    inFichier.hidden = etat.source !== 'fichier'; bMicro.hidden = etat.source !== 'micro'; lNote.hidden = etat.source !== 'note';
+    rNote.value = String(curseurDeFrequence(etat.note)); nNote.textContent = T('frequence', { hz: etat.note });
+    bJouer.hidden = etat.source === 'micro' || etat.source === 'fichier'; bJouer.textContent = son.actif ? T('arreter') : T('jouer');
+    mention.hidden = etat.source !== 'morceau';
+    for (const { d, radio } of radiosDecl) radio.checked = d === etat.declencheur;
+    choixDecl.hidden = etat.mode !== 'defile';
     selFond.value = etat.fond;
     for (const { n, radio } of radiosCorpus) radio.checked = n === etat.corpus;
     choixCorpus.hidden = etat.mode !== 'defile';
     selPalette.value = etat.palette; personnalise.hidden = etat.palette !== 'perso';
     const [c0, c1] = paire(); inC0.value = c0; inC1.value = c1; dernierePaireValide = [c0, c1];
     cTrace.checked = etat.trace;
-    rRythme.value = String(etat.rythme); nRythme.textContent = T('rythme', { s: String(etat.rythme).replace('.', langue === 'fr' || langue === 'es' || langue === 'pt' || langue === 'de' || langue === 'it' || langue === 'ru' ? ',' : '.') });
-    lRythme.hidden = etat.mode !== 'defile';
+    const virgule = ['fr', 'es', 'pt', 'de', 'it', 'ru'].includes(langue);
+    rRythme.value = String(etat.rythme); nRythme.textContent = T('rythme', { s: String(etat.rythme).replace('.', virgule ? ',' : '.') });
+    lRythme.hidden = !(etat.mode === 'entre-deux' || (etat.mode === 'defile' && etat.declencheur === 'minuteur'));
     rDensite.value = String(etat.densite); nDensite.textContent = T('densite', { n: etat.densite });
     bPause.textContent = enPause ? T('reprendre') : T('pause'); bPause.setAttribute('aria-pressed', String(enPause));
     racine.classList.toggle('pv-reduit', reduit);
   }
-  const changer = (partie, { refaire = false } = {}) => { etat = { ...etat, ...partie }; ecrireAdresse(); refleter(); if (refaire) reconstruire(); else if (idCourant) afficher(idCourant); else reconstruire(); };
+  const changer = (partie, { refaire = false } = {}) => { etat = { ...etat, ...partie }; ecrireAdresse(); refleter(); if (refaire) reconstruire(); else if (idCourant) afficher(idCourant, noteStatut); else reconstruire(); };
+  const messageSon = (cle) => { erreurSon.hidden = !cle; erreurSon.textContent = cle ? T(cle) : ''; };
 
   for (const { m, radio } of radiosMode) radio.addEventListener('change', () => radio.checked && changer({ mode: m }, { refaire: true }));
+  for (const { d, radio } of radiosDecl) radio.addEventListener('change', () => radio.checked && changer({ declencheur: d }, { refaire: true }));
+  for (const { sr, radio } of radiosSource) radio.addEventListener('change', () => { if (!radio.checked) return; son.arreter(); messageSon(null); changer({ source: sr }); });
+  async function lancer() {
+    messageSon(null);
+    try {
+      if (etat.source === 'morceau') await son.jouerMorceau(etat.morceau); else if (etat.source === 'note') await son.jouerNote(etat.note);
+      refleter(); armer(); dire();
+    } catch { messageSon('erreurFichier'); }
+  }
+  selMorceau.addEventListener('change', () => { changer({ morceau: selMorceau.value }); if (son.actif === 'morceau') lancer(); });
+  bJouer.addEventListener('click', () => { if (son.actif === etat.source) { son.arreter(); refleter(); dire(); } else lancer(); });
+  inFichier.addEventListener('change', async () => {
+    const f = inFichier.files && inFichier.files[0]; if (!f) return;
+    messageSon(null);
+    try { await son.jouerFichier(f); refleter(); armer(); dire(); } catch { messageSon('erreurFichier'); }
+  });
+  bMicro.addEventListener('click', async () => { messageSon(null); try { await son.activerMicro(); refleter(); armer(); dire(); } catch { messageSon('erreurMicro'); } });
+  rNote.addEventListener('input', () => { const hz = Math.min(NOTE_MAX, Math.max(NOTE_MIN, frequenceDuCurseur(Number(rNote.value)))); etat = { ...etat, note: hz }; ecrireAdresse(); nNote.textContent = T('frequence', { hz }); if (son.actif === 'note') son.changerNote(hz); });
   selFond.addEventListener('change', () => changer({ fond: selFond.value }));
   for (const { n, radio } of radiosCorpus) radio.addEventListener('change', () => radio.checked && changer({ corpus: n }, { refaire: true }));
   selPalette.addEventListener('change', () => {
@@ -148,9 +223,10 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   };
   inC0.addEventListener('change', surCouleur); inC1.addEventListener('change', surCouleur);
   cTrace.addEventListener('change', () => changer({ trace: cTrace.checked }));
-  rRythme.addEventListener('input', () => { etat = { ...etat, rythme: Number(rRythme.value) }; ecrireAdresse(); refleter(); armer(); });
+  rRythme.addEventListener('input', () => { etat = { ...etat, rythme: Number(rRythme.value) }; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
+  const reconstruireChefSeulement = () => { chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance: etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64 }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 }); };
   rDensite.addEventListener('input', () => changer({ densite: Number(rDensite.value) }));
-  const basculerPause = () => { enPause = !enPause; refleter(); armer(); if (idCourant) afficher(idCourant); };
+  const basculerPause = () => { enPause = !enPause; refleter(); armer(); if (idCourant) afficher(idCourant, noteStatut); };
   bPause.addEventListener('click', basculerPause);
   const pleinEcran = () => { const r = scene.requestFullscreen || scene.webkitRequestFullscreen; if (r) r.call(scene).catch(() => {}); };
   bPlein.addEventListener('click', pleinEcran);
@@ -161,12 +237,66 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     if (ev.key === ' ') { ev.preventDefault(); basculerPause(); } else if (ev.key === 'f' || ev.key === 'F') { ev.preventDefault(); pleinEcran(); }
   };
   document.addEventListener('keydown', surTouche);
-  const surReduit = () => { reduit = reduitMq.matches; refleter(); armer(); };
+  const surReduit = () => { reduit = reduitMq.matches; refleter(); reconstruireChefSeulement(); armer(); };
   if (reduitMq.addEventListener) reduitMq.addEventListener('change', surReduit);
+
+  // ---------- l'enregistrement : l'image, et 15 s de vidéo (les formats de « Voir sa musique », l'AAC d'abord) ----------
+  const nomFichier = (ext, dim) => `pavane-${idCourant}-${dim}-${Date.now()}.${ext}`;
+  function chargerImage(svg) { return new Promise((resolve, reject) => { const im = new Image(); im.onload = () => resolve(im); im.onerror = reject; im.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`; }); }
+  function peindre(c, W, H, image) { // la scène en plein cadre : la tuile répétée `densite` fois sur la largeur
+    const t = W / etat.densite; c.fillStyle = paire()[0]; c.fillRect(0, 0, W, H);
+    for (let y = 0; y < H; y += t) for (let x = 0; x < W; x += t) c.drawImage(image, x, y, t, t);
+  }
+  async function enregistrerImage(taille = 1080) {
+    if (!idCourant) return null;
+    const image = await chargerImage(svgCourant), cv = el('canvas', { width: String(taille), height: String(taille) });
+    peindre(cv.getContext('2d'), taille, taille, image);
+    const blob = await new Promise((r) => cv.toBlob(r, 'image/png'));
+    const nom = nomFichier('png', `${taille}x${taille}`); telecharger(blob, nom);
+    return { blob, nom };
+  }
+  async function enregistrerVideo(secondes = 15, taille = 1080) {
+    if (enregistrement) return enregistrement.promesse;
+    const cv = el('canvas', { width: String(taille), height: String(taille) });
+    if (!window.MediaRecorder || !cv.captureStream) { erreurSon.hidden = false; erreurSon.textContent = T('erreurEnreg'); return null; }
+    const flux = new MediaStream(); cv.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p));
+    if (son.actif) son.flux.getAudioTracks().forEach((p) => flux.addTrack(p.clone()));
+    const mime = FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || '';
+    let mr; try { mr = mime ? new MediaRecorder(flux, { mimeType: mime }) : new MediaRecorder(flux); } catch { erreurSon.hidden = false; erreurSon.textContent = T('erreurEnreg'); return null; }
+    const c = cv.getContext('2d'), morceaux = []; let image = await chargerImage(svgCourant), dernierMotif = idCourant;
+    const debut = performance.now();
+    const dessiner = async () => {
+      if (dernierMotif !== idCourant) { dernierMotif = idCourant; image = await chargerImage(svgCourant); }
+      peindre(c, taille, taille, image);
+      const lignes = [NOM_COMPLET, ...(son.actif === 'morceau' ? [T('mentionIA')] : [])]; // la signature, et la mention de l'IA pour les morceaux fournis
+      const haut = 20 + lignes.length * 34; c.fillStyle = 'rgba(19,19,24,0.6)'; c.fillRect(0, taille - haut, taille, haut);
+      c.fillStyle = '#f2f2f2'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '600 26px "Noto Sans SC LDH", "Noto Sans Thai LDH", "Noto Sans Devanagari LDH", "Roboto Condensed LDH", system-ui, sans-serif';
+      lignes.forEach((l, i) => c.fillText(l, taille / 2, taille - haut + 26 + i * 34));
+    };
+    const promesse = new Promise((resolve) => {
+      mr.ondataavailable = (e) => { if (e.data && e.data.size) morceaux.push(e.data); };
+      mr.onstop = () => {
+        clearInterval(enregistrement.tick); flux.getTracks().forEach((p) => p.stop());
+        const type = mr.mimeType || mime || 'video/webm', mp4 = /mp4/.test(type), blob = new Blob(morceaux, { type });
+        const nom = nomFichier(mp4 ? 'mp4' : 'webm', `${taille}x${taille}`); telecharger(blob, nom);
+        bVideo.textContent = T('enregVideo'); bVideo.setAttribute('aria-pressed', 'false'); enregistrement = null;
+        resolve({ blob, nom, type, octets: blob.size, aac: /mp4a|aac/.test(type) });
+      };
+    });
+    enregistrement = { promesse, mr, tick: null };
+    await dessiner(); mr.start(250); bVideo.setAttribute('aria-pressed', 'true');
+    enregistrement.tick = setInterval(() => {
+      dessiner(); const s = Math.ceil(secondes - (performance.now() - debut) / 1000); bVideo.textContent = T('enregEnCours', { s: Math.max(0, s) });
+      if (s <= 0 && mr.state !== 'inactive') mr.stop();
+    }, 33);
+    return promesse;
+  }
+  bImage.addEventListener('click', () => { enregistrerImage(); });
+  bVideo.addEventListener('click', () => { if (enregistrement) enregistrement.mr.stop(); else enregistrerVideo(15); });
 
   refleter(); reconstruire();
   return {
-    etat: () => ({ ...etat }), motif: () => idCourant, enPause: () => enPause, reduit: () => reduit, fondsProposes: () => [...proposes],
-    arreter() { clearInterval(minuteur); document.removeEventListener('keydown', surTouche); },
+    etat: () => ({ ...etat }), motif: () => idCourant, enPause: () => enPause, reduit: () => reduit, fondsProposes: () => [...proposes], sonActif: () => son.actif, enregistrerImage, enregistrerVideo,
+    arreter() { clearInterval(minuteur); cancelAnimationFrame(rafId); son.arreter(); document.removeEventListener('keydown', surTouche); },
   };
 }

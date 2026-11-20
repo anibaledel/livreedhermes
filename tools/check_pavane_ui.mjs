@@ -69,7 +69,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     ok(radios.every((r) => r.decrit), `${nom} : chaque mode a sa phrase, liée au choix`);
     const fondsOfferts = await page.$$eval('.pv-reglages select[id$=fond] option', (o) => o.map((x) => x.value));
     ok(fondsOfferts.join() === proposes.join(), `${nom} : fonds offerts = fonds proposés (${fondsOfferts.join(', ')})`);
-    ok(await page.$eval('.pv-choix input:checked', (x) => x.value) === '128', `${nom} : 128 coché par défaut`);
+    ok(await page.$eval('.pv-choix input[name$=corpus]:checked', (x) => x.value) === '128', `${nom} : 128 coché par défaut`);
     // le défilé avance au minuteur ; Espace le fige
     await page.$eval('.pv-reglages input[id$=rythme]', (x) => { x.value = '0.5'; x.dispatchEvent(new Event('input', { bubbles: true })); }); // un curseur : on pose la valeur et on l'annonce
     const avant = (await lire(page)).motif; await page.waitForTimeout(1500);
@@ -88,7 +88,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     await page.selectOption('.pv-reglages select[id$=palette]', 'perso');
     await page.$eval('.pv-reglages input[id$=c0]', (x) => { x.value = '#777777'; x.dispatchEvent(new Event('change', { bubbles: true })); });
     await page.$eval('.pv-reglages input[id$=c1]', (x) => { x.value = '#777777'; x.dispatchEvent(new Event('change', { bubbles: true })); });
-    const refus = await page.evaluate(() => ({ visible: !document.querySelector('.pv-erreur').hidden, c0: document.querySelector('.pv-reglages input[id$=c0]').value, c1: document.querySelector('.pv-reglages input[id$=c1]').value }));
+    const refus = await page.evaluate(() => ({ visible: !document.querySelector('.pv-reglages .pv-erreur').hidden, c0: document.querySelector('.pv-reglages input[id$=c0]').value, c1: document.querySelector('.pv-reglages input[id$=c1]').value }));
     ok(refus.visible && refus.c0 !== refus.c1, `${nom} : deux couleurs égales sont refusées et la dernière paire valide revient (${refus.c0} / ${refus.c1})`);
     ok((await lire(page)).debord <= largeur, `${nom} : aucun débordement horizontal (${(await lire(page)).debord} px)`);
     if (axe) {
