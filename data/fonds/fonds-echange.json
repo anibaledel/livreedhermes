@@ -1,7 +1,48 @@
 {
- "_doc": "Les deux fonds en mode ÉCHANGE retenus par Anibal (prompt 185, envoi 195) : le symbole du bit 1 est celui du bit 0 aux couleurs échangées. Définis ici, pas dans data/fonds/collection-v1.json (les fonds et les collections déjà publiés ne changent pas). Chaque fond tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs). Le code porte le suffixe E (« échange ») ; assets/bicolore-fonds.js ne sait pas encore lire ces codes (decomposer) : ils servent aux variantes (assets/fonds-variantes.js), pas encore aux codes de collection.",
+ "_doc": "Les deux fonds en mode ÉCHANGE retenus par Anibal (prompt 185, envoi 195) : le symbole du bit 1 est celui du bit 0 aux couleurs échangées. Définis ici, pas dans data/fonds/collection-v1.json (les fonds et les collections déjà publiés ne changent pas). Chaque fond tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs). Le code suit la convention du site : le suffixe x dit « échange » (B3x) ; assets/bicolore-fonds.js (decomposer) lit B2Dx et B11211Dx.",
  "fonds": [
-  { "id": "B2DE", "nom": "A1", "description": "la moitié inférieure gauche de la cellule, coupée par la diagonale NO–SE (même cellule que B2D, en échange)", "mode": "echange", "type": "polygones", "parts": [ { "points": [[0, 0], [0, 1], [1, 1]], "ton": 1 } ] },
-  { "id": "B11211DE", "nom": "B11211D échange", "description": "cinq bandes à 45° de largeurs 1, 1, 2, 1, 1, en échange", "mode": "echange", "type": "bandes", "nombre": 5, "largeurs": [1, 1, 2, 1, 1], "phase": 0, "angle": 45 }
+  {
+   "id": "B2Dx",
+   "nom": "A1",
+   "description": "la moitié inférieure gauche de la cellule, coupée par la diagonale NO–SE (même cellule que B2D, en échange)",
+   "mode": "echange",
+   "type": "polygones",
+   "parts": [
+    {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "ton": 1
+    }
+   ]
+  },
+  {
+   "id": "B11211Dx",
+   "nom": "B11211D échange",
+   "description": "cinq bandes à 45° de largeurs 1, 1, 2, 1, 1, en échange",
+   "mode": "echange",
+   "type": "bandes",
+   "nombre": 5,
+   "largeurs": [
+    1,
+    1,
+    2,
+    1,
+    1
+   ],
+   "phase": 0,
+   "angle": 45
+  }
  ]
 }

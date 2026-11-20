@@ -3,13 +3,13 @@
  "echantillon": "96 × 96 points, décalés de (0.37 ; 0.61) pas",
  "approuves": [
   "P",
-  "B2DE",
-  "B11211DE"
+  "B2Dx",
+  "B11211Dx"
  ],
  "proposes": [
   "P",
-  "B2DE",
-  "B11211DE"
+  "B2Dx",
+  "B11211Dx"
  ],
  "fonds": {
   "P": {
@@ -314,7 +314,7 @@
    },
    "corrige": null
   },
-  "B2DE": {
+  "B2Dx": {
    "exacts": 64,
    "sur": 64,
    "par_famille": {
@@ -339,7 +339,7 @@
    },
    "corrige": null
   },
-  "B11211DE": {
+  "B11211Dx": {
    "exacts": 64,
    "sur": 64,
    "par_famille": {

@@ -908,7 +908,7 @@
         {
           "ci": ".github/workflows/check-referents.yml",
           "lignes": [
-            "Recomptés : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6), corpus-256 (256, 61fc8864), phases-b2d-64 (64, 2537702d), phases-b2d-dp-64 (64, 34f12cd3), symetries-64 (64, afa7f0e5), demi-periode (10, 4c21c1a8)."
+            "Recomptés : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6), corpus-256 (256, 61fc8864), phases-b2d-64 (64, 2537702d), phases-b2d-dp-64 (64, 34f12cd3), symetries-64 (64, afa7f0e5), demi-periode (10, 9dad8fa5)."
           ]
         }
       ],

@@ -572,7 +572,7 @@
   },
   {
    "fichier": "tools/check_fonds_proposes.mjs",
-   "role": "seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P, B2DE (A1) et B11211DE, lus dans data/fonds/demi-periode.json.",
+   "role": "seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P, B2Dx (A1) et B11211Dx, lus dans data/fonds/demi-periode.json.",
    "lit": [
     "assets/fonds-retenus.js",
     "data/fonds/collections-pinterest.json",
@@ -2143,7 +2143,7 @@
   },
   {
    "fichier": "tools/lib_fonds_etudies.mjs",
-   "role": "les fonds que les tests parcourent (prompt 185) : ceux de data/fonds/collection-v1.json et les deux fonds en mode échange de data/fonds/fonds-echange.json (B2DE, B11211DE).",
+   "role": "les fonds que les tests parcourent (prompt 185) : ceux de data/fonds/collection-v1.json et les deux fonds en mode échange de data/fonds/fonds-echange.json (B2Dx, B11211Dx).",
    "lit": [
     "data/fonds/collection-v1.calculs.json",
     "data/fonds/collection-v1.json",
@@ -2164,8 +2164,7 @@
    "fichier": "tools/lib_fonds_retenus.mjs",
    "role": "la liste des fonds PROPOSÉS, lue pour les outils (prompt 185) : data/fonds/demi-periode.json (« proposes »), jamais une liste écrite à la main.",
    "lit": [
-    "data/fonds/demi-periode.json",
-    "data/fonds/fonds-echange.json"
+    "data/fonds/demi-periode.json"
    ],
    "ecrit": [],
    "appele_par": [],
@@ -2549,7 +2548,7 @@
   },
   {
    "fichier": "tools/planche_fonds_proposes.mjs",
-   "role": "les trois fonds proposés (prompt 185) sur trois motifs : P, B2DE (A1), B11211DE, et B11211D (mode rotation) pour la comparaison ; une cellule, puis un pavage 2 × 2.",
+   "role": "les trois fonds proposés (prompt 185) sur trois motifs : P, B2Dx (A1), B11211Dx, et B11211D (mode rotation) pour la comparaison ; une cellule, puis un pavage 2 × 2.",
    "lit": [
     "data/corpus-256.json",
     "data/symetries-64.json"

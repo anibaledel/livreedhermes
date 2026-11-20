@@ -2,7 +2,7 @@
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// check_fonds_proposes.mjs — seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P, B2DE (A1) et B11211DE, lus dans data/fonds/demi-periode.json.
+// check_fonds_proposes.mjs — seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P, B2Dx (A1) et B11211Dx, lus dans data/fonds/demi-periode.json.
 //
 //   - les animations du corpus (data/fonds/collections-pinterest.json, « animations_corpus ») n'emploient que des fonds proposés ;
 //   - les collections du registre dont le fond n'est pas proposé sont toutes DÉJÀ PUBLIÉES (date d export ou vidéo déposée) : aucun code nouveau n'a de fond écarté ; rien ne se supprime ;
@@ -23,8 +23,8 @@ const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
 const registre = lire('data/fonds/collections-pinterest.json'), dp = lire('data/fonds/demi-periode.json'), appr = lire('data/fonds/fonds-approuves.json').approuves;
 
 // la DÉCISION d'Anibal (prompt 185, envoi 195) : exactement ces trois fonds ; tout autre ajout demande son accord, donc une modification de ce test
-const DECISION = ['B11211DE', 'B2DE', 'P'];
-if ([...FONDS_RETENUS].sort().join() !== DECISION.join()) ko(`les fonds proposés sont ${FONDS_RETENUS.join()}, la décision d'Anibal en veut exactement trois : P, B2DE, B11211DE`);
+const DECISION = ['B11211Dx', 'B2Dx', 'P'];
+if ([...FONDS_RETENUS].sort().join() !== DECISION.join()) ko(`les fonds proposés sont ${FONDS_RETENUS.join()}, la décision d'Anibal en veut exactement trois : P, B2Dx, B11211Dx`);
 const attendus = Object.entries(dp.fonds).filter(([c, f]) => f.exacts === f.sur && appr.includes(c)).map(([c]) => c).sort().join();
 if ([...FONDS_RETENUS].sort().join() !== attendus) ko(`« proposes » (${FONDS_RETENUS.join()}) n'est pas « 64 / 64 ET approuvés » (${attendus})`);
 for (const [code, rec] of Object.entries(registre.animations_corpus || {})) { const b = fondDeBase(rec.fond); if (!FONDS_RETENUS.includes(b)) ko(`animations_corpus ${code} : fond ${b} non proposé`); }
@@ -38,7 +38,7 @@ for (const f of ['assets/fonds-retenus.js', 'tools/lib_fonds_retenus.mjs']) if (
 // le refus de l'export
 const code = essai ? 'P' : 'B2D';
 const refus = refuserSiNonPropose('B2D', { collections: {} }), accepte = refuserSiNonPropose('P', { collections: {} }), ancien = refuserSiNonPropose('B2D', { collections: { B2D: { video: { fichier: 'x.mp4' } } } });
-if (!refus) ko('un code B2D neuf n\'est pas refusé'); if (refuserSiNonPropose('B2DE', { collections: {} }) || refuserSiNonPropose('B11211DE', { collections: {} })) ko('B2DE ou B11211DE est refusé'); if (!refuserSiNonPropose('B11211D', { collections: {} })) ko('un code B11211D (rotation) neuf n\'est pas refusé'); if (accepte) ko('un code P est refusé'); if (ancien) ko('un code B2D déjà publié est refusé');
+if (!refus) ko('un code B2D neuf n\'est pas refusé'); if (refuserSiNonPropose('B2Dx', { collections: {} }) || refuserSiNonPropose('B11211Dx', { collections: {} })) ko('B2Dx ou B11211Dx est refusé'); if (!refuserSiNonPropose('B11211D', { collections: {} })) ko('un code B11211D (rotation) neuf n\'est pas refusé'); if (accepte) ko('un code P est refusé'); if (ancien) ko('un code B2D déjà publié est refusé');
 void code;
 if (essai) {
   const faux = refuserSiNonPropose('B3', { collections: {} });

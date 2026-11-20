@@ -12,9 +12,7 @@ import { decomposer } from '../assets/bicolore-fonds.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const FONDS_RETENUS = fondsRetenus(JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/demi-periode.json'), 'utf8')));
-const IDS_ECHANGE = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/fonds-echange.json'), 'utf8')).fonds.map((f) => f.id);
-// les deux fonds en mode échange (B2DE, B11211DE) ne passent pas par decomposer (il ne lit pas encore le suffixe E) : leur code est leur fond
-export const fondDeBase = (code) => (IDS_ECHANGE.includes(code) ? code : decomposer(code).fond);
+export const fondDeBase = (code) => decomposer(code).fond; // B2Dx et B11211Dx se lisent comme B3x : le suffixe x dit « échange »
 export function refuserSiNonPropose(code, registre) {
   const base = fondDeBase(code);
   if (FONDS_RETENUS.includes(base)) return null;

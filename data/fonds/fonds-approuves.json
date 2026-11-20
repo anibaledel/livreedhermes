@@ -2,8 +2,8 @@
  "_doc": "Les fonds qu'Anibal a APPROUVÉS pour être proposés (application, exports Pinterest, codes de collection). Écrit à la main, sur décision d'Anibal : un fond n'entre dans « proposes » (data/fonds/demi-periode.json) que s'il tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs) ET s'il figure ici. Le test échoue si un fond approuvé ne tient pas la demi-période.",
  "approuves": [
   "P",
-  "B2DE",
-  "B11211DE"
+  "B2Dx",
+  "B11211Dx"
  ],
- "decision": "Anibal, prompt 185 (envoi 195) — trois fonds : P (aplat, défaut), A1 = B2DE et B11211DE, en mode échange. Tous les autres (B2, B3, B4, B121, B2D, B4D, B11211D en rotation, et les cellules à 8 triangles A2, A3, A4, B1, B2) ne sont pas proposés ; ils restent dans le code. Pas d'autre ajout sans son accord."
+ "decision": "Anibal, prompt 185 (envoi 195) — trois fonds : P (aplat, défaut), A1 = B2Dx et B11211Dx, en mode échange. Tous les autres (B2, B3, B4, B121, B2D, B4D, B11211D en rotation, et les cellules à 8 triangles A2, A3, A4, B1, B2) ne sont pas proposés ; ils restent dans le code. Pas d'autre ajout sans son accord."
 }

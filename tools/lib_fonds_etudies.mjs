@@ -2,7 +2,7 @@
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
 // lib_fonds_etudies.mjs — les fonds que les tests parcourent (prompt 185) : ceux de data/fonds/collection-v1.json et les deux fonds en mode échange de data/fonds/fonds-echange.json
-// (B2DE, B11211DE). `chargerFondsEtudies()` rend une Map code → fond ; `CODES_ETUDIES` : l'ordre des tests (P d'abord, l'aplat publié).
+// (B2Dx, B11211Dx). `chargerFondsEtudies()` rend une Map code → fond ; `CODES_ETUDIES` : l'ordre des tests (P d'abord, l'aplat publié).
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
