@@ -393,6 +393,25 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_demi_periode.mjs",
+   "role": "la DEMI-PÉRIODE des fonds (prompt 185) : décaler le rendu de 6 cases en ligne et en colonne donne le rendu aux couleurs ÉCHANGÉES.",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/demi-periode.json",
+    "data/fonds/phases-b2d-64.json",
+    "data/symetries-64.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_doi_licences.mjs",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
    "lit": [
@@ -2031,6 +2050,7 @@
     "data/SHA256SUMS.txt",
     "data/corpus-256.json",
     "data/fonds/collection-v1.json",
+    "data/fonds/demi-periode.json",
     "data/fonds/phases-b2d-64.json",
     "data/fonds_ecran_v1.json",
     "data/referent_256_src/MANIFEST.json",
@@ -2040,6 +2060,7 @@
     "data/referents.json",
     "data/resultats-etablis.json",
     "data/symetries-64.json",
+    "tools/check_demi_periode.mjs",
     "tools/check_fonds_ecran_completude.py",
     "tools/check_page_360.mjs",
     "tools/check_symetries_binaire.py",

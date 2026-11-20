@@ -91,6 +91,9 @@ jobs:
       # le corpus binaire des animations (prompt 209) : les niveaux 64 / 128 / 256, 128 par défaut, la liste fermée, le registre à part, et les 34 recettes publiées intactes
       - run: node tools/check_animations_corpus.mjs
       - run: node tools/check_animations_corpus.mjs --essai
+      # la demi-période (prompt 185) : le rendu décalé de 6 cases est le rendu aux couleurs échangées ; les fonds qui ne la tiennent pas à 64 / 64 ne sont pas proposés
+      - run: node tools/check_demi_periode.mjs
+      - run: node tools/check_demi_periode.mjs --essai
       - run: node tools/check_recette_32.mjs
       - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs

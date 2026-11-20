@@ -1,0 +1,146 @@
+{
+ "_doc": "La demi-période des fonds (prompt 185) : pour chaque fond et chacun des 64 représentants du corpus, le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées (0 point en défaut sur 96 × 96 points) ; « exacts » compte les motifs exacts sur 64, « par_famille » selon data/symetries-64.json, « exacts_sur_256 » les 256 par translation du tore. « proposes » : les fonds à 64 / 64, les seuls que l'application, les exports Pinterest et les codes de collection proposent. Écrit par tools/check_demi_periode.mjs.",
+ "echantillon": "96 × 96 points, décalés de (0.37 ; 0.61) pas",
+ "proposes": [
+  "P",
+  "B11211D"
+ ],
+ "fonds": {
+  "P": {
+   "exacts": 64,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 32,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 32,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 256,
+   "sur_256": 256,
+   "defaut_maximal": 0
+  },
+  "B2": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.5
+  },
+  "B3": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.375
+  },
+  "B4": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.5
+  },
+  "B121": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.5
+  },
+  "B2D": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.917
+  },
+  "B4D": {
+   "exacts": 2,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 1,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 1,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 8,
+   "sur_256": 256,
+   "defaut_maximal": 0.806
+  },
+  "B11211D": {
+   "exacts": 64,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 32,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 32,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 256,
+   "sur_256": 256,
+   "defaut_maximal": 0
+  }
+ }
+}

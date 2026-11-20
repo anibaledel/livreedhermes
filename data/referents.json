@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-11-20T14:57:07Z",
+ "generated_at_utc": "2026-11-20T15:40:36Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -396,6 +396,42 @@
     "par2-yin-yang-h29",
     "par2-yin-yang-h30",
     "par2-yin-yang-h31"
+   ]
+  },
+  {
+   "id": "demi-periode",
+   "objet": "La demi-période des fonds (prompt 185) : pour chaque fond, le nombre des 64 représentants du corpus dont le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées ; la liste des fonds proposés (64 / 64).",
+   "nombre": 8,
+   "nombre_relu_dans": "Object.keys(fonds).length",
+   "adresse": "https://anibal-amiot.com/data/fonds/demi-periode.json",
+   "chemin": "data/fonds/demi-periode.json",
+   "media_type": "application/json",
+   "octets": 2739,
+   "sha256": "11bf4e4e3d6a018075114c2ce9c5672f328bf71d8ac1cd5b969a1e57bd78c3e3",
+   "version": {
+    "format_version": null,
+    "generated_at_utc": null,
+    "generator_tool": null,
+    "referent_id": null
+   },
+   "generateur": "tools/check_demi_periode.mjs",
+   "verificateurs": [
+    "tools/check_demi_periode.mjs"
+   ],
+   "resultats": null,
+   "sources": [
+    "data/corpus-256.json",
+    "data/symetries-64.json",
+    "data/fonds/phases-b2d-64.json",
+    "assets/fonds-variantes.js",
+    "data/fonds/collection-v1.json"
+   ],
+   "pages": [],
+   "cles": [
+    "_doc",
+    "echantillon",
+    "proposes",
+    "fonds"
    ]
   }
  ]

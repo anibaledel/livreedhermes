@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T15:15:50Z",
+ "generated_at_utc": "2026-11-20T15:40:52Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 307,
+  "scripts": 308,
   "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1928,6 +1928,26 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_demi_periode.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_demi_periode.mjs",
+   "octets": 7489,
+   "sha256": "a6476802e1b0d35ef411293374e83616d066a542b6ca3d39b59bae3204c53cf3",
+   "md5": "7913d6b3a9aa2151d51ca457362520fc",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la DEMI-PÉRIODE des fonds (prompt 185) : décaler le rendu de 6 cases en ligne et en colonne donne le rendu aux couleurs ÉCHANGÉES.",
+   "lit": [
+    "corpus-256",
+    "phases-b2d-64",
+    "symetries-64",
+    "demi-periode"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_doi_licences.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_doi_licences.mjs",
    "octets": 5332,
@@ -3784,9 +3804,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 13189,
-   "sha256": "8266619e80e854206cdde37bfdd8d7f747b8c49a5a43179301e523906fbe21c7",
-   "md5": "fb7512d55c0967a165150404009880ef",
+   "octets": 13890,
+   "sha256": "30604566cf6e16e02bfd398c0e80364c2cbd78c75d27ceffe59127f72276c591",
+   "md5": "311a1b25f2f16243c072816ac1986654",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
@@ -3796,7 +3816,8 @@
     "constructions-1024",
     "corpus-256",
     "phases-b2d-64",
-    "symetries-64"
+    "symetries-64",
+    "demi-periode"
    ],
    "ecrit": [],
    "durees": [],
