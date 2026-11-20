@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T17:29:27Z",
+ "generated_at_utc": "2026-11-20T18:20:16Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 313,
+  "scripts": 315,
   "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2564,6 +2564,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_pavane_etat.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_pavane_etat.mjs",
+   "octets": 4986,
+   "sha256": "220e7f04c272606acb0513a38517143109152ae53ea19d1a13c737c674f29747",
+   "md5": "19a3e798a270511a76e052d945ec6aa4",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "l'état dans l'adresse et les couleurs de « Pavane — Voir sa musique » (prompt 211 §4), sans navigateur : listes fermées, anciens liens, aller-retour, contraste minimal imposé (un fond identique à la figure est impossible), fonds lus dans…",
+   "lit": [
+    "demi-periode"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_pavane_moteur.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_moteur.mjs",
    "octets": 11477,
@@ -2574,6 +2591,23 @@
    "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
    "lit": [
     "corpus-256"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_pavane_ui.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_pavane_ui.mjs",
+   "octets": 11514,
+   "sha256": "d5fe2c3f90f4d086c68c21de70f0ee207d2a370f3afbb4ed835ae8ea365248ef",
+   "md5": "2c87bcdf4c7ca38942298ca9660c74c9",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
+   "lit": [
+    "demi-periode"
    ],
    "ecrit": [],
    "durees": [],

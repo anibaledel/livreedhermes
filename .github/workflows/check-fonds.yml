@@ -97,6 +97,9 @@ jobs:
       # seuls les fonds proposés (demi-période à 64 / 64 ET approuvés) sont offerts : animations, exports Pinterest, codes de collection
       - run: node tools/check_fonds_proposes.mjs
       - run: node tools/check_fonds_proposes.mjs --essai
+      # l'état dans l'adresse et les couleurs de Pavane (prompt 211) : listes fermées, anciens liens, contraste minimal imposé
+      - run: node tools/check_pavane_etat.mjs
+      - run: node tools/check_pavane_etat.mjs --essai
       - run: node tools/check_recette_32.mjs
       - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs
@@ -134,6 +137,7 @@ jobs:
       - uses: ./.github/actions/playwright
         with:
           navigateur: chromium
+          paquets: axe-core@4
       - run: node tools/check_selecteur_fonds.mjs local
       - run: node tools/check_export_pinterest.mjs local --code P --echantillon 8
       - run: node tools/check_export_pinterest.mjs local --code B2D --echantillon 8
@@ -145,6 +149,9 @@ jobs:
       - run: node tools/check_galerie_animations.mjs local
       # le sélecteur 64 · 128 · 256 de la page des animations (FR, ja, th ; 390 et 1280 px) : clavier, focus, adresse, stockage local, aperçu, sans débordement
       - run: node tools/check_galerie_corpus.mjs local
+      # l'interface de « Pavane — Voir sa musique » (prompt 211, bloc 1) : trois modes (fr, ja, th ; 390 et 1280 px), fonds proposés seuls, pause, état dans l'adresse, contraste imposé, axe-core
+      - run: node tools/check_pavane_ui.mjs local
+      - run: node tools/check_pavane_ui.mjs local --essai
       # les variantes de fonds sur le corpus de 64 (prompt 210) : 512 rendus à 1200 px, symétries du motif tenues, pavage sans rupture (B2D : 0 raccord brisé)
       - run: node tools/check_symetries_rendu.mjs
       - run: node tools/check_symetries_rendu.mjs --essai

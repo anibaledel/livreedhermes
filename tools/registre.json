@@ -997,6 +997,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_pavane_etat.mjs",
+   "role": "l'état dans l'adresse et les couleurs de « Pavane — Voir sa musique » (prompt 211 §4), sans navigateur : listes fermées, anciens liens, aller-retour, contraste minimal imposé (un fond identique à la figure est impossible), fonds lus dans…",
+   "lit": [
+    "data/fonds/demi-periode.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_pavane_moteur.mjs",
    "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
    "lit": [
@@ -1005,6 +1019,20 @@
    "ecrit": [],
    "appele_par": [
     "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_pavane_ui.mjs",
+   "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
+   "lit": [
+    "data/fonds/demi-periode.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
@@ -2201,6 +2229,7 @@
     "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",
     "tools/check_parcours_langues.mjs",
+    "tools/check_pavane_ui.mjs",
     "tools/check_selecteur_fonds.mjs",
     "tools/check_selection_clavier.mjs",
     "tools/epingles_echantillon.mjs",

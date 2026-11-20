@@ -1346,3 +1346,8 @@ De moi, à relire :
 - le nom et la description du JSON-LD Dataset (galerie et chiffres et sources) ;
 - la phrase « Déposé sur Zenodo… » ajoutée à la ligne « 256 / 128 / 64 » de chiffres et sources.
 Mot à confirmer en thaï : « คลังตาราง » pour « corpus » (la page de chiffres emploie « คลังอ้างอิง »).
+
+## Prompt 211 — « Pavane — Voir sa musique », interface (bloc 1)
+
+`assets/pavane-textes.js` : 39 libellés × 11 langues. Français, anglais, espagnol : de la main de CC. **À relire** : thaï et japonais d'abord, puis chinois, russe, portugais, hindi, allemand, italien (traduits depuis le français).
+Mots à confirmer : « Défilé » (th ขบวน, ja パレード), « Entre-deux » (th ระหว่างกลาง, ja 中間), « Spectre » ; la phrase des sources sonores (« au prochain bloc ») est provisoire, elle est remplacée au bloc 2 ; « Hexagramme {kw} · n° {n} du site » (King Wen d'abord).
