@@ -3,12 +3,13 @@
 //
 // Les variantes de fonds du corpus (prompt 210, §2 à §4). Pur : ni DOM ni réseau — l'application, l'export et les contrôles importent ce même code.
 //
-// Le motif obéit aux isométries du carré : identité, rotation de 180° et les deux miroirs médians CONSERVENT les couleurs ; la rotation de 90°, celle de
-// 270° et les deux diagonales les INVERSENT (critère du demi-décalage). MESURÉ sur les 64 classes du corpus : 32 tiennent les 8 isométries (le groupe D4) ;
-// les 32 autres tiennent seulement l'identité, la rotation de 180° et les deux diagonales (un groupe d'ordre 4). Une variante respecte EXACTEMENT les
-// symétries de son motif : on ne dessine qu'un morceau de référence par orbite (un huitième du carré, ou un quart) et on le TRANSPORTE par le groupe du
-// motif, avec le symbole du fond généré dans la palette ÉCHANGÉE quand l'isométrie inverse.
-//
+// Le motif obéit aux 8 isométries du carré (le groupe D4), mais pas toujours avec les mêmes inversions de couleurs : MESURÉ sur les 64 représentants du corpus
+// (data/symetries-64.json, tools/symetries_64.mjs), deux familles de 32 — « =i=i==ii » (les rotations de 90° et 270° et les deux diagonales inversent les couleurs ;
+// la rotation de 180° et les deux miroirs médians les conservent) et « ====iiii » (les trois rotations conservent ; les deux miroirs médians et les deux diagonales
+// inversent). L'ensemble des isométries INVERSANTES est donc une donnée DU MOTIF (une chaîne de 8 signes dans l'ordre de ISOMETRIES : « = » couleurs conservées,
+// « i » inversées, « x » pas de symétrie), jamais une constante. On ne dessine que le HUITIÈME de référence et on le TRANSPORTE par les 8 isométries, avec le
+// symbole du fond généré dans la palette ÉCHANGÉE quand l'isométrie inverse, pour ce motif.
+
 // Règle des cases coupées (changement pour les fonds retenus) : chaque triangle d'une case coupée reçoit le fond de SON bit, découpé à la forme du triangle
 // (clipPath) — les bandes passent de part et d'autre des diagonales. Sur la diagonale principale (r = q), un triangle sur deux seulement est dessiné :
 // l'autre vient de la réflexion par la diagonale, couleurs échangées (le morceau de référence d'une orbite est le plus haut, puis le plus à gauche).
@@ -26,7 +27,6 @@ export const FONDS_A_PHASES = Object.freeze(['B2D']);
 
 // les 8 isométries [a, b, c, d] : (x, y) → (a·x + b·y, c·x + d·y) autour du centre, x = colonne, y = ligne (vers le bas)
 export const ISOMETRIES = Object.freeze([[1, 0, 0, 1], [0, 1, -1, 0], [-1, 0, 0, -1], [0, -1, 1, 0], [-1, 0, 0, 1], [1, 0, 0, -1], [0, 1, 1, 0], [0, -1, -1, 0]]);
-export const INVERSANTES = Object.freeze(new Set([1, 3, 6, 7]));
 export const GRILLE = 12;
 const DEBORD = 0.015; // le débord des symboles de bicolore-fonds.js
 const C = GRILLE / 2; // le centre, 6
@@ -38,10 +38,7 @@ export function imageDeCase(r, c, [a, b, cc, d]) {
 }
 const centroideXmoinsY = (pts) => pts.reduce((s, p) => s + p[0] - p[1], 0);
 
-// ---------- le groupe de symétrie d'un motif ----------
-// Tous les motifs du corpus ne tiennent pas les 8 isométries : sur les 64 classes, 32 les tiennent toutes (le groupe D4), les 32 autres seulement la
-// rotation de 180° et les deux diagonales (indices 2, 6, 7 : un groupe d'ordre 4). Une variante respecte EXACTEMENT les symétries de son motif : elle
-// est transportée par ce groupe-là, ni plus ni moins (tools/check_symetries_corpus.mjs le mesure).
+// ---------- les symétries d'un motif ----------
 const dansPolyP = (x, y, pts) => {
   let dedans = false;
   for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
@@ -61,26 +58,34 @@ export function bitAuPoint(cases, X, Y) {
 const morceauxDeCase = (k) => (k.type === 'pleine' ? [{ bit: k.bit, poly: null, c: [0.5, 0.5] }]
   : k.triangles.map((t) => ({ bit: t.bit, poly: t.points, c: [t.points.reduce((s, p) => s + p[0], 0) / t.points.length, t.points.reduce((s, p) => s + p[1], 0) / t.points.length] })));
 const appliquer = ([a, b, c, d], x, y) => [a * (x - C) + b * (y - C) + C, c * (x - C) + d * (y - C) + C];
-// les indices d'isométries que le motif tient (l'identité, 0, toujours comprise)
-export function isometriesTenues(cases) {
+// Les symétries du motif : une chaîne de 8 signes, dans l'ordre de ISOMETRIES — « = » le motif transporté est le même, « i » c'est le même aux couleurs inversées,
+// « x » le motif n'a pas cette symétrie.
+export function symetriesDuMotif(cases) {
   const points = [];
   for (let i = 0; i < GRILLE * GRILLE; i++) for (const m of morceauxDeCase(cases[i])) points.push([(i % GRILLE) + m.c[0], Math.floor(i / GRILLE) + m.c[1]]);
-  const tenues = [0];
+  let signes = '=';
   for (let gi = 1; gi < ISOMETRIES.length; gi++) {
-    let ok = true;
-    for (const [x, y] of points) { const [x2, y2] = appliquer(ISOMETRIES[gi], x, y); if (bitAuPoint(cases, x2, y2) !== (bitAuPoint(cases, x, y) ^ (INVERSANTES.has(gi) ? 1 : 0))) { ok = false; break; } }
-    if (ok) tenues.push(gi);
+    let egal = true, inverse = true;
+    for (const [x, y] of points) {
+      const [x2, y2] = appliquer(ISOMETRIES[gi], x, y), b1 = bitAuPoint(cases, x, y), b2 = bitAuPoint(cases, x2, y2);
+      if (b2 !== b1) egal = false;
+      if (b2 !== (b1 ^ 1)) inverse = false;
+      if (!egal && !inverse) break;
+    }
+    signes += egal ? '=' : inverse ? 'i' : 'x';
   }
-  return tenues;
+  return signes;
 }
+export const inversantesDe = (symetries) => new Set([...symetries].flatMap((c, i) => (c === 'i' ? [i] : [])));
+export const groupeDe = (symetries) => [...symetries].flatMap((c, i) => (c === 'x' ? [] : [i]));
 
 // ---------- les éléments du rendu ----------
 // Pour chaque orbite de morceaux (case pleine ou triangle) sous le groupe, UN morceau de référence (le plus haut, puis le plus à gauche, de l'orbite) ;
 // ses images par le groupe donnent les autres. Un élément : { r, q (case de référence), g (indice d'isométrie), inv, bit, poly, phase, cible: [ligne, colonne] }.
 // `phases` : un tableau de 144 valeurs 0..3 indexé par la case de référence (r × 12 + q), ou null.
-export function elementsDeVariante(cases, phases = null, groupe = null) {
+export function elementsDeVariante(cases, phases = null, symetries = null) {
   if (cases.length !== GRILLE * GRILLE) throw new Error(`fonds-variantes.js : ${cases.length} cases, ${GRILLE * GRILLE} attendues`);
-  const tenues = groupe || isometriesTenues(cases);
+  const sym = symetries || symetriesDuMotif(cases), tenues = groupeDe(sym), inverse = inversantesDe(sym);
   const cle = (x, y) => `${Math.round(modulo(x) * 1e6)},${Math.round(modulo(y) * 1e6)}`;
   const elements = [];
   for (let i = 0; i < GRILLE * GRILLE; i++) {
@@ -99,7 +104,7 @@ export function elementsDeVariante(cases, phases = null, groupe = null) {
         if (vus.has(kk)) continue; // le morceau est fixé par une autre isométrie du groupe : une seule image
         vus.add(kk);
         const [rr, cc] = imageDeCase(r, q, ISOMETRIES[gi]);
-        elements.push({ r, q, g: gi, inv: INVERSANTES.has(gi) ? 1 : 0, bit: m.bit, poly: m.poly, phase: phases ? phases[r * GRILLE + q] | 0 : 0, cible: [rr, cc] });
+        elements.push({ r, q, g: gi, inv: inverse.has(gi) ? 1 : 0, bit: m.bit, poly: m.poly, phase: phases ? phases[r * GRILLE + q] | 0 : 0, cible: [rr, cc] });
       }
     }
   }
@@ -126,8 +131,9 @@ export class Variante {
   constructor(cases, fond, phases = null, translation = null) {
     this.cases = cases; this.fond = fond; this.phases = phases;
     this.translation = translation || { dx: 0, dy: 0, echange: 0 };
-    this.groupe = isometriesTenues(cases);
-    this.elements = elementsDeVariante(cases, phases, this.groupe);
+    this.symetries = symetriesDuMotif(cases);
+    this.groupe = groupeDe(this.symetries);
+    this.elements = elementsDeVariante(cases, phases, this.symetries);
     this.parCible = new Map();
     for (const e of this.elements) { const cle = e.cible[0] * GRILLE + e.cible[1]; if (!this.parCible.has(cle)) this.parCible.set(cle, []); this.parCible.get(cle).push(e); }
     this.rendus = [rendu(fond, 0), rendu(fond, 1)];
@@ -182,24 +188,38 @@ export function conflitsDeVariante(v, vrais = v.cases) {
 
 // ---------- les raccords brisés ----------
 // Un raccord est BRISÉ quand les deux couleurs, de part et d'autre d'un bord de cases (le tore : le bord gauche rejoint le droit, le haut le bas), ne
-// coïncident pas tout le long du bord. 288 bords : 144 verticaux + 144 horizontaux.
-export function raccordsBrises(v, m = 16, eps = 1e-5) {
-  let brises = 0;
-  const bord = (xa, ya, xb, yb) => { // deux côtés d'un même bord : des points (xa, ya) et (xb, yb) décalés de ±eps
-    return v.couleurAu(xa, ya) !== v.couleurAu(xb, yb);
-  };
+// coïncident pas tout le long du bord. 288 bords : 144 verticaux (dir 0 : entre la colonne c et la suivante) + 144 horizontaux (dir 1).
+// Certains sont IMPOSÉS par la symétrie du motif : quand un miroir médian INVERSE les couleurs (« i » à l'indice 4 pour le miroir vertical, 5 pour l'horizontal),
+// le bord qui tombe sur l'axe de ce miroir a, de l'autre côté, les couleurs inversées de celles de ce côté-ci : il ne peut jamais se raccorder. Sur le tore, l'axe
+// compte deux lignes (au milieu et au bord de la cellule) : 24 bords par miroir inversant, 48 pour les motifs « ====iiii » — aucune rotation de fond n'y change rien.
+export function bordsImposes(symetries) {
+  const imposes = new Set();
+  for (let i = 0; i < GRILLE; i++) {
+    if (symetries[4] === 'i') for (const c of [C - 1, GRILLE - 1]) imposes.add(`${i},${c},0`);
+    if (symetries[5] === 'i') for (const r of [C - 1, GRILLE - 1]) imposes.add(`${r},${i},1`);
+  }
+  return imposes;
+}
+// { brises, imposes (brisés et imposés), libres (brisés et non imposés) }
+export function detailRaccords(v, m = 16, eps = 1e-5) {
+  const forces = bordsImposes(v.symetries);
+  let brises = 0, imposes = 0, libres = 0;
+  const casse = (xa, ya, xb, yb) => v.couleurAu(xa, ya) !== v.couleurAu(xb, yb);
+  const compter = (cle, cs) => { if (!cs) return; brises++; if (forces.has(cle)) imposes++; else libres++; };
   for (let r = 0; r < GRILLE; r++) {
     for (let c = 0; c < GRILLE; c++) {
-      let casse = false;
-      for (let i = 0; i < m && !casse; i++) { const t = (i + 0.5) / m; if (bord(c + 1 - eps, r + t, c + 1 + eps, r + t)) casse = true; }
-      if (casse) brises++;
-      casse = false;
-      for (let i = 0; i < m && !casse; i++) { const t = (i + 0.5) / m; if (bord(c + t, r + 1 - eps, c + t, r + 1 + eps)) casse = true; }
-      if (casse) brises++;
+      let cs = false;
+      for (let i = 0; i < m && !cs; i++) { const t = (i + 0.5) / m; if (casse(c + 1 - eps, r + t, c + 1 + eps, r + t)) cs = true; }
+      compter(`${r},${c},0`, cs);
+      cs = false;
+      for (let i = 0; i < m && !cs; i++) { const t = (i + 0.5) / m; if (casse(c + t, r + 1 - eps, c + t, r + 1 + eps)) cs = true; }
+      compter(`${r},${c},1`, cs);
     }
   }
-  return brises;
+  return { brises, imposes, libres, imposesTotal: forces.size };
 }
+export const raccordsBrises = (v, m = 16, eps = 1e-5) => detailRaccords(v, m, eps).brises;
+export const raccordsLibres = (v, m = 16, eps = 1e-5) => detailRaccords(v, m, eps).libres;
 
 // ---------- le tracé : la frontière entre régions de couleurs différentes ----------
 // Calcul VECTORIEL, à partir des polygones du rendu (jamais par traitement d'image) : chaque élément donne des morceaux de couleur (le dessous de la case ou du

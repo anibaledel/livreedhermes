@@ -100,6 +100,17 @@ const REFERENTS = [
     verificateurs: ['tools/phases_b2d.mjs'],
     sources: ['data/corpus-256.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
   },
+  {
+    id: 'symetries-64',
+    objet: "Les symétries de la lecture binaire des 64 représentants du corpus (prompt 210) : les 8 isométries du carré, avec la règle d'inversion des couleurs de chaque motif (« =i=i==ii » ou « ====iiii »).",
+    nombre: 64,
+    compte: (r) => [Object.keys(r).length],
+    compte_par: 'Object.keys(.).length',
+    chemin: 'data/symetries-64.json',
+    generateur: 'tools/symetries_64.mjs',
+    verificateurs: ['tools/symetries_64.mjs', 'tools/check_symetries_binaire.py'],
+    sources: ['data/corpus-256.json', 'assets/lecture-binaire.js', 'assets/fonds-variantes.js'],
+  },
 ];
 const CLES_VERSION = ['format_version', 'generated_at_utc', 'generator_tool', 'referent_id'];
 

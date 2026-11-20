@@ -9,6 +9,7 @@
 // (pavage périodique : le bord gauche rejoint le droit, le haut le bas). Recuit simulé à GRAINE FIXE : même sortie à chaque exécution.
 //
 // Écrit data/fonds/phases-b2d-64.json : 64 motifs × 36 valeurs (seules les 21 cases r ≤ q comptent).
+// Raccords IMPOSÉS : quand un miroir médian inverse les couleurs (les 32 motifs « ====iiii »), les 48 bords sur ses axes ne peuvent pas se raccorder ; ils ne comptent pas.
 // --verifie  recalcule les raccords brisés par la géométrie du rendu (assets/fonds-variantes.js, vectoriel, indépendant du modèle de recuit) et échoue si le
 //            fichier est périmé ou si un raccord reste brisé ; rapporte aussi, pour chaque fond retenu, les raccords brisés SANS rien corriger ; vérifie les
 //            256 (les translations (0,6), (6,0), (6,6) ne changent pas les raccords : la même table sert aux 4 membres de chaque classe).
@@ -20,7 +21,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, raccordsBrises, conflitsDeVariante, FONDS_VARIANTES } from '../assets/fonds-variantes.js';
+import { Variante, raccordsBrises, raccordsLibres, detailRaccords, bordsImposes, conflitsDeVariante, FONDS_VARIANTES } from '../assets/fonds-variantes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SORTIE = path.join(ROOT, 'data/fonds/phases-b2d-64.json');
@@ -43,7 +44,8 @@ function recuit(cases, graine) {
   const parRef = new Map();
   for (const e of v.elements) { const k = e.r * 12 + e.q; if (!parRef.has(k)) parRef.set(k, []); parRef.get(k).push(e); }
   const refs = [...parRef.keys()];
-  const paire = (r, c, dir) => (dir === 0 ? v.couleurAu(c + 1 - EPS, r + 0.5) !== v.couleurAu(c + 1 + EPS, r + 0.5) : v.couleurAu(c + 0.5, r + 1 - EPS) !== v.couleurAu(c + 0.5, r + 1 + EPS)) ? 1 : 0;
+  const imposes = bordsImposes(v.symetries); // les raccords que la symétrie du motif interdit : ils ne comptent pas, aucune rotation n'y peut rien
+  const paire = (r, c, dir) => imposes.has(`${r},${c},${dir}`) ? 0 : (dir === 0 ? v.couleurAu(c + 1 - EPS, r + 0.5) !== v.couleurAu(c + 1 + EPS, r + 0.5) : v.couleurAu(c + 0.5, r + 1 - EPS) !== v.couleurAu(c + 0.5, r + 1 + EPS)) ? 1 : 0;
   const m12 = (x) => (x + 12) % 12;
   const total = () => { let n = 0; for (let r = 0; r < 12; r++) for (let c = 0; c < 12; c++) n += paire(r, c, 0) + paire(r, c, 1); return n; };
   const voisines = (ref) => { // les paires de bords touchées par une case de référence
@@ -83,7 +85,7 @@ function calculer() {
   return { motifs, bilan };
 }
 const serialiser = (motifs) => JSON.stringify({
-  _doc: 'Les rotations du fond B2D (0, 1, 2, 3 quarts de tour), pour les 64 représentants du corpus (data/corpus-256.json, niveau 64) : 144 chiffres par motif, case par case (ligne × 12 + colonne) ; seules comptent les cases de référence, celles où le motif est dessiné avant d\'être transporté par son groupe de symétrie (assets/fonds-variantes.js : les 8 isométries du carré pour 32 classes, 4 pour les 32 autres) ; les autres chiffres sont 0. Écrit par tools/phases_b2d.mjs (recuit simulé, graine fixe) ; les 4 membres d\'une classe de translation (0,6), (6,0), (6,6) partagent la table de leur représentant. 0 raccord brisé sur 288 bords (tore).',
+  _doc: 'Les rotations du fond B2D (0, 1, 2, 3 quarts de tour), pour les 64 représentants du corpus (data/corpus-256.json, niveau 64) : 144 chiffres par motif, case par case (ligne × 12 + colonne) ; seules comptent les cases de référence, celles où le motif est dessiné avant d\'être transporté par son groupe de symétrie (assets/fonds-variantes.js : les 8 isométries du carré, avec la règle d\'inversion de chaque motif) ; les autres chiffres sont 0. Écrit par tools/phases_b2d.mjs (recuit simulé, graine fixe) ; les 4 membres d\'une classe de translation (0,6), (6,0), (6,6) partagent la table de leur représentant. 0 raccord brisé NON imposé sur 288 bords (tore) ; les raccords que la symétrie du motif interdit (miroir inversant) ne comptent pas.',
   graine: GRAINE, fond: 'B2D', motifs,
 }, null, 1) + '\n';
 
@@ -95,7 +97,7 @@ function verifier() {
   const ids = corpus.niveaux['64'].map((c) => c.representant.id);
   if (Object.keys(fichier.motifs).join() !== ids.join()) ko('les motifs du fichier ne sont pas les 64 représentants du corpus, dans l\'ordre');
   if (readFileSync(SORTIE, 'utf8') !== serialiser(fichier.motifs)) ko('le fichier n\'a pas la forme que tools/phases_b2d.mjs écrit');
-  let pire = 0, total = 0;
+  let pire = 0, total = 0, imposesTotal = 0;
   const groupes = {}, translations = {};
   const parFond = Object.fromEntries(FONDS_VARIANTES.map((f) => [f, { min: Infinity, max: 0, somme: 0 }]));
   for (const cl of corpus.niveaux['64']) {
@@ -103,12 +105,13 @@ function verifier() {
     if (typeof chaine !== 'string' || !/^[0-3]{144}$/.test(chaine)) { ko(`${cl.representant.id} : 144 chiffres de 0 à 3 attendus`); continue; }
     const P = chaine.split('').map(Number);
     const v = new Variante(cases, collection.fonds.get('B2D'), P);
-    groupes[v.groupe.length] = (groupes[v.groupe.length] || 0) + 1;
+    groupes[v.symetries] = (groupes[v.symetries] || 0) + 1;
     const cf = conflitsDeVariante(v);
     if (cf.total) ko(`${cl.representant.id} : ${cf.total} conflit(s) de transport (${JSON.stringify(cf)})`);
-    const b = raccordsBrises(v);
-    total += b; pire = Math.max(pire, b);
-    if (b) ko(`${cl.representant.id} : ${b} raccord(s) brisé(s) sur 288 pour B2D avec ses rotations`);
+    const dr = detailRaccords(v);
+    total += dr.libres; imposesTotal += dr.imposes; pire = Math.max(pire, dr.libres);
+    if (dr.libres) ko(`${cl.representant.id} : ${dr.libres} raccord(s) brisé(s) NON imposé(s) par la symétrie, sur 288 pour B2D avec ses rotations`);
+    if (dr.imposes !== dr.imposesTotal) ko(`${cl.representant.id} : ${dr.imposes} raccord(s) imposé(s) brisé(s) sur ${dr.imposesTotal} : un raccord imposé se raccorde, la symétrie du motif ne l'interdit donc pas`);
     for (const f of FONDS_VARIANTES) {
       if (f === 'B2D') continue;
       const n = raccordsBrises(new Variante(cases, collection.fonds.get(f), null));
@@ -122,16 +125,16 @@ function verifier() {
       for (const dx of [0, 6]) for (const dy of [0, 6]) for (const echange of [0, 1]) {
         if (!dx && !dy && !echange) continue;
         const vm = new Variante(cases, collection.fonds.get('B2D'), P, { dx, dy, echange });
-        if (conflitsDeVariante(vm, vrais).total === 0) trouve.push({ dx, dy, echange, brises: raccordsBrises(vm) });
+        if (conflitsDeVariante(vm, vrais).total === 0) trouve.push({ dx, dy, echange, libres: raccordsLibres(vm) });
       }
       // (6, 6) avec échange laisse la lecture du représentant inchangée : deux écritures d'une même translation, on garde la première
       if (!trouve.length) { ko(`${m} (membre de la classe de ${cl.representant.id}) : aucune translation (0 ou 6, 0 ou 6) du dessin du représentant ne reproduit sa lecture`); continue; }
       translations[`${trouve[0].dx},${trouve[0].dy}→échange ${trouve[0].echange}`] = (translations[`${trouve[0].dx},${trouve[0].dy}→échange ${trouve[0].echange}`] || 0) + 1;
-      if (trouve[0].brises) ko(`${m} (translation de ${cl.representant.id}) : ${trouve[0].brises} raccord(s) brisé(s)`);
+      if (trouve[0].libres) ko(`${m} (translation de ${cl.representant.id}) : ${trouve[0].libres} raccord(s) brisé(s) non imposé(s)`);
     }
   }
-  console.log(`B2D avec ses rotations : ${total} raccord(s) brisé(s) sur ${64 * 288} bords (64 représentants × 288), maximum ${pire} ; les 192 autres membres des classes avec la même table : vérifiés.`);
-  console.log(`  groupe de symétrie des représentants (ordre du groupe : classes) : ${JSON.stringify(groupes)} ; translations des 192 autres membres : ${JSON.stringify(translations)}`);
+  console.log(`B2D avec ses rotations : ${total} raccord(s) brisé(s) non imposé(s) sur ${64 * 288} bords (64 représentants × 288), maximum ${pire} ; ${imposesTotal} raccords brisés IMPOSÉS par la symétrie (miroir inversant : 48 par motif « ====iiii »), les 192 autres membres des classes avec la même table : vérifiés.`);
+  console.log(`  symétries des représentants (chaîne des 8 isométries : classes) : ${JSON.stringify(groupes)} ; translations des 192 autres membres : ${JSON.stringify(translations)}`);
   for (const [f, s] of Object.entries(parFond)) if (f !== 'B2D') console.log(`  ${f} sans rotation : raccords brisés de ${s.min} à ${s.max} sur 288 par motif (moyenne ${(s.somme / 64).toFixed(1)}), rapportés, rien n'est corrigé`);
   return echecs;
 }
@@ -139,7 +142,7 @@ function verifier() {
 function essai() {
   const fichier = lire('data/fonds/phases-b2d-64.json');
   const id = Object.keys(fichier.motifs)[0], cases = casesDe(id);
-  const v = (P) => raccordsBrises(new Variante(cases, collection.fonds.get('B2D'), P));
+  const v = (P) => raccordsLibres(new Variante(cases, collection.fonds.get('B2D'), P));
   const bonnes = fichier.motifs[id].split('').map(Number);
   const bon = v(bonnes);
   const refs = [...new Set(new Variante(cases, collection.fonds.get('B2D'), null).elements.map((e) => e.r * 12 + e.q))];
