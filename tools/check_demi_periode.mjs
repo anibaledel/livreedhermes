@@ -20,7 +20,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, FONDS_ETUDIES, FONDS_A_CORRIGER, fondCorrige, conflitsDeVariante } from '../assets/fonds-variantes.js';
+import { Variante, FONDS_A_CORRIGER, fondCorrige, conflitsDeVariante, detailRaccords } from '../assets/fonds-variantes.js';
+import { chargerFondsEtudies, CODES_ETUDIES } from './lib_fonds_etudies.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
@@ -28,7 +29,7 @@ const SORTIE = path.join(ROOT, 'data/fonds/demi-periode.json');
 const corpus = lire('data/corpus-256.json'), sym = lire('data/symetries-64.json'), phases = lire('data/fonds/phases-b2d-64.json').motifs, phasesDP = lire('data/fonds/phases-b2d-dp-64.json').motifs;
 const approuves = lire('data/fonds/fonds-approuves.json').approuves;
 const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
-const collection = F.chargerCollection(lire('data/fonds/collection-v1.json'), { calculs: lire('data/fonds/collection-v1.calculs.json') });
+const { collection, fonds: FONDS_MAP } = chargerFondsEtudies();
 const N = 96, DX = 0.37, DY = 0.61; // l'échantillonnage : N × N points sur la cellule de 12 × 12 cases
 const casesDe = (id) => lectureBinaire(parId.get(id).tricolore, id).cases;
 
@@ -56,7 +57,7 @@ function v1EstV0Echange(fond) {
 // aux couleurs échangées (assets/fonds-variantes.js, { demiPeriode: true }) ; B2D prend ses rotations dans data/fonds/phases-b2d-dp-64.json.
 function mesurerCorrige(code) {
   const par = {}; let exacts = 0, exacts256 = 0, pire = 0, conflits = 0;
-  const f = fondCorrige(collection.fonds.get(code));
+  const f = fondCorrige(FONDS_MAP.get(code));
   for (const cl of corpus.niveaux['64']) {
     const id = cl.representant.id, cases = casesDe(id), ph = code === 'B2D' ? phasesDP[id].split('').map(Number) : null;
     const v = new Variante(cases, f, ph, null, { demiPeriode: true });
@@ -72,26 +73,27 @@ function mesurerCorrige(code) {
   }
   return { exacts, sur: 64, par_famille: par, exacts_sur_256: exacts256, sur_256: 256, defaut_maximal: Math.round(pire * 1000) / 1000, conflits_de_transport: conflits };
 }
-const FONDS = ['P', ...FONDS_ETUDIES.filter((f) => f !== 'P')]; // P d'abord : l'aplat publié, la référence
+const FONDS = [...CODES_ETUDIES]; // P d'abord : l'aplat publié, la référence
 function mesurer() {
   const fonds = {};
   for (const code of FONDS) {
-    const par = {}; let exacts = 0, exacts256 = 0, pire = 0;
+    const par = {}; let exacts = 0, exacts256 = 0, pire = 0; const rbs = [];
     for (const cl of corpus.niveaux['64']) {
       const id = cl.representant.id, cases = casesDe(id), ph = code === 'B2D' ? phases[id].split('').map(Number) : null;
-      const v = new Variante(cases, collection.fonds.get(code), ph);
+      const v = new Variante(cases, FONDS_MAP.get(code), ph);
       const d = defauts(v), ok = d === 0;
+      rbs.push(detailRaccords(v).brises); // les raccords brisés (bords de cases dont les couleurs ne coïncident pas, tore compris) : comptés, rapportés, jamais corrigés
       pire = Math.max(pire, d);
       const fam = (par[sym[id]] ||= { exacts: 0, sur: 0 }); fam.sur++; if (ok) { fam.exacts++; exacts++; }
       // les 256 : les membres de la classe, par translation du tore (couleurs échangées quand la lecture l'est) ; la mesure du représentant suffit si la translation commute — on le vérifie
       for (const [dx, dy, echange] of [[0, 6, 0], [6, 0, 0], [6, 6, 1]]) {
-        const vm = new Variante(cases, collection.fonds.get(code), ph, { dx, dy, echange });
+        const vm = new Variante(cases, FONDS_MAP.get(code), ph, { dx, dy, echange });
         if ((defauts(vm) === 0) !== ok) throw new Error(`${code} ${id} : la translation (${dx}, ${dy}) ne commute pas avec la demi-période`);
         if (ok) exacts256++;
       }
       if (ok) exacts256++; // le représentant lui-même
     }
-    fonds[code] = { exacts, sur: 64, par_famille: par, exacts_sur_256: exacts256, sur_256: 256, defaut_maximal: Math.round(pire * 1000) / 1000, mode: collection.fonds.get(code).mode, v1_est_v0_echange: v1EstV0Echange(collection.fonds.get(code)), corrige: FONDS_A_CORRIGER.includes(code) ? mesurerCorrige(code) : null };
+    fonds[code] = { exacts, sur: 64, par_famille: par, exacts_sur_256: exacts256, sur_256: 256, defaut_maximal: Math.round(pire * 1000) / 1000, mode: FONDS_MAP.get(code).mode, v1_est_v0_echange: v1EstV0Echange(FONDS_MAP.get(code)), raccords_brises_sur_288: { min: Math.min(...rbs), max: Math.max(...rbs), moyenne: Math.round(rbs.reduce((a, b) => a + b, 0) / rbs.length * 10) / 10 }, corrige: FONDS_A_CORRIGER.includes(code) ? mesurerCorrige(code) : null };
   }
   return fonds;
 }
@@ -106,9 +108,9 @@ const serialiser = (fonds) => JSON.stringify(doc(fonds), null, 1) + '\n';
 
 if (process.argv.includes('--essai')) {
   const id = corpus.niveaux['64'][0].representant.id, cases = casesDe(id).slice();
-  const bon = defauts(new Variante(cases, collection.fonds.get('P'), null));
+  const bon = defauts(new Variante(cases, FONDS_MAP.get('P'), null));
   const k = cases.findIndex((c) => c.type === 'pleine'); cases[k] = { ...cases[k], bit: 1 - cases[k].bit };
-  const faux = defauts(new Variante(cases, collection.fonds.get('P'), null));
+  const faux = defauts(new Variante(cases, FONDS_MAP.get('P'), null));
   if (bon !== 0) { console.error(`ÉCHEC --essai : P n'est pas exact sur ${id} (${bon})`); process.exit(1); }
   if (faux === 0) { console.error('ÉCHEC --essai : une case changée laisse la demi-période exacte'); process.exit(1); }
   console.log(`OK    --essai : P exact sur ${id}, une case changée met ${(100 * faux).toFixed(1)} % des points en défaut.`); process.exit(0);

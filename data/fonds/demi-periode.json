@@ -3,11 +3,13 @@
  "echantillon": "96 × 96 points, décalés de (0.37 ; 0.61) pas",
  "approuves": [
   "P",
-  "B11211D"
+  "B2DE",
+  "B11211DE"
  ],
  "proposes": [
   "P",
-  "B11211D"
+  "B2DE",
+  "B11211DE"
  ],
  "fonds": {
   "P": {
@@ -28,6 +30,11 @@
    "defaut_maximal": 0,
    "mode": "echange",
    "v1_est_v0_echange": 1,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
    "corrige": null
   },
   "B2": {
@@ -48,6 +55,11 @@
    "defaut_maximal": 0.5,
    "mode": "rotation",
    "v1_est_v0_echange": 0.5,
+   "raccords_brises_sur_288": {
+    "min": 120,
+    "max": 224,
+    "moyenne": 172
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -85,6 +97,11 @@
    "defaut_maximal": 0.375,
    "mode": "rotation",
    "v1_est_v0_echange": 0.444,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -122,6 +139,11 @@
    "defaut_maximal": 0.5,
    "mode": "rotation",
    "v1_est_v0_echange": 0.5,
+   "raccords_brises_sur_288": {
+    "min": 120,
+    "max": 224,
+    "moyenne": 172
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -159,6 +181,11 @@
    "defaut_maximal": 0.5,
    "mode": "rotation",
    "v1_est_v0_echange": 0.5,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -196,6 +223,11 @@
    "defaut_maximal": 0.917,
    "mode": "rotation",
    "v1_est_v0_echange": 0.5,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 48,
+    "moyenne": 24
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -233,6 +265,11 @@
    "defaut_maximal": 0.806,
    "mode": "rotation",
    "v1_est_v0_echange": 0.5,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 104,
+    "moyenne": 52
+   },
    "corrige": {
     "exacts": 64,
     "sur": 64,
@@ -270,6 +307,61 @@
    "defaut_maximal": 0,
    "mode": "rotation",
    "v1_est_v0_echange": 0.444,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 48,
+    "moyenne": 24
+   },
+   "corrige": null
+  },
+  "B2DE": {
+   "exacts": 64,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 32,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 32,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 256,
+   "sur_256": 256,
+   "defaut_maximal": 0,
+   "mode": "echange",
+   "v1_est_v0_echange": 1,
+   "raccords_brises_sur_288": {
+    "min": 128,
+    "max": 288,
+    "moyenne": 208
+   },
+   "corrige": null
+  },
+  "B11211DE": {
+   "exacts": 64,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 32,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 32,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 256,
+   "sur_256": 256,
+   "defaut_maximal": 0,
+   "mode": "echange",
+   "v1_est_v0_echange": 1,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
    "corrige": null
   }
  }

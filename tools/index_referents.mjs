@@ -125,13 +125,13 @@ const REFERENTS = [
   {
     id: 'demi-periode',
     objet: "La demi-période des fonds (prompt 185) : pour chaque fond, le nombre des 64 représentants du corpus dont le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées ; la liste des fonds proposés (64 / 64).",
-    nombre: 8,
+    nombre: 10,
     compte: (r) => [Object.keys(r.fonds).length],
     compte_par: 'Object.keys(fonds).length',
     chemin: 'data/fonds/demi-periode.json',
     generateur: 'tools/check_demi_periode.mjs',
     verificateurs: ['tools/check_demi_periode.mjs'],
-    sources: ['data/corpus-256.json', 'data/symetries-64.json', 'data/fonds/phases-b2d-64.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
+    sources: ['data/corpus-256.json', 'data/symetries-64.json', 'data/fonds/phases-b2d-64.json', 'data/fonds/phases-b2d-dp-64.json', 'data/fonds/fonds-echange.json', 'data/fonds/fonds-approuves.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
   },
 ];
 const CLES_VERSION = ['format_version', 'generated_at_utc', 'generator_tool', 'referent_id'];

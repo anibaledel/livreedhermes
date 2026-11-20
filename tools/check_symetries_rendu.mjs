@@ -21,13 +21,14 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, ISOMETRIES, FONDS_ETUDIES, varianteSvg } from '../assets/fonds-variantes.js';
+import { Variante, ISOMETRIES, varianteSvg } from '../assets/fonds-variantes.js';
+import { chargerFondsEtudies, CODES_ETUDIES } from './lib_fonds_etudies.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
 const corpus = lire('data/corpus-256.json');
 const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
-const collection = F.chargerCollection(lire('data/fonds/collection-v1.json'), { calculs: lire('data/fonds/collection-v1.calculs.json') });
+const { collection, fonds: FONDS } = chargerFondsEtudies();
 const phasesB2D = lire('data/fonds/phases-b2d-64.json').motifs;
 const PALETTE = ['#f1e8d4', '#2b2342'];
 // P est le rendu PUBLIÉ (motifSvg, inchangé) : ses symboles débordent de 1,5 % sur chaque bord et la case posée ensuite recouvre le débord, ce qui décale d'environ
@@ -41,8 +42,8 @@ for (const cl of corpus.niveaux['64']) {
   const id = cl.representant.id;
   const cases = lectureBinaire(parId.get(id).tricolore, id).cases;
   const phases = phasesB2D[id].split('').map(Number);
-  for (const code of FONDS_ETUDIES) {
-    const fond = collection.fonds.get(code);
+  for (const code of CODES_ETUDIES) {
+    const fond = FONDS.get(code);
     const variante = new Variante(cases, fond, code === 'B2D' ? phases : null);
     const svg = code === 'P' ? F.motifSvg(cases, PALETTE, fond, { size: N }) : varianteSvg(cases, PALETTE, fond, { size: N, phases: code === 'B2D' ? phases : null });
     // les raccords brisés des 24 bords de la cellule (le bord droit, le bord bas)
@@ -131,5 +132,5 @@ if (essai) {
 }
 for (const [f, st] of Object.entries(parFond)) console.log(`      ${f} : écart de symétrie maximal ${(100 * st.max).toFixed(2)} %`);
 if (echecs) { console.error(`\n${echecs} défaut(s).`); process.exit(1); }
-console.log(`OK    ${mesures.length} rendus (64 motifs × 8 fonds) à ${N} px : symétries tenues, écart maximal ${(100 * maxSym).toFixed(2)} % (${maxCle}), seuil ${100 * SEUIL} % (${100 * SEUIL_P} % pour P).`);
+console.log(`OK    ${mesures.length} rendus (64 motifs × ${CODES_ETUDIES.length} fonds) à ${N} px : symétries tenues, écart maximal ${(100 * maxSym).toFixed(2)} % (${maxCle}), seuil ${100 * SEUIL} % (${100 * SEUIL_P} % pour P).`);
 console.log(`OK    pavage : B2D avec ses rotations, désaccord maximal au joint ${(100 * maxB2D).toFixed(3)} % sur les ${64 - jointsB2D} motifs dont le joint est libre ; les ${jointsB2D} motifs « ====iiii » ont un joint IMPOSÉ brisé (miroir inversant, 48 bords) ; le joint recoupe le décompte géométrique des raccords brisés pour les 8 fonds.`);

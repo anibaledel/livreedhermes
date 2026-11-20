@@ -21,13 +21,14 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, FONDS_ETUDIES, varianteSvg, frontieres } from '../assets/fonds-variantes.js';
+import { Variante, varianteSvg, frontieres } from '../assets/fonds-variantes.js';
+import { chargerFondsEtudies, CODES_ETUDIES } from './lib_fonds_etudies.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
 const corpus = lire('data/corpus-256.json');
 const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
-const collection = F.chargerCollection(lire('data/fonds/collection-v1.json'), { calculs: lire('data/fonds/collection-v1.calculs.json') });
+const { collection, fonds: FONDS } = chargerFondsEtudies();
 const phasesB2D = lire('data/fonds/phases-b2d-64.json').motifs;
 const PALETTE = ['#f1e8d4', '#2b2342'];
 const N = 600, essai = process.argv.includes('--essai');
@@ -38,9 +39,9 @@ const jobs = [];
 corpus.niveaux['64'].forEach((cl, i) => {
   if (i % 4) return;
   const id = cl.representant.id, cases = lectureBinaire(parId.get(id).tricolore, id).cases;
-  for (const code of FONDS_ETUDIES) {
+  for (const code of CODES_ETUDIES) {
     const phases = code === 'B2D' ? phasesB2D[id].split('').map(Number) : null;
-    const v = new Variante(cases, collection.fonds.get(code), phases);
+    const v = new Variante(cases, FONDS.get(code), phases);
     let segs = frontieres(v);
     if (!segs.length) ko(`${id} dans ${code} : aucun segment de frontière`);
     if (essai) segs = segs.map(([a, b, c, d]) => [a + 0.5, b, c + 0.5, d]);
@@ -55,11 +56,11 @@ corpus.niveaux['64'].forEach((cl, i) => {
       for (const [x2, y2] of [[x + 1, y], [x, y + 1]]) { if (vec[y * R + x] !== vec[y2 * R + x2]) { total++; if (!aSeg(x, y) && !aSeg(x2, y2)) manque++; } }
     }
     if (!essai && manque > 0) ko(`${id} dans ${code} : ${manque} changement(s) de couleur du réseau sans segment de tracé (sur ${total})`);
-    jobs.push({ vec: Array.from(vec), id, code, svg: varianteSvg(cases, PALETTE, collection.fonds.get(code), { size: N, phases }), segs });
+    jobs.push({ vec: Array.from(vec), id, code, svg: varianteSvg(cases, PALETTE, FONDS.get(code), { size: N, phases }), segs });
     // les membres : le tracé d'un membre est celui du représentant translaté sur le tore
     if (code === 'B2' && !essai) {
       for (const [dx, dy, echange] of [[0, 6, 0], [6, 0, 0]]) {
-        const vm = new Variante(cases, collection.fonds.get(code), null, { dx, dy, echange });
+        const vm = new Variante(cases, FONDS.get(code), null, { dx, dy, echange });
         const a = frontieres(vm).length, b = segs.length;
         if (a !== b) ko(`${id} dans ${code} : le tracé translaté de (${dx}, ${dy}) a ${a} segments, ${b} au représentant`);
       }
