@@ -40,6 +40,10 @@ jobs:
       - run: node tools/corpus_256.mjs --verifie
       - run: node tools/corpus_256.mjs --essai
       - run: node tools/check_spectre_classes.mjs --essai
+      # les variantes de fonds sur le corpus de 64 (prompt 210) : les rotations de B2D (0 raccord brisé), les symétries mesurées
+      - run: node tools/phases_b2d.mjs --verifie
+      - run: node tools/phases_b2d.mjs --essai
+      - run: node tools/check_symetries_corpus.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
       - run: python3 tools/verify_quadricolore.py --json
       - run: python3 tools/verify_cle_couleurs.py

@@ -89,6 +89,17 @@ const REFERENTS = [
     verificateurs: ['tools/corpus_256.mjs'],
     sources: ['data/referent_360_v3.json', 'assets/lecture-binaire.js'],
   },
+  {
+    id: 'phases-b2d-64',
+    objet: "Les rotations du fond B2D (0 à 3 quarts de tour par case de référence) des 64 représentants du corpus (prompt 210) : 0 raccord brisé sur les 288 bords de chaque motif, tore compris.",
+    nombre: 64,
+    compte: (r) => [Object.keys(r.motifs).length],
+    compte_par: 'Object.keys(motifs).length',
+    chemin: 'data/fonds/phases-b2d-64.json',
+    generateur: 'tools/phases_b2d.mjs',
+    verificateurs: ['tools/phases_b2d.mjs'],
+    sources: ['data/corpus-256.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
+  },
 ];
 const CLES_VERSION = ['format_version', 'generated_at_utc', 'generator_tool', 'referent_id'];
 
