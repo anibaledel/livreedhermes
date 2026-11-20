@@ -157,6 +157,25 @@ for (const c of sans.changes) if (!sans.top.includes(c.i)) ko(`entre-deux (repli
   if (a.slice(0, k).join() !== b.slice(0, k).join() || a.slice(0, k).join() !== suites[128].premiers.slice(0, k).join()) ko('défilé : le minuteur et la pulsation simulée ne donnent pas la même suite de motifs que le défilé seul');
 }
 
+// ---------- « réduire les changements rapides » : jamais deux changements à moins de tenueMinS secondes ----------
+{
+  const ecartMin = (mode, tenueMinS) => {
+    const c = P.creerChef({ mode, declencheur: 'pulsation', periodeS: 0.5, tenueMinS, bloc, distance: dRep, liste: { n: 64, distance: dRep }, graine: 3 }), temps = [];
+    for (let f = 0; f < 20 * 30; f++) {
+      const t = f / 30, surTemps = Math.abs(t / 0.5 - Math.round(t / 0.5)) * 0.5 < 1 / 30 + 1e-9;
+      const r = c.image({ db: spectreSon(W((f >> 4) % 64), { graine: 700 + f, impulsion: surTemps ? -20 : 0 }), sampleRate: SR, t });
+      if (r.changer) temps.push(t);
+    }
+    return { n: temps.length, min: temps.length > 1 ? Math.min(...temps.slice(1).map((x, i) => x - temps[i])) : Infinity };
+  };
+  for (const mode of ['defile', 'spectre', 'entre-deux']) {
+    const libre = ecartMin(mode, 0), tenu = ecartMin(mode, 3);
+    if (tenu.min < 3 - 1e-9) ko(`${mode} : avec tenueMinS = 3, deux changements à ${tenu.min.toFixed(2)} s d'écart`);
+    if (mode !== 'entre-deux' && libre.n < 3) ko(`${mode} sans tenue : ${libre.n} changement(s) en 20 s, la mesure ne discrimine pas`);
+    if (tenu.n > libre.n && libre.n) ko(`${mode} : la tenue ne peut pas ajouter de changements (${tenu.n} contre ${libre.n})`);
+  }
+}
+
 if (essai) {
   if (!echecs) { console.error('ÉCHEC --essai : deux pas permutés n\'ont pas été refusés'); process.exit(1); }
   console.log(`OK    --essai : deux pas permutés sont refusés (${echecs} écart(s)).`); process.exit(0);

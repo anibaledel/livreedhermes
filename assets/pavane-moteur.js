@@ -145,11 +145,12 @@ export function creerEntreDeux({ bloc, distance, k = NOMBRE_ENTRE_DEUX, depart =
  * Le chef : image après image (`chef.image({ db, sampleRate, t })`, db = spectre en dB, t en secondes), il rend { changer, i, repli, bpm, regulier } — `i` est l'indice du
  * motif à montrer (dans la liste du défilé, ou dans le bloc des 64 représentants selon le mode), `repli` est vrai quand l'entre-deux, faute de pulsation régulière, avance
  * au minuteur (l'écran doit le dire).
+ *   `tenueMinS` (« réduire les changements rapides ») : jamais deux changements à moins de tenueMinS secondes, quel que soit le déclencheur.
  *   defile     { liste: { n, distance }, declencheur: 'minuteur' | 'pulsation', periodeS, graine }
  *   spectre    { bloc }
  *   entre-deux { bloc, distance, periodeS }
  */
-export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_MINUTEUR_S, graine = 1, liste = null, bloc = null, distance = null, sansRepliApres = 4 }) {
+export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_MINUTEUR_S, graine = 1, liste = null, bloc = null, distance = null, sansRepliApres = 4, tenueMinS = 0 }) {
   if (!MODES.includes(mode)) throw new Error(`pavane-moteur.js : mode « ${mode} » inconnu`);
   const defile = mode === 'defile' ? creerDefile({ n: liste.n, distance: liste.distance, graine }) : null;
   const entre = mode === 'entre-deux' ? creerEntreDeux({ bloc, distance }) : null;
@@ -170,22 +171,23 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
         const e = suivi.etat(); regulier = !!e.regulier; bpm = e.regulier ? e.bpm : null;
       }
       if (mode === 'defile') {
+        const tenue = tChange !== null && t - tChange < tenueMinS;
         const declenche = declencheur === 'pulsation' ? attaque : minuteurEchu(t);
-        if (!declenche && courant !== -1) return sortie(false, courant);
+        if ((!declenche || tenue) && courant !== -1) return sortie(false, courant);
         const p = defile.suivant(); courant = p.i; tChange = t; return sortie(true, courant);
       }
       const v = db ? lisseur.pousser(bandesDuSon(db, sampleRate), t) : lisseur.valeur;
       if (mode === 'spectre') {
         if (!v) return sortie(false, courant);
         const m = choisirParSpectre(v, bloc, courant);
-        if (m.i < 0 || m.i === courant) return sortie(false, courant);
+        if (m.i < 0 || m.i === courant || (tChange !== null && t - tChange < tenueMinS)) return sortie(false, courant);
         courant = m.i; tChange = t; return sortie(true, courant);
       }
       // entre-deux : la pulsation avance ; sans pulsation régulière assez longtemps, le minuteur la remplace
       if (!v) return sortie(false, courant);
       if (regulier) sansPulsationDepuis = null; else if (sansPulsationDepuis === null) sansPulsationDepuis = t;
       const repli = !regulier && t - sansPulsationDepuis >= sansRepliApres;
-      const declenche = repli ? minuteurEchu(t) : (regulier && attaque);
+      const declenche = (repli ? minuteurEchu(t) : (regulier && attaque)) && !(tChange !== null && t - tChange < tenueMinS);
       if (!declenche) return sortie(false, courant, repli);
       const p = entre.pas(v); if (!p) return sortie(false, courant, repli);
       courant = p.i; tChange = t; return sortie(true, courant, repli);

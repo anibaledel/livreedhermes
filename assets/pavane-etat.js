@@ -12,7 +12,12 @@ export const MODE_DEFAUT = 'defile';
 export const FOND_DEFAUT = 'P';
 export const RYTHME_MIN = 0.5, RYTHME_MAX = 30, RYTHME_DEFAUT = 8;
 export const DENSITE_MIN = 4, DENSITE_MAX = 32, DENSITE_DEFAUT = 4;
-export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null });
+// les sources du son (bloc 2) : le morceau fourni (un des 7 de assets/musiques-chladni/), un fichier, le micro, une note pure ; le déclencheur du défilé : le minuteur ou la pulsation du son
+export const SOURCES = Object.freeze(['morceau', 'fichier', 'micro', 'note']);
+export const MORCEAUX = Object.freeze(['j1', 'j2', 'j3', 'j4', 'j5', 'j6', 'j7']);
+export const DECLENCHEURS = Object.freeze(['minuteur', 'pulsation']);
+export const NOTE_MIN = 110, NOTE_MAX = 1760, NOTE_DEFAUT = 440;
+export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null, source: 'morceau', morceau: 'j1', note: NOTE_DEFAUT, declencheur: 'minuteur' });
 
 const entier = (s) => (typeof s === 'string' && /^[1-9]\d*$/.test(s) ? Number(s) : null);
 const decimal = (s) => (typeof s === 'string' && /^\d+(\.\d)?$/.test(s) ? Number(s) : null);
@@ -37,6 +42,14 @@ export function lireEtat(search, proposes) {
   if (k) { const n = entier(v); if (n !== null && n >= DENSITE_MIN && n <= DENSITE_MAX) etat.densite = n; else refuse(k); }
   [k, v] = lu('palette');
   if (k) { if (CLES_PALETTES.includes(v)) etat.palette = v; else refuse(k); }
+  [k, v] = lu('source');
+  if (k) { if (SOURCES.includes(v)) etat.source = v; else refuse(k); }
+  [k, v] = lu('morceau');
+  if (k) { if (MORCEAUX.includes(v)) etat.morceau = v; else refuse(k); }
+  [k, v] = lu('note');
+  if (k) { const n = entier(v); if (n !== null && n >= NOTE_MIN && n <= NOTE_MAX) etat.note = n; else refuse(k); }
+  [k, v] = lu('declencheur');
+  if (k) { if (DECLENCHEURS.includes(v)) etat.declencheur = v; else refuse(k); }
   const c0 = hex(q.get('c0')), c1 = hex(q.get('c1'));
   if (q.has('c0') || q.has('c1')) {
     if (c0 && c1 && paireValide(c0, c1)) { etat.c0 = c0; etat.c1 = c1; if (!q.has('palette')) etat.palette = 'perso'; } // un ancien lien (?c0=…&c1=…) est une palette personnalisée
@@ -54,6 +67,10 @@ export function ecrireEtat(etat) {
   if (etat.trace) q.set('trace', '1');
   if (etat.rythme !== DEFAUTS.rythme) q.set('rythme', String(etat.rythme));
   if (etat.densite !== DEFAUTS.densite) q.set('densite', String(etat.densite));
+  if (etat.source !== DEFAUTS.source) q.set('source', etat.source);
+  if (etat.morceau !== DEFAUTS.morceau) q.set('morceau', etat.morceau);
+  if (etat.note !== DEFAUTS.note) q.set('note', String(etat.note));
+  if (etat.declencheur !== DEFAUTS.declencheur) q.set('declencheur', etat.declencheur);
   if (etat.palette !== DEFAUTS.palette) q.set('palette', etat.palette);
   if (etat.palette === 'perso') { q.set('c0', etat.c0.slice(1)); q.set('c1', etat.c1.slice(1)); }
   const s = q.toString();

@@ -27,6 +27,12 @@ for (const [s, cle] of [['?mode=spectrum', 'mode'], ['?mode=', 'mode'], ['?fond=
 }
 for (const f of proposes) ok(L(`?fond=${f}`).etat.fond === f, `fond proposé ${f} accepté`);
 ok(proposes.length === 3 && proposes.includes('P'), `trois fonds proposés dont P (${proposes.join(', ')})`);
+// les sources du son et le déclencheur (bloc 2)
+for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?morceau=j8', 'morceau'], ['?morceau=J1', 'morceau'], ['?note=109', 'note'], ['?note=1761', 'note'], ['?note=440.5', 'note'], ['?note=la', 'note'], ['?declencheur=rythme', 'declencheur']]) {
+  const r = L(s); ok(r.ignores.includes(cle) && JSON.stringify(r.etat) === JSON.stringify(DEFAUTS), `${s} est ignoré (le défaut s'applique)`);
+}
+{ const r = L('?source=note&note=880&morceau=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
+ok(DEFAUTS.source === 'morceau' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : morceau j1, 440 Hz, minuteur');
 // valeurs valides
 const e = L('?mode=entre-deux&corpus=64&trace=1&rythme=2.5&densite=12&palette=rouge-blanc').etat;
 ok(e.mode === 'entre-deux' && e.corpus === 64 && e.trace === true && e.rythme === 2.5 && e.densite === 12 && e.palette === 'rouge-blanc', 'une adresse complète est relue');
