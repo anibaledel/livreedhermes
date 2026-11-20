@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T14:31:11Z",
+ "generated_at_utc": "2026-11-20T14:50:40Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,8 +9,8 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 303,
-  "sans_licence_declaree": 73,
+  "scripts": 305,
+  "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
   "depose_absent_du_depot": 14
@@ -2723,16 +2723,35 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_symetries_binaire.py",
+   "adresse": "https://anibal-amiot.com/tools/check_symetries_binaire.py",
+   "octets": 1856,
+   "sha256": "0404911b12a1d2a08ebf9fdefbdaad23406316edba68ae89d8e5b92122196306",
+   "md5": "21e8192e0266be8d023c638ed54792f3",
+   "licence_declaree": false,
+   "licence": null,
+   "role": "Pour chacun des 64 représentants de data/corpus-256.json : comportement de la lecture binaire (4 triangles N,E,S,O par case) sous les 8 isométries du carré.",
+   "lit": [
+    "corpus-256",
+    "symetries-64"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_symetries_corpus.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_symetries_corpus.mjs",
-   "octets": 3073,
-   "sha256": "bc5df5752f5f6c9ea86c751647a04110bb231f505c124806d1ca2ccfcea43e32",
-   "md5": "bb46b1bc0eb7bb2db598fe145045d696",
+   "octets": 3295,
+   "sha256": "d77a6eea9b0d2d18adc5596ef1925488379f33cc64aa868554a15898bddf5579",
+   "md5": "aeaf69735f2314eb2512191e2a3b9b2d",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
-   "role": "le groupe de symétrie de chacune des 64 classes du corpus, mesuré (prompt 210, §3).",
+   "role": "le comportement de chacune des 64 classes du corpus sous les 8 isométries du carré, mesuré (prompt 210, §3).",
    "lit": [
-    "corpus-256"
+    "corpus-256",
+    "symetries-64"
    ],
    "ecrit": [],
    "durees": [],
@@ -2742,15 +2761,16 @@
   {
    "chemin": "tools/check_symetries_rendu.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_symetries_rendu.mjs",
-   "octets": 9117,
-   "sha256": "b8d3cbf6f431a2e26570dabfefa94b994e6fdb008bbb47f95b33e9e76a921af7",
-   "md5": "1fd785b3937bd5643b9781f3ac97eed4",
+   "octets": 9495,
+   "sha256": "91a5a2734323c7b23788aef8518c586562d9c165105b5bd91ae2497d762c6fae",
+   "md5": "a94ea15c923f576537bbf83b6ab6cd5e",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les variantes de fonds respectent les symétries du motif, et se pavent sans rupture (prompt 210, §6.1 et §6.4), en navigateur.",
    "lit": [
     "corpus-256",
-    "phases-b2d-64"
+    "phases-b2d-64",
+    "symetries-64"
    ],
    "ecrit": [],
    "durees": [],
@@ -3730,9 +3750,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 12576,
-   "sha256": "e0d63ea1e01a370e202a212d1457437ff186e361ad65af56ca98e6ce6e261e26",
-   "md5": "db8744337b52e5db3336050c77a9a57b",
+   "octets": 13189,
+   "sha256": "8266619e80e854206cdde37bfdd8d7f747b8c49a5a43179301e523906fbe21c7",
+   "md5": "fb7512d55c0967a165150404009880ef",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
@@ -3741,7 +3761,8 @@
     "calques-360",
     "constructions-1024",
     "corpus-256",
-    "phases-b2d-64"
+    "phases-b2d-64",
+    "symetries-64"
    ],
    "ecrit": [],
    "durees": [],
@@ -4098,9 +4119,9 @@
   {
    "chemin": "tools/phases_b2d.mjs",
    "adresse": "https://anibal-amiot.com/tools/phases_b2d.mjs",
-   "octets": 11850,
-   "sha256": "8fd038e8b86f3e90c9a532654166da3ea4a8a78dd83b5a36164507850a0d2db9",
-   "md5": "caf935f112a0026015561d38abcdc721",
+   "octets": 12827,
+   "sha256": "dbb0310bf72e6c63814a8a03e8ae5760e242dfee3a7a4ea61cc4b7d26ed57f64",
+   "md5": "135bde14cbc24227365d95523936af65",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les rotations du fond B2D sur les 64 représentants du corpus : 0 raccord brisé (prompt 210, §4).",
@@ -4599,6 +4620,24 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "combien de croix ansées à l'ordre n ?",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/symetries_64.mjs",
+   "adresse": "https://anibal-amiot.com/tools/symetries_64.mjs",
+   "octets": 4383,
+   "sha256": "77f5feede44665086b6f813e7afd0126b80b24b36d17d56fef79d3c42adf8e3c",
+   "md5": "3a12453f69473effa55a40f1b2a48fec",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les symétries de la lecture binaire des 64 représentants du corpus (prompt 210), écrites dans data/symetries-64.json.",
+   "lit": [
+    "corpus-256",
+    "symetries-64"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

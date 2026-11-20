@@ -5,7 +5,7 @@
 // check_symetries_rendu.mjs — les variantes de fonds respectent les symétries du motif, et se pavent sans rupture (prompt 210, §6.1 et §6.4), en navigateur.
 //
 // Pour chacun des 64 représentants du corpus × 8 fonds retenus (P, B2, B3, B4, B121, B2D, B4D, B11211D), le rendu est rastérisé à 1200 px (Chromium, Playwright
-// épinglé) et comparé à ses transformées par les isométries que le MOTIF tient (assets/fonds-variantes.js : 8 pour 32 classes, 4 pour les 32 autres) :
+// épinglé) et comparé à ses transformées par les 8 isométries du carré, avec la règle d'inversion DU MOTIF (data/symetries-64.json) :
 // 180° et miroirs médians sans changer les couleurs, 90° / 270° et les deux diagonales en les échangeant. Seuil : moins de 1,5 % de pixels différents
 // (les lisérés d'anticrénelage à 45°). Le maximum observé est rapporté.
 //
@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, ISOMETRIES, INVERSANTES, FONDS_RETENUS, varianteSvg } from '../assets/fonds-variantes.js';
+import { Variante, ISOMETRIES, FONDS_RETENUS, varianteSvg } from '../assets/fonds-variantes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
@@ -55,7 +55,7 @@ for (const cl of corpus.niveaux['64']) {
       const t = (i + (k + 0.5) / 16);
       if (variante.couleurAu(t, 12 - 1e-5) !== variante.couleurAu(t, 1e-5)) { bords++; break; }
     }
-    rendus.push({ id, code, groupe: variante.groupe, svg: essai && id === corpus.niveaux['64'][0].representant.id && code === 'B3' ? svg.replace(/<use [^>]*>/g, (u) => (++coupes <= 40 ? '' : u)) : svg, bords });
+    rendus.push({ id, code, symetries: variante.symetries, svg: essai && id === corpus.niveaux['64'][0].representant.id && code === 'B3' ? svg.replace(/<use [^>]*>/g, (u) => (++coupes <= 40 ? '' : u)) : svg, bords });
   }
 }
 
@@ -66,7 +66,7 @@ const mesures = [];
 const lot = 8;
 for (let i = 0; i < rendus.length; i += lot) {
   const morceau = rendus.slice(i, i + lot);
-  const res = await page.evaluate(async ({ items, N, ISO, INV, palette }) => {
+  const res = await page.evaluate(async ({ items, N, ISO, palette }) => {
     const lum = (r, g, b) => 0.299 * r + 0.587 * g + 0.114 * b;
     const sortie = [];
     for (const it of items) {
@@ -80,9 +80,8 @@ for (let i = 0; i < rendus.length; i += lot) {
       const hex = (h) => [1, 3, 5].map((o) => parseInt(h.slice(o, o + 2), 16));
       const l0 = lum(...hex(palette[0])), l1 = lum(...hex(palette[1])), somme = l0 + l1, seuil = Math.abs(l0 - l1) * 0.35;
       const ecarts = {};
-      for (const gi of it.groupe) {
-        if (gi === 0) continue;
-        const [a, b, c, dd] = ISO[gi], inv = INV.includes(gi);
+      for (let gi = 1; gi < 8; gi++) {
+        const [a, b, c, dd] = ISO[gi], inv = it.symetries[gi] === 'i'; // la règle d'inversion est celle DU MOTIF (data/symetries-64.json)
         let diff = 0;
         for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
           const X = x + 0.5 - N / 2, Y = y + 0.5 - N / 2;
@@ -100,7 +99,7 @@ for (let i = 0; i < rendus.length; i += lot) {
       sortie.push({ ecarts, joint: Math.max(0, (hor - horRef) + (ver - verRef)) / (2 * N) });
     }
     return sortie;
-  }, { items: morceau.map((m) => ({ svg: m.svg, groupe: m.groupe })), N, ISO: ISOMETRIES, INV: [...INVERSANTES], palette: PALETTE });
+  }, { items: morceau.map((m) => ({ svg: m.svg, symetries: m.symetries })), N, ISO: ISOMETRIES, palette: PALETTE });
   res.forEach((r, k) => mesures.push({ ...morceau[k], ...r }));
 }
 await navigateur.close();
@@ -118,7 +117,9 @@ for (const m of mesures) {
   }
   const s = parFond[m.code] ||= { max: 0 };
   for (const e of Object.values(m.ecarts)) s.max = Math.max(s.max, e);
-  if (m.code === 'B2D') { maxB2D = Math.max(maxB2D, m.joint); if (m.joint > 0.015) jointsB2D++; }
+  // le joint (bord droit / gauche, bas / haut) est sur l'axe d'un miroir : si ce miroir inverse les couleurs (« ====iiii »), le raccord y est IMPOSÉ brisé
+  const jointImpose = m.symetries[4] === 'i' || m.symetries[5] === 'i';
+  if (m.code === 'B2D') { if (jointImpose) jointsB2D++; else maxB2D = Math.max(maxB2D, m.joint); }
   // le désaccord au joint : nul quand la géométrie ne compte aucun raccord brisé sur les bords de la cellule, non nul sinon
   if (m.bords === 0 && m.joint > 0.015) ko(`${m.id} dans ${m.code} : aucun raccord brisé au bord de la cellule (géométrie), mais ${(100 * m.joint).toFixed(2)} % de désaccord au joint (pixels)`);
   if (m.bords > 0 && m.joint < 0.04) ko(`${m.id} dans ${m.code} : ${m.bords} raccord(s) brisé(s) au bord (géométrie), mais aucun désaccord au joint (pixels)`);
@@ -131,4 +132,4 @@ if (essai) {
 for (const [f, st] of Object.entries(parFond)) console.log(`      ${f} : écart de symétrie maximal ${(100 * st.max).toFixed(2)} %`);
 if (echecs) { console.error(`\n${echecs} défaut(s).`); process.exit(1); }
 console.log(`OK    ${mesures.length} rendus (64 motifs × 8 fonds) à ${N} px : symétries tenues, écart maximal ${(100 * maxSym).toFixed(2)} % (${maxCle}), seuil ${100 * SEUIL} % (${100 * SEUIL_P} % pour P).`);
-console.log(`OK    pavage : B2D avec ses rotations, désaccord maximal au joint ${(100 * maxB2D).toFixed(3)} % sur 64 motifs ; le joint recoupe le décompte géométrique des raccords brisés pour les 8 fonds.`);
+console.log(`OK    pavage : B2D avec ses rotations, désaccord maximal au joint ${(100 * maxB2D).toFixed(3)} % sur les ${64 - jointsB2D} motifs dont le joint est libre ; les ${jointsB2D} motifs « ====iiii » ont un joint IMPOSÉ brisé (miroir inversant, 48 bords) ; le joint recoupe le décompte géométrique des raccords brisés pour les 8 fonds.`);

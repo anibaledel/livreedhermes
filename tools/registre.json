@@ -1141,8 +1141,20 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_symetries_binaire.py",
+   "role": "Pour chacun des 64 représentants de data/corpus-256.json : comportement de la lecture binaire (4 triangles N,E,S,O par case) sous les 8 isométries du carré.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/symetries_64.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_symetries_corpus.mjs",
-   "role": "le groupe de symétrie de chacune des 64 classes du corpus, mesuré (prompt 210, §3).",
+   "role": "le comportement de chacune des 64 classes du corpus sous les 8 isométries du carré, mesuré (prompt 210, §3).",
    "lit": [
     "data/corpus-256.json"
    ],
@@ -1985,14 +1997,17 @@
     "data/referent_360_v3.json",
     "data/referents.json",
     "data/resultats-etablis.json",
+    "data/symetries-64.json",
     "tools/check_fonds_ecran_completude.py",
     "tools/check_page_360.mjs",
+    "tools/check_symetries_binaire.py",
     "tools/corpus_256.mjs",
     "tools/enum_criteres.py",
     "tools/generate_fonds_ecran.py",
     "tools/generate_referent_256.py",
     "tools/generate_referent_360.py",
     "tools/phases_b2d.mjs",
+    "tools/symetries_64.mjs",
     "tools/validate_referent.py",
     "tools/verif_protocole.py"
    ],
@@ -2748,6 +2763,22 @@
    ],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/symetries_64.mjs",
+   "role": "les symétries de la lecture binaire des 64 représentants du corpus (prompt 210), écrites dans data/symetries-64.json.",
+   "lit": [
+    "data/corpus-256.json",
+    "data/symetries-64.json",
+    "tools/check_symetries_binaire.py"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/temoins.py",
