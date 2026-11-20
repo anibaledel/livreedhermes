@@ -2954,5 +2954,29 @@
    {"page": "par3-sans-yang-mut-h31", "serie": "corpus-1024"}
   ]
  },
- "_doc_synonymes": "« synonymes » : les codes qui dessinent la même chose que la collection (« identique » dans data/fonds/collection-v1.json, calculé par le moteur) ; ils n'ont pas d'animation à eux et se signalent sur la sienne (décision d'Anibal, 2026-10-05 : BA33, B3x en synonyme)."
+ "_doc_synonymes": "« synonymes » : les codes qui dessinent la même chose que la collection (« identique » dans data/fonds/collection-v1.json, calculé par le moteur) ; ils n'ont pas d'animation à eux et se signalent sur la sienne (décision d'Anibal, 2026-10-05 : BA33, B3x en synonyme).",
+ "_doc_animations_corpus": "« animations_corpus » (prompt 209) : les animations du CORPUS BINAIRE de 256 grilles (data/corpus-256.json, tools/corpus_256.mjs). Une entrée = un code NOUVEAU (jamais un code de « collections » : rien de ce qui est publié ne bouge), le fond sur lequel les tuiles se posent (« fond » : un fond ou un assemblage de data/fonds/collection-v1.json), la palette par défaut, et la recette — SANS liste de motifs : la liste ordonnée se tire du corpus au niveau choisi par la vue (« corpus » : 64, 128 ou 256 ; 128 par défaut ; ?corpus= dans l'adresse de galerie-animations.html, liste fermée). Niveau 256 : les 256 grilles, dans l'ordre stable du corpus ; 128 : les 128 paires {motif, négatif}, deux tuiles qui se suivent, le fondu de l'une à l'autre étant la bascule ; 64 : un représentant par classe de translation. Aucune vidéo n'est déposée : l'animation se joue en direct sur le canevas, comme l'aperçu de toute collection (assets/animation-collection.js, creerRendu).",
+ "animations_corpus": {
+  "CORPUS-P": {
+   "fond": "P",
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "corpus-256-v1",
+    "corpus": 128,
+    "niveaux": [
+     64,
+     128,
+     256
+    ],
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4
+   }
+  }
+ }
 }

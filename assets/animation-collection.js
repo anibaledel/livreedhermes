@@ -25,6 +25,7 @@ import { lectureBinaire } from './lecture-binaire.js';
 import { superposition, nomDuFond } from './selecteur-fonds.js';
 import { svgEnPixels } from './vue-fond-motif.js';
 import { chargerDonneesFond, grilleDuMotif, slugDe, FAMILLES } from './vue-fond-ecran.js';
+import { NIVEAU_DEFAUT, niveauValide, listeDuCorpus, indexDuCorpus } from './corpus-animation.js';
 
 // clés non numériques : l'ordre d'écriture est l'ordre d'affichage (9:16 d'abord)
 export const FORMATS = { '9x16': { largeur: 1080, hauteur: 1920, nom: '1080x1920', libelle: '9:16 (1080 × 1920)' }, '1x1': { largeur: 1080, hauteur: 1080, nom: '1080x1080', libelle: '1:1 (1080 × 1080)' } };
@@ -38,6 +39,13 @@ export function chargerAnimations() {
   charge ||= Promise.all([chargerDonneesFond(), fetch(new URL('../data/fonds/collections-pinterest.json', import.meta.url)).then((r) => r.json())])
     .then(([fond, registre]) => ({ ...fond, registre }));
   return charge;
+}
+
+// Le corpus binaire des animations (prompt 209), chargé une fois, au premier rendu d'une animation de corpus : rien ne se charge avant un clic.
+let corpusCharge = null;
+export function chargerCorpus() {
+  corpusCharge ||= fetch(new URL('../data/corpus-256.json', import.meta.url)).then((r) => { if (!r.ok) throw new Error(`corpus-256.json : ${r.status}`); return r.json(); });
+  return corpusCharge;
 }
 
 // Les collections du registre qui ont une recette, dans l'ordre de publication
@@ -74,6 +82,7 @@ export function moment(rec, t, vitesse = 1) {
 // la vitesse et les couleurs quand elles s'écartent du défaut de la recette.
 export function nomFichier(code, format, vue, defaut) {
   const parts = [`animation-${code.replace('+', '-')}`, FORMATS[format].nom];
+  if (vue.corpus !== undefined) parts.push(`corpus${vue.corpus}`); // l'animation d'un corpus : le niveau fait partie de ce qui la détermine
   if (vue.vitesse !== 1) parts.push(`v${String(vue.vitesse).replace('.', '_')}`);
   if (vue.palette.join() !== defaut.join()) parts.push(`c${vue.palette.map((c) => c.replace('#', '')).join('-')}`);
   return `${parts.join('-')}.mp4`;
@@ -92,17 +101,28 @@ function grilleDuSlug(data, slug) {
 // est ensuite synchrone : il ne dépend que de t.
 export async function creerRendu({ code, vue, largeur, hauteur }) {
   const { data, collection, calculs, registre } = await chargerAnimations();
-  const col = registre.collections[code];
+  // une animation de CORPUS (registre.animations_corpus, prompt 209) : sa recette dit le niveau par défaut et les durées ; la liste ordonnée des tuiles
+  // vient du corpus et du niveau choisi par la vue (64, 128, 256) — chaque tuile est une entrée du corpus, lue par lecture-binaire.js.
+  const colCorpus = registre.animations_corpus && registre.animations_corpus[code];
+  const col = colCorpus || registre.collections[code];
   if (!col || !col.recette) throw new Error(`animation-collection.js : pas de recette pour « ${code} »`);
-  const rec = col.recette;
-  const d = decomposer(code);
+  let rec = col.recette;
+  let grilleDe = (slug) => grilleDuSlug(data, slug);
+  if (colCorpus) {
+    const corpus = await chargerCorpus();
+    const niveau = niveauValide(vue.corpus) ?? NIVEAU_DEFAUT;
+    const index = indexDuCorpus(corpus);
+    rec = { ...col.recette, motifs: listeDuCorpus(corpus, niveau) };
+    grilleDe = (id) => index.get(id).tricolore.map((l) => [...l]);
+  }
+  const d = decomposer(colCorpus ? colCorpus.fond : code);
   const fond = collection.fonds.get(d.fond);
   if (!fond) throw new Error(`animation-collection.js : fond ${d.fond} absent de la collection`);
   const sup = d.superposition ? superposition(d.glyphe, d.echelle, { ...collection, glyphes: calculs.glyphes }) : null;
   const px = Math.ceil(Math.min(largeur, hauteur) / rec.densite);
   const tuiles = [];
   for (const slug of rec.motifs) {
-    const cases = lectureBinaire(grilleDuSlug(data, slug), slug).cases;
+    const cases = lectureBinaire(grilleDe(slug), slug).cases;
     const svg = motifSvg(cases, vue.palette, fond, { size: px, prefixe: 'ga-', superposition: sup });
     const pixels = await svgEnPixels(svg, px, px);
     const toile = document.createElement('canvas');

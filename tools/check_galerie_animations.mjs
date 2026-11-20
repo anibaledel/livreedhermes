@@ -6,6 +6,8 @@
 // (galerie-animations.html) et ses six pages de groupe, dans les huit langues
 // (scripts/build-galerie-animations.js, data/galerie-animations.json).
 //
+// La carte du corpus binaire ([data-corpus], prompt 209) n'a ni vidéo ni vignette : ce contrôle ne la compte pas, tools/check_galerie_corpus.mjs la mesure.
+//
 //   0. les 56 pages : chacune répond, sans erreur, porte ses cartes dans le
 //      HTML (avec leur vignette), les anime sans rien charger avant un clic,
 //      et aucun gabarit de texte ({…}) ne reste visible ; chaque animation du
@@ -83,7 +85,7 @@ const vusParLangue = {};
 for (const { l, adresse, codes, temoins } of pages) {
   const req = [];
   const p = await ouvrir(1280, 900, req, adresse);
-  const lues = await p.$$eval('.anim-carte[data-code]', (cs) => cs.map((c) => ({ code: c.dataset.code, vignette: !!c.querySelector('.anim-ecran img[src$=".webp"]'), boutons: c.querySelectorAll('.anim-outils button').length })));
+  const lues = await p.$$eval('.anim-carte[data-code]:not([data-corpus])', (cs) => cs.map((c) => ({ code: c.dataset.code, vignette: !!c.querySelector('.anim-ecran img[src$=".webp"]'), boutons: c.querySelectorAll('.anim-outils button').length })));
   if (lues.map((c) => c.code).join() !== codes.join()) echec(`${adresse} : cartes ${lues.map((c) => c.code).join()}, attendu ${codes.join()}`);
   if (lues.some((c) => !c.vignette || !c.boutons)) echec(`${adresse} : carte sans vignette ou sans boutons — ${lues.filter((c) => !c.vignette || !c.boutons).map((c) => c.code).join()}`);
   const charge = await chargeAvantClic(p, req);
@@ -100,7 +102,7 @@ for (const [l, vus] of Object.entries(vusParLangue)) {
 }
 // sans JavaScript : les cartes et leurs vignettes sont déjà dans la page
 const sansJs = await ouvrir(390, 844, null, urlGroupe('fr', G.groupes[2]), { js: false });
-const statiques = await sansJs.$$eval('.anim-carte[data-code] .anim-ecran img', (i) => i.length);
+const statiques = await sansJs.$$eval('.anim-carte[data-code]:not([data-corpus]) .anim-ecran img', (i) => i.length);
 if (statiques !== G.groupes[2].codes.length) echec(`sans JavaScript, ${statiques} vignettes sur ${G.groupes[2].codes.length}`);
 await sansJs.close();
 const ancienne = await ouvrir(1280, 900, null, `${urlEntree('fr')}?collection=B6D&vitesse=1.5&c0=c8102e&c1=23232b#B6D`);
@@ -115,7 +117,7 @@ console.log(`${pages.length} pages (${G.groupes.length + 1} × ${Object.keys(G.t
 for (const adresse of [urlGroupe('fr', G.groupes[2]), urlEntree('fr')]) for (const [l, h] of [[1280, 900], [390, 844]]) {
   const req = [];
   const p = await ouvrir(l, h, req, adresse);
-  const cartes = await p.$$eval('.anim-carte[data-code]', (cs) => cs.map((c) => c.dataset.code));
+  const cartes = await p.$$eval('.anim-carte[data-code]:not([data-corpus])', (cs) => cs.map((c) => c.dataset.code));
   const doc = await p.evaluate(() => document.documentElement.scrollWidth);
   if (doc > l) echec(`${adresse}, ${l} px : la page défile horizontalement (${doc} px)`);
   const vus = [];

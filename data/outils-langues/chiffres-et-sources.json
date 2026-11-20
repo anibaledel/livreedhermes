@@ -350,6 +350,13 @@
    "es": "La misma tabla, legible por una máquina, con la línea impresa y el estado de cada resultado — verificado en un registro depositado en Zenodo, en un registro guardado en el repositorio, por la CI, o solo afirmado:",
    "th": "ตารางเดียวกันในรูปแบบที่เครื่องอ่านได้ พร้อมบรรทัดที่พิมพ์ออกมาและสถานะของผลลัพธ์แต่ละรายการ — ตรวจสอบกับบันทึกที่ฝากไว้บน Zenodo กับบันทึกที่เก็บไว้ในคลังโค้ด โดย CI หรือเพียงแต่ระบุไว้:",
    "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Corpus de référence des animations retenu avec Anibal le 19 novembre 2026 : 256 grilles tricolores du couple yang / yang_mut (4 paires de familles × 64 hexagrammes), unifiées, lisibles, de lecture binaire à 72 sombres / 72 clairs et inversée par le décalage (6, 6) ; 128 paires {motif, négatif} ; 64 classes à translation torique près.",
+   "en": "Reference corpus of the animations, settled with Anibal on 19 November 2026: 256 three-colour grids of the yang / yang_mut pair (4 pairs of families × 64 hexagrams), unified, readable, with a binary reading of 72 dark / 72 light that the (6, 6) shift inverts; 128 {pattern, negative} pairs; 64 classes up to toroidal translation.",
+   "es": "Corpus de referencia de las animaciones, fijado con Anibal el 19 de noviembre de 2026: 256 cuadrículas tricolores del par yang / yang_mut (4 pares de familias × 64 hexagramas), unificadas, legibles, con una lectura binaria de 72 oscuras / 72 claras que el desplazamiento (6, 6) invierte; 128 pares {motivo, negativo}; 64 clases salvo traslación toroidal.",
+   "th": "คลังอ้างอิงของแอนิเมชัน ที่กำหนดร่วมกับ Anibal เมื่อวันที่ 19 พฤศจิกายน 2026: ตารางสามสี 256 ตารางของคู่ yang / yang_mut (4 คู่ตระกูล × 64 ฉักลักษณ์) ที่รวมเป็นหนึ่ง อ่านได้ มีการอ่านแบบไบนารีเป็นสีเข้ม 72 / สีอ่อน 72 และการเลื่อน (6, 6) สลับกลับ; 128 คู่ {ลวดลาย, ภาพกลับ}; 64 กลุ่มเมื่อถือว่าการเลื่อนบนทอรัสเป็นสิ่งเดียวกัน",
+   "source": "SANS SOURCE"
   }
  ]
 }

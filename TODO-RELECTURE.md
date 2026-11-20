@@ -24,6 +24,15 @@ directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relanc
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## Prompt 209 (2026-11-20) : le corpus binaire des animations (64 · 128 · 256)
+
+Huit textes nouveaux dans les **onze langues** de la galerie des animations (`data/galerie-animations.json`, clés `corpusTitre`, `corpusTexte`, `corpusLegende`, `corpusN64`, `corpusN128`, `corpusN256`, `corpusMeta`, `corpusEtat`) : le titre et le texte de la section, la légende du groupe de choix, les trois libellés, la ligne « {n} tuiles · {s} s » et l'annonce du niveau (`aria-live`). Le français, l'anglais et l'espagnol sont de la main de l'assistant (l'anglais et l'espagnol à relire par Anibal) ; **le thaï, le chinois simplifié, le russe, le portugais, l'hindi, l'allemand, l'italien et le japonais sont traduits depuis le français, sans source — thaï et japonais d'abord.**
+
+- **Mots à confirmer** : « tuile » (rendu par *tiles* / *teselas* / แผ่น / 块 / плиток / ladrilhos / टाइल / Kacheln / tessere / タイル : le mot change selon la langue, comme « figure » dans « Voir sa musique ») ; « négatif » (ภาพกลับ, 负片, негатив, negativo, नेगेटिव, Negativ, negativo, ネガ) ; « à translation près » (ไม่นับการเลื่อน, 平移意义下, с точностью до сдвига, a menos de translação, स्थानांतरण के अंतर्गत, modulo Verschiebung, a meno di traslazione, 平行移動を除いた). « motif » suit le glossaire (`docs/terminologie-fr-en-es-th.md`) : ลวดลาย, 图案, узор, padrão, पैटर्न, Muster, motivo, 紋様.
+- **Le japonais** : « 二進 » (二進コーパス, 二進法) plutôt que « バイナリ » ; la police japonaise n'a pas été régénérée pour cette page (`check_police_pages.mjs` le dirait).
+- **Choix faits seuls** (à confirmer ou changer) : la transition du niveau 128 est le **fondu** existant (le motif se fond dans son négatif, la paire = deux tuiles qui se suivent) ; la section du corpus est sur la page d'entrée seulement ; le niveau 64 range ses représentants dans l'ordre du corpus (paire de familles, puis numéro du site de la première famille de la paire).
+- **Écart relevé, non corrigé** : les 256 pages `motifs/` sont toutes dans le corpus, mais elles ne couvrent que 224 grilles (32 grilles sont portées par deux pages) ; 32 grilles du corpus n'ont pas de page. Le tableau : `docs/corpus-256-comparaison-pages.md`. Rien n'a été changé côté pages ni registre Pinterest : attente de l'accord d'Anibal.
+
 ## Prompt 208 (2026-11-19) : galerie des Patterns Unifiés, outil de tirage, chapitre VIII
 
 Textes nouveaux. Le français, l'anglais et l'espagnol sont de la main de l'assistant (l'anglais et l'espagnol à relire par Anibal) ; **le thaï, l'allemand, l'italien et le japonais sont traduits depuis le français, sans source — thaï et japonais d'abord.** La galerie n'existe qu'en fr, en, es, th.

@@ -48,3 +48,14 @@ progress{ width:100%; height:6px; }
 .anim-suite a:hover{ text-decoration:underline; }
 .anim-suite .anim-toutes{ flex-basis:100%; text-align:center; order:3; }
 @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
+
+/* le corpus binaire (prompt 209) : une section sous les groupes, et le sélecteur 64 · 128 · 256 dans la vue (groupe de boutons radio : le clavier, les flèches) */
+.anim-corpus-section{ margin:28px 0 0; }
+.anim-corpus-section > h2{ font-weight:400; font-size:calc(20px + var(--fs-bump)); margin:0 0 8px; }
+.anim-corpus{ border:1px solid var(--line-strong); margin:0; padding:4px 10px 6px; display:flex; flex-wrap:wrap; gap:2px 14px; min-inline-size:0; }
+.anim-corpus legend{ padding:0 6px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
+.anim-corpus-choix{ display:inline-flex; align-items:center; gap:8px; min-height:44px; cursor:pointer; font-size:calc(12px + var(--fs-bump)); color:var(--white); }
+.anim-corpus-choix input{ width:20px; height:20px; accent-color:var(--gold); margin:0; flex:none; }
+.anim-corpus-choix input:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.anim-corpus-choix:has(input:checked) span{ color:var(--gold); }
+@media (max-width:420px){ .anim-corpus{ flex-direction:column; } }

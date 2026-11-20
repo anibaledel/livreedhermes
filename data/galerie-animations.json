@@ -371,7 +371,15 @@
       "altAssemblage": "Animation de la collection {code}, {libelle} : image extraite de la vidéo",
       "ariane": "Fil d'Ariane",
       "navSuite": "Groupe précédent ou suivant",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "Le corpus binaire : 64, 128 ou 256 motifs",
+      "corpusTexte": "256 motifs lisibles en binaire, qui forment 128 paires {motif, négatif} et 64 classes à translation près. Au niveau 128, l'animation bascule de chaque motif à son négatif.",
+      "corpusLegende": "Niveau du corpus",
+      "corpusN64": "64 : un représentant par classe",
+      "corpusN128": "128 : motifs et leurs négatifs",
+      "corpusN256": "256 : tous les motifs",
+      "corpusMeta": "{n} tuiles · {s} s",
+      "corpusEtat": "Niveau {niveau} : {n} tuiles, {s} s."
     },
     "en": {
       "titre": "Collection animations",
@@ -424,7 +432,15 @@
       "altAssemblage": "Animation of collection {code}, {libelle}: a frame taken from the video",
       "ariane": "Breadcrumb",
       "navSuite": "Previous or next group",
-      "decimale": "."
+      "decimale": ".",
+      "corpusTitre": "The binary corpus: 64, 128 or 256 patterns",
+      "corpusTexte": "256 patterns that read in binary, forming 128 {pattern, negative} pairs and 64 classes up to translation. At level 128 the animation switches from each pattern to its negative.",
+      "corpusLegende": "Corpus level",
+      "corpusN64": "64: one representative per class",
+      "corpusN128": "128: patterns and their negatives",
+      "corpusN256": "256: all the patterns",
+      "corpusMeta": "{n} tiles · {s} s",
+      "corpusEtat": "Level {niveau}: {n} tiles, {s} s."
     },
     "es": {
       "titre": "Animaciones de las colecciones",
@@ -477,7 +493,15 @@
       "altAssemblage": "Animación de la colección {code}, {libelle}: imagen extraída del vídeo",
       "ariane": "Ruta de navegación",
       "navSuite": "Grupo anterior o siguiente",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "El corpus binario: 64, 128 o 256 motivos",
+      "corpusTexte": "256 motivos legibles en binario, que forman 128 pares {motivo, negativo} y 64 clases salvo traslación. En el nivel 128, la animación pasa de cada motivo a su negativo.",
+      "corpusLegende": "Nivel del corpus",
+      "corpusN64": "64: un representante por clase",
+      "corpusN128": "128: motivos y sus negativos",
+      "corpusN256": "256: todos los motivos",
+      "corpusMeta": "{n} teselas · {s} s",
+      "corpusEtat": "Nivel {niveau}: {n} teselas, {s} s."
     },
     "th": {
       "titre": "แอนิเมชันของคอลเลกชัน",
@@ -530,7 +554,15 @@
       "altAssemblage": "แอนิเมชันของคอลเลกชัน {code} {libelle}: ภาพจากวิดีโอ",
       "ariane": "เส้นทางนำทาง",
       "navSuite": "กลุ่มก่อนหน้าหรือถัดไป",
-      "decimale": "."
+      "decimale": ".",
+      "corpusTitre": "คลังไบนารี: 64, 128 หรือ 256 ลวดลาย",
+      "corpusTexte": "ลวดลาย 256 แบบที่อ่านเป็นไบนารีได้ ประกอบเป็น 128 คู่ {ลวดลาย, ภาพกลับ} และ 64 กลุ่มเมื่อไม่นับการเลื่อน ที่ระดับ 128 แอนิเมชันจะเปลี่ยนจากแต่ละลวดลายไปเป็นภาพกลับของมัน",
+      "corpusLegende": "ระดับของคลัง",
+      "corpusN64": "64: ตัวแทนหนึ่งตัวต่อกลุ่ม",
+      "corpusN128": "128: ลวดลายและภาพกลับของมัน",
+      "corpusN256": "256: ลวดลายทั้งหมด",
+      "corpusMeta": "{n} แผ่น · {s} วินาที",
+      "corpusEtat": "ระดับ {niveau}: {n} แผ่น, {s} วินาที"
     },
     "zh": {
       "titre": "系列动画",
@@ -583,7 +615,15 @@
       "altAssemblage": "系列 {code}（{libelle}）的动画：取自视频的画面",
       "ariane": "面包屑导航",
       "navSuite": "上一组或下一组",
-      "decimale": "."
+      "decimale": ".",
+      "corpusTitre": "二进制语料：64、128 或 256 个图案",
+      "corpusTexte": "256 个可按二进制读取的图案，组成 128 对{图案，负片}，平移意义下共 64 类。在 128 级，动画从每个图案切换到它的负片。",
+      "corpusLegende": "语料级别",
+      "corpusN64": "64：每类一个代表",
+      "corpusN128": "128：图案及其负片",
+      "corpusN256": "256：全部图案",
+      "corpusMeta": "{n} 块 · {s} 秒",
+      "corpusEtat": "级别 {niveau}：{n} 块，{s} 秒。"
     },
     "ru": {
       "titre": "Анимации коллекций",
@@ -637,7 +677,15 @@
       "altAssemblage": "Анимация коллекции {code}, {libelle}: кадр из видео",
       "ariane": "Навигационная цепочка",
       "navSuite": "Предыдущая или следующая группа",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "Двоичный корпус: 64, 128 или 256 узоров",
+      "corpusTexte": "256 узоров, читаемых в двоичном виде, образуют 128 пар {узор, негатив} и 64 класса с точностью до сдвига. На уровне 128 анимация переходит от каждого узора к его негативу.",
+      "corpusLegende": "Уровень корпуса",
+      "corpusN64": "64: по одному представителю класса",
+      "corpusN128": "128: узоры и их негативы",
+      "corpusN256": "256: все узоры",
+      "corpusMeta": "{n} плиток · {s} с",
+      "corpusEtat": "Уровень {niveau}: {n} плиток, {s} с."
     },
     "pt": {
       "titre": "Animações das coleções",
@@ -690,7 +738,15 @@
       "altAssemblage": "Animação da coleção {code}, {libelle}: imagem extraída do vídeo",
       "ariane": "Trilho de navegação",
       "navSuite": "Grupo anterior ou seguinte",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "O corpus binário: 64, 128 ou 256 padrões",
+      "corpusTexte": "256 padrões legíveis em binário, que formam 128 pares {padrão, negativo} e 64 classes a menos de translação. No nível 128, a animação passa de cada padrão ao seu negativo.",
+      "corpusLegende": "Nível do corpus",
+      "corpusN64": "64: um representante por classe",
+      "corpusN128": "128: padrões e seus negativos",
+      "corpusN256": "256: todos os padrões",
+      "corpusMeta": "{n} ladrilhos · {s} s",
+      "corpusEtat": "Nível {niveau}: {n} ladrilhos, {s} s."
     },
     "hi": {
       "titre": "संग्रहों के एनिमेशन",
@@ -743,7 +799,15 @@
       "altAssemblage": "संग्रह {code} का एनिमेशन, {libelle}: वीडियो से लिया गया फ़्रेम",
       "ariane": "ब्रेडक्रंब",
       "navSuite": "पिछला या अगला समूह",
-      "decimale": "."
+      "decimale": ".",
+      "corpusTitre": "द्विआधारी कॉर्पस: 64, 128 या 256 पैटर्न",
+      "corpusTexte": "256 पैटर्न जो द्विआधारी रूप में पढ़े जा सकते हैं, 128 जोड़े {पैटर्न, नेगेटिव} और स्थानांतरण के अंतर्गत 64 वर्ग बनाते हैं। स्तर 128 पर एनिमेशन हर पैटर्न से उसके नेगेटिव पर पलटता है।",
+      "corpusLegende": "कॉर्पस का स्तर",
+      "corpusN64": "64: प्रति वर्ग एक प्रतिनिधि",
+      "corpusN128": "128: पैटर्न और उनके नेगेटिव",
+      "corpusN256": "256: सभी पैटर्न",
+      "corpusMeta": "{n} टाइल · {s} सेकंड",
+      "corpusEtat": "स्तर {niveau}: {n} टाइल, {s} सेकंड।"
     },
     "de": {
       "titre": "Animationen der Kollektionen",
@@ -796,7 +860,15 @@
       "altAssemblage": "Animation der Kollektion {code}, {libelle}: ein Bild aus dem Video",
       "ariane": "Brotkrumennavigation",
       "navSuite": "Vorherige oder nächste Gruppe",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "Das binäre Korpus: 64, 128 oder 256 Muster",
+      "corpusTexte": "256 binär lesbare Muster, die 128 Paare {Muster, Negativ} und 64 Klassen modulo Verschiebung bilden. Auf Stufe 128 wechselt die Animation von jedem Muster zu seinem Negativ.",
+      "corpusLegende": "Stufe des Korpus",
+      "corpusN64": "64: ein Vertreter je Klasse",
+      "corpusN128": "128: Muster und ihre Negative",
+      "corpusN256": "256: alle Muster",
+      "corpusMeta": "{n} Kacheln · {s} s",
+      "corpusEtat": "Stufe {niveau}: {n} Kacheln, {s} s."
     },
     "it": {
       "titre": "Animazioni delle collezioni",
@@ -849,7 +921,15 @@
       "altAssemblage": "Animazione della collezione {code}, {libelle}: un fotogramma estratto dal video",
       "ariane": "Percorso di navigazione",
       "navSuite": "Gruppo precedente o successivo",
-      "decimale": ","
+      "decimale": ",",
+      "corpusTitre": "Il corpus binario: 64, 128 o 256 motivi",
+      "corpusTexte": "256 motivi leggibili in binario, che formano 128 coppie {motivo, negativo} e 64 classi a meno di traslazione. Al livello 128 l'animazione passa da ogni motivo al suo negativo.",
+      "corpusLegende": "Livello del corpus",
+      "corpusN64": "64: un rappresentante per classe",
+      "corpusN128": "128: motivi e i loro negativi",
+      "corpusN256": "256: tutti i motivi",
+      "corpusMeta": "{n} tessere · {s} s",
+      "corpusEtat": "Livello {niveau}: {n} tessere, {s} s."
     },
     "ja": {
       "titre": "コレクションのアニメーション",
@@ -902,7 +982,15 @@
       "altAssemblage": "コレクション {code}、{libelle} のアニメーション：動画から取り出した1コマ",
       "ariane": "パンくずリスト",
       "navSuite": "前後のグループ",
-      "decimale": "."
+      "decimale": ".",
+      "corpusTitre": "二進コーパス：64、128、256の紋様",
+      "corpusTexte": "二進法で読める256の紋様が、128組の{紋様、ネガ}と、平行移動を除いた64の類をなします。128の段階では、アニメーションが各紋様からそのネガへ切り替わります。",
+      "corpusLegende": "コーパスの段階",
+      "corpusN64": "64：類ごとに代表一つ",
+      "corpusN128": "128：紋様とそのネガ",
+      "corpusN256": "256：すべての紋様",
+      "corpusMeta": "{n}タイル · {s}秒",
+      "corpusEtat": "段階 {niveau}：{n}タイル、{s}秒。"
     }
   }
 }

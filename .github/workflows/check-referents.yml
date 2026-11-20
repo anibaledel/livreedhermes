@@ -36,6 +36,9 @@ jobs:
       - run: cd data && sha256sum -c SHA256SUMS.txt
       - run: node tools/index_codes.mjs --verifie
       - run: node tools/index_codes.mjs --essai
+      # le corpus binaire des animations (prompt 209) : recalculé depuis le référent des 360 calques et la lecture binaire ; --essai : des fichiers faussés sont refusés
+      - run: node tools/corpus_256.mjs --verifie
+      - run: node tools/corpus_256.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
       - run: python3 tools/verify_quadricolore.py --json
       - run: python3 tools/verify_cle_couleurs.py

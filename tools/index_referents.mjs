@@ -78,6 +78,17 @@ const REFERENTS = [
     verificateurs: ['tools/check_fonds_ecran_completude.py'],
     sources: [],
   },
+  {
+    id: 'corpus-256',
+    objet: "Le corpus binaire de référence des animations (prompt 209) : 256 grilles tricolores du couple yang / yang_mut, unifiées, lisibles, de lecture inversée par le décalage (6, 6) ; 128 paires {motif, négatif} ; 64 classes à translation torique près.",
+    nombre: 256,
+    compte: (r) => [r.entrees.length],
+    compte_par: 'entrees.length',
+    chemin: 'data/corpus-256.json',
+    generateur: 'tools/corpus_256.mjs',
+    verificateurs: ['tools/corpus_256.mjs'],
+    sources: ['data/referent_360_v3.json', 'assets/lecture-binaire.js'],
+  },
 ];
 const CLES_VERSION = ['format_version', 'generated_at_utc', 'generator_tool', 'referent_id'];
 

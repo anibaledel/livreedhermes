@@ -75,6 +75,8 @@ const PAGES = [
   // la galerie d'animations : une page de groupe, et l'entrée et un groupe
   // dans une autre écriture (gabarit commun, scripts/build-galerie-animations.js)
   'animations/bandes-diagonales.html',
+  // l'entrée porte, depuis le prompt 209, le sélecteur du corpus (64 · 128 · 256) : groupe de boutons radio, légende, noms
+  'ja/animations/',
   'th/animations/',
   'hi/animations/assemblies/',
   // les outils traduits (scripts/build-outils-langues.js) : chacun, dans chaque langue

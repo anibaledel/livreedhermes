@@ -38,7 +38,10 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
 const { LANGUES, annoncerLiens, adresseDans } = require('./langues.js');
 const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/galerie-animations.json'), 'utf8'));
-const REGISTRE = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8')).collections;
+const REGISTRE_COMPLET = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
+const REGISTRE = REGISTRE_COMPLET.collections;
+// les animations du CORPUS binaire (prompt 209) : un registre à part, jamais mêlé aux collections publiées (voir _doc_animations_corpus)
+const CORPUS = REGISTRE_COMPLET.animations_corpus || {};
 const VIGNETTES = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/animations/vignettes/vignettes.json'), 'utf8')).vignettes;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -194,6 +197,22 @@ async function main() {
   <a class="anim-lien-groupe" href="${href}">${esc(remplir(T.voir, { n: g.codes.length }))}</a>
 </article>`;
     }).join('\n');
+    // le corpus binaire (prompt 209) : une carte par code de registre.animations_corpus, au niveau par défaut de sa recette ; le sélecteur 64 · 128 · 256
+    // et la vue sont écrits par assets/galerie-animations.js, et rien ne se charge avant un clic
+    const tuilesDe = { 64: 64, 128: 256, 256: 256 };
+    const sectionCorpus = Object.keys(CORPUS).length ? `<section class="anim-corpus-section" id="corpus" aria-labelledby="corpus-titre">
+<h2 id="corpus-titre">${esc(T.corpusTitre)}</h2>
+<p class="anim-intro">${esc(T.corpusTexte)}</p>
+${Object.entries(CORPUS).map(([code, c]) => {
+    const n = tuilesDe[c.recette.corpus];
+    const duree = (n * c.recette.dureeMotif + c.recette.fin);
+    return `<article class="anim-carte" id="${code}" data-code="${code}" data-corpus="${c.recette.corpus}">
+  <h3>${esc(remplir(T.collection, { code }))}</h3>
+  <p class="anim-meta">${esc(remplir(T.corpusMeta, { n, s: String(duree).replace('.', T.decimale) }))}</p>
+  <div class="anim-ecran"></div>
+</article>`;
+  }).join('\n')}
+</section>` : '';
     const groupeDe = {};
     for (const g of G.groupes) for (const c of g.codes) groupeDe[c] = `/${urlGroupe(l, g)}`;
     for (const [s, c] of Object.entries(G.synonymes)) groupeDe[s] = groupeDe[c];
@@ -201,6 +220,7 @@ async function main() {
       bandeau(T, l, [[null, T.titre]], T.titre, T.sousTitre),
       `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}${adresseDans('fonds-ecran.html', l)}` })}${T.musique ? ' ' + remplir(T.musique, { href: `${p}musique-chladni.html` }) : ''}</p>`,
       `<div class="anim-grille" id="groupes">\n${cartes}\n</div>`,
+      sectionCorpus,
       synonymes(T),
       donnees({ page: 'entree', textes: pourLaPage(T), groupeDe }),
     ].join('\n');

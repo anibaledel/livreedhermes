@@ -88,6 +88,9 @@ jobs:
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/check_redirections.mjs
       - run: node tools/recettes_animations.mjs --verifie
+      # le corpus binaire des animations (prompt 209) : les niveaux 64 / 128 / 256, 128 par défaut, la liste fermée, le registre à part, et les 34 recettes publiées intactes
+      - run: node tools/check_animations_corpus.mjs
+      - run: node tools/check_animations_corpus.mjs --essai
       - run: node tools/check_recette_32.mjs
       - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs
@@ -134,6 +137,8 @@ jobs:
       - run: node tools/check_fond_ecran_animation.mjs local
       - run: node tools/check_fond_ecran_deux_outils.mjs local
       - run: node tools/check_galerie_animations.mjs local
+      # le sélecteur 64 · 128 · 256 de la page des animations (FR, ja, th ; 390 et 1280 px) : clavier, focus, adresse, stockage local, aperçu, sans débordement
+      - run: node tools/check_galerie_corpus.mjs local
       # la navigation en cinq catégories (scripts/nav-tiles.js), JavaScript coupé :
       # une catégorie principale par page, ouverte et marquée ; clic, clavier, 390 px, cibles en 200
       - run: node tools/check_navigation.mjs local

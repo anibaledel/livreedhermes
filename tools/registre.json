@@ -261,6 +261,22 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_animations_corpus.mjs",
+   "role": "les animations du corpus binaire tiennent ce que le prompt 209 dit (sans navigateur ; la page, elle, est dans check_galerie_corpus.mjs).",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_article.mjs",
    "role": "un article du site, tel qu'un lecteur le reçoit : 1.",
    "lit": [],
@@ -534,6 +550,20 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_galerie_corpus.mjs",
+   "role": "le sélecteur 64 · 128 · 256 de la page des animations, en navigateur (prompt 209).",
+   "lit": [
+    "th/animations"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/check_galerie_unifies_texte.mjs",
@@ -1206,6 +1236,22 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/comparer_corpus_pages.mjs",
+   "role": "le corpus binaire de 256 grilles (data/corpus-256.json) comparé au corpus actuel des 256 pages motifs/ (prompt 209, 1.5).",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds_ecran_v1.json",
+    "scripts/extract-hexagram-data.js"
+   ],
+   "ecrit": [
+    "docs/corpus-256-comparaison-pages.md"
+   ],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/compte_croix.py",
    "role": "COMBIEN de croix ansées à l'ordre n ?",
    "lit": [],
@@ -1294,6 +1340,25 @@
    ],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/corpus_256.mjs",
+   "role": "le corpus binaire de référence des animations : 256 grilles tricolores, 128 paires {motif, négatif}, 64 classes (prompt 209).",
+   "lit": [
+    "data/corpus-256.json",
+    "data/referent_360_v3.json",
+    "scripts/extract-hexagram-data.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [
+    "tools/check_animations_corpus.mjs",
+    "tools/comparer_corpus_pages.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/correspondance_motifs.mjs",
@@ -1845,7 +1910,9 @@
    "fichier": "tools/index_referents.mjs",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
    "lit": [
+    "assets/lecture-binaire.js",
     "data/SHA256SUMS.txt",
+    "data/corpus-256.json",
     "data/fonds_ecran_v1.json",
     "data/referent_256_src/MANIFEST.json",
     "data/referent_256_v3.json",
@@ -1855,6 +1922,7 @@
     "data/resultats-etablis.json",
     "tools/check_fonds_ecran_completude.py",
     "tools/check_page_360.mjs",
+    "tools/corpus_256.mjs",
     "tools/enum_criteres.py",
     "tools/generate_fonds_ecran.py",
     "tools/generate_referent_256.py",
@@ -1930,6 +1998,7 @@
     "tools/check_fond_ecran_deux_outils.mjs",
     "tools/check_galerie_animations.mjs",
     "tools/check_galerie_bicolore_ordres.mjs",
+    "tools/check_galerie_corpus.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_musique_chladni.mjs",
     "tools/check_musique_webkit.mjs",

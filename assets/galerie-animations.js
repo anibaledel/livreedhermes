@@ -21,6 +21,7 @@
 // chacune des pages.
 import { chargerAnimations, creerRendu, nomFichier, FORMATS, VITESSES } from './animation-collection.js';
 import { encoder, h264Disponible } from './encodeur-mp4.js';
+import { NIVEAUX_CORPUS, NIVEAU_DEFAUT, niveauDeLaVue, retenirNiveau, nombreDeTuiles } from './corpus-animation.js';
 
 const RACINE = new URL('../', import.meta.url);
 const donnees = JSON.parse(document.getElementById('galerie-donnees').textContent);
@@ -49,15 +50,20 @@ function prendreLaMain(carte, arreter) {
 }
 
 // ---- la vue dans l'URL : ?collection=…&vitesse=…&c0=…&c1=… -----------------
-function vueDeLUrl(code, defaut) {
+// Une animation de CORPUS (prompt 209) a de plus un niveau : ?corpus=64|128|256, liste fermée (toute autre valeur est ignorée), puis le stockage local
+// (essayé : il peut refuser), puis 128. Le niveau n'est lu dans l'adresse que pour la collection que l'adresse nomme.
+function stockageLocal() { try { return window.localStorage; } catch { return null; } }
+function vueDeLUrl(code, defaut, estCorpus = false) {
   const q = new URLSearchParams(location.search);
-  if (q.get('collection') !== code) return { vitesse: 1, palette: defaut.slice() };
+  const base = estCorpus ? { corpus: niveauDeLaVue(q.get('collection') === code ? q.get('corpus') : null, stockageLocal()) } : {};
+  if (q.get('collection') !== code) return { vitesse: 1, palette: defaut.slice(), ...base };
   const v = Number(q.get('vitesse'));
   const c = (k, d) => (HEX.test((q.get(k) || '').replace('#', '')) ? `#${q.get(k).replace('#', '').toLowerCase()}` : d);
-  return { vitesse: VITESSES.includes(v) ? v : 1, palette: [c('c0', defaut[0]), c('c1', defaut[1])] };
+  return { vitesse: VITESSES.includes(v) ? v : 1, palette: [c('c0', defaut[0]), c('c1', defaut[1])], ...base };
 }
 function adresseDe(code, vue, defaut) {
   const q = new URLSearchParams({ collection: code });
+  if (vue.corpus !== undefined) q.set('corpus', String(vue.corpus));
   if (vue.vitesse !== 1) q.set('vitesse', String(vue.vitesse));
   if (vue.palette.join() !== defaut.join()) { q.set('c0', vue.palette[0].slice(1)); q.set('c1', vue.palette[1].slice(1)); }
   return `${location.origin}${location.pathname}?${q}#${code}`;
@@ -87,12 +93,13 @@ const h264 = complete ? await h264Disponible(1080, 1920, 30) : null;
 
 for (const carte of cartes) {
   const code = carte.dataset.code;
-  const col = registre.collections[code];
+  const estCorpus = !!(registre.animations_corpus && registre.animations_corpus[code]);
+  const col = estCorpus ? registre.animations_corpus[code] : registre.collections[code];
   if (!col || !col.recette) continue;
   const rec = col.recette;
   const temoin = carte.classList.contains('anim-temoin');
   const defaut = col.palette.slice();
-  let vue = temoin ? { vitesse: 1, palette: defaut.slice() } : vueDeLUrl(code, defaut);
+  let vue = temoin ? { vitesse: 1, palette: defaut.slice() } : vueDeLUrl(code, defaut, estCorpus);
   const ecran = carte.querySelector('.anim-ecran');
   const repos = ecran.innerHTML; // la vignette écrite dans la page
   const egale = () => vue.vitesse === 1 && vue.palette.join() === defaut.join();
@@ -107,12 +114,17 @@ for (const carte of cartes) {
   const outils = document.createElement('div');
   outils.className = 'anim-outils';
   outils.innerHTML = `<div class="anim-boutons"></div>${temoin ? '' : `
-    <div class="anim-vue">
+    <div class="anim-vue">${estCorpus ? `
+      <fieldset class="anim-corpus">
+        <legend>${T.corpusLegende}</legend>
+        ${NIVEAUX_CORPUS.map((n) => `<label class="anim-corpus-choix"><input type="radio" name="corpus-${code}" value="${n}"><span>${T[`corpusN${n}`]}</span></label>`).join('')}
+      </fieldset>` : ''}
       <label>${T.vitesse} <select class="v-vitesse">${VITESSES.map((v) => `<option value="${v}">${decimale(v)} ×</option>`).join('')}</select></label>
       <label>${T.fond} <input type="color" class="v-c0"></label>
       <label>${T.figure} <input type="color" class="v-c1"></label>
       <button type="button" class="v-defaut">${T.couleursOrigine}</button>
     </div>
+    ${estCorpus ? '<p class="anim-etat anim-corpus-etat" role="status" aria-live="polite"></p>' : ''}
     <div class="anim-partage"></div>
     <div class="anim-generateur">
       <span class="anim-titre">${T.genererTitre}</span>
@@ -154,6 +166,7 @@ for (const carte of cartes) {
     prendreLaMain(carte, () => { fini = true; cancelAnimationFrame(raf); afficherRepos(); });
     const rendu = await creerRendu({ code, vue: { ...vue, palette: vue.palette.slice() }, largeur: canevas.width, hauteur: canevas.height });
     if (fini) return;
+    carte.dataset.tuilesRendu = String(rendu.recette.motifs.length); // le nombre de tuiles réellement rendues (lu par tools/check_galerie_corpus.mjs)
     ecran.innerHTML = ''; ecran.appendChild(canevas);
     const ctx = canevas.getContext('2d');
     let t0 = null;
@@ -169,8 +182,28 @@ for (const carte of cartes) {
   // la vue : vitesse et couleurs, dans l'URL
   $('.v-vitesse').value = String(vue.vitesse);
   [$('.v-c0').value, $('.v-c1').value] = vue.palette;
+  // le niveau du corpus : annoncé sans rien charger (le nombre de tuiles se sait avant le corpus), et change la liste de motifs sans recharger la page
+  function annoncerCorpus() {
+    if (!estCorpus) return;
+    const n = nombreDeTuiles(vue.corpus), s = n * rec.dureeMotif / vue.vitesse + rec.fin;
+    carte.dataset.corpus = String(vue.corpus); carte.dataset.tuiles = String(n);
+    $('.anim-corpus-etat').textContent = remplir(T.corpusEtat, { niveau: vue.corpus, n, s: decimale(Math.round(s * 10) / 10) });
+    const meta = carte.querySelector(':scope > .anim-meta');
+    if (meta) meta.textContent = remplir(T.corpusMeta, { n, s: decimale(Math.round(s * 10) / 10) });
+  }
+  if (estCorpus) {
+    const radio = [...outils.querySelectorAll('.anim-corpus input')].find((r) => Number(r.value) === vue.corpus);
+    if (radio) radio.checked = true;
+    annoncerCorpus();
+  }
   function changerVue() {
     vue = { vitesse: Number($('.v-vitesse').value), palette: [$('.v-c0').value, $('.v-c1').value] };
+    if (estCorpus) {
+      const coche = outils.querySelector('.anim-corpus input:checked');
+      vue.corpus = coche ? Number(coche.value) : NIVEAU_DEFAUT;
+      retenirNiveau(vue.corpus, stockageLocal());
+      annoncerCorpus();
+    }
     history.replaceState(null, '', adresseDe(code, vue, defaut).replace(location.origin, ''));
     majPartage();
     const enApercu = carte.classList.contains('active') && ecran.querySelector('canvas');
@@ -180,6 +213,7 @@ for (const carte of cartes) {
   $('.v-vitesse').addEventListener('change', changerVue);
   $('.v-c0').addEventListener('change', changerVue);
   $('.v-c1').addEventListener('change', changerVue);
+  if (estCorpus) outils.querySelectorAll('.anim-corpus input').forEach((r) => r.addEventListener('change', changerVue));
   $('.v-defaut').addEventListener('click', () => { [$('.v-c0').value, $('.v-c1').value] = defaut; changerVue(); });
 
   // partager, honnêtement : télécharger (le vrai geste), copier le lien, et le

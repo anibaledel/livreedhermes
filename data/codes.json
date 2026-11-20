@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-19T19:29:38Z",
+ "generated_at_utc": "2026-11-20T10:08:05Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 294,
+  "scripts": 298,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -706,9 +706,9 @@
   {
    "chemin": "scripts/build-galerie-animations.js",
    "adresse": "https://anibal-amiot.com/scripts/build-galerie-animations.js",
-   "octets": 17413,
-   "sha256": "58e242cc1ad04858349d4ebb28f4f06bb550d15195c5c29cad663b6cf4b1e121",
-   "md5": "512b81109dfb881053c6429a432cff11",
+   "octets": 18718,
+   "sha256": "7e33d74b1e65bd80409906754b93bf4c7b345c94858862c23ab1102a70146954",
+   "md5": "a3d678a700760a107a8c58a020540b25",
    "licence_declaree": false,
    "licence": null,
    "role": "La galerie d'animations en sept pages — l'entrée et six groupes — dans les huit langues du site : 56 pages, écrites depuis une seule source.",
@@ -1776,9 +1776,9 @@
   {
    "chemin": "tools/check_accessibilite.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_accessibilite.mjs",
-   "octets": 9353,
-   "sha256": "8deb73fd9e1155829c759fd57974ebc2906471f9cdf7ee3c081d3e22fdfba9de",
-   "md5": "f714df3b5cebc8d55f8c37975ac1db2f",
+   "octets": 9502,
+   "sha256": "b317e938cf7f236d4083b3587ee5b0f7acb8063946a08ad2ba08ee79be50234a",
+   "md5": "7586cf95b15797320e3fcfdb4b4d4a55",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : passe axe-core (règles WCAG 2 A et AA) sur les pages listées ci-dessous et échoue à la première infraction.",
@@ -1798,6 +1798,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les huit accueils suivent le même modèle (A03).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_animations_corpus.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_animations_corpus.mjs",
+   "octets": 11264,
+   "sha256": "8bfd11cfc93aef9760de9e2eab419d61c556c934d147eb2e598f68b975489893",
+   "md5": "5537b397e24b096a719d71a7f4cbd093",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les animations du corpus binaire tiennent ce que le prompt 209 dit (sans navigateur ; la page, elle, est dans check_galerie_corpus.mjs).",
+   "lit": [
+    "corpus-256"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -2083,9 +2100,9 @@
   {
    "chemin": "tools/check_galerie_animations.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_galerie_animations.mjs",
-   "octets": 16669,
-   "sha256": "9021b49de3e042d59b8d682dcb4a6f28be1701287120a85e635fb3837e8abc14",
-   "md5": "45a33c7dd209ddeb86740bbc5a0a715a",
+   "octets": 16888,
+   "sha256": "b19f1db2bfba4706649a8b1625ec9f10c6cbedf8be32d6a96ac96ee7ff0ad158",
+   "md5": "02239ec1e0635e5e3e1803140316d1ec",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la galerie d'animations, mesurée : l'entrée (galerie-animations.html) et ses six pages de groupe, dans les huit langues (scripts/build-galerie-animations.js, data/galerie-animations.json).",
@@ -2104,6 +2121,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la « Galerie bicolore » étendue aux ordres 18 et 30, dans Chromium.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_galerie_corpus.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_galerie_corpus.mjs",
+   "octets": 9952,
+   "sha256": "43dcf07247e2a36e232b4b7e3c0aacc4cdbd530ef171e909e65942fad5ac444c",
+   "md5": "00844fa86e8ba89df6048ddfa3561ab6",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le sélecteur 64 · 128 · 256 de la page des animations, en navigateur (prompt 209).",
    "lit": [],
    "ecrit": [],
    "durees": [],
@@ -2779,6 +2811,26 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/comparer_corpus_pages.mjs",
+   "adresse": "https://anibal-amiot.com/tools/comparer_corpus_pages.mjs",
+   "octets": 7592,
+   "sha256": "16cdee5f9dcfad6ba5ed08d169080f31d395623c6d18477f991771118f9bfb63",
+   "md5": "f06c9c42c1ace01422feae25c63f0d91",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le corpus binaire de 256 grilles (data/corpus-256.json) comparé au corpus actuel des 256 pages motifs/ (prompt 209, 1.5).",
+   "lit": [
+    "constructions-1024",
+    "corpus-256"
+   ],
+   "ecrit": [
+    "docs/corpus-256-comparaison-pages.md"
+   ],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/compte_croix.py",
    "adresse": "https://anibal-amiot.com/tools/compte_croix.py",
    "octets": 9038,
@@ -2878,6 +2930,24 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "toute figure candidate est réalisable à m impair.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/corpus_256.mjs",
+   "adresse": "https://anibal-amiot.com/tools/corpus_256.mjs",
+   "octets": 17528,
+   "sha256": "a6a1e4acd8c0865f3ab2c1a34d6bd51bfddedbe55e562b24689a65c734435016",
+   "md5": "a3623e751b313571739cf7541739c143",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le corpus binaire de référence des animations : 256 grilles tricolores, 128 paires {motif, négatif}, 64 classes (prompt 209).",
+   "lit": [
+    "calques-360",
+    "corpus-256"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3590,16 +3660,17 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 11415,
-   "sha256": "b18cb378fa8f4a2c2d4c17a939cfbaba0b09dc84b04ff789d924088ae7da4de7",
-   "md5": "c0616a3f5ab6bf50c12b2eaa76e8c8ad",
+   "octets": 11997,
+   "sha256": "ec1fd4fd4f59c2ac360b5c83f61d56b298ee5f66bdf8002b36188842e28c5c3d",
+   "md5": "484e084eefe9193aa8687045e0dca9a4",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
    "lit": [
     "carres-ordre-6",
     "calques-360",
-    "constructions-1024"
+    "constructions-1024",
+    "corpus-256"
    ],
    "ecrit": [],
    "durees": [],

@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 13,
   "verifie_journal_local": 27,
-  "verifie_ci": 38,
+  "verifie_ci": 39,
   "releve_journal_depose": 0,
   "affirme": 2
  },
@@ -908,7 +908,7 @@
     {
      "ci": ".github/workflows/check-referents.yml",
      "lignes": [
-      "Recomptés : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6)."
+      "Recomptés : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6), corpus-256 (256, 61fc8864)."
      ]
     }
    ],
@@ -3819,6 +3819,52 @@
    "statut": "verifie_ci",
    "statut_depot": "2. vérifié exhaustivement sans solveur",
    "note": "Même exécution que l'entrée exhaustif-18432x256 (17 s ici, 26 s chez Anibal) ; la version 15.34 d'exhaustif6.py compare les ensembles et plus seulement les cardinaux."
+  },
+  {
+   "id": "corpus-256-128-64",
+   "intitule": "Le corpus binaire des animations : 256 grilles, 128 paires {motif, négatif}, 64 classes",
+   "enonce": {
+    "texte": "Corpus de référence des animations retenu avec Anibal le 19 novembre 2026 : 256 grilles tricolores du couple yang / yang_mut (4 paires de familles × 64 hexagrammes), unifiées, lisibles, de lecture binaire à 72 sombres / 72 clairs et inversée par le décalage (6, 6) ; 128 paires {motif, négatif} ; 64 classes à translation torique près.",
+    "langue": "fr",
+    "source": "prompt 209 (décision d'Anibal, 19 novembre 2026) ; la page de chiffres le reprend"
+   },
+   "valeur": {
+    "grilles": 256,
+    "paires": 128,
+    "classes": 64,
+    "paires_de_familles": 4,
+    "hexagrammes_par_paire": 64,
+    "couple": [
+     "yang",
+     "yang_mut"
+    ],
+    "aire_sombre": 72,
+    "aire_claire": 72
+   },
+   "conditionnel": false,
+   "referents": [
+    "corpus-256",
+    "calques-360"
+   ],
+   "donnees": [
+    "data/corpus-256.json"
+   ],
+   "script": {
+    "chemin": "tools/corpus_256.mjs",
+    "adresse": "https://anibal-amiot.com/tools/corpus_256.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "OK    corpus : 256 grilles (4 paires de familles × 64 hexagrammes), 128 paires {motif, négatif}, 64 classes à translation torique près ; 72 sombres / 72 clairs et lecture inversée par le décalage (6, 6) sur 256 sur 256."
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Calculé depuis data/referent_360_v3.json et assets/lecture-binaire.js, puis relu : 256 entrées (4 × 64), 128 paires, 64 classes de 4, 72 / 72, décalée(g) = g avec V et M échangés, lecture inversée sur 144 cases × 4 triangles ; le script échoue sinon (--verifie) et refuse des fichiers faussés (--essai). Aucun journal n'est déposé sur Zenodo : « vérifié » ici veut dire que la CI le recalcule à chaque passage, pas qu'un journal déposé le prouve.",
+   "page": "chiffres-et-sources.html"
   }
  ]
 }
