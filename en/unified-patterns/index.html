@@ -272,7 +272,7 @@
       "name": "What are the constraints for creating Unified Patterns?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre."
+        "text": "One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition."
       }
     },
     {
@@ -280,7 +280,7 @@
       "name": "How are Unified Patterns identified among the balanced grids?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns."
+        "text": "The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides."
       }
     },
     {
@@ -419,11 +419,11 @@
     </details>
     <details class="faq-item">
       <summary>What are the constraints for creating Unified Patterns?<span class="q-mark">＋</span></summary>
-      <p>Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre.</p>
+      <p>One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition.</p>
     </details>
     <details class="faq-item">
       <summary>How are Unified Patterns identified among the balanced grids?<span class="q-mark">＋</span></summary>
-      <p>The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns.</p>
+      <p>The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides.</p>
     </details>
     <details class="faq-item">
       <summary>How are these matrices classified?<span class="q-mark">＋</span></summary>

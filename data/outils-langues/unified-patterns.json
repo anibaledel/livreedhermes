@@ -44,11 +44,11 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre.",
-   "en": "Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre.",
-   "es": "Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro.",
-   "th": "Unified Pattern ถูกกำหนดด้วยข้อกำหนดสองข้อ ข้อแรก: การให้สีเดียวกันแก่เมทริกซ์ 6 องค์ประกอบทั้งสอง จะได้ตารางที่สมดุลแบบ 3×12 ข้อที่สอง: ด้านทั้งสี่ของตารางต้องสะท้อนจุดกึ่งกลาง",
-   "source": "SANS SOURCE"
+   "fr": "Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition.",
+   "en": "One criterion decides: the half-shift criterion. A pattern is unified when shifting it by six cells, horizontally and vertically, gives exactly the grid obtained by swapping its two construction tints; tools/filtre_unified.py checks it cell by cell. “The corners echo the centre” is the intuition, not the definition.",
+   "es": "Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición.",
+   "th": "เกณฑ์เดียวเป็นตัวตัดสิน คือเกณฑ์การเลื่อนครึ่งคาบ ลวดลายหนึ่งเป็นลวดลายรวมเป็นหนึ่งเมื่อการเลื่อนหกช่องทั้งในแนวนอนและแนวตั้งให้ตารางที่ตรงกับตารางที่ได้จากการสลับโทนสีสองสีที่ใช้สร้างลวดลายนั้นทุกประการ tools/filtre_unified.py ตรวจสอบทีละช่อง “มุมสะท้อนจุดศูนย์กลาง” เป็นเพียงสัญชาตญาณ ไม่ใช่นิยาม",
+   "source": "critère du demi-décalage, tools/filtre_unified.py (prompt 208 B, galerie des Patterns Unifiés)"
   },
   {
    "fr": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
@@ -58,11 +58,11 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.",
-   "en": "The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns.",
-   "es": "La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns.",
-   "th": "ข้อกำหนดแรก (สีเดียวบนเมทริกซ์ 6 ทั้งสอง) ทำให้ Unified Patterns ชุดแรก 8 แบบปรากฏขึ้นในบรรดาตารางที่สมดุลแบบ 3×12 ทั้งหมด นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุล ตารางใดเป็น Unified Patterns โดยเฉพาะ",
-   "source": "SANS SOURCE"
+   "fr": "Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul.",
+   "en": "The same test, applied to the 1,920 candidate constructions (15 families, 2 pairs of tints, 64 hexagrams), keeps 1,024 of them, all in 8 of the 15 families; they draw 512 distinct grids. Assigning one and the same tint to both 6-level halves of a family produces a balanced grid; that does not decide the selection, which the half-shift criterion alone decides.",
+   "es": "La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento.",
+   "th": "การทดสอบเดียวกันนี้ เมื่อใช้กับการสร้างที่เป็นตัวเลือกทั้งหมด 1,920 แบบ (15 ตระกูล 2 คู่โทนสี 64 ฉักลักษณ์) คัดไว้ 1,024 แบบ ทั้งหมดอยู่ใน 8 จาก 15 ตระกูล และให้ตารางที่ต่างกัน 512 แบบ การกำหนดโทนสีเดียวกันให้แก่ทั้งสองครึ่งของตระกูล ซึ่งมีครึ่งละ 6 ระดับ จะได้ตารางที่สมดุล แต่ไม่ได้เป็นตัวกำหนดการคัดเลือก ซึ่งเกณฑ์การเลื่อนครึ่งคาบเป็นตัวกำหนดเพียงอย่างเดียว",
+   "source": "critère du demi-décalage, tools/filtre_unified.py (prompt 208 B, galerie des Patterns Unifiés)"
   },
   {
    "fr": "Comment ces matrices sont-elles classifiées ?",

@@ -272,7 +272,7 @@
       "name": "Quelles sont les contraintes de création des Unified Patterns ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre."
+        "text": "Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition."
       }
     },
     {
@@ -280,7 +280,7 @@
       "name": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns."
+        "text": "Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul."
       }
     },
     {
@@ -419,11 +419,11 @@
     </details>
     <details class="faq-item">
       <summary>Quelles sont les contraintes de création des Unified Patterns ?<span class="q-mark">＋</span></summary>
-      <p>Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre.</p>
+      <p>Un seul critère décide : le critère du demi-décalage. Un motif est unifié lorsque son décalage de six cases, horizontalement et verticalement, produit exactement la grille obtenue en échangeant ses deux teintes de construction ; tools/filtre_unified.py le vérifie case par case. « Les coins font écho au centre » en est l'intuition, pas la définition.</p>
     </details>
     <details class="faq-item">
       <summary>Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?<span class="q-mark">＋</span></summary>
-      <p>La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.</p>
+      <p>Le même test, appliqué aux 1 920 constructions candidates (15 familles, 2 couples de teintes, 64 hexagrammes), en retient 1 024, toutes dans 8 des 15 familles ; elles dessinent 512 grilles distinctes. Associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée ; cela ne décide pas du choix, que le critère du demi-décalage décide seul.</p>
     </details>
     <details class="faq-item">
       <summary>Comment ces matrices sont-elles classifiées ?<span class="q-mark">＋</span></summary>

@@ -272,7 +272,7 @@
       "name": "¿Cuáles son las restricciones de creación de los Unified Patterns?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro."
+        "text": "Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición."
       }
     },
     {
@@ -280,7 +280,7 @@
       "name": "¿Cómo se identifican los Unified Patterns entre las rejillas equilibradas?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns."
+        "text": "La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento."
       }
     },
     {
@@ -419,11 +419,11 @@
     </details>
     <details class="faq-item">
       <summary>¿Cuáles son las restricciones de creación de los Unified Patterns?<span class="q-mark">＋</span></summary>
-      <p>Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro.</p>
+      <p>Un solo criterio decide: el criterio del semidesplazamiento. Un motivo es unificado cuando su desplazamiento de seis casillas, en horizontal y en vertical, produce exactamente la cuadrícula que se obtiene intercambiando sus dos matices de construcción; tools/filtre_unified.py lo comprueba casilla por casilla. «Las esquinas hacen eco del centro» es la intuición, no la definición.</p>
     </details>
     <details class="faq-item">
       <summary>¿Cómo se identifican los Unified Patterns entre las rejillas equilibradas?<span class="q-mark">＋</span></summary>
-      <p>La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns.</p>
+      <p>La misma prueba, aplicada a las 1 920 construcciones candidatas (15 familias, 2 pares de matices, 64 hexagramas), retiene 1 024, todas en 8 de las 15 familias; dibujan 512 cuadrículas distintas. Asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada; eso no decide la selección, que decide por sí solo el criterio del semidesplazamiento.</p>
     </details>
     <details class="faq-item">
       <summary>¿Cómo se clasifican estas matrices?<span class="q-mark">＋</span></summary>
