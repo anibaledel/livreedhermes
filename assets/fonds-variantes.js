@@ -21,9 +21,15 @@
 // frontière entre régions de couleurs différentes (tracé rouge) se calculent sur ces éléments, en vectoriel, sans rastériser.
 import { rendu, symbolesDe } from './bicolore-fonds.js';
 
-export const FONDS_RETENUS = Object.freeze(['P', 'B2', 'B3', 'B4', 'B121', 'B2D', 'B4D', 'B11211D']);
+// les fonds ÉTUDIÉS (les tests les parcourent tous) ; les fonds PROPOSÉS — ceux que l'application, les exports Pinterest et les codes de collection offrent — sont dans
+// data/fonds/demi-periode.json (« proposes ») : voir assets/fonds-retenus.js. Un fond n'y entre que s'il tient la demi-période à 64 / 64 ET si Anibal l'a approuvé.
+export const FONDS_ETUDIES = Object.freeze(['P', 'B2', 'B3', 'B4', 'B121', 'B2D', 'B4D', 'B11211D']);
 export const FONDS_VARIANTES = Object.freeze(['B2', 'B3', 'B4', 'B121', 'B2D', 'B4D', 'B11211D']); // les fonds à bandes (P reste l'aplat de motifSvg)
 export const FONDS_A_PHASES = Object.freeze(['B2D']);
+// la demi-période (prompt 185) : le fond « corrigé » prend le mode ÉCHANGE (le symbole du bit 1 est celui du bit 0 aux couleurs échangées) et la variante est transportée
+// aussi par la translation de (6, 6) aux couleurs échangées ({ demiPeriode: true }) : le rendu décalé de 6 cases est alors, par construction, le rendu aux couleurs échangées.
+export const FONDS_A_CORRIGER = Object.freeze(['B2', 'B3', 'B4', 'B121', 'B2D', 'B4D']);
+export const fondCorrige = (fond) => (fond.mode === 'echange' ? fond : { ...fond, id: `${fond.id}c`, mode: 'echange' });
 
 // les 8 isométries [a, b, c, d] : (x, y) → (a·x + b·y, c·x + d·y) autour du centre, x = colonne, y = ligne (vers le bas)
 export const ISOMETRIES = Object.freeze([[1, 0, 0, 1], [0, 1, -1, 0], [-1, 0, 0, -1], [0, -1, 1, 0], [-1, 0, 0, 1], [1, 0, 0, -1], [0, 1, 1, 0], [0, -1, -1, 0]]);
@@ -83,7 +89,7 @@ export const groupeDe = (symetries) => [...symetries].flatMap((c, i) => (c === '
 // Pour chaque orbite de morceaux (case pleine ou triangle) sous le groupe, UN morceau de référence (le plus haut, puis le plus à gauche, de l'orbite) ;
 // ses images par le groupe donnent les autres. Un élément : { r, q (case de référence), g (indice d'isométrie), inv, bit, poly, phase, cible: [ligne, colonne] }.
 // `phases` : un tableau de 144 valeurs 0..3 indexé par la case de référence (r × 12 + q), ou null.
-export function elementsDeVariante(cases, phases = null, symetries = null) {
+export function elementsDeVariante(cases, phases = null, symetries = null, demiPeriode = false) {
   if (cases.length !== GRILLE * GRILLE) throw new Error(`fonds-variantes.js : ${cases.length} cases, ${GRILLE * GRILLE} attendues`);
   const sym = symetries || symetriesDuMotif(cases), tenues = groupeDe(sym), inverse = inversantesDe(sym);
   const cle = (x, y) => `${Math.round(modulo(x) * 1e6)},${Math.round(modulo(y) * 1e6)}`;
@@ -93,18 +99,19 @@ export function elementsDeVariante(cases, phases = null, symetries = null) {
     if (!k || !['pleine', 'coupee', 'quatre'].includes(k.type)) throw new Error(`fonds-variantes.js : la case (${r}, ${q}) est « ${k && k.type} » : elle ne se rend pas`);
     for (const m of morceauxDeCase(k)) {
       const P = [q + m.c[0], r + m.c[1]];
-      const images = tenues.map((gi) => ({ gi, p: appliquer(ISOMETRIES[gi], P[0], P[1]) }));
+      // le groupe : les isométries du motif ; avec la demi-période, leurs composées avec la translation de (6, 6) aux couleurs échangées (t = 1)
+      const images = tenues.flatMap((gi) => (demiPeriode ? [0, 1] : [0]).map((t) => { const [x, y] = appliquer(ISOMETRIES[gi], P[0], P[1]); return { gi, t, p: [x + 6 * t, y + 6 * t] }; }));
       const ordre = (p) => [Math.round(modulo(p[1]) * 1e6), Math.round(modulo(p[0]) * 1e6)];
       const mini = images.map((im) => ordre(im.p)).reduce((a, b) => (a[0] < b[0] || (a[0] === b[0] && a[1] <= b[1]) ? a : b));
       const moi = ordre(P);
       if (moi[0] !== mini[0] || moi[1] !== mini[1]) continue; // pas le morceau de référence de son orbite
       const vus = new Set();
-      for (const { gi, p } of images) {
+      for (const { gi, t, p } of images) {
         const kk = cle(p[0], p[1]);
         if (vus.has(kk)) continue; // le morceau est fixé par une autre isométrie du groupe : une seule image
         vus.add(kk);
         const [rr, cc] = imageDeCase(r, q, ISOMETRIES[gi]);
-        elements.push({ r, q, g: gi, inv: inverse.has(gi) ? 1 : 0, bit: m.bit, poly: m.poly, phase: phases ? phases[r * GRILLE + q] | 0 : 0, cible: [rr, cc] });
+        elements.push({ r, q, g: gi, t, inv: (inverse.has(gi) ? 1 : 0) ^ t, bit: m.bit, poly: m.poly, phase: phases ? phases[r * GRILLE + q] | 0 : 0, cibleG: [rr, cc], cible: [(rr + 6 * t) % GRILLE, (cc + 6 * t) % GRILLE] });
       }
     }
   }
@@ -128,12 +135,12 @@ const tourne = (x, y, t) => { // rotation de t quarts de tour (sens horaire, y v
 // cases : la lecture binaire DESSINÉE (celle du représentant) ; `translation` { dx, dy, echange } : le même dessin translaté sur le tore, couleurs
 // échangées quand la lecture est inversée (c'est ainsi que les 256 se déduisent des 64 : mêmes fonds, mêmes rotations).
 export class Variante {
-  constructor(cases, fond, phases = null, translation = null) {
-    this.cases = cases; this.fond = fond; this.phases = phases;
+  constructor(cases, fond, phases = null, translation = null, { demiPeriode = false } = {}) {
+    this.cases = cases; this.fond = fond; this.phases = phases; this.demiPeriode = demiPeriode;
     this.translation = translation || { dx: 0, dy: 0, echange: 0 };
     this.symetries = symetriesDuMotif(cases);
     this.groupe = groupeDe(this.symetries);
-    this.elements = elementsDeVariante(cases, phases, this.symetries);
+    this.elements = elementsDeVariante(cases, phases, this.symetries, demiPeriode);
     this.parCible = new Map();
     for (const e of this.elements) { const cle = e.cible[0] * GRILLE + e.cible[1]; if (!this.parCible.has(cle)) this.parCible.set(cle, []); this.parCible.get(cle).push(e); }
     this.rendus = [rendu(fond, 0), rendu(fond, 1)];
@@ -145,7 +152,7 @@ export class Variante {
     const col = Math.floor(X), lig = Math.floor(Y), sortie = [];
     for (const e of this.parCible.get(lig * GRILLE + col) || []) {
       const [a, b, c, d] = ISOMETRIES[e.g];
-      const dx = X - C, dy = Y - C; // l'inverse d'une isométrie de coefficients 0 / ±1 est sa transposée
+      const dx = modulo(X - 6 * e.t) - C, dy = modulo(Y - 6 * e.t) - C; // la translation de demi-période d'abord, puis l'inverse de l'isométrie (de coefficients 0 / ±1 : sa transposée)
       const X0 = a * dx + c * dy + C, Y0 = b * dx + d * dy + C;
       if (X0 < e.q - E || X0 > e.q + 1 + E || Y0 < e.r - E || Y0 > e.r + 1 + E) continue; // l'image de la case de référence est la case cible : le point doit y tomber
       const u = X0 - e.q, v = Y0 - e.r;
@@ -192,17 +199,20 @@ export function conflitsDeVariante(v, vrais = v.cases) {
 // Certains sont IMPOSÉS par la symétrie du motif : quand un miroir médian INVERSE les couleurs (« i » à l'indice 4 pour le miroir vertical, 5 pour l'horizontal),
 // le bord qui tombe sur l'axe de ce miroir a, de l'autre côté, les couleurs inversées de celles de ce côté-ci : il ne peut jamais se raccorder. Sur le tore, l'axe
 // compte deux lignes (au milieu et au bord de la cellule) : 24 bords par miroir inversant, 48 pour les motifs « ====iiii » — aucune rotation de fond n'y change rien.
-export function bordsImposes(symetries) {
+export function bordsImposes(symetries, demiPeriode = false) {
   const imposes = new Set();
+  // un miroir médian inversant a son axe au milieu (x = 6, 0) ; avec la demi-période, le miroir composé avec la translation de (6, 6) aux couleurs échangées
+  // a son axe en x = 3 et 9, et inverse quand le premier conserve : UN des deux couples d'axes est toujours imposé, 48 bords pour tout motif
+  const colonnes = (signe) => (signe === 'i' ? [C - 1, GRILLE - 1] : demiPeriode ? [2, 8] : []);
   for (let i = 0; i < GRILLE; i++) {
-    if (symetries[4] === 'i') for (const c of [C - 1, GRILLE - 1]) imposes.add(`${i},${c},0`);
-    if (symetries[5] === 'i') for (const r of [C - 1, GRILLE - 1]) imposes.add(`${r},${i},1`);
+    for (const c of colonnes(symetries[4])) imposes.add(`${i},${c},0`);
+    for (const r of colonnes(symetries[5])) imposes.add(`${r},${i},1`);
   }
   return imposes;
 }
 // { brises, imposes (brisés et imposés), libres (brisés et non imposés) }
 export function detailRaccords(v, m = 16, eps = 1e-5) {
-  const forces = bordsImposes(v.symetries);
+  const forces = bordsImposes(v.symetries, v.demiPeriode);
   let brises = 0, imposes = 0, libres = 0;
   const casse = (xa, ya, xb, yb) => v.couleurAu(xa, ya) !== v.couleurAu(xb, yb);
   const compter = (cle, cs) => { if (!cs) return; brises++; if (forces.has(cle)) imposes++; else libres++; };
@@ -250,7 +260,7 @@ export function morceauxDeVariante(v) {
   const t = v.translation;
   for (const e of v.elements) {
     const [a, b, c, d] = ISOMETRIES[e.g];
-    const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cible[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cible[0];
+    const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cibleG[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cibleG[0]; // de l'image par l'isométrie jusqu'à la case finale (demi-période, puis translation du tore)
     const rd = v.rendus[e.bit];
     const locaux = [];
     const base = e.poly ? e.poly.map(([x, y]) => [x, y]) : [[0, 0], [1, 0], [1, 1], [0, 1]];
@@ -352,7 +362,7 @@ function elargi(poly) {
 // ---------- le SVG ----------
 // Le motif dans le fond, variante : les éléments transportés (matrice SVG autour du centre), chacun découpé à son triangle. `translation` : le dessin du
 // représentant translaté sur le tore (les 256 se déduisent des 64) ; `echange` inverse les couleurs, comme la lecture.
-export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', phases = null, translation = null, trace = false } = {}) {
+export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', phases = null, translation = null, trace = false, demiPeriode = false } = {}) {
   const A = symbolesDe(fond, palette, { prefixe: `${prefixe}a-` });
   const B = symbolesDe(fond, [palette[1], palette[0]], { prefixe: `${prefixe}b-` });
   const s = size / GRILLE, ctr = size / 2;
@@ -360,10 +370,10 @@ export function varianteSvg(cases, palette, fond, { size = 864, prefixe = 'v-', 
   const n = (x) => String(Math.round(x * 1000) / 1000);
   let uid = 0, corps = '';
   const defs = [A.defs, B.defs];
-  const variante = new Variante(cases, fond, phases, translation);
+  const variante = new Variante(cases, fond, phases, translation, { demiPeriode });
   for (const e of variante.elements) {
     const [a, b, c, d] = ISOMETRIES[e.g];
-    const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cible[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cible[0];
+    const tx = ((e.cible[1] + t.dx) % GRILLE) - e.cibleG[1], ty = ((e.cible[0] + t.dy) % GRILLE) - e.cibleG[0]; // de l'image par l'isométrie jusqu'à la case finale (demi-période, puis translation du tore)
     const M = `translate(${n(tx * s)} ${n(ty * s)}) matrix(${a} ${c} ${b} ${d} ${n(ctr - a * ctr - b * ctr)} ${n(ctr - c * ctr - d * ctr)})`;
     const ref = (e.inv ^ t.echange) ? B.ref : A.ref;
     let uti = `<use href="#${ref}-${e.bit}" x="${n(e.q * s)}" y="${n(e.r * s)}" width="${n(s)}" height="${n(s)}"/>`;
