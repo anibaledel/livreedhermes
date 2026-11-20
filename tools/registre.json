@@ -1224,6 +1224,23 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_trace_rouge.mjs",
+   "role": "le tracé rouge (prompt 210, §5) suit exactement la frontière entre régions de couleurs différentes, en navigateur.",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/phases-b2d-64.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_tuiles.mjs",
    "role": "les tuiles de navigation (les boutons animés du bas de page) sont sur TOUTES les adresses du sitemap, dans la langue de la page.",
    "lit": [
