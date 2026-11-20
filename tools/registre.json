@@ -277,6 +277,20 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_spectre_classes.mjs",
+   "role": "les quatre motifs d'une classe de translation du corpus (prompt 211, §3) ont le MÊME spectre d'amplitude.",
+   "lit": [
+    "data/corpus-256.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_article.mjs",
    "role": "un article du site, tel qu'un lecteur le reçoit : 1.",
    "lit": [],

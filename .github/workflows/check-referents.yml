@@ -39,6 +39,7 @@ jobs:
       # le corpus binaire des animations (prompt 209) : recalculé depuis le référent des 360 calques et la lecture binaire ; --essai : des fichiers faussés sont refusés
       - run: node tools/corpus_256.mjs --verifie
       - run: node tools/corpus_256.mjs --essai
+      - run: node tools/check_spectre_classes.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
       - run: python3 tools/verify_quadricolore.py --json
       - run: python3 tools/verify_cle_couleurs.py
