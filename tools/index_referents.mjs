@@ -101,6 +101,17 @@ const REFERENTS = [
     sources: ['data/corpus-256.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
   },
   {
+    id: 'phases-b2d-dp-64',
+    objet: "Les rotations de la version CORRIGÉE de B2D (prompt 185 : mode échange, transport aussi par la demi-période) des 64 représentants du corpus ; raccords brisés : 0 pour les 32 motifs « =i=i==ii », 48 pour les 32 « ====iiii » (la limite).",
+    nombre: 64,
+    compte: (r) => [Object.keys(r.motifs).length],
+    compte_par: 'Object.keys(motifs).length',
+    chemin: 'data/fonds/phases-b2d-dp-64.json',
+    generateur: 'tools/phases_b2d.mjs',
+    verificateurs: ['tools/phases_b2d.mjs'],
+    sources: ['data/corpus-256.json', 'assets/fonds-variantes.js', 'data/fonds/collection-v1.json'],
+  },
+  {
     id: 'symetries-64',
     objet: "Les symétries de la lecture binaire des 64 représentants du corpus (prompt 210) : les 8 isométries du carré, avec la règle d'inversion des couleurs de chaque motif (« =i=i==ii » ou « ====iiii »).",
     nombre: 64,

@@ -1,6 +1,10 @@
 {
- "_doc": "La demi-période des fonds (prompt 185) : pour chaque fond et chacun des 64 représentants du corpus, le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées (0 point en défaut sur 96 × 96 points) ; « exacts » compte les motifs exacts sur 64, « par_famille » selon data/symetries-64.json, « exacts_sur_256 » les 256 par translation du tore. « proposes » : les fonds à 64 / 64, les seuls que l'application, les exports Pinterest et les codes de collection proposent. Écrit par tools/check_demi_periode.mjs.",
+ "_doc": "La demi-période des fonds (prompt 185) : pour chaque fond et chacun des 64 représentants du corpus, le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées (0 point en défaut sur 96 × 96 points) ; « exacts » compte les motifs exacts sur 64, « par_famille » selon data/symetries-64.json, « exacts_sur_256 » les 256 par translation du tore. « corrige » : la même mesure sur la version corrigée du fond (mode échange, transport aussi par la demi-période). « approuves » : les fonds qu'Anibal a approuvés (data/fonds/fonds-approuves.json). « proposes » : les fonds à 64 / 64 ET approuvés, les seuls que l'application, les exports Pinterest et les codes de collection proposent (assets/fonds-retenus.js). Écrit par tools/check_demi_periode.mjs.",
  "echantillon": "96 × 96 points, décalés de (0.37 ; 0.61) pas",
+ "approuves": [
+  "P",
+  "B11211D"
+ ],
  "proposes": [
   "P",
   "B11211D"
@@ -21,7 +25,10 @@
    },
    "exacts_sur_256": 256,
    "sur_256": 256,
-   "defaut_maximal": 0
+   "defaut_maximal": 0,
+   "mode": "echange",
+   "v1_est_v0_echange": 1,
+   "corrige": null
   },
   "B2": {
    "exacts": 0,
@@ -38,7 +45,27 @@
    },
    "exacts_sur_256": 0,
    "sur_256": 256,
-   "defaut_maximal": 0.5
+   "defaut_maximal": 0.5,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.5,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B3": {
    "exacts": 0,
@@ -55,7 +82,27 @@
    },
    "exacts_sur_256": 0,
    "sur_256": 256,
-   "defaut_maximal": 0.375
+   "defaut_maximal": 0.375,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.444,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B4": {
    "exacts": 0,
@@ -72,7 +119,27 @@
    },
    "exacts_sur_256": 0,
    "sur_256": 256,
-   "defaut_maximal": 0.5
+   "defaut_maximal": 0.5,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.5,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B121": {
    "exacts": 0,
@@ -89,7 +156,27 @@
    },
    "exacts_sur_256": 0,
    "sur_256": 256,
-   "defaut_maximal": 0.5
+   "defaut_maximal": 0.5,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.5,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B2D": {
    "exacts": 0,
@@ -106,7 +193,27 @@
    },
    "exacts_sur_256": 0,
    "sur_256": 256,
-   "defaut_maximal": 0.917
+   "defaut_maximal": 0.917,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.5,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B4D": {
    "exacts": 2,
@@ -123,7 +230,27 @@
    },
    "exacts_sur_256": 8,
    "sur_256": 256,
-   "defaut_maximal": 0.806
+   "defaut_maximal": 0.806,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.5,
+   "corrige": {
+    "exacts": 64,
+    "sur": 64,
+    "par_famille": {
+     "=i=i==ii": {
+      "exacts": 32,
+      "sur": 32
+     },
+     "====iiii": {
+      "exacts": 32,
+      "sur": 32
+     }
+    },
+    "exacts_sur_256": 256,
+    "sur_256": 256,
+    "defaut_maximal": 0,
+    "conflits_de_transport": 0
+   }
   },
   "B11211D": {
    "exacts": 64,
@@ -140,7 +267,10 @@
    },
    "exacts_sur_256": 256,
    "sur_256": 256,
-   "defaut_maximal": 0
+   "defaut_maximal": 0,
+   "mode": "rotation",
+   "v1_est_v0_echange": 0.444,
+   "corrige": null
   }
  }
 }

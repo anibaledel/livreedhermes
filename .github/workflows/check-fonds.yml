@@ -94,6 +94,9 @@ jobs:
       # la demi-période (prompt 185) : le rendu décalé de 6 cases est le rendu aux couleurs échangées ; les fonds qui ne la tiennent pas à 64 / 64 ne sont pas proposés
       - run: node tools/check_demi_periode.mjs
       - run: node tools/check_demi_periode.mjs --essai
+      # seuls les fonds proposés (demi-période à 64 / 64 ET approuvés) sont offerts : animations, exports Pinterest, codes de collection
+      - run: node tools/check_fonds_proposes.mjs
+      - run: node tools/check_fonds_proposes.mjs --essai
       - run: node tools/check_recette_32.mjs
       - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs

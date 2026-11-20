@@ -1,0 +1,5 @@
+{
+ "_doc": "Les fonds qu'Anibal a APPROUVÉS pour être proposés (application, exports Pinterest, codes de collection). Écrit à la main, sur décision d'Anibal : un fond n'entre dans « proposes » (data/fonds/demi-periode.json) que s'il tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs) ET s'il figure ici. Le test échoue si un fond approuvé ne tient pas la demi-période.",
+ "approuves": ["P", "B11211D"],
+ "decision": "Anibal, prompt 185 — P (l'aplat publié) et B11211D (64 / 64 exacts, aspect validé) ; les fonds corrigés (B2, B3, B4, B121, B2D, B4D) ne sont pas approuvés tant qu'il n'a pas jugé leur aspect."
+}

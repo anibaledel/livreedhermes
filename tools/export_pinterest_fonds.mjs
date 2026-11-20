@@ -43,6 +43,12 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const code = args[0];
 if (!code || code.startsWith('--')) { console.error('Usage : node tools/export_pinterest_fonds.mjs <code> [--limite N] [--sortie DIR]'); process.exit(2); }
+// seuls les fonds PROPOSÉS (data/fonds/demi-periode.json : demi-période à 64 / 64 ET approuvés) s'exportent ; un code déjà publié reste exportable (prompt 185)
+{
+  const { refuserSiNonPropose } = await import('./lib_fonds_retenus.mjs');
+  const refus = refuserSiNonPropose(code, JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8')));
+  if (refus) { console.error(`ÉCHEC ${refus}`); process.exit(2); }
+}
 const limite = args.includes('--limite') ? Number(args[args.indexOf('--limite') + 1]) : Infinity;
 const sortie = args.includes('--sortie') ? args[args.indexOf('--sortie') + 1] : path.join(ROOT, 'assets/motifs-pinterest', code);
 const palette = args.includes('--palette') ? args[args.indexOf('--palette') + 1].split(',').map((c) => `#${c.replace('#', '').toLowerCase()}`) : [...PALETTE_DEFAUT];

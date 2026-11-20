@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-20T15:40:52Z",
+ "generated_at_utc": "2026-11-20T16:10:29Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 308,
+  "scripts": 311,
   "sans_licence_declaree": 74,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1930,15 +1930,16 @@
   {
    "chemin": "tools/check_demi_periode.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_demi_periode.mjs",
-   "octets": 7489,
-   "sha256": "a6476802e1b0d35ef411293374e83616d066a542b6ca3d39b59bae3204c53cf3",
-   "md5": "7913d6b3a9aa2151d51ca457362520fc",
+   "octets": 11227,
+   "sha256": "433484bc136e079d749802d98c75e2b46332a3ee60cee1dc3e91e85847343f4a",
+   "md5": "e751a7d0f5ccaa43abe20114930d5836",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la DEMI-PÉRIODE des fonds (prompt 185) : décaler le rendu de 6 cases en ligne et en colonne donne le rendu aux couleurs ÉCHANGÉES.",
    "lit": [
     "corpus-256",
     "phases-b2d-64",
+    "phases-b2d-dp-64",
     "symetries-64",
     "demi-periode"
    ],
@@ -2128,6 +2129,23 @@
    "role": "fonds-ecran.html n'a qu'UNE source de motifs : data/fonds_ecran_v1.json.",
    "lit": [
     "constructions-1024"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_fonds_proposes.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_fonds_proposes.mjs",
+   "octets": 3903,
+   "sha256": "01766bd45f5303989d23e99d7992c766f39e644ff87359e4ecd83f7ebdbcea74",
+   "md5": "d8122bb1c93989d0f549ec5180fd1630",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P et B11211D aujourd'hui, lus dans data/fonds/demi-periode.json.",
+   "lit": [
+    "demi-periode"
    ],
    "ecrit": [],
    "durees": [],
@@ -2816,8 +2834,8 @@
    "chemin": "tools/check_symetries_rendu.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_symetries_rendu.mjs",
    "octets": 9495,
-   "sha256": "91a5a2734323c7b23788aef8518c586562d9c165105b5bd91ae2497d762c6fae",
-   "md5": "a94ea15c923f576537bbf83b6ab6cd5e",
+   "sha256": "792fe350d5dda019476db609b6b15c583f80ad497e39d3cde98eb88fd31113c0",
+   "md5": "f5774e28241a53ac57a3e18aaaf69288",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les variantes de fonds respectent les symétries du motif, et se pavent sans rupture (prompt 210, §6.1 et §6.4), en navigateur.",
@@ -2880,8 +2898,8 @@
    "chemin": "tools/check_trace_rouge.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_trace_rouge.mjs",
    "octets": 9408,
-   "sha256": "17cc9c9adf6c619a57fb0e80164953846dd04b16f4e6b0e372f237b5ba20dff6",
-   "md5": "33d1fb6acdefe85141a9c7d6b6a46ad2",
+   "sha256": "a6f9b1fe5f40a1bc16201b3c6ea1ca71fd34b34167d14b8f01dc65a6c7a13e4e",
+   "md5": "fd3df2530595196e17d05664029fd045",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le tracé rouge (prompt 210, §5) suit exactement la frontière entre régions de couleurs différentes, en navigateur.",
@@ -3443,13 +3461,15 @@
   {
    "chemin": "tools/export_pinterest_fonds.mjs",
    "adresse": "https://anibal-amiot.com/tools/export_pinterest_fonds.mjs",
-   "octets": 6719,
-   "sha256": "949dd83bada3219632bb5e37b9ab6ff64c9d6aceabbc0659f86f7b5c615b6b49",
-   "md5": "be2b61ae1f1e081ae0117b0d7aaf2b76",
+   "octets": 7169,
+   "sha256": "ff41de4d263ccb754b86ec9b628f8728cae781468d28e0868bd727e88f3b5a0c",
+   "md5": "27e712279ca8b48eb959827774799fc5",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Une collection Pinterest : les 256 motifs du corpus, chacun dans un fond (et une superposition facultative), au format assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500 (le 2:3 de Pinterest, le motif répété 6 × 9).",
-   "lit": [],
+   "lit": [
+    "demi-periode"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3804,9 +3824,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 13890,
-   "sha256": "30604566cf6e16e02bfd398c0e80364c2cbd78c75d27ceffe59127f72276c591",
-   "md5": "311a1b25f2f16243c072816ac1986654",
+   "octets": 14533,
+   "sha256": "d84eb1297ace1973e2f86ba3a30af28794a7f514fd6a00417049a361647921fb",
+   "md5": "476a520b7502fe7787eb1f6674ab1e80",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
@@ -3816,6 +3836,7 @@
     "constructions-1024",
     "corpus-256",
     "phases-b2d-64",
+    "phases-b2d-dp-64",
     "symetries-64",
     "demi-periode"
    ],
@@ -3864,6 +3885,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "lire ce qui a été ARCHIVÉ (prompt 200, étape B).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/lib_fonds_retenus.mjs",
+   "adresse": "https://anibal-amiot.com/tools/lib_fonds_retenus.mjs",
+   "octets": 1660,
+   "sha256": "7dce5c8847d33ac64f171a0f6193467f0e7d5842c7ac0184f3affe53024887e0",
+   "md5": "7154dbcb22830400d9279048a84c37ed",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la liste des fonds PROPOSÉS, lue pour les outils (prompt 185) : data/fonds/demi-periode.json (« proposes »), jamais une liste écrite à la main.",
+   "lit": [
+    "demi-periode"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -4174,15 +4212,16 @@
   {
    "chemin": "tools/phases_b2d.mjs",
    "adresse": "https://anibal-amiot.com/tools/phases_b2d.mjs",
-   "octets": 12827,
-   "sha256": "dbb0310bf72e6c63814a8a03e8ae5760e242dfee3a7a4ea61cc4b7d26ed57f64",
-   "md5": "135bde14cbc24227365d95523936af65",
+   "octets": 14773,
+   "sha256": "c9d54c2f9d15ccb22319b8e23b752868959e3290b5727ce1ea0c3eb6280f5ba5",
+   "md5": "20ff6f22ff0c23288068709205a24408",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les rotations du fond B2D sur les 64 représentants du corpus : 0 raccord brisé (prompt 210, §4).",
    "lit": [
     "corpus-256",
-    "phases-b2d-64"
+    "phases-b2d-64",
+    "phases-b2d-dp-64"
    ],
    "ecrit": [],
    "durees": [],
@@ -4271,6 +4310,26 @@
      "source": "lot 3 : 224 cellules tricolores en niveaux de gris, manifeste"
     }
    ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/planche_demi_periode.mjs",
+   "adresse": "https://anibal-amiot.com/tools/planche_demi_periode.mjs",
+   "octets": 4507,
+   "sha256": "9b6fa721ea056f1ce3d2673129f8eb6ee66646780b4b779bd01294f1a5f9457c",
+   "md5": "9ee5defb2acd7392c332f61edebd6b7b",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les planches de comparaison du prompt 185 (étape 3) : pour un motif de chaque famille de symétrie et chaque fond à bandes, le motif d'origine (P) à côté du fond ACTUEL et du fond CORRIGÉ (mode échange, transport aussi par la demi-période…",
+   "lit": [
+    "corpus-256",
+    "phases-b2d-64",
+    "phases-b2d-dp-64",
+    "symetries-64"
+   ],
+   "ecrit": [],
+   "durees": [],
    "arborescence_requise": null,
    "zenodo": []
   },

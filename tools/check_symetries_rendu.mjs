@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, ISOMETRIES, FONDS_RETENUS, varianteSvg } from '../assets/fonds-variantes.js';
+import { Variante, ISOMETRIES, FONDS_ETUDIES, varianteSvg } from '../assets/fonds-variantes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
@@ -41,7 +41,7 @@ for (const cl of corpus.niveaux['64']) {
   const id = cl.representant.id;
   const cases = lectureBinaire(parId.get(id).tricolore, id).cases;
   const phases = phasesB2D[id].split('').map(Number);
-  for (const code of FONDS_RETENUS) {
+  for (const code of FONDS_ETUDIES) {
     const fond = collection.fonds.get(code);
     const variante = new Variante(cases, fond, code === 'B2D' ? phases : null);
     const svg = code === 'P' ? F.motifSvg(cases, PALETTE, fond, { size: N }) : varianteSvg(cases, PALETTE, fond, { size: N, phases: code === 'B2D' ? phases : null });

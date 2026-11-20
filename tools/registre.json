@@ -400,7 +400,9 @@
     "data/fonds/collection-v1.calculs.json",
     "data/fonds/collection-v1.json",
     "data/fonds/demi-periode.json",
+    "data/fonds/fonds-approuves.json",
     "data/fonds/phases-b2d-64.json",
+    "data/fonds/phases-b2d-dp-64.json",
     "data/symetries-64.json"
    ],
    "ecrit": [],
@@ -569,6 +571,24 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fonds_proposes.mjs",
+   "role": "seuls les fonds PROPOSÉS sont offerts (prompt 185, étape 4) : P et B11211D aujourd'hui, lus dans data/fonds/demi-periode.json.",
+   "lit": [
+    "assets/fonds-retenus.js",
+    "data/fonds/collections-pinterest.json",
+    "data/fonds/demi-periode.json",
+    "data/fonds/fonds-approuves.json",
+    "tools/lib_fonds_retenus.mjs"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/check_galerie_animations.mjs",
@@ -2052,6 +2072,7 @@
     "data/fonds/collection-v1.json",
     "data/fonds/demi-periode.json",
     "data/fonds/phases-b2d-64.json",
+    "data/fonds/phases-b2d-dp-64.json",
     "data/fonds_ecran_v1.json",
     "data/referent_256_src/MANIFEST.json",
     "data/referent_256_v3.json",
@@ -2120,6 +2141,21 @@
     "tools/check_export_pinterest.mjs",
     "tools/epingles_pinterest.mjs",
     "tools/restaurer_archive.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/lib_fonds_retenus.mjs",
+   "role": "la liste des fonds PROPOSÉS, lue pour les outils (prompt 185) : data/fonds/demi-periode.json (« proposes »), jamais une liste écrite à la main.",
+   "lit": [
+    "data/fonds/demi-periode.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_fonds_proposes.mjs",
+    "tools/export_pinterest_fonds.mjs"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -2401,7 +2437,8 @@
     "data/corpus-256.json",
     "data/fonds/collection-v1.calculs.json",
     "data/fonds/collection-v1.json",
-    "data/fonds/phases-b2d-64.json"
+    "data/fonds/phases-b2d-64.json",
+    "data/fonds/phases-b2d-dp-64.json"
    ],
    "ecrit": [],
    "appele_par": [
@@ -2457,6 +2494,23 @@
    "lit": [
     "data/fonds_ecran_v1.json",
     "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/planche_demi_periode.mjs",
+   "role": "les planches de comparaison du prompt 185 (étape 3) : pour un motif de chaque famille de symétrie et chaque fond à bandes, le motif d'origine (P) à côté du fond ACTUEL et du fond CORRIGÉ (mode échange, transport aussi par la demi-période…",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds/phases-b2d-64.json",
+    "data/fonds/phases-b2d-dp-64.json",
+    "data/symetries-64.json"
    ],
    "ecrit": [],
    "appele_par": [],

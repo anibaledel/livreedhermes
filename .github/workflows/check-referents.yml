@@ -43,6 +43,9 @@ jobs:
       # les variantes de fonds sur le corpus de 64 (prompt 210) : les rotations de B2D (0 raccord brisé), les symétries mesurées
       - run: node tools/phases_b2d.mjs --verifie
       - run: node tools/phases_b2d.mjs --essai
+      # B2D corrigé (prompt 185) : mode échange, transport aussi par la demi-période
+      - run: node tools/phases_b2d.mjs --demi-periode --verifie
+      - run: node tools/phases_b2d.mjs --demi-periode --essai
       - run: node tools/check_symetries_corpus.mjs --essai
       - run: node tools/symetries_64.mjs --verifie
       - run: node tools/symetries_64.mjs --essai

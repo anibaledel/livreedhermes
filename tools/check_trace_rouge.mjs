@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import * as F from '../assets/bicolore-fonds.js';
-import { Variante, FONDS_RETENUS, varianteSvg, frontieres } from '../assets/fonds-variantes.js';
+import { Variante, FONDS_ETUDIES, varianteSvg, frontieres } from '../assets/fonds-variantes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
@@ -38,7 +38,7 @@ const jobs = [];
 corpus.niveaux['64'].forEach((cl, i) => {
   if (i % 4) return;
   const id = cl.representant.id, cases = lectureBinaire(parId.get(id).tricolore, id).cases;
-  for (const code of FONDS_RETENUS) {
+  for (const code of FONDS_ETUDIES) {
     const phases = code === 'B2D' ? phasesB2D[id].split('').map(Number) : null;
     const v = new Variante(cases, collection.fonds.get(code), phases);
     let segs = frontieres(v);
