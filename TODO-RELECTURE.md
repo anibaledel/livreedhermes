@@ -1361,3 +1361,7 @@ Mots à confirmer : « Morceau fourni », « Note pure », « Enregistrer 15 s d
 
 À relire : le titre de l'interface dans chaque langue (clé `titreApp` de `assets/pavane-textes.js`, repris de la clé `h1` de « Voir sa musique » de chaque langue) ; le lien discret « Essayer la nouvelle interface » (fonds-ecran.html et ses traductions, chladni.html et ses traductions : fr, en, es de CC ; th à relire).
 Règle du nom (Anibal) : « Voir sa musique » partout ; « Pavane » seulement en sous-titre rendu par l'interface, jamais dans un titre de page, une méta, un JSON-LD, le sitemap ni aucun HTML statique (contrôlé par tools/check_pavane_pages.mjs). La recherche d'antériorité sur « Pavane » n'est pas faite.
+
+## Prompt 220 §5 — plus de « Pavane »
+
+Décision d'Anibal : l'application s'appelle « Voir sa musique », rien d'autre. Le sous-titre « Pavane » est retiré de l'interface (titre, lanceur compact, signature de la vidéo) ; `SOUS_TITRE` n'existe plus dans `assets/pavane-nom.js`. Les fichiers `assets/pavane-*.js` gardent leur nom (renommage reporté), les clés d'adresse ne changent pas. Contrôle : `tools/check_pavane_pages.mjs` (aucun HTML, sitemap ni index machine ne dit Pavane ; texte rendu et libellés d'accessibilité propres aux trois langues testées). À relire : rien de nouveau à traduire.

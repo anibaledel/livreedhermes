@@ -9,7 +9,6 @@ import { APLAT } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { varianteSvg } from './fonds-variantes.js';
 import { fondsRetenus } from './fonds-retenus.js';
-import { SOUS_TITRE } from './pavane-nom.js';
 import { lireEtat, ecrireEtat, fusionnerRecherche, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';
 import { NIVEAUX_CORPUS } from './corpus-animation.js';
@@ -96,7 +95,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
     el('label', {}, cTrace, el('span', { text: T('trace') })), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo));
-  racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp'), ' ', el('span', { class: 'pv-sous-titre', text: SOUS_TITRE })), modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
+  racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
   racine.classList.toggle('pv-reduit', reduit);
 
   // ---------- le rendu ----------
@@ -269,7 +268,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     const dessiner = async () => {
       if (dernierMotif !== idCourant) { dernierMotif = idCourant; image = await chargerImage(svgCourant); }
       peindre(c, taille, taille, image);
-      const lignes = [`${T('titreApp')} · ${SOUS_TITRE}`, ...(son.actif === 'morceau' ? [T('mentionIA')] : [])]; // la signature (le nom, Pavane en sous-titre), et la mention de l'IA pour les morceaux fournis
+      const lignes = [T('titreApp'), ...(son.actif === 'morceau' ? [T('mentionIA')] : [])]; // la signature (le nom), et la mention de l'IA pour les morceaux fournis
       const haut = 20 + lignes.length * 34; c.fillStyle = 'rgba(19,19,24,0.6)'; c.fillRect(0, taille - haut, taille, haut);
       c.fillStyle = '#f2f2f2'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '600 26px "Noto Sans SC LDH", "Noto Sans Thai LDH", "Noto Sans Devanagari LDH", "Roboto Condensed LDH", system-ui, sans-serif';
       lignes.forEach((l, i) => c.fillText(l, taille / 2, taille - haut + 26 + i * 34));

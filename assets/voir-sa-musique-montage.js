@@ -22,12 +22,10 @@ if (hote) {
   if (demande) lancer();
   else {
     const { texte } = await import('./pavane-textes.js');
-    const { SOUS_TITRE } = await import('./pavane-nom.js');
     const css = new URL('pavane.css', import.meta.url).href;
     if (!document.querySelector(`link[href="${css}"]`)) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = css; document.head.append(l); }
     hote.classList.add('pv');
-    const titre = document.createElement('h2'); titre.className = 'pv-titre'; titre.append(texte(langue, 'titreApp') + ' ');
-    const sous = document.createElement('span'); sous.className = 'pv-sous-titre'; sous.textContent = SOUS_TITRE; titre.append(sous);
+    const titre = document.createElement('h2'); titre.className = 'pv-titre'; titre.append(texte(langue, 'titreApp'));
     const bouton = document.createElement('button'); bouton.type = 'button'; bouton.className = 'pv-ouvrir'; bouton.textContent = texte(langue, 'ouvrir');
     const barre = document.createElement('div'); barre.className = 'pv-lanceur'; barre.append(titre, bouton);
     hote.replaceChildren(barre);

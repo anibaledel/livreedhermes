@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-21T14:58:27Z",
+ "generated_at_utc": "2026-11-21T16:56:15Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2583,9 +2583,9 @@
   {
    "chemin": "tools/check_pavane_moteur.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_moteur.mjs",
-   "octets": 12914,
-   "sha256": "51bbc9163755bd6fe03ea3f2c9d2a049cb9ff8139d5eaf609ede759bd98021d8",
-   "md5": "00afba7647755d0bc81708a41980625d",
+   "octets": 12881,
+   "sha256": "254570616a42011ded934bf43529daffb6208b68082066962d4dc5cfdfb6cc5a",
+   "md5": "999ab037d776bf9f9700dcb8a05ed38e",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
@@ -2600,9 +2600,9 @@
   {
    "chemin": "tools/check_pavane_pages.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_pages.mjs",
-   "octets": 11829,
-   "sha256": "2b9e26de4f75aca7c06b389cf2d9e4e16ce5a625cc8f531381565fe7cae693a5",
-   "md5": "87ae87881e4153ba866a5c1cee88f30d",
+   "octets": 12118,
+   "sha256": "94616779231bd5035da34490b529598ea259d07eba175cae4bd860a04f4ebd72",
+   "md5": "cde0f0d931d6e43cfe7eac00aa0e7925",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la nouvelle interface de « Voir sa musique » dans les pages (prompt 211, bloc 3).",

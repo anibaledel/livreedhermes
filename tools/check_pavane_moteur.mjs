@@ -16,7 +16,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SHELLS12, frequenceSelonLoi } from '../assets/musique-chladni-moteur.js';
-import { NOM_COMPLET, NOM_PUBLIC, SOUS_TITRE } from '../assets/pavane-nom.js';
+import * as NOM from '../assets/pavane-nom.js';
 import * as P from '../assets/pavane-moteur.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,7 +24,7 @@ const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 
 const essai = process.argv.includes('--essai');
 let echecs = 0;
 const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
-if (NOM_PUBLIC !== 'Voir sa musique' || SOUS_TITRE !== 'Pavane' || NOM_COMPLET !== 'Voir sa musique') ko(`le nom est « ${NOM_COMPLET} » (Voir sa musique, Pavane en sous-titre seulement : ${NOM_PUBLIC} / ${SOUS_TITRE})`);
+if (NOM.NOM_PUBLIC !== 'Voir sa musique' || NOM.NOM_COMPLET !== 'Voir sa musique' || 'SOUS_TITRE' in NOM) ko(`le nom est « ${NOM.NOM_COMPLET} » (Voir sa musique, sans sous-titre : ${Object.keys(NOM).join(', ')})`);
 
 // ---------- Défilé ----------
 function verifierDefile(niveau, graine, suite, d, n) {
@@ -181,4 +181,4 @@ if (essai) {
   console.log(`OK    --essai : deux pas permutés sont refusés (${echecs} écart(s)).`); process.exit(0);
 }
 if (echecs) { console.error(`\n${echecs} défaut(s).`); process.exit(1); }
-console.log(`OK    moteur de ${NOM_COMPLET} : défilé aux niveaux 64 / 128 / 256 (3 graines, 2 cycles chacun : aucun motif répété avant la fin du cycle, chaque pas au plus proche non vu ; minuteur = pulsation simulée) ; spectre : ${retrouves} représentants sur 64 retrouvés par leur spectre (${ex} ex æquo de même spectre), choix stable sur son bruité, dans le corpus de 64 ; entre-deux : toujours parmi les 8 plus ressemblants (2 400 pas), ${avec.changes.length} changements à la pulsation en 30 s, repli au minuteur annoncé sans pulsation (${sans.changes.length} changements).`);
+console.log(`OK    moteur de ${NOM.NOM_COMPLET} : défilé aux niveaux 64 / 128 / 256 (3 graines, 2 cycles chacun : aucun motif répété avant la fin du cycle, chaque pas au plus proche non vu ; minuteur = pulsation simulée) ; spectre : ${retrouves} représentants sur 64 retrouvés par leur spectre (${ex} ex æquo de même spectre), choix stable sur son bruité, dans le corpus de 64 ; entre-deux : toujours parmi les 8 plus ressemblants (2 400 pas), ${avec.changes.length} changements à la pulsation en 30 s, repli au minuteur annoncé sans pulsation (${sans.changes.length} changements).`);

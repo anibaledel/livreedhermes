@@ -5,10 +5,10 @@
 // check_pavane_pages.mjs — la nouvelle interface de « Voir sa musique » dans les pages (prompt 211, bloc 3).
 //
 // Statique : la section #nouvelle-interface et son script sont dans musique-chladni.html et ses 10 traductions ; « Pavane » n'est écrit NULLE PART dans une page HTML (ni titre, ni méta, ni JSON-LD, ni texte statique), ni dans
-// le sitemap : le nom de travail n'apparaît qu'en sous-titre, rendu par l'interface ; fonds-ecran.html et chladni.html (et leurs traductions) ont un lien discret « Essayer la nouvelle interface » vers la page
+// le sitemap : l'application s'appelle « Voir sa musique », rien d'autre (prompt 220) ; fonds-ecran.html et chladni.html (et leurs traductions) ont un lien discret « Essayer la nouvelle interface » vers la page
 // « Voir sa musique » de LEUR langue, sans rien cacher du contenu existant.
 // Navigateur (fr, en, ja ; 390 et 1280 px) : rien n'est chargé tant que la section n'approche pas de l'écran (le corpus n'est pas demandé) ; l'adresse (#nouvelle-interface ou ?mode=…) la monte ; son titre est celui de la page dans la
-// langue de la page, avec Pavane en sous-titre ; l'interface actuelle de la page est intacte ; ?morceau= et ?mode=avance de la page sont gardés quand Pavane écrit l'adresse ; ?mode=avance ne monte pas Pavane ;
+// langue de la page, sans sous-titre ni « Pavane » dans le texte rendu ; l'interface actuelle de la page est intacte ; ?morceau= et ?mode=avance de la page sont gardés quand Pavane écrit l'adresse ; ?mode=avance ne monte pas Pavane ;
 // aucune erreur de console ; axe-core sur la section. Usage : node tools/check_pavane_pages.mjs [local | <adresse de base>]
 import { chromium } from 'playwright';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
@@ -67,15 +67,16 @@ for (const langue of ['fr', 'en', 'ja']) {
     let { ctx, page, erreurs, requetes } = await ouvrir(largeur, langue, '');
     await page.waitForSelector('#nouvelle-interface .pv-ouvrir', { timeout: 10000 }).catch(() => {});
     await page.waitForTimeout(500);
-    const lanceur = await page.evaluate(() => { const b = document.querySelector('#nouvelle-interface .pv-ouvrir'), h = document.querySelector('#nouvelle-interface .pv-titre'); return b ? { bouton: b.textContent, titre: h.firstChild.textContent.trim(), sous: h.querySelector('.pv-sous-titre').textContent, haut: Math.round(document.getElementById('nouvelle-interface').getBoundingClientRect().height) } : null; });
-    ok(lanceur && lanceur.titre === TITRES[langue] && lanceur.sous === 'Pavane' && lanceur.bouton.length > 5, `${nom} : le lanceur porte le titre « ${lanceur && lanceur.titre} », Pavane en sous-titre, et un bouton « ${lanceur && lanceur.bouton} »`);
+    const lanceur = await page.evaluate(() => { const b = document.querySelector('#nouvelle-interface .pv-ouvrir'), h = document.querySelector('#nouvelle-interface .pv-titre'); return b ? { bouton: b.textContent, titre: h.textContent.trim(), sous: h.querySelectorAll('.pv-sous-titre').length, haut: Math.round(document.getElementById('nouvelle-interface').getBoundingClientRect().height) } : null; });
+    ok(lanceur && lanceur.titre === TITRES[langue] && lanceur.sous === 0 && lanceur.bouton.length > 5, `${nom} : le lanceur porte le titre « ${lanceur && lanceur.titre} », sans sous-titre, et un bouton « ${lanceur && lanceur.bouton} »`);
     ok(lanceur && lanceur.haut <= 140, `${nom} : le lanceur est compact (${lanceur && lanceur.haut} px) : l'interface actuelle reste visible`);
     ok(!requetes.some((u) => /corpus-256\.json|pavane-ui\.js|fonds-echange|demi-periode/.test(u)) && (await page.evaluate(() => !window.__pavane)), `${nom} : rien d'autre n'est chargé avant l'ouverture`);
     // 2. ouvrir la nouvelle interface la monte, au-dessus de l'interface actuelle
     await page.click('#nouvelle-interface .pv-ouvrir');
     await page.waitForFunction(() => window.__pavane, null, { timeout: 15000 }).catch(() => {});
-    const m = await page.evaluate(() => { const h = document.querySelector('#nouvelle-interface .pv-titre'); return h ? { titre: h.firstChild.textContent.trim(), sous: h.querySelector('.pv-sous-titre').textContent, modes: document.querySelectorAll('#nouvelle-interface .pv-modes input').length, dessus: document.getElementById('nouvelle-interface').compareDocumentPosition(document.querySelector('#vmPage .vm-ecouter')) & Node.DOCUMENT_POSITION_FOLLOWING } : null; });
-    ok(m && m.titre === TITRES[langue] && m.sous === 'Pavane' && m.modes === 3 && m.dessus, `${nom} : ouvrir monte l'interface (titre « ${m && m.titre} », sous-titre « ${m && m.sous} », ${m && m.modes} modes), au-dessus de l'interface actuelle`);
+    const m = await page.evaluate(() => { const h = document.querySelector('#nouvelle-interface .pv-titre'); return h ? { titre: h.textContent.trim(), sous: h.querySelectorAll('.pv-sous-titre').length, modes: document.querySelectorAll('#nouvelle-interface .pv-modes input').length, dessus: document.getElementById('nouvelle-interface').compareDocumentPosition(document.querySelector('#vmPage .vm-ecouter')) & Node.DOCUMENT_POSITION_FOLLOWING } : null; });
+    ok(m && m.titre === TITRES[langue] && m.sous === 0 && m.modes === 3 && m.dessus, `${nom} : ouvrir monte l'interface (titre « ${m && m.titre} », sans sous-titre, ${m && m.modes} modes), au-dessus de l'interface actuelle`);
+    ok(await page.evaluate(() => !/pavane/i.test(document.body.innerText + [...document.querySelectorAll('[aria-label],[title],[alt]')].map((e) => e.getAttribute('aria-label') + e.title + e.getAttribute('alt')).join(' ') + document.title)), `${nom} : « Pavane » n'est ni dans le texte rendu ni dans les libellés d'accessibilité`);
     ok(await page.evaluate(() => !!document.getElementById('vmPage') && document.querySelectorAll('#vmPage .vm-ecouter').length > 0), `${nom} : l'interface actuelle de la page est intacte`);
     ok(await page.evaluate(() => document.documentElement.scrollWidth) <= largeur, `${nom} : aucun débordement horizontal`);
     if (axe && langue === 'fr' && largeur === 1280) {
@@ -115,5 +116,5 @@ for (const langue of ['fr', 'en', 'ja']) {
 await nav.close();
 if (serveur && serveur.close) serveur.close();
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }
-console.log(`OK    Pavane dans les pages : ${controles} contrôles — section et script dans les 11 pages « Voir sa musique », « Pavane » absent de toute page HTML et du sitemap (sous-titre rendu par l'interface seulement), liens discrets sur fonds-ecran et chladni (4 langues), lanceur compact, montage à l'ouverture, adresses fusionnées${axe ? ', axe-core sans violation' : ''}.`);
+console.log(`OK    Pavane dans les pages : ${controles} contrôles — section et script dans les 11 pages « Voir sa musique », « Pavane » absent de toute page HTML et du sitemap (ni sous-titre ni texte rendu), liens discrets sur fonds-ecran et chladni (4 langues), lanceur compact, montage à l'ouverture, adresses fusionnées${axe ? ', axe-core sans violation' : ''}.`);
 process.exit(0);
