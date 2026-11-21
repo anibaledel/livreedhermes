@@ -113,6 +113,17 @@ for (const langue of ['fr', 'en', 'ja']) {
   ok(await r.page.evaluate(() => !window.__pavane), '?mode=avance seul ne monte pas Pavane (c\'est le mode Avancé de la page)');
   await r.ctx.close();
 }
+// ---------- « Pavane » : absent du texte VISIBLE des 11 pages, lanceur puis interface montée (texte rendu, libellés d'accessibilité, titre, méta, JSON-LD) ----------
+for (const [langue, f] of Object.entries(MUSIQUE)) {
+  const ctx = await nav.newContext({ viewport: { width: 390, height: 900 } }), page = await ctx.newPage();
+  await page.goto(`${BASE}/${f}`, { waitUntil: 'load' }); await page.waitForSelector('#nouvelle-interface .pv-ouvrir', { timeout: 10000 });
+  const visible = () => page.evaluate(() => [document.title, document.body.innerText, ...[...document.querySelectorAll('[aria-label],[title],[alt],[placeholder],meta[content],script[type="application/ld+json"]')].map((e) => [e.getAttribute('aria-label'), e.title, e.getAttribute('alt'), e.getAttribute('placeholder'), e.tagName === 'META' ? e.content : '', e.tagName === 'SCRIPT' ? e.textContent : ''].join(' '))].join(' '));
+  ok(!/pavane/i.test(await visible()), `${langue} : « Pavane » absent du texte visible, du titre, des méta, du JSON-LD et des libellés (lanceur)`);
+  await page.click('#nouvelle-interface .pv-ouvrir'); await page.waitForFunction(() => window.__pavane, null, { timeout: 15000 });
+  await page.click('#nouvelle-interface .pv-modes input[value="spectre"]'); await page.waitForTimeout(300);
+  ok(!/pavane/i.test(await visible()), `${langue} : « Pavane » absent du texte visible et des libellés (interface montée, mode Spectre, sources visibles)`);
+  await ctx.close();
+}
 await nav.close();
 if (serveur && serveur.close) serveur.close();
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }
