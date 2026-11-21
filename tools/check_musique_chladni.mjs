@@ -63,7 +63,8 @@ try {
   // Par défaut l'interface ne propose que l'ordre 12 (CONFIG.ordresProposes) : on le vérifie sur une page à part, avec ?ordre=18 (sans effet).
   {
     const p0 = await ctx.newPage(); await p0.goto(`${base}/musique-chladni.html?ordre=18`, { waitUntil: 'load' }); await p0.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
-    ok((await p0.$$('#vm-g-fmt .vm-o')).length === 1 && !(await p0.$('#vm-o-fmt-18')) && !(await p0.$('#vm-o-fmt-30')), 'par défaut, seul l\'ordre 12 est proposé');
+    ok(!(await p0.$('#vm-g-fmt')) && !(await p0.$('#vm-o-fmt-12')) && !(await p0.$('#vm-o-fmt-18')) && !(await p0.$('#vm-o-fmt-30')), 'par défaut, seul l\'ordre 12 existe : aucun choix du format (prompt 220)');
+    ok((await p0.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 5, 'cinq en-têtes par défaut : pilotage, collection, vue, variante de case, couleurs');
     ok((await p0.evaluate(() => window.__voirSaMusique.etat().valide.fmt)) === 12 && !(await p0.$('#vm-g-col [data-fmt="18"]')) && !(await p0.$('#vm-g-col [data-fmt="30"]')), '?ordre=18 doit retomber sur l\'ordre 12, sans collection des ordres 18 et 30');
     await p0.close();
   }
@@ -78,8 +79,8 @@ try {
   const ouvrir = async (g) => { await page.click(`#vm-g-${g}-btn`); };
   const choisir = async (g, v) => { await ouvrir(g); await page.click(`#vm-o-${g}-${v}`); };
 
-  // six en-têtes, deux fenêtres, ordre 12 seul
-  ok((await page.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6, 'six en-têtes attendus');
+  // six en-têtes (le Format est rouvert ici par le réglage), deux fenêtres, ordre 12 seul
+  ok((await page.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6, 'six en-têtes attendus quand les ordres 18 et 30 sont rouverts');
   ok(!(await page.isDisabled('#vm-o-fmt-18')) && !(await page.isDisabled('#vm-o-fmt-30')), 'les ordres 18 et 30 doivent être proposés');
   ok(!demandes.some((u) => /bloc-(18|30)-structure/.test(u)), 'les ordres 18 et 30 ne doivent pas se charger avant le premier choix du format');
   ok((await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B11211Dx', 'trois variantes de case attendues : Aplat, Triangles, Bandes (les fonds proposés, prompt 220)');
@@ -340,7 +341,7 @@ try {
       await va(pg);
       await pg.click('#vmPlus'); await pg.waitForTimeout(300);
       ok(await visible(pg, '.vm-opts') && await visible(pg, '#vmEssaiToile') && await visible(pg, '#vmValider') && await visible(pg, '#vmEntreeLigne'), 'Avancé : les groupes, la fenêtre Essai et l\'entrée audio doivent apparaître');
-      ok((await pg.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6 && (await pg.$$('.vm-details:not([hidden])')).length >= 5, 'Avancé : six groupes et les volets');
+      ok((await pg.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 5 && (await pg.$$('.vm-details:not([hidden])')).length >= 5, 'Avancé : cinq groupes (plus de choix du format) et les volets');
       ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic,essai,onglet', 'Avancé : musique d\'essai et audio d\'un onglet proposés');
       ok(await pg.getAttribute('#vmPlus', 'aria-expanded') === 'true' && (await pg.evaluate(() => localStorage.getItem('vm-mode'))) === 'avance', 'Avancé : aria-expanded et mémorisation attendus');
       await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.__voirSaMusique);
