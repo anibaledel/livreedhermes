@@ -56,7 +56,7 @@
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
     .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -234,6 +234,7 @@
     <h1 data-t="h1">看见你的音乐</h1>
     <noscript><p class="vm-sans-js" data-t="sansJs">聆听需要 JavaScript：请启用它，以听曲目并看图形移动。下面的文字和示例图片无需它也可阅读。</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <section class="vm-interface" id="nouvelle-interface"></section>
     <p class="vm-intro" data-t="intro">每一段音乐都有自己的特征：它的能量在各个频率上的分布方式。点击“聆听”：本页测量这份能量，画出声音的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与之最相似的那一个。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
@@ -311,6 +312,7 @@ monter();
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>
 <script type="module" src="../../assets/trois-portes.js"></script>
+<script type="module" src="../../assets/voir-sa-musique-montage.js"></script>
 
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">

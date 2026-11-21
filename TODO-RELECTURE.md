@@ -1356,3 +1356,8 @@ Mots à confirmer : « Défilé » (th ขบวน, ja パレード), « Entre-
 
 `assets/pavane-textes.js` : 24 libellés de plus × 11 langues (la clé « sources » devient le titre du groupe « Source du son » ; le texte provisoire « au prochain bloc » est retiré). Fr, en, es de CC ; les huit autres à relire, thaï et japonais d'abord.
 Mots à confirmer : « Morceau fourni », « Note pure », « Enregistrer 15 s de vidéo » ; la mention « Morceaux originaux composés avec l'aide de l'IA » (même sens que celle de « La semaine »).
+
+## Prompt 211 — Pavane, bloc 3 (les pages)
+
+À relire : le titre de l'interface dans chaque langue (clé `titreApp` de `assets/pavane-textes.js`, repris de la clé `h1` de « Voir sa musique » de chaque langue) ; le lien discret « Essayer la nouvelle interface » (fonds-ecran.html et ses traductions, chladni.html et ses traductions : fr, en, es de CC ; th à relire).
+Règle du nom (Anibal) : « Voir sa musique » partout ; « Pavane » seulement en sous-titre rendu par l'interface, jamais dans un titre de page, une méta, un JSON-LD, le sitemap ni aucun HTML statique (contrôlé par tools/check_pavane_pages.mjs). La recherche d'antériorité sur « Pavane » n'est pas faite.

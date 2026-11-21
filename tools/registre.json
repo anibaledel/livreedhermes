@@ -1025,6 +1025,35 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_pavane_pages.mjs",
+   "role": "la nouvelle interface de « Voir sa musique » dans les pages (prompt 211, bloc 3).",
+   "lit": [
+    "en/chladni/index.html",
+    "en/see-your-music",
+    "en/see-your-music/index.html",
+    "en/wallpapers/index.html",
+    "es/chladni/index.html",
+    "es/fondos-de-pantalla/index.html",
+    "es/ver-tu-musica",
+    "es/ver-tu-musica/index.html",
+    "hi/see-your-music/index.html",
+    "pt/see-your-music/index.html",
+    "ru/see-your-music/index.html",
+    "th/chladni/index.html",
+    "th/see-your-music",
+    "th/see-your-music/index.html",
+    "th/wallpapers/index.html",
+    "zh/see-your-music/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_pavane_son.mjs",
    "role": "les sources du son et l'enregistrement de « Pavane — Voir sa musique » (prompt 211 §2, §9.4 : audio simulé, pas de micro réel), en navigateur.",
    "lit": [
@@ -2244,6 +2273,7 @@
     "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",
     "tools/check_parcours_langues.mjs",
+    "tools/check_pavane_pages.mjs",
     "tools/check_pavane_son.mjs",
     "tools/check_pavane_ui.mjs",
     "tools/check_selecteur_fonds.mjs",

@@ -56,7 +56,7 @@
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
     .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -234,6 +234,7 @@
     <h1 data-t="h1">Die eigene Musik sehen</h1>
     <noscript><p class="vm-sans-js" data-t="sansJs">Das Anhören erfordert JavaScript: Aktivieren Sie es, um ein Stück zu hören und die Figur sich bewegen zu sehen. Der Text und das Beispielbild unten sind auch ohne lesbar.</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <section class="vm-interface" id="nouvelle-interface"></section>
     <p class="vm-intro" data-t="intro">Jede Musik hat eine Signatur: die Art, wie sich ihre Energie auf die Frequenzen verteilt. Tippen Sie auf „Anhören“: Die Seite misst diese Energie, zeichnet die Chladni-Figur des Klangs und sucht unter den Mustern von La Livrée d'Hermès dasjenige, dessen Spektrum ihr am meisten ähnelt. Die Wahl beruht auf der Ähnlichkeit zweier Spektren, nicht auf einem musikalischen Gesetz: Ein Muster „drückt“ ein Stück nicht „aus“.</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
@@ -311,6 +312,7 @@ monter();
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>
 <script type="module" src="../../assets/trois-portes.js"></script>
+<script type="module" src="../../assets/voir-sa-musique-montage.js"></script>
 
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">

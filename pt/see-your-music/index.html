@@ -56,7 +56,7 @@
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
     .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -234,6 +234,7 @@
     <h1 data-t="h1">Ver a sua música</h1>
     <noscript><p class="vm-sans-js" data-t="sansJs">Ouvir requer JavaScript: ative-o para ouvir uma peça e ver a figura mover-se. O texto e a imagem de exemplo abaixo podem ser lidos sem ele.</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <section class="vm-interface" id="nouvelle-interface"></section>
     <p class="vm-intro" data-t="intro">Cada música tem uma assinatura: a forma como a sua energia se reparte pelas frequências. Prima «Ouvir»: a página mede essa energia, desenha a figura de Chladni do som e procura, entre os padrões de La Livrée d'Hermès, aquele cujo espectro mais se lhe assemelha. A escolha assenta na semelhança de dois espectros, não numa lei musical: um padrão não «exprime» uma peça.</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
@@ -311,6 +312,7 @@ monter();
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>
 <script type="module" src="../../assets/trois-portes.js"></script>
+<script type="module" src="../../assets/voir-sa-musique-montage.js"></script>
 
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">

@@ -56,7 +56,7 @@
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
     .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -234,6 +234,7 @@
     <h1 data-t="h1">自分の音楽を見る</h1>
     <noscript><p class="vm-sans-js" data-t="sansJs">聴くには JavaScript が必要です。有効にすると曲が聞こえ、図形が動くのが見えます。下の文章と例の画像は、JavaScript なしでも読めます。</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <section class="vm-interface" id="nouvelle-interface"></section>
     <p class="vm-intro" data-t="intro">どんな音楽にも署名があります。エネルギーが周波数ごとにどう分かれているか、ということです。「聴く」を押すと、このページはそのエネルギーを測り、音が描くクラドニ図形を描いて、La Livrée d'Hermès の統一紋様の中から、スペクトルが最もよく似たものを探します。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
@@ -311,6 +312,7 @@ monter();
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>
 <script type="module" src="../../assets/trois-portes.js"></script>
+<script type="module" src="../../assets/voir-sa-musique-montage.js"></script>
 
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">

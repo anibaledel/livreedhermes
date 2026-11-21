@@ -168,6 +168,13 @@
    "es": "Ver tu música: <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">la página «Voir sa musique»</a> (en francés).",
    "th": "ดูดนตรีของคุณ: <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">หน้า «Voir sa musique»</a> (ภาษาฝรั่งเศส)",
    "source": "chladni.html (clé musiqueLien) : même phrase, mêmes traductions"
+  },
+  {
+   "fr": "<a href=\"musique-chladni.html?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">Essayer la nouvelle interface</a>",
+   "en": "<a href=\"en/see-your-music/?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">Try the new interface</a>",
+   "es": "<a href=\"es/ver-tu-musica/?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">Probar la nueva interfaz</a>",
+   "th": "<a href=\"th/see-your-music/?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">ลองใช้อินเทอร์เฟซใหม่</a>",
+   "source": "prompt 211 (bloc 3) : un lien discret vers la nouvelle interface de « Voir sa musique » ; EN/ES de CC, TH à relire"
   }
  ]
 }

@@ -56,7 +56,7 @@
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
     .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:4 / span 4; margin-top:0; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -234,6 +234,7 @@
     <h1 data-t="h1">มองเห็นดนตรีของคุณ</h1>
     <noscript><p class="vm-sans-js" data-t="sansJs">การฟังต้องใช้ JavaScript: โปรดเปิดใช้เพื่อฟังเพลงและดูรูปเคลื่อนไหว ข้อความและภาพตัวอย่างด้านล่างยังอ่านได้โดยไม่ต้องใช้</p></noscript>
     <nav class="trois-portes" data-page="musique" aria-label="Les trois pages sonores"></nav>
+    <section class="vm-interface" id="nouvelle-interface"></section>
     <p class="vm-intro" data-t="intro">ดนตรีทุกชิ้นมีลายเซ็นของตัวเอง คือวิธีที่พลังงานของมันกระจายไปตามความถี่ต่าง ๆ กด “ฟัง” แล้วหน้านี้จะวัดพลังงานนั้น วาดรูป Chladni ที่เสียงสร้างขึ้น และค้นหาในบรรดาลวดลายรวมเป็นหนึ่งของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด การเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง</p>
 
     <section class="vm-demarrage" aria-labelledby="vmSonLabel">
@@ -311,6 +312,7 @@ monter();
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>
 <script type="module" src="../../assets/trois-portes.js"></script>
+<script type="module" src="../../assets/voir-sa-musique-montage.js"></script>
 
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">

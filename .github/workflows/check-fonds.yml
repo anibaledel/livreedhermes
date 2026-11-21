@@ -154,6 +154,8 @@ jobs:
       - run: node tools/check_pavane_ui.mjs local --essai
       # le son de Pavane (bloc 2) : morceau fourni, note pure, fichier local, micro simulé, enregistrement d'image et de vidéo
       - run: node tools/check_pavane_son.mjs local
+      # la nouvelle interface dans les pages « Voir sa musique » (bloc 3) : section et script dans les 11 pages, Pavane seulement en sous-titre, montage paresseux, adresses fusionnées, liens discrets
+      - run: node tools/check_pavane_pages.mjs local
       # les variantes de fonds sur le corpus de 64 (prompt 210) : 512 rendus à 1200 px, symétries du motif tenues, pavage sans rupture (B2D : 0 raccord brisé)
       - run: node tools/check_symetries_rendu.mjs
       - run: node tools/check_symetries_rendu.mjs --essai
