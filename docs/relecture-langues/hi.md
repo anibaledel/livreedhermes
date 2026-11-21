@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | यह फ़ाइल ध्वनि के रूप में नहीं पढ़ी जा सकती। |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | ध्वनि शुरू नहीं हो पा रही: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | पृष्ठ का डेटा लोड नहीं होता: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | पृष्ठभूमियों के संग्रह में पट्टी {id} नहीं है |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | पृष्ठभूमियों के संग्रह में पृष्ठभूमि «{id}» नहीं है |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | स्रोत रुक गया (उपकरण निकाल दिया गया या अनुमति वापस ले ली गई)। |
 | `silence` | Silence : lancez un son. | मौन: कोई ध्वनि चलाएँ। |
 | `valide` | Validé | पुष्ट |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} पैटर्न |
 | `collections.p30.0` | Croix 1·2 | क्रॉस 1·2 |
 | `collections.p30.1` | {n} motifs | {n} पैटर्न |
-| `fond` | Bandes {id} | पट्टियाँ {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | एक खाने में चार त्रिभुज होते हैं; हर एक को पृष्ठभूमि की अवस्था 1 से बनाया जाता है, या अवस्था 0 से: वही पृष्ठभूमि 90° घुमाई हुई। |
+| `fondNoms.P` | Aplat | सादा |
+| `fondNoms.B2Dx` | Triangles | त्रिभुज |
+| `fondNoms.B11211Dx` | Bandes | पट्टियाँ |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | एक खाने में चार त्रिभुज होते हैं; हर एक चुनी हुई पृष्ठभूमि से बनता है, या उसके दोनों रंग आपस में बदलकर। |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | खाने का रूपांतर केवल द्विवर्णी संग्रह पर लागू होता है। |
 | `palettes.creme.0` | Encre et crème | स्याही और क्रीम |
 | `palettes.creme.1` | Les couleurs du site. | साइट के रंग। |

@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | This file cannot be read as a sound. |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | The sound cannot start: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | The page data does not load: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | band {id} is missing from the collection of grounds |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | the ground “{id}” is missing from the collection of grounds |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | The source stopped (device unplugged or permission withdrawn). |
 | `silence` | Silence : lancez un son. | Silence: start a sound. |
 | `valide` | Validé | Validated |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} patterns |
 | `collections.p30.0` | Croix 1·2 | Cross 1·2 |
 | `collections.p30.1` | {n} motifs | {n} patterns |
-| `fond` | Bandes {id} | Bands {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | A cell carries four triangles; each is drawn with state 1 of the ground, or with state 0: the same ground turned by 90°. |
+| `fondNoms.P` | Aplat | Solid |
+| `fondNoms.B2Dx` | Triangles | Triangles |
+| `fondNoms.B11211Dx` | Bandes | Stripes |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | A cell carries four triangles; each is drawn with the chosen ground, or with its two colours swapped. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | The cell variant applies only to the two-colour collection. |
 | `palettes.creme.0` | Encre et crème | Ink and cream |
 | `palettes.creme.1` | Les couleurs du site. | The colours of the site. |
@@ -448,7 +450,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | Este archivo no se puede leer como un sonido. |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | El sonido no puede iniciarse: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | Los datos de la página no se cargan: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | falta la banda {id} en la colección de fondos |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | falta el fondo «{id}» en la colección de fondos |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | La fuente se ha detenido (dispositivo desconectado o permiso retirado). |
 | `silence` | Silence : lancez un son. | Silencio: inicia un sonido. |
 | `valide` | Validé | Validada |
@@ -513,8 +515,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} motivos |
 | `collections.p30.0` | Croix 1·2 | Cruz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} motivos |
-| `fond` | Bandes {id} | Bandas {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | Una casilla lleva cuatro triángulos; cada uno se dibuja con el estado 1 del fondo o con el estado 0: el mismo fondo girado 90°. |
+| `fondNoms.P` | Aplat | Liso |
+| `fondNoms.B2Dx` | Triangles | Triángulos |
+| `fondNoms.B11211Dx` | Bandes | Bandas |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Una casilla lleva cuatro triángulos; cada uno se dibuja con el fondo elegido o con sus dos colores intercambiados. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | La variante de casilla solo se aplica a la colección bicolor. |
 | `palettes.creme.0` | Encre et crème | Tinta y crema |
 | `palettes.creme.1` | Les couleurs du site. | Los colores del sitio. |

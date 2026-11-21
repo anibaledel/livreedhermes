@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | Этот файл нельзя прочитать как звук. |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | Звук не удаётся запустить: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | Данные страницы не загружаются: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | в коллекции фонов не хватает полосы {id} |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | в коллекции фонов не хватает фона «{id}» |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | Источник остановился (устройство отключено или разрешение отозвано). |
 | `silence` | Silence : lancez un son. | Тишина: запустите звук. |
 | `valide` | Validé | Утверждено |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} узоров |
 | `collections.p30.0` | Croix 1·2 | Крест 1·2 |
 | `collections.p30.1` | {n} motifs | {n} узоров |
-| `fond` | Bandes {id} | Полосы {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | В клетке четыре треугольника; каждый рисуется либо в состоянии 1 фона, либо в состоянии 0: тот же фон, повёрнутый на 90°. |
+| `fondNoms.P` | Aplat | Сплошной |
+| `fondNoms.B2Dx` | Triangles | Треугольники |
+| `fondNoms.B11211Dx` | Bandes | Полосы |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | В клетке четыре треугольника; каждый рисуется выбранным фоном или с обменом двух его цветов. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | Вариант клетки применяется только к двухцветной коллекции. |
 | `palettes.creme.0` | Encre et crème | Чернила и крем |
 | `palettes.creme.1` | Les couleurs du site. | Цвета сайта. |

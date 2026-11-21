@@ -1365,3 +1365,7 @@ Règle du nom (Anibal) : « Voir sa musique » partout ; « Pavane » seulement 
 ## Prompt 220 §5 — plus de « Pavane »
 
 Décision d'Anibal : l'application s'appelle « Voir sa musique », rien d'autre. Le sous-titre « Pavane » est retiré de l'interface (titre, lanceur compact, signature de la vidéo) ; `SOUS_TITRE` n'existe plus dans `assets/pavane-nom.js`. Les fichiers `assets/pavane-*.js` gardent leur nom (renommage reporté), les clés d'adresse ne changent pas. Contrôle : `tools/check_pavane_pages.mjs` (aucun HTML, sitemap ni index machine ne dit Pavane ; texte rendu et libellés d'accessibilité propres aux trois langues testées). À relire : rien de nouveau à traduire.
+
+## Prompt 220 §3 — trois fonds nommés dans « Voir sa musique »
+
+À relire (10 langues) : les clés `fondNoms.P` / `fondNoms.B2Dx` / `fondNoms.B11211Dx` (Aplat, Triangles, Bandes ; mêmes mots que la nouvelle interface, `assets/pavane-textes.js`), `fondAide` (« chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées ») et `bandeManque` (« le fond « {id} » manque… »), dans `data/musique-chladni/traductions/<langue>.json`. Le fond par défaut est Aplat ; B2, B3, B4, B121, B11211D et B12m restent dans le moteur et les tests mais ne sont plus proposés ; l'interface actuelle lit la même liste que la nouvelle (`data/fonds/demi-periode.json`). Décision : le « fond » dans l'interface actuelle se dessine en mode échange (l'état 0 est le même fond aux couleurs échangées), comme dans la nouvelle ; les états 90° des anciennes bandes ne servent plus qu'aux tests du moteur.

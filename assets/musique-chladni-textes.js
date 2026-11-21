@@ -92,7 +92,7 @@ export const TEXTES = {
     erreurFichier: 'Ce fichier ne peut pas être lu comme un son.',
     erreurAudio: 'Le son ne peut pas démarrer : {message}',
     erreurDonnees: 'Les données de la page ne se chargent pas : {message}',
-    bandeManque: 'la bande {id} manque à la collection de fonds',
+    bandeManque: 'le fond « {id} » manque à la collection de fonds',
     microCoupe: 'La source s\'est arrêtée (périphérique débranché ou autorisation retirée).',
     silence: 'Silence : lancez un son.',
 
@@ -142,8 +142,8 @@ export const TEXTES = {
       p18: ['Croix 1·2', '{n} motifs'],
       p30: ['Croix 1·2', '{n} motifs'],
     },
-    fond: 'Bandes {id}',
-    fondAide: 'Une case porte quatre triangles ; chacun est dessiné avec l\'état 1 du fond, ou avec l\'état 0 : le même fond tourné de 90°.',
+    fondNoms: { P: 'Aplat', B2Dx: 'Triangles', B11211Dx: 'Bandes' }, // les trois fonds proposés (prompt 220) ; leurs codes ne s'affichent jamais
+    fondAide: 'Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées.',
     fondSeulementBicolore: 'La variante de case ne s\'applique qu\'à la collection bicolore.',
     palettes: {
       creme: ['Encre et crème', 'Les couleurs du site.'],
@@ -356,7 +356,7 @@ export const TEXTES = {
     "erreurFichier": "This file cannot be read as a sound.",
     "erreurAudio": "The sound cannot start: {message}",
     "erreurDonnees": "The page data does not load: {message}",
-    "bandeManque": "band {id} is missing from the collection of grounds",
+    "bandeManque": "the ground “{id}” is missing from the collection of grounds",
     "microCoupe": "The source stopped (device unplugged or permission withdrawn).",
     "silence": "Silence: start a sound.",
     "valide": "Validated",
@@ -467,8 +467,12 @@ export const TEXTES = {
         "{n} patterns"
       ]
     },
-    "fond": "Bands {id}",
-    "fondAide": "A cell carries four triangles; each is drawn with state 1 of the ground, or with state 0: the same ground turned by 90°.",
+    "fondNoms": {
+      "P": "Solid",
+      "B2Dx": "Triangles",
+      "B11211Dx": "Stripes"
+    },
+    "fondAide": "A cell carries four triangles; each is drawn with the chosen ground, or with its two colours swapped.",
     "fondSeulementBicolore": "The cell variant applies only to the two-colour collection.",
     "palettes": {
       "creme": [
@@ -749,7 +753,7 @@ export const TEXTES = {
     "erreurFichier": "Este archivo no se puede leer como un sonido.",
     "erreurAudio": "El sonido no puede iniciarse: {message}",
     "erreurDonnees": "Los datos de la página no se cargan: {message}",
-    "bandeManque": "falta la banda {id} en la colección de fondos",
+    "bandeManque": "falta el fondo «{id}» en la colección de fondos",
     "microCoupe": "La fuente se ha detenido (dispositivo desconectado o permiso retirado).",
     "silence": "Silencio: inicia un sonido.",
     "valide": "Validada",
@@ -860,8 +864,12 @@ export const TEXTES = {
         "{n} motivos"
       ]
     },
-    "fond": "Bandas {id}",
-    "fondAide": "Una casilla lleva cuatro triángulos; cada uno se dibuja con el estado 1 del fondo o con el estado 0: el mismo fondo girado 90°.",
+    "fondNoms": {
+      "P": "Liso",
+      "B2Dx": "Triángulos",
+      "B11211Dx": "Bandas"
+    },
+    "fondAide": "Una casilla lleva cuatro triángulos; cada uno se dibuja con el fondo elegido o con sus dos colores intercambiados.",
     "fondSeulementBicolore": "La variante de casilla solo se aplica a la colección bicolor.",
     "palettes": {
       "creme": [
@@ -1142,7 +1150,7 @@ export const TEXTES = {
     "erreurFichier": "ไฟล์นี้ไม่สามารถอ่านเป็นเสียงได้",
     "erreurAudio": "เสียงไม่เริ่มทำงาน: {message}",
     "erreurDonnees": "ข้อมูลของหน้าโหลดไม่ได้: {message}",
-    "bandeManque": "ชุดพื้นหลังขาดแถบ {id}",
+    "bandeManque": "ชุดพื้นหลังขาดพื้นหลัง «{id}»",
     "microCoupe": "แหล่งเสียงหยุดทำงาน (ถอดอุปกรณ์ออกหรือถูกเพิกถอนสิทธิ์)",
     "silence": "เงียบ: โปรดเริ่มเล่นเสียง",
     "valide": "ยืนยันแล้ว",
@@ -1253,8 +1261,12 @@ export const TEXTES = {
         "{n} ลวดลาย"
       ]
     },
-    "fond": "แถบ {id}",
-    "fondAide": "หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยสถานะ 1 ของพื้นหลัง หรือสถานะ 0 คือพื้นหลังเดียวกันที่หมุน 90°",
+    "fondNoms": {
+      "P": "สีเรียบ",
+      "B2Dx": "สามเหลี่ยม",
+      "B11211Dx": "แถบ"
+    },
+    "fondAide": "หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยพื้นหลังที่เลือก หรือสลับสองสีของมัน",
     "fondSeulementBicolore": "แบบของช่องใช้ได้กับชุดลวดลายสองสีเท่านั้น",
     "palettes": {
       "creme": [
@@ -1535,7 +1547,7 @@ export const TEXTES = {
     "erreurFichier": "无法将此文件作为声音读取。",
     "erreurAudio": "声音无法启动：{message}",
     "erreurDonnees": "页面数据无法加载：{message}",
-    "bandeManque": "背景集合中缺少条带 {id}",
+    "bandeManque": "背景集合中缺少背景「{id}」",
     "microCoupe": "音源已停止（设备被拔出或授权被撤销）。",
     "silence": "静音：请先播放声音。",
     "valide": "已确认",
@@ -1646,8 +1658,12 @@ export const TEXTES = {
         "{n} 个图案"
       ]
     },
-    "fond": "条带 {id}",
-    "fondAide": "每个格含四个三角形；每个三角形用背景的状态 1 或状态 0 绘制：状态 0 即同一背景旋转 90°。",
+    "fondNoms": {
+      "P": "纯色",
+      "B2Dx": "三角形",
+      "B11211Dx": "条纹"
+    },
+    "fondAide": "每个格含四个三角形；每个三角形用所选背景绘制，或将其两种颜色互换。",
     "fondSeulementBicolore": "格的变体仅适用于双色图案集。",
     "palettes": {
       "creme": [
@@ -1928,7 +1944,7 @@ export const TEXTES = {
     "erreurFichier": "Этот файл нельзя прочитать как звук.",
     "erreurAudio": "Звук не удаётся запустить: {message}",
     "erreurDonnees": "Данные страницы не загружаются: {message}",
-    "bandeManque": "в коллекции фонов не хватает полосы {id}",
+    "bandeManque": "в коллекции фонов не хватает фона «{id}»",
     "microCoupe": "Источник остановился (устройство отключено или разрешение отозвано).",
     "silence": "Тишина: запустите звук.",
     "valide": "Утверждено",
@@ -2039,8 +2055,12 @@ export const TEXTES = {
         "{n} узоров"
       ]
     },
-    "fond": "Полосы {id}",
-    "fondAide": "В клетке четыре треугольника; каждый рисуется либо в состоянии 1 фона, либо в состоянии 0: тот же фон, повёрнутый на 90°.",
+    "fondNoms": {
+      "P": "Сплошной",
+      "B2Dx": "Треугольники",
+      "B11211Dx": "Полосы"
+    },
+    "fondAide": "В клетке четыре треугольника; каждый рисуется выбранным фоном или с обменом двух его цветов.",
     "fondSeulementBicolore": "Вариант клетки применяется только к двухцветной коллекции.",
     "palettes": {
       "creme": [
@@ -2321,7 +2341,7 @@ export const TEXTES = {
     "erreurFichier": "Este ficheiro não pode ser lido como um som.",
     "erreurAudio": "O som não consegue arrancar: {message}",
     "erreurDonnees": "Os dados da página não carregam: {message}",
-    "bandeManque": "falta a banda {id} na coleção de fundos",
+    "bandeManque": "falta o fundo «{id}» na coleção de fundos",
     "microCoupe": "A fonte parou (dispositivo desligado ou autorização retirada).",
     "silence": "Silêncio: inicie um som.",
     "valide": "Validada",
@@ -2432,8 +2452,12 @@ export const TEXTES = {
         "{n} padrões"
       ]
     },
-    "fond": "Bandas {id}",
-    "fondAide": "Uma casa leva quatro triângulos; cada um é desenhado com o estado 1 do fundo ou com o estado 0: o mesmo fundo rodado 90°.",
+    "fondNoms": {
+      "P": "Liso",
+      "B2Dx": "Triângulos",
+      "B11211Dx": "Faixas"
+    },
+    "fondAide": "Uma casa leva quatro triângulos; cada um é desenhado com o fundo escolhido ou com as duas cores trocadas.",
     "fondSeulementBicolore": "A variante de casa só se aplica à coleção bicolor.",
     "palettes": {
       "creme": [
@@ -2714,7 +2738,7 @@ export const TEXTES = {
     "erreurFichier": "यह फ़ाइल ध्वनि के रूप में नहीं पढ़ी जा सकती।",
     "erreurAudio": "ध्वनि शुरू नहीं हो पा रही: {message}",
     "erreurDonnees": "पृष्ठ का डेटा लोड नहीं होता: {message}",
-    "bandeManque": "पृष्ठभूमियों के संग्रह में पट्टी {id} नहीं है",
+    "bandeManque": "पृष्ठभूमियों के संग्रह में पृष्ठभूमि «{id}» नहीं है",
     "microCoupe": "स्रोत रुक गया (उपकरण निकाल दिया गया या अनुमति वापस ले ली गई)।",
     "silence": "मौन: कोई ध्वनि चलाएँ।",
     "valide": "पुष्ट",
@@ -2825,8 +2849,12 @@ export const TEXTES = {
         "{n} पैटर्न"
       ]
     },
-    "fond": "पट्टियाँ {id}",
-    "fondAide": "एक खाने में चार त्रिभुज होते हैं; हर एक को पृष्ठभूमि की अवस्था 1 से बनाया जाता है, या अवस्था 0 से: वही पृष्ठभूमि 90° घुमाई हुई।",
+    "fondNoms": {
+      "P": "सादा",
+      "B2Dx": "त्रिभुज",
+      "B11211Dx": "पट्टियाँ"
+    },
+    "fondAide": "एक खाने में चार त्रिभुज होते हैं; हर एक चुनी हुई पृष्ठभूमि से बनता है, या उसके दोनों रंग आपस में बदलकर।",
     "fondSeulementBicolore": "खाने का रूपांतर केवल द्विवर्णी संग्रह पर लागू होता है।",
     "palettes": {
       "creme": [
@@ -3107,7 +3135,7 @@ export const TEXTES = {
     "erreurFichier": "Diese Datei kann nicht als Klang gelesen werden.",
     "erreurAudio": "Der Klang kann nicht starten: {message}",
     "erreurDonnees": "Die Daten der Seite werden nicht geladen: {message}",
-    "bandeManque": "Das Band {id} fehlt in der Sammlung der Hintergründe",
+    "bandeManque": "der Hintergrund «{id}» fehlt in der Sammlung der Hintergründe",
     "microCoupe": "Die Quelle wurde angehalten (Gerät getrennt oder Berechtigung entzogen).",
     "silence": "Stille: Starten Sie einen Klang.",
     "valide": "Bestätigt",
@@ -3218,8 +3246,12 @@ export const TEXTES = {
         "{n} Muster"
       ]
     },
-    "fond": "Bänder {id}",
-    "fondAide": "Ein Feld trägt vier Dreiecke; jedes wird mit dem Zustand 1 des Grundes gezeichnet oder mit dem Zustand 0: demselben Grund, um 90° gedreht.",
+    "fondNoms": {
+      "P": "Einfarbig",
+      "B2Dx": "Dreiecke",
+      "B11211Dx": "Streifen"
+    },
+    "fondAide": "Ein Feld trägt vier Dreiecke; jedes wird mit dem gewählten Grund gezeichnet oder mit vertauschten Farben.",
     "fondSeulementBicolore": "Die Feldvariante gilt nur für die zweifarbige Sammlung.",
     "palettes": {
       "creme": [
@@ -3500,7 +3532,7 @@ export const TEXTES = {
     "erreurFichier": "Questo file non può essere letto come suono.",
     "erreurAudio": "Il suono non può partire: {message}",
     "erreurDonnees": "I dati della pagina non si caricano: {message}",
-    "bandeManque": "la banda {id} manca nella collezione di fondi",
+    "bandeManque": "il fondo «{id}» manca nella collezione di fondi",
     "microCoupe": "La sorgente si è fermata (dispositivo scollegato o autorizzazione ritirata).",
     "silence": "Silenzio: avvia un suono.",
     "valide": "Convalidata",
@@ -3611,8 +3643,12 @@ export const TEXTES = {
         "{n} motivi"
       ]
     },
-    "fond": "Bande {id}",
-    "fondAide": "Una casella porta quattro triangoli; ciascuno è disegnato con lo stato 1 del fondo, oppure con lo stato 0: lo stesso fondo ruotato di 90°.",
+    "fondNoms": {
+      "P": "Tinta unita",
+      "B2Dx": "Triangoli",
+      "B11211Dx": "Bande"
+    },
+    "fondAide": "Una casella porta quattro triangoli; ciascuno è disegnato con il fondo scelto, oppure con i due colori scambiati.",
     "fondSeulementBicolore": "La variante di casella si applica solo alla collezione bicolore.",
     "palettes": {
       "creme": [
@@ -3893,7 +3929,7 @@ export const TEXTES = {
     "erreurFichier": "このファイルは音として読み込めません。",
     "erreurAudio": "音を開始できません：{message}",
     "erreurDonnees": "ページのデータを読み込めません：{message}",
-    "bandeManque": "背景コレクションに帯 {id} がありません",
+    "bandeManque": "背景コレクションに背景「{id}」がありません",
     "microCoupe": "音源が停止しました（機器が外されたか、許可が取り消されました）。",
     "silence": "無音：音を再生してください。",
     "valide": "確定済み",
@@ -4004,8 +4040,12 @@ export const TEXTES = {
         "{n} 個の紋様"
       ]
     },
-    "fond": "帯 {id}",
-    "fondAide": "1つのマスには4つの三角形があり、それぞれ背景の状態1か、状態0（同じ背景を90°回転したもの）で描かれます。",
+    "fondNoms": {
+      "P": "無地",
+      "B2Dx": "三角形",
+      "B11211Dx": "ストライプ"
+    },
+    "fondAide": "1つのマスには4つの三角形があり、それぞれ選んだ背景で、または2色を入れ替えて描かれます。",
     "fondSeulementBicolore": "マスの変種は二色のコレクションにのみ適用されます。",
     "palettes": {
       "creme": [

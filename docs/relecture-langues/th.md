@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | ไฟล์นี้ไม่สามารถอ่านเป็นเสียงได้ |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | เสียงไม่เริ่มทำงาน: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | ข้อมูลของหน้าโหลดไม่ได้: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | ชุดพื้นหลังขาดแถบ {id} |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | ชุดพื้นหลังขาดพื้นหลัง «{id}» |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | แหล่งเสียงหยุดทำงาน (ถอดอุปกรณ์ออกหรือถูกเพิกถอนสิทธิ์) |
 | `silence` | Silence : lancez un son. | เงียบ: โปรดเริ่มเล่นเสียง |
 | `valide` | Validé | ยืนยันแล้ว |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} ลวดลาย |
 | `collections.p30.0` | Croix 1·2 | กากบาท 1·2 |
 | `collections.p30.1` | {n} motifs | {n} ลวดลาย |
-| `fond` | Bandes {id} | แถบ {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยสถานะ 1 ของพื้นหลัง หรือสถานะ 0 คือพื้นหลังเดียวกันที่หมุน 90° |
+| `fondNoms.P` | Aplat | สีเรียบ |
+| `fondNoms.B2Dx` | Triangles | สามเหลี่ยม |
+| `fondNoms.B11211Dx` | Bandes | แถบ |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยพื้นหลังที่เลือก หรือสลับสองสีของมัน |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | แบบของช่องใช้ได้กับชุดลวดลายสองสีเท่านั้น |
 | `palettes.creme.0` | Encre et crème | หมึกกับสีครีม |
 | `palettes.creme.1` | Les couleurs du site. | สีของเว็บไซต์ |

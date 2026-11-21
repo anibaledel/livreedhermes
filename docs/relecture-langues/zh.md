@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | 无法将此文件作为声音读取。 |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | 声音无法启动：{message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | 页面数据无法加载：{message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | 背景集合中缺少条带 {id} |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | 背景集合中缺少背景「{id}」 |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | 音源已停止（设备被拔出或授权被撤销）。 |
 | `silence` | Silence : lancez un son. | 静音：请先播放声音。 |
 | `valide` | Validé | 已确认 |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} 个图案 |
 | `collections.p30.0` | Croix 1·2 | 十字 1·2 |
 | `collections.p30.1` | {n} motifs | {n} 个图案 |
-| `fond` | Bandes {id} | 条带 {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | 每个格含四个三角形；每个三角形用背景的状态 1 或状态 0 绘制：状态 0 即同一背景旋转 90°。 |
+| `fondNoms.P` | Aplat | 纯色 |
+| `fondNoms.B2Dx` | Triangles | 三角形 |
+| `fondNoms.B11211Dx` | Bandes | 条纹 |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | 每个格含四个三角形；每个三角形用所选背景绘制，或将其两种颜色互换。 |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | 格的变体仅适用于双色图案集。 |
 | `palettes.creme.0` | Encre et crème | 墨色与奶油色 |
 | `palettes.creme.1` | Les couleurs du site. | 本站的配色。 |

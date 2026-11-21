@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | このファイルは音として読み込めません。 |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | 音を開始できません：{message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | ページのデータを読み込めません：{message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | 背景コレクションに帯 {id} がありません |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | 背景コレクションに背景「{id}」がありません |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | 音源が停止しました（機器が外されたか、許可が取り消されました）。 |
 | `silence` | Silence : lancez un son. | 無音：音を再生してください。 |
 | `valide` | Validé | 確定済み |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} 個の紋様 |
 | `collections.p30.0` | Croix 1·2 | 十字 1·2 |
 | `collections.p30.1` | {n} motifs | {n} 個の紋様 |
-| `fond` | Bandes {id} | 帯 {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | 1つのマスには4つの三角形があり、それぞれ背景の状態1か、状態0（同じ背景を90°回転したもの）で描かれます。 |
+| `fondNoms.P` | Aplat | 無地 |
+| `fondNoms.B2Dx` | Triangles | 三角形 |
+| `fondNoms.B11211Dx` | Bandes | ストライプ |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | 1つのマスには4つの三角形があり、それぞれ選んだ背景で、または2色を入れ替えて描かれます。 |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | マスの変種は二色のコレクションにのみ適用されます。 |
 | `palettes.creme.0` | Encre et crème | 墨とクリーム |
 | `palettes.creme.1` | Les couleurs du site. | サイトの色。 |

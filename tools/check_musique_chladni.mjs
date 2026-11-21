@@ -8,7 +8,7 @@
 //   - elle se charge sans erreur de script ; tous ses textes viennent de
 //     assets/musique-chladni-textes.js (aucun texte français en dur dans le code de l'interface) ;
 //   - six en-têtes, deux fenêtres (Validé, Essai), l'aperçu au survol, Valider/Annuler ; les ordres 18 et 30 chargés à la demande ;
-//     les six variantes de case (collections bicolores), deux couleurs chacune, un changement de bande garde le motif ;
+//     les trois variantes de case (Aplat, Triangles, Bandes ; collections bicolores), deux couleurs chacune, un changement de fond garde le motif ;
 //   - un morceau fait choisir des motifs dans les trois vues et les trois modes ; le tricolore a trois valeurs ;
 //   - les raccourcis (1 à 3, Espace, V, P), Échap et le clic extérieur ferment un panneau ;
 //   - le bloc « La semaine » : 7 cartes, aucune requête vers YouTube ni TikTok avant le clic, lien de repli, masqué sans données, tools/semaine.mjs ;
@@ -82,7 +82,9 @@ try {
   ok((await page.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6, 'six en-têtes attendus');
   ok(!(await page.isDisabled('#vm-o-fmt-18')) && !(await page.isDisabled('#vm-o-fmt-30')), 'les ordres 18 et 30 doivent être proposés');
   ok(!demandes.some((u) => /bloc-(18|30)-structure/.test(u)), 'les ordres 18 et 30 ne doivent pas se charger avant le premier choix du format');
-  ok((await page.$$('#vm-g-fond .vm-o')).length === 6, 'six variantes de case attendues (B3x, BA33, BA50 sont des alias, jamais proposés)');
+  ok((await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B11211Dx', 'trois variantes de case attendues : Aplat, Triangles, Bandes (les fonds proposés, prompt 220)');
+  ok((await page.$$eval('#vm-g-fond .vm-o b', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes', 'les trois variantes portent des noms clairs, sans code visible');
+  ok((await page.evaluate(() => window.__voirSaMusique.etat().valide.fond)) === 'P', 'le fond par défaut est Aplat');
   ok(await page.isHidden('#vm-g-fond'), 'la variante de case ne s’applique qu’au bicolore : cachée au tricolore');
 
   await page.selectOption('#vmSource', 'j2'); await page.click('#vmLecture'); await page.waitForTimeout(3500);
@@ -109,7 +111,7 @@ try {
   await ouvrir('view'); await page.keyboard.press('Escape'); ok(!(await page.$('.vm-grp.open')), 'Échap doit fermer le panneau');
   // vues
   for (const v of ['lignes', 'pavage', 'signes']) { await choisir('view', v); await page.click('#vmValider'); await page.waitForTimeout(500); await couleurs('vmValideToile'); ok(await trace('vmValideToile') >= 2, `vue « ${v} » : rien de dessiné`); }
-  // variante de case : les 9 bandes se dessinent, deux couleurs
+  // variante de case : les trois fonds proposés se dessinent, deux couleurs
   await choisir('view', 'pavage'); await page.click('#vmValider');
   for (const id of await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))) { await choisir('fond', id); await page.click('#vmValider'); await page.waitForTimeout(150); ok(await couleurs('vmValideToile', 0.25) === 2, `variante ${id} : deux couleurs attendues`); }
   // ordres 18 et 30 : chargés au premier choix ; collections, variante de case, changement de bande sans rien recalculer
@@ -125,7 +127,7 @@ try {
   {
     await page.locator('#vmReglages').evaluate((n) => { n.closest('details').open = true; });
     await page.click('#vmPause'); const avant = await etat();
-    await choisir('fond', 'B121'); await page.click('#vmValider'); await choisir('fond', 'B12m'); await page.click('#vmValider'); const apres = await etat();
+    await choisir('fond', 'B2Dx'); await page.click('#vmValider'); await choisir('fond', 'B11211Dx'); await page.click('#vmValider'); const apres = await etat();
     ok(apres.constructions === avant.constructions && apres.valide.col === avant.valide.col && apres.motif === avant.motif, `un changement de bande doit garder le motif et ne rien recalculer (${avant.motif} puis ${apres.motif}, constructions ${avant.constructions} puis ${apres.constructions})`);
     await page.click('#vmPause');
   }
@@ -529,6 +531,6 @@ if (essai) {
   console.error('Essai : la page privée de son moteur n’a pas été refusée.'); process.exit(1);
 }
 if (echecs.length) { for (const f of echecs) console.error('ÉCHEC ' + f); process.exit(1); }
-console.log('Voir sa musique : charge, dessine en trois vues, six variantes de case, les trois ordres (18 et 30 à la demande), pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
+console.log('Voir sa musique : charge, dessine en trois vues, trois variantes de case (Aplat, Triangles, Bandes), les trois ordres (18 et 30 à la demande), pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
 if (serveur && serveur.fermer) serveur.fermer();
 process.exit(0);

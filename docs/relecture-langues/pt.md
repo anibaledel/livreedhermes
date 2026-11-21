@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | Este ficheiro não pode ser lido como um som. |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | O som não consegue arrancar: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | Os dados da página não carregam: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | falta a banda {id} na coleção de fundos |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | falta o fundo «{id}» na coleção de fundos |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | A fonte parou (dispositivo desligado ou autorização retirada). |
 | `silence` | Silence : lancez un son. | Silêncio: inicie um som. |
 | `valide` | Validé | Validada |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} padrões |
 | `collections.p30.0` | Croix 1·2 | Cruz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} padrões |
-| `fond` | Bandes {id} | Bandas {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | Uma casa leva quatro triângulos; cada um é desenhado com o estado 1 do fundo ou com o estado 0: o mesmo fundo rodado 90°. |
+| `fondNoms.P` | Aplat | Liso |
+| `fondNoms.B2Dx` | Triangles | Triângulos |
+| `fondNoms.B11211Dx` | Bandes | Faixas |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Uma casa leva quatro triângulos; cada um é desenhado com o fundo escolhido ou com as duas cores trocadas. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | A variante de casa só se aplica à coleção bicolor. |
 | `palettes.creme.0` | Encre et crème | Tinta e creme |
 | `palettes.creme.1` | Les couleurs du site. | As cores do site. |

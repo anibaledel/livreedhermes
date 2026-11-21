@@ -101,7 +101,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | Diese Datei kann nicht als Klang gelesen werden. |
 | `erreurAudio` | Le son ne peut pas démarrer : {message} | Der Klang kann nicht starten: {message} |
 | `erreurDonnees` | Les données de la page ne se chargent pas : {message} | Die Daten der Seite werden nicht geladen: {message} |
-| `bandeManque` | la bande {id} manque à la collection de fonds | Das Band {id} fehlt in der Sammlung der Hintergründe |
+| `bandeManque` | le fond « {id} » manque à la collection de fonds | der Hintergrund «{id}» fehlt in der Sammlung der Hintergründe |
 | `microCoupe` | La source s'est arrêtée (périphérique débranché ou autorisation retirée). | Die Quelle wurde angehalten (Gerät getrennt oder Berechtigung entzogen). |
 | `silence` | Silence : lancez un son. | Stille: Starten Sie einen Klang. |
 | `valide` | Validé | Bestätigt |
@@ -166,8 +166,10 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} Muster |
 | `collections.p30.0` | Croix 1·2 | Kreuz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} Muster |
-| `fond` | Bandes {id} | Bänder {id} |
-| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec l'état 1 du fond, ou avec l'état 0 : le même fond tourné de 90°. | Ein Feld trägt vier Dreiecke; jedes wird mit dem Zustand 1 des Grundes gezeichnet oder mit dem Zustand 0: demselben Grund, um 90° gedreht. |
+| `fondNoms.P` | Aplat | Einfarbig |
+| `fondNoms.B2Dx` | Triangles | Dreiecke |
+| `fondNoms.B11211Dx` | Bandes | Streifen |
+| `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Ein Feld trägt vier Dreiecke; jedes wird mit dem gewählten Grund gezeichnet oder mit vertauschten Farben. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | Die Feldvariante gilt nur für die zweifarbige Sammlung. |
 | `palettes.creme.0` | Encre et crème | Tinte und Creme |
 | `palettes.creme.1` | Les couleurs du site. | Die Farben der Website. |
