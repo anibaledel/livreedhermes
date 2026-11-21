@@ -71,7 +71,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `comment2` | Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré. | Chladni 图形是沙子在振动的板上形成的图案：沙子会聚集在不动的线上。这里的板是方形的。 |
 | `comment3` | Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | 这里的“相似”指两个频谱相近：能量在各个频率上的分布方式相同。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。 |
 | `comment4` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil. | 任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。录制的图片和视频在您的浏览器中生成，并下载到您的设备上。 |
-| `comment5` | Appuyez sur « Écouter » pour jouer le premier morceau d'exemple, ou choisissez un autre morceau, un fichier audio ou le micro. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 点击“聆听”播放第一首示例曲目，也可以选择其他曲目、音频文件或麦克风。在“更多选项”中可以录制图形的图片，或带声音的 15 秒视频。 |
+| `comment5` | Appuyez sur « Écouter » : la page demande alors le micro, jamais avant ; sans micro, elle joue un morceau d'exemple. Vous pouvez aussi choisir un autre morceau ou un fichier audio. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 点击“聆听”后，页面才会请求使用麦克风，之前绝不会；没有麦克风或被拒绝时，会播放一首示例曲目。您也可以选择其他曲目或音频文件。在“更多选项”中可以录制图形的图片，或带声音的 15 秒视频。 |
 | `comment6` | Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot. | 内容采用 CC BY-NC 4.0 许可，代码采用 AGPL v3 许可（商业许可可应请求提供）。作者：Anibal Edelberto Amiot。 |
 | `commentAuteur` | À propos de l'auteur | 关于作者 |
 | `refAlt` | Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements. | 本页生成的图形示例：由黑色和奶油色的大菱形组成的棋盘，交叉处有小的圆形。 |
@@ -86,7 +86,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | 两次起音之间的最短间隔（秒） |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 默认 0.45 秒：每分钟最多约 133 次起音。节奏较快时请调低。 |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | 内置曲目由人工智能协助创作（“Musique composée avec l'IA par MC Claude.”，即“由 MC Claude 借助人工智能创作的音乐。”）。 |
-| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | 请点击“聆听”。内置曲目由人工智能协助创作。 |
+| `etatDepart` | Appuyez sur Écouter : le micro est demandé à ce moment-là, ou choisissez un morceau. Les morceaux fournis sont composés avec l'aide de l'IA. | 请点击“聆听”，此时页面才会请求使用麦克风；也可以自己选一首曲目。内置曲目由人工智能协助创作。 |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | 内置曲目，由人工智能协助创作。 |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | 文件：{nom}（保留在您的浏览器中）。 |
 | `etatMicro` | Micro actif. | 麦克风已开启。 |
@@ -96,6 +96,9 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | 麦克风被拒绝。请在网站设置中允许使用（地址栏左侧的锁形图标），然后再次点击“聆听”。您也可以选择一个文件或一首内置曲目。 |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | 此设备上没有可用的麦克风。 |
 | `erreurMicro` | Le micro ne démarre pas : {message} | 麦克风无法启动：{message} |
+| `microRepliRefuse` | Le micro est refusé : voici un morceau d'exemple à la place. Pour utiliser le micro, autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), choisissez « Microphone » dans la liste des sources, puis appuyez sur Écouter. | 麦克风被拒绝，已改为播放示例曲目。若要使用麦克风，请在网站设置中允许（地址栏左侧的锁形图标），在音源列表中选择“麦克风”，然后点击“聆听”。 |
+| `microRepliAbsent` | Aucun micro n'est disponible sur cet appareil : voici un morceau d'exemple à la place. | 此设备上没有可用的麦克风，已改为播放示例曲目。 |
+| `microRepliAutre` | Le micro ne démarre pas ({message}) : voici un morceau d'exemple à la place. | 麦克风无法启动（{message}），已改为播放示例曲目。 |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | 此处无法捕获标签页音频。需要较新的桌面浏览器（Chrome、Edge）；手机和 Safari 不支持。 |
 | `erreurOngletSansSon` | L'onglet choisi n'a pas fourni de son. Recommencez et cochez « Partager l'audio de l'onglet ». | 所选标签页没有提供声音。请重新开始，并勾选“共享标签页音频”。 |
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | 无法将此文件作为声音读取。 |

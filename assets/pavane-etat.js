@@ -17,7 +17,7 @@ export const SOURCES = Object.freeze(['morceau', 'fichier', 'micro', 'note']);
 export const MORCEAUX = Object.freeze(['j1', 'j2', 'j3', 'j4', 'j5', 'j6', 'j7']);
 export const DECLENCHEURS = Object.freeze(['minuteur', 'pulsation']);
 export const NOTE_MIN = 110, NOTE_MAX = 1760, NOTE_DEFAUT = 440;
-export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null, source: 'morceau', morceau: 'j1', note: NOTE_DEFAUT, declencheur: 'minuteur' });
+export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null, source: 'micro', morceau: 'j1', note: NOTE_DEFAUT, declencheur: 'minuteur' });
 
 const entier = (s) => (typeof s === 'string' && /^[1-9]\d*$/.test(s) ? Number(s) : null);
 const decimal = (s) => (typeof s === 'string' && /^\d+(\.\d)?$/.test(s) ? Number(s) : null);
@@ -45,7 +45,7 @@ export function lireEtat(search, proposes) {
   [k, v] = lu('source');
   if (k) { if (SOURCES.includes(v)) etat.source = v; else refuse(k); }
   [k, v] = lu('piste'); // « piste » et non « morceau » : la page « Voir sa musique » garde son propre ?morceau= (le nom du fichier, j3-re)
-  if (k) { if (MORCEAUX.includes(v)) etat.morceau = v; else refuse(k); }
+  if (k) { if (MORCEAUX.includes(v)) { etat.morceau = v; if (!q.has('source')) etat.source = 'morceau'; } else refuse(k); } // un lien qui nomme une piste sans source veut ce morceau : il garde le dessus sur le micro par défaut
   [k, v] = lu('note');
   if (k) { const n = entier(v); if (n !== null && n >= NOTE_MIN && n <= NOTE_MAX) etat.note = n; else refuse(k); }
   [k, v] = lu('declencheur');
@@ -67,7 +67,7 @@ export function ecrireEtat(etat) {
   if (etat.trace) q.set('trace', '1');
   if (etat.rythme !== DEFAUTS.rythme) q.set('rythme', String(etat.rythme));
   if (etat.densite !== DEFAUTS.densite) q.set('densite', String(etat.densite));
-  if (etat.source !== DEFAUTS.source) q.set('source', etat.source);
+  if (etat.source !== DEFAUTS.source || etat.morceau !== DEFAUTS.morceau) q.set('source', etat.source); // la piste sans source voudrait dire « ce morceau » : on écrit la source dès qu'une piste est écrite
   if (etat.morceau !== DEFAUTS.morceau) q.set('piste', etat.morceau);
   if (etat.note !== DEFAUTS.note) q.set('note', String(etat.note));
   if (etat.declencheur !== DEFAUTS.declencheur) q.set('declencheur', etat.declencheur);

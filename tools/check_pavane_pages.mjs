@@ -70,7 +70,7 @@ for (const langue of ['fr', 'en', 'ja']) {
     const lanceur = await page.evaluate(() => { const b = document.querySelector('#nouvelle-interface .pv-ouvrir'), h = document.querySelector('#nouvelle-interface .pv-titre'); return b ? { bouton: b.textContent, titre: h.textContent.trim(), sous: h.querySelectorAll('.pv-sous-titre').length, haut: Math.round(document.getElementById('nouvelle-interface').getBoundingClientRect().height) } : null; });
     ok(lanceur && lanceur.titre === TITRES[langue] && lanceur.sous === 0 && lanceur.bouton.length > 5, `${nom} : le lanceur porte le titre « ${lanceur && lanceur.titre} », sans sous-titre, et un bouton « ${lanceur && lanceur.bouton} »`);
     ok(lanceur && lanceur.haut <= 140, `${nom} : le lanceur est compact (${lanceur && lanceur.haut} px) : l'interface actuelle reste visible`);
-    ok(!requetes.some((u) => /corpus-256\.json|pavane-ui\.js|fonds-echange|demi-periode/.test(u)) && (await page.evaluate(() => !window.__pavane)), `${nom} : rien d'autre n'est chargé avant l'ouverture`);
+    ok(!requetes.some((u) => /corpus-256\.json|pavane-ui\.js/.test(u)) && (await page.evaluate(() => !window.__pavane)), `${nom} : ni le corpus ni le code de la nouvelle interface avant l'ouverture (les deux fichiers de fonds, eux, sont ceux que lit aussi l'interface actuelle depuis le prompt 220)`);
     // 2. ouvrir la nouvelle interface la monte, au-dessus de l'interface actuelle
     await page.click('#nouvelle-interface .pv-ouvrir');
     await page.waitForFunction(() => window.__pavane, null, { timeout: 15000 }).catch(() => {});

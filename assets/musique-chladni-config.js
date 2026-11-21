@@ -40,7 +40,8 @@ export const CONFIG = Object.freeze({
     loiDeFrequence: true, // « racine » (départ : échelle compressée pour l'oreille) ou « plaque » (f = c·K, loi de la plaque réelle) ; c réglable
   }),
 
-  entrees: Object.freeze({ fichier: true, micro: true, peripheriques: true, captureOnglet: true, musiqueEssai: true, morceaux: true }),
+  // sourceParDefaut : 'mic' = le micro est la source présélectionnée (jamais demandé au chargement : seulement au geste « Écouter », avec repli sur le premier morceau si refus) ; 'morceau' = le premier morceau d'exemple
+  entrees: Object.freeze({ fichier: true, micro: true, peripheriques: true, captureOnglet: true, musiqueEssai: true, morceaux: true, sourceParDefaut: 'mic' }),
 
   enregistrement: Object.freeze({
     actif: true,

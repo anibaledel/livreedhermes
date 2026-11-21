@@ -10,12 +10,12 @@
 // (tout est dans musique-chladni-config.js), aucune couleur recopiée (assets/couleurs.js).
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
 import * as M from './musique-chladni-moteur.js?v=3199491d0d';
-import { CONFIG } from './musique-chladni-config.js?v=e33faae4a4';
-import { texte as T } from './musique-chladni-textes.js?v=699e4befa6';
+import { CONFIG } from './musique-chladni-config.js?v=8915c04b35';
+import { texte as T } from './musique-chladni-textes.js?v=c6be8c59aa';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
 import { fondsRetenus } from './fonds-retenus.js';
-import { monterSemaine } from './musique-chladni-semaine.js?v=92d58ad703';
+import { monterSemaine } from './musique-chladni-semaine.js?v=0e4b6f2667';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -318,13 +318,23 @@ async function listerEntrees() {
   const s = $('vmEntree'); if (!s) return; const v = s.value;
   s.replaceChildren(el('option', { value: '' }, T('entreeDefaut')), ...entrees.map((d, i) => el('option', { value: d.deviceId }, d.label || `${T('entree')} ${i + 1}`))); s.value = v;
 }
-async function ouvrirMicro() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return message(T('erreurMicroAbsent'));
+// Le micro n'est demandé qu'ici, au geste « Écouter » (jamais au chargement de la page : le navigateur l'interdit sans geste et ce serait une
+// surprise). Source préselectionnée (prompt 220) : si le micro est refusé ou impossible, la page retombe sur le premier morceau d'exemple en le disant.
+async function ouvrirMicro({ repli = false } = {}) {
   const id = $('vmEntree') ? $('vmEntree').value : '';
-  try {
-    const flux = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, ...(id ? { deviceId: { exact: id } } : {}) } });
-    await depuisFlux(flux, id ? 'entree' : 'micro', id ? T('etatEntree', { nom: (entrees.find((x) => x.deviceId === id) || {}).label || id }) : T('etatMicro')); await listerEntrees();
-  } catch (err) { message(err && (err.name === 'NotAllowedError' || err.name === 'SecurityError') ? T('erreurMicroRefuse') : err && err.name === 'NotFoundError' ? T('erreurMicroAbsent') : T('erreurMicro', { message: err && err.message })); }
+  let cle = null, detail = '';
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) cle = 'Absent';
+  else {
+    try {
+      const flux = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, ...(id ? { deviceId: { exact: id } } : {}) } });
+      await depuisFlux(flux, id ? 'entree' : 'micro', id ? T('etatEntree', { nom: (entrees.find((x) => x.deviceId === id) || {}).label || id }) : T('etatMicro')); await listerEntrees();
+      return;
+    } catch (err) { cle = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError') ? 'Refuse' : err && err.name === 'NotFoundError' ? 'Absent' : 'Autre'; detail = (err && err.message) || ''; }
+  }
+  if (!repli) return message(cle === 'Refuse' ? T('erreurMicroRefuse') : cle === 'Absent' ? T('erreurMicroAbsent') : T('erreurMicro', { message: detail }));
+  const m = CONFIG.morceaux[0]; $('vmSource').value = m.id; S.microParDefaut = false; // le morceau d'exemple prend la place du micro, dans le sélecteur aussi
+  await lireElement(new URL(m.fichier, RACINE).href, 'morceau', T('etatMorceau'), true);
+  if (S.source === 'morceau') message(T('microRepli' + cle, { message: detail }));
 }
 async function capturerOnglet() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) return message(T('erreurOnglet'));
@@ -356,7 +366,7 @@ async function lecture() {
     return arreterSource();
   }
   const v = $('vmSource').value;
-  if (v === 'mic') return ouvrirMicro();
+  if (v === 'mic') return ouvrirMicro({ repli: S.microParDefaut });
   if (v === 'onglet') return capturerOnglet();
   if (v === 'essai') return musiqueEssai();
   if (v === 'file') { if (!A.fichierUrl) return $('vmFichier').click(); return lireElement(A.fichierUrl, 'fichier', T('etatFichier', { nom: A.fichierNom }), false); }
@@ -656,8 +666,10 @@ function remplirSource() {
 }
 function construireSon() {
   const src = $('vmSource'); remplirSource();
+  // la source de départ : le micro (CONFIG.entrees.sourceParDefaut), seulement sélectionné ; il ne s'ouvre qu'au geste « Écouter »
+  if (CONFIG.entrees.micro && CONFIG.entrees.sourceParDefaut === 'mic' && [...src.options].some((o) => o.value === 'mic')) { src.value = 'mic'; S.microParDefaut = true; }
   let precedent = src.value;
-  src.addEventListener('change', () => { if (S.source) arreterSource(); if (src.value === 'file') { $('vmFichier').click(); } else precedent = src.value; });
+  src.addEventListener('change', () => { S.microParDefaut = false; if (S.source) arreterSource(); if (src.value === 'file') { $('vmFichier').click(); } else precedent = src.value; });
   const f = $('vmFichier');
   f.addEventListener('change', (e) => { const fi = e.target.files[0]; if (!fi) { src.value = precedent; return; } if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); A.fichierUrl = URL.createObjectURL(fi); A.fichierNom = fi.name; precedent = 'file'; if (S.source) arreterSource(); S.etat = T('etatFichier', { nom: fi.name }); });
   f.addEventListener('cancel', () => { src.value = precedent; }); // le choix de fichier annulé
@@ -700,7 +712,7 @@ export async function monter() {
   valide.setCfg(valCfg); essaiF.setCfg(esel);
   const param = parametres(); S.mode = param.mode || lireMode() || 'simple'; // le mode demandé par l'adresse vaut pour cette visite et n'est pas mémorisé
   construireSon(); construireGroupes(); reglagesAvances(); commandesScene(); rafraichir();
-  if (param.morceau) $('vmSource').value = param.morceau; // le morceau choisi par l'adresse : sélectionné, jamais lancé (les navigateurs interdisent la lecture sans geste)
+  if (param.morceau) { $('vmSource').value = param.morceau; S.microParDefaut = false; } // un lien partagé garde le dessus sur le micro par défaut ; le morceau choisi par l'adresse : sélectionné, jamais lancé (les navigateurs interdisent la lecture sans geste)
   appliquerMode(S.mode, false);
   $('vmPlus').addEventListener('click', () => appliquerMode(S.mode === 'simple' ? 'avance' : 'simple'));
   $('vmAnimer').addEventListener('click', () => { S.animer = !S.animer; majAnimer(); });

@@ -19,7 +19,7 @@
 //   - la cadence : au moins 15 images par seconde sur la machine du contrôle (la cible de la
 //     page est 30 ; elle la mesure et le dit), à ne pas confondre avec la cible ;
 //   - le démarrage simple (prompt 201) : à l'arrivée (1000 et 390 px) un grand bouton Écouter avant la figure, le mode Simple ne montre que
-//     bouton, morceau, figure, nom du motif et Plein écran ; Écouter lance le premier morceau, Pause l'arrête, « Plus d'options » ouvre l'Avancé
+//     bouton, morceau, figure, nom du motif et Plein écran ; Écouter demande le micro (présélectionné, jamais demandé au chargement ; refusé ou absent : repli sur le premier morceau, dit clairement), Pause l'arrête, « Plus d'options » ouvre l'Avancé
 //     (mémorisé, et la page marche sans localStorage) ; ?morceau= (7 exemples) et ?mode= seuls, toute autre valeur ignorée ; l'image PNG, Partager
 //     (seulement si canShare({files})), Copier le lien, les informations de l'appareil ; mouvement réduit : figure fixe + bouton Animer ;
 //     contexte audio suspendu, onglet caché, micro absent ; mobile émulé ; temps d'image processeur ×4.
@@ -265,9 +265,16 @@ try {
   // le refus du micro est dit
   const refus = await (await navigateur.newContext({ viewport: { width: 1000, height: 900 } })).newPage();
   await refus.addInitScript(() => { navigator.mediaDevices.getUserMedia = () => Promise.reject(Object.assign(new Error('refusé'), { name: 'NotAllowedError' })); });
-  await refus.goto(`${base}/musique-chladni.html`); await refus.waitForFunction(() => window.__voirSaMusique); await refus.selectOption('#vmSource', 'mic'); await refus.click('#vmLecture'); await refus.waitForTimeout(500);
-  const texte = await refus.textContent('#vmMessage');
-  ok(/refusé/.test(texte) && /Autorisez/.test(texte), `micro refusé : message inattendu « ${texte} »`);
+  await refus.goto(`${base}/musique-chladni.html`); await refus.waitForFunction(() => window.__voirSaMusique);
+  // le micro est la source par défaut : refusé, la page retombe sur le premier morceau d'exemple et le dit, sans rien bloquer (prompt 220)
+  await refus.click('#vmLecture'); await refus.waitForTimeout(2000);
+  let texte = await refus.textContent('#vmMessage');
+  ok(/refusé/.test(texte) && /morceau d'exemple/.test(texte), `micro refusé (source par défaut) : repli annoncé attendu : « ${texte} »`);
+  ok((await refus.evaluate(() => window.__voirSaMusique.etat().source)) === 'morceau' && (await refus.inputValue('#vmSource')) === 'j1' && /Pause/.test(await refus.textContent('#vmLecture')), 'micro refusé : le premier morceau joue, le sélecteur le montre, le bouton dit Pause');
+  // un micro choisi À LA MAIN puis refusé : pas de repli, le message d'avant
+  await refus.click('#vmLecture'); await refus.selectOption('#vmSource', 'mic'); await refus.click('#vmLecture'); await refus.waitForTimeout(500);
+  texte = await refus.textContent('#vmMessage');
+  ok(/refusé/.test(texte) && /Autorisez/.test(texte) && (await refus.evaluate(() => window.__voirSaMusique.etat().source)) === null, `micro choisi puis refusé : message inattendu « ${texte} »`);
 
   // 390 et 360 px
   for (const w of [390, 360]) {
@@ -299,8 +306,10 @@ try {
 
     // 1. l'arrivée, à 1000 et à 390 px : un grand bouton d'abord, la figure grande, le reste dans « Avancé »
     for (const [w, h] of [[1000, 1200], [390, 844]]) {
-      const { c, pg, errs } = await ouvre(w, h);
+      const { c, pg, errs } = await ouvre(w, h, {}, () => { window.__gum = 0; const md = navigator.mediaDevices, g = md.getUserMedia.bind(md); md.getUserMedia = (...a) => { window.__gum++; return g(...a); }; });
       await va(pg); await pg.waitForTimeout(800);
+      // prompt 220 : le micro est la source présélectionnée, et n'est JAMAIS demandé au chargement
+      ok((await pg.inputValue('#vmSource')) === 'mic' && (await pg.evaluate(() => window.__gum)) === 0, `${w} px : le micro est présélectionné et pas demandé au chargement (source ${await pg.inputValue('#vmSource')}, demandes ${await pg.evaluate(() => window.__gum)})`);
       ok(await pg.evaluate(() => document.getElementById('vmPage').classList.contains('vm-simple')), `${w} px : la page doit s'ouvrir en mode Simple`);
       for (const s of ['#vmLecture', '#vmSource', '#vmValideToile', '#vmNomMotif', '#vmPleinBtn', '#vmPlus']) ok(await visible(pg, s), `${w} px, Simple : ${s} doit être visible`);
       for (const s of ['.vm-opts', '#vmEssaiToile', '#vmValider', '#vmAnnuler', '#vmEntreeLigne', '#vmInfo', '#vmValideCap']) ok(!(await visible(pg, s)), `${w} px, Simple : ${s} doit être caché`);
@@ -313,6 +322,10 @@ try {
       ok((g.intro.match(/[.!?。！？](\s|$)/g) || []).length <= 3 && g.intro.length > 40, `${w} px : l'introduction doit tenir en 3 phrases (« ${g.intro.slice(0, 80)}… »)`);
       ok((await pg.$$eval('#vmSource option', (o) => o.map((x) => x.value))).join() === 'j1,j2,j3,j4,j5,j6,j7,file,mic', `${w} px, Simple : 7 morceaux, un fichier, le micro (sans musique d'essai ni audio d'onglet)`);
       ok(/Écouter/.test(await pg.textContent('#vmLecture')) && (await pg.getAttribute('#vmFichier', 'accept')) === 'audio/*', `${w} px : bouton « Écouter » et accept="audio/*"`);
+      // Écouter avec la source par défaut : c'est le geste qui demande le micro (ici le faux périphérique)
+      await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      ok((await S(pg)).source === 'micro' && (await pg.evaluate(() => window.__gum)) === 1, `${w} px : Écouter demande le micro, une fois, au geste`);
+      await pg.click('#vmLecture'); await pg.waitForTimeout(300); await pg.selectOption('#vmSource', 'j1');
       // Écouter : un geste, un morceau, une figure qui bouge, le bouton devient Pause
       await pg.click('#vmLecture'); await pg.waitForTimeout(2500);
       let e = await S(pg), ctxEtat = await pg.evaluate(() => window.__voirSaMusique.contexte().state);
@@ -355,7 +368,7 @@ try {
       const { c, pg, errs } = await ouvre(1000, 1200, {}, () => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('stockage refusé'); } }); });
       await va(pg); await pg.click('#vmPlus'); await pg.waitForTimeout(300);
       ok(await visible(pg, '.vm-opts'), 'sans localStorage : « Plus d\'options » doit marcher');
-      await pg.click('#vmPlus'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      await pg.click('#vmPlus'); await pg.selectOption('#vmSource', 'j1'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
       ok((await S(pg)).source === 'morceau' && errs.length === 0, `sans localStorage : la page doit marcher (${errs.slice(0, 2).join(' | ')})`); await c.close();
     }
 
@@ -365,7 +378,7 @@ try {
       const lire = async (q, chemin) => { await va(pg, q, chemin); return pg.evaluate(() => ({ src: document.getElementById('vmSource').value, simple: document.getElementById('vmPage').classList.contains('vm-simple'), source: window.__voirSaMusique.etat().source, fmt: window.__voirSaMusique.etat().valide.fmt })); };
       let r = await lire('?morceau=j3-re'); ok(r.src === 'j3' && r.simple && r.source === null, `?morceau=j3-re : j3 sélectionné, rien de lancé (${JSON.stringify(r)})`);
       for (const bad of ['j3', 'j9', 'J3-RE', 'http://evil.test/a.mp3', '//evil.test/a.mp3', '../../etc/passwd', 'j3-re%00', 'file:///x', 'data:audio/mp3;base64,AAAA']) {
-        r = await lire(`?morceau=${bad}`); ok(r.src === 'j1' && r.source === null, `?morceau=${bad} doit être ignoré (${JSON.stringify(r)})`);
+        r = await lire(`?morceau=${bad}`); ok(r.src === 'mic' && r.source === null, `?morceau=${bad} doit être ignoré (${JSON.stringify(r)})`);
       }
       ok(![...reqs].filter((u) => !u.startsWith(`${base}/musique-chladni.html`)).some((u) => /evil\.test|etc\/passwd|^data:audio/.test(u)), 'aucune requête (hors la navigation elle-même) vers une adresse donnée dans ?morceau=');
       r = await lire('?mode=avance'); ok(!r.simple, '?mode=avance : mode Avancé');
@@ -427,7 +440,7 @@ try {
     // 5. « réduire les animations » : une image fixe, et un bouton explicite pour animer
     {
       const { c, pg, errs } = await ouvre(1000, 1200, { reducedMotion: 'reduce' });
-      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1800);
+      await va(pg); await pg.selectOption('#vmSource', 'j1'); await pg.click('#vmLecture'); await pg.waitForTimeout(1800);
       ok(await visible(pg, '#vmAnimer'), 'mouvement réduit : le bouton « Animer la figure » doit apparaître');
       const a = await S(pg); await pg.waitForTimeout(1200); const b = await S(pg);
       ok(a.source === 'morceau' && a.tSim === 0 && b.tSim === 0, `mouvement réduit : le son joue mais la figure reste fixe (${a.tSim} → ${b.tSim})`);
@@ -440,7 +453,7 @@ try {
     // 6. iOS / Safari : le contexte audio suspendu ou interrompu, l'onglet caché, le micro absent
     {
       const { c, pg, errs } = await ouvre(390, 844);
-      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      await va(pg); await pg.selectOption('#vmSource', 'j1'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
       // « suspended » (et « interrupted », que Safari pose de la même façon) : le bouton redit Écouter, un message le dit, un geste reprend
       await pg.evaluate(() => window.__voirSaMusique.contexte().suspend()); await pg.waitForTimeout(500);
       ok(/Écouter/.test(await pg.textContent('#vmLecture')) && /interrompu/.test(await pg.textContent('#vmMessage')), 'contexte suspendu : « Écouter » et un message attendus');
@@ -456,8 +469,10 @@ try {
       ok(errs.length === 0, `iOS : erreurs ${errs.slice(0, 2).join(' | ')}`); await c.close();
       // micro absent : message clair
       const sans = await ouvre(390, 844, {}, () => { Object.defineProperty(navigator, 'mediaDevices', { value: undefined, configurable: true }); });
-      await va(sans.pg); await sans.pg.selectOption('#vmSource', 'mic'); await sans.pg.click('#vmLecture'); await sans.pg.waitForTimeout(500);
-      ok(/Aucun micro/.test(await sans.pg.textContent('#vmMessage')), `micro absent : message clair attendu (« ${await sans.pg.textContent('#vmMessage')} »)`); await sans.c.close();
+      await va(sans.pg); await sans.pg.click('#vmLecture'); await sans.pg.waitForTimeout(1500);
+      ok(/Aucun micro/.test(await sans.pg.textContent('#vmMessage')) && /morceau d'exemple/.test(await sans.pg.textContent('#vmMessage')) && (await S(sans.pg)).source === 'morceau', `micro absent (source par défaut) : repli sur le morceau d'exemple, dit clairement (« ${await sans.pg.textContent('#vmMessage')} »)`);
+      await sans.pg.click('#vmLecture'); await sans.pg.selectOption('#vmSource', 'mic'); await sans.pg.click('#vmLecture'); await sans.pg.waitForTimeout(500);
+      ok(/Aucun micro/.test(await sans.pg.textContent('#vmMessage')) && !/exemple/.test(await sans.pg.textContent('#vmMessage')), `micro absent (choisi à la main) : message clair attendu (« ${await sans.pg.textContent('#vmMessage')} »)`); await sans.c.close();
     }
 
     // 7. mobile émulé (Chromium, profil iPhone) : Écouter → figure → Pause → Image, sans erreur, sans défilement horizontal
@@ -465,7 +480,7 @@ try {
       const { devices } = await import('playwright');
       const { c, pg, errs } = await ouvre(390, 844, { ...devices['iPhone 13'], acceptDownloads: true });
       await va(pg); await pg.waitForTimeout(500);
-      await pg.tap('#vmLecture'); await pg.waitForTimeout(2000);
+      await pg.selectOption('#vmSource', 'j1'); await pg.tap('#vmLecture'); await pg.waitForTimeout(2000);
       ok((await S(pg)).source === 'morceau' && (await nCouleurs(pg)) >= 2, 'mobile émulé : Écouter doit lancer le morceau et dessiner la figure');
       await pg.tap('#vmLecture'); await pg.waitForTimeout(300);
       ok(/Écouter/.test(await pg.textContent('#vmLecture')), 'mobile émulé : Pause');
@@ -502,7 +517,7 @@ try {
     // 10. titres et nom accessible, JavaScript exécuté (Avancé, volets ouverts) : un seul h1, aucun saut de niveau, les fenêtres Validé / Essai ne sont pas des titres ; le canvas porte le nom du motif retenu
     {
       const { c, pg, errs } = await ouvre(1000, 1200);
-      await va(pg, '?mode=avance'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      await va(pg, '?mode=avance'); await pg.selectOption('#vmSource', 'j1'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
       for (const d of await pg.$$('.vm-details')) await d.evaluate((n) => { n.open = true; });
       await pg.waitForTimeout(600);
       const niv = await pg.evaluate(() => [...document.querySelectorAll('main h1,main h2,main h3,main h4')].filter((h) => h.getBoundingClientRect().width > 0).map((h) => Number(h.tagName[1])));
@@ -517,7 +532,7 @@ try {
     {
       const { c, pg } = await ouvre(390, 844, { isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
       const cdp = await c.newCDPSession(pg); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
-      await va(pg); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
+      await va(pg); await pg.selectOption('#vmSource', 'j1'); await pg.click('#vmLecture'); await pg.waitForTimeout(1500);
       const ft = await pg.evaluate(() => new Promise((fin) => { const t = []; let p = performance.now(), n = 0; const f = (ms) => { t.push(ms - p); p = ms; if (++n < 150) requestAnimationFrame(f); else fin(t.slice(10)); }; requestAnimationFrame(f); }));
       const moy = ft.reduce((a, b) => a + b, 0) / ft.length;
       ok(moy <= 50, `fluidité : ${moy.toFixed(1)} ms par image avec le processeur ralenti ×4 (50 ms au plus)`);

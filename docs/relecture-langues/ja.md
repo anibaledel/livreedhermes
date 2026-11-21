@@ -71,7 +71,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `comment2` | Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré. | クラドニ図形とは、振動する板の上で砂が作る模様のことです。砂は動かない線に沿って集まります。ここでは板は正方形です。 |
 | `comment3` | Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau. | ここでの「似ている」とは、2つのスペクトルが近いということです。エネルギーが周波数ごとに同じように分かれています。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。 |
 | `comment4` | Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil. | 何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。録画した画像や動画はお使いのブラウザ内で作られ、お使いのデバイスにダウンロードされます。 |
-| `comment5` | Appuyez sur « Écouter » pour jouer le premier morceau d'exemple, ou choisissez un autre morceau, un fichier audio ou le micro. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 「聴く」を押すと最初の例の曲が再生されます。別の曲、音声ファイル、マイクを選ぶこともできます。「オプションを増やす」では、図形の画像や、音付きの15秒の動画を録画できます。 |
+| `comment5` | Appuyez sur « Écouter » : la page demande alors le micro, jamais avant ; sans micro, elle joue un morceau d'exemple. Vous pouvez aussi choisir un autre morceau ou un fichier audio. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son. | 「聴く」を押すと、そのときはじめてマイクの許可を求めます（それより前には求めません）。マイクがない、または許可されない場合は、例の曲を再生します。別の曲や音声ファイルを選ぶこともできます。「オプションを増やす」では、図形の画像や、音付きの15秒の動画を録画できます。 |
 | `comment6` | Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot. | コンテンツは CC BY-NC 4.0 ライセンス、コードは AGPL v3 ライセンスです（商用ライセンスは要望に応じて提供）。作者：Anibal Edelberto Amiot。 |
 | `commentAuteur` | À propos de l'auteur | 作者について |
 | `refAlt` | Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements. | ページが生成した図形の例：大きな黒とクリーム色の菱形の市松模様で、交点に小さな丸い形があります。 |
@@ -86,7 +86,7 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `intervalle` | Intervalle minimal entre deux attaques (s) | 2つのアタックの最小間隔（秒） |
 | `intervalleAide` | 0,45 s par défaut : au plus environ 133 attaques par minute. Baissez-le pour un tempo rapide. | 既定は 0.45 秒で、1分あたり最大およそ133回のアタックです。速いテンポでは下げてください。 |
 | `mentionIA` | Les morceaux fournis sont composés avec l'aide de l'IA (« Musique composée avec l'IA par MC Claude. »). | 付属の曲は AI の助けを借りて作曲されています（「MC Claude が AI で作曲した音楽。」）。 |
-| `etatDepart` | Appuyez sur Écouter. Les morceaux fournis sont composés avec l'aide de l'IA. | 「聴く」を押してください。付属の曲は AI の助けを借りて作曲されています。 |
+| `etatDepart` | Appuyez sur Écouter : le micro est demandé à ce moment-là, ou choisissez un morceau. Les morceaux fournis sont composés avec l'aide de l'IA. | 「聴く」を押してください。そのときマイクの許可を求めます。曲を選ぶこともできます。付属の曲は AI の助けを借りて作曲されています。 |
 | `etatMorceau` | Morceau fourni, composé avec l'aide de l'IA. | 付属の曲。AI の助けを借りて作曲されています。 |
 | `etatFichier` | Fichier : {nom} (il reste dans votre navigateur). | ファイル：{nom}（ブラウザの中にとどまります）。 |
 | `etatMicro` | Micro actif. | マイクがオンです。 |
@@ -96,6 +96,9 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `erreurMicroRefuse` | Le micro est refusé. Autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), puis cliquez de nouveau sur Écouter. Vous pouvez aussi choisir un fichier ou un morceau. | マイクが拒否されました。サイトの設定（アドレスの左の鍵のアイコン）で許可してから、もう一度「聴く」を押してください。ファイルや付属の曲を選ぶこともできます。 |
 | `erreurMicroAbsent` | Aucun micro n'est disponible sur cet appareil. | この端末で使えるマイクがありません。 |
 | `erreurMicro` | Le micro ne démarre pas : {message} | マイクが起動しません：{message} |
+| `microRepliRefuse` | Le micro est refusé : voici un morceau d'exemple à la place. Pour utiliser le micro, autorisez-le dans les réglages du site (le cadenas, à gauche de l'adresse), choisissez « Microphone » dans la liste des sources, puis appuyez sur Écouter. | マイクが許可されなかったため、代わりに例の曲を再生しています。マイクを使うには、サイトの設定（アドレスの左の鍵のアイコン）で許可し、音源の一覧で「マイク」を選んでから「聴く」を押してください。 |
+| `microRepliAbsent` | Aucun micro n'est disponible sur cet appareil : voici un morceau d'exemple à la place. | この端末では使えるマイクがないため、代わりに例の曲を再生しています。 |
+| `microRepliAutre` | Le micro ne démarre pas ({message}) : voici un morceau d'exemple à la place. | マイクを開始できません（{message}）。代わりに例の曲を再生しています。 |
 | `erreurOnglet` | La capture d'audio d'un onglet n'est pas possible ici. Elle demande un navigateur de bureau récent (Chrome, Edge) ; elle manque sur mobile et sur Safari. | ここではタブの音声を取り込めません。最新のデスクトップ用ブラウザ（Chrome、Edge）が必要で、モバイルと Safari では使えません。 |
 | `erreurOngletSansSon` | L'onglet choisi n'a pas fourni de son. Recommencez et cochez « Partager l'audio de l'onglet ». | 選んだタブから音が届きませんでした。もう一度やり直し、「タブの音声を共有」にチェックを入れてください。 |
 | `erreurFichier` | Ce fichier ne peut pas être lu comme un son. | このファイルは音として読み込めません。 |

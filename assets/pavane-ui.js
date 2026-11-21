@@ -50,6 +50,9 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const son = creerSon();
 
   let { etat } = lireEtat(recherche, proposes);
+  // le micro est la source de départ (prompt 220) : jamais demandé au chargement, seulement au bouton « Activer le micro » ; refusé ou impossible, un morceau d'exemple le remplace, en le disant.
+  // Un lien qui fixe la source (?source=…, ?piste=…) garde le dessus : alors, pas de repli.
+  let microParDefaut = etat.source === 'micro' && !new URLSearchParams(recherche).has('source');
   let reduit = reduitMq.matches, enPause = false, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
   const cache = new Map();
 
@@ -194,7 +197,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
 
   for (const { m, radio } of radiosMode) radio.addEventListener('change', () => radio.checked && changer({ mode: m }, { refaire: true }));
   for (const { d, radio } of radiosDecl) radio.addEventListener('change', () => radio.checked && changer({ declencheur: d }, { refaire: true }));
-  for (const { sr, radio } of radiosSource) radio.addEventListener('change', () => { if (!radio.checked) return; son.arreter(); messageSon(null); changer({ source: sr }); });
+  for (const { sr, radio } of radiosSource) radio.addEventListener('change', () => { if (!radio.checked) return; microParDefaut = false; son.arreter(); messageSon(null); changer({ source: sr }); });
   async function lancer() {
     messageSon(null);
     try {
@@ -209,7 +212,15 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     messageSon(null);
     try { await son.jouerFichier(f); refleter(); armer(); dire(); } catch { messageSon('erreurFichier'); }
   });
-  bMicro.addEventListener('click', async () => { messageSon(null); try { await son.activerMicro(); refleter(); armer(); dire(); } catch { messageSon('erreurMicro'); } });
+  bMicro.addEventListener('click', async () => {
+    messageSon(null);
+    try { await son.activerMicro(); refleter(); armer(); dire(); }
+    catch {
+      if (!microParDefaut) return messageSon('erreurMicro');
+      microParDefaut = false; changer({ source: 'morceau' }); await lancer(); // le morceau d'exemple prend la place, et on le dit (sans bloquer : l'interface reste utilisable)
+      if (son.actif === 'morceau') messageSon('microRepli');
+    }
+  });
   rNote.addEventListener('input', () => { const hz = Math.min(NOTE_MAX, Math.max(NOTE_MIN, frequenceDuCurseur(Number(rNote.value)))); etat = { ...etat, note: hz }; ecrireAdresse(); nNote.textContent = T('frequence', { hz }); if (son.actif === 'note') son.changerNote(hz); });
   selFond.addEventListener('change', () => changer({ fond: selFond.value }));
   for (const { n, radio } of radiosCorpus) radio.addEventListener('change', () => radio.checked && changer({ corpus: n }, { refaire: true }));

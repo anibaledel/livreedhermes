@@ -32,7 +32,12 @@ for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?pis
   const r = L(s); ok((cle === null ? r.ignores.length === 0 : r.ignores.includes(cle)) && JSON.stringify(r.etat) === JSON.stringify(DEFAUTS), `${s} est ignoré (le défaut s'applique)`);
 }
 { const r = L('?source=note&note=880&piste=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
-ok(DEFAUTS.source === 'morceau' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : morceau j1, 440 Hz, minuteur');
+ok(DEFAUTS.source === 'micro' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : le micro (prompt 220), morceau j1, 440 Hz, minuteur');
+// un lien qui fixe la source ou la piste garde le dessus sur le micro par défaut ; l'aller-retour est exact
+ok(L('').etat.source === 'micro' && L('?source=morceau').etat.source === 'morceau' && L('?piste=j4').etat.source === 'morceau' && L('?piste=j4').etat.morceau === 'j4', 'micro par défaut ; ?source=morceau et ?piste=… (sans source) donnent le morceau');
+ok(L('?piste=j4&source=micro').etat.source === 'micro' && L('?source=note').etat.source === 'note', '?source= explicite garde le dessus sur ?piste=');
+for (const e of [{ ...DEFAUTS, source: 'morceau' }, { ...DEFAUTS, morceau: 'j4' }, { ...DEFAUTS, source: 'morceau', morceau: 'j4' }, { ...DEFAUTS, source: 'fichier' }]) { const r = L(ecrireEtat(e)).etat; ok(r.source === e.source && r.morceau === e.morceau, `aller-retour source/piste : ${ecrireEtat(e) || '(défaut)'}`); }
+ok(ecrireEtat(DEFAUTS) === '' && ecrireEtat({ ...DEFAUTS, source: 'morceau' }) === '?source=morceau', 'le défaut s\'écrit vide ; le morceau s\'écrit ?source=morceau');
 // valeurs valides
 const e = L('?mode=entre-deux&corpus=64&trace=1&rythme=2.5&densite=12&palette=rouge-blanc').etat;
 ok(e.mode === 'entre-deux' && e.corpus === 64 && e.trace === true && e.rythme === 2.5 && e.densite === 12 && e.palette === 'rouge-blanc', 'une adresse complète est relue');

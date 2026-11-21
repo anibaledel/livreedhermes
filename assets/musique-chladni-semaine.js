@@ -12,7 +12,7 @@
 // moment-là seulement). Le lien direct reste affiché sous le lecteur, au cas où l'intégration échoue.
 // Une carte sans youtube ni tiktok ne montre que son affiche et « bientôt ». Fichier absent, vide ou
 // illisible : le bloc entier reste masqué, sans exception.
-import { texte as T } from './musique-chladni-textes.js?v=699e4befa6';
+import { texte as T } from './musique-chladni-textes.js?v=c6be8c59aa';
 
 const RACINE = new URL('../', import.meta.url); // la page peut vivre dans un sous-dossier (en/see-your-music/) : les fichiers se lisent depuis la racine du site
 const FICHIER = new URL('data/musique-chladni/semaine.json', RACINE).href;
