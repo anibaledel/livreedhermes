@@ -7,7 +7,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { lireEtat, ecrireEtat, DEFAUTS, MODES } from '../assets/pavane-etat.js';
+import { lireEtat, ecrireEtat, fusionnerRecherche, DEFAUTS, MODES } from '../assets/pavane-etat.js';
 import { PALETTES, paireValide, paireDe, contraste, CONTRASTE_MIN } from '../assets/pavane-couleurs.js';
 import { fondsRetenus } from '../assets/fonds-retenus.js';
 
@@ -28,10 +28,10 @@ for (const [s, cle] of [['?mode=spectrum', 'mode'], ['?mode=', 'mode'], ['?fond=
 for (const f of proposes) ok(L(`?fond=${f}`).etat.fond === f, `fond proposé ${f} accepté`);
 ok(proposes.length === 3 && proposes.includes('P'), `trois fonds proposés dont P (${proposes.join(', ')})`);
 // les sources du son et le déclencheur (bloc 2)
-for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?morceau=j8', 'morceau'], ['?morceau=J1', 'morceau'], ['?note=109', 'note'], ['?note=1761', 'note'], ['?note=440.5', 'note'], ['?note=la', 'note'], ['?declencheur=rythme', 'declencheur']]) {
-  const r = L(s); ok(r.ignores.includes(cle) && JSON.stringify(r.etat) === JSON.stringify(DEFAUTS), `${s} est ignoré (le défaut s'applique)`);
+for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?piste=j8', 'piste'], ['?piste=J1', 'piste'], ['?morceau=j3-re', null], ['?note=109', 'note'], ['?note=1761', 'note'], ['?note=440.5', 'note'], ['?note=la', 'note'], ['?declencheur=rythme', 'declencheur']]) {
+  const r = L(s); ok((cle === null ? r.ignores.length === 0 : r.ignores.includes(cle)) && JSON.stringify(r.etat) === JSON.stringify(DEFAUTS), `${s} est ignoré (le défaut s'applique)`);
 }
-{ const r = L('?source=note&note=880&morceau=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
+{ const r = L('?source=note&note=880&piste=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
 ok(DEFAUTS.source === 'morceau' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : morceau j1, 440 Hz, minuteur');
 // valeurs valides
 const e = L('?mode=entre-deux&corpus=64&trace=1&rythme=2.5&densite=12&palette=rouge-blanc').etat;
@@ -51,6 +51,11 @@ for (const s of ['', '?mode=spectre', '?fond=B2Dx&corpus=256&trace=1', '?mode=en
   ok(JSON.stringify(r) === JSON.stringify(r2), `aller-retour de « ${s} » : ${ecrireEtat(r)}`);
 }
 ok(ecrireEtat(DEFAUTS) === '', 'l\'état par défaut s\'écrit sans paramètre');
+// la page « Voir sa musique » a ses propres paramètres : Pavane les garde
+ok(fusionnerRecherche('?morceau=j3-re&mode=avance', { ...DEFAUTS, mode: 'spectre', source: 'note', note: 880 }) === '?morceau=j3-re&mode=spectre&source=note&note=880', 'fusion : ?morceau= du legacy gardé, mode remplacé');
+ok(fusionnerRecherche('?morceau=j3-re&mode=avance', DEFAUTS) === '?morceau=j3-re&mode=avance', 'fusion : ?mode=avance du legacy est gardé quand Pavane est au mode par défaut');
+ok(fusionnerRecherche('?mode=spectre&fond=B2Dx', DEFAUTS) === '', 'fusion : les clés de Pavane qui reviennent au défaut sont ôtées');
+ok(fusionnerRecherche('?autre=1&corpus=64', { ...DEFAUTS, corpus: 256 }) === '?autre=1&corpus=256', 'fusion : un paramètre étranger est gardé');
 if (essai) { // une attente fausse doit être refusée
   ok(L('?fond=B3').etat.fond === 'B3', 'ESSAI : B3 n\'est pas proposé, cette attente fausse doit échouer');
   if (!echecs) { console.error('ÉCHEC --essai : une attente fausse n\'a pas été refusée'); process.exit(1); }

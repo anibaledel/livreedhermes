@@ -44,7 +44,7 @@ export function lireEtat(search, proposes) {
   if (k) { if (CLES_PALETTES.includes(v)) etat.palette = v; else refuse(k); }
   [k, v] = lu('source');
   if (k) { if (SOURCES.includes(v)) etat.source = v; else refuse(k); }
-  [k, v] = lu('morceau');
+  [k, v] = lu('piste'); // « piste » et non « morceau » : la page « Voir sa musique » garde son propre ?morceau= (le nom du fichier, j3-re)
   if (k) { if (MORCEAUX.includes(v)) etat.morceau = v; else refuse(k); }
   [k, v] = lu('note');
   if (k) { const n = entier(v); if (n !== null && n >= NOTE_MIN && n <= NOTE_MAX) etat.note = n; else refuse(k); }
@@ -68,11 +68,22 @@ export function ecrireEtat(etat) {
   if (etat.rythme !== DEFAUTS.rythme) q.set('rythme', String(etat.rythme));
   if (etat.densite !== DEFAUTS.densite) q.set('densite', String(etat.densite));
   if (etat.source !== DEFAUTS.source) q.set('source', etat.source);
-  if (etat.morceau !== DEFAUTS.morceau) q.set('morceau', etat.morceau);
+  if (etat.morceau !== DEFAUTS.morceau) q.set('piste', etat.morceau);
   if (etat.note !== DEFAUTS.note) q.set('note', String(etat.note));
   if (etat.declencheur !== DEFAUTS.declencheur) q.set('declencheur', etat.declencheur);
   if (etat.palette !== DEFAUTS.palette) q.set('palette', etat.palette);
   if (etat.palette === 'perso') { q.set('c0', etat.c0.slice(1)); q.set('c1', etat.c1.slice(1)); }
+  const s = q.toString();
+  return s ? `?${s}` : '';
+}
+
+// Les clés de l'adresse que Pavane possède. « mode » est partagée avec la page « Voir sa musique » (?mode=avance) : Pavane ne la touche que si sa valeur est une des siennes.
+export const CLES_ETAT = Object.freeze(['mode', 'fond', 'corpus', 'trace', 'rythme', 'densite', 'palette', 'c0', 'c1', 'source', 'piste', 'note', 'declencheur']);
+/** L'adresse d'une page qui a d'autres paramètres (?morceau=…, ?mode=avance) : ceux de Pavane sont remplacés, tous les autres sont gardés tels quels. */
+export function fusionnerRecherche(rechercheActuelle, etat) {
+  const q = new URLSearchParams(rechercheActuelle);
+  for (const k of CLES_ETAT) { if (k === 'mode' && q.has('mode') && !MODES.includes(q.get('mode'))) continue; q.delete(k); }
+  for (const [k, v] of new URLSearchParams(ecrireEtat(etat))) q.set(k, v);
   const s = q.toString();
   return s ? `?${s}` : '';
 }

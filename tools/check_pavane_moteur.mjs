@@ -16,7 +16,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SHELLS12, frequenceSelonLoi } from '../assets/musique-chladni-moteur.js';
-import { NOM_COMPLET } from '../assets/pavane-nom.js';
+import { NOM_COMPLET, NOM_PUBLIC, SOUS_TITRE } from '../assets/pavane-nom.js';
 import * as P from '../assets/pavane-moteur.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,7 +24,7 @@ const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 
 const essai = process.argv.includes('--essai');
 let echecs = 0;
 const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
-if (NOM_COMPLET !== 'Pavane — Voir sa musique') ko(`le nom de travail est « ${NOM_COMPLET} »`);
+if (NOM_PUBLIC !== 'Voir sa musique' || SOUS_TITRE !== 'Pavane' || NOM_COMPLET !== 'Voir sa musique') ko(`le nom est « ${NOM_COMPLET} » (Voir sa musique, Pavane en sous-titre seulement : ${NOM_PUBLIC} / ${SOUS_TITRE})`);
 
 // ---------- Défilé ----------
 function verifierDefile(niveau, graine, suite, d, n) {

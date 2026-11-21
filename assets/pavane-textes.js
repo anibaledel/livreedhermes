@@ -7,6 +7,8 @@
 export const LANGUES = Object.freeze(['fr', 'en', 'es', 'th', 'zh', 'ru', 'pt', 'hi', 'de', 'it', 'ja']);
 export const TEXTES = {
   fr: {
+    ouvrir: "Ouvrir la nouvelle interface",
+    titreApp: "Voir sa musique",
     modes: 'Mode', defile: 'Défilé', defileP: 'Les motifs se suivent, du plus proche au plus proche, au rythme d\'un minuteur ou de la pulsation du son.',
     spectre: 'Spectre', spectreP: 'Le son choisit le motif dont le spectre lui ressemble le plus.', entreDeux: 'Entre-deux', entreDeuxP: 'Le spectre guide, le rythme avance : à chaque pulsation, un motif voisin parmi ceux qui ressemblent au son.', reglages: 'Réglages',
     fond: 'Fond', fond_P: 'Aplat', fond_B2Dx: 'Triangles', fond_B11211Dx: 'Bandes',
@@ -19,6 +21,8 @@ export const TEXTES = {
     sources: 'Source du son', srcMorceau: 'Morceau fourni', srcFichier: 'Fichier', srcMicro: 'Micro', srcNote: 'Note pure', morceauN: 'Morceau {n}', choisirFichier: 'Choisir un fichier audio', activerMicro: 'Activer le micro', jouer: 'Jouer', arreter: 'Arrêter', frequence: 'Fréquence : {hz} Hz', declencheur: 'Changer de motif', declMinuteur: 'au minuteur', declPulsation: 'à la pulsation du son', enregImage: 'Enregistrer l\'image', enregVideo: 'Enregistrer 15 s de vidéo', enregEnCours: 'Enregistrement… {s} s', erreurMicro: 'Micro indisponible ou refusé.', erreurFichier: 'Ce fichier audio ne peut pas être lu.', erreurEnreg: 'Enregistrement indisponible sur cet appareil.', repli: 'Pas de pulsation régulière : le minuteur prend le relais.', silence: 'Silence.', mentionIA: 'Morceaux originaux composés avec l\'aide de l\'IA.', sonActif: 'Son : {nom}', rienNeJoue: 'Aucun son pour l\'instant.',
   },
   en: {
+    ouvrir: "Open the new interface",
+    titreApp: "See your music",
     modes: 'Mode', defile: 'Parade', defileP: 'Patterns follow one another, nearest to nearest, on a timer or on the beat of the sound.',
     spectre: 'Spectrum', spectreP: 'The sound picks the pattern whose spectrum looks most like it.', entreDeux: 'In between', entreDeuxP: 'The spectrum guides, the beat advances: on each beat, a neighbouring pattern among those that look like the sound.', reglages: 'Settings',
     fond: 'Background', fond_P: 'Solid', fond_B2Dx: 'Triangles', fond_B11211Dx: 'Stripes',
@@ -31,6 +35,8 @@ export const TEXTES = {
     sources: 'Sound source', srcMorceau: 'Supplied track', srcFichier: 'File', srcMicro: 'Microphone', srcNote: 'Pure note', morceauN: 'Track {n}', choisirFichier: 'Choose an audio file', activerMicro: 'Turn on the microphone', jouer: 'Play', arreter: 'Stop', frequence: 'Frequency: {hz} Hz', declencheur: 'Change pattern', declMinuteur: 'on a timer', declPulsation: 'on the beat of the sound', enregImage: 'Save the image', enregVideo: 'Record 15 s of video', enregEnCours: 'Recording… {s} s', erreurMicro: 'Microphone unavailable or refused.', erreurFichier: 'This audio file cannot be played.', erreurEnreg: 'Recording is not available on this device.', repli: 'No steady beat: the timer takes over.', silence: 'Silence.', mentionIA: 'Original tracks composed with the help of AI.', sonActif: 'Sound: {nom}', rienNeJoue: 'No sound yet.',
   },
   es: {
+    ouvrir: "Abrir la nueva interfaz",
+    titreApp: "Ver tu música",
     modes: 'Modo', defile: 'Desfile', defileP: 'Los motivos se suceden, del más cercano al más cercano, al ritmo de un temporizador o de la pulsación del sonido.',
     spectre: 'Espectro', spectreP: 'El sonido elige el motivo cuyo espectro más se le parece.', entreDeux: 'Entre ambos', entreDeuxP: 'El espectro guía, el ritmo avanza: en cada pulsación, un motivo vecino entre los que se parecen al sonido.', reglages: 'Ajustes',
     fond: 'Fondo', fond_P: 'Liso', fond_B2Dx: 'Triángulos', fond_B11211Dx: 'Bandas',
@@ -43,6 +49,8 @@ export const TEXTES = {
     sources: 'Fuente del sonido', srcMorceau: 'Pista incluida', srcFichier: 'Archivo', srcMicro: 'Micrófono', srcNote: 'Nota pura', morceauN: 'Pista {n}', choisirFichier: 'Elegir un archivo de audio', activerMicro: 'Activar el micrófono', jouer: 'Reproducir', arreter: 'Detener', frequence: 'Frecuencia: {hz} Hz', declencheur: 'Cambiar de motivo', declMinuteur: 'con un temporizador', declPulsation: 'con la pulsación del sonido', enregImage: 'Guardar la imagen', enregVideo: 'Grabar 15 s de vídeo', enregEnCours: 'Grabando… {s} s', erreurMicro: 'Micrófono no disponible o rechazado.', erreurFichier: 'Este archivo de audio no se puede reproducir.', erreurEnreg: 'La grabación no está disponible en este dispositivo.', repli: 'Sin pulsación regular: el temporizador toma el relevo.', silence: 'Silencio.', mentionIA: 'Pistas originales compuestas con ayuda de la IA.', sonActif: 'Sonido: {nom}', rienNeJoue: 'Todavía no hay sonido.',
   },
   th: {
+    ouvrir: "เปิดอินเทอร์เฟซใหม่",
+    titreApp: "มองเห็นดนตรีของคุณ",
     modes: 'โหมด', defile: 'ขบวน', defileP: 'ลวดลายต่อกันไป จากแบบที่ใกล้ที่สุดไปแบบที่ใกล้ที่สุด ตามตัวจับเวลาหรือจังหวะของเสียง',
     spectre: 'สเปกตรัม', spectreP: 'เสียงเลือกลวดลายที่สเปกตรัมคล้ายกับมันที่สุด', entreDeux: 'ระหว่างกลาง', entreDeuxP: 'สเปกตรัมนำทาง จังหวะพาเดินหน้า: ทุกจังหวะ จะเลือกลวดลายข้างเคียงจากกลุ่มที่คล้ายเสียง', reglages: 'การตั้งค่า',
     fond: 'พื้นหลัง', fond_P: 'สีเรียบ', fond_B2Dx: 'สามเหลี่ยม', fond_B11211Dx: 'แถบ',
@@ -55,6 +63,8 @@ export const TEXTES = {
     sources: 'แหล่งเสียง', srcMorceau: 'เพลงที่มีให้', srcFichier: 'ไฟล์', srcMicro: 'ไมโครโฟน', srcNote: 'โน้ตเดี่ยว', morceauN: 'เพลงที่ {n}', choisirFichier: 'เลือกไฟล์เสียง', activerMicro: 'เปิดไมโครโฟน', jouer: 'เล่น', arreter: 'หยุด', frequence: 'ความถี่: {hz} เฮิรตซ์', declencheur: 'เปลี่ยนลวดลาย', declMinuteur: 'ตามตัวจับเวลา', declPulsation: 'ตามจังหวะของเสียง', enregImage: 'บันทึกภาพ', enregVideo: 'บันทึกวิดีโอ 15 วินาที', enregEnCours: 'กำลังบันทึก… {s} วินาที', erreurMicro: 'ไมโครโฟนใช้ไม่ได้หรือถูกปฏิเสธ', erreurFichier: 'เล่นไฟล์เสียงนี้ไม่ได้', erreurEnreg: 'อุปกรณ์นี้บันทึกไม่ได้', repli: 'ไม่มีจังหวะสม่ำเสมอ: ตัวจับเวลาเข้ามาแทน', silence: 'เงียบ', mentionIA: 'เพลงต้นฉบับที่แต่งด้วยความช่วยเหลือของ AI', sonActif: 'เสียง: {nom}', rienNeJoue: 'ยังไม่มีเสียง',
   },
   zh: {
+    ouvrir: "打开新界面",
+    titreApp: "看见你的音乐",
     modes: '模式', defile: '游行', defileP: '图案依次相接，从最近的到最近的，按计时器或声音的节拍推进。',
     spectre: '频谱', spectreP: '声音选出频谱与它最相似的图案。', entreDeux: '折中', entreDeuxP: '频谱引路，节拍前行：每个节拍，从与声音相似的图案中选一个相邻的。', reglages: '设置',
     fond: '底纹', fond_P: '纯色', fond_B2Dx: '三角形', fond_B11211Dx: '条纹',
@@ -67,6 +77,8 @@ export const TEXTES = {
     sources: '声音来源', srcMorceau: '自带曲目', srcFichier: '文件', srcMicro: '麦克风', srcNote: '纯音', morceauN: '曲目 {n}', choisirFichier: '选择音频文件', activerMicro: '开启麦克风', jouer: '播放', arreter: '停止', frequence: '频率：{hz} 赫兹', declencheur: '切换图案', declMinuteur: '按计时器', declPulsation: '按声音的节拍', enregImage: '保存图像', enregVideo: '录制 15 秒视频', enregEnCours: '录制中… {s} 秒', erreurMicro: '麦克风不可用或被拒绝。', erreurFichier: '无法播放此音频文件。', erreurEnreg: '此设备无法录制。', repli: '没有稳定的节拍：由计时器接手。', silence: '静音。', mentionIA: '原创曲目，在人工智能协助下创作。', sonActif: '声音：{nom}', rienNeJoue: '暂时没有声音。',
   },
   ru: {
+    ouvrir: "Открыть новый интерфейс",
+    titreApp: "Увидеть свою музыку",
     modes: 'Режим', defile: 'Шествие', defileP: 'Узоры следуют один за другим, от ближайшего к ближайшему, по таймеру или в такт звуку.',
     spectre: 'Спектр', spectreP: 'Звук выбирает узор, спектр которого больше всего на него похож.', entreDeux: 'Золотая середина', entreDeuxP: 'Спектр ведёт, ритм продвигает: на каждый удар — соседний узор среди тех, что похожи на звук.', reglages: 'Настройки',
     fond: 'Фон', fond_P: 'Сплошной', fond_B2Dx: 'Треугольники', fond_B11211Dx: 'Полосы',
@@ -79,6 +91,8 @@ export const TEXTES = {
     sources: 'Источник звука', srcMorceau: 'Встроенный трек', srcFichier: 'Файл', srcMicro: 'Микрофон', srcNote: 'Чистая нота', morceauN: 'Трек {n}', choisirFichier: 'Выбрать аудиофайл', activerMicro: 'Включить микрофон', jouer: 'Играть', arreter: 'Стоп', frequence: 'Частота: {hz} Гц', declencheur: 'Смена узора', declMinuteur: 'по таймеру', declPulsation: 'в такт звуку', enregImage: 'Сохранить изображение', enregVideo: 'Записать 15 с видео', enregEnCours: 'Запись… {s} с', erreurMicro: 'Микрофон недоступен или отклонён.', erreurFichier: 'Этот аудиофайл нельзя воспроизвести.', erreurEnreg: 'Запись недоступна на этом устройстве.', repli: 'Нет устойчивого ритма: таймер берёт управление.', silence: 'Тишина.', mentionIA: 'Оригинальные треки, созданные с помощью ИИ.', sonActif: 'Звук: {nom}', rienNeJoue: 'Пока нет звука.',
   },
   pt: {
+    ouvrir: "Abrir a nova interface",
+    titreApp: "Ver a sua música",
     modes: 'Modo', defile: 'Desfile', defileP: 'Os motivos seguem-se, do mais próximo ao mais próximo, ao ritmo de um temporizador ou da pulsação do som.',
     spectre: 'Espectro', spectreP: 'O som escolhe o motivo cujo espectro mais se parece com ele.', entreDeux: 'Entre os dois', entreDeuxP: 'O espectro guia, o ritmo avança: a cada pulsação, um motivo vizinho entre os que se parecem com o som.', reglages: 'Definições',
     fond: 'Fundo', fond_P: 'Liso', fond_B2Dx: 'Triângulos', fond_B11211Dx: 'Faixas',
@@ -91,6 +105,8 @@ export const TEXTES = {
     sources: 'Fonte do som', srcMorceau: 'Faixa fornecida', srcFichier: 'Ficheiro', srcMicro: 'Microfone', srcNote: 'Nota pura', morceauN: 'Faixa {n}', choisirFichier: 'Escolher um ficheiro de áudio', activerMicro: 'Ativar o microfone', jouer: 'Reproduzir', arreter: 'Parar', frequence: 'Frequência: {hz} Hz', declencheur: 'Mudar de motivo', declMinuteur: 'com um temporizador', declPulsation: 'à pulsação do som', enregImage: 'Guardar a imagem', enregVideo: 'Gravar 15 s de vídeo', enregEnCours: 'A gravar… {s} s', erreurMicro: 'Microfone indisponível ou recusado.', erreurFichier: 'Não é possível reproduzir este ficheiro de áudio.', erreurEnreg: 'A gravação não está disponível neste dispositivo.', repli: 'Sem pulsação regular: o temporizador assume.', silence: 'Silêncio.', mentionIA: 'Faixas originais compostas com a ajuda de IA.', sonActif: 'Som: {nom}', rienNeJoue: 'Ainda sem som.',
   },
   hi: {
+    ouvrir: "नया इंटरफ़ेस खोलें",
+    titreApp: "अपने संगीत को देखें",
     modes: 'मोड', defile: 'जुलूस', defileP: 'पैटर्न एक के बाद एक आते हैं, निकटतम से निकटतम तक, टाइमर या ध्वनि की धड़कन के साथ।',
     spectre: 'स्पेक्ट्रम', spectreP: 'ध्वनि वह पैटर्न चुनती है जिसका स्पेक्ट्रम उससे सबसे अधिक मिलता है।', entreDeux: 'बीच का रास्ता', entreDeuxP: 'स्पेक्ट्रम राह दिखाता है, धड़कन आगे बढ़ाती है: हर धड़कन पर, ध्वनि जैसे पैटर्नों में से एक पड़ोसी पैटर्न।', reglages: 'सेटिंग',
     fond: 'पृष्ठभूमि', fond_P: 'सादा', fond_B2Dx: 'त्रिभुज', fond_B11211Dx: 'पट्टियाँ',
@@ -103,6 +119,8 @@ export const TEXTES = {
     sources: 'ध्वनि का स्रोत', srcMorceau: 'दिया गया गीत', srcFichier: 'फ़ाइल', srcMicro: 'माइक्रोफ़ोन', srcNote: 'शुद्ध स्वर', morceauN: 'गीत {n}', choisirFichier: 'ऑडियो फ़ाइल चुनें', activerMicro: 'माइक्रोफ़ोन चालू करें', jouer: 'चलाएँ', arreter: 'रोकें', frequence: 'आवृत्ति: {hz} हर्ट्ज़', declencheur: 'पैटर्न बदलें', declMinuteur: 'टाइमर से', declPulsation: 'ध्वनि की धड़कन से', enregImage: 'चित्र सहेजें', enregVideo: '15 सेकंड का वीडियो रिकॉर्ड करें', enregEnCours: 'रिकॉर्डिंग… {s} सेकंड', erreurMicro: 'माइक्रोफ़ोन उपलब्ध नहीं या अस्वीकृत।', erreurFichier: 'यह ऑडियो फ़ाइल चलाई नहीं जा सकती।', erreurEnreg: 'इस उपकरण पर रिकॉर्डिंग उपलब्ध नहीं।', repli: 'नियमित धड़कन नहीं: टाइमर काम सँभालता है।', silence: 'शांति।', mentionIA: 'एआई की मदद से रचे गए मौलिक गीत।', sonActif: 'ध्वनि: {nom}', rienNeJoue: 'अभी कोई ध्वनि नहीं।',
   },
   de: {
+    ouvrir: "Neue Oberfläche öffnen",
+    titreApp: "Die eigene Musik sehen",
     modes: 'Modus', defile: 'Umzug', defileP: 'Die Muster folgen einander, vom nächsten zum nächsten, im Takt eines Timers oder des Klangs.',
     spectre: 'Spektrum', spectreP: 'Der Klang wählt das Muster, dessen Spektrum ihm am ähnlichsten ist.', entreDeux: 'Dazwischen', entreDeuxP: 'Das Spektrum führt, der Takt treibt: bei jedem Schlag ein benachbartes Muster unter denen, die dem Klang ähneln.', reglages: 'Einstellungen',
     fond: 'Hintergrund', fond_P: 'Einfarbig', fond_B2Dx: 'Dreiecke', fond_B11211Dx: 'Streifen',
@@ -115,6 +133,8 @@ export const TEXTES = {
     sources: 'Klangquelle', srcMorceau: 'Mitgeliefertes Stück', srcFichier: 'Datei', srcMicro: 'Mikrofon', srcNote: 'Reiner Ton', morceauN: 'Stück {n}', choisirFichier: 'Audiodatei wählen', activerMicro: 'Mikrofon einschalten', jouer: 'Abspielen', arreter: 'Stopp', frequence: 'Frequenz: {hz} Hz', declencheur: 'Muster wechseln', declMinuteur: 'per Timer', declPulsation: 'im Takt des Klangs', enregImage: 'Bild speichern', enregVideo: '15 s Video aufnehmen', enregEnCours: 'Aufnahme … {s} s', erreurMicro: 'Mikrofon nicht verfügbar oder abgelehnt.', erreurFichier: 'Diese Audiodatei kann nicht abgespielt werden.', erreurEnreg: 'Aufnahme ist auf diesem Gerät nicht verfügbar.', repli: 'Kein gleichmäßiger Takt: Der Timer übernimmt.', silence: 'Stille.', mentionIA: 'Originalstücke, komponiert mit Hilfe von KI.', sonActif: 'Klang: {nom}', rienNeJoue: 'Noch kein Klang.',
   },
   it: {
+    ouvrir: "Apri la nuova interfaccia",
+    titreApp: "Vedere la propria musica",
     modes: 'Modalità', defile: 'Sfilata', defileP: 'I motivi si susseguono, dal più vicino al più vicino, al ritmo di un timer o della pulsazione del suono.',
     spectre: 'Spettro', spectreP: 'Il suono sceglie il motivo il cui spettro gli somiglia di più.', entreDeux: 'Via di mezzo', entreDeuxP: 'Lo spettro guida, il ritmo avanza: a ogni pulsazione, un motivo vicino tra quelli che somigliano al suono.', reglages: 'Impostazioni',
     fond: 'Sfondo', fond_P: 'Tinta unita', fond_B2Dx: 'Triangoli', fond_B11211Dx: 'Bande',
@@ -127,6 +147,8 @@ export const TEXTES = {
     sources: 'Fonte del suono', srcMorceau: 'Brano fornito', srcFichier: 'File', srcMicro: 'Microfono', srcNote: 'Nota pura', morceauN: 'Brano {n}', choisirFichier: 'Scegli un file audio', activerMicro: 'Attiva il microfono', jouer: 'Riproduci', arreter: 'Ferma', frequence: 'Frequenza: {hz} Hz', declencheur: 'Cambia motivo', declMinuteur: 'con un timer', declPulsation: 'alla pulsazione del suono', enregImage: 'Salva l\'immagine', enregVideo: 'Registra 15 s di video', enregEnCours: 'Registrazione… {s} s', erreurMicro: 'Microfono non disponibile o rifiutato.', erreurFichier: 'Questo file audio non può essere riprodotto.', erreurEnreg: 'La registrazione non è disponibile su questo dispositivo.', repli: 'Nessuna pulsazione regolare: subentra il timer.', silence: 'Silenzio.', mentionIA: 'Brani originali composti con l\'aiuto dell\'IA.', sonActif: 'Suono: {nom}', rienNeJoue: 'Ancora nessun suono.',
   },
   ja: {
+    ouvrir: "新しいインターフェースを開く",
+    titreApp: "自分の音楽を見る",
     modes: 'モード', defile: 'パレード', defileP: '模様が、いちばん近いものから次のいちばん近いものへと、タイマーまたは音の拍に合わせて続きます。',
     spectre: 'スペクトル', spectreP: '音が、自分のスペクトルにいちばん似た模様を選びます。', entreDeux: '中間', entreDeuxP: 'スペクトルが導き、拍が進めます。拍ごとに、音に似た模様の中から隣り合う模様を選びます。', reglages: '設定',
     fond: '背景', fond_P: '無地', fond_B2Dx: '三角形', fond_B11211Dx: 'ストライプ',

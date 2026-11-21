@@ -40,7 +40,7 @@ const attendreSon = (page, type) => page.waitForFunction((t) => window.__p.sonAc
 
 for (const largeur of [1280, 390]) {
   // --- Spectre, morceau fourni ---
-  let { ctx, page, erreurs } = await monter(largeur, '?mode=spectre&source=morceau&morceau=j3');
+  let { ctx, page, erreurs } = await monter(largeur, '?mode=spectre&source=morceau&piste=j3');
   ok(await page.$eval('.pv-sources', (e) => !e.hidden), `${largeur} px : le panneau des sources est là en mode Spectre`);
   ok(/aucun son/i.test(await statut(page)), `${largeur} px : sans son, l'état le dit (${await statut(page)})`);
   await page.click('.pv-source-reglage button:not([hidden])');
@@ -81,7 +81,7 @@ for (const largeur of [1280, 390]) {
 }
 {
   // --- Entre-deux, morceau : un représentant du corpus, le repli annoncé s'il n'y a pas de pulsation ---
-  const { ctx, page, erreurs } = await monter(1280, '?mode=entre-deux&source=morceau&morceau=j6&rythme=1');
+  const { ctx, page, erreurs } = await monter(1280, '?mode=entre-deux&source=morceau&piste=j6&rythme=1');
   await page.click('.pv-source-reglage button:not([hidden])'); ok(await attendreSon(page, 'morceau'), 'entre-deux : le morceau joue');
   const vus = new Set(); for (let i = 0; i < 14; i++) { await page.waitForTimeout(700); vus.add(await motif(page)); }
   ok([...vus].every((m) => REPS.has(m)) && vus.size >= 3, `entre-deux : tous les motifs montrés sont des représentants du corpus de 64, au moins 3 différents en 10 s (${vus.size} vus)`);
