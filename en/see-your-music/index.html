@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Audio input</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">Warning: the images can change fast and flicker. In “More options”, the “reduce rapid changes” setting slows them down.</p>
+    <p class="vm-discretion" data-t="discretion">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">Validated</button><button type="button" id="vmBasculeEssai">Trial</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere.</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">How it works</h2>
-      <p data-t="comment1">The page measures the sound's energy at the frequencies of the mode circles of a square plate, draws the corresponding Chladni figure and looks, among the La Livrée d'Hermès patterns, for the one whose spectrum most resembles that of the sound.</p>
-      <p data-t="comment2">A Chladni figure is the drawing sand makes on a vibrating plate: it settles along the lines that do not move. Here, the plate is a square.</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Example of a figure produced by the page: a checkerboard of large black and cream diamonds, with small round shapes at the crossings." data-ta="refAlt"><figcaption data-t="refLegende">Real example: after 8 seconds of example track no. 3, pattern no. 192 of 512 is the one whose spectrum most resembles the sound's.</figcaption></figure>
-      <p data-t="comment3">Here, “resemble” means that two spectra are close: the energy is spread across the frequencies in the same way. The choice rests on the resemblance of two spectra, not on a law of music: a pattern does not “express” a piece.</p>
-      <p data-t="comment4">Nothing leaves your browser: the file, the microphone and the captured audio are analysed on the spot and sent nowhere. Recorded images and videos are made in your browser and downloaded to your device.</p>
-      <p data-t="comment5">Press “Listen”: the page then asks for the microphone, never before; without a microphone, it plays an example track. You can also choose another track or an audio file. In “More options” you can record an image of the figure or a 15-second video with the sound.</p>
-      <p><span data-t="comment6">Content under the CC BY-NC 4.0 licence, code under the AGPL v3 licence (commercial licence on request). Author: Anibal Edelberto Amiot.</span> <a href="../../en/about/" data-t="commentAuteur">About the author</a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">Live settings</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">The stage</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">Record</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">How it works</h2>
+      <p data-t="comment1">The page measures the sound's energy at the frequencies of the mode circles of a square plate, draws the corresponding Chladni figure and looks, among the La Livrée d'Hermès patterns, for the one whose spectrum most resembles that of the sound.</p>
+      <p data-t="comment2">A Chladni figure is the drawing sand makes on a vibrating plate: it settles along the lines that do not move. Here, the plate is a square.</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Example of a figure produced by the page: a checkerboard of large black and cream diamonds, with small round shapes at the crossings." data-ta="refAlt"><figcaption data-t="refLegende">Real example: after 8 seconds of example track no. 3, pattern no. 192 of 512 is the one whose spectrum most resembles the sound's.</figcaption></figure>
+      <p data-t="comment3">Here, “resemble” means that two spectra are close: the energy is spread across the frequencies in the same way. The choice rests on the resemblance of two spectra, not on a law of music: a pattern does not “express” a piece.</p>
+      <p data-t="comment4">Recorded images and videos are made in your browser and downloaded to your device.</p>
+      <p data-t="comment5">Press “Listen”: the page then asks for the microphone, never before; without a microphone, it plays an example track. You can also choose another track or an audio file. In “More options” you can record an image of the figure or a 15-second video with the sound.</p>
+      <p><span data-t="comment6">Content under the CC BY-NC 4.0 licence, code under the AGPL v3 licence (commercial licence on request). Author: Anibal Edelberto Amiot.</span> <a href="../../en/about/" data-t="commentAuteur">About the author</a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">See also</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/en/two-colour-gallery/"><b>Two-colour gallery</b><span>The two-colour patterns generated by the axes, closed on the cube: grain, tiling, export.</span></a><a class="vm-carte" href="/en/three-colour-gallery/"><b>Three-colour gallery</b><span>The unified patterns, generated by mixing hues: select a pattern to see its tiling.</span></a><a class="vm-carte" href="/en/wallpapers/"><b>Wallpapers</b><span>Full-screen textile wallpapers, reacting to sound or in a meditative mode.</span></a><a class="vm-carte" href="/en/animations/"><b>Animations gallery</b><span>The animations of the ground collections, to watch and to download as MP4.</span></a><a class="vm-carte" href="/en/chladni/"><b>Chladni</b><span>Figures, scales and frequencies: the page that links the vocabulary of the patterns to the modes of a plate.</span></a><a class="vm-carte" href="/en/book/"><b>The book</b><span>La Livrée d'Hermès online, page by page, with the free PDF.</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

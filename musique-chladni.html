@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Entrée audio</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">Attention : les images peuvent changer vite et clignoter. Dans « Plus d'options », le réglage « réduire les changements rapides » les ralentit.</p>
+    <p class="vm-discretion" data-t="discretion">Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part.</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">Validé</button><button type="button" id="vmBasculeEssai">Essai</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part.</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">Comment ça marche</h2>
-      <p data-t="comment1">La page mesure l'énergie du son aux fréquences des cercles de modes d'une plaque carrée, dessine la figure de Chladni correspondante et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre ressemble le plus à celui du son.</p>
-      <p data-t="comment2">Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré.</p>
-      <figure class="vm-ref"><img src="assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements." data-ta="refAlt"><figcaption data-t="refLegende">Exemple réel : après 8 secondes du morceau d'exemple n° 3, le motif n° 192 sur 512 est celui dont le spectre ressemble le plus à celui du son.</figcaption></figure>
-      <p data-t="comment3">Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau.</p>
-      <p data-t="comment4">Rien ne quitte votre navigateur : le fichier, le micro et l'audio capturé sont analysés sur place et ne sont envoyés nulle part. Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil.</p>
-      <p data-t="comment5">Appuyez sur « Écouter » : la page demande alors le micro, jamais avant ; sans micro, elle joue un morceau d'exemple. Vous pouvez aussi choisir un autre morceau ou un fichier audio. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son.</p>
-      <p><span data-t="comment6">Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot.</span> <a href="a-propos.html" data-t="commentAuteur">À propos de l'auteur</a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">Réglages</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">La scène</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">Enregistrer</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">Comment ça marche</h2>
+      <p data-t="comment1">La page mesure l'énergie du son aux fréquences des cercles de modes d'une plaque carrée, dessine la figure de Chladni correspondante et cherche, parmi les motifs de La Livrée d'Hermès, celui dont le spectre ressemble le plus à celui du son.</p>
+      <p data-t="comment2">Une figure de Chladni est le dessin que prend le sable sur une plaque qui vibre : il se range le long des lignes qui ne bougent pas. Ici, la plaque est un carré.</p>
+      <figure class="vm-ref"><img src="assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Exemple de figure produite par la page : un damier de grands losanges noirs et crème, avec de petites formes rondes aux croisements." data-ta="refAlt"><figcaption data-t="refLegende">Exemple réel : après 8 secondes du morceau d'exemple n° 3, le motif n° 192 sur 512 est celui dont le spectre ressemble le plus à celui du son.</figcaption></figure>
+      <p data-t="comment3">Ici, « ressembler » veut dire que deux spectres sont proches : l'énergie se répartit de la même façon entre les fréquences. Le choix repose sur la ressemblance de deux spectres, pas sur une loi musicale : un motif n'« exprime » pas un morceau.</p>
+      <p data-t="comment4">Les images et les vidéos enregistrées sont faites dans votre navigateur et se téléchargent sur votre appareil.</p>
+      <p data-t="comment5">Appuyez sur « Écouter » : la page demande alors le micro, jamais avant ; sans micro, elle joue un morceau d'exemple. Vous pouvez aussi choisir un autre morceau ou un fichier audio. Dans « Plus d'options », vous pouvez enregistrer une image de la figure ou une vidéo de 15 secondes avec le son.</p>
+      <p><span data-t="comment6">Contenus sous licence CC BY-NC 4.0, code sous licence AGPL v3 (licence commerciale sur demande). Auteur : Anibal Edelberto Amiot.</span> <a href="a-propos.html" data-t="commentAuteur">À propos de l'auteur</a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">Voir aussi</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/galerie-bicolore.html"><b>Galerie bicolore</b><span>Les motifs bicolores engendrés par les axes, fermés sur le cube : maille, pavage, export.</span></a><a class="vm-carte" href="/galerie-patterns-unifies.html"><b>Galerie tricolore</b><span>Les motifs unifiés, engendrés par mélange de teintes : sélectionnez un motif pour voir son pavage.</span></a><a class="vm-carte" href="/fonds-ecran.html"><b>Fonds d'écran</b><span>Des fonds textiles plein écran, réactifs au son ou en mode méditatif.</span></a><a class="vm-carte" href="/galerie-animations.html"><b>Galerie d'animations</b><span>Les animations des collections de fonds, à regarder et à télécharger en MP4.</span></a><a class="vm-carte" href="/chladni.html"><b>Chladni</b><span>Figures, gammes et fréquences : la page qui relie le vocabulaire des motifs aux modes d'une plaque.</span></a><a class="vm-carte" href="/fr/livre/"><b>Le livre</b><span>La Livrée d'Hermès en ligne, page par page, avec le PDF gratuit.</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "./assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "./assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

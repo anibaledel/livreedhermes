@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-21T17:14:04Z",
+ "generated_at_utc": "2026-11-21T17:17:37Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2442,9 +2442,9 @@
   {
    "chemin": "tools/check_musique_statique.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_statique.mjs",
-   "octets": 8085,
-   "sha256": "2756da7b28349ee9e268d582be24bb83a59e332cb3fc0e94dcb7e89cc0bbff71",
-   "md5": "fd9844a09bbb4458df35fd8ff7e1eba8",
+   "octets": 9149,
+   "sha256": "23b06901fa06e2c1a13f4f3c3e8d0fe107192f6eb625870b4e35b5f91bf784cc",
+   "md5": "c2b4dea4e21e7d6de060a359ca3fdd3e",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande (contact : page « À propos » du site)",
    "role": "« Voir sa musique » se lit SANS JavaScript (prompt 202 : Bing, Copilot, Google lisent d'abord le HTML ; un texte écrit seulement par script est un contenu essentiel masqué).",

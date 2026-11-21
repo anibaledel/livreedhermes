@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Entrada de audio</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">Atención: las imágenes pueden cambiar rápido y parpadear. En «Más opciones», el ajuste «reducir los cambios rápidos» las ralentiza.</p>
+    <p class="vm-discretion" data-t="discretion">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte.</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">Validada</button><button type="button" id="vmBasculeEssai">Prueba</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte.</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">Cómo funciona</h2>
-      <p data-t="comment1">La página mide la energía del sonido en las frecuencias de los círculos de modos de una placa cuadrada, dibuja la figura de Chladni correspondiente y busca, entre los motivos de La Livrée d'Hermès, aquel cuyo espectro más se parece al del sonido.</p>
-      <p data-t="comment2">Una figura de Chladni es el dibujo que forma la arena sobre una placa que vibra: se coloca a lo largo de las líneas que no se mueven. Aquí, la placa es un cuadrado.</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Ejemplo de figura producida por la página: un tablero de grandes rombos negros y crema, con pequeñas formas redondas en los cruces." data-ta="refAlt"><figcaption data-t="refLegende">Ejemplo real: tras 8 segundos de la pieza de ejemplo n.º 3, el motivo n.º 192 de 512 es aquel cuyo espectro más se parece al del sonido.</figcaption></figure>
-      <p data-t="comment3">Aquí, «parecerse» significa que dos espectros están próximos: la energía se reparte de la misma manera entre las frecuencias. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>
-      <p data-t="comment4">Nada sale de tu navegador: el archivo, el micrófono y el audio capturado se analizan en el propio equipo y no se envían a ninguna parte. Las imágenes y los vídeos grabados se hacen en tu navegador y se descargan en tu dispositivo.</p>
-      <p data-t="comment5">Pulsa «Escuchar»: la página pide entonces el micrófono, nunca antes; sin micrófono, reproduce una pieza de ejemplo. También puedes elegir otra pieza o un archivo de audio. En «Más opciones» puedes guardar una imagen de la figura o un vídeo de 15 segundos con el sonido.</p>
-      <p><span data-t="comment6">Contenidos con licencia CC BY-NC 4.0, código con licencia AGPL v3 (licencia comercial bajo petición). Autor: Anibal Edelberto Amiot.</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">Sobre el autor <span class="lien-langue">(francés)</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">Ajustes en directo</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">La escena</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">Grabar</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">Cómo funciona</h2>
+      <p data-t="comment1">La página mide la energía del sonido en las frecuencias de los círculos de modos de una placa cuadrada, dibuja la figura de Chladni correspondiente y busca, entre los motivos de La Livrée d'Hermès, aquel cuyo espectro más se parece al del sonido.</p>
+      <p data-t="comment2">Una figura de Chladni es el dibujo que forma la arena sobre una placa que vibra: se coloca a lo largo de las líneas que no se mueven. Aquí, la placa es un cuadrado.</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Ejemplo de figura producida por la página: un tablero de grandes rombos negros y crema, con pequeñas formas redondas en los cruces." data-ta="refAlt"><figcaption data-t="refLegende">Ejemplo real: tras 8 segundos de la pieza de ejemplo n.º 3, el motivo n.º 192 de 512 es aquel cuyo espectro más se parece al del sonido.</figcaption></figure>
+      <p data-t="comment3">Aquí, «parecerse» significa que dos espectros están próximos: la energía se reparte de la misma manera entre las frecuencias. La elección se basa en el parecido de dos espectros, no en una ley musical: un motivo no «expresa» una pieza.</p>
+      <p data-t="comment4">Las imágenes y los vídeos grabados se hacen en tu navegador y se descargan en tu dispositivo.</p>
+      <p data-t="comment5">Pulsa «Escuchar»: la página pide entonces el micrófono, nunca antes; sin micrófono, reproduce una pieza de ejemplo. También puedes elegir otra pieza o un archivo de audio. En «Más opciones» puedes guardar una imagen de la figura o un vídeo de 15 segundos con el sonido.</p>
+      <p><span data-t="comment6">Contenidos con licencia CC BY-NC 4.0, código con licencia AGPL v3 (licencia comercial bajo petición). Autor: Anibal Edelberto Amiot.</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">Sobre el autor <span class="lien-langue">(francés)</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">Ver también</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/es/galeria-bicolor/"><b>Galería bicolor</b><span>Los motivos bicolores engendrados por los ejes, cerrados sobre el cubo: grano, pavimentación, exportación.</span></a><a class="vm-carte" href="/es/galeria-tricolor/"><b>Galería tricolor</b><span>Los motivos unificados, engendrados por mezcla de tonos: selecciona un motivo para ver su pavimentación.</span></a><a class="vm-carte" href="/es/fondos-de-pantalla/"><b>Fondos de pantalla</b><span>Fondos textiles a pantalla completa, reactivos al sonido o en modo meditativo.</span></a><a class="vm-carte" href="/es/animaciones/"><b>Galería de animaciones</b><span>Las animaciones de las colecciones de fondos, para ver y descargar en MP4.</span></a><a class="vm-carte" href="/es/chladni/"><b>Chladni</b><span>Figuras, escalas y frecuencias: la página que une el vocabulario de los motivos con los modos de una placa.</span></a><a class="vm-carte" href="/es/libro/"><b>El libro</b><span>La Livrée d'Hermès en línea, página por página, con el PDF gratuito.</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">อินพุตเสียง</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">คำเตือน: ภาพอาจเปลี่ยนเร็วและกะพริบ ใน “ตัวเลือกเพิ่มเติม” ตัวเลือก “ลดการเปลี่ยนแปลงที่รวดเร็ว” จะทำให้ช้าลง</p>
+    <p class="vm-discretion" data-t="discretion">ไม่มีสิ่งใดออกจากเบราว์เซอร์ของคุณ: ไฟล์ ไมโครโฟน และเสียงที่จับได้ จะถูกวิเคราะห์ในเครื่องและไม่ถูกส่งไปที่ใดเลย</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">ยืนยันแล้ว</button><button type="button" id="vmBasculeEssai">ทดลอง</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">ไม่มีสิ่งใดออกจากเบราว์เซอร์ของคุณ: ไฟล์ ไมโครโฟน และเสียงที่จับได้ จะถูกวิเคราะห์ในเครื่องและไม่ถูกส่งไปที่ใดเลย</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">วิธีการทำงาน</h2>
-      <p data-t="comment1">หน้านี้วัดพลังงานของเสียงที่ความถี่ของวงโหมดแต่ละวงของแผ่นสี่เหลี่ยมจัตุรัส วาดรูป Chladni ที่สอดคล้องกัน และค้นหาในบรรดาลวดลายของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด</p>
-      <p data-t="comment2">รูป Chladni คือภาพที่ทรายก่อตัวบนแผ่นที่สั่นสะเทือน: ทรายจะเรียงตัวตามเส้นที่ไม่เคลื่อนไหว ในที่นี้แผ่นเป็นรูปสี่เหลี่ยมจัตุรัส</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="ตัวอย่างรูปที่หน้านี้สร้างขึ้น: กระดานหมากรุกของข้าวหลามตัดสีดำและสีครีมขนาดใหญ่ มีรูปทรงกลมเล็ก ๆ ตรงจุดตัด" data-ta="refAlt"><figcaption data-t="refLegende">ตัวอย่างจริง: หลังจาก 8 วินาทีของเพลงตัวอย่างที่ 3 ลายที่ 192 จาก 512 คือลายที่มีสเปกตรัมคล้ายกับเสียงมากที่สุด</figcaption></figure>
-      <p data-t="comment3">ในที่นี้ “คล้าย” หมายถึงสเปกตรัมสองชุดอยู่ใกล้กัน: พลังงานกระจายไปตามความถี่ในแบบเดียวกันการเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง</p>
-      <p data-t="comment4">ไม่มีสิ่งใดออกจากเบราว์เซอร์ของคุณ: ไฟล์ ไมโครโฟน และเสียงที่จับได้ จะถูกวิเคราะห์ในเครื่องและไม่ถูกส่งไปที่ใดเลยภาพและวิดีโอที่บันทึกถูกสร้างในเบราว์เซอร์ของคุณและดาวน์โหลดลงอุปกรณ์ของคุณ</p>
-      <p data-t="comment5">กด “ฟัง” แล้วหน้านี้จะขอใช้ไมโครโฟนในตอนนั้น ไม่ขอก่อนหน้านั้น หากไม่มีไมโครโฟนหรือถูกปฏิเสธ จะเล่นเพลงตัวอย่างแทน คุณเลือกเพลงอื่นหรือไฟล์เสียงก็ได้ ใน “ตัวเลือกเพิ่มเติม” คุณบันทึกภาพของรูป หรือวิดีโอยาว 15 วินาทีพร้อมเสียงได้</p>
-      <p><span data-t="comment6">เนื้อหาอยู่ภายใต้ใบอนุญาต CC BY-NC 4.0 โค้ดอยู่ภายใต้ใบอนุญาต AGPL v3 (มีใบอนุญาตเชิงพาณิชย์ตามคำขอ) ผู้เขียน: Anibal Edelberto Amiot</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">เกี่ยวกับผู้เขียน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">การตั้งค่าขณะเล่น</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">เวที</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">บันทึก</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">วิธีการทำงาน</h2>
+      <p data-t="comment1">หน้านี้วัดพลังงานของเสียงที่ความถี่ของวงโหมดแต่ละวงของแผ่นสี่เหลี่ยมจัตุรัส วาดรูป Chladni ที่สอดคล้องกัน และค้นหาในบรรดาลวดลายของ La Livrée d'Hermès ว่าลายใดมีสเปกตรัมคล้ายกับเสียงมากที่สุด</p>
+      <p data-t="comment2">รูป Chladni คือภาพที่ทรายก่อตัวบนแผ่นที่สั่นสะเทือน: ทรายจะเรียงตัวตามเส้นที่ไม่เคลื่อนไหว ในที่นี้แผ่นเป็นรูปสี่เหลี่ยมจัตุรัส</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="ตัวอย่างรูปที่หน้านี้สร้างขึ้น: กระดานหมากรุกของข้าวหลามตัดสีดำและสีครีมขนาดใหญ่ มีรูปทรงกลมเล็ก ๆ ตรงจุดตัด" data-ta="refAlt"><figcaption data-t="refLegende">ตัวอย่างจริง: หลังจาก 8 วินาทีของเพลงตัวอย่างที่ 3 ลายที่ 192 จาก 512 คือลายที่มีสเปกตรัมคล้ายกับเสียงมากที่สุด</figcaption></figure>
+      <p data-t="comment3">ในที่นี้ “คล้าย” หมายถึงสเปกตรัมสองชุดอยู่ใกล้กัน: พลังงานกระจายไปตามความถี่ในแบบเดียวกันการเลือกอาศัยความคล้ายกันของสเปกตรัมสองชุด ไม่ใช่กฎทางดนตรี ลวดลายหนึ่งไม่ได้ “แสดงออก” ถึงบทเพลงหนึ่ง</p>
+      <p data-t="comment4">ภาพและวิดีโอที่บันทึกถูกสร้างในเบราว์เซอร์ของคุณและดาวน์โหลดลงอุปกรณ์ของคุณ</p>
+      <p data-t="comment5">กด “ฟัง” แล้วหน้านี้จะขอใช้ไมโครโฟนในตอนนั้น ไม่ขอก่อนหน้านั้น หากไม่มีไมโครโฟนหรือถูกปฏิเสธ จะเล่นเพลงตัวอย่างแทน คุณเลือกเพลงอื่นหรือไฟล์เสียงก็ได้ ใน “ตัวเลือกเพิ่มเติม” คุณบันทึกภาพของรูป หรือวิดีโอยาว 15 วินาทีพร้อมเสียงได้</p>
+      <p><span data-t="comment6">เนื้อหาอยู่ภายใต้ใบอนุญาต CC BY-NC 4.0 โค้ดอยู่ภายใต้ใบอนุญาต AGPL v3 (มีใบอนุญาตเชิงพาณิชย์ตามคำขอ) ผู้เขียน: Anibal Edelberto Amiot</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">เกี่ยวกับผู้เขียน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">ดูเพิ่มเติม</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/th/two-colour-gallery/"><b>แกลเลอรีสองสี</b><span>ลวดลายสองสีที่สร้างจากแกนและปิดบนลูกบาศก์: เกรนการอ่าน การปูลาย การส่งออก</span></a><a class="vm-carte" href="/th/three-colour-gallery/"><b>แกลเลอรีสามสี</b><span>ลวดลายรวมเป็นหนึ่งที่สร้างจากการผสมโทนสี: เลือกลวดลายเพื่อดูการปูลาย</span></a><a class="vm-carte" href="/th/wallpapers/"><b>วอลเปเปอร์</b><span>วอลเปเปอร์ผ้าเต็มหน้าจอ ตอบสนองต่อเสียงหรืออยู่ในโหมดสมาธิ</span></a><a class="vm-carte" href="/th/animations/"><b>แกลเลอรีแอนิเมชัน</b><span>แอนิเมชันของชุดพื้นหลัง สำหรับดูและดาวน์โหลดเป็น MP4</span></a><a class="vm-carte" href="/th/chladni/"><b>Chladni</b><span>รูปแบบ บันไดเสียง และความถี่: หน้าที่เชื่อมคำศัพท์ของลวดลายเข้ากับโหมดของแผ่น</span></a><a class="vm-carte" href="/th/book/"><b>หนังสือ</b><span>La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อม PDF ฟรี</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

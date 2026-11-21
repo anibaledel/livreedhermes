@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">Аудиовход</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">Внимание: изображения могут быстро меняться и мигать. В разделе «Больше настроек» параметр «уменьшить быстрые изменения» замедляет их.</p>
+    <p class="vm-discretion" data-t="discretion">Ничто не покидает ваш браузер: файл, микрофон и захваченный звук анализируются на месте и никуда не отправляются.</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">Утверждено</button><button type="button" id="vmBasculeEssai">Проба</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">Ничто не покидает ваш браузер: файл, микрофон и захваченный звук анализируются на месте и никуда не отправляются.</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">Как это работает</h2>
-      <p data-t="comment1">Страница измеряет энергию звука на частотах кругов мод квадратной пластины, рисует соответствующую фигуру Хладни и ищет среди узоров La Livrée d'Hermès тот, чей спектр больше всего похож на спектр звука.</p>
-      <p data-t="comment2">Фигура Хладни — это рисунок, который песок образует на колеблющейся пластине: он собирается вдоль линий, которые не движутся. Здесь пластина квадратная.</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Пример фигуры, созданной страницей: шахматная доска из крупных чёрных и кремовых ромбов с маленькими круглыми формами на пересечениях." data-ta="refAlt"><figcaption data-t="refLegende">Реальный пример: через 8 с воспроизведения пробной композиции № 3 узор № 192 из 512 — тот, чей спектр больше всего похож на спектр звука.</figcaption></figure>
-      <p data-t="comment3">Здесь «быть похожим» значит, что два спектра близки: энергия распределяется по частотам одинаково. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» произведение.</p>
-      <p data-t="comment4">Ничто не покидает ваш браузер: файл, микрофон и захваченный звук анализируются на месте и никуда не отправляются. Записанные изображения и видео создаются в вашем браузере и скачиваются на ваше устройство.</p>
-      <p data-t="comment5">Нажмите «Слушать»: только тогда страница запросит микрофон, не раньше; без микрофона она проиграет пробную композицию. Можно также выбрать другую композицию или аудиофайл. В разделе «Больше настроек» можно записать изображение фигуры или 15-секундное видео со звуком.</p>
-      <p><span data-t="comment6">Материалы под лицензией CC BY-NC 4.0, код под лицензией AGPL v3 (коммерческая лицензия по запросу). Автор: Anibal Edelberto Amiot.</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">Об авторе <span class="lien-langue">(на французском)</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">Настройки на лету</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">Сцена</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">Запись</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">Как это работает</h2>
+      <p data-t="comment1">Страница измеряет энергию звука на частотах кругов мод квадратной пластины, рисует соответствующую фигуру Хладни и ищет среди узоров La Livrée d'Hermès тот, чей спектр больше всего похож на спектр звука.</p>
+      <p data-t="comment2">Фигура Хладни — это рисунок, который песок образует на колеблющейся пластине: он собирается вдоль линий, которые не движутся. Здесь пластина квадратная.</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="Пример фигуры, созданной страницей: шахматная доска из крупных чёрных и кремовых ромбов с маленькими круглыми формами на пересечениях." data-ta="refAlt"><figcaption data-t="refLegende">Реальный пример: через 8 с воспроизведения пробной композиции № 3 узор № 192 из 512 — тот, чей спектр больше всего похож на спектр звука.</figcaption></figure>
+      <p data-t="comment3">Здесь «быть похожим» значит, что два спектра близки: энергия распределяется по частотам одинаково. Выбор основан на сходстве двух спектров, а не на музыкальном законе: узор не «выражает» произведение.</p>
+      <p data-t="comment4">Записанные изображения и видео создаются в вашем браузере и скачиваются на ваше устройство.</p>
+      <p data-t="comment5">Нажмите «Слушать»: только тогда страница запросит микрофон, не раньше; без микрофона она проиграет пробную композицию. Можно также выбрать другую композицию или аудиофайл. В разделе «Больше настроек» можно записать изображение фигуры или 15-секундное видео со звуком.</p>
+      <p><span data-t="comment6">Материалы под лицензией CC BY-NC 4.0, код под лицензией AGPL v3 (коммерческая лицензия по запросу). Автор: Anibal Edelberto Amiot.</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">Об авторе <span class="lien-langue">(на французском)</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">Смотрите также</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/galerie-bicolore.html" hreflang="fr"><b>Двухцветная галерея</b><span>Двухцветные узоры, порождённые осями и замыкающиеся на кубе: зерно, замощение, экспорт. (Страница на французском.)</span> <span class="lien-langue">(на французском)</span></a><a class="vm-carte" href="/galerie-patterns-unifies.html" hreflang="fr"><b>Трёхцветная галерея</b><span>Унифицированные узоры, порождённые смешением оттенков: выберите узор, чтобы увидеть его замощение. (Страница на французском.)</span> <span class="lien-langue">(на французском)</span></a><a class="vm-carte" href="/fonds-ecran.html" hreflang="fr"><b>Обои</b><span>Полноэкранные текстильные обои, реагирующие на звук или работающие в медитативном режиме. (Страница на французском.)</span> <span class="lien-langue">(на французском)</span></a><a class="vm-carte" href="/ru/animations/"><b>Галерея анимаций</b><span>Анимации коллекций фонов: можно смотреть и скачивать в формате MP4.</span></a><a class="vm-carte" href="/chladni.html" hreflang="fr"><b>Chladni</b><span>Фигуры, звукоряды и частоты: страница, связывающая словарь узоров с модами пластины. (Страница на французском.)</span> <span class="lien-langue">(на французском)</span></a><a class="vm-carte" href="/ru/book/"><b>Книга</b><span>La Livrée d'Hermès онлайн, страница за страницей, с бесплатным PDF.</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

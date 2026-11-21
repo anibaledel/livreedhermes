@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">オーディオ入力</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">注意：画像が素早く切り替わったり、点滅したりすることがあります。「オプションを増やす」の中の「急な変化を抑える」設定で、動きがゆるやかになります。</p>
+    <p class="vm-discretion" data-t="discretion">何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">確定済み</button><button type="button" id="vmBasculeEssai">試用</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">仕組み</h2>
-      <p data-t="comment1">このページは、正方形の板の振動モードの各円の周波数で音のエネルギーを測り、対応するクラドニ図形を描いて、La Livrée d'Hermès の紋様の中から、スペクトルが音のスペクトルに最もよく似たものを探します。</p>
-      <p data-t="comment2">クラドニ図形とは、振動する板の上で砂が作る模様のことです。砂は動かない線に沿って集まります。ここでは板は正方形です。</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="ページが生成した図形の例：大きな黒とクリーム色の菱形の市松模様で、交点に小さな丸い形があります。" data-ta="refAlt"><figcaption data-t="refLegende">実際の例：例の曲 3 を 8 秒再生したところ、512 個の紋様のうち 192 番目が、音のスペクトルに最もよく似たものです。</figcaption></figure>
-      <p data-t="comment3">ここでの「似ている」とは、2つのスペクトルが近いということです。エネルギーが周波数ごとに同じように分かれています。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。</p>
-      <p data-t="comment4">何もブラウザの外には出ません。ファイル、マイク、取り込んだ音声はその場で解析され、どこにも送信されません。録画した画像や動画はお使いのブラウザ内で作られ、お使いのデバイスにダウンロードされます。</p>
-      <p data-t="comment5">「聴く」を押すと、そのときはじめてマイクの許可を求めます（それより前には求めません）。マイクがない、または許可されない場合は、例の曲を再生します。別の曲や音声ファイルを選ぶこともできます。「オプションを増やす」では、図形の画像や、音付きの15秒の動画を録画できます。</p>
-      <p><span data-t="comment6">コンテンツは CC BY-NC 4.0 ライセンス、コードは AGPL v3 ライセンスです（商用ライセンスは要望に応じて提供）。作者：Anibal Edelberto Amiot。</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">作者について<span class="lien-langue">（フランス語）</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">その場での設定</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">ステージ</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">録画</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">仕組み</h2>
+      <p data-t="comment1">このページは、正方形の板の振動モードの各円の周波数で音のエネルギーを測り、対応するクラドニ図形を描いて、La Livrée d'Hermès の紋様の中から、スペクトルが音のスペクトルに最もよく似たものを探します。</p>
+      <p data-t="comment2">クラドニ図形とは、振動する板の上で砂が作る模様のことです。砂は動かない線に沿って集まります。ここでは板は正方形です。</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="ページが生成した図形の例：大きな黒とクリーム色の菱形の市松模様で、交点に小さな丸い形があります。" data-ta="refAlt"><figcaption data-t="refLegende">実際の例：例の曲 3 を 8 秒再生したところ、512 個の紋様のうち 192 番目が、音のスペクトルに最もよく似たものです。</figcaption></figure>
+      <p data-t="comment3">ここでの「似ている」とは、2つのスペクトルが近いということです。エネルギーが周波数ごとに同じように分かれています。選択の根拠は2つのスペクトルの類似であり、音楽上の法則ではありません。紋様が曲を「表現」するわけではありません。</p>
+      <p data-t="comment4">録画した画像や動画はお使いのブラウザ内で作られ、お使いのデバイスにダウンロードされます。</p>
+      <p data-t="comment5">「聴く」を押すと、そのときはじめてマイクの許可を求めます（それより前には求めません）。マイクがない、または許可されない場合は、例の曲を再生します。別の曲や音声ファイルを選ぶこともできます。「オプションを増やす」では、図形の画像や、音付きの15秒の動画を録画できます。</p>
+      <p><span data-t="comment6">コンテンツは CC BY-NC 4.0 ライセンス、コードは AGPL v3 ライセンスです（商用ライセンスは要望に応じて提供）。作者：Anibal Edelberto Amiot。</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">作者について<span class="lien-langue">（フランス語）</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">関連ページ</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/galerie-bicolore.html" hreflang="fr"><b>二色ギャラリー</b><span>軸から生まれ、立方体上で閉じる二色紋様：粒度、敷き詰め、書き出し。（フランス語のページ）</span><span class="lien-langue">（フランス語）</span></a><a class="vm-carte" href="/galerie-patterns-unifies.html" hreflang="fr"><b>三色ギャラリー</b><span>色合いの混合から生まれた統一紋様。紋様を選ぶと、その敷き詰めを見られます。（フランス語のページ）</span><span class="lien-langue">（フランス語）</span></a><a class="vm-carte" href="/fonds-ecran.html" hreflang="fr"><b>壁紙</b><span>フルスクリーンの織物壁紙。音に反応するモードと瞑想モードがあります。（フランス語のページ）</span><span class="lien-langue">（フランス語）</span></a><a class="vm-carte" href="/ja/animations/"><b>アニメーションギャラリー</b><span>背景コレクションのアニメーション。視聴と MP4 でのダウンロードができます。</span></a><a class="vm-carte" href="/chladni.html" hreflang="fr"><b>Chladni</b><span>図形、音階、周波数：紋様の語彙を板のモードに結びつけるページ。（フランス語のページ）</span><span class="lien-langue">（フランス語）</span></a><a class="vm-carte" href="/ja/book/"><b>本</b><span>La Livrée d'Hermès をオンラインで1ページずつ読めます。PDF は無料です。</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

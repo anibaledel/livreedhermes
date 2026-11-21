@@ -48,6 +48,12 @@ function controle(rel, h) {
   for (const m of h.matchAll(/<(\w+)\b[^>]*\bdata-t="(\w+)"[^>]*>([^<]*)<\/\1>/g)) if (!m[3].trim()) dire(`data-t="${m[2]}" est vide dans le HTML statique (le texte n'est écrit que par JavaScript)`);
   for (const m of h.matchAll(/<img\b[^>]*\bdata-ta="(\w+)"[^>]*>/g)) if (!/\balt="[^"]{8,}"/.test(m[0])) dire(`l'image data-ta="${m[1]}" n'a pas d'alt dans le HTML statique`);
   for (const c of CLES) if (element(h, c) === null) dire(`élément data-t="${c}" absent`);
+  // l'ordre de la page (prompt 220) : titre, portes, nouvelle interface, introduction, démarrage ; Attention puis « Rien ne quitte votre navigateur » ; message, fenêtres et options, panneaux ;
+  // La semaine ; Comment ça marche ; Voir aussi
+  const ORDRE = ['<h1', 'class="trois-portes"', 'id="nouvelle-interface"', 'class="vm-intro"', 'class="vm-demarrage"', 'class="vm-flash"', 'class="vm-discretion"', 'id="vmMessage"', 'class="vm-main"', 'id="vmTitreReglages"', 'id="vmAppareil"', 'id="vmSemaine"', 'id="comment"', 'class="vm-voir"'];
+  const places = ORDRE.map((k) => h.indexOf(k, h.indexOf('<main')));
+  ORDRE.forEach((k, i) => { if (places[i] < 0) dire(`l'ordre de la page : ${k} absent`); else if (i && places[i] < places[i - 1]) dire(`l'ordre de la page : ${k} doit venir après ${ORDRE[i - 1]}`); });
+  { const d = element(h, 'discretion'), c4 = element(h, 'comment4'); if (d && c4 && c4.includes(d.slice(0, 25))) dire('« Comment ça marche » (comment4) répète la phrase de discrétion : elle ne se dit qu\'une fois, sous « Attention »'); }
   const s = /<section\b[^>]*\bid="comment"[^>]*>([\s\S]*?)<\/section>/.exec(h);
   if (!s) dire('section id="comment" absente');
   else {

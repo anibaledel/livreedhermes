@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">音频输入</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">注意：画面可能快速变化并闪烁。在“更多选项”中，“减少快速变化”选项可使其放慢。</p>
+    <p class="vm-discretion" data-t="discretion">任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">已确认</button><button type="button" id="vmBasculeEssai">试用</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">工作原理</h2>
-      <p data-t="comment1">本页在方形板各个振动模式圆环所对应的频率上测量声音的能量，画出相应的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与声音频谱最相似的那一个。</p>
-      <p data-t="comment2">Chladni 图形是沙子在振动的板上形成的图案：沙子会聚集在不动的线上。这里的板是方形的。</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="本页生成的图形示例：由黑色和奶油色的大菱形组成的棋盘，交叉处有小的圆形。" data-ta="refAlt"><figcaption data-t="refLegende">真实示例：示例曲目第 3 首播放 8 秒后，在 512 个图案中，第 192 个图案的频谱与声音最相似。</figcaption></figure>
-      <p data-t="comment3">这里的“相似”指两个频谱相近：能量在各个频率上的分布方式相同。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。</p>
-      <p data-t="comment4">任何内容都不会离开您的浏览器：文件、麦克风和捕获的音频都在本地分析，不会发送到任何地方。录制的图片和视频在您的浏览器中生成，并下载到您的设备上。</p>
-      <p data-t="comment5">点击“聆听”后，页面才会请求使用麦克风，之前绝不会；没有麦克风或被拒绝时，会播放一首示例曲目。您也可以选择其他曲目或音频文件。在“更多选项”中可以录制图形的图片，或带声音的 15 秒视频。</p>
-      <p><span data-t="comment6">内容采用 CC BY-NC 4.0 许可，代码采用 AGPL v3 许可（商业许可可应请求提供）。作者：Anibal Edelberto Amiot。</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">关于作者<span class="lien-langue">（法文）</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">实时设置</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">舞台</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">录制</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">工作原理</h2>
+      <p data-t="comment1">本页在方形板各个振动模式圆环所对应的频率上测量声音的能量，画出相应的 Chladni 图形，并在 La Livrée d'Hermès 的图案中，找出频谱与声音频谱最相似的那一个。</p>
+      <p data-t="comment2">Chladni 图形是沙子在振动的板上形成的图案：沙子会聚集在不动的线上。这里的板是方形的。</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="本页生成的图形示例：由黑色和奶油色的大菱形组成的棋盘，交叉处有小的圆形。" data-ta="refAlt"><figcaption data-t="refLegende">真实示例：示例曲目第 3 首播放 8 秒后，在 512 个图案中，第 192 个图案的频谱与声音最相似。</figcaption></figure>
+      <p data-t="comment3">这里的“相似”指两个频谱相近：能量在各个频率上的分布方式相同。这一选择依据的是两个频谱的相似程度，而不是某种音乐法则：图案并不“表达”一首曲子。</p>
+      <p data-t="comment4">录制的图片和视频在您的浏览器中生成，并下载到您的设备上。</p>
+      <p data-t="comment5">点击“聆听”后，页面会请求使用麦克风，在此之前绝不会；没有麦克风或被拒绝时，会播放一首示例曲目。您也可以选择其他曲目或音频文件。在“更多选项”中可以录制图形的图片，或带声音的 15 秒视频。</p>
+      <p><span data-t="comment6">内容采用 CC BY-NC 4.0 许可，代码采用 AGPL v3 许可（商业许可可应请求提供）。作者：Anibal Edelberto Amiot。</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">关于作者<span class="lien-langue">（法文）</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">另请参阅</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/galerie-bicolore.html" hreflang="fr"><b>双色图库</b><span>由轴生成、能在立方体上闭合的双色图案：读取粒度、铺排、导出。（法文页面）</span><span class="lien-langue">（法文）</span></a><a class="vm-carte" href="/galerie-patterns-unifies.html" hreflang="fr"><b>三色图库</b><span>由色调混合生成的统一图案：选中一个图案即可查看其铺排效果。（法文页面）</span><span class="lien-langue">（法文）</span></a><a class="vm-carte" href="/fonds-ecran.html" hreflang="fr"><b>壁纸</b><span>全屏织物壁纸，可随声音变化，也可切换为冥想模式。（法文页面）</span><span class="lien-langue">（法文）</span></a><a class="vm-carte" href="/zh/animations/"><b>动画图库</b><span>各个背景集合的动画，可观看，也可下载为 MP4。</span></a><a class="vm-carte" href="/chladni.html" hreflang="fr"><b>Chladni</b><span>图形、音阶与频率：把图案的词汇与板的振动模式联系起来的页面。（法文页面）</span><span class="lien-langue">（法文）</span></a><a class="vm-carte" href="/zh/book/"><b>本书</b><span>La Livrée d'Hermès 在线阅读，逐页呈现，并附免费 PDF。</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>

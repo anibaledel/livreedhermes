@@ -55,8 +55,8 @@
   @media (min-width:900px){
     .vm-page.vm-simple{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; align-items:start; }
     .vm-page.vm-simple > *{ grid-column:1 / -1; }
-    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-message{ grid-column:1; }
-    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 4; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur, au-dessus de l'interface actuelle */
+    .vm-page.vm-simple > .vm-intro, .vm-page.vm-simple > .vm-demarrage, .vm-page.vm-simple > .vm-flash, .vm-page.vm-simple > .vm-discretion, .vm-page.vm-simple > #vmMentionIA, .vm-page.vm-simple > .vm-message{ grid-column:1; }
+    .vm-page.vm-simple > .vm-main{ grid-column:2; grid-row:5 / span 6; margin-top:0; } /* la rangée 4 est la nouvelle interface (#nouvelle-interface), pleine largeur ; les rangées 5 à 10 : introduction, démarrage, attention, discrétion, mention de l'IA, message */
     .vm-page.vm-simple .vm-demarrage{ justify-items:start; }
     .vm-page.vm-simple .vm-morceau{ justify-content:flex-start; }
   }
@@ -243,6 +243,8 @@
       <div class="vm-av" id="vmEntreeLigne"><label id="vmEntreeLabel" for="vmEntree">ऑडियो इनपुट</label><select id="vmEntree"></select><small class="vm-aide" id="vmEntreeAide"></small></div>
     </section>
     <p class="vm-flash" role="note" data-t="flash">सावधान: छवियाँ तेज़ी से बदल और झिलमिला सकती हैं। “और विकल्प” में “तेज़ बदलाव घटाएँ” विकल्प उन्हें धीमा करता है।</p>
+    <p class="vm-discretion" data-t="discretion">आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं।</p>
+    <p class="vm-aide" id="vmMentionIA"></p>
     <p class="vm-message" id="vmMessage" role="status" aria-live="polite"></p>
 
     <div class="vm-bascule vm-av"><button type="button" id="vmBasculeValide">पुष्ट</button><button type="button" id="vmBasculeEssai">परीक्षण</button></div>
@@ -267,18 +269,6 @@
       </div>
     </div>
 
-    <p class="vm-discretion" data-t="discretion">आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं।</p>
-    <p class="vm-aide" id="vmMentionIA"></p>
-    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
-      <h2 id="vmCommentTitre" data-t="commentTitre">यह कैसे काम करता है</h2>
-      <p data-t="comment1">पृष्ठ एक वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर ध्वनि की ऊर्जा मापता है, उससे मेल खाती Chladni आकृति बनाता है और La Livrée d'Hermès के पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम ध्वनि के स्पेक्ट्रम से सबसे अधिक मिलता हो।</p>
-      <p data-t="comment2">Chladni आकृति वह चित्र है जो कंपन करती पट्टिका पर रेत बनाती है: रेत उन रेखाओं पर जमा होती है जो हिलती नहीं। यहाँ पट्टिका वर्गाकार है।</p>
-      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="पृष्ठ द्वारा बनाई गई आकृति का उदाहरण: काले और क्रीम रंग के बड़े समचतुर्भुजों की बिसात, जिसके कटान-बिंदुओं पर छोटे गोल आकार हैं।" data-ta="refAlt"><figcaption data-t="refLegende">वास्तविक उदाहरण: उदाहरण रचना क्रमांक 3 के 8 सेकंड बाद, 512 में से पैटर्न क्रमांक 192 वह है जिसका स्पेक्ट्रम ध्वनि के स्पेक्ट्रम से सबसे अधिक मिलता है।</figcaption></figure>
-      <p data-t="comment3">यहाँ “मिलना” का अर्थ है कि दो स्पेक्ट्रम पास-पास हैं: ऊर्जा आवृत्तियों में एक ही तरह बँटी है। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता।</p>
-      <p data-t="comment4">आपके ब्राउज़र से कुछ भी बाहर नहीं जाता: फ़ाइल, माइक्रोफ़ोन और कैप्चर की गई ध्वनि वहीं विश्लेषित होती हैं और कहीं नहीं भेजी जातीं। रिकॉर्ड किए गए चित्र और वीडियो आपके ब्राउज़र में बनते हैं और आपके डिवाइस पर डाउनलोड होते हैं।</p>
-      <p data-t="comment5">“सुनें” दबाएँ: तभी पेज माइक्रोफ़ोन माँगता है, उससे पहले कभी नहीं; माइक्रोफ़ोन न हो तो वह एक उदाहरण रचना बजाता है। आप कोई दूसरी रचना या ऑडियो फ़ाइल भी चुन सकते हैं। “और विकल्प” में आप आकृति का चित्र या ध्वनि सहित 15 सेकंड का वीडियो रिकॉर्ड कर सकते हैं।</p>
-      <p><span data-t="comment6">सामग्री CC BY-NC 4.0 लाइसेंस के अंतर्गत, कोड AGPL v3 लाइसेंस के अंतर्गत (व्यावसायिक लाइसेंस अनुरोध पर)। लेखक: Anibal Edelberto Amiot।</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">लेखक के बारे में <span class="lien-langue">(फ़्रेंच में)</span></a></p>
-    </section>
     <details class="vm-details vm-av"><summary id="vmTitreReglages">चलते-चलते सेटिंग</summary><div id="vmReglages"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreScene">मंच</summary><div id="vmScene"></div></details>
     <details class="vm-details vm-av"><summary id="vmTitreEnreg">रिकॉर्ड करें</summary><div id="vmEnregistrement"></div></details>
@@ -296,6 +286,17 @@
       <div class="vm-semaine-grille" id="vmSemaineGrille"></div>
     </section>
 
+    <section class="vm-comment" id="comment" aria-labelledby="vmCommentTitre">
+      <h2 id="vmCommentTitre" data-t="commentTitre">यह कैसे काम करता है</h2>
+      <p data-t="comment1">पृष्ठ एक वर्गाकार पट्टिका के मोड-वृत्तों की आवृत्तियों पर ध्वनि की ऊर्जा मापता है, उससे मेल खाती Chladni आकृति बनाता है और La Livrée d'Hermès के पैटर्नों में वह पैटर्न खोजता है जिसका स्पेक्ट्रम ध्वनि के स्पेक्ट्रम से सबसे अधिक मिलता हो।</p>
+      <p data-t="comment2">Chladni आकृति वह चित्र है जो कंपन करती पट्टिका पर रेत बनाती है: रेत उन रेखाओं पर जमा होती है जो हिलती नहीं। यहाँ पट्टिका वर्गाकार है।</p>
+      <figure class="vm-ref"><img src="../../assets/figure-chladni-exemple-j3-re.webp" width="360" height="360" loading="lazy" decoding="async" alt="पृष्ठ द्वारा बनाई गई आकृति का उदाहरण: काले और क्रीम रंग के बड़े समचतुर्भुजों की बिसात, जिसके कटान-बिंदुओं पर छोटे गोल आकार हैं।" data-ta="refAlt"><figcaption data-t="refLegende">वास्तविक उदाहरण: उदाहरण रचना क्रमांक 3 के 8 सेकंड बाद, 512 में से पैटर्न क्रमांक 192 वह है जिसका स्पेक्ट्रम ध्वनि के स्पेक्ट्रम से सबसे अधिक मिलता है।</figcaption></figure>
+      <p data-t="comment3">यहाँ “मिलना” का अर्थ है कि दो स्पेक्ट्रम पास-पास हैं: ऊर्जा आवृत्तियों में एक ही तरह बँटी है। चुनाव दो स्पेक्ट्रमों की समानता पर टिका है, किसी संगीत-नियम पर नहीं: कोई पैटर्न किसी रचना को “व्यक्त” नहीं करता।</p>
+      <p data-t="comment4">रिकॉर्ड किए गए चित्र और वीडियो आपके ब्राउज़र में बनते हैं और आपके डिवाइस पर डाउनलोड होते हैं।</p>
+      <p data-t="comment5">“सुनें” दबाएँ: तभी पेज माइक्रोफ़ोन माँगता है, उससे पहले कभी नहीं; माइक्रोफ़ोन न हो तो वह एक उदाहरण रचना बजाता है। आप कोई दूसरी रचना या ऑडियो फ़ाइल भी चुन सकते हैं। “और विकल्प” में आप आकृति का चित्र या ध्वनि सहित 15 सेकंड का वीडियो रिकॉर्ड कर सकते हैं।</p>
+      <p><span data-t="comment6">सामग्री CC BY-NC 4.0 लाइसेंस के अंतर्गत, कोड AGPL v3 लाइसेंस के अंतर्गत (व्यावसायिक लाइसेंस अनुरोध पर)। लेखक: Anibal Edelberto Amiot।</span> <a href="../../a-propos.html" data-t="commentAuteur" hreflang="fr">लेखक के बारे में <span class="lien-langue">(फ़्रेंच में)</span></a></p>
+    </section>
+
     <section class="vm-voir" aria-labelledby="vmVoirTitre">
       <h2 id="vmVoirTitre" data-t="voirAussiTitre">यह भी देखें</h2>
       <div class="vm-cartes" id="vmVoirAussi"><a class="vm-carte" href="/galerie-bicolore.html" hreflang="fr"><b>द्विवर्णी दीर्घा</b><span>अक्षों से बने और घन पर बंद द्विवर्णी पैटर्न: पठन-कण, टाइलिंग, निर्यात। (फ़्रेंच पृष्ठ)</span> <span class="lien-langue">(फ़्रेंच में)</span></a><a class="vm-carte" href="/galerie-patterns-unifies.html" hreflang="fr"><b>त्रिवर्णी दीर्घा</b><span>रंगों के मिश्रण से बने एकीकृत पैटर्न: उसकी टाइलिंग देखने के लिए एक पैटर्न चुनें। (फ़्रेंच पृष्ठ)</span> <span class="lien-langue">(फ़्रेंच में)</span></a><a class="vm-carte" href="/fonds-ecran.html" hreflang="fr"><b>वॉलपेपर</b><span>पूर्ण स्क्रीन पर वस्त्र-वॉलपेपर: ध्वनि पर प्रतिक्रिया करते हैं या ध्यान-मोड में चलते हैं। (फ़्रेंच पृष्ठ)</span> <span class="lien-langue">(फ़्रेंच में)</span></a><a class="vm-carte" href="/hi/animations/"><b>एनिमेशन दीर्घा</b><span>पृष्ठभूमि-संग्रहों के एनिमेशन, देखने और MP4 में डाउनलोड करने के लिए।</span></a><a class="vm-carte" href="/chladni.html" hreflang="fr"><b>Chladni</b><span>आकृतियाँ, स्वरग्राम और आवृत्तियाँ: वह पृष्ठ जो पैटर्नों की शब्दावली को पट्टिका के मोड से जोड़ता है। (फ़्रेंच पृष्ठ)</span> <span class="lien-langue">(फ़्रेंच में)</span></a><a class="vm-carte" href="/hi/book/"><b>पुस्तक</b><span>La Livrée d'Hermès ऑनलाइन, पृष्ठ-दर-पृष्ठ, मुफ़्त PDF के साथ।</span></a></div>
@@ -304,7 +305,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=f9a45d0015";
+import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
 monter();
 </script>
 </div>
