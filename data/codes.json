@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-22T14:17:24Z",
+ "generated_at_utc": "2026-11-22T14:25:49Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3969,9 +3969,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 14638,
-   "sha256": "ce29fe5231186eeb788106da82fc7412bb4b1773739ce8844d4be774e9297669",
-   "md5": "04b836554522093ac29314a8123cb21a",
+   "octets": 14737,
+   "sha256": "8fd7b4469e799fd224556447a7ef94b60db91733d23639ffe62e3bb676ae577f",
+   "md5": "aa00af274e52f806c990778bcafa7342",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
