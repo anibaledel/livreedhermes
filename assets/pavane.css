@@ -48,3 +48,10 @@
 .pv-lanceur .pv-titre { margin: 0; }
 .pv-ouvrir { min-height: 44px; font: inherit; font-weight: 700; color: var(--pv-texte); background: #22222b; border: 1px solid var(--pv-or); border-radius: 8px; padding: 6px 16px; cursor: pointer; }
 .pv.vm-interface { padding: 10px 16px; }
+/* Petit écran (prompt 220, suite : le contrôle WebKit à 390 × 664 exige le bouton « Écouter » sans défiler) : le lanceur tient en une rangée, le titre — déjà celui de la page, juste au-dessus — reste pour les lecteurs d'écran seulement. */
+@media (max-width: 480px) {
+  .pv.vm-interface { padding: 4px 12px; }
+  .pv-lanceur { flex-wrap: nowrap; }
+  .pv-lanceur .pv-titre { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .pv-lanceur .pv-ouvrir { width: 100%; }
+}
