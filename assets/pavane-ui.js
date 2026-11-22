@@ -53,7 +53,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   // le micro est la source de départ (prompt 220) : jamais demandé au chargement, seulement au bouton « Activer le micro » ; refusé ou impossible, un morceau d'exemple le remplace, en le disant.
   // Un lien qui fixe la source (?source=…, ?piste=…) garde le dessus : alors, pas de repli.
   let microParDefaut = etat.source === 'micro' && !new URLSearchParams(recherche).has('source');
-  let reduit = reduitMq.matches, enPause = false, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
+  let reduit = reduitMq.matches || etat.reduit, enPause = false, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
   const cache = new Map();
 
   // ---------- le DOM ----------
@@ -87,6 +87,14 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const personnalise = el('div', { hidden: true }, el('label', {}, el('span', { text: T('couleurFond') }), inC0), el('label', {}, el('span', { text: T('couleurFigure') }), inC1));
   const erreur = el('p', { class: 'pv-erreur', role: 'alert', hidden: true, text: T('contrasteRefus') });
   const cTrace = el('input', { type: 'checkbox', id: `${id}-trace` });
+  // « Mouvement réduit » (prompt 223) : la préférence du système OU la case (clé d'adresse `reduit`) ; il impose au rythme une période d'au moins PERIODE_MIN_REDUIT_S (0,33 changement par seconde, bien sous les 3 par seconde de WCAG 2.3.1)
+  const cReduit = el('input', { type: 'checkbox', id: `${id}-reduit` }), nReduit = el('small', { class: 'pv-doux', hidden: true, text: T('reduitSysteme') });
+  // l'avertissement photosensible : au premier lancement (mémorisé dans localStorage, dans un try/catch : sans stockage, il revient à chaque ouverture), puis un lien près des réglages
+  const CLE_AVERT = 'pv-avertissement-lu';
+  const avertLu = () => { try { return localStorage.getItem(CLE_AVERT) === '1'; } catch { return false; } };
+  const bOk = el('button', { type: 'button', text: T('avertOk') });
+  const avert = el('div', { class: 'pv-avert', role: 'note', id: `${id}-avert`, hidden: avertLu() }, el('p', { text: T('avert') }), bOk);
+  const bAvert = el('button', { type: 'button', class: 'pv-lien', 'aria-controls': `${id}-avert`, 'aria-expanded': String(!avertLu()), text: T('avertLien') });
   const rRythme = el('input', { type: 'range', min: String(RYTHME_MIN), max: String(RYTHME_MAX), step: '0.5', id: `${id}-rythme` });
   const lRythme = el('label', {}, rRythme), nRythme = el('span');
   lRythme.prepend(nRythme);
@@ -97,8 +105,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const reglages = el('div', { class: 'pv-reglages', role: 'group', 'aria-label': T('reglages') },
     choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
-    el('label', {}, cTrace, el('span', { text: T('trace') })), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo));
-  racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
+    el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert);
+  racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), avert, modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
   racine.classList.toggle('pv-reduit', reduit);
 
   // ---------- le rendu ----------
@@ -186,7 +194,9 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     const [c0, c1] = paire(); inC0.value = c0; inC1.value = c1; dernierePaireValide = [c0, c1];
     cTrace.checked = etat.trace;
     const virgule = ['fr', 'es', 'pt', 'de', 'it', 'ru'].includes(langue);
-    rRythme.value = String(etat.rythme); nRythme.textContent = T('rythme', { s: String(etat.rythme).replace('.', virgule ? ',' : '.') });
+    const ry = reduit ? Math.max(etat.rythme, PERIODE_MIN_REDUIT_S) : etat.rythme; // aucun rythme plus rapide que la limite quand le mouvement est réduit
+    rRythme.min = String(reduit ? PERIODE_MIN_REDUIT_S : RYTHME_MIN); rRythme.value = String(ry); nRythme.textContent = T('rythme', { s: String(ry).replace('.', virgule ? ',' : '.') });
+    cReduit.checked = reduit; cReduit.disabled = reduitMq.matches; nReduit.hidden = !reduitMq.matches;
     lRythme.hidden = !(etat.mode === 'entre-deux' || (etat.mode === 'defile' && etat.declencheur === 'minuteur'));
     rDensite.value = String(etat.densite); nDensite.textContent = T('densite', { n: etat.densite });
     bPause.textContent = enPause ? T('reprendre') : T('pause'); bPause.setAttribute('aria-pressed', String(enPause));
@@ -248,7 +258,10 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     if (ev.key === ' ') { ev.preventDefault(); basculerPause(); } else if (ev.key === 'f' || ev.key === 'F') { ev.preventDefault(); pleinEcran(); }
   };
   document.addEventListener('keydown', surTouche);
-  const surReduit = () => { reduit = reduitMq.matches; refleter(); reconstruireChefSeulement(); armer(); };
+  cReduit.addEventListener('change', () => { etat = { ...etat, reduit: cReduit.checked }; reduit = reduitMq.matches || etat.reduit; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
+  bOk.addEventListener('click', () => { try { localStorage.setItem(CLE_AVERT, '1'); } catch { /* stockage absent ou refusé : l'avertissement reviendra */ } avert.hidden = true; bAvert.setAttribute('aria-expanded', 'false'); bAvert.focus(); });
+  bAvert.addEventListener('click', () => { avert.hidden = !avert.hidden; bAvert.setAttribute('aria-expanded', String(!avert.hidden)); if (!avert.hidden) avert.scrollIntoView({ block: 'nearest' }); });
+  const surReduit = () => { reduit = reduitMq.matches || etat.reduit; refleter(); reconstruireChefSeulement(); armer(); };
   if (reduitMq.addEventListener) reduitMq.addEventListener('change', surReduit);
 
   // ---------- l'enregistrement : l'image, et 15 s de vidéo (les formats de « Voir sa musique », l'AAC d'abord) ----------

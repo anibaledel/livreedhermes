@@ -1102,6 +1102,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_pavane_webkit.mjs",
+   "role": "l'avertissement photosensible et « Mouvement réduit » de « Voir sa musique » (prompt 223) dans WebKit (profil iPhone 13) : l'avertissement apparaît au premier lancement et pas ensuite (localStorage de Safari), « J'ai compris » le range, …",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_pdf.py",
    "role": "Les PDF du dépôt (suivis par git, hors archives « anciens/ ») : 1.",
    "lit": [],
@@ -2296,6 +2308,7 @@
     "tools/check_pavane_pages.mjs",
     "tools/check_pavane_son.mjs",
     "tools/check_pavane_ui.mjs",
+    "tools/check_pavane_webkit.mjs",
     "tools/check_selecteur_fonds.mjs",
     "tools/check_selection_clavier.mjs",
     "tools/epingles_echantillon.mjs",

@@ -176,9 +176,33 @@ for (const c of sans.changes) if (!sans.top.includes(c.i)) ko(`entre-deux (repli
   }
 }
 
+// ---------- fréquence maximale de changement d'image du Défilé (prompt 223 ; WCAG 2.3.1 : jamais plus de 3 par seconde) ----------
+// Pire cas simulé à 60 images par seconde : au minuteur, le rythme le plus rapide du curseur (RYTHME_MIN) ; à la pulsation, une attaque forte une image sur deux (30 par seconde) ; avec « mouvement réduit », la tenue de 3 s.
+// On mesure le plus grand nombre de changements dans une fenêtre glissante d'une seconde.
+let maxDefile = 0, maxReduit = 0;
+{
+  const { n, d } = suites[128];
+  const fenetreMax = (temps) => { let m = 0; for (let i = 0; i < temps.length; i++) { let k = 0; for (let j = i; j < temps.length && temps[j] < temps[i] + 1; j++) k++; m = Math.max(m, k); } return m; };
+  const mesure = (declencheur, periodeS, tenueMinS) => {
+    const c = P.creerChef({ mode: 'defile', declencheur, periodeS, tenueMinS, liste: { n, distance: d }, graine: 1 }), temps = [];
+    for (let f = 0; f < 60 * 30; f++) {
+      const t = f / 60, r = c.image({ db: spectreSon(W(3), { graine: 1300 + f, impulsion: f % 2 === 0 ? -20 : 0 }), sampleRate: SR, t });
+      if (r.changer) temps.push(t);
+    }
+    return { fenetre: fenetreMax(temps), n: temps.length };
+  };
+  const rapide = [mesure('minuteur', 0.5, 0), mesure('pulsation', 0.5, 0)];
+  maxDefile = Math.max(...rapide.map((x) => x.fenetre));
+  if (rapide.some((x) => x.n < 10)) ko(`fréquence du défilé : la mesure ne discrimine pas (${rapide.map((x) => x.n).join(' et ')} changements en 30 s)`);
+  if (maxDefile > 3) ko(`défilé : jusqu'à ${maxDefile} changements en une seconde, plus que les 3 de WCAG 2.3.1 : décision à prendre avec Anibal`);
+  const lent = [mesure('minuteur', 0.5, 3), mesure('pulsation', 0.5, 3)];
+  maxReduit = Math.max(...lent.map((x) => x.fenetre));
+  if (maxReduit > 1) ko(`défilé en mouvement réduit : jusqu'à ${maxReduit} changements en une seconde, 1 au plus attendu (tenue de 3 s)`);
+}
+
 if (essai) {
   if (!echecs) { console.error('ÉCHEC --essai : deux pas permutés n\'ont pas été refusés'); process.exit(1); }
   console.log(`OK    --essai : deux pas permutés sont refusés (${echecs} écart(s)).`); process.exit(0);
 }
 if (echecs) { console.error(`\n${echecs} défaut(s).`); process.exit(1); }
-console.log(`OK    moteur de ${NOM.NOM_COMPLET} : défilé aux niveaux 64 / 128 / 256 (3 graines, 2 cycles chacun : aucun motif répété avant la fin du cycle, chaque pas au plus proche non vu ; minuteur = pulsation simulée) ; spectre : ${retrouves} représentants sur 64 retrouvés par leur spectre (${ex} ex æquo de même spectre), choix stable sur son bruité, dans le corpus de 64 ; entre-deux : toujours parmi les 8 plus ressemblants (2 400 pas), ${avec.changes.length} changements à la pulsation en 30 s, repli au minuteur annoncé sans pulsation (${sans.changes.length} changements).`);
+console.log(`OK    moteur de ${NOM.NOM_COMPLET} : défilé aux niveaux 64 / 128 / 256 (3 graines, 2 cycles chacun : aucun motif répété avant la fin du cycle, chaque pas au plus proche non vu ; minuteur = pulsation simulée) ; spectre : ${retrouves} représentants sur 64 retrouvés par leur spectre (${ex} ex æquo de même spectre), choix stable sur son bruité, dans le corpus de 64 ; entre-deux : toujours parmi les 8 plus ressemblants (2 400 pas), ${avec.changes.length} changements à la pulsation en 30 s, repli au minuteur annoncé sans pulsation (${sans.changes.length} changements) ; défilé : au plus ${maxDefile} changements par seconde au pire cas simulé (limite 3), ${maxReduit} en mouvement réduit.`);

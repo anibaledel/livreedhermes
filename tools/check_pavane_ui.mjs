@@ -131,6 +131,52 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   ok(erreurs.length === 0, `prefers-reduced-motion : aucune erreur (${erreurs.join(' | ')})`);
   await ctx.close();
 }
+// l'avertissement photosensible et « Mouvement réduit » (prompt 223)
+{
+  // 1. premier lancement : l'avertissement est en tête et lisible ; « J'ai compris » le range et le mémorise ; à la visite suivante, il n'est plus là ; le lien le rouvre
+  const ctx = await nav.newContext({ viewport: { width: 390, height: 900 } });
+  let { page, erreurs } = await monter(ctx, 'fr', '');
+  const avert = (p) => p.evaluate(() => { const a = document.querySelector('#app .pv-avert'), r = a.getBoundingClientRect(); return { visible: !a.hidden && r.height > 0, texte: a.textContent, avant: a.compareDocumentPosition(document.querySelector('#app .pv-modes')) & Node.DOCUMENT_POSITION_FOLLOWING ? 1 : 0, largeur: Math.round(r.width) }; });
+  let a = await avert(page);
+  ok(a.visible && a.avant === 1 && /épilepsie photosensible/.test(a.texte) && /J'ai compris/.test(a.texte), `premier lancement : l'avertissement est visible, avant les modes (${a.texte.slice(0, 60)}…)`);
+  await page.click('#app .pv-avert button');
+  ok(!(await avert(page)).visible, '« J\'ai compris » range l\'avertissement');
+  ok(await page.evaluate(() => localStorage.getItem('pv-avertissement-lu')) === '1', 'l\'avertissement lu est mémorisé');
+  await page.close();
+  ({ page, erreurs } = await monter(ctx, 'fr', ''));
+  ok(!(await avert(page)).visible, 'à la visite suivante, l\'avertissement n\'est plus affiché');
+  ok(await page.$eval('#app .pv-lien', (b) => b.textContent === 'Avertissement' && b.getAttribute('aria-expanded') === 'false'), 'le lien « Avertissement » reste près des réglages');
+  await page.click('#app .pv-lien');
+  ok((await avert(page)).visible, 'le lien rouvre l\'avertissement');
+  ok(erreurs.length === 0, `avertissement : aucune erreur (${erreurs.join(' | ')})`);
+  await ctx.close();
+  // 2. sans stockage (localStorage qui lève) : la page marche, l'avertissement s'affiche
+  const sans = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  await sans.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('stockage refusé'); } }); });
+  const r = await monter(sans, 'fr', '');
+  ok((await avert(r.page)).visible, 'sans stockage : l\'avertissement s\'affiche');
+  await r.page.click('#app .pv-avert button');
+  ok(!(await avert(r.page)).visible && r.erreurs.length === 0, `sans stockage : « J'ai compris » marche, sans erreur (${r.erreurs.join(' | ')})`);
+  await sans.close();
+  // 3. « Mouvement réduit » : ?reduit=1 plafonne le rythme (curseur et minuteur), la case l'écrit dans l'adresse, aucun rythme ne passe sous la limite
+  const c3 = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  const m = await monter(c3, 'fr', '?reduit=1&rythme=0.5');
+  const x = await m.page.evaluate(() => { const app = document.getElementById('app'), r = app.querySelector('input[id$=rythme]'), c = app.querySelector('input[id$=reduit]'); return { coche: c.checked, desactive: c.disabled, min: Number(r.min), valeur: Number(r.value), reduit: window.__pavane.reduit(), etat: window.__pavane.etat().reduit }; });
+  ok(x.coche && !x.desactive && x.min >= 3 && x.valeur >= 3 && x.reduit && x.etat, `?reduit=1 : case cochée, curseur de rythme borné à 3 s au moins (${JSON.stringify(x)})`);
+  const d0 = await m.page.evaluate(() => window.__pavane.motif()); await m.page.waitForTimeout(1800);
+  ok(d0 === await m.page.evaluate(() => window.__pavane.motif()), '?reduit=1&rythme=0.5 : le motif ne change pas en 1,8 s');
+  await m.page.uncheck('input[id$=reduit]');
+  ok(!(await m.page.evaluate(() => window.__pavane.reduit())) && !/reduit/.test(await m.page.evaluate(() => location.search)), 'décocher la case lève le plafond et retire reduit de l\'adresse');
+  await m.page.check('input[id$=reduit]');
+  ok(/reduit=1/.test(await m.page.evaluate(() => location.search)) && await m.page.$eval('input[id$=rythme]', (r) => Number(r.min)) >= 3, 'cocher la case écrit reduit=1 dans l\'adresse et borne le curseur');
+  ok(m.erreurs.length === 0, `mouvement réduit : aucune erreur (${m.erreurs.join(' | ')})`);
+  await c3.close();
+  // 4. la préférence du système l'impose : case cochée et non décochable
+  const c4 = await nav.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
+  const s4 = await monter(c4, 'fr', '');
+  ok(await s4.page.$eval('input[id$=reduit]', (c) => c.checked && c.disabled), 'prefers-reduced-motion : la case est cochée et imposée par le système');
+  await c4.close();
+}
 await nav.close();
 if (serveur && serveur.close) serveur.close();
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }

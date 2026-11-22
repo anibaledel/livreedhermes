@@ -67,6 +67,8 @@ jobs:
         with:
           navigateur: webkit
       - run: node tools/check_musique_webkit.mjs local
+      # l'avertissement photosensible et « Mouvement réduit » de la nouvelle interface (prompt 223), dans WebKit
+      - run: node tools/check_pavane_webkit.mjs local
   statique:
     # la page se lit SANS JavaScript (prompt 202 : Bing, Copilot, Google) : le texte est dans le HTML des 11 pages,
     # la section « Comment ça marche », l'image d'exemple (vraie sortie du moteur) et « Voir aussi » aussi

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-22T12:42:44Z",
+ "generated_at_utc": "2026-11-22T13:27:26Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 319,
+  "scripts": 320,
   "sans_licence_declaree": 75,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2598,9 +2598,9 @@
   {
    "chemin": "tools/check_pavane_etat.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_etat.mjs",
-   "octets": 7725,
-   "sha256": "77f7387ea0c3ee7bd01fb0fd4be87cdb5a9fb63186b447707e258cfa33c44e00",
-   "md5": "6b8a0d14d14d1aec9210356ade6edbfd",
+   "octets": 8438,
+   "sha256": "d3dccd8d358f685398d9c0b4377d2ca5f95d6eea4d3c4c2786ba709d38dba74d",
+   "md5": "7a4d0a76cd59d44cc8151fc8de200226",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'état dans l'adresse et les couleurs de « Pavane — Voir sa musique » (prompt 211 §4), sans navigateur : listes fermées, anciens liens, aller-retour, contraste minimal imposé (un fond identique à la figure est impossible), fonds lus dans…",
@@ -2615,9 +2615,9 @@
   {
    "chemin": "tools/check_pavane_moteur.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_moteur.mjs",
-   "octets": 12881,
-   "sha256": "254570616a42011ded934bf43529daffb6208b68082066962d4dc5cfdfb6cc5a",
-   "md5": "999ab037d776bf9f9700dcb8a05ed38e",
+   "octets": 14926,
+   "sha256": "75dac350a9778743bfed2a8d218d47ef40e737163367a49baf168227cbaff810",
+   "md5": "562a80cc85d79835cf9aeb5c466d9070",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
@@ -2664,15 +2664,30 @@
   {
    "chemin": "tools/check_pavane_ui.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_ui.mjs",
-   "octets": 11541,
-   "sha256": "686e021d9d878569f82757f00d043c70f53eb1e809cfb8ca744a1a52302947ca",
-   "md5": "0800f58862413b0943ea8a63c85e75c0",
+   "octets": 16046,
+   "sha256": "2861a40e9363c973a393dbad5b5ee18821f969df4eb703a2673ddbe2bb5779f2",
+   "md5": "158b958f339e243e229a791990ff2a67",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
    "lit": [
     "demi-periode"
    ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_pavane_webkit.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_pavane_webkit.mjs",
+   "octets": 4036,
+   "sha256": "4bd3769eb93557d43b4283ce98104b5ee8b0691625d4f3b387d23355dcf19d48",
+   "md5": "be9ad27c1899ea02b3d0332fa5ee3236",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "l'avertissement photosensible et « Mouvement réduit » de « Voir sa musique » (prompt 223) dans WebKit (profil iPhone 13) : l'avertissement apparaît au premier lancement et pas ensuite (localStorage de Safari), « J'ai compris » le range, …",
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

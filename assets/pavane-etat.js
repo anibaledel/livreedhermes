@@ -17,7 +17,7 @@ export const SOURCES = Object.freeze(['morceau', 'fichier', 'micro', 'note']);
 export const MORCEAUX = Object.freeze(['j1', 'j2', 'j3', 'j4', 'j5', 'j6', 'j7']);
 export const DECLENCHEURS = Object.freeze(['minuteur', 'pulsation']);
 export const NOTE_MIN = 110, NOTE_MAX = 1760, NOTE_DEFAUT = 440;
-export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null, source: 'micro', morceau: 'j1', note: NOTE_DEFAUT, declencheur: 'minuteur' });
+export const DEFAUTS = Object.freeze({ mode: MODE_DEFAUT, fond: FOND_DEFAUT, corpus: NIVEAU_DEFAUT, trace: false, reduit: false, rythme: RYTHME_DEFAUT, densite: DENSITE_DEFAUT, palette: PALETTE_DEFAUT, c0: null, c1: null, source: 'micro', morceau: 'j1', note: NOTE_DEFAUT, declencheur: 'minuteur' });
 
 const entier = (s) => (typeof s === 'string' && /^[1-9]\d*$/.test(s) ? Number(s) : null);
 const decimal = (s) => (typeof s === 'string' && /^\d+(\.\d)?$/.test(s) ? Number(s) : null);
@@ -36,6 +36,8 @@ export function lireEtat(search, proposes) {
   if (k) { const n = entier(v); if (NIVEAUX_CORPUS.includes(n)) etat.corpus = n; else refuse(k); }
   [k, v] = lu('trace');
   if (k) { if (v === '1') etat.trace = true; else if (v === '0') etat.trace = false; else refuse(k); }
+  [k, v] = lu('reduit');
+  if (k) { if (v === '1') etat.reduit = true; else if (v === '0') etat.reduit = false; else refuse(k); } // « Mouvement réduit » (prompt 223) : plafonne le rythme, comme la préférence du système
   [k, v] = lu('rythme', 'brythme');
   if (k) { const x = decimal(v); if (x !== null && x >= RYTHME_MIN && x <= RYTHME_MAX && Math.round(x * 2) === x * 2) etat.rythme = x; else refuse(k); }
   [k, v] = lu('densite', 'bdensite');
@@ -65,6 +67,7 @@ export function ecrireEtat(etat) {
   if (etat.fond !== DEFAUTS.fond) q.set('fond', etat.fond);
   if (etat.corpus !== DEFAUTS.corpus) q.set('corpus', String(etat.corpus));
   if (etat.trace) q.set('trace', '1');
+  if (etat.reduit) q.set('reduit', '1');
   if (etat.rythme !== DEFAUTS.rythme) q.set('rythme', String(etat.rythme));
   if (etat.densite !== DEFAUTS.densite) q.set('densite', String(etat.densite));
   if (etat.source !== DEFAUTS.source || etat.morceau !== DEFAUTS.morceau) q.set('source', etat.source); // la piste sans source voudrait dire « ce morceau » : on écrit la source dès qu'une piste est écrite
@@ -78,7 +81,7 @@ export function ecrireEtat(etat) {
 }
 
 // Les clés de l'adresse que Pavane possède. « mode » est partagée avec la page « Voir sa musique » (?mode=avance) : Pavane ne la touche que si sa valeur est une des siennes.
-export const CLES_ETAT = Object.freeze(['mode', 'fond', 'corpus', 'trace', 'rythme', 'densite', 'palette', 'c0', 'c1', 'source', 'piste', 'note', 'declencheur']);
+export const CLES_ETAT = Object.freeze(['mode', 'fond', 'corpus', 'trace', 'reduit', 'rythme', 'densite', 'palette', 'c0', 'c1', 'source', 'piste', 'note', 'declencheur']);
 /** L'adresse d'une page qui a d'autres paramètres (?morceau=…, ?mode=avance) : ceux de Pavane sont remplacés, tous les autres sont gardés tels quels. */
 export function fusionnerRecherche(rechercheActuelle, etat) {
   const q = new URLSearchParams(rechercheActuelle);

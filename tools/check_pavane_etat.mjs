@@ -33,6 +33,10 @@ for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?pis
 }
 { const r = L('?source=note&note=880&piste=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
 ok(DEFAUTS.source === 'micro' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : le micro (prompt 220), morceau j1, 440 Hz, minuteur');
+// « Mouvement réduit » (prompt 223) : la clé reduit, 0 ou 1, jamais autre chose ; aller-retour exact
+ok(L('?reduit=1').etat.reduit === true && L('?reduit=0').etat.reduit === false && L('').etat.reduit === false && DEFAUTS.reduit === false, 'reduit : 1 vrai, 0 faux, absent faux');
+for (const mauvais of ['2', 'oui', '', 'true']) ok(L(`?reduit=${mauvais}`).etat.reduit === false && L(`?reduit=${mauvais}`).ignores.includes('reduit'), `reduit=${mauvais} est refusé`);
+ok(ecrireEtat({ ...DEFAUTS, reduit: true }) === '?reduit=1' && L(ecrireEtat({ ...DEFAUTS, reduit: true })).etat.reduit === true && ecrireEtat(DEFAUTS) === '', 'reduit : s\'écrit ?reduit=1 et revient identique ; le défaut s\'écrit vide');
 // un lien qui fixe la source ou la piste garde le dessus sur le micro par défaut ; l'aller-retour est exact
 ok(L('').etat.source === 'micro' && L('?source=morceau').etat.source === 'morceau' && L('?piste=j4').etat.source === 'morceau' && L('?piste=j4').etat.morceau === 'j4', 'micro par défaut ; ?source=morceau et ?piste=… (sans source) donnent le morceau');
 ok(L('?piste=j4&source=micro').etat.source === 'micro' && L('?source=note').etat.source === 'note', '?source= explicite garde le dessus sur ?piste=');

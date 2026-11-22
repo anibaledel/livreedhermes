@@ -55,3 +55,9 @@
   .pv-lanceur .pv-titre { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .pv-lanceur .pv-ouvrir { width: 100%; }
 }
+/* L'avertissement photosensible (prompt 223) : en tête de l'interface au premier lancement, puis un lien près des réglages. */
+.pv-avert { margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--pv-or); border-radius: 8px; background: #1b1b22; }
+.pv-avert p { margin: 0 0 10px; line-height: 1.5; }
+.pv-avert button { min-height: 44px; font: inherit; font-weight: 700; color: var(--pv-texte); background: #22222b; border: 1px solid var(--pv-or); border-radius: 8px; padding: 6px 16px; cursor: pointer; }
+.pv-lien { min-height: 44px; font: inherit; background: none; border: 0; color: var(--pv-or); text-decoration: underline; text-underline-offset: 2px; padding: 6px 0; cursor: pointer; justify-self: start; }
+.pv-doux { display: block; color: var(--pv-doux); }
