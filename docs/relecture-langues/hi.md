@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} पैटर्न |
 | `collections.p30.0` | Croix 1·2 | क्रॉस 1·2 |
 | `collections.p30.1` | {n} motifs | {n} पैटर्न |
-| `fondNoms.P` | Aplat | सादा |
-| `fondNoms.B2Dx` | Triangles | त्रिभुज |
-| `fondNoms.B11211Dx` | Bandes | पट्टियाँ |
+| `fondGroupes.aplat` | Aplat | सादा |
+| `fondGroupes.triangles` | Triangles | त्रिभुज |
+| `fondGroupes.bandes` | Bandes | पट्टियाँ |
+| `fondVariantes.B3x` | Trois bandes | तीन पट्टियाँ |
+| `fondVariantes.B121x` | Bande centrale | बीच की पट्टी |
+| `fondVariantes.B11211Dx` | Bandes obliques | तिरछी पट्टियाँ |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | एक खाने में चार त्रिभुज होते हैं; हर एक चुनी हुई पृष्ठभूमि से बनता है, या उसके दोनों रंग आपस में बदलकर। |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | खाने का रूपांतर केवल द्विवर्णी संग्रह पर लागू होता है। |
 | `palettes.creme.0` | Encre et crème | स्याही और क्रीम |

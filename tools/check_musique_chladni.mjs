@@ -68,6 +68,21 @@ try {
     ok((await p0.evaluate(() => window.__voirSaMusique.etat().valide.fmt)) === 12 && !(await p0.$('#vm-g-col [data-fmt="18"]')) && !(await p0.$('#vm-g-col [data-fmt="30"]')), '?ordre=18 doit retomber sur l\'ordre 12, sans collection des ordres 18 et 30');
     await p0.close();
   }
+  // « Bandes » et ses sous-choix (prompt 225) : avec la liste réelle (un seul fond de bandes proposé) une seule entrée « Bandes » ; avec une liste SIMULÉE qui propose aussi B3x et B121x (route), un titre « Bandes »
+  // et trois entrées aux noms clairs, sans code. Les vraies mesures sont celles de tools/check_demi_periode.mjs.
+  {
+    const reel = await ctx.newPage(); await reel.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' }); await reel.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
+    ok((await reel.$$eval('#vm-g-fond .vm-o b', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes' && (await reel.$$('#vm-g-fond .vm-sous-titre')).length === 0, 'liste réelle : Aplat, Triangles, Bandes, sans sous-choix');
+    await reel.close();
+    const sim = await ctx.newPage(), erreursSim = []; sim.on('pageerror', (e) => erreursSim.push(e.message));
+    await sim.route('**/data/fonds/demi-periode.json', async (r) => { const rep = await r.fetch(), j = await rep.json(); j.proposes = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx']; await r.fulfill({ response: rep, body: JSON.stringify(j) }); });
+    await sim.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' }); await sim.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
+    ok((await sim.$$eval('#vm-g-fond .vm-o b, #vm-g-fond .vm-sous-titre', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes,Trois bandes,Bande centrale,Bandes obliques', 'liste simulée : « Bandes » ouvre trois sous-choix (Trois bandes, Bande centrale, Bandes obliques)');
+    ok((await sim.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B3x,B121x,B11211Dx' && (await sim.$$('#vm-g-fond .vm-o.vm-sous')).length === 3, 'liste simulée : cinq fonds, dont trois de bandes en retrait');
+    ok(!/\bB\d|[BP]\d*x\b/.test(await sim.$eval('#vm-g-fond', (g) => g.innerText)), 'aucun code de fond dans le groupe');
+    ok(erreursSim.length === 0, `liste simulée : aucune erreur (${erreursSim.join(' | ')})`);
+    await sim.close();
+  }
   // Le reste du contrôle essaie le code des ordres 18 et 30 : on rouvre ces ordres, par la seule valeur du réglage.
   await page.route('**/assets/musique-chladni-config.js*', async (r) => { const rep = await r.fetch(), t = await rep.text(), n = t.replace('ordresProposes: Object.freeze([12])', 'ordresProposes: Object.freeze([12, 18, 30])'); ok(n !== t, 'CONFIG.ordresProposes introuvable'); await r.fulfill({ response: rep, body: n }); });
   await page.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' });

@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} ลวดลาย |
 | `collections.p30.0` | Croix 1·2 | กากบาท 1·2 |
 | `collections.p30.1` | {n} motifs | {n} ลวดลาย |
-| `fondNoms.P` | Aplat | สีเรียบ |
-| `fondNoms.B2Dx` | Triangles | สามเหลี่ยม |
-| `fondNoms.B11211Dx` | Bandes | แถบ |
+| `fondGroupes.aplat` | Aplat | สีเรียบ |
+| `fondGroupes.triangles` | Triangles | สามเหลี่ยม |
+| `fondGroupes.bandes` | Bandes | แถบ |
+| `fondVariantes.B3x` | Trois bandes | สามแถบ |
+| `fondVariantes.B121x` | Bande centrale | แถบกลาง |
+| `fondVariantes.B11211Dx` | Bandes obliques | แถบเฉียง |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยพื้นหลังที่เลือก หรือสลับสองสีของมัน |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | แบบของช่องใช้ได้กับชุดลวดลายสองสีเท่านั้น |
 | `palettes.creme.0` | Encre et crème | หมึกกับสีครีม |

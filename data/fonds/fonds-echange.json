@@ -1,5 +1,5 @@
 {
- "_doc": "Les deux fonds en mode ÉCHANGE retenus par Anibal (prompt 185, envoi 195) : le symbole du bit 1 est celui du bit 0 aux couleurs échangées. Définis ici, pas dans data/fonds/collection-v1.json (les fonds et les collections déjà publiés ne changent pas). Chaque fond tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs). Le code suit la convention du site : le suffixe x dit « échange » (B3x) ; assets/bicolore-fonds.js (decomposer) lit B2Dx et B11211Dx.",
+ "_doc": "Les fonds en mode ÉCHANGE (prompt 185, envoi 195 ; prompt 225) : le symbole du bit 1 est celui du bit 0 aux couleurs échangées. Définis ici, pas dans data/fonds/collection-v1.json (les fonds et les collections déjà publiés ne changent pas). B2Dx et B11211Dx : retenus par Anibal au prompt 185 ; B3x et B121x : les versions en échange des anciennes bandes B3 et B121, ajoutées au prompt 225 (B3x a le même dessin que le B3x publié de la collection v1). Un fond n'est PROPOSÉ que s'il tient la demi-période à 64 / 64 (tools/check_demi_periode.mjs) ET s'il est approuvé (fonds-approuves.json). « groupe » : le groupe visible de l'interface (aplat, triangles, bandes), « ordre » : sa place dans ce groupe ; les noms visibles sont dans les textes des interfaces, jamais le code. Le code suit la convention du site : le suffixe x dit « échange » ; assets/bicolore-fonds.js (decomposer) lit B2Dx, B3x, B121x et B11211Dx. « defaut » : le fond que le groupe prend quand on le choisit sans préciser (celui que « Bandes » désignait avant les sous-choix).",
  "fonds": [
   {
    "id": "B2Dx",
@@ -25,7 +25,9 @@
      ],
      "ton": 1
     }
-   ]
+   ],
+   "groupe": "triangles",
+   "ordre": 1
   },
   {
    "id": "B11211Dx",
@@ -42,7 +44,44 @@
     1
    ],
    "phase": 0,
-   "angle": 45
+   "angle": 45,
+   "groupe": "bandes",
+   "ordre": 3,
+   "defaut": true
+  },
+  {
+   "id": "B3x",
+   "nom": "B3 échange",
+   "description": "trois bandes égales, en échange (même cellule que B3, aux couleurs échangées ; même dessin que le B3x publié de la collection v1)",
+   "mode": "echange",
+   "type": "bandes",
+   "nombre": 3,
+   "largeurs": [
+    1,
+    1,
+    1
+   ],
+   "phase": 0,
+   "angle": 0,
+   "groupe": "bandes",
+   "ordre": 1
+  },
+  {
+   "id": "B121x",
+   "nom": "B121 échange",
+   "description": "trois bandes de largeurs 1, 2, 1, en échange (même cellule que B121, aux couleurs échangées)",
+   "mode": "echange",
+   "type": "bandes",
+   "nombre": 3,
+   "largeurs": [
+    1,
+    2,
+    1
+   ],
+   "phase": 0,
+   "angle": 0,
+   "groupe": "bandes",
+   "ordre": 2
   }
  ]
 }

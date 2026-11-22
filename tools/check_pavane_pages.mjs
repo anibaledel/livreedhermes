@@ -102,7 +102,7 @@ for (const langue of ['fr', 'en', 'ja']) {
   const { ctx, page, erreurs } = await ouvrir(1280, 'fr', '?morceau=j3-re&mode=avance#nouvelle-interface');
   await page.waitForFunction(() => window.__pavane, null, { timeout: 15000 }).catch(() => {});
   ok(await page.evaluate(() => !!window.__pavane), '?morceau=j3-re&mode=avance#nouvelle-interface : Pavane est montée par le #nouvelle-interface');
-  await page.selectOption('#nouvelle-interface .pv-reglages select[id$=fond]', 'B2Dx');
+  await page.selectOption('#nouvelle-interface .pv-reglages select[id$=fond]', 'triangles');
   const s = await page.evaluate(() => location.search);
   ok(/morceau=j3-re/.test(s) && /fond=B2Dx/.test(s) && /mode=avance/.test(s), `Pavane écrit l'adresse en gardant ?morceau= et ?mode=avance de la page (${s})`);
   await page.click('#nouvelle-interface .pv-modes input[value="spectre"]');

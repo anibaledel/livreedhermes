@@ -1389,3 +1389,7 @@ Nouvel ordre (11 pages, engendrées) : titre, portes, nouvelle interface, introd
 ## Prompt 224 — politique de confidentialité de « Voir sa musique »
 
 Pages : `confidentialite-voir-sa-musique.html` et `en/privacy-see-your-music/` (source : `data/confidentialite.json`, `scripts/build-confidentialite.js`). Le français est le texte d'Anibal, mot pour mot, avec UN ajout signalé : dans « Réseau », la phrase sur le bloc « La semaine » (vidéos YouTube et TikTok, chargées seulement après un clic) — le code les charge, la politique ne pouvait pas dire « aucune donnée partagée avec des tiers » sans le mentionner ; à retirer si l'application de Google Play n'embarque pas ce bloc. L'anglais est une traduction de CC, à relire. À mettre à jour si une mesure d'audience (includes/analytics.json) ou Play Billing est ajouté : `tools/check_confidentialite.mjs` échoue alors.
+
+## Prompt 225 — « Bandes » et ses sous-choix
+
+À relire (10 langues, `data/musique-chladni/traductions/<langue>.json` clés `fondGroupes.*`, `fondVariantes.*`, et `assets/pavane-textes.js` clés `fond_aplat`, `fond_triangles`, `fond_bandes`, `fondV_B3x`, `fondV_B121x`, `fondV_B11211Dx` ; **thaï et chinois en priorité**) : « Trois bandes » (trois bandes égales), « Bande centrale » (bande du milieu double), « Bandes obliques » (cinq bandes à 45°) — noms choisis à l'image (planche relue), jamais de code. Ils ne s'affichent que si plusieurs fonds de bandes sont PROPOSÉS : aujourd'hui seul B11211Dx l'est, donc l'interface montre « Aplat · Triangles · Bandes » sans sous-choix.

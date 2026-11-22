@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} Muster |
 | `collections.p30.0` | Croix 1·2 | Kreuz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} Muster |
-| `fondNoms.P` | Aplat | Einfarbig |
-| `fondNoms.B2Dx` | Triangles | Dreiecke |
-| `fondNoms.B11211Dx` | Bandes | Streifen |
+| `fondGroupes.aplat` | Aplat | Einfarbig |
+| `fondGroupes.triangles` | Triangles | Dreiecke |
+| `fondGroupes.bandes` | Bandes | Streifen |
+| `fondVariantes.B3x` | Trois bandes | Drei Streifen |
+| `fondVariantes.B121x` | Bande centrale | Mittelstreifen |
+| `fondVariantes.B11211Dx` | Bandes obliques | Schräge Streifen |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Ein Feld trägt vier Dreiecke; jedes wird mit dem gewählten Grund gezeichnet oder mit vertauschten Farben. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | Die Feldvariante gilt nur für die zweifarbige Sammlung. |
 | `palettes.creme.0` | Encre et crème | Tinte und Creme |

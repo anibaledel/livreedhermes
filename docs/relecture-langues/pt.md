@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} padrões |
 | `collections.p30.0` | Croix 1·2 | Cruz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} padrões |
-| `fondNoms.P` | Aplat | Liso |
-| `fondNoms.B2Dx` | Triangles | Triângulos |
-| `fondNoms.B11211Dx` | Bandes | Faixas |
+| `fondGroupes.aplat` | Aplat | Liso |
+| `fondGroupes.triangles` | Triangles | Triângulos |
+| `fondGroupes.bandes` | Bandes | Faixas |
+| `fondVariantes.B3x` | Trois bandes | Três faixas |
+| `fondVariantes.B121x` | Bande centrale | Faixa central |
+| `fondVariantes.B11211Dx` | Bandes obliques | Faixas oblíquas |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Uma casa leva quatro triângulos; cada um é desenhado com o fundo escolhido ou com as duas cores trocadas. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | A variante de casa só se aplica à coleção bicolor. |
 | `palettes.creme.0` | Encre et crème | Tinta e creme |

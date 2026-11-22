@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} узоров |
 | `collections.p30.0` | Croix 1·2 | Крест 1·2 |
 | `collections.p30.1` | {n} motifs | {n} узоров |
-| `fondNoms.P` | Aplat | Сплошной |
-| `fondNoms.B2Dx` | Triangles | Треугольники |
-| `fondNoms.B11211Dx` | Bandes | Полосы |
+| `fondGroupes.aplat` | Aplat | Сплошной |
+| `fondGroupes.triangles` | Triangles | Треугольники |
+| `fondGroupes.bandes` | Bandes | Полосы |
+| `fondVariantes.B3x` | Trois bandes | Три полосы |
+| `fondVariantes.B121x` | Bande centrale | Центральная полоса |
+| `fondVariantes.B11211Dx` | Bandes obliques | Косые полосы |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | В клетке четыре треугольника; каждый рисуется выбранным фоном или с обменом двух его цветов. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | Вариант клетки применяется только к двухцветной коллекции. |
 | `palettes.creme.0` | Encre et crème | Чернила и крем |

@@ -11,11 +11,12 @@
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
 import * as M from './musique-chladni-moteur.js?v=3199491d0d';
 import { CONFIG } from './musique-chladni-config.js?v=8915c04b35';
-import { texte as T } from './musique-chladni-textes.js?v=c83c53397d';
+import { texte as T } from './musique-chladni-textes.js?v=f36ba6a517';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
 import { fondsRetenus } from './fonds-retenus.js';
-import { monterSemaine } from './musique-chladni-semaine.js?v=b49b4b85b6';
+import { groupesDe } from './fonds-groupes.js';
+import { monterSemaine } from './musique-chladni-semaine.js?v=d8f08f70fb';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -33,7 +34,7 @@ const C = CONFIG.moteur;
 
 // ---------- l'état ----------
 const S = {
-  donnees: null, fondsProposes: ['P'], fondsDef: new Map([['P', APLAT]]), blocs: new Map(), jb: {}, charges: {}, defs: null, tailles: {}, profils: new Map(), constructions: 0, coll: null, bandes: new Map(),
+  donnees: null, fondsProposes: ['P'], groupes: [{ groupe: 'aplat', codes: ['P'], defaut: 'P' }], fondsDef: new Map([['P', APLAT]]), blocs: new Map(), jb: {}, charges: {}, defs: null, tailles: {}, profils: new Map(), constructions: 0, coll: null, bandes: new Map(),
   tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
   seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
   calme: MQ_CALME.matches, figure: 'motif', loi: M.LOIS.RACINE, cPlaque: C.cPlaque, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
@@ -78,13 +79,19 @@ async function charger() {
   const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json')]);
   // les fonds PROPOSÉS : les trois que lit aussi la nouvelle interface (data/fonds/demi-periode.json, « proposes ») ; les autres codes restent dans le moteur et les tests, jamais offerts
   S.fondsProposes = fondsRetenus(jDemi); S.fondsDef = new Map([['P', APLAT], ...jEchange.fonds.map((f) => [f.id, f])]);
-  for (const id of S.fondsProposes) if (!S.fondsDef.has(id)) throw new Error(T('bandeManque', { id: T('fondNoms')[id] }));
+  S.groupes = groupesDe(S.fondsProposes, jEchange.fonds); // Aplat, Triangles, Bandes ; « Bandes » offre plusieurs variantes quand plusieurs sont proposées (prompt 225)
+  for (const id of S.fondsProposes) if (!S.fondsDef.has(id)) throw new Error(T('bandeManque', { id: nomFond(id) }));
   S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12, centrale12 }; S.charges[12] = Promise.resolve();
   const tri = M.preparerBloc(donnees, 'tri'), e = M.controlerBloc(tri); if (e.length) throw new Error(e.join(' ; '));
   S.blocs.set('tri', tri);
   for (const col of ['bi', 'ce']) construire(col);
   for (const o of CONFIG.ordres) for (const d of M.definirCollections(o.ordre, S.defs)) S.tailles[d.id] = d.indices.length;
   S.tailles.tri = tri.n;
+}
+// le nom visible d'un fond : celui de son groupe, suivi de sa variante quand le groupe en offre plusieurs (« Bandes · Bande centrale ») ; jamais le code
+function nomFond(id) {
+  const g = S.groupes.find((x) => x.codes.includes(id)) || S.groupes[0], nom = T('fondGroupes')[g.groupe];
+  return g.codes.length > 1 ? `${nom} · ${T('fondVariantes')[id]}` : nom;
 }
 function etats(id) { // les deux états d'une case : le fond proposé, et le même fond aux couleurs échangées (mode « échange » : c'est ce qui lui fait tenir la demi-période)
   if (!S.bandes.has(id)) {
@@ -137,7 +144,7 @@ class Fenetre {
     const ancienne = this.cfg; this.cfg = { ...c };
     if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs.get(c.col), this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
     else this.p.reglages(this.options());
-    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col !== 'tri' && c.view === 'pavage' ? ` · ${T('fondNoms')[c.fond]}` : '';
+    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col !== 'tri' && c.view === 'pavage' ? ` · ${nomFond(c.fond)}` : '';
     this.cap.textContent = T('legendeFenetre', { mode: T('modes')[c.mode][0], collection: colInfo[0], vue, fond: variante, palette: T('palettes')[c.pal][0] });
   }
   reglages() { if (this.p) this.p.reglages(this.options()); }
@@ -590,7 +597,7 @@ function construireGroupes() {
   else groupe('vm-g-fmt', 'fmt', G.fmt, ordresProposes().map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{g\}/g, M.GRILLE[o.ordre]) : '', o.actif ? 'simple' : null, !o.actif)));
   groupe('vm-g-col', 'col', G.col, ordresProposes().flatMap((o) => o.collections.filter((c) => CONFIG.collections[c]).map((c) => { const b = option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.tailles[c]), 'simple'); b.dataset.fmt = String(o.ordre); return b; })));
   groupe('vm-g-view', 'view', G.view, Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]).map((v) => option('view', 'view', v, T('vues')[v][0], T('vues')[v][1])));
-  if (CONFIG.variantesDeCase) groupe('vm-g-fond', 'fond', G.fond, [el('p', { class: 'vm-aide' }, T('fondAide')), ...S.fondsProposes.map((id) => option('fond', 'fond', id, T('fondNoms')[id], '', 'double'))]);
+  if (CONFIG.variantesDeCase) groupe('vm-g-fond', 'fond', G.fond, [el('p', { class: 'vm-aide' }, T('fondAide')), ...S.groupes.flatMap((g) => (g.codes.length === 1 ? [option('fond', 'fond', g.codes[0], T('fondGroupes')[g.groupe], '', 'double')] : [el('p', { class: 'vm-aide vm-sous-titre' }, T('fondGroupes')[g.groupe]), ...g.codes.map((id) => { const b = option('fond', 'fond', id, T('fondVariantes')[id], '', 'double'); b.classList.add('vm-sous'); return b; })]))]);
   else $('vm-g-fond').remove();
   const pers = el('div', { id: 'vmPerso', class: 'vm-aide', hidden: true }, el('label', {}, T('persoMotif'), ' ', el('input', { type: 'color', id: 'vmPi', value: hex(S.perso.ink) })), ' ', el('label', {}, T('persoFond'), ' ', el('input', { type: 'color', id: 'vmPb', value: hex(S.perso.bg) })));
   groupe('vm-g-pal', 'pal', G.pal, [...PALETTES_PAGE.map((k) => option('pal', 'pal', k, T('palettes')[k][0], T('palettes')[k][1], 'simple')), pers, el('p', { class: 'vm-aide' }, T('tricoloreAide'))]);

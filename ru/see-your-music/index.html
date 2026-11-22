@@ -85,6 +85,8 @@
   .vm-pan{ display:none; border:1px solid var(--line-strong); padding:8px; margin-top:4px; background:var(--bg); max-height:60vh; overflow:auto; }
   .vm-grp.open .vm-pan{ display:grid; gap:6px; }
   .vm-o{ display:flex; gap:8px; align-items:center; text-align:left; width:100%; }
+  .vm-o.vm-sous{ margin-left:14px; }
+  .vm-sous-titre{ margin:8px 0 2px; }
   .vm-o canvas{ flex:none; height:34px; width:auto; border:1px solid var(--line); }
   .vm-o b{ display:block; font-weight:600; } .vm-o small{ display:block; color:var(--dim); font-size:11.5px; }
   .vm-o.val{ box-shadow:inset 3px 0 0 var(--gold); }
@@ -305,7 +307,7 @@
 </main>
 <!-- @main:end -->
 <script type="module">
-import { monter } from "../../assets/musique-chladni-ui.js?v=a83ac74230";
+import { monter } from "../../assets/musique-chladni-ui.js?v=4636c99fa7";
 monter();
 </script>
 </div>

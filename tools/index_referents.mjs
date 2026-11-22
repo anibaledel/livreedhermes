@@ -125,7 +125,7 @@ const REFERENTS = [
   {
     id: 'demi-periode',
     objet: "La demi-période des fonds (prompt 185) : pour chaque fond, le nombre des 64 représentants du corpus dont le rendu décalé de 6 cases en ligne et en colonne est le rendu aux couleurs échangées ; la liste des fonds proposés (64 / 64).",
-    nombre: 10,
+    nombre: 12, // 10 fonds jusqu'au prompt 224 ; B3x et B121x (prompt 225) mesurés aussi : 0 / 64, non proposés
     compte: (r) => [Object.keys(r.fonds).length],
     compte_par: 'Object.keys(fonds).length',
     chemin: 'data/fonds/demi-periode.json',

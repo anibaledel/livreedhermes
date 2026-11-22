@@ -363,6 +363,56 @@
     "moyenne": 80
    },
    "corrige": null
+  },
+  "B3x": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.375,
+   "mode": "echange",
+   "v1_est_v0_echange": 1,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
+   "corrige": null
+  },
+  "B121x": {
+   "exacts": 0,
+   "sur": 64,
+   "par_famille": {
+    "=i=i==ii": {
+     "exacts": 0,
+     "sur": 32
+    },
+    "====iiii": {
+     "exacts": 0,
+     "sur": 32
+    }
+   },
+   "exacts_sur_256": 0,
+   "sur_256": 256,
+   "defaut_maximal": 0.5,
+   "mode": "echange",
+   "v1_est_v0_echange": 1,
+   "raccords_brises_sur_288": {
+    "min": 0,
+    "max": 160,
+    "moyenne": 80
+   },
+   "corrige": null
   }
  }
 }

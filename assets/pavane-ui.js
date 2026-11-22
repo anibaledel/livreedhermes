@@ -9,6 +9,7 @@ import { APLAT } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { varianteSvg } from './fonds-variantes.js';
 import { fondsRetenus } from './fonds-retenus.js';
+import { groupesDe } from './fonds-groupes.js';
 import { lireEtat, ecrireEtat, fusionnerRecherche, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';
 import { NIVEAUX_CORPUS } from './corpus-animation.js';
@@ -44,6 +45,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   } catch (e) { racine.replaceChildren(el('p', { role: 'alert', text: T('erreur') })); throw e; }
   const fonds = new Map([['P', APLAT], ...definitions.fonds.map((f) => [f.id, f])]);
   for (const code of proposes) if (!fonds.has(code)) throw new Error(`pavane-ui.js : le fond proposé « ${code} » n'a pas de définition`);
+  // les groupes de fonds visibles (Aplat, Triangles, Bandes) et, dans un groupe qui en offre plusieurs, ses variantes : lus des fonds proposés, jamais écrits ici (prompt 225)
+  const groupes = groupesDe(proposes, definitions.fonds), memoireGroupe = new Map(groupes.map((g) => [g.groupe, g.defaut]));
   const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
   const reduitMq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false, addEventListener() {} };
   const bloc64 = blocDuCorpus64(corpus), ids64 = listeDuNiveau(corpus, 64), distance64 = distancesDe(corpus, ids64);
@@ -79,7 +82,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const couches = [el('div', { class: 'pv-couche' }), el('div', { class: 'pv-couche' })];
   const scene = el('div', { class: 'pv-scene', role: 'img', 'aria-label': T('scene'), tabindex: '0' }, ...couches);
   const statut = el('p', { class: 'pv-etat', role: 'status', 'aria-live': 'polite' });
-  const selFond = el('select', { id: `${id}-fond` }, ...proposes.map((c) => el('option', { value: c, text: T(`fond_${c}`) })));
+  const selFond = el('select', { id: `${id}-fond` }, ...groupes.map((g) => el('option', { value: g.groupe, text: T(`fond_${g.groupe}`) })));
+  const selVariante = el('select', { id: `${id}-fond-variante`, hidden: true });
   const radiosCorpus = NIVEAUX_CORPUS.map((n) => ({ n, radio: el('input', { type: 'radio', name: `${id}-corpus`, value: String(n) }) }));
   const choixCorpus = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('corpus') }), ...radiosCorpus.map(({ n, radio }) => el('label', {}, radio, el('span', { text: T(`corpus${n}`) }))));
   const selPalette = el('select', { id: `${id}-palette` }, ...CLES_PALETTES.map((c) => el('option', { value: c, text: T(`palette_${c}`) })));
@@ -103,7 +107,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const bPause = el('button', { type: 'button' }), bPlein = el('button', { type: 'button', text: T('pleinEcran') });
   const bImage = el('button', { type: 'button', text: T('enregImage') }), bVideo = el('button', { type: 'button', text: T('enregVideo') });
   const reglages = el('div', { class: 'pv-reglages', role: 'group', 'aria-label': T('reglages') },
-    choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), choixCorpus,
+    choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), selVariante, choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
     el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert);
   racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), avert, modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
@@ -187,7 +191,9 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     mention.hidden = etat.source !== 'morceau';
     for (const { d, radio } of radiosDecl) radio.checked = d === etat.declencheur;
     choixDecl.hidden = etat.mode !== 'defile';
-    selFond.value = etat.fond;
+    const gAct = groupes.find((g) => g.codes.includes(etat.fond)); memoireGroupe.set(gAct.groupe, etat.fond);
+    selFond.value = gAct.groupe; selVariante.hidden = gAct.codes.length < 2;
+    if (gAct.codes.length > 1) { selVariante.setAttribute('aria-label', T(`fond_${gAct.groupe}`)); selVariante.replaceChildren(...gAct.codes.map((c) => el('option', { value: c, text: T(`fondV_${c}`) }))); selVariante.value = etat.fond; }
     for (const { n, radio } of radiosCorpus) radio.checked = n === etat.corpus;
     choixCorpus.hidden = etat.mode !== 'defile';
     selPalette.value = etat.palette; personnalise.hidden = etat.palette !== 'perso';
@@ -232,7 +238,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     }
   });
   rNote.addEventListener('input', () => { const hz = Math.min(NOTE_MAX, Math.max(NOTE_MIN, frequenceDuCurseur(Number(rNote.value)))); etat = { ...etat, note: hz }; ecrireAdresse(); nNote.textContent = T('frequence', { hz }); if (son.actif === 'note') son.changerNote(hz); });
-  selFond.addEventListener('change', () => changer({ fond: selFond.value }));
+  selFond.addEventListener('change', () => changer({ fond: memoireGroupe.get(selFond.value) }));
+  selVariante.addEventListener('change', () => changer({ fond: selVariante.value }));
   for (const { n, radio } of radiosCorpus) radio.addEventListener('change', () => radio.checked && changer({ corpus: n }, { refaire: true }));
   selPalette.addEventListener('change', () => {
     if (selPalette.value === 'perso') { const [a, b] = paire(); changer({ palette: 'perso', c0: a, c1: b }); } else changer({ palette: selPalette.value });

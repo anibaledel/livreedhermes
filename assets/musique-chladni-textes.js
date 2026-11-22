@@ -145,7 +145,8 @@ export const TEXTES = {
       p18: ['Croix 1·2', '{n} motifs'],
       p30: ['Croix 1·2', '{n} motifs'],
     },
-    fondNoms: { P: 'Aplat', B2Dx: 'Triangles', B11211Dx: 'Bandes' }, // les trois fonds proposés (prompt 220) ; leurs codes ne s'affichent jamais
+    fondGroupes: { aplat: 'Aplat', triangles: 'Triangles', bandes: 'Bandes' }, // les trois groupes visibles (prompts 220 et 225) ; les codes des fonds ne s'affichent jamais
+    fondVariantes: { B3x: 'Trois bandes', B121x: 'Bande centrale', B11211Dx: 'Bandes obliques' }, // les variantes de « Bandes », quand plusieurs sont proposées
     fondAide: 'Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées.',
     fondSeulementBicolore: 'La variante de case ne s\'applique qu\'à la collection bicolore.',
     palettes: {
@@ -473,10 +474,15 @@ export const TEXTES = {
         "{n} patterns"
       ]
     },
-    "fondNoms": {
-      "P": "Solid",
-      "B2Dx": "Triangles",
-      "B11211Dx": "Stripes"
+    "fondGroupes": {
+      "aplat": "Solid",
+      "triangles": "Triangles",
+      "bandes": "Stripes"
+    },
+    "fondVariantes": {
+      "B3x": "Three stripes",
+      "B121x": "Central stripe",
+      "B11211Dx": "Diagonal stripes"
     },
     "fondAide": "A cell carries four triangles; each is drawn with the chosen ground, or with its two colours swapped.",
     "fondSeulementBicolore": "The cell variant applies only to the two-colour collection.",
@@ -873,10 +879,15 @@ export const TEXTES = {
         "{n} motivos"
       ]
     },
-    "fondNoms": {
-      "P": "Liso",
-      "B2Dx": "Triángulos",
-      "B11211Dx": "Bandas"
+    "fondGroupes": {
+      "aplat": "Liso",
+      "triangles": "Triángulos",
+      "bandes": "Bandas"
+    },
+    "fondVariantes": {
+      "B3x": "Tres bandas",
+      "B121x": "Banda central",
+      "B11211Dx": "Bandas oblicuas"
     },
     "fondAide": "Una casilla lleva cuatro triángulos; cada uno se dibuja con el fondo elegido o con sus dos colores intercambiados.",
     "fondSeulementBicolore": "La variante de casilla solo se aplica a la colección bicolor.",
@@ -1273,10 +1284,15 @@ export const TEXTES = {
         "{n} ลวดลาย"
       ]
     },
-    "fondNoms": {
-      "P": "สีเรียบ",
-      "B2Dx": "สามเหลี่ยม",
-      "B11211Dx": "แถบ"
+    "fondGroupes": {
+      "aplat": "สีเรียบ",
+      "triangles": "สามเหลี่ยม",
+      "bandes": "แถบ"
+    },
+    "fondVariantes": {
+      "B3x": "สามแถบ",
+      "B121x": "แถบกลาง",
+      "B11211Dx": "แถบเฉียง"
     },
     "fondAide": "หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยพื้นหลังที่เลือก หรือสลับสองสีของมัน",
     "fondSeulementBicolore": "แบบของช่องใช้ได้กับชุดลวดลายสองสีเท่านั้น",
@@ -1673,10 +1689,15 @@ export const TEXTES = {
         "{n} 个图案"
       ]
     },
-    "fondNoms": {
-      "P": "纯色",
-      "B2Dx": "三角形",
-      "B11211Dx": "条纹"
+    "fondGroupes": {
+      "aplat": "纯色",
+      "triangles": "三角形",
+      "bandes": "条纹"
+    },
+    "fondVariantes": {
+      "B3x": "三条纹",
+      "B121x": "中央条纹",
+      "B11211Dx": "斜条纹"
     },
     "fondAide": "每个格含四个三角形；每个三角形用所选背景绘制，或将其两种颜色互换。",
     "fondSeulementBicolore": "格的变体仅适用于双色图案集。",
@@ -2073,10 +2094,15 @@ export const TEXTES = {
         "{n} узоров"
       ]
     },
-    "fondNoms": {
-      "P": "Сплошной",
-      "B2Dx": "Треугольники",
-      "B11211Dx": "Полосы"
+    "fondGroupes": {
+      "aplat": "Сплошной",
+      "triangles": "Треугольники",
+      "bandes": "Полосы"
+    },
+    "fondVariantes": {
+      "B3x": "Три полосы",
+      "B121x": "Центральная полоса",
+      "B11211Dx": "Косые полосы"
     },
     "fondAide": "В клетке четыре треугольника; каждый рисуется выбранным фоном или с обменом двух его цветов.",
     "fondSeulementBicolore": "Вариант клетки применяется только к двухцветной коллекции.",
@@ -2473,10 +2499,15 @@ export const TEXTES = {
         "{n} padrões"
       ]
     },
-    "fondNoms": {
-      "P": "Liso",
-      "B2Dx": "Triângulos",
-      "B11211Dx": "Faixas"
+    "fondGroupes": {
+      "aplat": "Liso",
+      "triangles": "Triângulos",
+      "bandes": "Faixas"
+    },
+    "fondVariantes": {
+      "B3x": "Três faixas",
+      "B121x": "Faixa central",
+      "B11211Dx": "Faixas oblíquas"
     },
     "fondAide": "Uma casa leva quatro triângulos; cada um é desenhado com o fundo escolhido ou com as duas cores trocadas.",
     "fondSeulementBicolore": "A variante de casa só se aplica à coleção bicolor.",
@@ -2873,10 +2904,15 @@ export const TEXTES = {
         "{n} पैटर्न"
       ]
     },
-    "fondNoms": {
-      "P": "सादा",
-      "B2Dx": "त्रिभुज",
-      "B11211Dx": "पट्टियाँ"
+    "fondGroupes": {
+      "aplat": "सादा",
+      "triangles": "त्रिभुज",
+      "bandes": "पट्टियाँ"
+    },
+    "fondVariantes": {
+      "B3x": "तीन पट्टियाँ",
+      "B121x": "बीच की पट्टी",
+      "B11211Dx": "तिरछी पट्टियाँ"
     },
     "fondAide": "एक खाने में चार त्रिभुज होते हैं; हर एक चुनी हुई पृष्ठभूमि से बनता है, या उसके दोनों रंग आपस में बदलकर।",
     "fondSeulementBicolore": "खाने का रूपांतर केवल द्विवर्णी संग्रह पर लागू होता है।",
@@ -3273,10 +3309,15 @@ export const TEXTES = {
         "{n} Muster"
       ]
     },
-    "fondNoms": {
-      "P": "Einfarbig",
-      "B2Dx": "Dreiecke",
-      "B11211Dx": "Streifen"
+    "fondGroupes": {
+      "aplat": "Einfarbig",
+      "triangles": "Dreiecke",
+      "bandes": "Streifen"
+    },
+    "fondVariantes": {
+      "B3x": "Drei Streifen",
+      "B121x": "Mittelstreifen",
+      "B11211Dx": "Schräge Streifen"
     },
     "fondAide": "Ein Feld trägt vier Dreiecke; jedes wird mit dem gewählten Grund gezeichnet oder mit vertauschten Farben.",
     "fondSeulementBicolore": "Die Feldvariante gilt nur für die zweifarbige Sammlung.",
@@ -3673,10 +3714,15 @@ export const TEXTES = {
         "{n} motivi"
       ]
     },
-    "fondNoms": {
-      "P": "Tinta unita",
-      "B2Dx": "Triangoli",
-      "B11211Dx": "Bande"
+    "fondGroupes": {
+      "aplat": "Tinta unita",
+      "triangles": "Triangoli",
+      "bandes": "Bande"
+    },
+    "fondVariantes": {
+      "B3x": "Tre bande",
+      "B121x": "Banda centrale",
+      "B11211Dx": "Bande oblique"
     },
     "fondAide": "Una casella porta quattro triangoli; ciascuno è disegnato con il fondo scelto, oppure con i due colori scambiati.",
     "fondSeulementBicolore": "La variante di casella si applica solo alla collezione bicolore.",
@@ -4073,10 +4119,15 @@ export const TEXTES = {
         "{n} 個の紋様"
       ]
     },
-    "fondNoms": {
-      "P": "無地",
-      "B2Dx": "三角形",
-      "B11211Dx": "ストライプ"
+    "fondGroupes": {
+      "aplat": "無地",
+      "triangles": "三角形",
+      "bandes": "ストライプ"
+    },
+    "fondVariantes": {
+      "B3x": "3本のストライプ",
+      "B121x": "中央のストライプ",
+      "B11211Dx": "斜めのストライプ"
     },
     "fondAide": "1つのマスには4つの三角形があり、それぞれ選んだ背景で、または2色を入れ替えて描かれます。",
     "fondSeulementBicolore": "マスの変種は二色のコレクションにのみ適用されます。",

@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} motivi |
 | `collections.p30.0` | Croix 1·2 | Croce 1·2 |
 | `collections.p30.1` | {n} motifs | {n} motivi |
-| `fondNoms.P` | Aplat | Tinta unita |
-| `fondNoms.B2Dx` | Triangles | Triangoli |
-| `fondNoms.B11211Dx` | Bandes | Bande |
+| `fondGroupes.aplat` | Aplat | Tinta unita |
+| `fondGroupes.triangles` | Triangles | Triangoli |
+| `fondGroupes.bandes` | Bandes | Bande |
+| `fondVariantes.B3x` | Trois bandes | Tre bande |
+| `fondVariantes.B121x` | Bande centrale | Banda centrale |
+| `fondVariantes.B11211Dx` | Bandes obliques | Bande oblique |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Una casella porta quattro triangoli; ciascuno è disegnato con il fondo scelto, oppure con i due colori scambiati. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | La variante di casella si applica solo alla collezione bicolore. |
 | `palettes.creme.0` | Encre et crème | Inchiostro e crema |

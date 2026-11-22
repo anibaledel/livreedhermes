@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 import { lireEtat, ecrireEtat, fusionnerRecherche, DEFAUTS, MODES } from '../assets/pavane-etat.js';
 import { PALETTES, paireValide, paireDe, contraste, CONTRASTE_MIN } from '../assets/pavane-couleurs.js';
 import { fondsRetenus } from '../assets/fonds-retenus.js';
+import { groupesDe, ANCIENS_CODES } from '../assets/fonds-groupes.js';
+import { TEXTES, LANGUES } from '../assets/pavane-textes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const proposes = fondsRetenus(JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/demi-periode.json'), 'utf8')));
@@ -33,6 +35,26 @@ for (const [s, cle] of [['?source=cd', 'source'], ['?source=', 'source'], ['?pis
 }
 { const r = L('?source=note&note=880&piste=j5&declencheur=pulsation').etat; ok(r.source === 'note' && r.note === 880 && r.morceau === 'j5' && r.declencheur === 'pulsation', 'source, note, morceau et déclencheur relus'); }
 ok(DEFAUTS.source === 'micro' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 440 && DEFAUTS.declencheur === 'minuteur', 'défauts du son : le micro (prompt 220), morceau j1, 440 Hz, minuteur');
+// les groupes de fonds (prompt 225) : Aplat, Triangles, Bandes — lus des fonds proposés et de data/fonds/fonds-echange.json ; un ancien code de rotation pointe vers sa version « x » quand elle est proposée
+{
+  const defs = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/fonds-echange.json'), 'utf8')).fonds;
+  const g = groupesDe(proposes, defs);
+  ok(g.map((x) => x.groupe).join() === 'aplat,triangles,bandes' && g.every((x) => x.codes.includes(x.defaut)), `trois groupes visibles dans l'ordre : ${g.map((x) => x.groupe).join()}`);
+  ok(JSON.stringify(g.flatMap((x) => x.codes)) === JSON.stringify(proposes.slice().sort((a, b) => g.flatMap((x) => x.codes).indexOf(a) - g.flatMap((x) => x.codes).indexOf(b))), 'les groupes contiennent exactement les fonds proposés');
+  const tous = ['P', ...defs.map((f) => f.id)], g4 = groupesDe(tous, defs);
+  ok(g4.length === 3 && g4[2].groupe === 'bandes' && g4[2].codes.join() === 'B3x,B121x,B11211Dx' && g4[2].defaut === 'B11211Dx', `« Bandes » offre B3x, B121x, B11211Dx quand les trois sont proposés (défaut B11211Dx) : ${JSON.stringify(g4[2])}`);
+  for (const f of defs) ok(['triangles', 'bandes'].includes(f.groupe) && Number.isInteger(f.ordre), `${f.id} : groupe et ordre déclarés`);
+  const tout = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx'];
+  for (const [ancien, nouveau] of [['B3', 'B3x'], ['BA33', 'B3x'], ['B121', 'B121x'], ['BA50', 'B121x'], ['B11211D', 'B11211Dx']]) {
+    ok(ANCIENS_CODES[ancien] === nouveau && lireEtat(`?fond=${ancien}`, tout).etat.fond === nouveau, `ancien code ${ancien} → ${nouveau} quand il est proposé`);
+    ok((proposes.includes(nouveau) ? L(`?fond=${ancien}`).etat.fond === nouveau : L(`?fond=${ancien}`).ignores.includes('fond')), `ancien code ${ancien} : ${proposes.includes(nouveau) ? 'suivi vers ' + nouveau : 'ignoré, ' + nouveau + ' n\'est pas proposé'}`);
+  }
+  // les noms visibles existent dans les 11 langues, sans code, pour chaque groupe et chaque variante
+  for (const l of LANGUES) {
+    const T = TEXTES[l], noms = [...['aplat', 'triangles', 'bandes'].map((k) => T[`fond_${k}`]), ...['B3x', 'B121x', 'B11211Dx'].map((k) => T[`fondV_${k}`])];
+    ok(noms.every((n) => n && n.trim() && !/\bB\d|[BP]\d*x\b/.test(n)) && new Set(noms).size === 6, `${l} : six noms de fonds distincts et sans code (${noms.join(' · ')})`);
+  }
+}
 // « Mouvement réduit » (prompt 223) : la clé reduit, 0 ou 1, jamais autre chose ; aller-retour exact
 ok(L('?reduit=1').etat.reduit === true && L('?reduit=0').etat.reduit === false && L('').etat.reduit === false && DEFAUTS.reduit === false, 'reduit : 1 vrai, 0 faux, absent faux');
 for (const mauvais of ['2', 'oui', '', 'true']) ok(L(`?reduit=${mauvais}`).etat.reduit === false && L(`?reduit=${mauvais}`).ignores.includes('reduit'), `reduit=${mauvais} est refusé`);

@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} patterns |
 | `collections.p30.0` | Croix 1·2 | Cross 1·2 |
 | `collections.p30.1` | {n} motifs | {n} patterns |
-| `fondNoms.P` | Aplat | Solid |
-| `fondNoms.B2Dx` | Triangles | Triangles |
-| `fondNoms.B11211Dx` | Bandes | Stripes |
+| `fondGroupes.aplat` | Aplat | Solid |
+| `fondGroupes.triangles` | Triangles | Triangles |
+| `fondGroupes.bandes` | Bandes | Stripes |
+| `fondVariantes.B3x` | Trois bandes | Three stripes |
+| `fondVariantes.B121x` | Bande centrale | Central stripe |
+| `fondVariantes.B11211Dx` | Bandes obliques | Diagonal stripes |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | A cell carries four triangles; each is drawn with the chosen ground, or with its two colours swapped. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | The cell variant applies only to the two-colour collection. |
 | `palettes.creme.0` | Encre et crème | Ink and cream |
@@ -521,9 +524,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} motivos |
 | `collections.p30.0` | Croix 1·2 | Cruz 1·2 |
 | `collections.p30.1` | {n} motifs | {n} motivos |
-| `fondNoms.P` | Aplat | Liso |
-| `fondNoms.B2Dx` | Triangles | Triángulos |
-| `fondNoms.B11211Dx` | Bandes | Bandas |
+| `fondGroupes.aplat` | Aplat | Liso |
+| `fondGroupes.triangles` | Triangles | Triángulos |
+| `fondGroupes.bandes` | Bandes | Bandas |
+| `fondVariantes.B3x` | Trois bandes | Tres bandas |
+| `fondVariantes.B121x` | Bande centrale | Banda central |
+| `fondVariantes.B11211Dx` | Bandes obliques | Bandas oblicuas |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | Una casilla lleva cuatro triángulos; cada uno se dibuja con el fondo elegido o con sus dos colores intercambiados. |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | La variante de casilla solo se aplica a la colección bicolor. |
 | `palettes.creme.0` | Encre et crème | Tinta y crema |

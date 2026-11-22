@@ -13,6 +13,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { servirDepot } from './lib_fonds_site.mjs';
+import { groupesDe } from '../assets/fonds-groupes.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 let BASE = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : 'local';
@@ -28,6 +29,13 @@ let echecs = 0, controles = 0;
 const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
 const ok = (c, m) => { controles++; if (!c) ko(m); };
 
+// les groupes visibles (Aplat, Triangles, Bandes) : lus des fonds proposés et de fonds-echange.json (assets/fonds-groupes.js)
+const GROUPES = groupesDe(proposes, JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/fonds-echange.json'), 'utf8')).fonds);
+const choisirFond = async (page, code) => {
+  const g = GROUPES.find((x) => x.codes.includes(code));
+  await page.selectOption('.pv-reglages select[id$=fond]', g.groupe);
+  if (g.codes.length > 1) await page.selectOption('.pv-reglages select[id$=fond-variante]', code);
+};
 async function monter(ctx, langue, recherche) {
   const page = await ctx.newPage(), erreurs = [];
   page.on('pageerror', (e) => erreurs.push(`exception : ${e.message}`));
@@ -68,7 +76,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     ok(radios.map((r) => r.nom).join() === noms.join(), `${nom} : trois modes nommés dans la langue (${radios.map((r) => r.nom).join(' · ')})`);
     ok(radios.every((r) => r.decrit), `${nom} : chaque mode a sa phrase, liée au choix`);
     const fondsOfferts = await page.$$eval('.pv-reglages select[id$=fond] option', (o) => o.map((x) => x.value));
-    ok(fondsOfferts.join() === proposes.join(), `${nom} : fonds offerts = fonds proposés (${fondsOfferts.join(', ')})`);
+    ok(fondsOfferts.join() === GROUPES.map((g) => g.groupe).join() && GROUPES.flatMap((g) => g.codes).join() === proposes.join(), `${nom} : groupes offerts (${fondsOfferts.join(', ')}) = les fonds proposés (${proposes.join(', ')}), regroupés`);
     ok(await page.$eval('.pv-choix input[name$=corpus]:checked', (x) => x.value) === '128', `${nom} : 128 coché par défaut`);
     // le défilé avance au minuteur ; Espace le fige
     await page.$eval('.pv-reglages input[id$=rythme]', (x) => { x.value = '0.5'; x.dispatchEvent(new Event('input', { bubbles: true })); }); // un curseur : on pose la valeur et on l'annonce
@@ -80,7 +88,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     ok(p1.enPause && p1.motif === p2.motif, `${nom} : Espace met en pause, le motif ne change plus`);
     await page.keyboard.press('Space'); ok(!(await lire(page)).enPause, `${nom} : Espace reprend`);
     // fond, corpus, tracé : sans erreur
-    for (const f of proposes) { await page.selectOption('.pv-reglages select[id$=fond]', f); const a = await lire(page); ok(a.etat.fond === f && a.fond > 200 && /fond=/.test(a.search) === (f !== 'P'), `${nom} : fond ${f} rendu, adresse ${a.search}`); }
+    for (const f of proposes) { await choisirFond(page, f); const a = await lire(page); ok(a.etat.fond === f && a.fond > 200 && /fond=/.test(a.search) === (f !== 'P'), `${nom} : fond ${f} rendu, adresse ${a.search}`); }
     await page.check('.pv-reglages input[id$=trace]'); ok((await lire(page)).search.includes('trace=1'), `${nom} : le tracé rouge est dans l'adresse`);
     await page.check('.pv-choix input[value="64"]'); ok((await lire(page)).etat.corpus === 64, `${nom} : corpus 64`);
     await page.check('.pv-choix input[value="256"]'); ok((await lire(page)).etat.corpus === 256, `${nom} : corpus 256`);
@@ -129,6 +137,32 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   const a = await lire(page); await page.waitForTimeout(1800); const b = await lire(page);
   ok(a.reduit && a.motif === b.motif, `prefers-reduced-motion : réduit d'office, le motif ne change pas en 1,8 s malgré ?rythme=0.5 (${a.motif} → ${b.motif})`);
   ok(erreurs.length === 0, `prefers-reduced-motion : aucune erreur (${erreurs.join(' | ')})`);
+  await ctx.close();
+}
+// « Bandes » et ses sous-choix (prompt 225) : trois groupes visibles ; le sous-choix n'apparaît que si le groupe offre plusieurs fonds PROPOSÉS. Les fonds proposés viennent de data/fonds/demi-periode.json : ici, un fichier SIMULÉ
+// (route) qui propose aussi B3x et B121x, pour éprouver l'interface ; les vraies mesures et la vraie liste sont celles de tools/check_demi_periode.mjs (B3x et B121x ne tiennent pas 64 / 64 : ils ne sont pas proposés).
+{
+  const reel = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  const r = await monter(reel, 'fr', '?fond=B11211D');
+  const x = await r.page.evaluate(() => { const app = document.getElementById('app'), g = app.querySelector('select[id$=fond]'), v = app.querySelector('select[id$=fond-variante]'); return { groupes: [...g.options].map((o) => o.textContent).join(), valeur: g.value, variante: v.hidden, etat: window.__pavane.etat().fond }; });
+  ok(x.groupes === 'Aplat,Triangles,Bandes' && x.valeur === 'bandes' && x.variante && x.etat === 'B11211Dx', `liste réelle : trois groupes, pas de sous-choix (un seul fond de bandes proposé), ancien code B11211D → B11211Dx (${JSON.stringify(x)})`);
+  await reel.close();
+  const ctx = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  await ctx.route('**/data/fonds/demi-periode.json', async (route) => { const rep = await route.fetch(), j = await rep.json(); j.proposes = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx']; await route.fulfill({ response: rep, body: JSON.stringify(j) }); });
+  const m = await monter(ctx, 'fr', '');
+  const etat = (p) => p.evaluate(() => { const app = document.getElementById('app'), v = app.querySelector('select[id$=fond-variante]'); return { fond: window.__pavane.etat().fond, variante: v.hidden ? null : [...v.options].map((o) => o.textContent).join(), url: location.search }; });
+  ok((await etat(m.page)).variante === null, 'Aplat : pas de sous-choix');
+  await m.page.selectOption('select[id$=-fond]', 'bandes');
+  let e = await etat(m.page);
+  ok(e.fond === 'B11211Dx' && e.variante === 'Trois bandes,Bande centrale,Bandes obliques', `« Bandes » : trois sous-choix aux noms clairs, défaut B11211Dx (${JSON.stringify(e)})`);
+  await m.page.selectOption('select[id$=fond-variante]', 'B3x');
+  e = await etat(m.page); ok(e.fond === 'B3x' && /fond=B3x/.test(e.url), `sous-choix « Trois bandes » : fond B3x écrit dans l'adresse (${JSON.stringify(e)})`);
+  await m.page.selectOption('select[id$=-fond]', 'triangles'); await m.page.selectOption('select[id$=-fond]', 'bandes');
+  ok((await etat(m.page)).fond === 'B3x', 'le groupe « Bandes » se souvient du dernier sous-choix');
+  ok(!/\bB\d|[BP]\d*x\b/.test(await m.page.evaluate(() => document.getElementById('app').innerText)), 'aucun code de fond dans le texte visible');
+  ok(m.erreurs.length === 0, `sous-choix : aucune erreur (${m.erreurs.join(' | ')})`);
+  const l = await monter(ctx, 'fr', '?fond=B121');
+  ok((await etat(l.page)).fond === 'B121x', 'ancien lien ?fond=B121 → B121x (quand il est proposé)');
   await ctx.close();
 }
 // l'avertissement photosensible et « Mouvement réduit » (prompt 223)

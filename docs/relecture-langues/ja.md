@@ -169,9 +169,12 @@ Page concernée : « Voir sa musique » (`musique-chladni.html` et ses versions 
 | `collections.p18.1` | {n} motifs | {n} 個の紋様 |
 | `collections.p30.0` | Croix 1·2 | 十字 1·2 |
 | `collections.p30.1` | {n} motifs | {n} 個の紋様 |
-| `fondNoms.P` | Aplat | 無地 |
-| `fondNoms.B2Dx` | Triangles | 三角形 |
-| `fondNoms.B11211Dx` | Bandes | ストライプ |
+| `fondGroupes.aplat` | Aplat | 無地 |
+| `fondGroupes.triangles` | Triangles | 三角形 |
+| `fondGroupes.bandes` | Bandes | ストライプ |
+| `fondVariantes.B3x` | Trois bandes | 3本のストライプ |
+| `fondVariantes.B121x` | Bande centrale | 中央のストライプ |
+| `fondVariantes.B11211Dx` | Bandes obliques | 斜めのストライプ |
 | `fondAide` | Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées. | 1つのマスには4つの三角形があり、それぞれ選んだ背景で、または2色を入れ替えて描かれます。 |
 | `fondSeulementBicolore` | La variante de case ne s'applique qu'à la collection bicolore. | マスの変種は二色のコレクションにのみ適用されます。 |
 | `palettes.creme.0` | Encre et crème | 墨とクリーム |

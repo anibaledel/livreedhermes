@@ -6,6 +6,7 @@
 // (fonds-ecran.html : brythme, bdensite, fond, c0, c1 ; sup est ignoré) continuent de fonctionner. Pur : ni DOM ni réseau.
 import { CLES_PALETTES, PALETTE_DEFAUT, paireValide } from './pavane-couleurs.js';
 import { NIVEAUX_CORPUS, NIVEAU_DEFAUT } from './corpus-animation.js';
+import { codeActuel } from './fonds-groupes.js';
 
 export const MODES = Object.freeze(['defile', 'spectre', 'entre-deux']);
 export const MODE_DEFAUT = 'defile';
@@ -31,7 +32,7 @@ export function lireEtat(search, proposes) {
   let [k, v] = lu('mode');
   if (k) { if (MODES.includes(v)) etat.mode = v; else refuse(k); }
   [k, v] = lu('fond');
-  if (k) { if (Array.isArray(proposes) && proposes.includes(v)) etat.fond = v; else refuse(k); }
+  if (k) { const c = Array.isArray(proposes) ? codeActuel(v, proposes) : null; if (c) etat.fond = c; else refuse(k); } // un ancien code de rotation (B3, B121, B11211D…) pointe vers sa version « x », si elle est proposée
   [k, v] = lu('corpus');
   if (k) { const n = entier(v); if (NIVEAUX_CORPUS.includes(n)) etat.corpus = n; else refuse(k); }
   [k, v] = lu('trace');
