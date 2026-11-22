@@ -1096,6 +1096,21 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_pavane_photosensible.mjs",
+   "role": "la photosensibilité de « Voir sa musique » dans ses trois modes (prompt 226, suite du 223), sans navigateur ni micro.",
+   "lit": [
+    "data/corpus-256.json",
+    "data/fonds/demi-periode.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_pavane_son.mjs",
    "role": "les sources du son et l'enregistrement de « Pavane — Voir sa musique » (prompt 211 §2, §9.4 : audio simulé, pas de micro réel), en navigateur.",
    "lit": [
@@ -2280,6 +2295,7 @@
    "appele_par": [],
    "utilise_par": [
     "tools/check_demi_periode.mjs",
+    "tools/check_pavane_photosensible.mjs",
     "tools/check_symetries_rendu.mjs",
     "tools/check_trace_rouge.mjs",
     "tools/planche_fonds_proposes.mjs"

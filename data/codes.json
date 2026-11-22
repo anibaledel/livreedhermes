@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-22T14:25:49Z",
+ "generated_at_utc": "2026-11-22T14:42:45Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 322,
+  "scripts": 323,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2677,11 +2677,29 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_pavane_photosensible.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_pavane_photosensible.mjs",
+   "octets": 13073,
+   "sha256": "a103daaf3d40468a48e1eb09a38f56843425ccd613b53d5fe58ef2e4f23d3c31",
+   "md5": "0bb92037e2eed84d101bf5fa2c6348a1",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la photosensibilité de « Voir sa musique » dans ses trois modes (prompt 226, suite du 223), sans navigateur ni micro.",
+   "lit": [
+    "corpus-256",
+    "demi-periode"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_pavane_son.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_son.mjs",
-   "octets": 12263,
-   "sha256": "662737b2ef8fae8de671bc6a17b0d5565b6e6efc28e3c6a4c51364e5f235510e",
-   "md5": "bf060fb49901cb68db315476b2e75040",
+   "octets": 12467,
+   "sha256": "d6c07b33d40d1d51f96e77c4a74f3b98fd532b8229c49787b522d3422a17cad0",
+   "md5": "9789f1473f7cd822c33ef8cd588eb1b0",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les sources du son et l'enregistrement de « Pavane — Voir sa musique » (prompt 211 §2, §9.4 : audio simulé, pas de micro réel), en navigateur.",
@@ -2696,9 +2714,9 @@
   {
    "chemin": "tools/check_pavane_ui.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_ui.mjs",
-   "octets": 19793,
-   "sha256": "dc1e6936c6068affcea3d0c1f7831e01cc81af9cc8768988a57adf4292051b1c",
-   "md5": "9d4b54e9244df29d1cef636cbbf8dabb",
+   "octets": 24218,
+   "sha256": "6e608804b6bcd18b5df11ffb21e6345814847ab7820a05b5aaf55062271e51f8",
+   "md5": "df23b8c199b4299202676444df5f06ee",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
@@ -2713,9 +2731,9 @@
   {
    "chemin": "tools/check_pavane_webkit.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_webkit.mjs",
-   "octets": 4036,
-   "sha256": "4bd3769eb93557d43b4283ce98104b5ee8b0691625d4f3b387d23355dcf19d48",
-   "md5": "be9ad27c1899ea02b3d0332fa5ee3236",
+   "octets": 5044,
+   "sha256": "eea00b8de98018ca53050ea1e8c2edb8c1254982bd5e33474e59e36b2b4ec7ec",
+   "md5": "b7f9867a8b572a5d2e09493f66edbb22",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "l'avertissement photosensible et « Mouvement réduit » de « Voir sa musique » (prompt 223) dans WebKit (profil iPhone 13) : l'avertissement apparaît au premier lancement et pas ensuite (localStorage de Safari), « J'ai compris » le range, …",

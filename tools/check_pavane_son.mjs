@@ -28,6 +28,7 @@ const ok = (c, m) => { controles++; if (!c) { echecs++; console.error(`ÉCHEC ${
 
 async function monter(largeur, recherche) {
   const ctx = await nav.newContext({ viewport: { width: largeur, height: 900 }, permissions: ['microphone'], acceptDownloads: true }), page = await ctx.newPage(), erreurs = [];
+  await page.addInitScript(() => { try { localStorage.setItem('pv-avertissement-lu', '1'); } catch { /* sans stockage */ } }); // l'avertissement déjà lu : sinon l'animation reste en pause (prompt 226)
   page.on('pageerror', (e) => erreurs.push(`exception : ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error') erreurs.push(`console : ${m.text()}`); });
   await page.goto(`${BASE}/404.html`, { waitUntil: 'load' });

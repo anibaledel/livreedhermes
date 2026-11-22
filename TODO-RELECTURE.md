@@ -1393,3 +1393,7 @@ Pages : `confidentialite-voir-sa-musique.html` et `en/privacy-see-your-music/` (
 ## Prompt 225 — « Bandes » et ses sous-choix
 
 À relire (10 langues, `data/musique-chladni/traductions/<langue>.json` clés `fondGroupes.*`, `fondVariantes.*`, et `assets/pavane-textes.js` clés `fond_aplat`, `fond_triangles`, `fond_bandes`, `fondV_B3x`, `fondV_B121x`, `fondV_B11211Dx` ; **thaï et chinois en priorité**) : « Trois bandes » (trois bandes égales), « Bande centrale » (bande du milieu double), « Bandes obliques » (cinq bandes à 45°) — noms choisis à l'image (planche relue), jamais de code. Ils ne s'affichent que si plusieurs fonds de bandes sont PROPOSÉS : aujourd'hui seul B11211Dx l'est, donc l'interface montre « Aplat · Triangles · Bandes » sans sous-choix.
+
+## Prompt 226 — photosensibilité des trois modes, pause avant acquittement
+
+Aucun texte nouveau (le bouton « Reprendre » inactif et l'état « En pause » existent déjà dans les 11 langues). Mesure : `tools/check_pavane_photosensible.mjs` (sortie en tableau). Décision d'Anibal attendue : le Spectre sans mouvement réduit dépasse 3 changements d'image par seconde (voir le rapport du prompt 226 : cause et correction proposée) ; rien n'a été modifié dans le moteur.

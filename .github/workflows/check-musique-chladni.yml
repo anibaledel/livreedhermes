@@ -41,6 +41,9 @@ jobs:
       # le moteur de « Pavane — Voir sa musique » (prompt 211) : défilé, spectre, entre-deux, sur du son synthétique, sans navigateur
       - run: node tools/check_pavane_moteur.mjs
       - run: node tools/check_pavane_moteur.mjs --essai
+      # la photosensibilité des trois modes (prompt 226) : changements par seconde et flashs WCAG sur un signal nerveux simulé ; le Défilé et le plafond de « Mouvement réduit » font échouer, le Spectre sans réduction est rapporté (DÉPASSE)
+      - run: node tools/check_pavane_photosensible.mjs
+      - run: node tools/check_pavane_photosensible.mjs --essai
   page:
     runs-on: ubuntu-latest
     steps:

@@ -36,8 +36,10 @@ const choisirFond = async (page, code) => {
   await page.selectOption('.pv-reglages select[id$=fond]', g.groupe);
   if (g.codes.length > 1) await page.selectOption('.pv-reglages select[id$=fond-variante]', code);
 };
-async function monter(ctx, langue, recherche) {
+// `acquitte` : l'avertissement photosensible est déjà lu (localStorage) — sinon l'animation reste en pause (prompt 226) ; les tests de l'avertissement passent false
+async function monter(ctx, langue, recherche, acquitte = true) {
   const page = await ctx.newPage(), erreurs = [];
+  if (acquitte) await page.addInitScript(() => { try { localStorage.setItem('pv-avertissement-lu', '1'); } catch { /* sans stockage */ } });
   page.on('pageerror', (e) => erreurs.push(`exception : ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error') erreurs.push(`console : ${m.text()}`); });
   await page.goto(`${BASE}/404.html`, { waitUntil: 'load' });
@@ -169,7 +171,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
 {
   // 1. premier lancement : l'avertissement est en tête et lisible ; « J'ai compris » le range et le mémorise ; à la visite suivante, il n'est plus là ; le lien le rouvre
   const ctx = await nav.newContext({ viewport: { width: 390, height: 900 } });
-  let { page, erreurs } = await monter(ctx, 'fr', '');
+  let { page, erreurs } = await monter(ctx, 'fr', '', false);
   const avert = (p) => p.evaluate(() => { const a = document.querySelector('#app .pv-avert'), r = a.getBoundingClientRect(); return { visible: !a.hidden && r.height > 0, texte: a.textContent, avant: a.compareDocumentPosition(document.querySelector('#app .pv-modes')) & Node.DOCUMENT_POSITION_FOLLOWING ? 1 : 0, largeur: Math.round(r.width) }; });
   let a = await avert(page);
   ok(a.visible && a.avant === 1 && /épilepsie photosensible/.test(a.texte) && /J'ai compris/.test(a.texte), `premier lancement : l'avertissement est visible, avant les modes (${a.texte.slice(0, 60)}…)`);
@@ -177,7 +179,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   ok(!(await avert(page)).visible, '« J\'ai compris » range l\'avertissement');
   ok(await page.evaluate(() => localStorage.getItem('pv-avertissement-lu')) === '1', 'l\'avertissement lu est mémorisé');
   await page.close();
-  ({ page, erreurs } = await monter(ctx, 'fr', ''));
+  ({ page, erreurs } = await monter(ctx, 'fr', '', false));
   ok(!(await avert(page)).visible, 'à la visite suivante, l\'avertissement n\'est plus affiché');
   ok(await page.$eval('#app .pv-lien', (b) => b.textContent === 'Avertissement' && b.getAttribute('aria-expanded') === 'false'), 'le lien « Avertissement » reste près des réglages');
   await page.click('#app .pv-lien');
@@ -187,11 +189,50 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   // 2. sans stockage (localStorage qui lève) : la page marche, l'avertissement s'affiche
   const sans = await nav.newContext({ viewport: { width: 1280, height: 900 } });
   await sans.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('stockage refusé'); } }); });
-  const r = await monter(sans, 'fr', '');
+  const r = await monter(sans, 'fr', '', false);
   ok((await avert(r.page)).visible, 'sans stockage : l\'avertissement s\'affiche');
   await r.page.click('#app .pv-avert button');
   ok(!(await avert(r.page)).visible && r.erreurs.length === 0, `sans stockage : « J'ai compris » marche, sans erreur (${r.erreurs.join(' | ')})`);
   await sans.close();
+  // 2 bis. pause avant acquittement (prompt 226) : tant que « J'ai compris » n'a pas rangé l'avertissement, l'animation reste en pause sur le premier motif (jamais un écran noir) ;
+  // elle repart au clic sur « J'ai compris » ou au geste « Écouter » ; sans stockage la pause revient à chaque ouverture ; une adresse partagée respecte la même pause ; qui a déjà acquitté n'est pas gêné
+  {
+    const { devices } = await import('playwright');
+    const cp = await nav.newContext({ ...devices['iPhone 13'] });
+    const etatP = (p) => p.evaluate(() => { const sc = document.querySelector('#app .pv-scene'), c = [...sc.querySelectorAll('.pv-couche.visible')][0]; return { motif: window.__pavane.motif(), enPause: window.__pavane.enPause(), image: c ? c.style.backgroundImage.length : 0, pause: document.querySelector('#app .pv-actions button').disabled, texte: document.querySelector('#app .pv-actions button').textContent, avert: !document.querySelector('#app .pv-avert').hidden, stocke: (() => { try { return localStorage.getItem('pv-avertissement-lu'); } catch { return 'x'; } })() }; });
+    const a1 = await monter(cp, 'fr', '?rythme=0.5', false);
+    let x = await etatP(a1.page); await a1.page.waitForTimeout(1800); let y = await etatP(a1.page);
+    ok(x.enPause && x.avert && x.image > 200 && y.motif === x.motif && x.pause && x.texte === 'Reprendre', `avertissement non acquitté : l'animation est en pause sur le premier motif, image affichée, « Reprendre » inactif (${JSON.stringify(x)})`);
+    await a1.page.click('#app .pv-avert button'); await a1.page.waitForTimeout(1600);
+    y = await etatP(a1.page);
+    ok(!y.enPause && !y.avert && y.motif !== x.motif && y.stocke === '1' && !y.pause, `« J'ai compris » : l'animation repart (motif ${x.motif} → ${y.motif}), l'avertissement est rangé et mémorisé`);
+    await a1.page.close();
+    const a2 = await monter(cp, 'fr', '?rythme=0.5', false);
+    x = await etatP(a2.page); await a2.page.waitForTimeout(1600); y = await etatP(a2.page);
+    ok(!x.enPause && !x.avert && y.motif !== x.motif, 'qui a déjà acquitté n\'est pas gêné : pas de pause, l\'animation tourne');
+    await a2.page.close();
+    // le geste « Écouter » (ici, jouer une note, en mode Spectre, adresse partagée) vaut acquittement
+    const cq = await nav.newContext({ ...devices['iPhone 13'] });
+    const a3 = await monter(cq, 'fr', '?mode=spectre&source=note&fond=B2Dx', false);
+    x = await etatP(a3.page);
+    ok(x.enPause && x.avert && x.image > 200, `adresse partagée (?mode=spectre&source=note&fond=B2Dx) : la même pause avant acquittement (${JSON.stringify(x)})`);
+    await a3.page.click('.pv-source-reglage button:not([hidden])'); await a3.page.waitForTimeout(800);
+    y = await etatP(a3.page);
+    ok(!y.enPause && !y.avert && y.stocke === '1' && await a3.page.evaluate(() => window.__pavane.sonActif()) === 'note', `le geste « Écouter » vaut acquittement : avertissement rangé, mémorisé, animation et son lancés (${JSON.stringify(y)})`);
+    ok(a1.erreurs.length + a2.erreurs.length + a3.erreurs.length === 0, `pause avant acquittement : aucune erreur (${[...a1.erreurs, ...a2.erreurs, ...a3.erreurs].join(' | ')})`);
+    await cq.close();
+    // sans stockage : l'avertissement et la pause reviennent à chaque ouverture
+    const cs = await nav.newContext({ ...devices['iPhone 13'] });
+    await cs.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('stockage refusé'); } }); });
+    for (let k = 0; k < 2; k++) {
+      const s2 = await monter(cs, 'fr', '?rythme=0.5', false); x = await etatP(s2.page);
+      ok(x.enPause && x.avert, `sans stockage, ouverture ${k + 1} : l'avertissement et la pause sont là`);
+      await s2.page.click('#app .pv-avert button'); await s2.page.waitForTimeout(300);
+      ok(!(await etatP(s2.page)).enPause && s2.erreurs.length === 0, `sans stockage : « J'ai compris » relance l'animation, sans erreur (${s2.erreurs.join(' | ')})`);
+      await s2.page.close();
+    }
+    await cs.close(); await cp.close();
+  }
   // 3. « Mouvement réduit » : ?reduit=1 plafonne le rythme (curseur et minuteur), la case l'écrit dans l'adresse, aucun rythme ne passe sous la limite
   const c3 = await nav.newContext({ viewport: { width: 1280, height: 900 } });
   const m = await monter(c3, 'fr', '?reduit=1&rythme=0.5');

@@ -4,7 +4,7 @@
 //
 // check_pavane_webkit.mjs — l'avertissement photosensible et « Mouvement réduit » de « Voir sa musique » (prompt 223) dans WebKit (profil iPhone 13) : l'avertissement apparaît
 // au premier lancement et pas ensuite (localStorage de Safari), « J'ai compris » le range, le lien le rouvre ; ?reduit=1 coche la case et borne le curseur de rythme à 3 s au moins ;
-// le motif ne change pas en 1,8 s malgré ?rythme=0.5. Usage : node tools/check_pavane_webkit.mjs [local | <adresse de base>] ; code 2 si WebKit n'est pas installé.
+// le motif ne change pas en 1,8 s malgré ?rythme=0.5 ; (prompt 226) tant que l'avertissement n'est pas acquitté l'animation reste en pause sur le premier motif, et repart au tap sur « J'ai compris ». Usage : node tools/check_pavane_webkit.mjs [local | <adresse de base>] ; code 2 si WebKit n'est pas installé.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { webkit, devices } from 'playwright';
@@ -31,11 +31,17 @@ try {
     return { page, erreurs };
   };
   const visible = (p) => p.evaluate(() => { const a = document.querySelector('#app .pv-avert'); return !a.hidden && a.getBoundingClientRect().height > 0; });
-  let { page, erreurs } = await monter('');
+  let { page, erreurs } = await monter('?rythme=0.5');
   ok(await visible(page), 'WebKit : l\'avertissement est visible au premier lancement');
+  // pause avant acquittement (prompt 226) : l'animation reste sur le premier motif tant que « J'ai compris » n'est pas touché, puis repart
+  const mo = () => page.evaluate(() => ({ motif: window.__pavane.motif(), enPause: window.__pavane.enPause(), image: document.querySelector('#app .pv-couche.visible').style.backgroundImage.length }));
+  const avant = await mo(); await page.waitForTimeout(1800); const apres = await mo();
+  ok(avant.enPause && avant.image > 200 && apres.motif === avant.motif, `WebKit : en pause sur le premier motif avant l'acquittement, image affichée (${JSON.stringify(avant)} puis ${apres.motif})`);
   ok(await page.evaluate(() => document.querySelector('#app .pv-avert').getBoundingClientRect().right <= innerWidth + 1), 'WebKit : l\'avertissement ne déborde pas à 390 px');
   await page.tap('#app .pv-avert button');
   ok(!(await visible(page)), 'WebKit : « J\'ai compris » range l\'avertissement');
+  await page.waitForTimeout(1600); const repart = await mo();
+  ok(!repart.enPause && repart.motif !== avant.motif, `WebKit : l'animation repart après « J'ai compris » (motif ${avant.motif} → ${repart.motif})`);
   await page.close();
   ({ page } = await monter(''));
   ok(!(await visible(page)), 'WebKit : l\'avertissement n\'est plus affiché à la visite suivante');

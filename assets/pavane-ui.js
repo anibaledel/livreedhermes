@@ -56,7 +56,12 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   // le micro est la source de départ (prompt 220) : jamais demandé au chargement, seulement au bouton « Activer le micro » ; refusé ou impossible, un morceau d'exemple le remplace, en le disant.
   // Un lien qui fixe la source (?source=…, ?piste=…) garde le dessus : alors, pas de repli.
   let microParDefaut = etat.source === 'micro' && !new URLSearchParams(recherche).has('source');
-  let reduit = reduitMq.matches || etat.reduit, enPause = false, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
+  // L'avertissement photosensible (prompt 223) : lu une fois, mémorisé dans localStorage (try/catch : sans stockage il revient à chaque ouverture). Tant qu'il n'est pas acquitté,
+  // l'animation reste en pause sur le premier motif (prompt 226) : elle repart au clic sur « J'ai compris » ou au geste « Écouter » (jouer, micro, fichier), qui vaut acquittement.
+  const CLE_AVERT = 'pv-avertissement-lu';
+  const avertLu = () => { try { return localStorage.getItem(CLE_AVERT) === '1'; } catch { return false; } };
+  let attenteAck = !avertLu();
+  let reduit = reduitMq.matches || etat.reduit, enPause = attenteAck, ids = [], defile = null, chef = null, idCourant = null, minuteur = null, rafId = null, couche = 0, dernierePaireValide = null, svgCourant = null, noteStatut = '', enregistrement = null;
   const cache = new Map();
 
   // ---------- le DOM ----------
@@ -94,8 +99,6 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   // « Mouvement réduit » (prompt 223) : la préférence du système OU la case (clé d'adresse `reduit`) ; il impose au rythme une période d'au moins PERIODE_MIN_REDUIT_S (0,33 changement par seconde, bien sous les 3 par seconde de WCAG 2.3.1)
   const cReduit = el('input', { type: 'checkbox', id: `${id}-reduit` }), nReduit = el('small', { class: 'pv-doux', hidden: true, text: T('reduitSysteme') });
   // l'avertissement photosensible : au premier lancement (mémorisé dans localStorage, dans un try/catch : sans stockage, il revient à chaque ouverture), puis un lien près des réglages
-  const CLE_AVERT = 'pv-avertissement-lu';
-  const avertLu = () => { try { return localStorage.getItem(CLE_AVERT) === '1'; } catch { return false; } };
   const bOk = el('button', { type: 'button', text: T('avertOk') });
   const avert = el('div', { class: 'pv-avert', role: 'note', id: `${id}-avert`, hidden: avertLu() }, el('p', { text: T('avert') }), bOk);
   const bAvert = el('button', { type: 'button', class: 'pv-lien', 'aria-controls': `${id}-avert`, 'aria-expanded': String(!avertLu()), text: T('avertLien') });
@@ -205,7 +208,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     cReduit.checked = reduit; cReduit.disabled = reduitMq.matches; nReduit.hidden = !reduitMq.matches;
     lRythme.hidden = !(etat.mode === 'entre-deux' || (etat.mode === 'defile' && etat.declencheur === 'minuteur'));
     rDensite.value = String(etat.densite); nDensite.textContent = T('densite', { n: etat.densite });
-    bPause.textContent = enPause ? T('reprendre') : T('pause'); bPause.setAttribute('aria-pressed', String(enPause));
+    bPause.textContent = enPause ? T('reprendre') : T('pause'); bPause.setAttribute('aria-pressed', String(enPause)); bPause.disabled = attenteAck; // pas de « Reprendre » avant l'acquittement
     racine.classList.toggle('pv-reduit', reduit);
   }
   const changer = (partie, { refaire = false } = {}) => { etat = { ...etat, ...partie }; ecrireAdresse(); refleter(); if (refaire) reconstruire(); else if (idCourant) afficher(idCourant, noteStatut); else reconstruire(); };
@@ -215,7 +218,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   for (const { d, radio } of radiosDecl) radio.addEventListener('change', () => radio.checked && changer({ declencheur: d }, { refaire: true }));
   for (const { sr, radio } of radiosSource) radio.addEventListener('change', () => { if (!radio.checked) return; microParDefaut = false; son.arreter(); messageSon(null); changer({ source: sr }); });
   async function lancer() {
-    messageSon(null);
+    acquitter(); messageSon(null);
     try {
       if (etat.source === 'morceau') await son.jouerMorceau(etat.morceau); else if (etat.source === 'note') await son.jouerNote(etat.note);
       refleter(); armer(); dire();
@@ -225,11 +228,11 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   bJouer.addEventListener('click', () => { if (son.actif === etat.source) { son.arreter(); refleter(); dire(); } else lancer(); });
   inFichier.addEventListener('change', async () => {
     const f = inFichier.files && inFichier.files[0]; if (!f) return;
-    messageSon(null);
+    acquitter(); messageSon(null);
     try { await son.jouerFichier(f); refleter(); armer(); dire(); } catch { messageSon('erreurFichier'); }
   });
   bMicro.addEventListener('click', async () => {
-    messageSon(null);
+    acquitter(); messageSon(null);
     try { await son.activerMicro(); refleter(); armer(); dire(); }
     catch {
       if (!microParDefaut) return messageSon('erreurMicro');
@@ -253,7 +256,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   rRythme.addEventListener('input', () => { etat = { ...etat, rythme: Number(rRythme.value) }; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
   const reconstruireChefSeulement = () => { chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance: etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64 }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 }); };
   rDensite.addEventListener('input', () => changer({ densite: Number(rDensite.value) }));
-  const basculerPause = () => { enPause = !enPause; refleter(); armer(); if (idCourant) afficher(idCourant, noteStatut); };
+  const basculerPause = () => { if (attenteAck) return; enPause = !enPause; refleter(); armer(); if (idCourant) afficher(idCourant, noteStatut); };
   bPause.addEventListener('click', basculerPause);
   const pleinEcran = () => { const r = scene.requestFullscreen || scene.webkitRequestFullscreen; if (r) r.call(scene).catch(() => {}); };
   bPlein.addEventListener('click', pleinEcran);
@@ -266,7 +269,12 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   };
   document.addEventListener('keydown', surTouche);
   cReduit.addEventListener('change', () => { etat = { ...etat, reduit: cReduit.checked }; reduit = reduitMq.matches || etat.reduit; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
-  bOk.addEventListener('click', () => { try { localStorage.setItem(CLE_AVERT, '1'); } catch { /* stockage absent ou refusé : l'avertissement reviendra */ } avert.hidden = true; bAvert.setAttribute('aria-expanded', 'false'); bAvert.focus(); });
+  function acquitter() {
+    try { localStorage.setItem(CLE_AVERT, '1'); } catch { /* stockage absent ou refusé : l'avertissement reviendra */ }
+    avert.hidden = true; bAvert.setAttribute('aria-expanded', 'false');
+    if (attenteAck) { attenteAck = false; enPause = false; refleter(); armer(); if (idCourant) afficher(idCourant, noteStatut); } // l'animation repart (le premier motif était déjà affiché, jamais un écran noir)
+  }
+  bOk.addEventListener('click', () => { acquitter(); bAvert.focus(); });
   bAvert.addEventListener('click', () => { avert.hidden = !avert.hidden; bAvert.setAttribute('aria-expanded', String(!avert.hidden)); if (!avert.hidden) avert.scrollIntoView({ block: 'nearest' }); });
   const surReduit = () => { reduit = reduitMq.matches || etat.reduit; refleter(); reconstruireChefSeulement(); armer(); };
   if (reduitMq.addEventListener) reduitMq.addEventListener('change', surReduit);
