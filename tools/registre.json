@@ -648,6 +648,24 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_gammes.mjs",
+   "role": "la page « Les gammes » (prompt 219) : gammes.html et en/pattern-scales/index.html.",
+   "lit": [
+    "data/corpus-256-depot.json",
+    "data/corpus-256.json",
+    "data/gammes.json",
+    "en/three-colour-gallery/index.html",
+    "en/two-colour-gallery/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_glossaire.mjs",
    "role": "un concept du glossaire, UNE traduction par langue.",
    "lit": [
@@ -965,6 +983,7 @@
     "en/animations",
     "en/articles",
     "en/lexicon",
+    "en/pattern-scales",
     "en/search",
     "en/works",
     "es/buscar",
@@ -2266,6 +2285,7 @@
     "tools/check_galerie_animations.mjs",
     "tools/check_galerie_bicolore_ordres.mjs",
     "tools/check_galerie_corpus.mjs",
+    "tools/check_gammes.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_musique_chladni.mjs",
     "tools/check_musique_webkit.mjs",

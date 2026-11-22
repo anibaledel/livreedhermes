@@ -791,6 +791,38 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
   </url>
   <url>
+    <loc>https://anibal-amiot.com/gammes.html</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/07-six-gammes.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/01-tricolore.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/02-ellipses.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/03-chevrons.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/04-trois-bandes.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/05-bande-centrale.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/06-bandes-larges.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/gammes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/pattern-scales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/pattern-scales/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/pattern-scales/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/07-six-gammes.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/01-tricolore.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/02-ellipses.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/03-chevrons.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/04-trois-bandes.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/05-bande-centrale.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/gammes/06-bandes-larges.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/gammes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/pattern-scales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/pattern-scales/"/>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/galerie-animations.html</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>

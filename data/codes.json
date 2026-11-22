@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-21T17:27:36Z",
+ "generated_at_utc": "2026-11-22T12:17:17Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,8 +9,8 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 317,
-  "sans_licence_declaree": 74,
+  "scripts": 319,
+  "sans_licence_declaree": 75,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
   "depose_absent_du_depot": 14
@@ -719,6 +719,21 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/build-gammes.js",
+   "adresse": "https://anibal-amiot.com/scripts/build-gammes.js",
+   "octets": 8753,
+   "sha256": "fc63f58457e8e4d2285181be532719cda048a7376103923b3d2bc4f4740c73ab",
+   "md5": "4e971422c010b1ce625eceb0fd5bfa8c",
+   "licence_declaree": false,
+   "licence": null,
+   "role": "La page « Les gammes » (prompt 219) : gammes.html et en/pattern-scales/index.html, écrites depuis une seule source, data/gammes.json.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "scripts/build-grilles-calques.js",
    "adresse": "https://anibal-amiot.com/scripts/build-grilles-calques.js",
    "octets": 3375,
@@ -1398,9 +1413,9 @@
   {
    "chemin": "scripts/langues.js",
    "adresse": "https://anibal-amiot.com/scripts/langues.js",
-   "octets": 45227,
-   "sha256": "4e58ee59c849e3f5898926e2b33763ba3213ac30653ac42fc54a8c6303236f28",
-   "md5": "5d862fda09d2fc21c4c2cde5a1ef5bd0",
+   "octets": 45756,
+   "sha256": "dac9f0b10910f0c3b76f00d54bdfb325056c001d17ee3c8f6c535c43cc5f8188",
+   "md5": "9e579ae3ff67db3e78f74615e0c511a0",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique des groupes de traduction du site.",
@@ -2213,6 +2228,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_gammes.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_gammes.mjs",
+   "octets": 9267,
+   "sha256": "b4fec6296ed824d95668a98307a84bd6be93d4163e0ff970f16c4edf5a131aba",
+   "md5": "3a205ab85e4cbc20ea188b04bd008770",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la page « Les gammes » (prompt 219) : gammes.html et en/pattern-scales/index.html.",
+   "lit": [
+    "corpus-256"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_glossaire.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_glossaire.mjs",
    "octets": 8223,
@@ -2536,9 +2568,9 @@
   {
    "chemin": "tools/check_pages_console.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pages_console.mjs",
-   "octets": 16934,
-   "sha256": "a81636d54eca865645de2f4f6fe32ae9dbaf19b61210147e02552f802e934f81",
-   "md5": "96a6a5629abcf96cd54cdb69d96a98ef",
+   "octets": 16995,
+   "sha256": "2dfe0cc9b2ec47925e4d0540030dc850257029ddb2fe0da8f3c1a1b6a6efe56e",
+   "md5": "5c2e3938d9cf375abb045175bdd5bfac",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : charge chaque page listée ci-dessous dans un navigateur headless et échoue si l'une d'elles lève une exception JavaScript non rattrapée, ou si une zone attendue reste vide.",

@@ -1,0 +1,81 @@
+{
+  "_doc": "La page « Les gammes » (prompt 219) : la source de gammes.html (français) et de en/pattern-scales/index.html (anglais), écrites par scripts/build-gammes.js. Les noms des gammes restent en français dans toutes les langues. Les images sont les affiches 2:3 (1000 × 1500) du zip 221 ; elles sont PROVISOIREMENT sur ce dépôt (assets/gammes/) : la décision d'Anibal est de les mettre sur le dépôt public motifs-pins (dossier gammes/). Passer de l'un à l'autre = changer « images.base » (et déposer les fichiers) ; rien d'autre n'écrit ces adresses.",
+  "images": { "base": "assets/gammes/", "largeur": 1000, "hauteur": 1500, "partage": "07-six-gammes.png" },
+  "adresses": {
+    "fr": { "page": "gammes.html", "accueil": "https://anibal-amiot.com/", "contact": "contact.html", "bicolore": "galerie-bicolore.html", "tricolore": "galerie-patterns-unifies.html" },
+    "en": { "page": "en/pattern-scales/", "accueil": "https://anibal-amiot.com/en/", "contact": "en/contact/", "bicolore": "en/two-colour-gallery/", "tricolore": "en/three-colour-gallery/" }
+  },
+  "affiches": [
+    { "id": "tricolore", "fichier": "01-tricolore.png", "galerie": "tricolore", "nom": "Tricolore" },
+    { "id": "ellipses", "fichier": "02-ellipses.png", "galerie": "bicolore", "nom": "Ellipses" },
+    { "id": "chevrons", "fichier": "03-chevrons.png", "galerie": "bicolore", "nom": "Chevrons" },
+    { "id": "trois-bandes", "fichier": "04-trois-bandes.png", "galerie": "bicolore", "nom": "Trois bandes" },
+    { "id": "bande-centrale", "fichier": "05-bande-centrale.png", "galerie": "bicolore", "nom": "Bande centrale" },
+    { "id": "bandes-larges", "fichier": "06-bandes-larges.png", "galerie": "bicolore", "nom": "Bandes larges" },
+    { "id": "six-gammes", "fichier": "07-six-gammes.png", "galerie": null, "nom": "Six gammes" }
+  ],
+  "textes": {
+    "fr": {
+      "lang": "fr",
+      "titre": "Les gammes : 64 motifs, six lectures — La Livrée d'Hermès",
+      "description": "Les 64 motifs de base de La Livrée d'Hermès, classés dans l'ordre King Wen et lus de six manières : Tricolore, Ellipses, Chevrons, Trois bandes, Bande centrale, Bandes larges.",
+      "ariane": "Fil d'Ariane", "accueil": "Accueil", "miette": "Les gammes",
+      "h1": "Les gammes",
+      "intro": "Soixante-quatre motifs : le représentant de chacune des 64 classes du corpus de 256 grilles de 12 × 12 cases, rangés dans l'ordre King Wen. Chaque affiche les lit d'une manière différente : une en trois tons, cinq en deux tons.",
+      "afficheAlt": "{nom} : les 64 motifs de base du corpus, en 8 × 8 carrés dans l'ordre King Wen ({lecture}).",
+      "afficheSeptAlt": "Six gammes : les six affiches côte à côte, Tricolore, Ellipses, Chevrons, Trois bandes, Bande centrale et Bandes larges, chacune montrant les 64 motifs.",
+      "lectureTri": "trois tons : indigo, gris, crème",
+      "lectureBi": "deux tons",
+      "agrandir": "Agrandir l'affiche {nom}",
+      "legendes": {
+        "tricolore": "Les trois classes de cases en trois tons : indigo, gris, crème.",
+        "ellipses": "Cinq bandes à 45° par case. L'un des deux fonds retenus pour l'application, où il s'appelle « Bandes ».",
+        "chevrons": "Une demi-case coupée par la diagonale. L'autre fond retenu pour l'application, où il s'appelle « Triangles ».",
+        "trois-bandes": "Des bandes droites, à titre décoratif.",
+        "bande-centrale": "Des bandes droites, à titre décoratif.",
+        "bandes-larges": "Des bandes droites, à titre décoratif.",
+        "six-gammes": "Les six gammes réunies sur une seule affiche."
+      },
+      "versGalerie": { "tricolore": "Voir la galerie tricolore", "bicolore": "Voir la galerie bicolore" },
+      "lireTitre": "Comment lire une affiche",
+      "lire": "Chaque affiche porte 8 × 8 carrés, un par classe. On les lit de gauche à droite et de haut en bas, dans l'ordre King Wen : le premier carré est en haut à gauche, le soixante-quatrième en bas à droite.",
+      "bientotTitre": "Bientôt",
+      "bientot": "Une application, « Voir sa musique », et un livre papier sont en préparation. Rien n'est encore annoncé : ni date, ni prix, ni lien d'achat. Pour être prévenu autrement, écrivez-moi.",
+      "contact": "Contacter l'auteur",
+      "licence": "Images sous licence CC BY-NC 4.0. Le corpus de 256 grilles est en accès libre : ",
+      "licenceLien": "doi.org/10.5281/zenodo.24396534",
+      "licenceSuite": " (DOI de concept)."
+    },
+    "en": {
+      "lang": "en",
+      "titre": "The scales: 64 patterns, six readings — La Livrée d'Hermès",
+      "description": "The 64 base patterns of La Livrée d'Hermès, in King Wen order, read six ways: Tricolore, Ellipses, Chevrons, Trois bandes, Bande centrale, Bandes larges.",
+      "ariane": "Breadcrumb", "accueil": "Home", "miette": "The pattern scales",
+      "h1": "The pattern scales",
+      "intro": "Sixty-four patterns: the representative of each of the 64 classes of the corpus of 256 grids of 12 × 12 cells, set in King Wen order. Each poster reads them differently: one in three tones, five in two tones. The names of the scales stay in French.",
+      "afficheAlt": "{nom}: the 64 base patterns of the corpus, as 8 × 8 squares in King Wen order ({lecture}).",
+      "afficheSeptAlt": "Six gammes: the six posters side by side, Tricolore, Ellipses, Chevrons, Trois bandes, Bande centrale and Bandes larges, each showing the 64 patterns.",
+      "lectureTri": "three tones: indigo, grey, cream",
+      "lectureBi": "two tones",
+      "agrandir": "Enlarge the poster {nom}",
+      "legendes": {
+        "tricolore": "The three classes of cells in three tones: indigo, grey, cream.",
+        "ellipses": "Five bands at 45° in each cell. One of the two grounds kept for the application, where it is called “Stripes”.",
+        "chevrons": "Half a cell cut by the diagonal. The other ground kept for the application, where it is called “Triangles”.",
+        "trois-bandes": "Straight bands, for decoration.",
+        "bande-centrale": "Straight bands, for decoration.",
+        "bandes-larges": "Straight bands, for decoration.",
+        "six-gammes": "The six scales together on a single poster."
+      },
+      "versGalerie": { "tricolore": "See the three-colour gallery", "bicolore": "See the two-colour gallery" },
+      "lireTitre": "How to read a poster",
+      "lire": "Each poster holds 8 × 8 squares, one per class. Read them from left to right and from top to bottom, in King Wen order: the first square is at the top left, the sixty-fourth at the bottom right.",
+      "bientotTitre": "Coming soon",
+      "bientot": "An application, “See your music”, and a paperback book are in preparation. Nothing is announced yet: no date, no price, no purchase link. To be told another way, write to me.",
+      "contact": "Contact the author",
+      "licence": "Images under the CC BY-NC 4.0 licence. The corpus of 256 grids is openly available: ",
+      "licenceLien": "doi.org/10.5281/zenodo.24396534",
+      "licenceSuite": " (concept DOI)."
+    }
+  }
+}

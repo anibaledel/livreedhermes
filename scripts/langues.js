@@ -192,6 +192,10 @@ const LANGUES = {
 // lit pour écrire les pages — et versées ici dans les « pages » de chaque
 // langue, d'où les groupes de traduction ci-dessous les tirent comme les autres.
 const GALERIE = require('../data/galerie-animations.json');
+// La page « Les gammes » (prompt 219) : français et anglais seulement ; les adresses viennent de data/gammes.json
+// (la source que scripts/build-gammes.js lit pour écrire les pages). Les autres langues n'ont pas de page : pas de hreflang vers elles.
+const GAMMES = require('../data/gammes.json');
+for (const [code, a] of Object.entries(GAMMES.adresses)) if (LANGUES[code]) LANGUES[code].pages.gammes = a.page;
 for (const [code, l] of Object.entries(LANGUES)) {
   const a = GALERIE.adresses[code];
   if (!a) continue;
@@ -295,6 +299,7 @@ GROUPES.push({
   sitemap: false,
   pages: pagesDe('recherche'),
 });
+GROUPES.push({ nom: 'gammes', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('gammes') });
 GROUPES.push({ nom: 'galerie-animations', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('galerie-animations') });
 for (const g of GALERIE.groupes) {
   GROUPES.push({ nom: `galerie-animations-${g.id}`, changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe(`galerie-animations-${g.id}`) });

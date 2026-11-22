@@ -455,6 +455,13 @@
    "es": "'Error al cargar los datos: ' + err.message",
    "th": "'เกิดข้อผิดพลาดในการโหลดข้อมูล: ' + err.message",
    "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">Les gammes : les 64 motifs de base, lus de six manières</a>",
+   "en": ">The scales: the 64 base patterns, read six ways</a>",
+   "es": ">Las gamas: los 64 motivos de base, leídos de seis maneras</a>",
+   "th": ">สเกลลาย: 64 ลวดลายพื้นฐาน อ่านได้หกแบบ</a>",
+   "source": "SANS SOURCE (prompt 219, lien vers la page des gammes ; à relire, TODO-RELECTURE.md)"
   }
  ]
 }

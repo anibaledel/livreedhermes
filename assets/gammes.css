@@ -1,0 +1,22 @@
+/* La page « Les gammes » (prompt 219) — scripts/build-gammes.js. Les affiches sont en 2:3 : width/height dans le HTML, ici seulement la mise en page. */
+*{box-sizing:border-box;}
+html{ overflow-x:hidden; }
+body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+img, canvas, video{ max-width:100%; }
+.wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; text-align:center; }
+.gm-intro { max-width: 62ch; margin: 12px auto 0; color: var(--dim); line-height: 1.6; overflow-wrap: anywhere; }
+.gm-page { max-width: 1040px; margin: 0 auto; padding: 8px 16px 48px; }
+.gm-grille { display: grid; gap: 24px 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); margin: 24px 0; }
+.gm-affiche { margin: 0; min-width: 0; }
+.gm-agrandir { display: block; border: 1px solid var(--line-strong); }
+.gm-agrandir:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.gm-affiche img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; }
+.gm-affiche figcaption { display: flex; flex-direction: column; gap: 4px; padding-top: 8px; color: var(--dim); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.gm-affiche figcaption b { color: var(--white); letter-spacing: .06em; text-transform: uppercase; font-weight: 400; }
+.gm-affiche figcaption a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.gm-encadre { max-width: 70ch; margin: 28px auto 0; border: 1px solid var(--line-strong); padding: 4px 16px 12px; }
+.gm-encadre h2 { color: var(--gold); font-size: 15px; letter-spacing: .08em; text-transform: uppercase; font-weight: 400; }
+.gm-encadre p { color: var(--dim); line-height: 1.6; overflow-wrap: anywhere; }
+.gm-encadre a, .gm-licence a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.gm-licence { max-width: 70ch; margin: 28px auto 0; color: var(--dim); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }

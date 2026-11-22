@@ -69,6 +69,8 @@ const PAGES = [
   { path: 'galerie-884-patterns-unifies.html', horsEnTete: true },
   { path: 'galerie-patterns-unifies.html', zone: '#gallery' },
   { path: 'galerie-animations.html' },
+  { path: 'gammes.html' },
+  { path: 'en/pattern-scales/' },
   { path: 'animations/bandes-diagonales.html' },
   { path: 'en/animations/' },
   { path: 'zh/animations/assemblies/' },
