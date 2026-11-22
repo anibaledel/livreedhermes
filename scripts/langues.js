@@ -196,6 +196,9 @@ const GALERIE = require('../data/galerie-animations.json');
 // (la source que scripts/build-gammes.js lit pour écrire les pages). Les autres langues n'ont pas de page : pas de hreflang vers elles.
 const GAMMES = require('../data/gammes.json');
 for (const [code, a] of Object.entries(GAMMES.adresses)) if (LANGUES[code]) LANGUES[code].pages.gammes = a.page;
+// La politique de confidentialité de « Voir sa musique » (prompt 224) : français et anglais ; adresses de data/confidentialite.json (scripts/build-confidentialite.js).
+const CONFIDENTIALITE = require('../data/confidentialite.json');
+for (const [code, a] of Object.entries(CONFIDENTIALITE.adresses)) if (LANGUES[code]) LANGUES[code].pages.confidentialite = a.page;
 for (const [code, l] of Object.entries(LANGUES)) {
   const a = GALERIE.adresses[code];
   if (!a) continue;
@@ -300,6 +303,7 @@ GROUPES.push({
   pages: pagesDe('recherche'),
 });
 GROUPES.push({ nom: 'gammes', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('gammes') });
+GROUPES.push({ nom: 'confidentialite', changefreq: 'yearly', priority: '0.3', rangee: true, pages: pagesDe('confidentialite') });
 GROUPES.push({ nom: 'galerie-animations', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('galerie-animations') });
 for (const g of GALERIE.groupes) {
   GROUPES.push({ nom: `galerie-animations-${g.id}`, changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe(`galerie-animations-${g.id}`) });

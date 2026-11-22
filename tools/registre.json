@@ -306,6 +306,27 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_confidentialite.mjs",
+   "role": "la politique de confidentialité de « Voir sa musique » (prompt 224) : confidentialite-voir-sa-musique.html et en/privacy-see-your-music/index.html.",
+   "lit": [
+    "data/confidentialite.json",
+    "en/see-your-music/index.html",
+    "es/ver-tu-musica/index.html",
+    "hi/see-your-music/index.html",
+    "pt/see-your-music/index.html",
+    "ru/see-your-music/index.html",
+    "th/see-your-music/index.html",
+    "zh/see-your-music/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_corpus_depot.mjs",
    "role": "le DOI du corpus de 256 grilles déposé sur Zenodo (prompt 182) est partout où il doit être, et la version déposée est celle du dépôt.",
    "lit": [
@@ -984,6 +1005,7 @@
     "en/articles",
     "en/lexicon",
     "en/pattern-scales",
+    "en/privacy-see-your-music",
     "en/search",
     "en/works",
     "es/buscar",

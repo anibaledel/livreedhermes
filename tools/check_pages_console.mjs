@@ -71,6 +71,8 @@ const PAGES = [
   { path: 'galerie-animations.html' },
   { path: 'gammes.html' },
   { path: 'en/pattern-scales/' },
+  { path: 'confidentialite-voir-sa-musique.html' },
+  { path: 'en/privacy-see-your-music/' },
   { path: 'animations/bandes-diagonales.html' },
   { path: 'en/animations/' },
   { path: 'zh/animations/assemblies/' },

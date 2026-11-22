@@ -1,0 +1,14 @@
+/* La politique de confidentialité de « Voir sa musique » (prompt 224) — scripts/build-confidentialite.js. */
+*{box-sizing:border-box;}
+html{ overflow-x:hidden; }
+body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+.wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; text-align:center; }
+.cf-maj { color: var(--dim); text-align: center; margin: 8px 0 0; }
+.cf-page { max-width: 70ch; margin: 24px auto 0; padding: 0 16px 48px; line-height: 1.7; overflow-wrap: anywhere; }
+.cf-page p, .cf-page li { color: var(--dim); }
+.cf-page b { color: var(--white); font-weight: 400; }
+.cf-page h2 { color: var(--gold); font-size: 15px; letter-spacing: .08em; text-transform: uppercase; font-weight: 400; margin: 32px 0 8px; }
+.cf-page a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.cf-page ul { padding-left: 20px; }
+.cf-page li { margin: 8px 0; }

@@ -1,0 +1,68 @@
+{
+  "_doc": "La politique de confidentialité de « Voir sa musique » (prompt 224) : la source de confidentialite-voir-sa-musique.html (français) et de en/privacy-see-your-music/index.html (anglais), écrites par scripts/build-confidentialite.js. Le français est le texte d'Anibal, mot pour mot ; l'anglais est une traduction faite par IA, à relire. Google Play exige une adresse publique. À mettre à jour si une facturation Play Billing ou un outil de mesure d'audience (includes/analytics.json, désactivé depuis le 18 novembre 2026) est ajouté.",
+  "adresses": {
+    "fr": { "page": "confidentialite-voir-sa-musique.html", "accueil": "https://anibal-amiot.com/" },
+    "en": { "page": "en/privacy-see-your-music/", "accueil": "https://anibal-amiot.com/en/" }
+  },
+  "contact": "anibaledel@gmail.com",
+  "textes": {
+    "fr": {
+      "titre": "Confidentialité de Voir sa musique — La Livrée d'Hermès",
+      "description": "Politique de confidentialité de l'application « Voir sa musique » : rien de ce que vous écoutez ne quitte votre appareil ; aucun compte, aucune publicité, aucun suivi.",
+      "ariane": "Fil d'Ariane", "accueil": "Accueil", "miette": "Confidentialité de Voir sa musique",
+      "h1": "Politique de confidentialité — Voir sa musique",
+      "maj": "Dernière mise à jour : 22 novembre 2026",
+      "editeur": "Éditeur : Anibal Edelberto Amiot, auteur de La Livrée d'Hermès. Contact : ",
+      "sections": [
+        { "h2": "En une phrase", "p": ["Rien de ce que vous écoutez ne quitte votre appareil."] },
+        { "h2": "Ce que l'application utilise", "ul": [
+          "<b>Le microphone</b>, si vous choisissez la source « micro » : le son est analysé en direct sur votre appareil pour dessiner les motifs. Il n'est ni enregistré, ni envoyé, ni conservé.",
+          "<b>Un fichier audio</b> que vous choisissez : il est lu sur votre appareil uniquement. Il n'est pas téléversé.",
+          "<b>Le stockage local</b> : l'application peut mémoriser sur l'appareil vos réglages (fond, rythme, palette, avertissement déjà lu). Ces informations restent sur l'appareil et vous pouvez les effacer en supprimant les données de l'application.",
+          "<b>Les images et vidéos que vous enregistrez</b> : elles sont créées sur votre appareil et enregistrées là où vous le décidez. Nous n'y avons pas accès."
+        ] },
+        { "h2": "Ce que l'application ne fait pas", "ul": [
+          "Aucun compte, aucune inscription.",
+          "Aucune publicité.",
+          "Aucun outil de suivi ni d'analyse du comportement.",
+          "Aucune donnée personnelle collectée, vendue ou partagée avec des tiers."
+        ] },
+        { "h2": "Réseau", "p": ["L'application charge ses propres fichiers (motifs, fonds, traductions) depuis le site anibal-amiot.com. Comme pour tout site, le serveur peut conserver les journaux techniques habituels (adresse IP, date, fichier demandé) pour sa sécurité et son bon fonctionnement. Ils ne servent pas à vous identifier.",
+          "Sur la page web « Voir sa musique », le bloc « La semaine » propose des vidéos YouTube et TikTok : rien n'est chargé depuis ces services avant que vous cliquiez sur la lecture ; après ce clic, la vidéo relève de la politique du service concerné."] },
+        { "h2": "Achats", "p": ["Si une version payante est proposée, l'achat est traité par la boutique d'applications (Google Play). Nous ne recevons ni vos données de paiement ni votre identité : seulement la confirmation que le déblocage est acheté."] },
+        { "h2": "Enfants", "p": ["L'application ne collecte aucune donnée, y compris auprès des enfants. Elle contient un avertissement concernant les images à fort contraste (voir l'avertissement photosensible dans l'application)."] },
+        { "h2": "Vos droits", "p": ["Comme aucune donnée personnelle n'est collectée, il n'y a rien à consulter ni à supprimer de notre côté. Pour toute question, écrivez à {contact}."] },
+        { "h2": "Modifications", "p": ["Si cette politique change, la date ci-dessus est mise à jour et la nouvelle version est publiée à la même adresse."] }
+      ]
+    },
+    "en": {
+      "titre": "Privacy of See your music — La Livrée d'Hermès",
+      "description": "Privacy policy of the application “See your music”: nothing you listen to leaves your device; no account, no advertising, no tracking.",
+      "ariane": "Breadcrumb", "accueil": "Home", "miette": "Privacy of See your music",
+      "h1": "Privacy policy — See your music",
+      "maj": "Last updated: 22 November 2026",
+      "editeur": "Publisher: Anibal Edelberto Amiot, author of La Livrée d'Hermès. Contact: ",
+      "sections": [
+        { "h2": "In one sentence", "p": ["Nothing you listen to leaves your device."] },
+        { "h2": "What the application uses", "ul": [
+          "<b>The microphone</b>, if you choose the “microphone” source: the sound is analysed live on your device to draw the patterns. It is not recorded, not sent and not kept.",
+          "<b>An audio file</b> that you choose: it is played on your device only. It is not uploaded.",
+          "<b>Local storage</b>: the application may remember your settings on the device (ground, rhythm, palette, warning already read). This information stays on the device and you can erase it by deleting the application's data.",
+          "<b>The images and videos you record</b>: they are created on your device and saved where you decide. We have no access to them."
+        ] },
+        { "h2": "What the application does not do", "ul": [
+          "No account, no sign-up.",
+          "No advertising.",
+          "No tracking or behaviour-analysis tool.",
+          "No personal data collected, sold or shared with third parties."
+        ] },
+        { "h2": "Network", "p": ["The application loads its own files (patterns, grounds, translations) from the website anibal-amiot.com. As with any website, the server may keep the usual technical logs (IP address, date, requested file) for its security and proper operation. They are not used to identify you.",
+          "On the web page “See your music”, the “La semaine” block offers YouTube and TikTok videos: nothing is loaded from those services until you click play; after that click, the video is governed by the policy of the service concerned."] },
+        { "h2": "Purchases", "p": ["If a paid version is offered, the purchase is handled by the app store (Google Play). We receive neither your payment details nor your identity: only the confirmation that the unlock has been bought."] },
+        { "h2": "Children", "p": ["The application collects no data, including from children. It contains a warning about high-contrast images (see the photosensitivity warning in the application)."] },
+        { "h2": "Your rights", "p": ["Since no personal data is collected, there is nothing for you to access or for us to delete. For any question, write to {contact}."] },
+        { "h2": "Changes", "p": ["If this policy changes, the date above is updated and the new version is published at the same address."] }
+      ]
+    }
+  }
+}

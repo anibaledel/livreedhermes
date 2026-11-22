@@ -159,6 +159,9 @@ jobs:
       # la page « Les gammes » (prompt 219) : sept affiches 2:3 avec dimensions, liens vivants, ?r= sans effet ni traceur, pas de Dataset, pas de débordement à 390 px, corpus inchangé
       - run: node scripts/build-gammes.js --verifie
       - run: node tools/check_gammes.mjs local
+      # la politique de confidentialité de « Voir sa musique » (prompt 224) : l'adresse publique de Google Play ; ce qu'elle promet (aucune mesure, aucun tiers, stockage local seul) est relu dans le dépôt
+      - run: node scripts/build-confidentialite.js --verifie
+      - run: node tools/check_confidentialite.mjs
       # les variantes de fonds sur le corpus de 64 (prompt 210) : 512 rendus à 1200 px, symétries du motif tenues, pavage sans rupture (B2D : 0 raccord brisé)
       - run: node tools/check_symetries_rendu.mjs
       - run: node tools/check_symetries_rendu.mjs --essai
