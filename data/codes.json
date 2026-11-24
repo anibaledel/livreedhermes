@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-22T14:42:45Z",
+ "generated_at_utc": "2026-11-24T15:09:08Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2665,8 +2665,8 @@
    "chemin": "tools/check_pavane_pages.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_pages.mjs",
    "octets": 14041,
-   "sha256": "f7520618309688e8512141fb53aa1aa7eb6766c6f43b73d914be69e35b776ed1",
-   "md5": "3c238b92205db9432765a6ec59921c2e",
+   "sha256": "39c5e55f604f936dce4850d0c79ca715a4cfaef5d7b75bd41c6aad669ff7b01e",
+   "md5": "6bd30a394c40f724eeff57d7f1d7ea58",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la nouvelle interface de « Voir sa musique » dans les pages (prompt 211, bloc 3).",
