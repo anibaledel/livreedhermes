@@ -19,8 +19,10 @@ import sys
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 N = 12
-ATTENDU_DIST = [0.71, 2.12, 2.55, 3.54, 3.81, 4.53]
-ATTENDU_BORD = [12, 0, 8, 8, 0, 16]
+# les valeurs ATTENDUES sont l'énoncé du résultat « convention-six-traits » (data/resultats-etablis.json), pas une table recopiée ici : le script les compare à ce qu'il calcule
+_ENONCE = next(r for r in json.load(open(os.path.join(RACINE, 'data', 'resultats-etablis.json'), encoding='utf-8'))['resultats'] if r['id'] == 'convention-six-traits')['valeur']
+ATTENDU_DIST = _ENONCE['distance_minimale_au_centre']
+ATTENDU_BORD = _ENONCE['cases_au_bord']
 
 
 def lire():
