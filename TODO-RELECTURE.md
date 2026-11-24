@@ -1401,3 +1401,7 @@ Aucun texte nouveau (le bouton « Reprendre » inactif et l'état « En pause »
 ## Prompt 226 (suite) — plancher de 0,5 s et marge du Spectre
 
 Décision d'Anibal : au moins 0,5 s entre deux changements de motif dans les quatre cas (Défilé minuteur et pulsation, Spectre, Entre-deux), soit 2 par seconde au plus ; le Spectre garde en plus son motif courant tant qu'un autre n'est pas meilleur de 0,05 (cosinus centré). Constantes `TENUE_MIN_S` et `MARGE_SPECTRE` dans `assets/pavane-moteur.js`. Mesure : 2 changements par seconde au plus dans les quatre cas ; flashs WCAG ≤ 3 (comptage prudent : 3 pour la pulsation et l'Entre-deux au pire cas, bruit blanc, palette crème/encre, fondu de 0,8 s compris — à la limite).
+
+## Prompt 242 — vocabulaire : 4 bases (et non « natures »)
+
+« 4 natures » devient « 4 bases » dans `360-calques.html` (fr, en, es, th : `× 4 bases ×`, thaï « ฐาน ») et dans la définition du lexique (`lexique.html` et `data/lexiques_traduits.json`, 10 langues). À relire par un natif : thaï (ฐาน), chinois (基底), russe (базы), hindi (आधार), japonais (基底), allemand (Basen), italien (basi). « Nature » reste dans les citations du livre.

@@ -423,7 +423,7 @@
       </div>
     </div>
 
-    <p class="calques-relation" id="txt-calquesRelation">The {{CALQUES360}} layers — {{JEUX}} axis families × {{NATURES}} natures × {{NIVEAUX}} levels — form {{JEUX}} sets of {{PAR_JEU}}. A draw takes, at each of the {{NIVEAUX}} levels, one of the {{NATURES}} layers of its set: {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions per set. Category I: {{JEUX1}} sets, {{TIRAGES1}} draws; II: {{JEUX2}} sets, {{TIRAGES2}}; III: {{JEUX3}} sets, {{TIRAGES3}}; IV: {{JEUX4}} set, {{TIRAGES4}} — {{TIRAGES}} in all.</p>
+    <p class="calques-relation" id="txt-calquesRelation">The {{CALQUES360}} layers — {{JEUX}} axis families × {{NATURES}} bases × {{NIVEAUX}} levels — form {{JEUX}} sets of {{PAR_JEU}}. A draw takes, at each of the {{NIVEAUX}} levels, one of the {{NATURES}} layers of its set: {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions per set. Category I: {{JEUX1}} sets, {{TIRAGES1}} draws; II: {{JEUX2}} sets, {{TIRAGES2}}; III: {{JEUX3}} sets, {{TIRAGES3}}; IV: {{JEUX4}} set, {{TIRAGES4}} — {{TIRAGES}} in all.</p>
 
     <button type="button" class="site-nav-btn random-btn" id="randomCatBtn" style="margin-bottom:24px;">🎲 <span id="txt-randomCatBtn">Pick a random category</span></button>
 
@@ -590,7 +590,7 @@ const UI = {
     catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"{{JEUX2}} familles, un jeu chacune · {{HEX}} hexagrammes · {{TIRAGES2}} tirages",
     catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"{{HEX}} hexagrammes · {{JEUX3}} jeux · {{TIRAGES3}} tirages · teinte fixe (d4), tirage par position",
     catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"{{HEX}} hexagrammes · {{JEUX4}} jeu · {{TIRAGES4}} tirages · tirage par position",
-    calquesRelation:"Les {{CALQUES360}} calques — {{JEUX}} familles d'axes × {{NATURES}} natures × {{NIVEAUX}} niveaux — forment {{JEUX}} jeux de {{PAR_JEU}}. Un tirage prend, à chacun des {{NIVEAUX}} niveaux, l'un des {{NATURES}} calques de son jeu : {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions par jeu. Catégorie I : {{JEUX1}} jeux, {{TIRAGES1}} tirages ; II : {{JEUX2}} jeux, {{TIRAGES2}} ; III : {{JEUX3}} jeux, {{TIRAGES3}} ; IV : {{JEUX4}} jeu, {{TIRAGES4}} — {{TIRAGES}} en tout.",
+    calquesRelation:"Les {{CALQUES360}} calques — {{JEUX}} familles d'axes × {{NATURES}} bases × {{NIVEAUX}} niveaux — forment {{JEUX}} jeux de {{PAR_JEU}}. Un tirage prend, à chacun des {{NIVEAUX}} niveaux, l'un des {{NATURES}} calques de son jeu : {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions par jeu. Catégorie I : {{JEUX1}} jeux, {{TIRAGES1}} tirages ; II : {{JEUX2}} jeux, {{TIRAGES2}} ; III : {{JEUX3}} jeux, {{TIRAGES3}} ; IV : {{JEUX4}} jeu, {{TIRAGES4}} — {{TIRAGES}} en tout.",
     familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
     randomCatBtn:"Choisir la catégorie au hasard", randomFamilleBtn:"Choisir la famille au hasard", randomTeinteBtn:"Choisir la teinte au hasard",
     resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
@@ -615,7 +615,7 @@ const UI = {
     catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"{{JEUX2}} families, one set each · {{HEX}} hexagrams · {{TIRAGES2}} draws",
     catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"{{HEX}} hexagrams · {{JEUX3}} sets · {{TIRAGES3}} draws · fixed tint (d4), draw per position",
     catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"{{HEX}} hexagrams · {{JEUX4}} set · {{TIRAGES4}} draws · draw per position",
-    calquesRelation:"The {{CALQUES360}} layers — {{JEUX}} axis families × {{NATURES}} natures × {{NIVEAUX}} levels — form {{JEUX}} sets of {{PAR_JEU}}. A draw takes, at each of the {{NIVEAUX}} levels, one of the {{NATURES}} layers of its set: {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions per set. Category I: {{JEUX1}} sets, {{TIRAGES1}} draws; II: {{JEUX2}} sets, {{TIRAGES2}}; III: {{JEUX3}} sets, {{TIRAGES3}}; IV: {{JEUX4}} set, {{TIRAGES4}} — {{TIRAGES}} in all.",
+    calquesRelation:"The {{CALQUES360}} layers — {{JEUX}} axis families × {{NATURES}} bases × {{NIVEAUX}} levels — form {{JEUX}} sets of {{PAR_JEU}}. A draw takes, at each of the {{NIVEAUX}} levels, one of the {{NATURES}} layers of its set: {{NATURES}}{{EXP}} = {{SUPERPOS}} superpositions per set. Category I: {{JEUX1}} sets, {{TIRAGES1}} draws; II: {{JEUX2}} sets, {{TIRAGES2}}; III: {{JEUX3}} sets, {{TIRAGES3}}; IV: {{JEUX4}} set, {{TIRAGES4}} — {{TIRAGES}} in all.",
     familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
     randomCatBtn:"Pick a random category", randomFamilleBtn:"Pick a random family", randomTeinteBtn:"Pick a random tint",
     resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
@@ -641,7 +641,7 @@ const UI = {
     catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"{{JEUX2}} familias, un juego cada una · {{HEX}} hexagramas · {{TIRAGES2}} tiradas",
     catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"{{HEX}} hexagramas · {{JEUX3}} juegos · {{TIRAGES3}} tiradas · matiz fijo (d4), tirada por posición",
     catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"{{HEX}} hexagramas · {{JEUX4}} juego · {{TIRAGES4}} tiradas · tirada por posición",
-    calquesRelation:"Las {{CALQUES360}} capas — {{JEUX}} familias de ejes × {{NATURES}} naturalezas × {{NIVEAUX}} niveles — forman {{JEUX}} juegos de {{PAR_JEU}}. Una tirada toma, en cada uno de los {{NIVEAUX}} niveles, una de las {{NATURES}} capas de su juego: {{NATURES}}{{EXP}} = {{SUPERPOS}} superposiciones por juego. Categoría I: {{JEUX1}} juegos, {{TIRAGES1}} tiradas; II: {{JEUX2}} juegos, {{TIRAGES2}}; III: {{JEUX3}} juegos, {{TIRAGES3}}; IV: {{JEUX4}} juego, {{TIRAGES4}} — {{TIRAGES}} en total.",
+    calquesRelation:"Las {{CALQUES360}} capas — {{JEUX}} familias de ejes × {{NATURES}} bases × {{NIVEAUX}} niveles — forman {{JEUX}} juegos de {{PAR_JEU}}. Una tirada toma, en cada uno de los {{NIVEAUX}} niveles, una de las {{NATURES}} capas de su juego: {{NATURES}}{{EXP}} = {{SUPERPOS}} superposiciones por juego. Categoría I: {{JEUX1}} juegos, {{TIRAGES1}} tiradas; II: {{JEUX2}} juegos, {{TIRAGES2}}; III: {{JEUX3}} juegos, {{TIRAGES3}}; IV: {{JEUX4}} juego, {{TIRAGES4}} — {{TIRAGES}} en total.",
     familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
     randomCatBtn:"Elegir la categoría al azar", randomFamilleBtn:"Elegir la familia al azar", randomTeinteBtn:"Elegir el matiz al azar",
     resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
@@ -665,7 +665,7 @@ const UI = {
     catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"{{JEUX2}} ตระกูล ตระกูลละหนึ่งชุด · {{HEX}} เฮกซะแกรม · {{TIRAGES2}} การทำนาย",
     catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"{{HEX}} เฮกซะแกรม · {{JEUX3}} ชุด · {{TIRAGES3}} การทำนาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"{{HEX}} เฮกซะแกรม · {{JEUX4}} ชุด · {{TIRAGES4}} การทำนาย · สุ่มตามตำแหน่ง",
-    calquesRelation:"แผ่นลาย {{CALQUES360}} แผ่น — {{JEUX}} ตระกูลแกน × {{NATURES}} ธรรมชาติ × {{NIVEAUX}} ระดับ — แบ่งเป็น {{JEUX}} ชุด ชุดละ {{PAR_JEU}} แผ่น การทำนายหนึ่งครั้ง ในแต่ละระดับทั้ง {{NIVEAUX}} ระดับ เลือกแผ่นลายหนึ่งแผ่นจาก {{NATURES}} แผ่นของชุด: {{NATURES}}{{EXP}} = {{SUPERPOS}} แบบการซ้อนต่อชุด · หมวดที่ 1: {{JEUX1}} ชุด {{TIRAGES1}} การทำนาย · หมวดที่ 2: {{JEUX2}} ชุด {{TIRAGES2}} · หมวดที่ 3: {{JEUX3}} ชุด {{TIRAGES3}} · หมวดที่ 4: {{JEUX4}} ชุด {{TIRAGES4}} — รวม {{TIRAGES}} การทำนาย",
+    calquesRelation:"แผ่นลาย {{CALQUES360}} แผ่น — {{JEUX}} ตระกูลแกน × {{NATURES}} ฐาน × {{NIVEAUX}} ระดับ — แบ่งเป็น {{JEUX}} ชุด ชุดละ {{PAR_JEU}} แผ่น การทำนายหนึ่งครั้ง ในแต่ละระดับทั้ง {{NIVEAUX}} ระดับ เลือกแผ่นลายหนึ่งแผ่นจาก {{NATURES}} แผ่นของชุด: {{NATURES}}{{EXP}} = {{SUPERPOS}} แบบการซ้อนต่อชุด · หมวดที่ 1: {{JEUX1}} ชุด {{TIRAGES1}} การทำนาย · หมวดที่ 2: {{JEUX2}} ชุด {{TIRAGES2}} · หมวดที่ 3: {{JEUX3}} ชุด {{TIRAGES3}} · หมวดที่ 4: {{JEUX4}} ชุด {{TIRAGES4}} — รวม {{TIRAGES}} การทำนาย",
     familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
     randomCatBtn:"สุ่มเลือกหมวดหมู่", randomFamilleBtn:"สุ่มเลือกตระกูล", randomTeinteBtn:"สุ่มเลือกโทนสี",
     resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
@@ -851,7 +851,7 @@ function splitTirageParam(tirage){
 const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
 
 /* ===== Comptes du tirage (catégories I-IV), calculés, pas écrits en dur. Un JEU est
-   l'ensemble des 24 calques d'un espace de tirage : 4 natures × 6 niveaux. Catégories I
+   l'ensemble des 24 calques d'un espace de tirage : 4 bases × 6 niveaux. Catégories I
    et III : un jeu par teinte (d4) ; II : un jeu par famille de 2 axes parmi 4 (C(4,2),
    drawCategorie2) ; IV : un seul jeu (trait-cartes). 4 + 6 + 4 + 1 = 15 jeux, les 15
    familles d'axes (C(4,1) + C(4,2) + C(4,3) + C(4,4)) : 15 × 24 = 360 calques, ceux de
