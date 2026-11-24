@@ -1416,7 +1416,7 @@ const UI = {
     legendYinFixe:"Yin fixe", legendYinMut:"Yin mutant — va se remplir",
     emptyState:"Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.",
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
-    chronoLabel:"ORDRE CHRONOLOGIQUE", sitePre:"n° ", sitePost:" du site", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
+    chronoLabel:"ORDRE CHRONOLOGIQUE", sitePre:"n° ", sitePost:" du site", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°", complementLabel:"Complément (les six traits changés) : King Wen n° ",
     hexMoreInfo:"En savoir plus sur cet hexagramme →",
     imageLabel:"Image", judgementLabel:"Jugement", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
     navHexagrammesDesc:"Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.",
@@ -1473,7 +1473,7 @@ const UI = {
     legendYinFixe:"Fixed yin", legendYinMut:"Moving yin — about to fill",
     emptyState:"Click a square on the board to consult a hexagram,<br>or cast the coins for a reading — with, where relevant, its moving lines and the hexagram that results.",
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
-    chronoLabel:"CHRONOLOGICAL ORDER", sitePre:"site no. ", sitePost:"", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
+    chronoLabel:"CHRONOLOGICAL ORDER", sitePre:"site no. ", sitePost:"", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ", complementLabel:"Complement (all six lines changed): King Wen no. ",
     hexMoreInfo:"More about this hexagram →",
     imageLabel:"Image", judgementLabel:"Judgment", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
     /* TODO Claude Code (draft, à valider) : traductions EN des descriptions de nav-tiles */
@@ -1714,6 +1714,9 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const pin=document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
   const alt=document.createElement('div'); alt.className='altnum'; alt.textContent = t('sitePre') + chrono + t('sitePost') + ' — ' + t('chronoLabel'); wrap.appendChild(alt);
   const moreLink=document.createElement('a'); moreLink.className='hex-more-link'; moreLink.href=hexagramPageUrl(chrono); moreLink.textContent=t('hexMoreInfo'); wrap.appendChild(moreLink);
+  // Le complément (n → 63 − n) : l'hexagramme aux six traits changés. Ce tirage mélange (yang, yin) : on ne dit PAS « deux teintes échangées » (exact seulement pour (fixe, mut) : prompt 251).
+  const cKw = KINGWEN_BY_CHRONO[64 - chrono];
+  const comp=document.createElement('div'); comp.className='altnum'; comp.textContent = t('complementLabel') + cKw + ' — ' + curHexKW()[cKw][1]; wrap.appendChild(comp);
 
   const hexBlock = document.createElement('div'); hexBlock.className='hex-block';
 

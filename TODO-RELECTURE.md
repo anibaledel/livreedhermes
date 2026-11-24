@@ -1409,3 +1409,7 @@ Décision d'Anibal : au moins 0,5 s entre deux changements de motif dans les qua
 ## Prompt 242 — les 8 familles unifiées marquées
 
 Marque « (une seule base yang) » à côté du nom de la famille dans la galerie tricolore (fr, en, es, th : `data/outils-langues/galerie-patterns-unifies.json`, thaï « ฐานหยางเพียงฐานเดียว » à relire) et dans le sélecteur de famille de l'outil bicolore des fonds d'écran (français, comme ses autres libellés). La règle est écrite une fois (`assets/familles-unifiees.js`) et comparée aux données par `tools/check_familles_unifiees.mjs`. Les sélecteurs du tirage et des 360 calques (dés 1 à 6, images de la page de création) ne nomment pas de famille : rien à marquer. À décider avec Anibal : le point 3 du prompt 242 (voir le rapport).
+
+## Prompts 242 (point 3) et 251 — le complément dans le tirage
+
+Le tirage affiche le complément (n → 63 − n) : « Complément (les six traits changés) : King Wen n° … — nom ». Il ne dit PAS « deux teintes échangées » : ce tirage mélange (yang, yin), et la phrase n'est exacte que pour les couples (fixe, mut) et croisés (prompt 251). À relire : clé `complementLabel` (en, et es, th, de, it, ja dans `data/outils-langues/tirage.json` ; thaï et japonais en priorité). Les pavages de `creation-motifs-yi-king.html` (antipode) n'ont rien reçu ; la phrase « deux teintes échangées » et « = décalé d'une demi-période » n'est écrite nulle part tant que la galerie unifiée n'affiche pas le complément (prompt 250, point 4).
