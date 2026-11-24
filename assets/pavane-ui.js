@@ -128,6 +128,12 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     return cache.get(cle);
   }
   const urlDe = (svg) => `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+  // La fiche calculée du motif (prompt 250) : son complément (le partenaire du demi-décalage : n → 63 − n, même forme) et son code à 9 bits [phase du yang | yin présent | couple | n] ; rien n'est lu hors du corpus.
+  function ficheTexte(idMotif) {
+    const e = parId.get(idMotif), f = e.familles[0], p = parId.get(e.partenaire_demi_decalage), n = e.n_site_par_famille[f];
+    const code = `${/YANG-MUT$/.test(f) ? 1 : 0}${/YIN/.test(f) ? 1 : 0}0${n.toString(2).padStart(6, '0')}`;
+    return T('fiche', { kwc: p.kingwen_par_famille[f], nc: p.n_site_par_famille[f], code });
+  }
   function libelle(idMotif) { const e = parId.get(idMotif), f = e.familles[0]; return T('motif', { kw: e.kingwen_par_famille[f], n: e.n_site_par_famille[f] }); }
   function afficher(idMotif, note = '') {
     idCourant = idMotif; noteStatut = note;
@@ -141,7 +147,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   function dire() {
     if (!idCourant) return;
     const sonne = son.actif !== null;
-    let t = libelle(idCourant);
+    let t = `${libelle(idCourant)} · ${ficheTexte(idCourant)}`;
     if (etat.mode !== 'defile' || etat.declencheur === 'pulsation') { if (!sonne) t = `${t} — ${T('rienNeJoue')}`; }
     if (noteStatut) t = `${t} — ${noteStatut}`;
     statut.textContent = enPause ? T('enPause') : t;

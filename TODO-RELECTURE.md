@@ -1417,3 +1417,7 @@ Le tirage affiche le complément (n → 63 − n) : « Complément (les six trai
 ## Prompt 250 (4) — fiche de chaque motif dans la galerie tricolore
 
 La galerie affiche, pour le motif choisi : l'hexagramme (les deux numéros), le complément (« le même motif, deux teintes échangées, c'est-à-dire décalé d'une demi-période » : exact pour ces patterns, couples (fixe, mut) des 8 familles unifiées), le code à 9 bits et la forme (/128), et propose la lecture inverse (code → motif). Textes en fr, en, es, th (`data/outils-langues/galerie-patterns-unifies.json`, « SANS SOURCE » ; thaï à relire). Les noms d'hexagrammes restent en français dans les pages traduites (comme le reste des données de la galerie).
+
+## Prompt 250 (4) — fiche du motif dans « Voir sa musique »
+
+La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° …) · code … » (clé `fiche` de `assets/pavane-textes.js`, 11 langues ; thaï et chinois en priorité). Le moteur de reconnaissance n'est pas touché ; le complément est le partenaire du demi-décalage du corpus, le code (9 bits) se lit sur les champs du corpus, et un test le compare aux fiches calculées.

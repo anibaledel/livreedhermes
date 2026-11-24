@@ -141,6 +141,16 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   ok(erreurs.length === 0, `prefers-reduced-motion : aucune erreur (${erreurs.join(' | ')})`);
   await ctx.close();
 }
+// la fiche du motif affiché (prompt 250) : complément et code à 9 bits, recalculables — comparés à data/patterns-unifies-fiches.json (écrit par tools/fiches_unifies.py depuis le référent)
+{
+  const fiches = JSON.parse(readFileSync(path.join(ROOT, 'data/patterns-unifies-fiches.json'), 'utf8')), corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 'utf8'));
+  const NOM = { 'BASE-YANG': '{YANG}', 'BASE-YANG-MUT': '{YANG-MUT}', 'PAR2-YIN-YANG': '{YIN,YANG}', 'PAR2-YIN-YANG-MUT': '{YIN,YANG-MUT}' }, parId = new Map(fiches.patterns.map((p) => [p.id, p]));
+  const c = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  const m = await monter(c, 'fr', '?corpus=256');
+  const texte = await m.page.$eval('.pv-etat', (x) => x.textContent), idm = await m.page.evaluate(() => window.__pavane.motif()), e = corpus.entrees.find((x) => x.id === idm), f = e.familles[0], fiche = parId.get(`${NOM[f]}-YANG-${String(e.n_site_par_famille[f]).padStart(2, '0')}`);
+  ok(fiche && texte.includes(`code ${fiche.code9}`) && texte.includes(`hexagramme ${fiche.complement.king_wen} (n° ${fiche.complement.n})`), `la fiche du motif ${idm} dit son complément et son code (${texte.slice(0, 120)}) ; fiche : ${fiche && fiche.code9}, complément ${fiche && fiche.complement.n}`);
+  await c.close();
+}
 // « Bandes » et ses sous-choix (prompt 225) : trois groupes visibles ; le sous-choix n'apparaît que si le groupe offre plusieurs fonds PROPOSÉS. Les fonds proposés viennent de data/fonds/demi-periode.json : ici, un fichier SIMULÉ
 // (route) qui propose aussi B3x et B121x, pour éprouver l'interface ; les vraies mesures et la vraie liste sont celles de tools/check_demi_periode.mjs (B3x et B121x ne tiennent pas 64 / 64 : ils ne sont pas proposés).
 {
