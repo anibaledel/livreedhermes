@@ -1397,3 +1397,7 @@ Pages : `confidentialite-voir-sa-musique.html` et `en/privacy-see-your-music/` (
 ## Prompt 226 — photosensibilité des trois modes, pause avant acquittement
 
 Aucun texte nouveau (le bouton « Reprendre » inactif et l'état « En pause » existent déjà dans les 11 langues). Mesure : `tools/check_pavane_photosensible.mjs` (sortie en tableau). Décision d'Anibal attendue : le Spectre sans mouvement réduit dépasse 3 changements d'image par seconde (voir le rapport du prompt 226 : cause et correction proposée) ; rien n'a été modifié dans le moteur.
+
+## Prompt 226 (suite) — plancher de 0,5 s et marge du Spectre
+
+Décision d'Anibal : au moins 0,5 s entre deux changements de motif dans les quatre cas (Défilé minuteur et pulsation, Spectre, Entre-deux), soit 2 par seconde au plus ; le Spectre garde en plus son motif courant tant qu'un autre n'est pas meilleur de 0,05 (cosinus centré). Constantes `TENUE_MIN_S` et `MARGE_SPECTRE` dans `assets/pavane-moteur.js`. Mesure : 2 changements par seconde au plus dans les quatre cas ; flashs WCAG ≤ 3 (comptage prudent : 3 pour la pulsation et l'Entre-deux au pire cas, bruit blanc, palette crème/encre, fondu de 0,8 s compris — à la limite).

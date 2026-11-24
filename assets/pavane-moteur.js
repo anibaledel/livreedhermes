@@ -19,6 +19,10 @@ export const NIVEAU_DEFILE = 128;
 export const NOMBRE_ENTRE_DEUX = 8;
 export const LISSAGE_S = 1.5; // la constante de temps du spectre lissé (entre 1 et 2 s)
 export const PERIODE_MINUTEUR_S = 8;
+// La photosensibilité (prompts 223, 226) : jamais deux changements de motif à moins de TENUE_MIN_S secondes, quel que soit le mode et le déclencheur (2 par seconde au plus : une marge sous les 3 de WCAG 2.3.1) ;
+// « Mouvement réduit » demande plus (tenueMinS, 3 s). Le Spectre ne quitte en outre son motif courant que si un autre est meilleur d'au moins MARGE_SPECTRE (cosinus centré : le choix ne bascule pas sur deux motifs presque à égalité).
+export const TENUE_MIN_S = 0.5;
+export const MARGE_SPECTRE = 0.05;
 
 // ---------- une graine, des listes, des distances ----------
 export function alea(graine) { let a = graine >>> 0; return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -145,7 +149,8 @@ export function creerEntreDeux({ bloc, distance, k = NOMBRE_ENTRE_DEUX, depart =
  * Le chef : image après image (`chef.image({ db, sampleRate, t })`, db = spectre en dB, t en secondes), il rend { changer, i, repli, bpm, regulier } — `i` est l'indice du
  * motif à montrer (dans la liste du défilé, ou dans le bloc des 64 représentants selon le mode), `repli` est vrai quand l'entre-deux, faute de pulsation régulière, avance
  * au minuteur (l'écran doit le dire).
- *   `tenueMinS` (« réduire les changements rapides ») : jamais deux changements à moins de tenueMinS secondes, quel que soit le déclencheur.
+ *   `tenueMinS` (« réduire les changements rapides ») : jamais deux changements à moins de tenueMinS secondes, quel que soit le déclencheur ; au moins TENUE_MIN_S (0,5 s) dans tous les cas, et le Spectre garde son motif courant
+ *   tant qu'un autre n'est pas meilleur d'au moins MARGE_SPECTRE.
  *   defile     { liste: { n, distance }, declencheur: 'minuteur' | 'pulsation', periodeS, graine }
  *   spectre    { bloc }
  *   entre-deux { bloc, distance, periodeS }
@@ -154,6 +159,7 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
   if (!MODES.includes(mode)) throw new Error(`pavane-moteur.js : mode « ${mode} » inconnu`);
   const defile = mode === 'defile' ? creerDefile({ n: liste.n, distance: liste.distance, graine }) : null;
   const entre = mode === 'entre-deux' ? creerEntreDeux({ bloc, distance }) : null;
+  const tenueS = Math.max(tenueMinS, TENUE_MIN_S); // le plancher de 0,5 s vaut toujours ; « Mouvement réduit » monte à 3 s
   const detecteur = creerDetecteurAttaques(), suivi = creerSuiviPulsation(), lisseur = creerLisseur(LISSAGE_S);
   let derniere = null, tChange = null, tDebut = null, sansPulsationDepuis = null, courant = -1, regulier = false, bpm = null;
   const sortie = (changer, i, repli = false) => ({ changer, i, repli, bpm, regulier });
@@ -171,7 +177,7 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
         const e = suivi.etat(); regulier = !!e.regulier; bpm = e.regulier ? e.bpm : null;
       }
       if (mode === 'defile') {
-        const tenue = tChange !== null && t - tChange < tenueMinS;
+        const tenue = tChange !== null && t - tChange < tenueS - 1e-6;
         const declenche = declencheur === 'pulsation' ? attaque : minuteurEchu(t);
         if ((!declenche || tenue) && courant !== -1) return sortie(false, courant);
         const p = defile.suivant(); courant = p.i; tChange = t; return sortie(true, courant);
@@ -180,14 +186,15 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
       if (mode === 'spectre') {
         if (!v) return sortie(false, courant);
         const m = choisirParSpectre(v, bloc, courant);
-        if (m.i < 0 || m.i === courant || (tChange !== null && t - tChange < tenueMinS)) return sortie(false, courant);
+        if (courant >= 0 && m.i >= 0 && m.i !== courant) { const a = vecteurAudio(v, bloc); if (a && m.score - cosinus(bloc, courant, a) < MARGE_SPECTRE) return sortie(false, courant); } // la marge de préférence pour le motif courant
+        if (m.i < 0 || m.i === courant || (tChange !== null && t - tChange < tenueS - 1e-6)) return sortie(false, courant);
         courant = m.i; tChange = t; return sortie(true, courant);
       }
       // entre-deux : la pulsation avance ; sans pulsation régulière assez longtemps, le minuteur la remplace
       if (!v) return sortie(false, courant);
       if (regulier) sansPulsationDepuis = null; else if (sansPulsationDepuis === null) sansPulsationDepuis = t;
       const repli = !regulier && t - sansPulsationDepuis >= sansRepliApres;
-      const declenche = (repli ? minuteurEchu(t) : (regulier && attaque)) && !(tChange !== null && t - tChange < tenueMinS);
+      const declenche = (repli ? minuteurEchu(t) : (regulier && attaque)) && !(tChange !== null && t - tChange < tenueS - 1e-6);
       if (!declenche) return sortie(false, courant, repli);
       const p = entre.pas(v); if (!p) return sortie(false, courant, repli);
       courant = p.i; tChange = t; return sortie(true, courant, repli);

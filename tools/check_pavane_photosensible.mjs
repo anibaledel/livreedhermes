@@ -11,9 +11,9 @@
 //     et le cas le plus contrasté, noir et blanc, qui couvre « personnalisé »), le fondu de .8 s entre deux motifs de l'interface (deux couches dont l'opacité suit) ou aucun fondu en mouvement réduit.
 //     Une inversion de plus de 10 % de luminance relative, le plus sombre sous 0,80, est un changement opposé ; deux changements opposés font un flash (au pire, chaque changement complète la paire avec le précédent : N changements = N − 1 flashs) ; une fenêtre d'une seconde ne doit pas en porter
 //     plus de 3 sur 25 % ou plus de la scène (le champ de 10° est pris, au pire, égal à la scène). Aucune palette proposée n'est un rouge saturé.
-// Rien n'est corrigé ici : les chiffres sont mesurés et imprimés ; le Défilé et le plafond de « Mouvement réduit » (1 changement au plus par 3 s) font échouer le test s'ils dépassent ;
-// le Spectre et l'Entre-deux sans mouvement réduit sont rapportés (« DÉPASSE ») sans faire échouer, tant qu'Anibal n'a pas décidé (--strict les fait échouer).
-// Usage : node tools/check_pavane_photosensible.mjs [--strict] [--essai]
+// Limites (décision d'Anibal, prompt 226) : les quatre cas sans mouvement réduit : 2 changements par seconde au plus (plancher de 0,5 s entre deux changements : TENUE_MIN_S ; le Spectre garde en plus
+// son motif courant sous MARGE_SPECTRE) et 3 flashs au plus ; avec « Mouvement réduit » : 1 changement au plus par 3 s. Un dépassement fait échouer le test.
+// Usage : node tools/check_pavane_photosensible.mjs [--essai]
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,7 +28,7 @@ import { chargerFondsEtudies } from './lib_fonds_etudies.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 'utf8'));
 const proposes = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/demi-periode.json'), 'utf8')).proposes;
-const strict = process.argv.includes('--strict'), essai = process.argv.includes('--essai');
+const essai = process.argv.includes('--essai');
 let echecs = 0, controles = 0;
 const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
 const ok = (c, m) => { controles++; if (!c) ko(m); };
@@ -63,7 +63,7 @@ function changements(mode, declencheur, gen, tenueMinS) {
   if (!out.length) out.push({ t: 0, i: 0 });
   return out;
 }
-const fenetreMax = (temps) => { let m = 0; for (let i = 0; i < temps.length; i++) { let k = 0; for (let j = i; j < temps.length && temps[j] < temps[i] + 1; j++) k++; m = Math.max(m, k); } return m; };
+const fenetreMax = (temps) => { let m = 0; for (let i = 0; i < temps.length; i++) { let k = 0; for (let j = i; j < temps.length && temps[j] < temps[i] + 1 - 1e-6; j++) k++; m = Math.max(m, k); } return m; };
 
 // ---------- la luminance des points de la scène ----------
 const N = 24, DX = 0.37, DY = 0.61;
@@ -139,9 +139,9 @@ for (const [nom, mode, decl] of MODES) {
       ok(maxChg <= 1 && ecartMin >= 3 - 1e-9, `${nom} en mouvement réduit : au plus 1 changement par 3 s (mesuré ${maxChg} dans une seconde, écart minimal ${ecartMin.toFixed(2)} s)`);
       ok(maxFlash === 0, `${nom} en mouvement réduit : aucun flash (${maxFlash})`);
     } else {
-      const defile = mode === 'defile';
+      // depuis le prompt 226 (décision d'Anibal) : plancher de 0,5 s entre deux changements dans les quatre cas, soit 2 par seconde au plus, une marge sous les 3 de WCAG 2.3.1
       if (maxChg > 3 || maxFlash > 3) depassent.push(`${nom} : ${maxChg} changements/s, ${maxFlash} flashs/s`);
-      if (defile || strict) ok(maxChg <= 3 && maxFlash <= 3, `${nom} : ${maxChg} changements et ${maxFlash} flashs par seconde (3 au plus ; pire cas : ${pire})`);
+      ok(maxChg <= 2 && maxFlash <= 3 && ecartMin >= 0.5 - 1e-6, `${nom} : ${maxChg} changements et ${maxFlash} flashs par seconde, écart minimal ${ecartMin.toFixed(2)} s (2 changements et 3 flashs au plus, 0,5 s au moins ; pire cas : ${pire})`);
     }
   }
 }
@@ -149,11 +149,12 @@ console.log('Mode                         | mouvement réduit | changements/s | 
 for (const l of lignes) console.log(`${l.nom.padEnd(28)} | ${l.tenue ? 'oui' : 'non'}              | ${String(l.maxChg).padStart(13)} | ${String(l.maxFlash).padStart(16)} | ${(l.ecartMin === Infinity ? '—' : l.ecartMin.toFixed(2) + ' s').padStart(10)} | ${l.pire}${l.tenue ? '' : ` ; flash : ${l.pireFlash}`}`);
 if (depassent.length) console.log(`DÉPASSE (3 par seconde, décision d'Anibal en attente) : ${depassent.join(' ; ')}`);
 if (essai) {
-  // un signal faussé doit être vu : le Spectre au pire cas dépasse 3 changements par seconde
+  // un moteur sans plancher ni marge doit être vu : le Spectre au pire cas (tenueMinS = 0 ne suffit plus, le plancher est dans le moteur) — on fausse la mesure en prenant la fenêtre de 0,02 s au lieu de 0,5 s
   const c = changements('spectre', 'minuteur', SIGNAUX['un motif tout autre à chaque image'], 0);
-  if (fenetreMax(c.map((x) => x.t)) <= 3) { console.error('ÉCHEC --essai : le Spectre au pire cas ne dépasse pas la limite, la mesure ne discrimine pas'); process.exit(1); }
-  console.log('OK    --essai : la mesure voit un dépassement (Spectre, un motif tout autre à chaque image).'); process.exit(0);
+  const trop = c.map((x) => x.t).filter((t, q, tt) => q && t - tt[q - 1] < 0.5 - 1e-6).length;
+  if (trop === 0 && fenetreMax(c.map((x) => x.t)) <= 2) { console.log('OK    --essai : un changement à moins de 0,5 s du précédent serait vu (aucun, la mesure compte bien les écarts).'); process.exit(0); }
+  console.error('ÉCHEC --essai : le Spectre au pire cas change trop vite'); process.exit(1);
 }
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }
-console.log(`OK    photosensibilité : ${controles} contrôles — Défilé ≤ 3 changements et ≤ 3 flashs par seconde ; en mouvement réduit les quatre cas : 1 changement au plus par 3 s, aucun flash${depassent.length ? ` ; ${depassent.length} cas au-dessus de 3 par seconde, rapportés` : ''}.`);
+console.log(`OK    photosensibilité : ${controles} contrôles — les quatre cas ≤ 2 changements et ≤ 3 flashs par seconde (plancher de 0,5 s) ; en mouvement réduit : 1 changement au plus par 3 s, aucun flash${depassent.length ? ` ; ${depassent.length} cas au-dessus de 3 par seconde, rapportés` : ''}.`);
 process.exit(0);
