@@ -455,6 +455,8 @@ const PAGES_TRADUITES = GROUPES.filter((g) => g.sitemap !== false).flatMap((g) =
 const EQUIVALENTS_HORS_GROUPES = [
   // scripts/generate-motif-pages.js écrit les deux index et leur hreflang
   { en: 'motifs/', fr: 'fr/motifs/' },
+  // scripts/generate-fiches-formes.js : les index des 128 formes (prompt 250, point 3)
+  { en: 'forms/', fr: 'fr/formes/' },
 ];
 const fichierDe = (p) => (p === '' || p.endsWith('/') ? `${p}index.html` : p);
 const EQUIVALENTS = new Map();

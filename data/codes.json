@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T16:18:16Z",
+ "generated_at_utc": "2026-11-24T16:24:56Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 328,
+  "scripts": 330,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1255,6 +1255,23 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/generate-fiches-formes.js",
+   "adresse": "https://anibal-amiot.com/scripts/generate-fiches-formes.js",
+   "octets": 19446,
+   "sha256": "60ee098e8e30d5c0332907cf06cdf727e0d0255f35de27b2097b4ece13d464a0",
+   "md5": "9180bd4dd3bfcb8000108e57cb99d408",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "Les pages de fiche des 128 formes des patterns unifiés (prompt 250, point 3), FR et EN.",
+   "lit": [
+    "constructions-1024"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "scripts/generate-hexagram-assets.js",
    "adresse": "https://anibal-amiot.com/scripts/generate-hexagram-assets.js",
    "octets": 4495,
@@ -1368,9 +1385,9 @@
   {
    "chemin": "scripts/generate-sitemap.js",
    "adresse": "https://anibal-amiot.com/scripts/generate-sitemap.js",
-   "octets": 13436,
-   "sha256": "8db67cf511fe0304081b2e4276ddad0074e165e77536aa140db116bce226cfe9",
-   "md5": "fe614594294498c646fb33e6aa601b85",
+   "octets": 14312,
+   "sha256": "d927be9b4484fcce8860744924499f0cd1ea5ac5c2cc7025015efa441f23f54b",
+   "md5": "53f10200c46abe6e806333db218f4f54",
    "licence_declaree": false,
    "licence": null,
    "role": "Génère sitemap.xml à partir des pages réellement présentes dans le dépôt, plutôt que de maintenir une liste figée à la main.",
@@ -1428,9 +1445,9 @@
   {
    "chemin": "scripts/langues.js",
    "adresse": "https://anibal-amiot.com/scripts/langues.js",
-   "octets": 46255,
-   "sha256": "9e1f8446e039526b35862c73e0d2c476723fde3b7d48ffa4f1e7904fcfbcfd38",
-   "md5": "e817ad22f24f5d3740e3cdd3d0d95ad0",
+   "octets": 46381,
+   "sha256": "cedbc261e925a0ba684792821e5367a6d5a35741d817bf527a7f7663ce288752",
+   "md5": "e4fd636479cde9438070442455ba64b4",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique des groupes de traduction du site.",
@@ -1806,9 +1823,9 @@
   {
    "chemin": "tools/check_accessibilite.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_accessibilite.mjs",
-   "octets": 9502,
-   "sha256": "b317e938cf7f236d4083b3587ee5b0f7acb8063946a08ad2ba08ee79be50234a",
-   "md5": "7586cf95b15797320e3fcfdb4b4d4a55",
+   "octets": 9585,
+   "sha256": "304520519663622cc9aa391c9564b50ad2830be313f6db1c8e9c904d690b6d2e",
+   "md5": "0713e34652f47b5cc65fb17036bb9fcc",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : passe axe-core (règles WCAG 2 A et AA) sur les pages listées ci-dessous et échoue à la première infraction.",
@@ -2125,6 +2142,21 @@
    "lit": [
     "constructions-1024"
    ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_fiches_formes.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_fiches_formes.mjs",
+   "octets": 5021,
+   "sha256": "078e6ad5617afe54a8207f83ac276effc1bba00aebc3f2e736b0ae78d138047e",
+   "md5": "095bee437fb07b674683685b6b66c9b3",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "les 128 pages de fiche des formes (prompt 250, point 3) disent ce que data/patterns-unifies-fiches.json dit.",
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

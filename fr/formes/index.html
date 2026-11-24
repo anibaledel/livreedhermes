@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="preload" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<!-- @head-icons:end -->
+<title>Les 128 formes des patterns unifiés — fiches | La Livrée d'Hermès</title>
+<meta name="description" content="Les 128 formes des 512 patterns unifiés : une fiche par forme, avec ses quatre grilles, son code binaire et ce qui en est calculé.">
+<meta property="og:title" content="Les 128 formes des patterns unifiés — fiches | La Livrée d'Hermès">
+<meta property="og:description" content="Les 128 formes des 512 patterns unifiés : une fiche par forme, avec ses quatre grilles, son code binaire et ce qui en est calculé.">
+<meta property="og:url" content="https://anibal-amiot.com/fr/formes/">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://anibal-amiot.com/fr/formes/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Les 128 formes des patterns unifiés — fiches | La Livrée d'Hermès">
+<meta name="twitter:description" content="Les 128 formes des 512 patterns unifiés : une fiche par forme, avec ses quatre grilles, son code binaire et ce qui en est calculé.">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/forms/">
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/formes/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/forms/">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "Les 128 formes des patterns unifiés — fiches | La Livrée d'Hermès",
+ "description": "Les 128 formes des 512 patterns unifiés : une fiche par forme, avec ses quatre grilles, son code binaire et ce qui en est calculé.",
+ "url": "https://anibal-amiot.com/fr/formes/",
+ "inLanguage": "fr",
+ "author": {
+  "@type": "Person",
+  "name": "Anibal Edelberto Amiot",
+  "url": "https://anibal-amiot.com/a-propos.html"
+ },
+ "isPartOf": {
+  "@type": "CreativeWorkSeries",
+  "name": "Unified Patterns",
+  "url": "https://anibal-amiot.com/galerie-patterns-unifies.html"
+ },
+ "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+}
+</script>
+<style>
+  *{box-sizing:border-box;} html{overflow-x:hidden;} body{margin:0;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 24px 64px;}
+  .breadcrumb{max-width:64ch;margin:0 auto 20px;text-align:center;font-size:calc(11px + var(--fs-bump));letter-spacing:.03em;color:var(--dim);}
+  .breadcrumb a{color:var(--dim);text-decoration:none;} .breadcrumb a:hover{color:var(--gold);} .breadcrumb .sep{margin:0 6px;opacity:.5;}
+  .article-title{max-width:64ch;margin:0 auto 12px;font-size:calc(24px + var(--fs-bump));font-weight:400;line-height:1.35;text-align:center;}
+  .article-sub{max-width:64ch;margin:12px auto 26px;color:var(--dim);font-size:calc(13px + var(--fs-bump));text-align:center;line-height:1.7;}
+  .fiche-bloc{margin:34px auto;padding-top:22px;border-top:1px solid var(--line);max-width:80ch;}
+  .fiche-bloc h2{color:var(--gold);font-size:calc(15px + var(--fs-bump));font-weight:400;letter-spacing:.02em;margin:0 0 12px;text-align:center;}
+  .fiche-bloc h3{font-weight:400;font-size:calc(13px + var(--fs-bump));letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin:18px 0 6px;}
+  .fiche-bloc p{color:var(--dim);line-height:1.7;} .fiche-bloc dl{margin:0;color:var(--dim);} .fiche-bloc dt{color:var(--white);margin-top:8px;} .fiche-bloc dd{margin:0;}
+  .fiche-grilles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 auto 20px;max-width:760px;}
+  @media (max-width:640px){ .fiche-grilles{grid-template-columns:repeat(2,1fr);} }
+  .fiche-grilles figure{margin:0;text-align:center;font-size:calc(11.5px + var(--fs-bump));color:var(--dim);} .fiche-grilles svg{width:100%;height:auto;display:block;margin:0 auto 6px;border:1px solid var(--line);}
+  .fiche-wrap{overflow-x:auto;} .fiche-table{border-collapse:collapse;margin:12px auto;font-size:calc(12px + var(--fs-bump));color:var(--white);}
+  .fiche-table th,.fiche-table td{border:1px solid var(--line);padding:5px 9px;text-align:center;font-weight:400;} .fiche-table thead th{color:var(--dim);}
+  .voisines{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:30px 0;}
+  .voisines a{border:1px solid var(--line-strong);color:var(--dim);font-size:calc(11px + var(--fs-bump));letter-spacing:.04em;padding:10px 16px;text-decoration:none;} .voisines a:hover{border-color:var(--gold);color:var(--gold);}
+  .index-liste{list-style:none;margin:0 auto;padding:0;max-width:80ch;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px 14px;}
+  .index-liste a{color:var(--dim);text-decoration:none;font-size:calc(12.5px + var(--fs-bump));} .index-liste a:hover{color:var(--gold);}
+</style>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <a href="../../index.html">Accueil</a><span class="sep">/</span>
+  <a href="../../galerie-patterns-unifies.html">Patterns unifiés</a><span class="sep">/</span>
+  <span aria-current="page">Les 128 formes des patterns unifiés</span>
+</nav>
+<p class="other-langs"><a href="https://anibal-amiot.com/forms/" hreflang="en" lang="en">English version</a></p>
+<h1 class="article-title">Les 128 formes des patterns unifiés</h1>
+<p class="article-sub">Chaque forme réunit quatre patterns : un hexagramme et son complément, dans les deux couples d’une famille. 128 formes × 4 = 512 patterns. Le code de la forme tient sur 7 bits : phase du yang, yin présent, classe de complément (5 bits).</p>
+<ul class="index-liste">
+<li><a href="forme-001.html">1 — Le Réceptif / Le Créateur</a></li>
+<li><a href="forme-002.html">2 — Le Retour / Venir à la rencontre</a></li>
+<li><a href="forme-003.html">3 — L'Armée / La Communauté avec les hommes</a></li>
+<li><a href="forme-004.html">4 — L'Approche / La Retraite</a></li>
+<li><a href="forme-005.html">5 — La Modestie / La Marche</a></li>
+<li><a href="forme-006.html">6 — L'Obscurcissement de la lumière / Le Conflit</a></li>
+<li><a href="forme-007.html">7 — La Poussée vers le haut / L'Innocence</a></li>
+<li><a href="forme-008.html">8 — La Paix / La Stagnation</a></li>
+<li><a href="forme-009.html">9 — L'Enthousiasme / La Force apprivoisée du petit</a></li>
+<li><a href="forme-010.html">10 — L'Ébranlement / Le Doux, le Vent</a></li>
+<li><a href="forme-011.html">11 — La Délivrance / Les Gens de la maison</a></li>
+<li><a href="forme-012.html">12 — L'Épousée / Le Développement</a></li>
+<li><a href="forme-013.html">13 — La Prépondérance du petit / La Vérité intérieure</a></li>
+<li><a href="forme-014.html">14 — L'Abondance / La Dissolution</a></li>
+<li><a href="forme-015.html">15 — La Durée / L'Augmentation</a></li>
+<li><a href="forme-016.html">16 — La Puissance du grand / La Contemplation</a></li>
+<li><a href="forme-017.html">17 — La Solidarité / La Possession de grande envergure</a></li>
+<li><a href="forme-018.html">18 — La Difficulté initiale / Le Chaudron</a></li>
+<li><a href="forme-019.html">19 — L'Insondable / Ce qui s'attache, le Feu</a></li>
+<li><a href="forme-020.html">20 — La Limitation / Le Voyageur</a></li>
+<li><a href="forme-021.html">21 — L'Obstacle / L'Opposition</a></li>
+<li><a href="forme-022.html">22 — Après l'accomplissement / Avant l'accomplissement</a></li>
+<li><a href="forme-023.html">23 — Le Puits / Mordre au travers</a></li>
+<li><a href="forme-024.html">24 — L'Attente / Le Progrès</a></li>
+<li><a href="forme-025.html">25 — Le Rassemblement / La Force apprivoisée du grand</a></li>
+<li><a href="forme-026.html">26 — La Suite / Le Travail sur ce qui est gâté</a></li>
+<li><a href="forme-027.html">27 — L'Accablement / La Grâce</a></li>
+<li><a href="forme-028.html">28 — Le Joyeux / L'Immobilisation</a></li>
+<li><a href="forme-029.html">29 — L'Influence / La Diminution</a></li>
+<li><a href="forme-030.html">30 — La Révolution / La Folie juvénile</a></li>
+<li><a href="forme-031.html">31 — La Prépondérance du grand / La Nourriture</a></li>
+<li><a href="forme-032.html">32 — La Percée / L'Éclatement</a></li>
+<li><a href="forme-033.html">33 — Le Réceptif / Le Créateur</a></li>
+<li><a href="forme-034.html">34 — Le Retour / Venir à la rencontre</a></li>
+<li><a href="forme-035.html">35 — L'Armée / La Communauté avec les hommes</a></li>
+<li><a href="forme-036.html">36 — L'Approche / La Retraite</a></li>
+<li><a href="forme-037.html">37 — La Modestie / La Marche</a></li>
+<li><a href="forme-038.html">38 — L'Obscurcissement de la lumière / Le Conflit</a></li>
+<li><a href="forme-039.html">39 — La Poussée vers le haut / L'Innocence</a></li>
+<li><a href="forme-040.html">40 — La Paix / La Stagnation</a></li>
+<li><a href="forme-041.html">41 — L'Enthousiasme / La Force apprivoisée du petit</a></li>
+<li><a href="forme-042.html">42 — L'Ébranlement / Le Doux, le Vent</a></li>
+<li><a href="forme-043.html">43 — La Délivrance / Les Gens de la maison</a></li>
+<li><a href="forme-044.html">44 — L'Épousée / Le Développement</a></li>
+<li><a href="forme-045.html">45 — La Prépondérance du petit / La Vérité intérieure</a></li>
+<li><a href="forme-046.html">46 — L'Abondance / La Dissolution</a></li>
+<li><a href="forme-047.html">47 — La Durée / L'Augmentation</a></li>
+<li><a href="forme-048.html">48 — La Puissance du grand / La Contemplation</a></li>
+<li><a href="forme-049.html">49 — La Solidarité / La Possession de grande envergure</a></li>
+<li><a href="forme-050.html">50 — La Difficulté initiale / Le Chaudron</a></li>
+<li><a href="forme-051.html">51 — L'Insondable / Ce qui s'attache, le Feu</a></li>
+<li><a href="forme-052.html">52 — La Limitation / Le Voyageur</a></li>
+<li><a href="forme-053.html">53 — L'Obstacle / L'Opposition</a></li>
+<li><a href="forme-054.html">54 — Après l'accomplissement / Avant l'accomplissement</a></li>
+<li><a href="forme-055.html">55 — Le Puits / Mordre au travers</a></li>
+<li><a href="forme-056.html">56 — L'Attente / Le Progrès</a></li>
+<li><a href="forme-057.html">57 — Le Rassemblement / La Force apprivoisée du grand</a></li>
+<li><a href="forme-058.html">58 — La Suite / Le Travail sur ce qui est gâté</a></li>
+<li><a href="forme-059.html">59 — L'Accablement / La Grâce</a></li>
+<li><a href="forme-060.html">60 — Le Joyeux / L'Immobilisation</a></li>
+<li><a href="forme-061.html">61 — L'Influence / La Diminution</a></li>
+<li><a href="forme-062.html">62 — La Révolution / La Folie juvénile</a></li>
+<li><a href="forme-063.html">63 — La Prépondérance du grand / La Nourriture</a></li>
+<li><a href="forme-064.html">64 — La Percée / L'Éclatement</a></li>
+<li><a href="forme-065.html">65 — Le Réceptif / Le Créateur</a></li>
+<li><a href="forme-066.html">66 — Le Retour / Venir à la rencontre</a></li>
+<li><a href="forme-067.html">67 — L'Armée / La Communauté avec les hommes</a></li>
+<li><a href="forme-068.html">68 — L'Approche / La Retraite</a></li>
+<li><a href="forme-069.html">69 — La Modestie / La Marche</a></li>
+<li><a href="forme-070.html">70 — L'Obscurcissement de la lumière / Le Conflit</a></li>
+<li><a href="forme-071.html">71 — La Poussée vers le haut / L'Innocence</a></li>
+<li><a href="forme-072.html">72 — La Paix / La Stagnation</a></li>
+<li><a href="forme-073.html">73 — L'Enthousiasme / La Force apprivoisée du petit</a></li>
+<li><a href="forme-074.html">74 — L'Ébranlement / Le Doux, le Vent</a></li>
+<li><a href="forme-075.html">75 — La Délivrance / Les Gens de la maison</a></li>
+<li><a href="forme-076.html">76 — L'Épousée / Le Développement</a></li>
+<li><a href="forme-077.html">77 — La Prépondérance du petit / La Vérité intérieure</a></li>
+<li><a href="forme-078.html">78 — L'Abondance / La Dissolution</a></li>
+<li><a href="forme-079.html">79 — La Durée / L'Augmentation</a></li>
+<li><a href="forme-080.html">80 — La Puissance du grand / La Contemplation</a></li>
+<li><a href="forme-081.html">81 — La Solidarité / La Possession de grande envergure</a></li>
+<li><a href="forme-082.html">82 — La Difficulté initiale / Le Chaudron</a></li>
+<li><a href="forme-083.html">83 — L'Insondable / Ce qui s'attache, le Feu</a></li>
+<li><a href="forme-084.html">84 — La Limitation / Le Voyageur</a></li>
+<li><a href="forme-085.html">85 — L'Obstacle / L'Opposition</a></li>
+<li><a href="forme-086.html">86 — Après l'accomplissement / Avant l'accomplissement</a></li>
+<li><a href="forme-087.html">87 — Le Puits / Mordre au travers</a></li>
+<li><a href="forme-088.html">88 — L'Attente / Le Progrès</a></li>
+<li><a href="forme-089.html">89 — Le Rassemblement / La Force apprivoisée du grand</a></li>
+<li><a href="forme-090.html">90 — La Suite / Le Travail sur ce qui est gâté</a></li>
+<li><a href="forme-091.html">91 — L'Accablement / La Grâce</a></li>
+<li><a href="forme-092.html">92 — Le Joyeux / L'Immobilisation</a></li>
+<li><a href="forme-093.html">93 — L'Influence / La Diminution</a></li>
+<li><a href="forme-094.html">94 — La Révolution / La Folie juvénile</a></li>
+<li><a href="forme-095.html">95 — La Prépondérance du grand / La Nourriture</a></li>
+<li><a href="forme-096.html">96 — La Percée / L'Éclatement</a></li>
+<li><a href="forme-097.html">97 — Le Réceptif / Le Créateur</a></li>
+<li><a href="forme-098.html">98 — Le Retour / Venir à la rencontre</a></li>
+<li><a href="forme-099.html">99 — L'Armée / La Communauté avec les hommes</a></li>
+<li><a href="forme-100.html">100 — L'Approche / La Retraite</a></li>
+<li><a href="forme-101.html">101 — La Modestie / La Marche</a></li>
+<li><a href="forme-102.html">102 — L'Obscurcissement de la lumière / Le Conflit</a></li>
+<li><a href="forme-103.html">103 — La Poussée vers le haut / L'Innocence</a></li>
+<li><a href="forme-104.html">104 — La Paix / La Stagnation</a></li>
+<li><a href="forme-105.html">105 — L'Enthousiasme / La Force apprivoisée du petit</a></li>
+<li><a href="forme-106.html">106 — L'Ébranlement / Le Doux, le Vent</a></li>
+<li><a href="forme-107.html">107 — La Délivrance / Les Gens de la maison</a></li>
+<li><a href="forme-108.html">108 — L'Épousée / Le Développement</a></li>
+<li><a href="forme-109.html">109 — La Prépondérance du petit / La Vérité intérieure</a></li>
+<li><a href="forme-110.html">110 — L'Abondance / La Dissolution</a></li>
+<li><a href="forme-111.html">111 — La Durée / L'Augmentation</a></li>
+<li><a href="forme-112.html">112 — La Puissance du grand / La Contemplation</a></li>
+<li><a href="forme-113.html">113 — La Solidarité / La Possession de grande envergure</a></li>
+<li><a href="forme-114.html">114 — La Difficulté initiale / Le Chaudron</a></li>
+<li><a href="forme-115.html">115 — L'Insondable / Ce qui s'attache, le Feu</a></li>
+<li><a href="forme-116.html">116 — La Limitation / Le Voyageur</a></li>
+<li><a href="forme-117.html">117 — L'Obstacle / L'Opposition</a></li>
+<li><a href="forme-118.html">118 — Après l'accomplissement / Avant l'accomplissement</a></li>
+<li><a href="forme-119.html">119 — Le Puits / Mordre au travers</a></li>
+<li><a href="forme-120.html">120 — L'Attente / Le Progrès</a></li>
+<li><a href="forme-121.html">121 — Le Rassemblement / La Force apprivoisée du grand</a></li>
+<li><a href="forme-122.html">122 — La Suite / Le Travail sur ce qui est gâté</a></li>
+<li><a href="forme-123.html">123 — L'Accablement / La Grâce</a></li>
+<li><a href="forme-124.html">124 — Le Joyeux / L'Immobilisation</a></li>
+<li><a href="forme-125.html">125 — L'Influence / La Diminution</a></li>
+<li><a href="forme-126.html">126 — La Révolution / La Folie juvénile</a></li>
+<li><a href="forme-127.html">127 — La Prépondérance du grand / La Nourriture</a></li>
+<li><a href="forme-128.html">128 — La Percée / L'Éclatement</a></li>
+</ul>
+</main>
+<!-- @main:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="../../">Accueil</a>
+    <a href="../../la-livree-d-hermes.html">Le traité</a>
+    <a href="../../hexagrammes/">Hexagrammes</a>
+    <a href="../../fr/motifs/">Motifs</a>
+    <a href="../../lexique.html">Lexique</a>
+    <a href="../../articles.html">Articles</a>
+    <a href="../../outils.html">Outils</a>
+    <a href="../../a-propos.html">À propos</a>
+    <a href="../../profil.html">Profil documentaire</a>
+    <a href="../../travaux.html">Travaux</a>
+    <a href="../../research/" hreflang="en">État des travaux (en anglais)</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Soutenir</a>
+    <a href="../../recherche.html">Rechercher</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</div>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+</body>
+</html>

@@ -198,7 +198,20 @@ for (const slug of motifSlugsEn) {
   MOTIF_PAGES.push({ loc: frLoc, file: `fr/motifs/${slug}.html`, changefreq: 'yearly', priority: '0.5', hreflang });
 }
 
-const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES, ...TRAVAUX_PAGES, ...MOTIF_PAGES];
+// Formes : les 258 pages de scripts/generate-fiches-formes.js (forms/ en, fr/formes/ fr), index compris, hreflang réciproque.
+const FORME_PAGES = [];
+{
+  const nums = fs.readdirSync(path.join(ROOT, 'forms')).filter((f) => /^form-\d{3}\.html$/.test(f)).map((f) => f.slice(5, 8)).sort();
+  const paire = (en, fr, enFile, frFile, priority) => {
+    const hreflang = [['en', en], ['fr', fr], ['x-default', en]];
+    FORME_PAGES.push({ loc: en, file: enFile, changefreq: 'yearly', priority, hreflang });
+    FORME_PAGES.push({ loc: fr, file: frFile, changefreq: 'yearly', priority, hreflang });
+  };
+  paire(`${SITE}/forms/`, `${SITE}/fr/formes/`, 'forms/index.html', 'fr/formes/index.html', '0.6');
+  for (const k of nums) paire(`${SITE}/forms/form-${k}.html`, `${SITE}/fr/formes/forme-${k}.html`, `forms/form-${k}.html`, `fr/formes/forme-${k}.html`, '0.5');
+}
+
+const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES, ...TRAVAUX_PAGES, ...MOTIF_PAGES, ...FORME_PAGES];
 
 // Aucune adresse deux fois : deux <url> pour le même <loc> est une erreur que
 // Google signale. Le cas concret qui l'a motivé : lexique.html figure dans

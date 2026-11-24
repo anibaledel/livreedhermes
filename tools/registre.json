@@ -215,6 +215,8 @@
     "es/lexico",
     "es/libro",
     "es/tirada-del-yi-king",
+    "fr/formes",
+    "fr/formes/forme-006.html",
     "fr/livre",
     "fr/motifs",
     "fr/motifs/bases-yang-h0.html",
@@ -557,6 +559,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fiches_formes.mjs",
+   "role": "les 128 pages de fiche des formes (prompt 250, point 3) disent ce que data/patterns-unifies-fiches.json dit.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/check_fiches_unifies.py",
@@ -1174,8 +1188,10 @@
    "fichier": "tools/check_pavane_ui.mjs",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
    "lit": [
+    "data/corpus-256.json",
     "data/fonds/demi-periode.json",
-    "data/fonds/fonds-echange.json"
+    "data/fonds/fonds-echange.json",
+    "data/patterns-unifies-fiches.json"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1992,6 +2008,7 @@
    "fichier": "tools/fiches_unifies.py",
    "role": "les fiches CALCULÉES des 512 patterns unifiés et de leurs 128 formes : data/patterns-unifies-fiches.json (prompt 250), écrit depuis le référent 360, jamais à la main.",
    "lit": [
+    "data/fonds_ecran_v1.json",
     "data/referent_360_v3.json"
    ],
    "ecrit": [],

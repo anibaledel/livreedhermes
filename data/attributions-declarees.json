@@ -1,0 +1,4 @@
+{
+  "_doc": "Attributions déclarées par Anibal pour les 128 formes (prompt 250, point 3). Vide par défaut : une forme absente d'ici, ou dont le texte est vide, n'affiche AUCUN bloc « attribution déclarée » sur sa page. Clé : le numéro de la forme (1 à 128) en chaîne ; valeur : { \"fr\": \"…\", \"en\": \"…\" } (une seule langue suffit : l'autre reprend le texte tel quel). Rien n'est généré ici : c'est la déclaration de l'auteur, présentée comme telle.",
+  "formes": {}
+}
