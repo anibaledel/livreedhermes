@@ -541,6 +541,24 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_familles_unifiees.mjs",
+   "role": "la règle de parité de assets/familles-unifiees.js (« une seule base yang ») donne EXACTEMENT les huit familles unifiées des données : les familles de data/fonds_ecran_v1.json (15) dont les entrées sont les couples (fixe, mut) de la galer…",
+   "lit": [
+    "assets/familles-unifiees.js",
+    "assets/vue-fond-ecran.js",
+    "data/fonds_ecran_v1.json",
+    "en/three-colour-gallery/index.html",
+    "es/galeria-tricolor/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_fond_ecran_animation.mjs",
    "role": "L'outil bicolore de fonds-ecran.html (le second montage du moteur assets/outil-fond-ecran.js, sous le tricolore), une vidéo par collection, vérifié SUR LE SITE (déployé par défaut ; « local » sert le dépôt) : 1.",
    "lit": [],

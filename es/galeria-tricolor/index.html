@@ -546,6 +546,7 @@
 </div>
 
 <script src="../../assets/calque-engine.js"></script>
+<script src="../../assets/familles-unifiees.js"></script>
 <script>
 let DATA = null;
 const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
@@ -861,7 +862,7 @@ function selectEntry(idx){
   const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
   const orbit = orbitAtPos(idx);
   const orbitBadge = orbit === undefined ? '' : ' — órbita n.º ' + orbit + '/128';
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagrama n.º ' + n + badge + k2Badge + orbitBadge;
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b>' + (window.FamillesUnifiees.uneSeuleBaseYang(fam) ? ' (una sola base yang)' : '') + ' — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagrama n.º ' + n + badge + k2Badge + orbitBadge;
 }
 
 // Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM

@@ -1405,3 +1405,7 @@ Décision d'Anibal : au moins 0,5 s entre deux changements de motif dans les qua
 ## Prompt 242 — vocabulaire : 4 bases (et non « natures »)
 
 « 4 natures » devient « 4 bases » dans `360-calques.html` (fr, en, es, th : `× 4 bases ×`, thaï « ฐาน ») et dans la définition du lexique (`lexique.html` et `data/lexiques_traduits.json`, 10 langues). À relire par un natif : thaï (ฐาน), chinois (基底), russe (базы), hindi (आधार), japonais (基底), allemand (Basen), italien (basi). « Nature » reste dans les citations du livre.
+
+## Prompt 242 — les 8 familles unifiées marquées
+
+Marque « (une seule base yang) » à côté du nom de la famille dans la galerie tricolore (fr, en, es, th : `data/outils-langues/galerie-patterns-unifies.json`, thaï « ฐานหยางเพียงฐานเดียว » à relire) et dans le sélecteur de famille de l'outil bicolore des fonds d'écran (français, comme ses autres libellés). La règle est écrite une fois (`assets/familles-unifiees.js`) et comparée aux données par `tools/check_familles_unifiees.mjs`. Les sélecteurs du tirage et des 360 calques (dés 1 à 6, images de la page de création) ne nomment pas de famille : rien à marquer. À décider avec Anibal : le point 3 du prompt 242 (voir le rapport).

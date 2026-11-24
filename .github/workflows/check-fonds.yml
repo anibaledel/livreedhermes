@@ -159,6 +159,8 @@ jobs:
       # la page « Les gammes » (prompt 219) : sept affiches 2:3 avec dimensions, liens vivants, ?r= sans effet ni traceur, pas de Dataset, pas de débordement à 390 px, corpus inchangé
       - run: node scripts/build-gammes.js --verifie
       - run: node tools/check_gammes.mjs local
+      # les familles unifiées (prompt 242) : la règle « une seule base yang » = les 8 familles des couples (fixe, mut) ; aucun « unifié » pour un mélange (yang, yin)
+      - run: node tools/check_familles_unifiees.mjs
       # la politique de confidentialité de « Voir sa musique » (prompt 224) : l'adresse publique de Google Play ; ce qu'elle promet (aucune mesure, aucun tiers, stockage local seul) est relu dans le dépôt
       - run: node scripts/build-confidentialite.js --verifie
       - run: node tools/check_confidentialite.mjs

@@ -114,7 +114,7 @@ export async function monterFondEcran(racine) {
   let n = m ? Math.min(31, Math.max(0, Number(m[2]))) : 0;
   let grille = null, libre = null; // `libre` : une grille figée depuis l'animation, hors corpus
 
-  $('#ffFamille').innerHTML = FAMILLES.map((f) => `<option value="${f}">${libelleFamille(f)}</option>`).join('');
+  $('#ffFamille').innerHTML = FAMILLES.map((f) => `<option value="${f}">${libelleFamille(f)}${window.FamillesUnifiees && window.FamillesUnifiees.uneSeuleBaseYang(f) ? ' (une seule base yang)' : ''}</option>`).join(''); // la règle de parité : unifiée si et seulement si une seule base yang (assets/familles-unifiees.js)
   $('#ffHex').innerHTML = Array.from({ length: 32 }, (_, i) => `<option value="${i}">h${i}</option>`).join('');
   $('#ffFamille').value = fam; $('#ffHex').value = String(n);
   const densite = () => Number($('#ffDensite').value);
