@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T19:21:09Z",
+ "generated_at_utc": "2026-11-24T19:47:51Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 332,
+  "scripts": 337,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1823,9 +1823,9 @@
   {
    "chemin": "tools/check_accessibilite.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_accessibilite.mjs",
-   "octets": 9585,
-   "sha256": "304520519663622cc9aa391c9564b50ad2830be313f6db1c8e9c904d690b6d2e",
-   "md5": "0713e34652f47b5cc65fb17036bb9fcc",
+   "octets": 9680,
+   "sha256": "576c0868182a8872dd55764002cdcddf9a28e6f48314f708dfea5b5b23655e17",
+   "md5": "93e9c55946913dcc5d475a922e085f50",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : passe axe-core (règles WCAG 2 A et AA) sur les pages listées ci-dessous et échoue à la première infraction.",
@@ -2414,6 +2414,39 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_jeu_unifie.py",
+   "adresse": "https://anibal-amiot.com/tools/check_jeu_unifie.py",
+   "octets": 8169,
+   "sha256": "132b463b9758ddfd3ebbeb3a2e0b6e886d240ea594e28aefd6f9a8cfb1375597",
+   "md5": "9f33c8c366533ffe421dc2f557f70625",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "le jeu unifié (96 plaques, prompts 243 et 257) relu en entier.",
+   "lit": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_jeu_unifie_page.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_jeu_unifie_page.mjs",
+   "octets": 8943,
+   "sha256": "730675400020c164a34374340c63561d9df9fd34bebf7f58420184bfdb0b7a4e",
+   "md5": "109c5a84a9b13d8bd07d95d37c4d6b9b",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "le filtre « Jeu unifié (96) » et le tirage guidé de 360-calques.html (prompt 257), sur téléphone (390 px) et ordinateur (1280 px), en fr, en, es, th : - le catalogue complet reste la vue par défaut ; le filtre le remplace par le jeu (et …",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_jsonld.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_jsonld.mjs",
    "octets": 8209,
@@ -2542,6 +2575,23 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "les modules destinés à être repris ailleurs (docs/modules-portables.md, la liste entre ses deux marqueurs) ne prennent AUCUNE dépendance au site.",
+   "lit": [
+    "constructions-1024"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_moteur_jeu_unifie.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_moteur_jeu_unifie.mjs",
+   "octets": 6188,
+   "sha256": "df760a75486372299f8e1a350bd9659d3ad6c20c0e744afb6d95d1d8abd1b6b6",
+   "md5": "f0554fb3b1cb4aa1f2cdcadba4930bc2",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "assets/jeu-unifie.js (le moteur de la page 360-calques.html, prompt 257) : - ses 512 grilles, reconstruites des 96 plaques, sont celles de la galerie tricolore cellule par cellule (même orientation, mêmes lettres V/M/O, mêmes couleurs) ;…",
    "lit": [
     "constructions-1024"
    ],
@@ -3360,9 +3410,9 @@
   {
    "chemin": "tools/convention_six_traits.py",
    "adresse": "https://anibal-amiot.com/tools/convention_six_traits.py",
-   "octets": 3480,
-   "sha256": "03c496bf2e0e6d766b46825efdaf118bf71a5035cdca8e83ebaabd67458745b2",
-   "md5": "66ef82f5157c6e840d1c1f7b87ad1ddb",
+   "octets": 3848,
+   "sha256": "f34d0bd125bfbc827e4d329831e609232961abb33c24e828bd06a05231c1dbb0",
+   "md5": "cc7da474a31fdb25aa1161f58ca0bf25",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la convention des six traits du site (prompt 250, point 5), relue sur la carte des niveaux du référent 360.",
@@ -4164,6 +4214,38 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les dépôts Zenodo d'Anibal tels que Zenodo les LECTURE SEULE : uniquement des requêtes GET sur l'API publique de Zenodo, sans jeton.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/jeu_unifie.py",
+   "adresse": "https://anibal-amiot.com/tools/jeu_unifie.py",
+   "octets": 3711,
+   "sha256": "354d3f0b30e74df2b0d781fa3efd283671486e2e28f734e99b3e53148baefd42",
+   "md5": "71069f508d2b6b8b56ed682310357aae",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "le « jeu unifié » (prompts 243 et 257) : 96 plaques, sous-ensemble des 360 calques, qui ne produit que des motifs unifiés.",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/jeu_unifie_noms.mjs",
+   "adresse": "https://anibal-amiot.com/tools/jeu_unifie_noms.mjs",
+   "octets": 2262,
+   "sha256": "ac984428b218a7d325dc8a2027ef48cb665c3a49a28a16070b817ef858439da0",
+   "md5": "8f2a6f881185a670bf39424bbe40cc77",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "data/jeu-unifie-noms.json : le numéro King Wen et le nom (pinyin, nom) de chacun des 64 hexagrammes en fr, en, es et th, pour le tirage du jeu unifié (prompt 257).",
    "lit": [],
    "ecrit": [],
    "durees": [],

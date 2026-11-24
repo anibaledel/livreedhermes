@@ -802,6 +802,36 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_jeu_unifie.py",
+   "role": "le jeu unifié (96 plaques, prompts 243 et 257) relu en entier.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "jeu-unifie.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_jeu_unifie_page.mjs",
+   "role": "le filtre « Jeu unifié (96) » et le tirage guidé de 360-calques.html (prompt 257), sur téléphone (390 px) et ordinateur (1280 px), en fr, en, es, th : - le catalogue complet reste la vue par défaut ; le filtre le remplace par le jeu (et …",
+   "lit": [
+    "data/jeu-unifie-96.json",
+    "data/jeu-unifie-noms.json",
+    "en/360-layers",
+    "es/360-capas",
+    "th/360-layers"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "jeu-unifie.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_jsonld.mjs",
    "role": "non-régression des données structurées (prompt 194, point 4) : chaque bloc JSON-LD de toutes les pages se parse ; toute page indexable en porte porte les types attendus (motifs : CreativeWork, hexagrammes : DefinedTerm, articles : Articl…",
    "lit": [],
@@ -926,6 +956,22 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_moteur_jeu_unifie.mjs",
+   "role": "assets/jeu-unifie.js (le moteur de la page 360-calques.html, prompt 257) : - ses 512 grilles, reconstruites des 96 plaques, sont celles de la galerie tricolore cellule par cellule (même orientation, mêmes lettres V/M/O, mêmes couleurs) ;…",
+   "lit": [
+    "data/fonds_ecran_v1.json",
+    "data/jeu-unifie-96.json",
+    "data/patterns-unifies-fiches.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "jeu-unifie.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_mp4_sans_date.mjs",
    "role": "le MP4 de l'encodeur ne porte pas l'heure.",
    "lit": [],
@@ -1022,9 +1068,11 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [
-    "check-referents.yml"
+    "check-referents.yml",
+    "jeu-unifie.yml"
    ],
    "utilise_par": [
+    "tools/check_jeu_unifie.py",
     "tools/fiches_unifies.py",
     "tools/verifie_signatures_512.py"
    ],
@@ -2372,6 +2420,32 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/jeu_unifie.py",
+   "role": "le « jeu unifié » (prompts 243 et 257) : 96 plaques, sous-ensemble des 360 calques, qui ne produit que des motifs unifiés.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "jeu-unifie.yml"
+   ],
+   "utilise_par": [
+    "tools/check_jeu_unifie.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/jeu_unifie_noms.mjs",
+   "role": "data/jeu-unifie-noms.json : le numéro King Wen et le nom (pinyin, nom) de chacun des 64 hexagrammes en fr, en, es et th, pour le tirage du jeu unifié (prompt 257).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "jeu-unifie.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/lib_archive.mjs",
    "role": "lire ce qui a été ARCHIVÉ (prompt 200, étape B).",
    "lit": [],
@@ -2443,6 +2517,7 @@
     "tools/check_galerie_bicolore_ordres.mjs",
     "tools/check_galerie_corpus.mjs",
     "tools/check_gammes.mjs",
+    "tools/check_jeu_unifie_page.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_musique_chladni.mjs",
     "tools/check_musique_webkit.mjs",
@@ -3049,7 +3124,8 @@
    "ecrit": [],
    "appele_par": [
     "check-referents.yml",
-    "check-registre-outils.yml"
+    "check-registre-outils.yml",
+    "jeu-unifie.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
