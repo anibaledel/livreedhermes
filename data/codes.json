@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T16:28:02Z",
+ "generated_at_utc": "2026-11-24T19:47:09Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2760,9 +2760,9 @@
   {
    "chemin": "tools/check_pavane_photosensible.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_photosensible.mjs",
-   "octets": 13470,
-   "sha256": "1196ebb0924b82f4ba4dce1ddd9ac6a7d5792ae629d53817a437aae2a8c7fe3e",
-   "md5": "12a409f6723f0448f30131a1f4b6aa0f",
+   "octets": 13589,
+   "sha256": "99876083aa04107a4361792f2ca2214b050726342b897b4626ff2680195062ec",
+   "md5": "c2302af0a7d59e30553f36e64727b4de",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la photosensibilité de « Voir sa musique » dans ses trois modes (prompt 226, suite du 223), sans navigateur ni micro.",
@@ -3345,9 +3345,9 @@
   {
    "chemin": "tools/convention_six_traits.py",
    "adresse": "https://anibal-amiot.com/tools/convention_six_traits.py",
-   "octets": 3480,
-   "sha256": "03c496bf2e0e6d766b46825efdaf118bf71a5035cdca8e83ebaabd67458745b2",
-   "md5": "66ef82f5157c6e840d1c1f7b87ad1ddb",
+   "octets": 3848,
+   "sha256": "f34d0bd125bfbc827e4d329831e609232961abb33c24e828bd06a05231c1dbb0",
+   "md5": "cc7da474a31fdb25aa1161f58ca0bf25",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la convention des six traits du site (prompt 250, point 5), relue sur la carte des niveaux du référent 360.",
