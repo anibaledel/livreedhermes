@@ -62,6 +62,8 @@ jobs:
       # les trois faits de la note « half-shift » v6 (prompt 242) relus sur le référent 360 : antipode, complément d'hexagramme, règle de parité (8 familles unifiées = une seule base yang)
       - run: python3 tools/check_note_v6.py
       - run: python3 tools/check_note_v6.py --essai
+      # les résultats du prompt 246 relus sans le prototype : 512 grilles distinctes, parité spectrale, 128 orbites, complément, distance = 16 × Hamming, relations du Yi Jing
+      - run: python3 tools/verifie_signatures_512.py
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons
       - run: python3 tools/verify_cle_pied.py
       - run: python3 tools/verify_invariants.py

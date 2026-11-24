@@ -984,7 +984,9 @@
    "appele_par": [
     "check-referents.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/verifie_signatures_512.py"
+   ],
    "etat": "actif",
    "sait_echouer": true
   },
@@ -3208,6 +3210,18 @@
    "ecrit": [],
    "appele_par": [
     "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verifie_signatures_512.py",
+   "role": "re-vérifie les résultats du prompt 246 (signatures des 512 patterns unifiés, relations avec le Yi Jing) sur data/referent_360_v3.json, sans le prototype 247.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
    ],
    "utilise_par": [],
    "etat": "actif",

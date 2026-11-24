@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T15:34:58Z",
+ "generated_at_utc": "2026-11-24T15:55:37Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 325,
+  "scripts": 326,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2585,9 +2585,9 @@
   {
    "chemin": "tools/check_note_v6.py",
    "adresse": "https://anibal-amiot.com/tools/check_note_v6.py",
-   "octets": 9066,
-   "sha256": "74b5721b9001da630a45f196e7efcd065710ea24789147e332c6c3815b20547b",
-   "md5": "5b867cd73886092ec4b4fc961224373a",
+   "octets": 9097,
+   "sha256": "0556fde24fcfd908dc941339ae9d1f59efb046811f4f65a313ddab43a420a21d",
+   "md5": "2de6ba1fa7ea49e40d8ac0541ca08046",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "les trois faits de la note « half-shift » (v6), relus sur data/referent_360_v3.json (prompt 242).",
@@ -5141,6 +5141,23 @@
    "role": "la règle des miroirs en assertion, et sa vraie portée.",
    "lit": [
     "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verifie_signatures_512.py",
+   "adresse": "https://anibal-amiot.com/tools/verifie_signatures_512.py",
+   "octets": 9304,
+   "sha256": "811108347c3aa066ea345e5062e155932669859d3ed265addf09b40ca9f6d34b",
+   "md5": "6540a6d1c2f7feff47d64a93d568e28b",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "re-vérifie les résultats du prompt 246 (signatures des 512 patterns unifiés, relations avec le Yi Jing) sur data/referent_360_v3.json, sans le prototype 247.",
+   "lit": [
+    "calques-360"
    ],
    "ecrit": [],
    "durees": [],

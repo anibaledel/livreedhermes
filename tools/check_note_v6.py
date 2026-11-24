@@ -176,4 +176,5 @@ def main():
     print('OK    --essai : une couche faussée, un n̄ faux et une famille déclarée à tort sont refusés (3 sur 3).')
 
 
-main()
+if __name__ == "__main__":
+    main()
