@@ -1427,3 +1427,7 @@ La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° �
 - `scripts/generate-fiches-formes.js` : textes FR et EN des 258 pages de fiche (forms/, fr/formes/) écrits ici même, à relire (gabarit unique, `T.fr` / `T.en`). Le bloc « attribution déclarée » est vide et masqué : `data/attributions-declarees.json`, à remplir par Anibal (clé = numéro de forme, valeur = `{ "fr": …, "en": … }`).
 - `data/outils-langues/chiffres-et-sources.json` : la ligne de la convention des six traits en en/es/th (SANS SOURCE) ; th à faire relire en priorité.
 - `docs/convention-six-traits.md` : le pendant de « la note », dont le texte n'est pas dans ce dépôt.
+
+## Prompt 259 — fonds-ecran.html, entrée du Défilé
+
+À faire relire (en, es, th ; les autres langues n'ont pas cette page) : dans `data/outils-langues/fonds-ecran.json`, le titre, la description, le `<h1>` « Défilé et fonds d'écran », la phrase d'introduction du Défilé et la phrase de sécurité photosensible (« Animation lente… ») ; dans `scripts/nav-tiles-libelles.js`, la tuile `defile` en 9 langues (es, th, zh, ru, pt, hi, de, it, ja : le mot « Défilé » est celui de `assets/pavane-textes.js`). Thaï et chinois en priorité.

@@ -210,6 +210,17 @@ const TUILES_I18N = {
     ja: { label: "研究成果", excerpt: "寄託、コード、投稿論文。いずれも日付入りで公開されています。" }, // SANS SOURCE (IA, à relire : docs/relecture-langues/)
   },
   // « Voir sa musique » : français et anglais dans nav-tiles.js ; les six autres langues ici (textes de la page : data/musique-chladni/traductions/, à relire)
+  'defile': {
+    es: { label: "Desfile", excerpt: "El Desfile encadena los motivos a pantalla completa, al ritmo del sonido o de un temporizador regulable: elige una categoría y lánzalo." }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    th: { label: "ขบวน", excerpt: "ขบวนจะต่อลวดลายเต็มจอ ตามจังหวะเสียงหรือตัวจับเวลาที่ปรับได้ เลือกหมวดแล้วเริ่มได้เลย" }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    zh: { label: "游行", excerpt: "游行以全屏方式依次呈现图案，随声音节奏或可调计时器切换：先选类别，再开始。" }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    ru: { label: "Шествие", excerpt: "Шествие последовательно показывает узоры на весь экран в ритме звука или по настраиваемому таймеру: выберите категорию и запустите." }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    pt: { label: "Desfile", excerpt: "O Desfile encadeia os padrões em ecrã inteiro, ao ritmo do som ou de um temporizador regulável: escolha uma categoria e inicie." }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    hi: { label: "जुलूस", excerpt: "जुलूस पैटर्न को पूरी स्क्रीन पर क्रम से दिखाता है, ध्वनि की लय पर या समायोज्य टाइमर पर: एक श्रेणी चुनें, फिर शुरू करें।" }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    de: { label: "Umzug", excerpt: "Der Umzug reiht die Muster im Vollbild aneinander, im Rhythmus des Klangs oder mit einstellbarem Timer: Kategorie wählen, dann starten." }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    it: { label: "Sfilata", excerpt: "La Sfilata concatena i motivi a schermo intero, al ritmo del suono o di un timer regolabile: scegli una categoria, poi avvia." }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+    ja: { label: "パレード", excerpt: "パレードは紋様を全画面で次々に見せます。音のリズム、または調整できるタイマーで切り替わります。カテゴリーを選んで始めてください。" }, // SANS SOURCE (IA ; label repris de pavane-textes.js)
+  },
   'voir-sa-musique': {
     es: { label: "Ver tu música", excerpt: "Elige una pieza, un archivo o el micrófono: la página busca el motivo de La Livrée d’Hermès cuyo espectro más se parece al del sonido." }, // SANS SOURCE
     th: { label: "มองเห็นดนตรีของคุณ", excerpt: "เลือกเพลง ไฟล์ หรือไมโครโฟน: หน้านี้จะค้นหาลวดลายของ La Livrée d’Hermès ที่สเปกตรัมใกล้เคียงกับเสียงมากที่สุด" }, // SANS SOURCE

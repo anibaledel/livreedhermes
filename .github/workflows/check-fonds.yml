@@ -146,6 +146,8 @@ jobs:
       - run: node tools/check_export_pinterest.mjs local --code B6D --echantillon 8
       - run: node tools/check_fond_ecran_animation.mjs local
       - run: node tools/check_fond_ecran_deux_outils.mjs local
+      # prompt 259 : fonds-ecran.html, page d'entrée du Défilé — rien ne démarre avant un geste, plancher de 0,8 s, mot « Défilé », arrêt
+      - run: node tools/check_defile_entree.mjs local
       - run: node tools/check_galerie_animations.mjs local
       # le sélecteur 64 · 128 · 256 de la page des animations (FR, ja, th ; 390 et 1280 px) : clavier, focus, adresse, stockage local, aperçu, sans débordement
       - run: node tools/check_galerie_corpus.mjs local

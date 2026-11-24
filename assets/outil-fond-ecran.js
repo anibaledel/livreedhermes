@@ -607,6 +607,12 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
     req.call(stage).catch(() => showStageNotice(L.pleinEcranRefuse));
   }
 
+  // --- photosensibilité (prompts 223, 226, 259) : jamais deux changements de motif à moins de TENUE_MIN_MS, quel que soit le mode (minuteur ou son) et le réglage du curseur ;
+  //     « Mouvement réduit » (prefers-reduced-motion) : au moins TENUE_REDUIT_MS, et aucun fondu. Le même plancher que le moteur de « Voir sa musique » (assets/pavane-moteur.js).
+  const TENUE_MIN_MS = 800, TENUE_REDUIT_MS = 3000;
+  const reduitMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  const tenueMs = () => (reduitMQ && reduitMQ.matches ? TENUE_REDUIT_MS : TENUE_MIN_MS);
+
   // --- méditatif ---
   function stopMeditative() {
     if (meditativeTimer) { clearInterval(meditativeTimer); meditativeTimer = null; }
@@ -616,9 +622,9 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   }
   function restartMeditativeTimer() {
     if (meditativeTimer) clearInterval(meditativeTimer);
-    const seconds = parseFloat($s('rhythmSlider').value);
-    // un fondu plafonné : il ne chevauche jamais le battement suivant
-    const fadeMs = Math.min(1400, seconds * 1000 * 0.6);
+    const seconds = Math.max(parseFloat($s('rhythmSlider').value), tenueMs() / 1000); // le plancher vaut quel que soit le curseur
+    // un fondu plafonné : il ne chevauche jamais le battement suivant ; aucun fondu en « Mouvement réduit »
+    const fadeMs = reduitMQ && reduitMQ.matches ? 0 : Math.min(1400, seconds * 1000 * 0.6);
     meditativeTimer = setInterval(() => { if (!paused) showNextGrid(fadeMs); }, seconds * 1000);
   }
   function startMeditative() {
@@ -654,6 +660,8 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
     if (page) page.style.display = 'block';
   }
   $s('btnExit').onclick = quitter;
+  // la touche Échap arrête aussi : hors plein écran elle quitte ; en plein écran, le navigateur la prend d'abord pour en sortir, une seconde pression quitte
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && enCours && !document.fullscreenElement) quitter(); });
 
   // « Figer » : le motif à l'écran part ailleurs — où, c'est la page qui le dit
   // (option `figer`, qui reçoit le motif : { grid, fam, subA, subB, n }).
@@ -850,14 +858,14 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
           }
           // MÉDIUMS -> changement de motif
           runningAvgMid = runningAvgMid * 0.88 + midLevel * 0.12;
-          if (midLevel > runningAvgMid * 1.15 && midLevel > 0.05 && now - lastBeat > 140) { lastBeat = now; pickNextByProximity(); }
+          if (midLevel > runningAvgMid * 1.15 && midLevel > 0.05 && now - lastBeat > tenueMs()) { lastBeat = now; pickNextByProximity(); }
           if (currentGrid) drawTessellation(currentGrid);
         } else {
           runningAvgBass = runningAvgBass * 0.82 + bassLevel * 0.18;
           runningAvgTreble = runningAvgTreble * 0.65 + trebleLevel * 0.35;
           const bassHit = bassLevel > runningAvgBass * 1.10 && bassLevel > 0.045;
           const trebleHit = trebleLevel > runningAvgTreble * 1.08 && trebleLevel > 0.018;
-          if ((bassHit || trebleHit) && now - lastBeat > 90) { lastBeat = now; showNextGrid(); }
+          if ((bassHit || trebleHit) && now - lastBeat > tenueMs()) { lastBeat = now; showNextGrid(); }
         }
       }
     } catch (err) { console.error('Erreur dans la boucle audio-réactive :', err); }
@@ -871,7 +879,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
     // l'état de ce montage, lu par les contrôles
     etat: () => ({ rendu, enCours, densite: tileDivisor, rythme: parseFloat($s('rhythmSlider').value), teinte: BI ? null : colorMode,
       palette: BI ? bico.palette() : { ...PALETTE }, motif: currentIndex >= 0 ? currentGrids[currentIndex] : null,
-      paused, meditatif: meditativeActive, fullReactive, audio: !!sourceNode, enregistrement: !!(mediaRecorder && mediaRecorder.state === 'recording') }),
+      tenueMs: tenueMs(), paused, meditatif: meditativeActive, fullReactive, audio: !!sourceNode, enregistrement: !!(mediaRecorder && mediaRecorder.state === 'recording') }),
     grilleCourante: () => currentGrid,
     construireCartes,
     // une tuile bicolore vient d'être prête : la redessiner là où elle sert

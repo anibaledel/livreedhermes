@@ -68,6 +68,9 @@ const TUILES = [
   { id: 'fonds-ecran', href: 'fonds-ecran.html', categories: ['animations'],
     fr: { label: "Fond d'écran", excerpt: "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable." },
     en: { label: 'Wallpapers', excerpt: 'Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.' } },
+  { id: 'defile', href: 'fonds-ecran.html', categories: ['galeries'],
+    fr: { label: 'Défilé', excerpt: 'Le Défilé enchaîne les motifs en plein écran, au rythme du son ou d’un minuteur réglable : choisissez une catégorie, puis lancez.' },
+    en: { label: 'Parade', excerpt: 'The Parade chains the patterns full screen, to the rhythm of the sound or an adjustable timer: pick a category, then start.' } },
   { id: 'voir-sa-musique', href: 'musique-chladni.html', categories: ['animations'],
     fr: { label: 'Voir sa musique', excerpt: 'Choisissez un morceau, un fichier ou le micro : la page cherche le motif de La Livrée d’Hermès dont le spectre ressemble le plus à celui du son.' },
     en: { label: 'See your music', excerpt: 'Pick a track, a file or the microphone: the page finds the La Livrée d’Hermès pattern whose spectrum is closest to the sound.' } },
@@ -200,8 +203,10 @@ for (const t of TUILES) {
   for (const c of t.categories) if (!IDS_CATEGORIES.has(c)) throw new Error(`nav-tiles.js : ${t.id} dans une catégorie inconnue « ${c} ».`);
 }
 for (const c of CATEGORIES) if (!TUILES.some((t) => t.categories.includes(c.id))) throw new Error(`nav-tiles.js : catégorie ${c.id} vide.`);
-if (TUILES.length + FIXES.length !== 27) {
-  throw new Error(`nav-tiles.js : ${TUILES.length} entrées rangées et ${FIXES.length} liens fixes, 27 pages attendues.`);
+// 27 PAGES distinctes : une entrée peut en doubler une autre vers la même page (« Défilé » et « Fond d'écran » mènent à fonds-ecran.html, prompt 259) ; deux ids, une page.
+const PAGES_DU_BLOC = new Set([...FIXES, ...TUILES].map((t) => t.href));
+if (PAGES_DU_BLOC.size !== 27) {
+  throw new Error(`nav-tiles.js : ${TUILES.length} entrées rangées et ${FIXES.length} liens fixes, ${PAGES_DU_BLOC.size} pages distinctes, 27 attendues.`);
 }
 
 // Les pages qui ne sont pas l'une des 27 mais en dépendent : la catégorie de
@@ -260,7 +265,7 @@ function tuilesPourPage(rel, prefixe, lang = 'fr') {
     ...c,
     ouverte: c.id === ouverte,
     entrees: entrees.filter((t) => t.categories.includes(c.id))
-      .map((t) => ({ ...t, marquee: t.courante && t.categories[0] === c.id })),
+      .map((t) => ({ ...t, marquee: t.courante && t.categories[0] === c.id && (!courante || t.id === courante.id) })),  // un alias (« Défilé » / « Fond d'écran ») : seule la première entrée de la page est marquée
   }));
 
   // Assertion bruyante : jamais deux entrées de la même catégorie vers la

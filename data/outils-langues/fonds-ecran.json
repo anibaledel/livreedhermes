@@ -2,18 +2,18 @@
  "_doc": "Textes de fonds-ecran.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md). Les libellés de l'outil lui-même (cartes, aide, barre de l'écran plein) sont dans assets/outil-fond-ecran.js, qui lit la langue de la page ; les 32 textes de paires (PAIRS32, affichés à la pause) sont restés en français au premier lot ; ils sont traduits depuis le 9 octobre 2026 dans data/outils-langues/paires-32.json, une fois pour cette page et pour 360-calques (« donnees » de data/outils-langues.json) ; la phrase du sélecteur (assets/vue-fond-ecran.js, module partagé) aussi. Les liens vers les galeries mènent à celles de la langue ; ceux du script (« Figer », lien du fond fixe) restent vers la galerie bicolore française.",
  "textes": [
   {
-   "fr": "Fonds d'écran textiles réactifs au son — La Livrée d'Hermès",
-   "en": "Textile wallpapers that react to sound — La Livrée d'Hermès",
-   "es": "Fondos textiles reactivos al sonido — La Livrée d'Hermès",
-   "th": "La Livrée d'Hermès — วอลเปเปอร์",
-   "source": "nav-tiles (fonds-ecran) pour es et th ; SANS SOURCE pour en"
+   "fr": "Défilé : fonds d'écran textiles réactifs au son — La Livrée d'Hermès",
+   "en": "Parade: textile wallpapers that react to sound — La Livrée d'Hermès",
+   "es": "Desfile: fondos textiles reactivos al sonido — La Livrée d'Hermès",
+   "th": "La Livrée d'Hermès — ขบวน: วอลเปเปอร์ลายผ้าตอบสนองต่อเสียง",
+   "source": "SANS SOURCE (prompt 259 : le Défilé ; à relire)"
   },
   {
-   "fr": "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.",
-   "en": "Full-screen textile wallpapers, reacting to sound or in a meditative mode at an adjustable pace, with colour customisation — by Anibal Amiot.",
-   "es": "Fondos de pantalla textiles a pantalla completa, reactivos al sonido o en modo meditativo a ritmo regulable, con personalización del color — por Anibal Amiot.",
-   "th": "วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้ พร้อมปรับแต่งสี — โดย Anibal Amiot",
-   "source": "nav-tiles (fonds-ecran, excerpt) pour es et th, complété ; SANS SOURCE pour en"
+   "fr": "Le Défilé : fonds d'écran textiles plein écran qui enchaînent les motifs, au rythme du son ou d'un minuteur réglable, avec personnalisation de couleur — par Anibal Amiot.",
+   "en": "The Parade: full-screen textile wallpapers that chain the patterns, to the rhythm of sound or an adjustable timer, with colour customisation — by Anibal Amiot.",
+   "es": "El Desfile: fondos de pantalla textiles a pantalla completa que encadenan los motivos, al ritmo del sonido o de un temporizador regulable, con personalización del color — por Anibal Amiot.",
+   "th": "ขบวน: วอลเปเปอร์ลายผ้าเต็มจอที่ต่อลวดลายไปเรื่อย ๆ ตามจังหวะเสียงหรือตัวจับเวลาที่ปรับได้ พร้อมปรับแต่งสี — โดย Anibal Amiot",
+   "source": "SANS SOURCE (prompt 259 : le Défilé ; à relire)"
   },
   {
    "fr": "\"name\": \"Fonds d'écran — La Livrée d'Hermès\"",
@@ -51,18 +51,18 @@
    "source": "nav-tiles (fonds-ecran, label) pour es et th ; SANS SOURCE pour en"
   },
   {
-   "fr": "<h1>Fonds d'écran</h1>",
-   "en": "<h1>Wallpapers</h1>",
-   "es": "<h1>Fondos de pantalla</h1>",
-   "th": "<h1>วอลเปเปอร์</h1>",
-   "source": "SANS SOURCE"
+   "fr": "<h1>Défilé et fonds d'écran</h1>",
+   "en": "<h1>Parade and wallpapers</h1>",
+   "es": "<h1>Desfile y fondos de pantalla</h1>",
+   "th": "<h1>ขบวนและวอลเปเปอร์</h1>",
+   "source": "SANS SOURCE (prompt 259 : le Défilé ; à relire)"
   },
   {
-   "fr": "Choisissez une catégorie de motifs unifiés, en plein écran, réactifs au son ou en mode méditatif.",
-   "en": "Choose a category of unified patterns, full screen, reacting to sound or in meditative mode.",
-   "es": "Elija una categoría de motivos unificados, a pantalla completa, reactivos al sonido o en modo meditativo.",
-   "th": "เลือกหมวดลวดลายรวม เต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิ",
-   "source": "SANS SOURCE"
+   "fr": "Le Défilé enchaîne les motifs, au rythme réglable d'un minuteur (mode méditatif) ou au rythme du son. Choisissez une catégorie de motifs unifiés, puis lancez-la en plein écran.",
+   "en": "The Parade chains the patterns, at the adjustable pace of a timer (meditative mode) or to the rhythm of the sound. Choose a category of unified patterns, then start it full screen.",
+   "es": "El Desfile encadena los motivos, al ritmo regulable de un temporizador (modo meditativo) o al ritmo del sonido. Elija una categoría de motivos unificados y lánzela a pantalla completa.",
+   "th": "ขบวนจะต่อลวดลายไปเรื่อย ๆ ตามจังหวะที่ปรับได้ของตัวจับเวลา (โหมดสมาธิ) หรือตามจังหวะเสียง เลือกหมวดลวดลายรวม แล้วเริ่มแบบเต็มจอ",
+   "source": "SANS SOURCE (prompt 259 : le Défilé ; à relire)"
   },
   {
    "fr": "Deux outils, l'un sous l'autre : le tricolore, puis le bicolore. Choisissez une catégorie de motifs unifiés ; une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.",
@@ -175,6 +175,13 @@
    "es": "<a href=\"es/ver-tu-musica/?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">Probar la nueva interfaz</a>",
    "th": "<a href=\"th/see-your-music/?mode=defile#nouvelle-interface\" style=\"color:var(--gold);\">ลองใช้อินเทอร์เฟซใหม่</a>",
    "source": "prompt 211 (bloc 3) : un lien discret vers la nouvelle interface de « Voir sa musique » ; EN/ES de CC, TH à relire"
+  },
+  {
+   "fr": "Animation lente, pensée pour la photosensibilité : deux changements de motif sont toujours séparés d'au moins 0,8 s, quel que soit le réglage du rythme ; si votre appareil demande moins de mouvement, d'au moins 3 s et sans fondu. Vous pouvez l'arrêter à tout moment : bouton « Pause » ou « Quitter », ou touche Échap.",
+   "en": "A slow animation, designed with photosensitivity in mind: two pattern changes are always at least 0.8 s apart, whatever the pace setting; if your device asks for less motion, at least 3 s and no fade. You can stop it at any time: the “Pause” or “Exit” button, or the Esc key.",
+   "es": "Animación lenta, pensada para la fotosensibilidad: dos cambios de motivo están siempre separados por al menos 0,8 s, sea cual sea el ajuste del ritmo; si su dispositivo pide menos movimiento, por al menos 3 s y sin fundido. Puede detenerla en cualquier momento: botón «Pausa» o «Salir», o tecla Esc.",
+   "th": "แอนิเมชันช้า คำนึงถึงผู้ไวต่อแสง: การเปลี่ยนลวดลายสองครั้งห่างกันอย่างน้อย 0.8 วินาทีเสมอ ไม่ว่าจะตั้งจังหวะไว้เท่าใด หากอุปกรณ์ของคุณขอให้ลดการเคลื่อนไหว จะห่างอย่างน้อย 3 วินาทีและไม่มีการเฟด หยุดได้ทุกเมื่อ: ปุ่ม «หยุดชั่วคราว» หรือ «ออก» หรือปุ่ม Esc",
+   "source": "SANS SOURCE (prompt 259 ; à relire)"
   }
  ]
 }

@@ -416,6 +416,20 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_defile_entree.mjs",
+   "role": "fonds-ecran.html, page d'entrée du Défilé (prompt 259).",
+   "lit": [
+    "en/wallpapers"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_demi_periode.mjs",
    "role": "la DEMI-PÉRIODE des fonds (prompt 185) : décaler le rendu de 6 cases en ligne et en colonne donne le rendu aux couleurs ÉCHANGÉES.",
    "lit": [
@@ -2420,6 +2434,7 @@
     "tools/check_article.mjs",
     "tools/check_bicolore_defaut.mjs",
     "tools/check_cymatique_outils.mjs",
+    "tools/check_defile_entree.mjs",
     "tools/check_ecrivain_unique.mjs",
     "tools/check_export_pinterest.mjs",
     "tools/check_fond_ecran_animation.mjs",
