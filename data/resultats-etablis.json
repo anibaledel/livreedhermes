@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 40,
+    "verifie_ci": 41,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -3905,6 +3905,57 @@
       ],
       "statut": "verifie_ci",
       "note": "Ce n'est pas un journal : le dépôt Zenodo contient le corpus lui-même, pas la sortie d'un script. CI relit que l'empreinte déposée est celle de data/corpus-256.json (inchangé), et que les deux DOI figurent dans les pages qui décrivent le corpus. Rien n'est déposé ni modifié sur Zenodo depuis ce dépôt."
+    },
+    {
+      "id": "convention-six-traits",
+      "intitule": "La convention des six traits : trait k = niveau k de la carte, du centre vers le bord",
+      "enonce": {
+        "texte": "distance minimale au centre de la cellule 12×12 des six niveaux, strictement croissante (0,71 ; 2,12 ; 2,55 ; 3,54 ; 3,81 ; 4,53) : le trait 1 d'un hexagramme est le niveau 1, qui contient le centre, le trait 6 le niveau 6, le plus périphérique ; cases sur le bord : 12, 0, 8, 8, 0, 16 (les traits 2 et 5 seuls ne touchent pas le bord) ; les traits 1 à 3 forment le trigramme inférieur (« intérieur »), les traits 4 à 6 le supérieur (« extérieur »)",
+        "langue": "fr",
+        "source": "prompt 250 (convention du site, à documenter, pas à changer)"
+      },
+      "valeur": {
+        "distance_minimale_au_centre": [
+          0.71,
+          2.12,
+          2.55,
+          3.54,
+          3.81,
+          4.53
+        ],
+        "cases_au_bord": [
+          12,
+          0,
+          8,
+          8,
+          0,
+          16
+        ],
+        "cases_par_niveau": 24
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360"
+      ],
+      "donnees": [
+        "data/referent_360_v3.json"
+      ],
+      "script": {
+        "chemin": "tools/convention_six_traits.py",
+        "adresse": "https://anibal-amiot.com/tools/convention_six_traits.py",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    six traits : distances 0,71 ; 2,12 ; 2,55 ; 3,54 ; 3,81 ; 4,53 (strictement croissantes), cases au bord 12, 0, 8, 8, 0, 16 (les traits 2 et 5 seuls ne touchent pas le bord), 24 cases par niveau."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Calculé depuis la carte layer_of du référent 360 (centre de la cellule = coin commun des quatre cases centrales) ; le script échoue sinon (--verifie) et refuse une carte faussée (--essai). Aucun journal déposé sur Zenodo : « vérifié » veut dire que la CI le recalcule.",
+      "page": "chiffres-et-sources.html"
     }
   ]
 }

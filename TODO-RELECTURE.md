@@ -1421,3 +1421,9 @@ La galerie affiche, pour le motif choisi : l'hexagramme (les deux numéros), le 
 ## Prompt 250 (4) — fiche du motif dans « Voir sa musique »
 
 La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° …) · code … » (clé `fiche` de `assets/pavane-textes.js`, 11 langues ; thaï et chinois en priorité). Le moteur de reconnaissance n'est pas touché ; le complément est le partenaire du demi-décalage du corpus, le code (9 bits) se lit sur les champs du corpus, et un test le compare aux fiches calculées.
+
+## Prompt 250 (points 3 et 5) — fiches de formes et convention des six traits
+
+- `scripts/generate-fiches-formes.js` : textes FR et EN des 258 pages de fiche (forms/, fr/formes/) écrits ici même, à relire (gabarit unique, `T.fr` / `T.en`). Le bloc « attribution déclarée » est vide et masqué : `data/attributions-declarees.json`, à remplir par Anibal (clé = numéro de forme, valeur = `{ "fr": …, "en": … }`).
+- `data/outils-langues/chiffres-et-sources.json` : la ligne de la convention des six traits en en/es/th (SANS SOURCE) ; th à faire relire en priorité.
+- `docs/convention-six-traits.md` : le pendant de « la note », dont le texte n'est pas dans ce dépôt.

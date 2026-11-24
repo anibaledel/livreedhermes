@@ -1694,6 +1694,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/convention_six_traits.py",
+   "role": "la convention des six traits du site (prompt 250, point 5), relue sur la carte des niveaux du référent 360.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/corpus_256.mjs",
    "role": "le corpus binaire de référence des animations : 256 grilles tricolores, 128 paires {motif, négatif}, 64 classes (prompt 209).",
    "lit": [

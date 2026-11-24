@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T16:24:56Z",
+ "generated_at_utc": "2026-11-24T16:28:02Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 330,
+  "scripts": 331,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3337,6 +3337,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "toute figure candidate est réalisable à m impair.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/convention_six_traits.py",
+   "adresse": "https://anibal-amiot.com/tools/convention_six_traits.py",
+   "octets": 3480,
+   "sha256": "03c496bf2e0e6d766b46825efdaf118bf71a5035cdca8e83ebaabd67458745b2",
+   "md5": "66ef82f5157c6e840d1c1f7b87ad1ddb",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la convention des six traits du site (prompt 250, point 5), relue sur la carte des niveaux du référent 360.",
+   "lit": [
+    "calques-360"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
