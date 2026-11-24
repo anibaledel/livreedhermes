@@ -21,7 +21,7 @@ export const LISSAGE_S = 1.5; // la constante de temps du spectre lissé (entre 
 export const PERIODE_MINUTEUR_S = 8;
 // La photosensibilité (prompts 223, 226) : jamais deux changements de motif à moins de TENUE_MIN_S secondes, quel que soit le mode et le déclencheur (2 par seconde au plus : une marge sous les 3 de WCAG 2.3.1) ;
 // « Mouvement réduit » demande plus (tenueMinS, 3 s). Le Spectre ne quitte en outre son motif courant que si un autre est meilleur d'au moins MARGE_SPECTRE (cosinus centré : le choix ne bascule pas sur deux motifs presque à égalité).
-export const TENUE_MIN_S = 0.5;
+export const TENUE_MIN_S = 0.8;
 export const MARGE_SPECTRE = 0.05;
 
 // ---------- une graine, des listes, des distances ----------
@@ -149,7 +149,7 @@ export function creerEntreDeux({ bloc, distance, k = NOMBRE_ENTRE_DEUX, depart =
  * Le chef : image après image (`chef.image({ db, sampleRate, t })`, db = spectre en dB, t en secondes), il rend { changer, i, repli, bpm, regulier } — `i` est l'indice du
  * motif à montrer (dans la liste du défilé, ou dans le bloc des 64 représentants selon le mode), `repli` est vrai quand l'entre-deux, faute de pulsation régulière, avance
  * au minuteur (l'écran doit le dire).
- *   `tenueMinS` (« réduire les changements rapides ») : jamais deux changements à moins de tenueMinS secondes, quel que soit le déclencheur ; au moins TENUE_MIN_S (0,5 s) dans tous les cas, et le Spectre garde son motif courant
+ *   `tenueMinS` (« réduire les changements rapides ») : jamais deux changements à moins de tenueMinS secondes, quel que soit le déclencheur ; au moins TENUE_MIN_S (0,8 s) dans tous les cas, et le Spectre garde son motif courant
  *   tant qu'un autre n'est pas meilleur d'au moins MARGE_SPECTRE.
  *   defile     { liste: { n, distance }, declencheur: 'minuteur' | 'pulsation', periodeS, graine }
  *   spectre    { bloc }
@@ -159,7 +159,7 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
   if (!MODES.includes(mode)) throw new Error(`pavane-moteur.js : mode « ${mode} » inconnu`);
   const defile = mode === 'defile' ? creerDefile({ n: liste.n, distance: liste.distance, graine }) : null;
   const entre = mode === 'entre-deux' ? creerEntreDeux({ bloc, distance }) : null;
-  const tenueS = Math.max(tenueMinS, TENUE_MIN_S); // le plancher de 0,5 s vaut toujours ; « Mouvement réduit » monte à 3 s
+  const tenueS = Math.max(tenueMinS, TENUE_MIN_S); // le plancher de 0,8 s vaut toujours ; « Mouvement réduit » monte à 3 s
   const detecteur = creerDetecteurAttaques(), suivi = creerSuiviPulsation(), lisseur = creerLisseur(LISSAGE_S);
   let derniere = null, tChange = null, tDebut = null, sansPulsationDepuis = null, courant = -1, regulier = false, bpm = null;
   const sortie = (changer, i, repli = false) => ({ changer, i, repli, bpm, regulier });

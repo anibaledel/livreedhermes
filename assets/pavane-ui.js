@@ -170,7 +170,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     clearInterval(minuteur); minuteur = null; cancelAnimationFrame(rafId); rafId = null;
     if (enPause) return;
     if (etat.mode === 'defile' && etat.declencheur === 'minuteur') {
-      const s = Math.max(etat.rythme, reduit ? PERIODE_MIN_REDUIT_S : 0.5);
+      const s = Math.max(etat.rythme, reduit ? PERIODE_MIN_REDUIT_S : 0.8);
       minuteur = setInterval(() => afficher(ids[defile.suivant().i]), s * 1000);
     } else if (besoinSon()) boucle();
   }
