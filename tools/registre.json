@@ -959,6 +959,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_note_v6.py",
+   "role": "les trois faits de la note « half-shift » (v6), relus sur data/referent_360_v3.json (prompt 242).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_outils_langues.mjs",
    "role": "les outils sortis à une adresse par langue, mesurés dans un navigateur (scripts/build-outils-langues.js, data/outils-langues.json).",
    "lit": [
