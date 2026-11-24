@@ -61,6 +61,9 @@ jobs:
         with:
           node-version: '20'
       - run: node scripts/generate-sitemap.js
+      # prompt 260 : aucune URL du sitemap ne répond autrement que par 200, ne porte noindex ni ne pointe sa canonique ailleurs
+      - run: node tools/check_sitemap_indexable.mjs
+      - run: node tools/check_sitemap_indexable.mjs --essai
       - run: node tools/check_glossaire.mjs
       - run: node tools/check_tuiles.mjs
       - run: node tools/check_tuiles.mjs --essai

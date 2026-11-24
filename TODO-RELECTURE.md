@@ -1427,3 +1427,7 @@ La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° �
 - `scripts/generate-fiches-formes.js` : textes FR et EN des 258 pages de fiche (forms/, fr/formes/) écrits ici même, à relire (gabarit unique, `T.fr` / `T.en`). Le bloc « attribution déclarée » est vide et masqué : `data/attributions-declarees.json`, à remplir par Anibal (clé = numéro de forme, valeur = `{ "fr": …, "en": … }`).
 - `data/outils-langues/chiffres-et-sources.json` : la ligne de la convention des six traits en en/es/th (SANS SOURCE) ; th à faire relire en priorité.
 - `docs/convention-six-traits.md` : le pendant de « la note », dont le texte n'est pas dans ce dépôt.
+
+## Prompt 260 — descriptions de l'accueil et des pages de redirection
+
+À faire relire : la `<meta name="description">` des 11 accueils (index.html et {en,es,th,zh,ru,pt,hi,de,it,ja}/index.html) — le français et l'anglais sont de référence, les neuf autres sont faites par l'IA (th et zh en priorité) ; les descriptions des pages de redirection (cymatique.html, en/cymatics, es/cimatica, th/cymatics, galerie-768/884, impression, pages, pro, pro-contenu), en français sauf les trois pages de langue.

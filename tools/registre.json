@@ -1381,6 +1381,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_sitemap_indexable.mjs",
+   "role": "chaque URL de sitemap.xml est-elle indexable ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_six_langues.mjs",
    "role": "les vérifications du lot « six langues » qui demandent un navigateur, sur un serveur local OU sur le site déployé : 1.",
    "lit": [],

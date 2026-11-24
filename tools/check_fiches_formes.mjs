@@ -33,6 +33,7 @@ function verifierPage(html, forme, lang, nom) {
   }
   ok((html.match(/<rect /g) || []).length === 4 * 144, `${nom} : quatre grilles de 144 cases`);
   ok(html.includes('id="calcule"') && html.includes('id="tradition"'), `${nom} : blocs calculé et tradition`);
+  ok(html.includes('nav-tile'), `${nom} : le bloc de tuiles de navigation (node scripts/generate-fiches-formes.js, puis node scripts/build-header.js)`);
   ok(html.includes(lang === 'fr' ? '128' : '128') && html.includes(`${forme.forme}`), `${nom} : numéro de forme`);
 }
 
