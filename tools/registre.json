@@ -559,6 +559,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_fiches_unifies.py",
+   "role": "les fiches des patterns unifiés (data/patterns-unifies-fiches.json, prompt 250) relues sur le référent 360, sans le prototype 249 ni scipy.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_fond_ecran_animation.mjs",
    "role": "L'outil bicolore de fonds-ecran.html (le second montage du moteur assets/outil-fond-ecran.js, sous le tricolore), une vidéo par collection, vérifié SUR LE SITE (déployé par défaut ; « local » sert le dépôt) : 1.",
    "lit": [],
@@ -985,6 +997,7 @@
     "check-referents.yml"
    ],
    "utilise_par": [
+    "tools/fiches_unifies.py",
     "tools/verifie_signatures_512.py"
    ],
    "etat": "actif",
@@ -1973,6 +1986,22 @@
    ],
    "utilise_par": [],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/fiches_unifies.py",
+   "role": "les fiches CALCULÉES des 512 patterns unifiés et de leurs 128 formes : data/patterns-unifies-fiches.json (prompt 250), écrit depuis le référent 360, jamais à la main.",
+   "lit": [
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [
+    "tools/check_fiches_unifies.py"
+   ],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {

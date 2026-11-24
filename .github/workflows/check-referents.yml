@@ -64,6 +64,10 @@ jobs:
       - run: python3 tools/check_note_v6.py --essai
       # les résultats du prompt 246 relus sans le prototype : 512 grilles distinctes, parité spectrale, 128 orbites, complément, distance = 16 × Hamming, relations du Yi Jing
       - run: python3 tools/verifie_signatures_512.py
+      # les fiches des 512 patterns unifiés (prompt 250) : fichier conforme au référent, 128 formes de 4, décodage inverse 512/512, complément = même forme, parité, aucune relation du Yi Jing hors complément
+      - run: python3 tools/fiches_unifies.py --verifie
+      - run: python3 tools/check_fiches_unifies.py
+      - run: python3 tools/check_fiches_unifies.py --essai
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons
       - run: python3 tools/verify_cle_pied.py
       - run: python3 tools/verify_invariants.py
