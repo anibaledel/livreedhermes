@@ -1413,3 +1413,7 @@ Marque « (une seule base yang) » à côté du nom de la famille dans la galeri
 ## Prompts 242 (point 3) et 251 — le complément dans le tirage
 
 Le tirage affiche le complément (n → 63 − n) : « Complément (les six traits changés) : King Wen n° … — nom ». Il ne dit PAS « deux teintes échangées » : ce tirage mélange (yang, yin), et la phrase n'est exacte que pour les couples (fixe, mut) et croisés (prompt 251). À relire : clé `complementLabel` (en, et es, th, de, it, ja dans `data/outils-langues/tirage.json` ; thaï et japonais en priorité). Les pavages de `creation-motifs-yi-king.html` (antipode) n'ont rien reçu ; la phrase « deux teintes échangées » et « = décalé d'une demi-période » n'est écrite nulle part tant que la galerie unifiée n'affiche pas le complément (prompt 250, point 4).
+
+## Prompt 250 (4) — fiche de chaque motif dans la galerie tricolore
+
+La galerie affiche, pour le motif choisi : l'hexagramme (les deux numéros), le complément (« le même motif, deux teintes échangées, c'est-à-dire décalé d'une demi-période » : exact pour ces patterns, couples (fixe, mut) des 8 familles unifiées), le code à 9 bits et la forme (/128), et propose la lecture inverse (code → motif). Textes en fr, en, es, th (`data/outils-langues/galerie-patterns-unifies.json`, « SANS SOURCE » ; thaï à relire). Les noms d'hexagrammes restent en français dans les pages traduites (comme le reste des données de la galerie).

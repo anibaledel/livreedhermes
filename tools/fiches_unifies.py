@@ -152,12 +152,25 @@ def construire():
                     'centroide_spectral': round(cent, 3), 'pic': list(pic), 'domaines': domaines_nodaux(g),
                 })
                 formes.setdefault(forme, {'forme': forme, 'code7': code7, 'famille': nom, 'classe_de_complement': classe(n), 'patterns': []})['patterns'].append(pid)
+    # les 1 024 constructions de la galerie et des fonds d'écran (famille du site, couple, n du site) → le pattern dont elles dessinent la grille (les familles jumelles donnent la même grille avec n ⊕ 56 ou n ⊕ 7)
+    par_grille = {}
+    for p in patterns:
+        a_, b_ = ('YANG', 'YANG-MUT') if p['couple'] == 'YANG' else ('YIN', 'YIN-MUT')
+        cle_fam = next(c for c, nom, _, _ in REPS if nom == p['famille'])
+        par_grille[phi(p['n'], FAM[cle_fam][a_], FAM[cle_fam][b_], L).tobytes()] = p['id']
+    fe = json.load(open(os.path.join(RACINE, 'data', 'fonds_ecran_v1.json'), encoding='utf-8'))
+    L_fe = np.array(fe['layerOf'])
+    galerie = {}
+    for fam, sa, sb, n in fe['entries']:
+        g = phi(n, np.array(fe['families'][fam][sa]), np.array(fe['families'][fam][sb]), L_fe.tolist())
+        galerie[f'{fam}|{sa}|{n}'] = par_grille[g.tobytes()]
     traditions = {str(kw[n]): {'jugement': hx['hex'][str(kw[n])][3], 'image': hx['image'][str(kw[n])]} for n in range(64)}
     return {
-        '_doc': "Les fiches calculées des 512 patterns unifiés et de leurs 128 formes (prompt 250), écrites par tools/fiches_unifies.py depuis data/referent_360_v3.json : rien n'est écrit à la main. n : index binaire (ligne 1 = bas = bit 0, bit à 1 = trait plein = couche A du couple) ; numéro King Wen : KINGWEN_BY_CHRONO ; les deux numéros vont toujours ensemble. Un pattern = un socle de 48 cases d'une teinte (orange : couple YANG ; magenta : couple YIN) + une image à deux teintes sur 96 cases mobiles (16 par niveau). code9 = [phase du yang (0 = X, 1 = losange) | yin présent | couple (0 = YANG, 1 = YIN) | n sur 6 bits] ; code7 = [phase du yang | yin présent | classe de complément de n sur 5 bits] ; forme = 1 + code7 (1 à 128, 4 patterns chacune : { n, 63 − n } × 2 couples). Le complément (n → 63 − n) donne la même forme ; « deux teintes échangées » est exact pour les couples (fixe, mut), ce que sont ces patterns. « traditions » : le jugement et l'image du Yi Jing déjà présents sur le site (tirage-livree-hermes.html), cités tels quels, par numéro King Wen. Aucune attribution de sens ici.",
-        'source': {'referent': 'data/referent_360_v3.json', 'hexagrammes': 'scripts/extract-hexagram-data.js (tirage-livree-hermes.html)'},
+        '_doc': "Les fiches calculées des 512 patterns unifiés et de leurs 128 formes (prompt 250), écrites par tools/fiches_unifies.py depuis data/referent_360_v3.json : rien n'est écrit à la main. n : index binaire (ligne 1 = bas = bit 0, bit à 1 = trait plein = couche A du couple) ; numéro King Wen : KINGWEN_BY_CHRONO ; les deux numéros vont toujours ensemble. Un pattern = un socle de 48 cases d'une teinte (orange : couple YANG ; magenta : couple YIN) + une image à deux teintes sur 96 cases mobiles (16 par niveau). code9 = [phase du yang (0 = X, 1 = losange) | yin présent | couple (0 = YANG, 1 = YIN) | n sur 6 bits] ; code7 = [phase du yang | yin présent | classe de complément de n sur 5 bits] ; forme = 1 + code7 (1 à 128, 4 patterns chacune : { n, 63 − n } × 2 couples). Le complément (n → 63 − n) donne la même forme ; « deux teintes échangées » est exact pour les couples (fixe, mut), ce que sont ces patterns. « galerie » : pour chacune des 1 024 constructions de la galerie tricolore et des fonds d'écran (clé « famille du site | couche A | n du site »), le pattern dont elle dessine la grille (les familles jumelles donnent la même grille avec n ⊕ 56 ou n ⊕ 7). « traditions » : le jugement et l'image du Yi Jing déjà présents sur le site (tirage-livree-hermes.html), cités tels quels, par numéro King Wen. Aucune attribution de sens ici.",
+        'source': {'referent': 'data/referent_360_v3.json', 'galerie': 'data/fonds_ecran_v1.json', 'hexagrammes': 'scripts/extract-hexagram-data.js (tirage-livree-hermes.html)'},
         'patterns': patterns,
         'formes': [formes[k] for k in sorted(formes)],
+        'galerie': galerie,
         'traditions': traditions,
     }
 

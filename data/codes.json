@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-24T16:11:09Z",
+ "generated_at_utc": "2026-11-24T16:14:35Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2133,9 +2133,9 @@
   {
    "chemin": "tools/check_fiches_unifies.py",
    "adresse": "https://anibal-amiot.com/tools/check_fiches_unifies.py",
-   "octets": 10068,
-   "sha256": "467c27f259009f5861e3ed8df0e806542a86d59a5d9c775814fa217d272a0a10",
-   "md5": "516e0df3eb4e3dfa20e2d2ec0185d4a8",
+   "octets": 10392,
+   "sha256": "968353a16ad9739fc8da6296a67dc612bbf975197ac480a1cb0104fb5a4230fe",
+   "md5": "5f5db490a787ff3567b116cb7f11aa8f",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "les fiches des patterns unifiés (data/patterns-unifies-fiches.json, prompt 250) relues sur le référent 360, sans le prototype 249 ni scipy.",
@@ -3750,14 +3750,15 @@
   {
    "chemin": "tools/fiches_unifies.py",
    "adresse": "https://anibal-amiot.com/tools/fiches_unifies.py",
-   "octets": 9250,
-   "sha256": "3f0c37f129609726d447f527eb4b393306cba726f06fbf5c29e747525533a3e5",
-   "md5": "7082c7d770bd95acdde828f5bb3b0520",
+   "octets": 10453,
+   "sha256": "41614d1e672234321a18f113578cea838b88690b8158a732d8648adacda20b6a",
+   "md5": "cf2e86724a1d2a7b19feeae8ecb4ab74",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "les fiches CALCULÉES des 512 patterns unifiés et de leurs 128 formes : data/patterns-unifies-fiches.json (prompt 250), écrit depuis le référent 360, jamais à la main.",
    "lit": [
-    "calques-360"
+    "calques-360",
+    "constructions-1024"
    ],
    "ecrit": [],
    "durees": [],

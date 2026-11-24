@@ -406,6 +406,69 @@
    "es": "(una sola base yang)",
    "th": "(ฐานหยางเพียงฐานเดียว)",
    "source": "SANS SOURCE (prompt 242, marquage des 8 familles unifiées ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "Lire un code (9 bits) :",
+   "en": "Read a code (9 bits):",
+   "es": "Leer un código (9 bits):",
+   "th": "อ่านรหัส (9 บิต):",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "Afficher le motif",
+   "en": "Show the pattern",
+   "es": "Mostrar el motivo",
+   "th": "แสดงลวดลาย",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "Neuf chiffres 0 ou 1 attendus.",
+   "en": "Nine digits, 0 or 1, expected.",
+   "es": "Se esperan nueve cifras, 0 o 1.",
+   "th": "ต้องใช้เลข 0 หรือ 1 จำนวนเก้าหลัก",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "Ce code ne donne aucun motif dans la sélection affichée.",
+   "en": "This code gives no pattern in the current selection.",
+   "es": "Este código no da ningún motivo en la selección mostrada.",
+   "th": "รหัสนี้ไม่มีลวดลายในรายการที่แสดงอยู่",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "Hexagramme n° ",
+   "en": "Hexagram no. ",
+   "es": "Hexagrama n.º ",
+   "th": "เฮกซะแกรมที่ ",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": " (King Wen ",
+   "en": " (King Wen ",
+   "es": " (King Wen ",
+   "th": " (King Wen ",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": " · complément : n° ",
+   "en": " · complement: no. ",
+   "es": " · complemento: n.º ",
+   "th": " · ส่วนเติมเต็ม: ที่ ",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": "), le même motif, deux teintes échangées, c\\u2019est-à-dire décalé d\\u2019une demi-période · code ",
+   "en": "), the same pattern with two hues swapped, that is, shifted by half a period · code ",
+   "es": "), el mismo motivo con dos matices intercambiados, es decir, desplazado medio período · código ",
+   "th": "), ลวดลายเดียวกันที่สลับสองเฉดสี คือเลื่อนไปครึ่งคาบ · รหัส ",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
+  },
+  {
+   "fr": " · forme ",
+   "en": " · shape ",
+   "es": " · forma ",
+   "th": " · รูปแบบ ",
+   "source": "SANS SOURCE (prompt 250, fiches des patterns unifiés ; à relire, TODO-RELECTURE.md)"
   }
  ]
 }

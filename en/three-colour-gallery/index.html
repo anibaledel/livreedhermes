@@ -450,6 +450,8 @@
   <div class="paved-section" id="pavedSection">
     <h2 class="paved-label h2-neutre">Tiling of the selected pattern</h2>
     <div class="paved-info" id="pavedInfo"></div>
+    <div class="paved-info" id="pavedFiche" style="margin-top:6px;"></div>
+    <div class="paved-info" id="pavedCode" style="margin-top:6px;"><label for="codeInverse">Read a code (9 bits):</label> <input type="text" id="codeInverse" inputmode="numeric" maxlength="9" size="11" placeholder="000001001" aria-describedby="codeInverseMsg" style="background:var(--bg);color:var(--white);border:1px solid var(--line-strong);padding:6px;font:inherit;"> <button type="button" id="codeInverseBtn" class="site-nav-btn" style="padding:6px 12px;">Show the pattern</button> <span id="codeInverseMsg" role="status" style="color:var(--dim);"></span></div>
     <div class="paved-box"><canvas id="pavedCanvas" role="img" aria-label="Tiling of the selected pattern"></canvas></div>
     <div class="paved-actions">
       <button type="button" id="btnDlCellSvg">Download the cell SVG</button>
@@ -846,6 +848,27 @@ function entryLabel(fam, subA, subB, n){
 }
 
 let selectedIdx = 0;
+document.addEventListener('DOMContentLoaded', ()=>{
+  const champ = document.getElementById('codeInverse'), msg = document.getElementById('codeInverseMsg');
+  document.getElementById('codeInverseBtn').addEventListener('click', ()=>{
+    const code = champ.value.trim();
+    if(!/^[01]{9}$/.test(code)){ msg.textContent = 'Nine digits, 0 or 1, expected.'; return; }
+    fiches().then(({F, parCode})=>{
+      const p = parCode.get(code);
+      const idx = p ? currentEntries.findIndex(([fam, sa, sb, n])=> F.galerie[fam+'|'+sa+'|'+n] === p.id) : -1;
+      if(idx < 0){ msg.textContent = 'This code gives no pattern in the current selection.'; return; }
+      msg.textContent = ''; selectEntry(idx);
+      const tuile = document.querySelector('.tile[data-idx="'+idx+'"]'); if(tuile) tuile.scrollIntoView({block:'nearest'});
+    });
+  });
+});
+// Les fiches calculées (data/patterns-unifies-fiches.json, tools/fiches_unifies.py) : hexagramme (les deux numéros), complément, code à 9 bits, forme. Chargées au premier motif choisi.
+let FICHES = null;
+function fiches(){
+  if(!FICHES) FICHES = fetch('../../data/patterns-unifies-fiches.json').then(r=>r.json()).then(F=>({F, parId:new Map(F.patterns.map(p=>[p.id,p])), parCode:new Map(F.patterns.map(p=>[p.code9,p]))}));
+  return FICHES;
+}
+function ficheDe(fam, subA, n){ return fiches().then(({F, parId})=> parId.get(F.galerie[fam+'|'+subA+'|'+n])); }
 function selectEntry(idx){
   selectedIdx = idx;
   document.querySelectorAll('.tile').forEach(t=> t.classList.toggle('selected', +t.dataset.idx===idx));
@@ -862,6 +885,10 @@ function selectEntry(idx){
   const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
   const orbit = orbitAtPos(idx);
   const orbitBadge = orbit === undefined ? '' : ' — orbit no. ' + orbit + '/128';
+  ficheDe(fam, subA, n).then(p=>{
+    if(!p || selectedIdx!==idx) return;
+    document.getElementById('pavedFiche').innerHTML = 'Hexagram no. ' + p.n + ' (King Wen ' + p.king_wen + ') — ' + p.nom + ' · complement: no. ' + p.complement.n + ' (King Wen ' + p.complement.king_wen + '), the same pattern with two hues swapped, that is, shifted by half a period · code ' + p.code9 + ' · shape ' + p.forme + '/128';
+  });
   pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b>' + (window.FamillesUnifiees.uneSeuleBaseYang(fam) ? ' (a single yang base)' : '') + ' — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagram no. ' + n + badge + k2Badge + orbitBadge;
 }
 

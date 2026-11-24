@@ -64,6 +64,9 @@ def main():
        'code9 = [phase | yin | couple | n] ; complément 63 − n ; lignes de bas en haut')
     ok(all(p['teinte_fixe'] == ('O' if p['couple'] == 'YANG' else 'M') and p['king_wen'] > 0 for p in P), 'teinte fixe orange (YANG) ou magenta (YIN) ; numéro King Wen avec n')
 
+    g_ = fiches['galerie']
+    ok(len(g_) == 1024 and len(set(g_.values())) == 512 and set(Counter(g_.values()).values()) == {2} and set(g_.values()) <= set(par_id),
+       'galerie : les 1 024 constructions de la galerie et des fonds d\'écran désignent chacune un des 512 patterns, deux par pattern (familles jumelles)')
     # les grilles, relues du référent (sans passer par la fiche)
     REP = {nom: cle for cle, nom, _, _ in fu.REPS}
     grilles = {}
