@@ -575,12 +575,12 @@
   "@type": "WebApplication",
   "@id": "https://anibal-amiot.com/ja/yi-king-draw/#application",
   "url": "https://anibal-amiot.com/ja/yi-king-draw/",
-  "name": "易経占い 無料オンライン：卦、卦辞、魔方陣 | La Livrée d'Hermès",
+  "name": "Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès",
   "description": "易経の無料オンライン占い、登録不要。硬貨を投げて卦を引き、卦辞、象、魔方陣を読むか、六十四卦をたどれます。",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Web",
   "isAccessibleForFree": true,
-  "inLanguage": "ja",
+  "inLanguage": "fr",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "creator": {
     "@type": "Person",
@@ -704,7 +704,7 @@
       <h2 class="section-h2" id="txt-oracleTitle">占い</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>易経は、占いとして使える知恵の書です。具体的な問いがあれば、押す前にそれを心に収めてください。特に問いがなければ、結果はそのときの状況を示します。複数の問いのために何度か続けて占うこともできますが、一度の結果だけでも、あなたの相談に対応するメッセージとして十分です。</p><p>卦と、対応する象の意味をただ探ってみたいなら、盤面のマスを直接選んでください。象について詳しくは、遠慮なく本をお読みください。</p></div>
       <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
-      <noscript><p class="tirage-noscript" role="note">占いと盤面にはJavaScriptが必要です。硬貨を投げるには有効にしてください。下の「易経占いの結果の読み方」は、JavaScriptなしでも読めます。</p></noscript>
+      <noscript><p class="tirage-noscript" role="note">Le tirage et l’échiquier demandent JavaScript : activez-le pour lancer les pièces. Le texte « Comment lire un tirage », plus bas, se lit sans.</p></noscript>
       <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">硬貨を投げる（6つの爻）</button>
 
@@ -735,30 +735,30 @@
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
-    <h2 id="lire-un-tirage-titre">易経占いの結果の読み方</h2>
-    <h3>占いとは</h3>
-    <p>一回の占いで、六つの爻が下から上へ並びます。爻は陰（破線）か陽（実線）のどちらかで、六つ合わせて64ある卦のうちの一つになります。</p>
-    <h3>このページの占い方</h3>
-    <p>このページは、爻ごとに三枚の硬貨を投げ、これを六回続けます。最初の一投が一番下の爻になります。硬貨は一枚ごとに2か3で、出る確率は同じです。ブラウザの擬似乱数生成器（Math.random）で決めます。</p>
-    <p>三枚の合計が爻を決めます。6は変爻の陰、7は不変の陽、8は不変の陰、9は変爻の陽です。確率は、6が8分の1、7が8分の3、8が8分の3、9が8分の1で、四つに一つの爻が変爻になります。</p>
-    <h3>結果に表示されるもの</h3>
-    <p>結果には、卦の伝統的な文王の番号、次にサイトの時系列の順序での番号（0から63）、名前、六つの爻、対応する魔方陣の敷き詰め、二つの八卦、象、卦辞が表示されます。「この卦についてさらに」のリンクは、出た卦のページを開きます。<a href="../../ja/hexagrams/">64卦の一覧</a>では、二つの番号が並んで見られます。</p>
-    <h3>変爻と之卦</h3>
-    <p>6か9が出た爻は変爻で、ページが印を付けます。このとき、本卦（占いの結果）と之卦を示します。之卦では、変爻がすべて反転します（陰は陽に、陽は陰に）。各変爻の位置とその解説も表示されます。変爻がなければ、卦は一つだけです。六つすべての爻の解説は、卦のページで読めます。</p>
-    <h3>急がずに読む</h3>
+    <h2 id="lire-un-tirage-titre">Comment lire un tirage du Yi King</h2>
+    <h3>Ce qu’est un tirage</h3>
+    <p>Un tirage donne six traits, posés de bas en haut. Chaque trait est yin (brisé) ou yang (plein), et les six ensemble forment un hexagramme, l’un des 64.</p>
+    <h3>Comment la page fait le tirage</h3>
+    <p>La page lance trois pièces pour chaque trait, six fois de suite ; le premier lancer fait le trait du bas. Chaque pièce vaut 2 ou 3 à égalité de chances, tirée par le générateur pseudo-aléatoire du navigateur (Math.random).</p>
+    <p>La somme des trois pièces donne le trait : 6, yin mutant ; 7, yang fixe ; 8, yin fixe ; 9, yang mutant. Les chances sont de 1 sur 8 pour le 6, de 3 sur 8 pour le 7, de 3 sur 8 pour le 8 et de 1 sur 8 pour le 9 : un trait sur quatre est mutant.</p>
+    <h3>Ce que contient le résultat</h3>
+    <p>Le résultat donne le numéro traditionnel King Wen de l’hexagramme, puis son numéro dans l’ordre chronologique du site (de 0 à 63), son nom, ses six traits, le pavage du carré magique qui lui correspond, ses deux trigrammes, son image et son jugement. Le lien « En savoir plus sur cet hexagramme » ouvre la page de l’hexagramme tiré. La <a href="../../ja/hexagrams/">liste des 64 hexagrammes</a> met les deux numéros côte à côte.</p>
+    <h3>Traits mutants et second hexagramme</h3>
+    <p>Un trait qui sort 6 ou 9 est mutant : la page le marque. Elle montre alors l’hexagramme antérieur (le tirage) et l’hexagramme postérieur, où chaque trait mutant est inversé (le yin devient yang, le yang devient yin), avec la position et le commentaire de chaque trait mutant. Sans trait mutant, il n’y a qu’un hexagramme. Les commentaires des six traits se lisent sur la page de l’hexagramme.</p>
+    <h3>Lire sans se précipiter</h3>
     <ol>
-      <li>卦辞を読む。</li>
-      <li>象を読む。</li>
-      <li>本で魔方陣を見る。卦のページが示す箇所を開く。</li>
+      <li>Lire le jugement.</li>
+      <li>Lire l’image.</li>
+      <li>Regarder le carré dans le livre, au passage que la page de l’hexagramme indique.</li>
     </ol>
-    <h3>端末に残るもの</h3>
-    <p>占いはあなたのブラウザの中で計算され、アカウントは要りません。ページは占いの履歴を保存せず、端末に記憶するのは表示の設定（言語、パレット）だけです。結果はページのアドレス（?tire=…）に書き込まれるので、リンクをコピーできます。</p>
-    <p>このサイトは<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot<span class="lien-langue">（フランス語）</span></a>によるもので、ライセンスはCC BY-NC 4.0です。</p>
-    <h3>さらに読む</h3>
+    <h3>Ce qui reste sur l’appareil</h3>
+    <p>Le tirage se calcule dans votre navigateur, sans compte. La page ne garde aucun historique de tirages : elle ne mémorise sur l’appareil que des réglages d’affichage (langue, palette). Le résultat s’écrit dans l’adresse de la page (?tire=…), ce qui permet d’en copier le lien.</p>
+    <p>Le site est d’<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot<span class="lien-langue">（フランス語）</span></a>, sous licence CC BY-NC 4.0.</p>
+    <h3>Pour aller plus loin</h3>
     <ul>
-      <li><a href="../../ja/hexagrams/">64卦</a>（二つの番号つき）</li>
-      <li><a href="../../ja/book/">書籍『La Livrée d’Hermès』</a></li>
-      <li><a href="../../ja/lexicon/">プロジェクトの用語集</a></li>
+      <li><a href="../../ja/hexagrams/">Les 64 hexagrammes</a>, avec leurs deux numéros</li>
+      <li><a href="../../ja/book/">Le livre La Livrée d’Hermès</a></li>
+      <li><a href="../../ja/lexicon/">Le lexique du projet</a></li>
     </ul>
   </section>
   <!-- @tirage-lire:end -->
@@ -1447,7 +1447,7 @@ const UI = {
     navHexagrammesDesc:"The 64 hexagrams of the Yi-King: judgment, trigrams and magic square for each.",
     navMotifDesc:"Compose your own textile motifs from the 60 images of the Yi King.",
     navUnifiedDesc:"The 64 motifs of the hexagrams, customizable and downloadable in high resolution.",
-    navGalerieDesc:"768 unified patterns, generated by hue blending — select a motif to see its tiling.",
+    navGalerieDesc:"512 distinct grids (256 tilings), generated by hue blending — select a motif to see its tiling.",
     navMotifsSvgDesc:"Download the print layers in 4 categories of line combinations, in SVG format.",
     navCymatiqueDesc:"The tiling whose spatial frequency comes closest to the sound you make.",
     navWallpaperDesc:"Full-screen textile wallpapers, sound-reactive or in a meditative mode with adjustable pace.",

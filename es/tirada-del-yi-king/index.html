@@ -575,12 +575,12 @@
   "@type": "WebApplication",
   "@id": "https://anibal-amiot.com/es/tirada-del-yi-king/#application",
   "url": "https://anibal-amiot.com/es/tirada-del-yi-king/",
-  "name": "Tirada del I Ching gratis: hexagrama, juicio y cuadrado mágico | La Livrée d'Hermès",
+  "name": "Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès",
   "description": "Tirada del I Ching (Yi King) gratis, en línea y sin registro: saque un hexagrama, lea su juicio, su imagen y su cuadrado mágico, o recorra los 64.",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Web",
   "isAccessibleForFree": true,
-  "inLanguage": "es",
+  "inLanguage": "fr",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "creator": {
     "@type": "Person",
@@ -704,7 +704,7 @@
       <h2 class="section-h2" id="txt-oracleTitle">El oráculo</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>El Yi King es un libro de sabiduría que puede utilizarse como oráculo. Si tiene una pregunta concreta, interiorícela antes de pulsar el botón de tirada. Sin pregunta particular, la tirada indica la situación del momento. Puede encadenar varias tiradas para varias preguntas — pero una sola tirada ya basta por sí misma para el mensaje que corresponde a su consulta.</p><p>Si simplemente desea explorar el significado de los hexagramas y de las imágenes correlacionadas, seleccione directamente una casilla del tablero. Para más información sobre las imágenes, no dude en leer el libro.</p></div>
       <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
-      <noscript><p class="tirage-noscript" role="note">La tirada y el tablero necesitan JavaScript: actívelo para lanzar las monedas. El texto «Cómo leer una tirada», más abajo, se lee sin él.</p></noscript>
+      <noscript><p class="tirage-noscript" role="note">Le tirage et l’échiquier demandent JavaScript : activez-le pour lancer les pièces. Le texte « Comment lire un tirage », plus bas, se lit sans.</p></noscript>
       <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">Tirar las monedas (6 rasgos)</button>
 
@@ -735,30 +735,30 @@
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
-    <h2 id="lire-un-tirage-titre">Cómo leer una tirada del Yi King</h2>
-    <h3>Qué es una tirada</h3>
-    <p>Una tirada da seis rasgos, colocados de abajo arriba. Cada rasgo es yin (partido) o yang (entero), y los seis juntos forman un hexagrama, uno de los 64.</p>
-    <h3>Cómo hace la tirada esta página</h3>
-    <p>La página lanza tres monedas por cada rasgo, seis veces seguidas; el primer lanzamiento hace el rasgo de abajo. Cada moneda vale 2 o 3 con las mismas probabilidades, sorteada por el generador pseudoaleatorio del navegador (Math.random).</p>
-    <p>La suma de las tres monedas da el rasgo: 6, yin mutante; 7, yang fijo; 8, yin fijo; 9, yang mutante. Las probabilidades son 1 de cada 8 para el 6, 3 de cada 8 para el 7, 3 de cada 8 para el 8 y 1 de cada 8 para el 9: uno de cada cuatro rasgos es mutante.</p>
-    <h3>Qué contiene el resultado</h3>
-    <p>El resultado da el número tradicional King Wen del hexagrama, después su número en el orden cronológico del sitio (de 0 a 63), su nombre, sus seis rasgos, el teselado del cuadrado mágico que le corresponde, sus dos trigramas, su imagen y su juicio. El enlace «Más sobre este hexagrama» abre la página del hexagrama obtenido. La <a href="../../es/hexagramas/">lista de los 64 hexagramas</a> pone los dos números lado a lado.</p>
-    <h3>Rasgos mutantes y segundo hexagrama</h3>
-    <p>Un rasgo que sale 6 o 9 es mutante: la página lo marca. Muestra entonces el hexagrama anterior (la tirada) y el hexagrama posterior, en el que cada rasgo mutante se invierte (el yin pasa a yang, el yang a yin), con la posición y el comentario de cada rasgo mutante. Sin rasgo mutante solo hay un hexagrama. Los comentarios de los seis rasgos se leen en la página del hexagrama.</p>
-    <h3>Leer sin prisa</h3>
+    <h2 id="lire-un-tirage-titre">Comment lire un tirage du Yi King</h2>
+    <h3>Ce qu’est un tirage</h3>
+    <p>Un tirage donne six traits, posés de bas en haut. Chaque trait est yin (brisé) ou yang (plein), et les six ensemble forment un hexagramme, l’un des 64.</p>
+    <h3>Comment la page fait le tirage</h3>
+    <p>La page lance trois pièces pour chaque trait, six fois de suite ; le premier lancer fait le trait du bas. Chaque pièce vaut 2 ou 3 à égalité de chances, tirée par le générateur pseudo-aléatoire du navigateur (Math.random).</p>
+    <p>La somme des trois pièces donne le trait : 6, yin mutant ; 7, yang fixe ; 8, yin fixe ; 9, yang mutant. Les chances sont de 1 sur 8 pour le 6, de 3 sur 8 pour le 7, de 3 sur 8 pour le 8 et de 1 sur 8 pour le 9 : un trait sur quatre est mutant.</p>
+    <h3>Ce que contient le résultat</h3>
+    <p>Le résultat donne le numéro traditionnel King Wen de l’hexagramme, puis son numéro dans l’ordre chronologique du site (de 0 à 63), son nom, ses six traits, le pavage du carré magique qui lui correspond, ses deux trigrammes, son image et son jugement. Le lien « En savoir plus sur cet hexagramme » ouvre la page de l’hexagramme tiré. La <a href="../../es/hexagramas/">liste des 64 hexagrammes</a> met les deux numéros côte à côte.</p>
+    <h3>Traits mutants et second hexagramme</h3>
+    <p>Un trait qui sort 6 ou 9 est mutant : la page le marque. Elle montre alors l’hexagramme antérieur (le tirage) et l’hexagramme postérieur, où chaque trait mutant est inversé (le yin devient yang, le yang devient yin), avec la position et le commentaire de chaque trait mutant. Sans trait mutant, il n’y a qu’un hexagramme. Les commentaires des six traits se lisent sur la page de l’hexagramme.</p>
+    <h3>Lire sans se précipiter</h3>
     <ol>
-      <li>Leer el juicio.</li>
-      <li>Leer la imagen.</li>
-      <li>Mirar el cuadrado en el libro, en el pasaje que indica la página del hexagrama.</li>
+      <li>Lire le jugement.</li>
+      <li>Lire l’image.</li>
+      <li>Regarder le carré dans le livre, au passage que la page de l’hexagramme indique.</li>
     </ol>
-    <h3>Qué queda en el dispositivo</h3>
-    <p>La tirada se calcula en su navegador, sin cuenta. La página no guarda ningún historial de tiradas: solo recuerda en el dispositivo ajustes de visualización (idioma, paleta). El resultado se escribe en la dirección de la página (?tire=…), lo que permite copiar el enlace.</p>
-    <p>El sitio es de <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(francés)</span></a>, bajo licencia CC BY-NC 4.0.</p>
-    <h3>Para ir más lejos</h3>
+    <h3>Ce qui reste sur l’appareil</h3>
+    <p>Le tirage se calcule dans votre navigateur, sans compte. La page ne garde aucun historique de tirages : elle ne mémorise sur l’appareil que des réglages d’affichage (langue, palette). Le résultat s’écrit dans l’adresse de la page (?tire=…), ce qui permet d’en copier le lien.</p>
+    <p>Le site est d’<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(francés)</span></a>, sous licence CC BY-NC 4.0.</p>
+    <h3>Pour aller plus loin</h3>
     <ul>
-      <li><a href="../../es/hexagramas/">Los 64 hexagramas</a>, con sus dos números</li>
-      <li><a href="../../es/libro/">El libro La Livrée d’Hermès</a></li>
-      <li><a href="../../es/lexico/">El léxico del proyecto</a></li>
+      <li><a href="../../es/hexagramas/">Les 64 hexagrammes</a>, avec leurs deux numéros</li>
+      <li><a href="../../es/libro/">Le livre La Livrée d’Hermès</a></li>
+      <li><a href="../../es/lexico/">Le lexique du projet</a></li>
     </ul>
   </section>
   <!-- @tirage-lire:end -->
@@ -1447,7 +1447,7 @@ const UI = {
     navHexagrammesDesc:"The 64 hexagrams of the Yi-King: judgment, trigrams and magic square for each.",
     navMotifDesc:"Compose your own textile motifs from the 60 images of the Yi King.",
     navUnifiedDesc:"The 64 motifs of the hexagrams, customizable and downloadable in high resolution.",
-    navGalerieDesc:"768 unified patterns, generated by hue blending — select a motif to see its tiling.",
+    navGalerieDesc:"512 distinct grids (256 tilings), generated by hue blending — select a motif to see its tiling.",
     navMotifsSvgDesc:"Download the print layers in 4 categories of line combinations, in SVG format.",
     navCymatiqueDesc:"The tiling whose spatial frequency comes closest to the sound you make.",
     navWallpaperDesc:"Full-screen textile wallpapers, sound-reactive or in a meditative mode with adjustable pace.",
