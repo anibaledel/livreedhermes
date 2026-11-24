@@ -65,6 +65,8 @@ const PAGES = [
   ...racine,
   ...articles,
   ...CHAPITRES,
+  '360-calques.html?jeu=unifie', // le jeu unifié (prompt 257)
+  'en/360-layers/?jeu=unifie',
   'hexagrammes/',
   'hexagrammes/0-kun-le-receptif.html',
   'hexagrammes/63-qian-le-createur.html',

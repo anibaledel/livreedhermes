@@ -1431,3 +1431,8 @@ La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° �
 ## Prompt 259 — fonds-ecran.html, entrée du Défilé
 
 À faire relire (en, es, th ; les autres langues n'ont pas cette page) : dans `data/outils-langues/fonds-ecran.json`, le titre, la description, le `<h1>` « Défilé et fonds d'écran », la phrase d'introduction du Défilé et la phrase de sécurité photosensible (« Animation lente… ») ; dans `scripts/nav-tiles-libelles.js`, la tuile `defile` en 9 langues (es, th, zh, ru, pt, hi, de, it, ja : le mot « Défilé » est celui de `assets/pavane-textes.js`). Thaï et chinois en priorité.
+
+## Prompts 243 et 257 — le jeu unifié (96 plaques) dans 360-calques.html
+
+À faire relire : les clés `ju…` du dictionnaire `UI` de `360-calques.html` (fr de référence ; en, es, th faites par l'IA, th en priorité) — protocole du dé, de la pièce et des six lancers, libellés « fixe / mut », phrases du complément (« même motif, deux teintes échangées », « décalé d'une demi-période »), liens Zenodo. Noms des hexagrammes : ceux du site (`data/jeu-unifie-noms.json`, écrit par `tools/jeu_unifie_noms.mjs`). Les autres langues (zh, ru, pt, hi, de, it, ja) n'ont pas cette page.
+Le protocole A4 (`assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf`) est celui du zip 258, tel quel (français seulement).

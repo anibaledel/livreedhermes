@@ -1,0 +1,1103 @@
+{
+ "_doc": "Numéro King Wen (KINGWEN_BY_CHRONO : chrono = index binaire n, ligne 1 = bas = bit 0) et nom (pinyin, nom) des 64 hexagrammes, par langue, tirés des tables du site. Écrit par tools/jeu_unifie_noms.mjs, jamais à la main.",
+ "kingwen_par_n": [
+  2,
+  24,
+  7,
+  19,
+  15,
+  36,
+  46,
+  11,
+  16,
+  51,
+  40,
+  54,
+  62,
+  55,
+  32,
+  34,
+  8,
+  3,
+  29,
+  60,
+  39,
+  63,
+  48,
+  5,
+  45,
+  17,
+  47,
+  58,
+  31,
+  49,
+  28,
+  43,
+  23,
+  27,
+  4,
+  41,
+  52,
+  22,
+  18,
+  26,
+  35,
+  21,
+  64,
+  38,
+  56,
+  30,
+  50,
+  14,
+  20,
+  42,
+  59,
+  61,
+  53,
+  37,
+  57,
+  9,
+  12,
+  25,
+  6,
+  10,
+  33,
+  13,
+  44,
+  1
+ ],
+ "noms": {
+  "fr": {
+   "1": [
+    "Qian",
+    "Le Créateur"
+   ],
+   "2": [
+    "Kun",
+    "Le Réceptif"
+   ],
+   "3": [
+    "Zhun",
+    "La Difficulté initiale"
+   ],
+   "4": [
+    "Meng",
+    "La Folie juvénile"
+   ],
+   "5": [
+    "Xu",
+    "L'Attente"
+   ],
+   "6": [
+    "Song",
+    "Le Conflit"
+   ],
+   "7": [
+    "Shi",
+    "L'Armée"
+   ],
+   "8": [
+    "Bi",
+    "La Solidarité"
+   ],
+   "9": [
+    "Xiao Chu",
+    "La Force apprivoisée du petit"
+   ],
+   "10": [
+    "Lu",
+    "La Marche"
+   ],
+   "11": [
+    "Tai",
+    "La Paix"
+   ],
+   "12": [
+    "Pi",
+    "La Stagnation"
+   ],
+   "13": [
+    "Tong Ren",
+    "La Communauté avec les hommes"
+   ],
+   "14": [
+    "Da You",
+    "La Possession de grande envergure"
+   ],
+   "15": [
+    "Qian",
+    "La Modestie"
+   ],
+   "16": [
+    "Yu",
+    "L'Enthousiasme"
+   ],
+   "17": [
+    "Sui",
+    "La Suite"
+   ],
+   "18": [
+    "Gu",
+    "Le Travail sur ce qui est gâté"
+   ],
+   "19": [
+    "Lin",
+    "L'Approche"
+   ],
+   "20": [
+    "Guan",
+    "La Contemplation"
+   ],
+   "21": [
+    "Shi He",
+    "Mordre au travers"
+   ],
+   "22": [
+    "Bi",
+    "La Grâce"
+   ],
+   "23": [
+    "Bo",
+    "L'Éclatement"
+   ],
+   "24": [
+    "Fu",
+    "Le Retour"
+   ],
+   "25": [
+    "Wu Wang",
+    "L'Innocence"
+   ],
+   "26": [
+    "Da Chu",
+    "La Force apprivoisée du grand"
+   ],
+   "27": [
+    "Yi",
+    "La Nourriture"
+   ],
+   "28": [
+    "Da Guo",
+    "La Prépondérance du grand"
+   ],
+   "29": [
+    "Kan",
+    "L'Insondable"
+   ],
+   "30": [
+    "Li",
+    "Ce qui s'attache, le Feu"
+   ],
+   "31": [
+    "Xian",
+    "L'Influence"
+   ],
+   "32": [
+    "Heng",
+    "La Durée"
+   ],
+   "33": [
+    "Dun",
+    "La Retraite"
+   ],
+   "34": [
+    "Da Zhuang",
+    "La Puissance du grand"
+   ],
+   "35": [
+    "Jin",
+    "Le Progrès"
+   ],
+   "36": [
+    "Ming Yi",
+    "L'Obscurcissement de la lumière"
+   ],
+   "37": [
+    "Jia Ren",
+    "Les Gens de la maison"
+   ],
+   "38": [
+    "Kui",
+    "L'Opposition"
+   ],
+   "39": [
+    "Jian",
+    "L'Obstacle"
+   ],
+   "40": [
+    "Jie",
+    "La Délivrance"
+   ],
+   "41": [
+    "Sun",
+    "La Diminution"
+   ],
+   "42": [
+    "Yi",
+    "L'Augmentation"
+   ],
+   "43": [
+    "Guai",
+    "La Percée"
+   ],
+   "44": [
+    "Gou",
+    "Venir à la rencontre"
+   ],
+   "45": [
+    "Cui",
+    "Le Rassemblement"
+   ],
+   "46": [
+    "Sheng",
+    "La Poussée vers le haut"
+   ],
+   "47": [
+    "Kun",
+    "L'Accablement"
+   ],
+   "48": [
+    "Jing",
+    "Le Puits"
+   ],
+   "49": [
+    "Ge",
+    "La Révolution"
+   ],
+   "50": [
+    "Ding",
+    "Le Chaudron"
+   ],
+   "51": [
+    "Zhen",
+    "L'Ébranlement"
+   ],
+   "52": [
+    "Gen",
+    "L'Immobilisation"
+   ],
+   "53": [
+    "Jian",
+    "Le Développement"
+   ],
+   "54": [
+    "Gui Mei",
+    "L'Épousée"
+   ],
+   "55": [
+    "Feng",
+    "L'Abondance"
+   ],
+   "56": [
+    "Lu",
+    "Le Voyageur"
+   ],
+   "57": [
+    "Xun",
+    "Le Doux, le Vent"
+   ],
+   "58": [
+    "Dui",
+    "Le Joyeux"
+   ],
+   "59": [
+    "Huan",
+    "La Dissolution"
+   ],
+   "60": [
+    "Jie",
+    "La Limitation"
+   ],
+   "61": [
+    "Zhong Fu",
+    "La Vérité intérieure"
+   ],
+   "62": [
+    "Xiao Guo",
+    "La Prépondérance du petit"
+   ],
+   "63": [
+    "Ji Ji",
+    "Après l'accomplissement"
+   ],
+   "64": [
+    "Wei Ji",
+    "Avant l'accomplissement"
+   ]
+  },
+  "en": {
+   "1": [
+    "Qian",
+    "The Creative"
+   ],
+   "2": [
+    "Kun",
+    "The Receptive"
+   ],
+   "3": [
+    "Zhun",
+    "Difficulty at the Beginning"
+   ],
+   "4": [
+    "Meng",
+    "Youthful Folly"
+   ],
+   "5": [
+    "Xu",
+    "Waiting"
+   ],
+   "6": [
+    "Song",
+    "Conflict"
+   ],
+   "7": [
+    "Shi",
+    "The Army"
+   ],
+   "8": [
+    "Bi",
+    "Holding Together"
+   ],
+   "9": [
+    "Xiao Chu",
+    "The Taming Power of the Small"
+   ],
+   "10": [
+    "Lu",
+    "Treading"
+   ],
+   "11": [
+    "Tai",
+    "Peace"
+   ],
+   "12": [
+    "Pi",
+    "Standstill"
+   ],
+   "13": [
+    "Tong Ren",
+    "Fellowship with Men"
+   ],
+   "14": [
+    "Da You",
+    "Possession in Great Measure"
+   ],
+   "15": [
+    "Qian",
+    "Modesty"
+   ],
+   "16": [
+    "Yu",
+    "Enthusiasm"
+   ],
+   "17": [
+    "Sui",
+    "Following"
+   ],
+   "18": [
+    "Gu",
+    "Work on What Has Been Spoiled"
+   ],
+   "19": [
+    "Lin",
+    "Approach"
+   ],
+   "20": [
+    "Guan",
+    "Contemplation"
+   ],
+   "21": [
+    "Shi He",
+    "Biting Through"
+   ],
+   "22": [
+    "Bi",
+    "Grace"
+   ],
+   "23": [
+    "Bo",
+    "Splitting Apart"
+   ],
+   "24": [
+    "Fu",
+    "Return"
+   ],
+   "25": [
+    "Wu Wang",
+    "Innocence"
+   ],
+   "26": [
+    "Da Chu",
+    "The Taming Power of the Great"
+   ],
+   "27": [
+    "Yi",
+    "Nourishment"
+   ],
+   "28": [
+    "Da Guo",
+    "Preponderance of the Great"
+   ],
+   "29": [
+    "Kan",
+    "The Abysmal"
+   ],
+   "30": [
+    "Li",
+    "That Which Clings, Fire"
+   ],
+   "31": [
+    "Xian",
+    "Influence"
+   ],
+   "32": [
+    "Heng",
+    "Duration"
+   ],
+   "33": [
+    "Dun",
+    "Retreat"
+   ],
+   "34": [
+    "Da Zhuang",
+    "The Power of the Great"
+   ],
+   "35": [
+    "Jin",
+    "Progress"
+   ],
+   "36": [
+    "Ming Yi",
+    "Darkening of the Light"
+   ],
+   "37": [
+    "Jia Ren",
+    "The Family"
+   ],
+   "38": [
+    "Kui",
+    "Opposition"
+   ],
+   "39": [
+    "Jian",
+    "Obstruction"
+   ],
+   "40": [
+    "Jie",
+    "Deliverance"
+   ],
+   "41": [
+    "Sun",
+    "Decrease"
+   ],
+   "42": [
+    "Yi",
+    "Increase"
+   ],
+   "43": [
+    "Guai",
+    "Breakthrough"
+   ],
+   "44": [
+    "Gou",
+    "Coming to Meet"
+   ],
+   "45": [
+    "Cui",
+    "Gathering Together"
+   ],
+   "46": [
+    "Sheng",
+    "Pushing Upward"
+   ],
+   "47": [
+    "Kun",
+    "Oppression"
+   ],
+   "48": [
+    "Jing",
+    "The Well"
+   ],
+   "49": [
+    "Ge",
+    "Revolution"
+   ],
+   "50": [
+    "Ding",
+    "The Cauldron"
+   ],
+   "51": [
+    "Zhen",
+    "The Arousing"
+   ],
+   "52": [
+    "Gen",
+    "Keeping Still"
+   ],
+   "53": [
+    "Jian",
+    "Development"
+   ],
+   "54": [
+    "Gui Mei",
+    "The Marrying Maiden"
+   ],
+   "55": [
+    "Feng",
+    "Abundance"
+   ],
+   "56": [
+    "Lu",
+    "The Wanderer"
+   ],
+   "57": [
+    "Xun",
+    "The Gentle, Wind"
+   ],
+   "58": [
+    "Dui",
+    "The Joyous"
+   ],
+   "59": [
+    "Huan",
+    "Dispersion"
+   ],
+   "60": [
+    "Jie",
+    "Limitation"
+   ],
+   "61": [
+    "Zhong Fu",
+    "Inner Truth"
+   ],
+   "62": [
+    "Xiao Guo",
+    "Preponderance of the Small"
+   ],
+   "63": [
+    "Ji Ji",
+    "After Completion"
+   ],
+   "64": [
+    "Wei Ji",
+    "Before Completion"
+   ]
+  },
+  "es": {
+   "1": [
+    "Qian",
+    "Lo Creativo"
+   ],
+   "2": [
+    "Kun",
+    "Lo Receptivo"
+   ],
+   "3": [
+    "Zhun",
+    "La Dificultad Inicial"
+   ],
+   "4": [
+    "Meng",
+    "La Necedad Juvenil"
+   ],
+   "5": [
+    "Xu",
+    "La Espera"
+   ],
+   "6": [
+    "Song",
+    "El Conflicto"
+   ],
+   "7": [
+    "Shi",
+    "El Ejército"
+   ],
+   "8": [
+    "Bi",
+    "La Solidaridad"
+   ],
+   "9": [
+    "Xiao Chu",
+    "La Fuerza Domesticadora de lo Pequeño"
+   ],
+   "10": [
+    "Lu",
+    "El Porte"
+   ],
+   "11": [
+    "Tai",
+    "La Paz"
+   ],
+   "12": [
+    "Pi",
+    "El Estancamiento"
+   ],
+   "13": [
+    "Tong Ren",
+    "La Comunidad con los Hombres"
+   ],
+   "14": [
+    "Da You",
+    "La Posesión de lo Grande"
+   ],
+   "15": [
+    "Qian",
+    "La Modestia"
+   ],
+   "16": [
+    "Yu",
+    "El Entusiasmo"
+   ],
+   "17": [
+    "Sui",
+    "El Seguimiento"
+   ],
+   "18": [
+    "Gu",
+    "El Trabajo en lo Echado a Perder"
+   ],
+   "19": [
+    "Lin",
+    "El Acercamiento"
+   ],
+   "20": [
+    "Guan",
+    "La Contemplación"
+   ],
+   "21": [
+    "Shi He",
+    "La Mordedura Tajante"
+   ],
+   "22": [
+    "Bi",
+    "La Gracia"
+   ],
+   "23": [
+    "Bo",
+    "La Desintegración"
+   ],
+   "24": [
+    "Fu",
+    "El Retorno"
+   ],
+   "25": [
+    "Wu Wang",
+    "La Inocencia"
+   ],
+   "26": [
+    "Da Chu",
+    "La Fuerza Domesticadora de lo Grande"
+   ],
+   "27": [
+    "Yi",
+    "La Nutrición"
+   ],
+   "28": [
+    "Da Guo",
+    "La Preponderancia de lo Grande"
+   ],
+   "29": [
+    "Kan",
+    "Lo Insondable"
+   ],
+   "30": [
+    "Li",
+    "Lo Adherente, el Fuego"
+   ],
+   "31": [
+    "Xian",
+    "El Influjo"
+   ],
+   "32": [
+    "Heng",
+    "La Duración"
+   ],
+   "33": [
+    "Dun",
+    "La Retirada"
+   ],
+   "34": [
+    "Da Zhuang",
+    "El Poder de lo Grande"
+   ],
+   "35": [
+    "Jin",
+    "El Progreso"
+   ],
+   "36": [
+    "Ming Yi",
+    "El Oscurecimiento de la Luz"
+   ],
+   "37": [
+    "Jia Ren",
+    "El Clan"
+   ],
+   "38": [
+    "Kui",
+    "La Oposición"
+   ],
+   "39": [
+    "Jian",
+    "El Obstáculo"
+   ],
+   "40": [
+    "Jie",
+    "La Liberación"
+   ],
+   "41": [
+    "Sun",
+    "La Merma"
+   ],
+   "42": [
+    "Yi",
+    "El Aumento"
+   ],
+   "43": [
+    "Guai",
+    "La Irrupción"
+   ],
+   "44": [
+    "Gou",
+    "Ir al Encuentro"
+   ],
+   "45": [
+    "Cui",
+    "La Reunión"
+   ],
+   "46": [
+    "Sheng",
+    "El Empuje hacia Arriba"
+   ],
+   "47": [
+    "Kun",
+    "La Desazón"
+   ],
+   "48": [
+    "Jing",
+    "El Pozo"
+   ],
+   "49": [
+    "Ge",
+    "La Revolución"
+   ],
+   "50": [
+    "Ding",
+    "El Caldero"
+   ],
+   "51": [
+    "Zhen",
+    "La Conmoción"
+   ],
+   "52": [
+    "Gen",
+    "El Aquietamiento"
+   ],
+   "53": [
+    "Jian",
+    "El Desarrollo"
+   ],
+   "54": [
+    "Gui Mei",
+    "La Desposada"
+   ],
+   "55": [
+    "Feng",
+    "La Abundancia"
+   ],
+   "56": [
+    "Lu",
+    "El Andariego"
+   ],
+   "57": [
+    "Xun",
+    "Lo Suave, el Viento"
+   ],
+   "58": [
+    "Dui",
+    "Lo Alegre"
+   ],
+   "59": [
+    "Huan",
+    "La Disolución"
+   ],
+   "60": [
+    "Jie",
+    "La Limitación"
+   ],
+   "61": [
+    "Zhong Fu",
+    "La Verdad Interior"
+   ],
+   "62": [
+    "Xiao Guo",
+    "La Preponderancia de lo Pequeño"
+   ],
+   "63": [
+    "Ji Ji",
+    "Después de la Consumación"
+   ],
+   "64": [
+    "Wei Ji",
+    "Antes de la Consumación"
+   ]
+  },
+  "th": {
+   "1": [
+    "Qian",
+    "ผู้สร้างสรรค์"
+   ],
+   "2": [
+    "Kun",
+    "ผู้รับ"
+   ],
+   "3": [
+    "Zhun",
+    "ความยากลำบากในปฐมกาล"
+   ],
+   "4": [
+    "Meng",
+    "ความเขลาแห่งวัยเยาว์"
+   ],
+   "5": [
+    "Xu",
+    "การรอคอย"
+   ],
+   "6": [
+    "Song",
+    "ความขัดแย้ง"
+   ],
+   "7": [
+    "Shi",
+    "กองทัพ"
+   ],
+   "8": [
+    "Bi",
+    "ความสามัคคี"
+   ],
+   "9": [
+    "Xiao Chu",
+    "พลังกล่อมเกลาของสิ่งเล็ก"
+   ],
+   "10": [
+    "Lu",
+    "การก้าวเดิน"
+   ],
+   "11": [
+    "Tai",
+    "สันติ"
+   ],
+   "12": [
+    "Pi",
+    "ความชะงักงัน"
+   ],
+   "13": [
+    "Tong Ren",
+    "ความร่วมใจกับเพื่อนมนุษย์"
+   ],
+   "14": [
+    "Da You",
+    "การครอบครองอันไพศาล"
+   ],
+   "15": [
+    "Qian",
+    "ความถ่อมตน"
+   ],
+   "16": [
+    "Yu",
+    "ความกระตือรือร้น"
+   ],
+   "17": [
+    "Sui",
+    "การติดตาม"
+   ],
+   "18": [
+    "Gu",
+    "การแก้ไขสิ่งที่เสื่อมเสีย"
+   ],
+   "19": [
+    "Lin",
+    "การเข้าใกล้"
+   ],
+   "20": [
+    "Guan",
+    "การเพ่งพินิจ"
+   ],
+   "21": [
+    "Shi He",
+    "การกัดทะลุ"
+   ],
+   "22": [
+    "Bi",
+    "ความงามสง่า"
+   ],
+   "23": [
+    "Bo",
+    "การแตกสลาย"
+   ],
+   "24": [
+    "Fu",
+    "การหวนคืน"
+   ],
+   "25": [
+    "Wu Wang",
+    "ความไร้มลทิน"
+   ],
+   "26": [
+    "Da Chu",
+    "พลังกล่อมเกลาของสิ่งใหญ่"
+   ],
+   "27": [
+    "Yi",
+    "การหล่อเลี้ยง"
+   ],
+   "28": [
+    "Da Guo",
+    "ความหนักเกินของสิ่งใหญ่"
+   ],
+   "29": [
+    "Kan",
+    "ห้วงลึกสุดหยั่ง"
+   ],
+   "30": [
+    "Li",
+    "สิ่งที่ยึดเกาะ ไฟ"
+   ],
+   "31": [
+    "Xian",
+    "อิทธิพล"
+   ],
+   "32": [
+    "Heng",
+    "ความยืนยง"
+   ],
+   "33": [
+    "Dun",
+    "การถอยห่าง"
+   ],
+   "34": [
+    "Da Zhuang",
+    "พลังแห่งความยิ่งใหญ่"
+   ],
+   "35": [
+    "Jin",
+    "ความก้าวหน้า"
+   ],
+   "36": [
+    "Ming Yi",
+    "การมืดมัวของแสงสว่าง"
+   ],
+   "37": [
+    "Jia Ren",
+    "คนในครอบครัว"
+   ],
+   "38": [
+    "Kui",
+    "ความขัดแย้ง"
+   ],
+   "39": [
+    "Jian",
+    "อุปสรรค"
+   ],
+   "40": [
+    "Jie",
+    "การปลดปล่อย"
+   ],
+   "41": [
+    "Sun",
+    "การลดทอน"
+   ],
+   "42": [
+    "Yi",
+    "การเพิ่มพูน"
+   ],
+   "43": [
+    "Guai",
+    "การฝ่าทะลุ"
+   ],
+   "44": [
+    "Gou",
+    "การมาพบ"
+   ],
+   "45": [
+    "Cui",
+    "การรวมตัว"
+   ],
+   "46": [
+    "Sheng",
+    "การผลักดันขึ้นสู่เบื้องบน"
+   ],
+   "47": [
+    "Kun",
+    "ความอับจน"
+   ],
+   "48": [
+    "Jing",
+    "บ่อน้ำ"
+   ],
+   "49": [
+    "Ge",
+    "การปฏิวัติ"
+   ],
+   "50": [
+    "Ding",
+    "กระถางสามขา"
+   ],
+   "51": [
+    "Zhen",
+    "การสั่นสะเทือน"
+   ],
+   "52": [
+    "Gen",
+    "การหยุดนิ่ง"
+   ],
+   "53": [
+    "Jian",
+    "การพัฒนาทีละขั้น"
+   ],
+   "54": [
+    "Gui Mei",
+    "เจ้าสาว"
+   ],
+   "55": [
+    "Feng",
+    "ความอุดมสมบูรณ์"
+   ],
+   "56": [
+    "Lu",
+    "ผู้เดินทาง"
+   ],
+   "57": [
+    "Xun",
+    "ความอ่อนโยน, ลม"
+   ],
+   "58": [
+    "Dui",
+    "ความรื่นรมย์"
+   ],
+   "59": [
+    "Huan",
+    "การสลายตัว"
+   ],
+   "60": [
+    "Jie",
+    "การจำกัด"
+   ],
+   "61": [
+    "Zhong Fu",
+    "สัจจะภายใน"
+   ],
+   "62": [
+    "Xiao Guo",
+    "ความเหนือกว่าของสิ่งเล็ก"
+   ],
+   "63": [
+    "Ji Ji",
+    "หลังความสำเร็จ"
+   ],
+   "64": [
+    "Wei Ji",
+    "ก่อนความสำเร็จ"
+   ]
+  }
+ }
+}

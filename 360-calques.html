@@ -203,6 +203,28 @@
     display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px;
     background:var(--line); margin-bottom:24px; font-family:Helvetica,Arial,sans-serif;
   }
+  /* ===== Jeu unifié (prompts 243 et 257) ===== */
+  .jeu-barre{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px; font-family:Helvetica,Arial,sans-serif; }
+  .jeu-barre button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font:inherit; font-size:calc(12px + var(--fs-bump)); letter-spacing:.04em; padding:12px 18px; min-height:44px; cursor:pointer; }
+  .jeu-barre button[aria-pressed="true"]{ border-color:var(--gold); color:var(--gold); }
+  .print-main.mode-unifie > :not(.jeu-barre):not(#jeuUnifie){ display:none !important; }
+  #jeuUnifie{ font-family:Helvetica,Arial,sans-serif; }
+  #jeuUnifie h2{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); font-weight:400; margin:0 0 12px; }
+  #jeuUnifie p, #jeuUnifie li{ color:var(--dim); line-height:1.7; font-size:calc(13px + var(--fs-bump)); }
+  #jeuUnifie ol{ padding-left:1.4em; max-width:72ch; }
+  .jeu-actions{ display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+  .jeu-actions button{ border:1px solid var(--line-strong); background:transparent; color:var(--white); font:inherit; padding:12px 18px; min-height:44px; cursor:pointer; }
+  .jeu-actions button:disabled{ opacity:.45; cursor:default; }
+  .jeu-actions button:not(:disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .jeu-resultats{ display:flex; flex-wrap:wrap; gap:20px; margin:16px 0; }
+  .jeu-resultats figure{ margin:0; flex:1 1 220px; max-width:340px; }
+  .jeu-resultats svg{ width:100%; height:auto; display:block; border:1px solid var(--line); }
+  .jeu-resultats figcaption{ margin:8px 0 0; color:var(--white); font-size:calc(13px + var(--fs-bump)); line-height:1.5; }
+  .jeu-liens{ display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 8px; }
+  .jeu-liens a{ border:1px solid var(--line-strong); color:var(--dim); text-decoration:none; padding:10px 14px; font-size:calc(12px + var(--fs-bump)); }
+  .jeu-liens a:hover{ border-color:var(--gold); color:var(--gold); }
+  #jeuUnifie p a{ color:var(--gold); text-underline-offset:3px; }
+  #jeuUnifie details{ margin-top:18px; } #jeuUnifie summary{ cursor:pointer; color:var(--dim); } #jeuUnifie ul{ columns:2 240px; font-size:calc(12px + var(--fs-bump)); color:var(--dim); }
   .cat-card{ background:var(--panel); padding:20px 18px; cursor:pointer; transition:background .15s; }
   .cat-card:hover{ background:#111; }
   .cat-card.active{ background:#111; box-shadow:inset 0 0 0 1px var(--red-dim); }
@@ -400,6 +422,36 @@
 
   <!-- ===== Contenu spécifique impression ===== -->
   <div class="print-main">
+    <div class="jeu-barre" role="group" id="jeuBarre">
+      <button type="button" id="jeuTout" aria-pressed="true" data-i18n="juTout">Catalogue complet (360)</button>
+      <button type="button" id="jeuUni" aria-pressed="false" data-i18n="juUnifie">Jeu unifié (96)</button>
+    </div>
+
+    <section id="jeuUnifie" hidden aria-labelledby="juTitreH">
+      <h2 id="juTitreH" data-i18n="juTitre">Le jeu unifié : un dé, une pièce, six lancers</h2>
+      <p data-i18n="juIntro">Un sous-ensemble des 360 calques qui ne produit que des motifs unifiés : 96 plaques, 512 grilles, 256 pavages. Les bases : YANG (X), YANG-MUT (losange), YIN (grille), YIN-MUT (carré à croix). Une famille combine des bases ; chaque couche fournit six niveaux.</p>
+      <ol>
+        <li data-i18n="juP1">Lancez le dé à quatre faces : il choisit la famille. 1 : {YANG} ; 2 : {YANG-MUT} ; 3 : {YIN, YANG} ; 4 : {YIN, YANG-MUT}.</li>
+        <li data-i18n="juP2">Lancez la pièce pour le couple : face = YANG et YANG-MUT ; pile = YIN et YIN-MUT. La première couche du couple est la fixe, la seconde la mut.</li>
+        <li data-i18n="juP3">Lancez la pièce six fois, niveau 1 d'abord : face = plaque fixe (bit 1) ; pile = plaque mut (bit 0). Le poids du niveau i est 2^(i−1). Superposez les six plaques.</li>
+        <li data-i18n="juP4">Le complément : face et pile sont inversés aux six niveaux, sans changer de famille ni de couple. Le numéro passe de n à 63 − n : c'est l'hexagramme aux six traits changés.</li>
+      </ol>
+      <div class="jeu-actions">
+        <button type="button" id="juLancer" data-i18n="juDe">Lancer le dé</button>
+        <button type="button" id="juRaz" data-i18n="juRaz">Recommencer</button>
+      </div>
+      <p id="juStatut" role="status" aria-live="polite"></p>
+      <div class="jeu-resultats" id="juResultats"></div>
+      <p id="juRelation" aria-live="polite"></p>
+      <div class="jeu-liens">
+        <a id="juLienUni" href="https://doi.org/10.5281/zenodo.24508470" rel="noopener" data-i18n="juLienUni">Jeu unifié (96 plaques) — Zenodo</a>
+        <a id="juLienComplet" href="https://doi.org/10.5281/zenodo.23189276" rel="noopener" data-i18n="juLienComplet">Jeu complet (360 plaques) — Zenodo</a>
+        <a id="juLienA4" href="assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf" data-i18n="juLienA4">Protocole, feuille A4 (PDF)</a>
+      </div>
+      <p><span data-i18n="juVersions">Jeu unifié, toutes versions :</span> <a href="https://doi.org/10.5281/zenodo.24508469" rel="noopener">10.5281/zenodo.24508469</a></p>
+      <details><summary id="juPlaquesTitre">Les 96 plaques</summary><ul id="juPlaques"></ul></details>
+    </section>
+
     <div class="cat-grid" id="catGrid">
       <div class="cat-card active" data-cat="1">
         <div class="cat-num" id="txt-catNum1">Catégorie I</div>
@@ -577,12 +629,49 @@
 </div>
 
 <script src="assets/calque-engine.js"></script>
+<script src="assets/jeu-unifie.js"></script>
 <script>
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 
 /* ===== Dictionnaire multilingue ===== */
 const UI = {
   fr: {
+    juFiltreLabel:"Jeu de calques",
+    juTout:"Catalogue complet (360)",
+    juUnifie:"Jeu unifié (96)",
+    juTitre:"Le jeu unifié : un dé, une pièce, six lancers",
+    juIntro:"Un sous-ensemble des 360 calques qui ne produit que des motifs unifiés : 96 plaques, 512 grilles, 256 pavages. Les bases : YANG (X), YANG-MUT (losange), YIN (grille), YIN-MUT (carré à croix). Une famille combine des bases ; chaque couche fournit six niveaux.",
+    juP1:"Lancez le dé à quatre faces : il choisit la famille. 1 : {YANG} ; 2 : {YANG-MUT} ; 3 : {YIN, YANG} ; 4 : {YIN, YANG-MUT}.",
+    juP2:"Lancez la pièce pour le couple : face = YANG et YANG-MUT ; pile = YIN et YIN-MUT. La première couche du couple est la fixe, la seconde la mut.",
+    juP3:"Lancez la pièce six fois, niveau 1 d'abord : face = plaque fixe (bit 1) ; pile = plaque mut (bit 0). Le poids du niveau i est 2^(i−1). Superposez les six plaques.",
+    juP4:"Le complément : face et pile sont inversés aux six niveaux, sans changer de famille ni de couple. Le numéro passe de n à 63 − n : c'est l'hexagramme aux six traits changés.",
+    juRaz:"Recommencer",
+    juDe:"Lancer le dé",
+    juPiece:"Lancer la pièce (couple)",
+    juNiveau:"Lancer la pièce, niveau {i} sur 6",
+    juFini:"Tirage terminé",
+    juPret:"Prêt pour le tirage : lancez le dé.",
+    juFace:"face",
+    juPile:"pile",
+    juStFamille:"Dé : {d} → famille {f}.",
+    juStCouple:"Pièce : {p} → couple {c}.",
+    juStNiveau:"Niveau {i} : {p} → plaque {couche} ({bit}).",
+    juFixe:"fixe",
+    juMut:"mut",
+    juGrille:"Grille",
+    juComplement:"Complément",
+    juHexa:"hexagramme {n} (n° King Wen {k}) : {nom}",
+    juRelTE:"Même motif, deux teintes échangées.",
+    juRelDP:"Décalé d'une demi-période.",
+    juRelTEDP:"Même motif, deux teintes échangées et décalé d'une demi-période.",
+    juRelNone:"Le complément est l'hexagramme aux six traits changés.",
+    juLienUni:"Jeu unifié (96 plaques) — Zenodo",
+    juLienComplet:"Jeu complet (360 plaques) — Zenodo",
+    juLienA4:"Protocole, feuille A4 (PDF)",
+    juVersions:"Jeu unifié, toutes versions :",
+    juPlaques:"Les 96 plaques du jeu unifié",
+    juPlaque:"{f} · {couche} · niveau {i}",
+    juErreur:"Données du jeu unifié indisponibles.",
     eyebrow:"La Livrée d'Hermès", title:"360 calques — tirage & impression",
     subtitle:"Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.",
     bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
@@ -608,6 +697,42 @@ const UI = {
     navHomeDesc:"Le livre, ses planches et l'ensemble des outils.", navTirageDesc:"Tirez un hexagramme au hasard et découvrez son carré.", navHexagrammesDesc:"Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.", navMotifDesc:"Composez vos propres motifs textiles à partir des 60 images du Yi King.", navUnifiedDesc:"Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.", navGalerieDesc:"Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.", navMotifsSvgDesc:"Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.", navCymatiqueDesc:"Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.", navWallpaperDesc:"Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.", navPrintDesc:"Tirez et téléchargez les calques d'impression, prêts à imprimer.", navEncodeurDesc:"Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.", navContactDesc:"Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.", navAboutDesc:"L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.", navLexiqueDesc:"Dix notions clés pour comprendre La Livrée d'Hermès.", navArticlesDesc:"Réflexions et recherches autour de La Livrée d'Hermès.",
   },
   en: {
+    juFiltreLabel:"Layer set",
+    juTout:"Full catalogue (360)",
+    juUnifie:"Unified set (96)",
+    juTitre:"The unified set: a die, a coin, six throws",
+    juIntro:"A subset of the 360 layers that only produces unified patterns: 96 plates, 512 grids, 256 tilings. The bases: YANG (X), YANG-MUT (diamond), YIN (grid), YIN-MUT (square with a cross). A family combines bases; each layer provides six levels.",
+    juP1:"Throw the four-sided die: it chooses the family. 1: {YANG}; 2: {YANG-MUT}; 3: {YIN, YANG}; 4: {YIN, YANG-MUT}.",
+    juP2:"Toss the coin for the couple: heads = YANG and YANG-MUT; tails = YIN and YIN-MUT. The couple's first layer is the fixed one, the second the mut one.",
+    juP3:"Toss the coin six times, level 1 first: heads = fixed plate (bit 1); tails = mut plate (bit 0). The weight of level i is 2^(i−1). Stack the six plates.",
+    juP4:"The complement: heads and tails are swapped at all six levels, without changing family or couple. The number goes from n to 63 − n: it is the hexagram with its six lines changed.",
+    juRaz:"Start over",
+    juDe:"Throw the die",
+    juPiece:"Toss the coin (couple)",
+    juNiveau:"Toss the coin, level {i} of 6",
+    juFini:"Draw complete",
+    juPret:"Ready: throw the die.",
+    juFace:"heads",
+    juPile:"tails",
+    juStFamille:"Die: {d} → family {f}.",
+    juStCouple:"Coin: {p} → couple {c}.",
+    juStNiveau:"Level {i}: {p} → {couche} plate ({bit}).",
+    juFixe:"fixed",
+    juMut:"mut",
+    juGrille:"Grid",
+    juComplement:"Complement",
+    juHexa:"hexagram {n} (King Wen no. {k}): {nom}",
+    juRelTE:"Same pattern, two tints swapped.",
+    juRelDP:"Shifted by half a period.",
+    juRelTEDP:"Same pattern, two tints swapped and shifted by half a period.",
+    juRelNone:"The complement is the hexagram with its six lines changed.",
+    juLienUni:"Unified set (96 plates) — Zenodo",
+    juLienComplet:"Full set (360 plates) — Zenodo",
+    juLienA4:"Protocol, A4 sheet (PDF)",
+    juVersions:"Unified set, all versions:",
+    juPlaques:"The 96 plates of the unified set",
+    juPlaque:"{f} · {couche} · level {i}",
+    juErreur:"Unified-set data unavailable.",
     eyebrow:"La Livrée d'Hermès", title:"360 layers — casting & printing",
     subtitle:"Choose a category, cast, then download the layer ready to cut or print.",
     bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
@@ -634,6 +759,42 @@ const UI = {
     navHomeDesc:"The book, its plates, and the full set of tools.", navTirageDesc:"Cast a random hexagram and discover its magic square.", navHexagrammesDesc:"The 64 hexagrams of the Yi-King: judgment, trigrams, and magic square for each.", navMotifDesc:"Compose your own textile motifs from the 60 images of the Yi King.", navUnifiedDesc:"The 64 hexagram motifs, customizable and downloadable in high resolution.", navGalerieDesc:"512 distinct grids (256 tilings), generated by hue blending — select a motif to see its tiling.", navMotifsSvgDesc:"Download the print layers in 4 categories of line combinations, in SVG format.", navCymatiqueDesc:"The tiling whose spatial frequency comes closest to the sound you make.", navWallpaperDesc:"Full-screen textile wallpapers, sound-reactive or in a meditative mode with adjustable pace.", navPrintDesc:"Pull and download the print layers, ready to print.", navEncodeurDesc:"Geometric steganographic encoding by double referent, ankh and Jacquard.", navContactDesc:"Contact the author for a project or a commission of motifs and textile prints.", navAboutDesc:"The author and his book, at the crossing of philosophy, mathematics and applied sciences.", navLexiqueDesc:"Ten key notions for understanding La Livrée d'Hermès.", navArticlesDesc:"Reflections and research around La Livrée d'Hermès.",
   },
   es: {
+    juFiltreLabel:"Juego de capas",
+    juTout:"Catálogo completo (360)",
+    juUnifie:"Juego unificado (96)",
+    juTitre:"El juego unificado: un dado, una moneda, seis lanzamientos",
+    juIntro:"Un subconjunto de las 360 capas que solo produce motivos unificados: 96 placas, 512 cuadrículas, 256 teselados. Las bases: YANG (X), YANG-MUT (rombo), YIN (cuadrícula), YIN-MUT (cuadrado con cruz). Una familia combina bases; cada capa aporta seis niveles.",
+    juP1:"Lance el dado de cuatro caras: elige la familia. 1: {YANG}; 2: {YANG-MUT}; 3: {YIN, YANG}; 4: {YIN, YANG-MUT}.",
+    juP2:"Lance la moneda para el par: cara = YANG y YANG-MUT; cruz = YIN y YIN-MUT. La primera capa del par es la fija, la segunda la mut.",
+    juP3:"Lance la moneda seis veces, empezando por el nivel 1: cara = placa fija (bit 1); cruz = placa mut (bit 0). El peso del nivel i es 2^(i−1). Superponga las seis placas.",
+    juP4:"El complemento: cara y cruz se invierten en los seis niveles, sin cambiar de familia ni de par. El número pasa de n a 63 − n: es el hexagrama con sus seis trazos cambiados.",
+    juRaz:"Empezar de nuevo",
+    juDe:"Lanzar el dado",
+    juPiece:"Lanzar la moneda (par)",
+    juNiveau:"Lanzar la moneda, nivel {i} de 6",
+    juFini:"Tirada terminada",
+    juPret:"Listo: lance el dado.",
+    juFace:"cara",
+    juPile:"cruz",
+    juStFamille:"Dado: {d} → familia {f}.",
+    juStCouple:"Moneda: {p} → par {c}.",
+    juStNiveau:"Nivel {i}: {p} → placa {couche} ({bit}).",
+    juFixe:"fija",
+    juMut:"mut",
+    juGrille:"Cuadrícula",
+    juComplement:"Complemento",
+    juHexa:"hexagrama {n} (n.º King Wen {k}): {nom}",
+    juRelTE:"Mismo motivo, dos tintas intercambiadas.",
+    juRelDP:"Desplazado media período.",
+    juRelTEDP:"Mismo motivo, dos tintas intercambiadas y desplazado media período.",
+    juRelNone:"El complemento es el hexagrama con sus seis trazos cambiados.",
+    juLienUni:"Juego unificado (96 placas) — Zenodo",
+    juLienComplet:"Juego completo (360 placas) — Zenodo",
+    juLienA4:"Protocolo, hoja A4 (PDF)",
+    juVersions:"Juego unificado, todas las versiones:",
+    juPlaques:"Las 96 placas del juego unificado",
+    juPlaque:"{f} · {couche} · nivel {i}",
+    juErreur:"Datos del juego unificado no disponibles.",
     eyebrow:"La Livrée d'Hermès", title:"360 capas — tirada e impresión",
     subtitle:"Elija una categoría, realice la tirada y descargue la capa lista para cortar o imprimir.",
     bookIntro:"La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
@@ -658,6 +819,42 @@ const UI = {
     navHome:"Inicio", navTirage:"Tirada", navMotif:"Crear un motivo", navUnified:"Unified Patterns", navGalerie:"Galería", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de", navLexique:"Glosario", navArticles:"Artículos",
   },
   th: {
+    juFiltreLabel:"ชุดแผ่นลาย",
+    juTout:"แคตตาล็อกทั้งหมด (360)",
+    juUnifie:"ชุดรวม (96)",
+    juTitre:"ชุดรวม: ลูกเต๋าหนึ่งลูก เหรียญหนึ่งเหรียญ โยนหกครั้ง",
+    juIntro:"ส่วนย่อยของแผ่นลาย 360 แผ่นที่ให้เฉพาะลวดลายรวม: 96 แผ่น 512 ตาราง 256 ลายปู ฐานทั้งสี่: YANG (X), YANG-MUT (สี่เหลี่ยมขนมเปียกปูน), YIN (ตาราง), YIN-MUT (สี่เหลี่ยมมีกากบาท) ตระกูลหนึ่งรวมฐานหลายฐาน แต่ละชั้นให้หกระดับ",
+    juP1:"ทอดลูกเต๋าสี่หน้าเพื่อเลือกตระกูล 1: {YANG}; 2: {YANG-MUT}; 3: {YIN, YANG}; 4: {YIN, YANG-MUT}",
+    juP2:"โยนเหรียญเพื่อเลือกคู่: หัว = YANG และ YANG-MUT; ก้อย = YIN และ YIN-MUT ชั้นแรกของคู่คือชั้นคงที่ ชั้นที่สองคือชั้น mut",
+    juP3:"โยนเหรียญหกครั้ง เริ่มจากระดับ 1: หัว = แผ่นคงที่ (บิต 1); ก้อย = แผ่น mut (บิต 0) น้ำหนักของระดับ i คือ 2^(i−1) ซ้อนทั้งหกแผ่น",
+    juP4:"ส่วนเติมเต็ม: สลับหัวกับก้อยทั้งหกระดับ โดยไม่เปลี่ยนตระกูลหรือคู่ หมายเลขเปลี่ยนจาก n เป็น 63 − n คือเฮกซะแกรมที่เปลี่ยนทั้งหกเส้น",
+    juRaz:"เริ่มใหม่",
+    juDe:"ทอดลูกเต๋า",
+    juPiece:"โยนเหรียญ (คู่)",
+    juNiveau:"โยนเหรียญ ระดับ {i} จาก 6",
+    juFini:"ครบแล้ว",
+    juPret:"พร้อมแล้ว: ทอดลูกเต๋า",
+    juFace:"หัว",
+    juPile:"ก้อย",
+    juStFamille:"ลูกเต๋า: {d} → ตระกูล {f}",
+    juStCouple:"เหรียญ: {p} → คู่ {c}",
+    juStNiveau:"ระดับ {i}: {p} → แผ่น {couche} ({bit})",
+    juFixe:"คงที่",
+    juMut:"mut",
+    juGrille:"ตาราง",
+    juComplement:"ส่วนเติมเต็ม",
+    juHexa:"ฉักลักษณ์ {n} (หมายเลข King Wen {k}): {nom}",
+    juRelTE:"ลวดลายเดียวกัน สลับสองสี",
+    juRelDP:"เลื่อนครึ่งคาบ",
+    juRelTEDP:"ลวดลายเดียวกัน สลับสองสี และเลื่อนครึ่งคาบ",
+    juRelNone:"ส่วนเติมเต็มคือฉักลักษณ์ที่เปลี่ยนทั้งหกเส้น",
+    juLienUni:"ชุดรวม (96 แผ่น) — Zenodo",
+    juLienComplet:"ชุดเต็ม (360 แผ่น) — Zenodo",
+    juLienA4:"โปรโตคอล กระดาษ A4 (PDF)",
+    juVersions:"ชุดรวม ทุกเวอร์ชัน:",
+    juPlaques:"96 แผ่นของชุดรวม",
+    juPlaque:"{f} · {couche} · ระดับ {i}",
+    juErreur:"ไม่มีข้อมูลของชุดรวม",
     eyebrow:"La Livrée d'Hermès", title:"แผ่นลาย 360 แผ่น — การทำนายและการพิมพ์",
     subtitle:"เลือกหมวดหมู่ ทำการทำนาย แล้วดาวน์โหลดชั้นลายที่พร้อมตัดหรือพิมพ์",
     bookIntro:"La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสมหัศจรรย์และการถ่ายทอดสู่การทอผ้าแบบแจ็คการ์ด",
@@ -718,6 +915,8 @@ function applyUILang(){
   document.getElementById('txt-dataSourceLink').textContent = t('dataSourceLink');
   document.getElementById('txt-situationAnt').textContent = t('situationAnt');
   document.getElementById('txt-situationPost').textContent = t('situationPost');
+  document.querySelectorAll('[data-i18n]').forEach(function(x){ x.textContent = t(x.getAttribute('data-i18n')); });
+  if(window.__jeuUnifieMaj) window.__jeuUnifieMaj();
   document.documentElement.lang = LANG;
 }
 
@@ -1790,6 +1989,94 @@ document.getElementById('dlGridJson').addEventListener('click', ()=>{
 // exactement ce tirage, sans repasser par le hasard — en simulant de vrais clics sur la
 // carte de catégorie puis le dé concerné, pour retomber sur les mêmes gestionnaires
 // (et le même affichage) qu'une sélection manuelle.
+
+/* ===== Jeu unifié (prompts 243 et 257) : 96 plaques, tirage guidé, complément =====
+   Le moteur est assets/jeu-unifie.js (mêmes grilles que la galerie, vérifié par tools/check_moteur_jeu_unifie.mjs). Ici : le filtre, le tirage et l'affichage. */
+(function jeuUnifie(){
+  const $ = (id) => document.getElementById(id);
+  const main = document.querySelector('.print-main');
+  let donnees = null, noms = null, moteur = null;
+  let famille = null, de = null, couple = null, lancers = [];
+  const FAMILLES_AFFICHEES = { 'YANG': '{YANG}', 'YANG-MUT': '{YANG-MUT}', 'YIN+YANG': '{YIN, YANG}', 'YIN+YANG-MUT': '{YIN, YANG-MUT}' };
+  const remplir = (m, v) => m.replace(/\{(\w+)\}/g, (x, k) => (k in v ? v[k] : x));
+  const D_ORDRE = ['YANG', 'YANG-MUT', 'YIN+YANG', 'YIN+YANG-MUT']; // le dé : 1 à 4
+  const hasard = (n) => { const a = new Uint32Array(1); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : (a[0] = Math.floor(Math.random() * 4294967296)); return a[0] % n; };
+
+  async function charger(){
+    if(donnees) return true;
+    try {
+      const [a, b] = await Promise.all([fetch('data/jeu-unifie-96.json'), fetch('data/jeu-unifie-noms.json')]);
+      if(!a.ok || !b.ok) throw new Error('données');
+      donnees = await a.json(); noms = await b.json(); moteur = JeuUnifie.moteur(donnees);
+      return true;
+    } catch(e) { $('juStatut').textContent = t('juErreur'); return false; }
+  }
+  function nomHexa(n){
+    const kw = noms.kingwen_par_n[n], tab = noms.noms[LANG] || noms.noms.fr, [pinyin, nom] = tab[kw];
+    return remplir(t('juHexa'), { n: n, k: kw, nom: pinyin + ', ' + nom });
+  }
+  function svg(grille, titre){
+    const ns = 'http://www.w3.org/2000/svg', el = document.createElementNS(ns, 'svg'), hex = { V: donnees.color_hues_hex.violet, M: donnees.color_hues_hex.magenta, O: donnees.color_hues_hex.orange };
+    el.setAttribute('viewBox', '0 0 12 12'); el.setAttribute('role', 'img'); el.setAttribute('aria-label', titre); el.setAttribute('shape-rendering', 'crispEdges');
+    grille.forEach((ligne, r) => ligne.forEach((c, x) => { const q = document.createElementNS(ns, 'rect'); q.setAttribute('x', x); q.setAttribute('y', r); q.setAttribute('width', 1.02); q.setAttribute('height', 1.02); q.setAttribute('fill', hex[c]); el.appendChild(q); }));
+    return el;
+  }
+  function figure(grille, entete, n){
+    const f = document.createElement('figure'), c = document.createElement('figcaption'), titre = entete + ' — ' + nomHexa(n);
+    c.textContent = titre; f.appendChild(svg(grille, titre)); f.appendChild(c); return f;
+  }
+  function majPlaques(){
+    if(!donnees) return;
+    $('juPlaquesTitre').textContent = t('juPlaques');
+    const ul = $('juPlaques'); ul.textContent = '';
+    for(const p of donnees.plaques){ const li = document.createElement('li'); li.textContent = remplir(t('juPlaque'), { f: FAMILLES_AFFICHEES[p.famille], couche: p.couche, i: p.niveau }); ul.appendChild(li); }
+  }
+  function afficher(){
+    const bouton = $('juLancer'), statut = [], res = $('juResultats'), rel = $('juRelation');
+    res.textContent = ''; rel.textContent = '';
+    const couples = JeuUnifie.COUPLES;
+    if(famille === null){ bouton.textContent = t('juDe'); bouton.disabled = false; $('juStatut').textContent = t('juPret'); return; }
+    statut.push(remplir(t('juStFamille'), { d: de + 1, f: FAMILLES_AFFICHEES[famille] }));
+    if(couple === null){ bouton.textContent = t('juPiece'); bouton.disabled = false; }
+    else {
+      statut.push(remplir(t('juStCouple'), { p: t(couple === 0 ? 'juFace' : 'juPile'), c: couples[couple][0] + ' / ' + couples[couple][1] }));
+      lancers.forEach((b, i) => statut.push(remplir(t('juStNiveau'), { i: i + 1, p: t(b ? 'juFace' : 'juPile'), couche: couples[couple][b ? 0 : 1], bit: b })));
+      if(lancers.length < 6){ bouton.textContent = remplir(t('juNiveau'), { i: lancers.length + 1 }); bouton.disabled = false; }
+      else {
+        bouton.textContent = t('juFini'); bouton.disabled = true;
+        const n = lancers.reduce((a, b, i) => a + (b << i), 0), g = moteur.grille(famille, couple, n), c = moteur.grille(famille, couple, 63 - n), r = JeuUnifie.relation(g, c);
+        res.appendChild(figure(g, t('juGrille'), n)); res.appendChild(figure(c, t('juComplement'), 63 - n));
+        // « même motif, deux teintes échangées » et « décalé d'une demi-période » : calculés sur les deux grilles, dits seulement quand ils sont vrais
+        rel.textContent = r.teintesEchangees && r.demiPeriode ? t('juRelTEDP') : r.teintesEchangees ? t('juRelTE') : r.demiPeriode ? t('juRelDP') : t('juRelNone');
+        if(r.teintesEchangees || r.demiPeriode) rel.textContent += ' ' + t('juRelNone');
+      }
+    }
+    $('juStatut').textContent = statut.join(' ');
+  }
+  async function lancer(){
+    if(!(await charger())) return;
+    if(famille === null){ de = hasard(4); famille = D_ORDRE[de]; }
+    else if(couple === null){ couple = hasard(2); }
+    else if(lancers.length < 6){ lancers.push(hasard(2) === 0 ? 1 : 0); } // face (0) = plaque fixe, bit 1 ; pile (1) = plaque mut, bit 0
+    afficher();
+  }
+  function recommencer(){ famille = de = couple = null; lancers = []; afficher(); $('juLancer').focus(); }
+  async function filtrer(unifie, lien){
+    main.classList.toggle('mode-unifie', unifie);
+    $('jeuUnifie').hidden = !unifie;
+    $('jeuTout').setAttribute('aria-pressed', String(!unifie)); $('jeuUni').setAttribute('aria-pressed', String(unifie));
+    if(lien){ const q = new URLSearchParams(location.search); if(unifie) q.set('jeu', 'unifie'); else q.delete('jeu'); history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + location.hash); }
+    if(unifie && await charger()){ majPlaques(); afficher(); }
+  }
+  $('jeuTout').addEventListener('click', () => filtrer(false, true));
+  $('jeuUni').addEventListener('click', () => filtrer(true, true));
+  $('juLancer').addEventListener('click', lancer);
+  $('juRaz').addEventListener('click', recommencer);
+  window.__jeuUnifieMaj = function(){ if(!$('jeuUnifie').hidden && donnees){ majPlaques(); afficher(); } };
+  if(new URLSearchParams(location.search).get('jeu') === 'unifie') filtrer(true, false);
+  window.jeuUnifieEtat = () => ({ famille, couple, lancers: lancers.slice(), actif: !$('jeuUnifie').hidden }); // lu par tools/check_jeu_unifie_page.mjs
+})();
+
 (async function initFromURL(){
   const params = new URLSearchParams(location.search);
   if(params.has('lang') && UI[params.get('lang')]) LANG = params.get('lang');

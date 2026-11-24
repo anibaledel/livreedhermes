@@ -1,0 +1,49 @@
+# Le jeu unifié (prompts 243 et 257) : 96 plaques, 512 grilles, 256 pavages ; moteur de la page 360-calques.html ; la page, sur téléphone et ordinateur.
+#   - tools/jeu_unifie.py : le manifeste data/jeu-unifie-96.json est celui que le référent donne (python3 tools/jeu_unifie.py l'écrit) ;
+#   - tools/check_jeu_unifie.py : 96 plaques, mapping, 512 grilles reconstruites, complément = deux teintes échangées ET décalage (6, 6) seul, galerie cellule par cellule ;
+#   - tools/jeu_unifie_noms.mjs --verifie : les noms des hexagrammes du tirage sont ceux du site ;
+#   - tools/check_moteur_jeu_unifie.mjs : assets/jeu-unifie.js (le moteur de la page) redonne les 512 grilles de la galerie ;
+#   - tools/check_jeu_unifie_page.mjs : filtre, tirage guidé, complément, remise à zéro, liens (fr, en, es, th ; 390 et 1280 px).
+# Rien ne se dépose sur Zenodo depuis ce dépôt.
+name: Jeu unifié
+on:
+  push:
+    paths:
+      - 'data/jeu-unifie-96.json'
+      - 'data/jeu-unifie-noms.json'
+      - 'data/referent_360_v3.json'
+      - 'data/patterns-unifies-fiches.json'
+      - 'data/fonds_ecran_v1.json'
+      - 'assets/jeu-unifie.js'
+      - '360-calques.html'
+      - '*/360-layers/**'
+      - 'es/360-capas/**'
+      - 'tools/jeu_unifie*'
+      - 'tools/check_jeu_unifie*'
+      - 'tools/check_moteur_jeu_unifie.mjs'
+      - 'tools/check_note_v6.py'
+      - '.github/workflows/jeu-unifie.yml'
+  pull_request:
+  workflow_dispatch:
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: pip install -r tools/requirements.txt
+      - run: python3 tools/jeu_unifie.py && git diff --exit-code data/jeu-unifie-96.json
+      - run: python3 tools/check_jeu_unifie.py
+      - run: python3 tools/check_jeu_unifie.py --essai
+      - run: node tools/jeu_unifie_noms.mjs --verifie
+      - run: node tools/check_moteur_jeu_unifie.mjs
+      - run: node tools/check_moteur_jeu_unifie.mjs --essai
+      - uses: ./.github/actions/playwright
+        with:
+          navigateur: chromium
+      - run: node tools/check_jeu_unifie_page.mjs local
