@@ -575,12 +575,12 @@
   "@type": "WebApplication",
   "@id": "https://anibal-amiot.com/th/yi-king-draw/#application",
   "url": "https://anibal-amiot.com/th/yi-king-draw/",
-  "name": "Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès",
+  "name": "ทอยอี้จิงฟรี ออนไลน์: ฉักลักษณ์ คำตัดสิน และจัตุรัสกล | La Livrée d'Hermès",
   "description": "ทอยอี้จิงฟรี ออนไลน์ ไม่ต้องสมัครสมาชิก: โยนเหรียญรับฉักลักษณ์ อ่านคำตัดสิน ภาพลักษณ์ และจัตุรัสกล หรือเปิดดูทั้ง 64 รูป",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Web",
   "isAccessibleForFree": true,
-  "inLanguage": "fr",
+  "inLanguage": "th",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "creator": {
     "@type": "Person",
@@ -704,7 +704,7 @@
       <h2 class="section-h2" id="txt-oracleTitle">คำพยากรณ์</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>อี้จิงเป็นคัมภีร์แห่งปัญญาที่ใช้เป็นเครื่องเสี่ยงทายได้ หากคุณมีคำถามที่ชัดเจน จงตั้งคำถามนั้นไว้ในใจก่อนกดปุ่ม “โยนเหรียญ” หากไม่มีคำถามเฉพาะ การเสี่ยงทายจะบ่งบอกสถานการณ์ในขณะนั้น คุณอาจเสี่ยงทายต่อเนื่องหลายครั้งสำหรับหลายคำถามก็ได้ — แต่การเสี่ยงทายเพียงครั้งเดียวก็เพียงพอในตัวเองแล้วสำหรับสารที่ตรงกับการปรึกษาของคุณ</p><p>หากคุณเพียงต้องการสำรวจความหมายของฉักลักษณ์และภาพที่สัมพันธ์กัน ให้เลือกช่องบนกระดานได้โดยตรง สำหรับข้อมูลเพิ่มเติมเกี่ยวกับภาพ เชิญอ่านหนังสือ</p></div>
       <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
-      <noscript><p class="tirage-noscript" role="note">Le tirage et l’échiquier demandent JavaScript : activez-le pour lancer les pièces. Le texte « Comment lire un tirage », plus bas, se lit sans.</p></noscript>
+      <noscript><p class="tirage-noscript" role="note">การทอยและกระดานต้องใช้ JavaScript: เปิดใช้งานเพื่อโยนเหรียญ ส่วนข้อความ “วิธีอ่านผลการทอยอี้จิง” ด้านล่างอ่านได้โดยไม่ต้องใช้</p></noscript>
       <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">โยนเหรียญ (6 เส้น)</button>
 
@@ -735,30 +735,30 @@
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
-    <h2 id="lire-un-tirage-titre">Comment lire un tirage du Yi King</h2>
-    <h3>Ce qu’est un tirage</h3>
-    <p>Un tirage donne six traits, posés de bas en haut. Chaque trait est yin (brisé) ou yang (plein), et les six ensemble forment un hexagramme, l’un des 64.</p>
-    <h3>Comment la page fait le tirage</h3>
-    <p>La page lance trois pièces pour chaque trait, six fois de suite ; le premier lancer fait le trait du bas. Chaque pièce vaut 2 ou 3 à égalité de chances, tirée par le générateur pseudo-aléatoire du navigateur (Math.random).</p>
-    <p>La somme des trois pièces donne le trait : 6, yin mutant ; 7, yang fixe ; 8, yin fixe ; 9, yang mutant. Les chances sont de 1 sur 8 pour le 6, de 3 sur 8 pour le 7, de 3 sur 8 pour le 8 et de 1 sur 8 pour le 9 : un trait sur quatre est mutant.</p>
-    <h3>Ce que contient le résultat</h3>
-    <p>Le résultat donne le numéro traditionnel King Wen de l’hexagramme, puis son numéro dans l’ordre chronologique du site (de 0 à 63), son nom, ses six traits, le pavage du carré magique qui lui correspond, ses deux trigrammes, son image et son jugement. Le lien « En savoir plus sur cet hexagramme » ouvre la page de l’hexagramme tiré. La <a href="../../th/hexagrams/">liste des 64 hexagrammes</a> met les deux numéros côte à côte.</p>
-    <h3>Traits mutants et second hexagramme</h3>
-    <p>Un trait qui sort 6 ou 9 est mutant : la page le marque. Elle montre alors l’hexagramme antérieur (le tirage) et l’hexagramme postérieur, où chaque trait mutant est inversé (le yin devient yang, le yang devient yin), avec la position et le commentaire de chaque trait mutant. Sans trait mutant, il n’y a qu’un hexagramme. Les commentaires des six traits se lisent sur la page de l’hexagramme.</p>
-    <h3>Lire sans se précipiter</h3>
+    <h2 id="lire-un-tirage-titre">วิธีอ่านผลการทอยอี้จิง</h2>
+    <h3>ผลการทอยคืออะไร</h3>
+    <p>การทอยหนึ่งครั้งให้เส้นหกเส้น วางจากล่างขึ้นบน แต่ละเส้นเป็นยิน (ขาด) หรือหยาง (เต็ม) และทั้งหกเส้นรวมกันเป็นฉักลักษณ์หนึ่งใน 64 ฉักลักษณ์</p>
+    <h3>หน้านี้ทอยอย่างไร</h3>
+    <p>หน้านี้โยนเหรียญสามเหรียญต่อหนึ่งเส้น ทำติดกันหกครั้ง การโยนครั้งแรกเป็นเส้นล่างสุด เหรียญแต่ละเหรียญมีค่า 2 หรือ 3 โอกาสเท่ากัน สุ่มด้วยตัวสร้างเลขสุ่มเทียมของเบราว์เซอร์ (Math.random)</p>
+    <p>ผลรวมของเหรียญสามเหรียญกำหนดเส้น: 6 คือยินกลายพันธุ์ 7 คือหยางคงที่ 8 คือยินคงที่ 9 คือหยางกลายพันธุ์ โอกาสคือ 1 ใน 8 สำหรับ 6, 3 ใน 8 สำหรับ 7, 3 ใน 8 สำหรับ 8 และ 1 ใน 8 สำหรับ 9 ดังนั้นสี่เส้นจะมีหนึ่งเส้นที่กลายพันธุ์</p>
+    <h3>ผลลัพธ์ประกอบด้วยอะไร</h3>
+    <p>ผลลัพธ์แสดงลำดับ King Wen ดั้งเดิมของฉักลักษณ์ จากนั้นเป็นหมายเลขตามลำดับตามเวลาของเว็บไซต์ (0 ถึง 63) ชื่อ เส้นทั้งหก การปูลายของจัตุรัสกลที่สัมพันธ์กัน ตรีลักษณ์ทั้งสอง ภาพลักษณ์ และคำตัดสิน ลิงก์ “ข้อมูลเพิ่มเติมเกี่ยวกับฉักลักษณ์นี้” เปิดหน้าของฉักลักษณ์ที่ทอยได้ <a href="../../th/hexagrams/">รายการฉักลักษณ์ทั้ง 64</a> แสดงหมายเลขทั้งสองคู่กัน</p>
+    <h3>เส้นกลายพันธุ์และฉักลักษณ์ที่สอง</h3>
+    <p>เส้นที่ออก 6 หรือ 9 เป็นเส้นกลายพันธุ์ หน้านี้จะทำเครื่องหมายไว้ แล้วแสดงฉักลักษณ์ก่อนหน้า (ผลการทอย) และฉักลักษณ์ภายหลัง ซึ่งทุกเส้นกลายพันธุ์ถูกกลับค่า (ยินเป็นหยาง หยางเป็นยิน) พร้อมตำแหน่งและคำอธิบายของแต่ละเส้นกลายพันธุ์ ถ้าไม่มีเส้นกลายพันธุ์ ก็มีฉักลักษณ์เดียว คำอธิบายของทั้งหกเส้นอ่านได้ในหน้าของฉักลักษณ์</p>
+    <h3>อ่านโดยไม่รีบร้อน</h3>
     <ol>
-      <li>Lire le jugement.</li>
-      <li>Lire l’image.</li>
-      <li>Regarder le carré dans le livre, au passage que la page de l’hexagramme indique.</li>
+      <li>อ่านคำตัดสิน</li>
+      <li>อ่านภาพลักษณ์</li>
+      <li>ดูจัตุรัสในหนังสือ ตามตอนที่หน้าของฉักลักษณ์ชี้ไป</li>
     </ol>
-    <h3>Ce qui reste sur l’appareil</h3>
-    <p>Le tirage se calcule dans votre navigateur, sans compte. La page ne garde aucun historique de tirages : elle ne mémorise sur l’appareil que des réglages d’affichage (langue, palette). Le résultat s’écrit dans l’adresse de la page (?tire=…), ce qui permet d’en copier le lien.</p>
-    <p>Le site est d’<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a>, sous licence CC BY-NC 4.0.</p>
-    <h3>Pour aller plus loin</h3>
+    <h3>สิ่งที่เหลืออยู่ในอุปกรณ์</h3>
+    <p>การทอยคำนวณในเบราว์เซอร์ของคุณ โดยไม่ต้องมีบัญชี หน้านี้ไม่เก็บประวัติการทอย และจำในอุปกรณ์เฉพาะการตั้งค่าการแสดงผล (ภาษา, ชุดสี) ผลลัพธ์ถูกเขียนลงในที่อยู่ของหน้า (?tire=…) จึงคัดลอกลิงก์ได้</p>
+    <p>เว็บไซต์นี้เป็นของ <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a> ภายใต้สัญญาอนุญาต CC BY-NC 4.0</p>
+    <h3>อ่านต่อ</h3>
     <ul>
-      <li><a href="../../th/hexagrams/">Les 64 hexagrammes</a>, avec leurs deux numéros</li>
-      <li><a href="../../th/book/">Le livre La Livrée d’Hermès</a></li>
-      <li><a href="../../th/lexicon/">Le lexique du projet</a></li>
+      <li><a href="../../th/hexagrams/">ฉักลักษณ์ทั้ง 64</a> พร้อมหมายเลขทั้งสอง</li>
+      <li><a href="../../th/book/">หนังสือ La Livrée d’Hermès</a></li>
+      <li><a href="../../th/lexicon/">อภิธานศัพท์ของโครงการ</a></li>
     </ul>
   </section>
   <!-- @tirage-lire:end -->

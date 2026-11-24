@@ -575,12 +575,12 @@
   "@type": "WebApplication",
   "@id": "https://anibal-amiot.com/it/estrazione-i-ching/#application",
   "url": "https://anibal-amiot.com/it/estrazione-i-ching/",
-  "name": "Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès",
+  "name": "I Ching online gratis: esagramma, giudizio e quadrato magico | La Livrée d'Hermès",
   "description": "I Ching online gratis e senza registrazione: lancia le monete, leggi l'esagramma con giudizio, immagine e quadrato magico, oppure sfoglia i 64 esagrammi.",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Web",
   "isAccessibleForFree": true,
-  "inLanguage": "fr",
+  "inLanguage": "it",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "creator": {
     "@type": "Person",
@@ -704,7 +704,7 @@
       <h2 class="section-h2" id="txt-oracleTitle">L'oracolo</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>L'I Ching è un libro di saggezza che può essere usato come un oracolo. Se hai una domanda precisa, interiorizzala prima di premere Estrazione. Senza una domanda particolare, l'estrazione indica la situazione del momento. Puoi concatenare più estrazioni per più domande — ma una sola estrazione basta già a se stessa per il messaggio che corrisponde alla tua consultazione.</p><p>Se vuoi semplicemente esplorare il significato degli esagrammi e delle immagini in correlazione, seleziona direttamente una casella della scacchiera. Per maggiori informazioni sulle immagini, non esitare a leggere il libro.</p></div>
       <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
-      <noscript><p class="tirage-noscript" role="note">Le tirage et l’échiquier demandent JavaScript : activez-le pour lancer les pièces. Le texte « Comment lire un tirage », plus bas, se lit sans.</p></noscript>
+      <noscript><p class="tirage-noscript" role="note">L’estrazione e la scacchiera richiedono JavaScript: attivalo per lanciare le monete. Il testo «Come leggere un’estrazione», più in basso, si legge senza.</p></noscript>
       <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">Lancia le monete (6 linee)</button>
 
@@ -735,30 +735,30 @@
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
-    <h2 id="lire-un-tirage-titre">Comment lire un tirage du Yi King</h2>
-    <h3>Ce qu’est un tirage</h3>
-    <p>Un tirage donne six traits, posés de bas en haut. Chaque trait est yin (brisé) ou yang (plein), et les six ensemble forment un hexagramme, l’un des 64.</p>
-    <h3>Comment la page fait le tirage</h3>
-    <p>La page lance trois pièces pour chaque trait, six fois de suite ; le premier lancer fait le trait du bas. Chaque pièce vaut 2 ou 3 à égalité de chances, tirée par le générateur pseudo-aléatoire du navigateur (Math.random).</p>
-    <p>La somme des trois pièces donne le trait : 6, yin mutant ; 7, yang fixe ; 8, yin fixe ; 9, yang mutant. Les chances sont de 1 sur 8 pour le 6, de 3 sur 8 pour le 7, de 3 sur 8 pour le 8 et de 1 sur 8 pour le 9 : un trait sur quatre est mutant.</p>
-    <h3>Ce que contient le résultat</h3>
-    <p>Le résultat donne le numéro traditionnel King Wen de l’hexagramme, puis son numéro dans l’ordre chronologique du site (de 0 à 63), son nom, ses six traits, le pavage du carré magique qui lui correspond, ses deux trigrammes, son image et son jugement. Le lien « En savoir plus sur cet hexagramme » ouvre la page de l’hexagramme tiré. La <a href="../../it/esagrammi/">liste des 64 hexagrammes</a> met les deux numéros côte à côte.</p>
-    <h3>Traits mutants et second hexagramme</h3>
-    <p>Un trait qui sort 6 ou 9 est mutant : la page le marque. Elle montre alors l’hexagramme antérieur (le tirage) et l’hexagramme postérieur, où chaque trait mutant est inversé (le yin devient yang, le yang devient yin), avec la position et le commentaire de chaque trait mutant. Sans trait mutant, il n’y a qu’un hexagramme. Les commentaires des six traits se lisent sur la page de l’hexagramme.</p>
-    <h3>Lire sans se précipiter</h3>
+    <h2 id="lire-un-tirage-titre">Come leggere un’estrazione dell’I Ching</h2>
+    <h3>Che cos’è un’estrazione</h3>
+    <p>Un’estrazione dà sei linee, disposte dal basso verso l’alto. Ogni linea è yin (spezzata) o yang (intera), e le sei insieme formano un esagramma, uno dei 64.</p>
+    <h3>Come la pagina fa l’estrazione</h3>
+    <p>La pagina lancia tre monete per ogni linea, sei volte di seguito; il primo lancio fa la linea in basso. Ogni moneta vale 2 o 3 con uguali probabilità, estratta dal generatore pseudocasuale del browser (Math.random).</p>
+    <p>La somma delle tre monete dà la linea: 6, yin mutevole; 7, yang fisso; 8, yin fisso; 9, yang mutevole. Le probabilità sono 1 su 8 per il 6, 3 su 8 per il 7, 3 su 8 per l’8 e 1 su 8 per il 9: una linea su quattro è mutevole.</p>
+    <h3>Che cosa contiene il risultato</h3>
+    <p>Il risultato indica il numero tradizionale King Wen dell’esagramma, poi il suo numero nell’ordine cronologico del sito (da 0 a 63), il nome, le sei linee, la pavimentazione del quadrato magico che gli corrisponde, i due trigrammi, l’immagine e il giudizio. Il link «Scopri di più su questo esagramma» apre la pagina dell’esagramma ottenuto. L’<a href="../../it/esagrammi/">elenco dei 64 esagrammi</a> mette i due numeri affiancati.</p>
+    <h3>Linee mutevoli e secondo esagramma</h3>
+    <p>Una linea che esce 6 o 9 è mutevole: la pagina la segna. Mostra allora l’esagramma anteriore (l’estrazione) e l’esagramma posteriore, in cui ogni linea mutevole è invertita (lo yin diventa yang, lo yang diventa yin), con la posizione e il commento di ogni linea mutevole. Senza linee mutevoli c’è un solo esagramma. I commenti delle sei linee si leggono nella pagina dell’esagramma.</p>
+    <h3>Leggere senza fretta</h3>
     <ol>
-      <li>Lire le jugement.</li>
-      <li>Lire l’image.</li>
-      <li>Regarder le carré dans le livre, au passage que la page de l’hexagramme indique.</li>
+      <li>Leggere il giudizio.</li>
+      <li>Leggere l’immagine.</li>
+      <li>Guardare il quadrato nel libro, nel passo indicato dalla pagina dell’esagramma.</li>
     </ol>
-    <h3>Ce qui reste sur l’appareil</h3>
-    <p>Le tirage se calcule dans votre navigateur, sans compte. La page ne garde aucun historique de tirages : elle ne mémorise sur l’appareil que des réglages d’affichage (langue, palette). Le résultat s’écrit dans l’adresse de la page (?tire=…), ce qui permet d’en copier le lien.</p>
-    <p>Le site est d’<a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(in francese)</span></a>, sous licence CC BY-NC 4.0.</p>
-    <h3>Pour aller plus loin</h3>
+    <h3>Che cosa resta sul dispositivo</h3>
+    <p>L’estrazione si calcola nel tuo browser, senza account. La pagina non conserva alcuna cronologia delle estrazioni: memorizza sul dispositivo solo impostazioni di visualizzazione (lingua, tavolozza). Il risultato è scritto nell’indirizzo della pagina (?tire=…), così il link si può copiare.</p>
+    <p>Il sito è di <a href="../../a-propos.html" hreflang="fr">Anibal Edelberto Amiot <span class="lien-langue">(in francese)</span></a>, con licenza CC BY-NC 4.0.</p>
+    <h3>Per andare oltre</h3>
     <ul>
-      <li><a href="../../it/esagrammi/">Les 64 hexagrammes</a>, avec leurs deux numéros</li>
-      <li><a href="../../it/book/">Le livre La Livrée d’Hermès</a></li>
-      <li><a href="../../it/lexicon/">Le lexique du projet</a></li>
+      <li><a href="../../it/esagrammi/">I 64 esagrammi</a>, con i loro due numeri</li>
+      <li><a href="../../it/book/">Il libro La Livrée d’Hermès</a></li>
+      <li><a href="../../it/lexicon/">Il lessico del progetto</a></li>
     </ul>
   </section>
   <!-- @tirage-lire:end -->

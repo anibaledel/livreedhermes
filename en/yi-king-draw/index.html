@@ -575,12 +575,12 @@
   "@type": "WebApplication",
   "@id": "https://anibal-amiot.com/en/yi-king-draw/#application",
   "url": "https://anibal-amiot.com/en/yi-king-draw/",
-  "name": "Tirage du Yi King gratuit : hexagramme, jugement et carré | La Livrée d'Hermès",
+  "name": "Free I Ching reading online: Yi King draw, hexagram and judgement | La Livrée d'Hermès",
   "description": "Free I Ching reading online, no sign-up: cast the coins, get your hexagram with its judgement, image and magic square, or browse all 64 hexagrams.",
   "applicationCategory": "EntertainmentApplication",
   "operatingSystem": "Web",
   "isAccessibleForFree": true,
-  "inLanguage": "fr",
+  "inLanguage": "en",
   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "creator": {
     "@type": "Person",
@@ -704,7 +704,7 @@
       <h2 class="section-h2" id="txt-oracleTitle">The oracle</h2>
         <div class="tirage-guide" id="txt-tirageGuide"><p>The Yi Jing is a book of wisdom that can be used as an oracle. If you have a specific question, hold it in mind before pressing Cast. Without a particular question, the casting shows the situation of the moment. You can chain several castings for several questions — but a single casting is already enough on its own for the message that corresponds to your consultation.</p><p>If you simply want to explore the meaning of the hexagrams and their related images, select a square on the board directly. For more information about the images, feel free to read the book.</p></div>
       <!-- @tirage-noscript:start — engendré par scripts/build-tirage-texte.js, ne pas éditer ici -->
-      <noscript><p class="tirage-noscript" role="note">Le tirage et l’échiquier demandent JavaScript : activez-le pour lancer les pièces. Le texte « Comment lire un tirage », plus bas, se lit sans.</p></noscript>
+      <noscript><p class="tirage-noscript" role="note">The draw and the board need JavaScript: turn it on to cast the coins. The text “How to read a Yi King draw”, further down, reads without it.</p></noscript>
       <!-- @tirage-noscript:end -->
       <button type="button" class="draw-btn" id="drawBtn">Cast the coins (6 lines)</button>
 
@@ -735,30 +735,30 @@
 
   <!-- @tirage-lire:start — engendré par scripts/build-tirage-texte.js depuis data/tirage-lire-textes.json, ne pas éditer ici -->
   <section class="tirage-lire" id="lire-un-tirage" aria-labelledby="lire-un-tirage-titre">
-    <h2 id="lire-un-tirage-titre">Comment lire un tirage du Yi King</h2>
-    <h3>Ce qu’est un tirage</h3>
-    <p>Un tirage donne six traits, posés de bas en haut. Chaque trait est yin (brisé) ou yang (plein), et les six ensemble forment un hexagramme, l’un des 64.</p>
-    <h3>Comment la page fait le tirage</h3>
-    <p>La page lance trois pièces pour chaque trait, six fois de suite ; le premier lancer fait le trait du bas. Chaque pièce vaut 2 ou 3 à égalité de chances, tirée par le générateur pseudo-aléatoire du navigateur (Math.random).</p>
-    <p>La somme des trois pièces donne le trait : 6, yin mutant ; 7, yang fixe ; 8, yin fixe ; 9, yang mutant. Les chances sont de 1 sur 8 pour le 6, de 3 sur 8 pour le 7, de 3 sur 8 pour le 8 et de 1 sur 8 pour le 9 : un trait sur quatre est mutant.</p>
-    <h3>Ce que contient le résultat</h3>
-    <p>Le résultat donne le numéro traditionnel King Wen de l’hexagramme, puis son numéro dans l’ordre chronologique du site (de 0 à 63), son nom, ses six traits, le pavage du carré magique qui lui correspond, ses deux trigrammes, son image et son jugement. Le lien « En savoir plus sur cet hexagramme » ouvre la page de l’hexagramme tiré. La <a href="../../en/hexagrams/">liste des 64 hexagrammes</a> met les deux numéros côte à côte.</p>
-    <h3>Traits mutants et second hexagramme</h3>
-    <p>Un trait qui sort 6 ou 9 est mutant : la page le marque. Elle montre alors l’hexagramme antérieur (le tirage) et l’hexagramme postérieur, où chaque trait mutant est inversé (le yin devient yang, le yang devient yin), avec la position et le commentaire de chaque trait mutant. Sans trait mutant, il n’y a qu’un hexagramme. Les commentaires des six traits se lisent sur la page de l’hexagramme.</p>
-    <h3>Lire sans se précipiter</h3>
+    <h2 id="lire-un-tirage-titre">How to read a Yi King draw</h2>
+    <h3>What a draw is</h3>
+    <p>A draw gives six lines, laid from bottom to top. Each line is yin (broken) or yang (solid), and the six together form one hexagram out of 64.</p>
+    <h3>How this page makes the draw</h3>
+    <p>The page casts three coins for each line, six times in a row; the first cast makes the bottom line. Each coin is worth 2 or 3 with equal chances, drawn by the browser’s pseudo-random generator (Math.random).</p>
+    <p>The sum of the three coins gives the line: 6, moving yin; 7, fixed yang; 8, fixed yin; 9, moving yang. The odds are 1 in 8 for a 6, 3 in 8 for a 7, 3 in 8 for an 8 and 1 in 8 for a 9: one line in four is moving.</p>
+    <h3>What the result contains</h3>
+    <p>The result gives the hexagram’s traditional King Wen number, then its number in the site’s chronological order (0 to 63), its name, its six lines, the tiling of the magic square that corresponds to it, its two trigrams, its image and its judgment. The link “More about this hexagram” opens the page of the hexagram drawn. The <a href="../../en/hexagrams/">list of the 64 hexagrams</a> puts the two numbers side by side.</p>
+    <h3>Moving lines and the second hexagram</h3>
+    <p>A line that comes up 6 or 9 is moving: the page marks it. It then shows the hexagram before (the draw) and the hexagram after, in which each moving line is reversed (yin becomes yang, yang becomes yin), with the position and the commentary of each moving line. With no moving line there is only one hexagram. The commentaries on all six lines are on the hexagram’s page.</p>
+    <h3>Reading without hurrying</h3>
     <ol>
-      <li>Lire le jugement.</li>
-      <li>Lire l’image.</li>
-      <li>Regarder le carré dans le livre, au passage que la page de l’hexagramme indique.</li>
+      <li>Read the judgment.</li>
+      <li>Read the image.</li>
+      <li>Look at the square in the book, at the passage the hexagram’s page points to.</li>
     </ol>
-    <h3>Ce qui reste sur l’appareil</h3>
-    <p>Le tirage se calcule dans votre navigateur, sans compte. La page ne garde aucun historique de tirages : elle ne mémorise sur l’appareil que des réglages d’affichage (langue, palette). Le résultat s’écrit dans l’adresse de la page (?tire=…), ce qui permet d’en copier le lien.</p>
-    <p>Le site est d’<a href="../../en/about/">Anibal Edelberto Amiot</a>, sous licence CC BY-NC 4.0.</p>
-    <h3>Pour aller plus loin</h3>
+    <h3>What stays on your device</h3>
+    <p>The draw is computed in your browser, with no account. The page keeps no history of draws: it stores on the device only display settings (language, palette). The result is written into the page address (?tire=…), so the link can be copied.</p>
+    <p>The site is by <a href="../../en/about/">Anibal Edelberto Amiot</a>, under the CC BY-NC 4.0 licence.</p>
+    <h3>Going further</h3>
     <ul>
-      <li><a href="../../en/hexagrams/">Les 64 hexagrammes</a>, avec leurs deux numéros</li>
-      <li><a href="../../en/book/">Le livre La Livrée d’Hermès</a></li>
-      <li><a href="../../en/lexicon/">Le lexique du projet</a></li>
+      <li><a href="../../en/hexagrams/">The 64 hexagrams</a>, with their two numbers</li>
+      <li><a href="../../en/book/">The book La Livrée d’Hermès</a></li>
+      <li><a href="../../en/lexicon/">The project lexicon</a></li>
     </ul>
   </section>
   <!-- @tirage-lire:end -->
