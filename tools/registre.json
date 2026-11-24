@@ -435,6 +435,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_descriptions_pages.mjs",
+   "role": "toute page indexable qui a un vrai contenu porte une <meta name=\"description\"> propre (prompt 260, corrigé par le 261).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_doi_licences.mjs",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
    "lit": [
@@ -1388,7 +1400,9 @@
    "appele_par": [
     "check-langues.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/check_descriptions_pages.mjs"
+   ],
    "etat": "actif",
    "sait_echouer": true
   },

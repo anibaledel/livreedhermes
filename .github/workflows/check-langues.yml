@@ -64,6 +64,9 @@ jobs:
       # prompt 260 : aucune URL du sitemap ne répond autrement que par 200, ne porte noindex ni ne pointe sa canonique ailleurs
       - run: node tools/check_sitemap_indexable.mjs
       - run: node tools/check_sitemap_indexable.mjs --essai
+      # prompt 261 : une description pour toute page indexable à vrai contenu ; les redirections et les pages noindex en sont exemptées
+      - run: node tools/check_descriptions_pages.mjs
+      - run: node tools/check_descriptions_pages.mjs --essai
       - run: node tools/check_glossaire.mjs
       - run: node tools/check_tuiles.mjs
       - run: node tools/check_tuiles.mjs --essai

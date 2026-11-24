@@ -8,7 +8,7 @@
 // Usage : node tools/check_sitemap_indexable.mjs [--site https://anibal-amiot.com] [--essai]
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://anibal-amiot.com';
 
@@ -33,50 +33,54 @@ const fichierDe = (url) => {
 };
 const urls = (xml) => [...xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>/g)].map((m) => decode(m[1]));
 
-if (process.argv.includes('--essai')) {
-  const base = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Une page</title>';
-  const u = `${SITE}/page.html`;
-  const cas = [
-    ['une page saine', base + `<link rel="canonical" href="${u}"></head><body>x</body></html>`, []],
-    ['une page sans canonique', base + '</head><body>x</body></html>', []],
-    ['un dossier (canonique avec « / »)', base + `<link rel="canonical" href="${SITE}/page.html"></head>`, []],
-    ['une redirection <meta refresh>', base + `<meta http-equiv="refresh" content="0; url=${SITE}/autre.html"></head>`, ['redirection']],
-    ['une redirection par location.replace', `<head><script>location.replace('${SITE}/autre.html');</script></head>`, ['redirection']],
-    ['une page noindex', base + '<meta name="robots" content="noindex,follow"></head>', ['noindex']],
-    ['une canonique ailleurs', base + `<link rel="canonical" href="${SITE}/autre.html"></head>`, ['canonique ailleurs']],
-    ['un fichier absent (404)', null, ['404']],
-  ];
-  const bons = cas.filter(([, html, att]) => JSON.stringify(analyser(u, html)) === JSON.stringify(att));
-  const dossier = analyser(`${SITE}/a/`, base + `<link rel="canonical" href="${SITE}/a/index.html"></head>`).length === 0;
-  if (bons.length !== cas.length || !dossier) { for (const c of cas) if (!bons.includes(c)) console.error(`ÉCHEC --essai : ${c[0]} → ${JSON.stringify(analyser(u, c[1]))}`); process.exit(1); }
-  console.log(`OK    --essai : ${cas.length} cas (saine, sans canonique, redirection ×2, noindex, canonique ailleurs, 404) rendus comme attendu.`);
-  process.exit(0);
-}
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await executer();
 
-const iSite = process.argv.indexOf('--site');
-const site = iSite > 0 ? process.argv[iSite + 1].replace(/\/$/, '') : null;
-const liste = urls(fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8'));
-const echecs = {};
-let nb = 0;
-for (const url of liste) {
-  const f = path.join(ROOT, fichierDe(url));
-  const causes = analyser(url, fs.existsSync(f) && fs.statSync(f).isFile() ? fs.readFileSync(f, 'utf8') : null);
-  nb++;
-  for (const c of causes) (echecs[c] ||= []).push(url);
+async function executer() {
+  if (process.argv.includes('--essai')) {
+    const base = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Une page</title>';
+    const u = `${SITE}/page.html`;
+    const cas = [
+      ['une page saine', base + `<link rel="canonical" href="${u}"></head><body>x</body></html>`, []],
+      ['une page sans canonique', base + '</head><body>x</body></html>', []],
+      ['un dossier (canonique avec « / »)', base + `<link rel="canonical" href="${SITE}/page.html"></head>`, []],
+      ['une redirection <meta refresh>', base + `<meta http-equiv="refresh" content="0; url=${SITE}/autre.html"></head>`, ['redirection']],
+      ['une redirection par location.replace', `<head><script>location.replace('${SITE}/autre.html');</script></head>`, ['redirection']],
+      ['une page noindex', base + '<meta name="robots" content="noindex,follow"></head>', ['noindex']],
+      ['une canonique ailleurs', base + `<link rel="canonical" href="${SITE}/autre.html"></head>`, ['canonique ailleurs']],
+      ['un fichier absent (404)', null, ['404']],
+    ];
+    const bons = cas.filter(([, html, att]) => JSON.stringify(analyser(u, html)) === JSON.stringify(att));
+    const dossier = analyser(`${SITE}/a/`, base + `<link rel="canonical" href="${SITE}/a/index.html"></head>`).length === 0;
+    if (bons.length !== cas.length || !dossier) { for (const c of cas) if (!bons.includes(c)) console.error(`ÉCHEC --essai : ${c[0]} → ${JSON.stringify(analyser(u, c[1]))}`); process.exit(1); }
+    console.log(`OK    --essai : ${cas.length} cas (saine, sans canonique, redirection ×2, noindex, canonique ailleurs, 404) rendus comme attendu.`);
+    process.exit(0);
+  }
+
+  const iSite = process.argv.indexOf('--site');
+  const site = iSite > 0 ? process.argv[iSite + 1].replace(/\/$/, '') : null;
+  const liste = urls(fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8'));
+  const echecs = {};
+  let nb = 0;
+  for (const url of liste) {
+    const f = path.join(ROOT, fichierDe(url));
+    const causes = analyser(url, fs.existsSync(f) && fs.statSync(f).isFile() ? fs.readFileSync(f, 'utf8') : null);
+    nb++;
+    for (const c of causes) (echecs[c] ||= []).push(url);
+  }
+  if (site) {
+    const aVerifier = liste.map((u) => site + u.slice(SITE.length));
+    let i = 0;
+    const travail = async () => {
+      while (i < aVerifier.length) {
+        const u = aVerifier[i++];
+        try { const r = await fetch(u, { redirect: 'manual' }); if (r.status !== 200) (echecs[`HTTP ${r.status}`] ||= []).push(u); } catch (e) { (echecs['réseau'] ||= []).push(`${u} (${e.message})`); }
+      }
+    };
+    await Promise.all(Array.from({ length: 8 }, travail));
+  }
+  const total = Object.values(echecs).reduce((a, l) => a + l.length, 0);
+  console.log(`sitemap.xml : ${liste.length} URLs${site ? ` (et interrogées sur ${site})` : ''}`);
+  for (const [c, l] of Object.entries(echecs)) { console.log(`  ${c} : ${l.length}`); for (const u of l.slice(0, 15)) console.log(`    ${u}`); if (l.length > 15) console.log(`    … ${l.length - 15} autres`); }
+  if (total) { console.error(`ÉCHEC ${total} URL(s) listée(s) qui ne sont pas indexables.`); process.exit(1); }
+  console.log(`OK    sitemap indexable : ${nb} URLs, toutes en 200, sans redirection, sans noindex, canonique sur elles-mêmes (404 : 0, redirection : 0, noindex : 0, canonique ailleurs : 0).`);
 }
-if (site) {
-  const aVerifier = liste.map((u) => site + u.slice(SITE.length));
-  let i = 0;
-  const travail = async () => {
-    while (i < aVerifier.length) {
-      const u = aVerifier[i++];
-      try { const r = await fetch(u, { redirect: 'manual' }); if (r.status !== 200) (echecs[`HTTP ${r.status}`] ||= []).push(u); } catch (e) { (echecs['réseau'] ||= []).push(`${u} (${e.message})`); }
-    }
-  };
-  await Promise.all(Array.from({ length: 8 }, travail));
-}
-const total = Object.values(echecs).reduce((a, l) => a + l.length, 0);
-console.log(`sitemap.xml : ${liste.length} URLs${site ? ` (et interrogées sur ${site})` : ''}`);
-for (const [c, l] of Object.entries(echecs)) { console.log(`  ${c} : ${l.length}`); for (const u of l.slice(0, 15)) console.log(`    ${u}`); if (l.length > 15) console.log(`    … ${l.length - 15} autres`); }
-if (total) { console.error(`ÉCHEC ${total} URL(s) listée(s) qui ne sont pas indexables.`); process.exit(1); }
-console.log(`OK    sitemap indexable : ${nb} URLs, toutes en 200, sans redirection, sans noindex, canonique sur elles-mêmes (404 : 0, redirection : 0, noindex : 0, canonique ailleurs : 0).`);
