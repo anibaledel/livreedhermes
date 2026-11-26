@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-11-24T19:33:04Z",
+ "generated_at_utc": "2026-11-26T11:40:58Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -125,7 +125,8 @@
      "corpus-512-256-128",
      "cube-256-128-64",
      "corpus-256-128-64",
-     "convention-six-traits"
+     "convention-six-traits",
+     "formes-quatre-axes"
     ]
    },
    "sources": [
@@ -245,7 +246,8 @@
     "adresse": "https://anibal-amiot.com/data/resultats-etablis.json",
     "ids": [
      "corpus-256-128-64",
-     "corpus-256-depose"
+     "corpus-256-depose",
+     "formes-quatre-axes"
     ]
    },
    "sources": [

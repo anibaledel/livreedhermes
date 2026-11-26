@@ -29,7 +29,9 @@ import corpus_miroir as cm  # noqa: E402
 
 N = 12
 LET = cm.LET
-ATTENDU = {'couches': 7104, 'couples': 3552, 'formes': 3552, 'formes_corpus_a_4_axes': 32, 'formes_corpus_retrouvees': 32}
+# les nombres ATTENDUS sont l'énoncé du résultat « formes-quatre-axes » (data/resultats-etablis.json), pas une table recopiée ici
+_ENONCE = next(r for r in json.load(open(os.path.join(RACINE, 'data', 'resultats-etablis.json'), encoding='utf-8'))['resultats'] if r['id'] == 'formes-quatre-axes')['valeur']
+ATTENDU = {k: _ENONCE[k] for k in ('couches', 'couples', 'formes', 'formes_corpus_a_4_axes', 'formes_corpus_retrouvees')}
 cells = [(r, c) for r in range(N) for c in range(N)]
 cid = {p: i for i, p in enumerate(cells)}
 perm = lambda f: np.array([cid[f(r, c)] for r, c in cells])  # noqa: E731
@@ -140,7 +142,8 @@ def main():
         if n != ATTENDU:
             print(f'ÉCART {n} au lieu de {ATTENDU}', file=sys.stderr)
             sys.exit(1)
-        print('OK    7 104 couches à quatre axes (3 552 couples), 3 552 formes, dont les 32 formes à quatre axes du corpus.')
+        esp = lambda x: f'{x:,}'.replace(',', ' ')  # noqa: E731
+        print(f"OK    {esp(n['couches'])} couches à quatre axes ({esp(n['couples'])} couples), {esp(n['formes'])} formes, dont les {n['formes_corpus_a_4_axes']} formes à quatre axes du corpus.")
 
 
 if __name__ == '__main__':
