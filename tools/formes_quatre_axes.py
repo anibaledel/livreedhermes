@@ -16,7 +16,8 @@ Avec la lecture binaire du corpus (lisible, 72 / 72, lecture inversée par le d�
 576 grilles, 288 formes, dont les 32 du corpus : 256 formes à quatre axes de plus (docs/captures/quatre-axes-nouvelles-formes.png).
 
   python3 tools/formes_quatre_axes.py            imprime les nombres
-  python3 tools/formes_quatre_axes.py --verifie  échoue s'ils changent
+  python3 tools/formes_quatre_axes.py --verifie  échoue s'ils changent, ou si data/couches-quatre-axes.json n'est pas celui que le calcul donne
+  python3 tools/formes_quatre_axes.py --ecrire   écrit data/couches-quatre-axes.json (les couples, pour tools/formes_quatre_axes_lecture.mjs)
 """
 import json
 import os
@@ -149,12 +150,48 @@ def _quatre_axes(g):
     return v and h and d1 and d2
 
 
+SORTIE = os.path.join(RACINE, 'data', 'couches-quatre-axes.json')
+
+
+def donnees():
+    """Les 3 552 couples {A, B = π∘A} (une ligne par couple : la couche A en lignes de lettres V/M/O, l'involution π, le socle par niveau)."""
+    L, _, _ = note.charger()
+    Lm = np.array(L)
+    couples = {}
+    for g in couches():
+        for p in INVOLUTIONS:
+            if np.array_equal(np.roll(np.roll(g, 6, 0), 6, 1), p[g]):
+                b = p[g]
+                cle = min(g.tobytes(), b.tobytes())
+                if cle not in couples:
+                    couples[cle] = (g, b, p)
+    sortie = []
+    for g, b, p in couples.values():
+        if g.tobytes() > b.tobytes():
+            g, b = b, g
+        fixe = (g == b)
+        sortie.append({'A': [''.join(LET[x] for x in r) for r in g.tolist()], 'pi': ''.join(LET[x] for x in p.tolist()),
+                       'socle_par_niveau': [int((fixe & (Lm == i)).sum()) for i in range(1, 7)]})
+    sortie.sort(key=lambda e: (e['pi'], e['A']))
+    return {'_doc': "Les couples de couches {A, B = π∘A} symétriques par les quatre réflexions de la carte des six niveaux, avec A∘σ = π∘A et 48 / 48 / 48 (python3 tools/formes_quatre_axes.py --ecrire). « pi » : la permutation des teintes V, M, O (la lettre à la place de V, M, O). Voir docs/article-parallele-unified-patterns.md.",
+            'couples': sortie}
+
+
 def main():
+    if '--ecrire' in sys.argv:
+        d = donnees()
+        open(SORTIE, 'w', encoding='utf-8').write(json.dumps(d, ensure_ascii=False, indent=0) + '\n')
+        print(f"data/couches-quatre-axes.json écrit : {len(d['couples'])} couples")
+        return
     n = calculer()
     print(n)
     if '--verifie' in sys.argv:
         if n != ATTENDU:
             print(f'ÉCART {n} au lieu de {ATTENDU}', file=sys.stderr)
+            sys.exit(1)
+        attendu = json.dumps(donnees(), ensure_ascii=False, indent=0) + '\n'
+        if not os.path.exists(SORTIE) or open(SORTIE, encoding='utf-8').read() != attendu:
+            print('ÉCART data/couches-quatre-axes.json diffère de ce que le calcul donne : python3 tools/formes_quatre_axes.py --ecrire', file=sys.stderr)
             sys.exit(1)
         esp = lambda x: f'{x:,}'.replace(',', ' ')  # noqa: E731
         print(f"OK    {esp(n['couches'])} couches à quatre axes ({esp(n['couples'])} couples), {esp(n['formes'])} formes, dont les {n['formes_corpus_a_4_axes']} formes à quatre axes du corpus.")

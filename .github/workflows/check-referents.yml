@@ -76,6 +76,7 @@ jobs:
       - run: python3 tools/corpus_miroir.py --essai
       - run: python3 tools/miroir_autres_couches.py --verifie
       - run: python3 tools/formes_quatre_axes.py --verifie
+      - run: node tools/formes_quatre_axes_lecture.mjs --verifie
       - run: node tools/check_fiches_formes.mjs
       - run: node tools/check_fiches_formes.mjs --essai
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T11:59:59Z",
+ "generated_at_utc": "2026-11-26T12:11:29Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 340,
+  "scripts": 342,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3427,9 +3427,9 @@
   {
    "chemin": "tools/corpus_256.mjs",
    "adresse": "https://anibal-amiot.com/tools/corpus_256.mjs",
-   "octets": 17528,
-   "sha256": "a6a1e4acd8c0865f3ab2c1a34d6bd51bfddedbe55e562b24689a65c734435016",
-   "md5": "a3623e751b313571739cf7541739c143",
+   "octets": 17535,
+   "sha256": "f2d1b7e31828d4d2db7eb8fecc34c7e6757716d7fa16922bf2566a8f6008b495",
+   "md5": "8e0705a1a4685ffbe39f1ffee3232e51",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le corpus binaire de référence des animations : 256 grilles tricolores, 128 paires {motif, négatif}, 64 classes (prompt 209).",
@@ -3469,6 +3469,24 @@
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Le nom d'image d'un motif et l'adresse de sa page, écrits côte à côte (data/motifs-correspondance.json).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/couverture_son.mjs",
+   "adresse": "https://anibal-amiot.com/tools/couverture_son.mjs",
+   "octets": 10982,
+   "sha256": "5a46acaabb52233b1ee1a00a7869fb03b4d66dabdb4c3f601e82e45db1e9339f",
+   "md5": "940d53a946010de8f107e1cd0d00e36e",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "« Voir sa musique » : les motifs du corpus couvrent-ils bien les sons ?",
+   "lit": [
+    "calques-360",
+    "corpus-256"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3965,13 +3983,31 @@
   {
    "chemin": "tools/formes_quatre_axes.py",
    "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes.py",
-   "octets": 8154,
-   "sha256": "efe6f04d20fe7bb22013b423fe5be2c881a37fd2966adeead1ba93cf378c3e22",
-   "md5": "f67243db93301249cb5639c5db8d1aff",
+   "octets": 10343,
+   "sha256": "c8951e05de6aad550c2893e24fab8006e2b920f31abc88372fc4e7d46d7f3b87",
+   "md5": "e6f0c9da22fcb2bdc01594fafb989a09",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "y a-t-il plus de formes à quatre axes de miroir que les 32 du corpus ?",
    "lit": [
+    "corpus-256"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/formes_quatre_axes_lecture.mjs",
+   "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_lecture.mjs",
+   "octets": 5217,
+   "sha256": "25869a07d99e1566b0c6e6869673b3e4dc99c686185586de23b5e80ab1119db7",
+   "md5": "b1f13930d36fce6649571c2263ab45e1",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la lecture binaire du corpus (assets/lecture-binaire.js) appliquée aux couples de couches à quatre axes de data/couches-quatre-axes.json (tools/formes_quatre_axes.py).",
+   "lit": [
+    "calques-360",
     "corpus-256"
    ],
    "ecrit": [],

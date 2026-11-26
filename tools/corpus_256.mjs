@@ -46,7 +46,7 @@ export const slugMoteur = (famille, n) => `${FAMILLE_MOTEUR[famille].replace(/[:
 const N = 12;
 
 // ---- le référent : les familles et leurs couches (comme tools/filtre_unified.py) ----
-function familles(doc) {
+export function familles(doc) {
   const lettre = { violet: 'V', magenta: 'M', orange: 'O' };
   const couches = new Map();
   for (const c of doc.calques) {

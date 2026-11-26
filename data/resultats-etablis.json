@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 42,
+    "verifie_ci": 43,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -4000,6 +4000,47 @@
       ],
       "statut": "verifie_ci",
       "note": "Calculé depuis data/referent_360_v3.json et data/corpus-256.json ; le script échoue si les nombres changent (--verifie). Les 288 couples parfaits à la lecture binaire viennent d'un calcul JavaScript à part, pas encore repris dans un outil : seuls les nombres 7 104, 3 552 et 32 sont vérifiés en CI."
+    },
+    {
+      "id": "formes-quatre-axes-lecture",
+      "intitule": "Les formes à quatre axes à la lecture binaire : 288 couples parfaits, 288 formes (32 du corpus, 256 nouvelles), 5 socles",
+      "enonce": {
+        "texte": "Parmi les 3 552 couples de couches à quatre axes (résultat formes-quatre-axes), 288 ont leurs 64 grilles parfaites à la lecture binaire du corpus (lisibles, 72 sombres / 72 clairs, lecture inversée par le décalage (6, 6)) : 288 formes à translation torique près, dont les 32 formes à quatre axes du corpus et 256 nouvelles, réparties en 5 socles (le corpus, à 8 cases fixes par niveau, et quatre socles à niveaux inégaux).",
+        "langue": "fr",
+        "source": "calcul du 26 novembre 2026 (échange avec Anibal) ; tools/formes_quatre_axes_lecture.mjs"
+      },
+      "valeur": {
+        "couples_parfaits": 288,
+        "formes": 288,
+        "formes_du_corpus": 32,
+        "formes_nouvelles": 256,
+        "socles": 5
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360",
+        "corpus-256"
+      ],
+      "donnees": [
+        "data/couches-quatre-axes.json",
+        "data/formes-quatre-axes-288.json",
+        "data/corpus-256.json"
+      ],
+      "script": {
+        "chemin": "tools/formes_quatre_axes_lecture.mjs",
+        "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_lecture.mjs",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    formes à quatre axes à la lecture binaire : 288 couples parfaits, 288 formes (32 du corpus, 256 nouvelles), 5 socles."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Calculé depuis data/couches-quatre-axes.json (tools/formes_quatre_axes.py --ecrire) et assets/lecture-binaire.js ; le script échoue si data/formes-quatre-axes-288.json diffère (--verifie). Aucun journal déposé sur Zenodo."
     }
   ]
 }

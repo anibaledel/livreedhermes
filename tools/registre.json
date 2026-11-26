@@ -1784,7 +1784,9 @@
    ],
    "utilise_par": [
     "tools/check_animations_corpus.mjs",
-    "tools/comparer_corpus_pages.mjs"
+    "tools/comparer_corpus_pages.mjs",
+    "tools/couverture_son.mjs",
+    "tools/formes_quatre_axes_lecture.mjs"
    ],
    "etat": "actif",
    "sait_echouer": true
@@ -1817,6 +1819,20 @@
    ],
    "utilise_par": [],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/couverture_son.mjs",
+   "role": "« Voir sa musique » : les motifs du corpus couvrent-ils bien les sons ?",
+   "lit": [
+    "data/corpus-256.json",
+    "data/formes-quatre-axes-288.json",
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
@@ -2173,6 +2189,22 @@
    "fichier": "tools/formes_quatre_axes.py",
    "role": "y a-t-il plus de formes à quatre axes de miroir que les 32 du corpus ?",
    "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/formes_quatre_axes_lecture.mjs",
+   "role": "la lecture binaire du corpus (assets/lecture-binaire.js) appliquée aux couples de couches à quatre axes de data/couches-quatre-axes.json (tools/formes_quatre_axes.py).",
+   "lit": [
+    "data/corpus-256.json",
+    "data/couches-quatre-axes.json",
+    "data/referent_360_v3.json"
+   ],
    "ecrit": [],
    "appele_par": [
     "check-referents.yml"
