@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T13:44:37Z",
+ "generated_at_utc": "2026-11-26T13:44:57Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -5837,9 +5837,9 @@
   {
    "chemin": "tools/zenodo_formes_quatre_axes.py",
    "adresse": "https://anibal-amiot.com/tools/zenodo_formes_quatre_axes.py",
-   "octets": 7974,
-   "sha256": "fbcd630ccede758af6dcd1701c689205656001e1676f15aede4a64b85eb4eb63",
-   "md5": "a75ee2c897098bcb1107843b3d0e5853",
+   "octets": 8020,
+   "sha256": "0996d94de29d35dc941b5dfb4fcdf3fee21acd98f71e2c60d190381fec5a3f33",
+   "md5": "d39bc3ed4cd0672e3a270769f174a772",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), à déposer sur Zenodo PAR ANIBAL (rien ne se dépose depuis ce dépôt).",

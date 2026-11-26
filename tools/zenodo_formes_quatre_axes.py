@@ -18,7 +18,6 @@ import zipfile
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SORTIE = os.path.join(RACINE, 'docs', 'zenodo', 'formes-quatre-axes-288-v1.0.zip')
-DATE = (2026, 11, 26, 0, 0, 0)
 COULEUR = {'V': '#662d91', 'M': '#ee2a7b', 'O': '#fbb040'}
 REPRO = ['tools/check_note_v6.py', 'tools/corpus_miroir.py', 'tools/formes_quatre_axes.py', 'tools/formes_quatre_axes_lecture.mjs', 'tools/corpus_256.mjs', 'assets/lecture-binaire.js']
 PLANCHES = ['quatre-axes-288-formes.png', 'quatre-axes-par-socle.png', 'corpus-64-formes-miroir.png']
@@ -101,7 +100,7 @@ def main():
     os.makedirs(os.path.dirname(SORTIE), exist_ok=True)
     with zipfile.ZipFile(SORTIE, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for nom in sorted(fichiers):
-            zi = zipfile.ZipInfo(nom, DATE)
+            zi = zipfile.ZipInfo(nom, (2026, 11, 26, 0, 0, 0))  # date fixe : l'archive est la même à chaque lancement
             zi.compress_type = zipfile.ZIP_DEFLATED
             zi.external_attr = 0o644 << 16
             z.writestr(zi, fichiers[nom])
