@@ -1680,6 +1680,16 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/classes_translations.py",
+   "role": "ce que comptent « 512 », « 256 » et « 128 » dans la note half-shift, avec les seules fonctions de cube_edges.py.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/comparer_corpus_pages.mjs",
    "role": "le corpus binaire de 256 grilles (data/corpus-256.json) comparé au corpus actuel des 256 pages motifs/ (prompt 209, 1.5).",
    "lit": [
@@ -1936,8 +1946,10 @@
    "ecrit": [],
    "appele_par": [],
    "utilise_par": [
+    "tools/classes_translations.py",
     "tools/cube_croisements.py",
-    "tools/make_figures.py"
+    "tools/make_figures.py",
+    "tools/make_patron.py"
    ],
    "etat": "ponctuel",
    "sait_echouer": false
@@ -2730,13 +2742,25 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/make_patron.py"
+   ],
    "etat": "ponctuel",
    "sait_echouer": false
   },
   {
    "fichier": "tools/make_motifs_index.mjs",
    "role": "Produit data/motifs-index.csv (index, fichier, famille) depuis data/fonds_ecran_v1.json — sans rien rendre, juste le calcul de nom de fichier de scripts/export-galerie-pinterest.js, réutilisé tel quel pour que les deux restent d'accord.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/make_patron.py",
+   "role": "le patron (développement à plat) du cube habillé de la figure 4, avec légende.",
    "lit": [],
    "ecrit": [],
    "appele_par": [],

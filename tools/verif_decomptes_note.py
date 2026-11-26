@@ -82,9 +82,15 @@ def main():
         return out
     formes = orbites(transformees)
     print(f'{formes} formes (orbites sous Γ = D4 × <σ> × S3)')
+    # les grilles qui admettent un habillage du cube (théorème 4) : celles des familles qui contiennent la base D = YANG
+    admises = [g for g, v in zip(G, grilles.values()) if any('YANG' in BASES[cle] for cle, _, _ in v)]
+    adm_sigma = len({min(h.tobytes() for h in (g, sigma(g))) for g in admises})
+    adm_transl = len({min(np.roll(np.roll(g, a, 0), b, 1).tobytes() for a in range(N) for b in range(N)) for g in admises})
+    print(f'{len(admises)} grilles admises par le cube : {adm_sigma} classes modulo <σ>, {adm_transl} modulo les translations')
+    print('  (une classe de quatre grilles contient donc deux grilles admises et deux exclues : (6, 0) et (0, 6) envoient une grille admise sur une exclue)')
     if '--verifie' in sys.argv:
-        attendu = dict(familles=8, triplets=1024, distinctes=512, mult=[2], fixes=0, mod_sigma=256, formes=128)
-        reel = dict(familles=len(unifiees), triplets=triplets, distinctes=distinctes, mult=mult, fixes=fixes, mod_sigma=mod_sigma, formes=formes)
+        attendu = dict(familles=8, triplets=1024, distinctes=512, mult=[2], fixes=0, mod_sigma=256, formes=128, admises=256, adm_sigma=128, adm_transl=128)
+        reel = dict(familles=len(unifiees), triplets=triplets, distinctes=distinctes, mult=mult, fixes=fixes, mod_sigma=mod_sigma, formes=formes, admises=len(admises), adm_sigma=adm_sigma, adm_transl=adm_transl)
         ecarts = {k: (attendu[k], reel[k]) for k in attendu if attendu[k] != reel[k]}
         if ecarts:
             print('KO   écarts (attendu, obtenu) :', ecarts)
