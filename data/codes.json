@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T11:40:54Z",
+ "generated_at_utc": "2026-11-26T11:59:59Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3965,9 +3965,9 @@
   {
    "chemin": "tools/formes_quatre_axes.py",
    "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes.py",
-   "octets": 7039,
-   "sha256": "9d31a10197b10a2d439ad9ee1b531f1b1e6da053db7b1a4b32e33947ed4b6c11",
-   "md5": "193f036aa2b2252919c2b9a2a94640f5",
+   "octets": 8154,
+   "sha256": "efe6f04d20fe7bb22013b423fe5be2c881a37fd2966adeead1ba93cf378c3e22",
+   "md5": "f67243db93301249cb5639c5db8d1aff",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "y a-t-il plus de formes à quatre axes de miroir que les 32 du corpus ?",

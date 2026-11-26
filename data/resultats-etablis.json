@@ -3961,7 +3961,7 @@
       "id": "formes-quatre-axes",
       "intitule": "Les formes à quatre axes de miroir : 7 104 couches centrées sur la carte, 3 552 formes, dont les 32 du corpus",
       "enonce": {
-        "texte": "Les couches symétriques par les quatre réflexions de la carte des six niveaux, avec A∘σ = π∘A pour une involution π des teintes et 48 / 48 / 48 cases par teinte, sont au nombre de 7 104 (3 552 couples {A, B = π∘A}) ; elles forment 3 552 formes à translation torique près, qui contiennent les 32 formes à quatre axes du corpus tricolore. Avec la lecture binaire du corpus (calcul en JavaScript, hors de cet outil), 288 couples ont leurs 64 grilles parfaites : 288 formes, dont les 32 du corpus.",
+        "texte": "Les couches symétriques par les quatre réflexions de la carte des six niveaux, avec A∘σ = π∘A pour une involution π des teintes et 48 / 48 / 48 cases par teinte, sont au nombre de 7 104 (3 552 couples {A, B = π∘A}) ; elles forment 3 552 formes à translation torique près, qui contiennent les 32 formes à quatre axes du corpus tricolore. Ces couches réalisent 19 socles distincts (cases de la teinte fixe) sur 336 possibles en théorie (unions d'orbites de 48 cases). Avec la lecture binaire du corpus (calcul en JavaScript, hors de cet outil), 288 couples ont leurs 64 grilles parfaites : 288 formes, dont les 32 du corpus.",
         "langue": "fr",
         "source": "calcul du 26 novembre 2026 (échange avec Anibal) ; tools/formes_quatre_axes.py"
       },
@@ -3971,7 +3971,9 @@
         "formes": 3552,
         "formes_corpus_a_4_axes": 32,
         "formes_corpus_retrouvees": 32,
-        "couples_parfaits_lecture_binaire": 288,
+        "socles_realises": 19,
+      "socles_possibles": 336,
+      "couples_parfaits_lecture_binaire": 288,
         "formes_parfaites": 288
       },
       "conditionnel": false,

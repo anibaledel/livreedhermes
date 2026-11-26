@@ -9,6 +9,8 @@ Le corpus actuel a 64 formes (à translation torique près), dont 32 à quatre a
   - A∘σ = π∘A pour une involution π des teintes (le demi-décalage échange deux teintes : un seul motif au pavage), et B = π∘A ;
   - 48 / 48 / 48 cases par teinte.
 Résultat, vérifié ici : 7 104 couches (3 552 couples {A, B}) ; elles forment 3 552 formes à translation torique près ; les 32 formes à quatre axes du corpus y sont toutes.
+SOCLES (les cases de la teinte fixe, où A = B) : 336 socles sont théoriquement possibles (unions d'orbites de 48 cases) ; 19 sont réalisés par les 7 104 couches, exhaustivement ; avec la lecture binaire du corpus
+il n'en reste que 5 : celui du corpus (8 cases fixes à chaque niveau) et quatre à niveaux inégaux (voir docs/article-parallele-unified-patterns.md).
 Ces 7 104 grilles sont ENTRE ELLES les seules grilles que les 3 552 couples engendrent (l'ensemble est fermé : chaque Φ(n, A, B) est encore une couche admise).
 Avec la lecture binaire du corpus (lisible, 72 / 72, lecture inversée par le décalage ; assets/lecture-binaire.js, test en JavaScript non repris dans cet outil), il reste 288 couples dont les 64 grilles sont toutes parfaites :
 576 grilles, 288 formes, dont les 32 du corpus : 256 formes à quatre axes de plus (docs/captures/quatre-axes-nouvelles-formes.png).
@@ -31,13 +33,23 @@ N = 12
 LET = cm.LET
 # les nombres ATTENDUS sont l'énoncé du résultat « formes-quatre-axes » (data/resultats-etablis.json), pas une table recopiée ici
 _ENONCE = next(r for r in json.load(open(os.path.join(RACINE, 'data', 'resultats-etablis.json'), encoding='utf-8'))['resultats'] if r['id'] == 'formes-quatre-axes')['valeur']
-ATTENDU = {k: _ENONCE[k] for k in ('couches', 'couples', 'formes', 'formes_corpus_a_4_axes', 'formes_corpus_retrouvees')}
+ATTENDU = {k: _ENONCE[k] for k in ('couches', 'couples', 'formes', 'formes_corpus_a_4_axes', 'formes_corpus_retrouvees', 'socles_realises', 'socles_possibles')}
 cells = [(r, c) for r in range(N) for c in range(N)]
 cid = {p: i for i, p in enumerate(cells)}
 perm = lambda f: np.array([cid[f(r, c)] for r, c in cells])  # noqa: E731
 SIGMA = perm(lambda r, c: ((r + 6) % N, (c + 6) % N))
 REFLEXIONS = [perm(lambda r, c: (r, N - 1 - c)), perm(lambda r, c: (N - 1 - r, c)), perm(lambda r, c: (c, r)), perm(lambda r, c: (N - 1 - c, N - 1 - r))]
 PIS = [(1, 0, 2), (2, 1, 0), (0, 2, 1)]  # (V M), (V O), (M O)
+INVOLUTIONS = [np.array(p, np.uint8) for p in PIS]
+
+
+def socles_possibles():
+    """Les unions d'orbites (sous σ et les quatre réflexions de la carte) de 48 cases : les socles qu'une couche admise pourrait avoir, avant les contraintes de teintes."""
+    import itertools
+    lab, k = orbites(REFLEXIONS + [SIGMA])
+    t = np.bincount(lab, minlength=k)
+    return sum(1 for r in range(k + 1) for sub in itertools.combinations(range(k), r) if int(t[list(sub)].sum()) == 48)
+
 
 
 def orbites(gens):
@@ -123,7 +135,9 @@ def calculer():
     classes = {forme(g) for g in gs}
     corpus = [np.array([[LET.index(x) for x in r] for r in e['tricolore']], np.uint8) for e in json.load(open(os.path.join(RACINE, 'data', 'corpus-256.json'), encoding='utf-8'))['entrees']]
     quatre = {forme(g) for g in corpus if _quatre_axes(g)}
-    return {'couches': len(gs), 'couples': len(gs) // 2, 'formes': len(classes), 'formes_corpus_a_4_axes': len(quatre), 'formes_corpus_retrouvees': len(quatre & classes)}
+    socles = {tuple(int(x) for x in (g == p[g]).ravel()) for g in gs for p in INVOLUTIONS if np.array_equal(np.roll(np.roll(g, 6, 0), 6, 1), p[g])}
+    return {'couches': len(gs), 'couples': len(gs) // 2, 'formes': len(classes), 'formes_corpus_a_4_axes': len(quatre), 'formes_corpus_retrouvees': len(quatre & classes),
+            'socles_realises': len(socles), 'socles_possibles': socles_possibles()}
 
 
 def _quatre_axes(g):
