@@ -11,12 +11,12 @@
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
 import * as M from './musique-chladni-moteur.js?v=e42af0a64c';
 import { CONFIG } from './musique-chladni-config.js?v=a6669de28c';
-import { texte as T } from './musique-chladni-textes.js?v=0af861a10e';
+import { texte as T } from './musique-chladni-textes.js?v=225c863bf6';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
 import { fondsAffiches } from './fonds-retenus.js';
 import { groupesDe } from './fonds-groupes.js';
-import { monterSemaine } from './musique-chladni-semaine.js?v=808b640024';
+import { monterSemaine } from './musique-chladni-semaine.js?v=23e6b9ceda';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -77,7 +77,9 @@ function chargerOrdre(o) { // 18 et 30 : à la demande, au premier choix du form
 }
 async function assurer(c) { if (S.blocs.has(c.col)) return; const o = FMT_DE[c.col]; if (!S.jb[o]) { message(T('chargementOrdre', { n: o })); await chargerOrdre(o); message(''); } if (!S.blocs.has(c.col)) construire(c.col); }
 async function charger() {
-  const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange, jQ4] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json'), lJson('data/formes-quatre-axes-288.json')]);
+  const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange, jQ4, jCorpus] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json'), lJson('data/formes-quatre-axes-288.json'), lJson('data/corpus-256.json')]);
+  // la table des numéros du Livre des Mutations (King Wen) par mot de six bits n : une fonction de n seul (contrôlé sur les 256 entrées du corpus, aucun conflit)
+  S.kw = new Map(); for (const e of jCorpus.entrees) for (const f of e.familles) S.kw.set(e.n_site_par_famille[f], e.kingwen_par_famille[f]);
   // les fonds PROPOSÉS : ceux que lit aussi la nouvelle interface (data/fonds/demi-periode.json, « proposes », puis « hors_critere » : Trois bandes et Bande centrale, marquées) ; les autres codes restent dans le moteur et les tests, jamais offerts
   S.fondsProposes = fondsAffiches(jDemi); S.fondsDef = new Map([['P', APLAT], ...jEchange.fonds.map((f) => [f.id, f])]);
   S.groupes = groupesDe(S.fondsProposes, jEchange.fonds); // Aplat, Triangles, Bandes ; « Bandes » offre plusieurs variantes quand plusieurs sont proposées (prompt 225)
@@ -85,6 +87,7 @@ async function charger() {
   S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12, centrale12 }; S.charges[12] = Promise.resolve();
   const tri = M.preparerBloc(donnees, 'tri'), e = M.controlerBloc(tri); if (e.length) throw new Error(e.join(' ; '));
   S.blocs.set('tri', tri);
+  S.triParGrille = new Map(); for (let j = 0; j < tri.n; j++) { let g = ''; for (let i = 0; i < 144; i++) g += 'MOV'[tri.cls[j * 144 + i]]; S.triParGrille.set(g, j); } // la grille (V, O, M) de chaque ligne tricolore
   for (const col of ['bi', 'ce']) construire(col);
   // « Formes à quatre axes » : les 256 formes de data/formes-quatre-axes-288.json qui ne sont pas dans le corpus, un bloc tricolore calculé ici (spectre à trois teintes), voisins et chaîne compris
   const q4 = M.blocDeGrilles('q4', 'q4', jQ4.formes.filter((f) => !f.corpus)), eq4 = M.controlerBloc(q4); if (eq4.length) throw new Error(eq4.join(' ; '));
@@ -246,13 +249,36 @@ function monterComprendre() {
     el('div', { class: 'vm-ligne', style: 'display:flex;gap:.6rem;flex-wrap:wrap' }, el('figure', { style: 'margin:0' }, toile('vmMoireA', T('moireA'), 240), el('figcaption', {}, T('moireA'))), el('figure', { style: 'margin:0' }, toile('vmMoireB', T('moireB'), 240), el('figcaption', {}, T('moireB'))), el('figure', { style: 'margin:0' }, toile('vmMoireP', T('moireAlt'), 240), el('figcaption', {}, T('moireProduit')))));
   paire(); moire();
 }
+/**
+ * La fiche calculée du motif (comme la nouvelle interface, prompt 250) : son complément (le partenaire du demi-décalage : n → 63 − n, même forme) et son code à 9 bits
+ * [phase du yang | yin présent | couple (0 : D, 1 : P) | n sur six bits]. Tout vient de la ligne du motif dans data/musique-chladni-12.json (« meta » : famille, couple, n) et de la
+ * table King Wen du corpus ; une collection bicolore lit la ligne de sa grille tricolore (« triIndex »). Les formes à quatre axes n'ont pas de mot de six bits : leur fiche le dit. Ailleurs : rien.
+ */
+function chargerRef12() { // 150 Ko, lus au premier besoin : la grille de chacun des 272 motifs lisibles, pour retrouver sa ligne tricolore
+  if (S.ref12) return; S.ref12 = 'en cours';
+  lJson(`${DIR}reference-12-lecture-3-octobre.json`).then((r) => { S.ref12 = r; majInfo(); }).catch(() => { S.ref12 = null; });
+}
+function triDe(col, j) { // l'indice de la ligne tricolore du motif j de la collection `col`
+  if (col === 'tri') return j;
+  const bloc = S.blocs.get(col); if (!bloc || !bloc.source || bloc.ordre !== 12) return null;
+  if (!Array.isArray(S.ref12)) { chargerRef12(); return null; }
+  return S.triParGrille.get(S.ref12[bloc.source[j]].grid) ?? null;
+}
+function ficheDe(col, j) {
+  if (col === 'q4') return T('ficheEtendue');
+  const bloc = S.blocs.get(col), t = triDe(col, j);
+  if (t == null || !(bloc && bloc.ordre === 12)) return '';
+  const [fam, a, , n] = S.donnees.collections.find((c) => c.id === 'tri').meta[t], nc = 63 - n;
+  const code = `${/yang_mut$/.test(fam) ? 1 : 0}${/^par/.test(fam) ? 1 : 0}${a === 'yin' ? 1 : 0}${n.toString(2).padStart(6, '0')}`;
+  return T('fiche', { kwc: S.kw.get(nc), nc, code });
+}
 function majInfo() {
   const j = valide.dernier.motif, n = S.blocs.get(valCfg.col).n, p = [S.etat || T('etatDepart')];
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
   if (S.resReduite) p.push(T('infoResolution'));
   $('vmInfo').textContent = p.join(' · ');
-  const libelleMotif = `${T('collections')[valCfg.col][0]} · ${T('infoMotif', { i: j + 1, n })}`, nom = $('vmNomMotif');
-  if (nom) nom.textContent = `${libelleMotif}${S.figureFixe && !S.animer ? ` · ${T('figureFixeAide')}` : ''}`;
+  const libelleMotif = `${T('collections')[valCfg.col][0]} · ${T('infoMotif', { i: j + 1, n })}`, nom = $('vmNomMotif'), fiche = ficheDe(valCfg.col, j);
+  if (nom) nom.textContent = `${libelleMotif}${fiche ? ` · ${fiche}` : ''}${S.figureFixe && !S.animer ? ` · ${T('figureFixeAide')}` : ''}`;
   // le canvas est une image pour les technologies d'assistance : son nom suit le motif retenu
   const cv = $('vmValideToile'), aria = T('figureAria', { nom: libelleMotif }); if (cv && cv.getAttribute('aria-label') !== aria) cv.setAttribute('aria-label', aria);
   majCles();
@@ -714,8 +740,30 @@ function clavier(e) {
   else if (k === 'v') valider(); else if (k === 'f') pleinEcran(); else if (k === 'r') lancerEnregistrement();
 }
 
+// L'avertissement photosensible, comme dans la nouvelle interface (prompts 223 et 226) : au premier lancement le texte complet est déplié, avec « J'ai compris » ; ensuite il reste un lien
+// « Avertissement » qui le rouvre. L'acquittement est mémorisé dans localStorage (dans un try/catch : sans stockage, il revient à chaque ouverture) ; le geste « Écouter » vaut acquittement.
+// Rien ne bloque le son : ici les images ne changent qu'au son que l'on lance, et la note courte reste toujours visible. Tout est dans la note existante (.vm-flash), qui reste à sa place dans la grille.
+// Le texte se montre et se cache par `display` (un style en ligne l'emporterait sur l'attribut hidden) ; l'attribut suit, pour les technologies d'assistance et les tests.
+function monterAvertissement() {
+  const note = document.querySelector('.vm-flash'); if (!note) return;
+  const CLE = 'vm-avertissement-lu', lu = () => { try { return localStorage.getItem(CLE) === '1'; } catch { return false; } };
+  const texte = el('span', { id: 'vmAvert' }, T('avert'), ' ');
+  const ok = el('button', { type: 'button', id: 'vmAvertOk', style: 'margin-left:.4rem' }, T('avertOk'));
+  texte.append(ok);
+  const lien = el('button', { type: 'button', id: 'vmAvertLien', 'aria-controls': 'vmAvert', style: 'display:block;margin-top:.4rem' }, T('avertLien'));
+  const montrer = (v) => { texte.hidden = !v; texte.style.display = v ? 'block' : 'none'; texte.style.marginTop = '.5rem'; lien.setAttribute('aria-expanded', String(v)); };
+  montrer(!lu());
+  note.append(texte, lien);
+  // sans stockage (absent ou refusé), l'avertissement reviendra à l'ouverture suivante
+  const acquitter = () => { try { localStorage.setItem(CLE, '1'); } catch { /* sans stockage */ } montrer(false); };
+  ok.addEventListener('click', () => { acquitter(); lien.focus(); });
+  lien.addEventListener('click', () => montrer(texte.hidden));
+  const ecouter = document.getElementById('vmLecture'); if (ecouter) ecouter.addEventListener('click', acquitter);
+}
+
 export async function monter() {
   habiller();
+  monterAvertissement();
   monterSemaine(); // le bloc « La semaine » : indépendant des données de l'outil, masqué si son fichier manque
   try { await charger(); } catch (err) { message(T('erreurDonnees', { message: err.message })); return; }
   detecteur = M.creerDetecteurAttaques({ intervalleMin: S.intervalle, sigma: S.seuil });
@@ -752,5 +800,5 @@ export async function monter() {
   if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', listerEntrees);
   window.addEventListener('pagehide', () => { arreterSource(); if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); });
   requestAnimationFrame(boucle);
-  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile, tuilesParCote, infosAppareil, lienDirect, parametres, appliquerMode, contexte: () => A.ctx, elementAudio: () => A.el, caseAttendue: () => tuilePleinEcran($('vmPleinToile')) / M.GRILLE[valCfg.fmt] };
+  window.__voirSaMusique = { S, M, fiche: ficheDe, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile, tuilesParCote, infosAppareil, lienDirect, parametres, appliquerMode, contexte: () => A.ctx, elementAudio: () => A.el, caseAttendue: () => tuilePleinEcran($('vmPleinToile')) / M.GRILLE[valCfg.fmt] };
 }

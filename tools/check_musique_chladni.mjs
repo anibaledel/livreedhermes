@@ -114,6 +114,31 @@ try {
   await ouvrir('col'); await page.hover('#vm-o-col-bi'); await page.waitForTimeout(500);
   ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden])', (o) => o.map((x) => x.dataset.k))).join() === 'tri,bi,ce,q4', 'ordre 12 : quatre collections attendues (tricolore, deux miroirs, symétrie centrale, formes à quatre axes)');
   ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden]) small', (o) => o.map((x) => x.textContent.match(/\d+/)[0]))).join() === '512,136,136,256', 'ordre 12 : comptes 512, 136, 136, 256 attendus');
+  { // la fiche du motif (complément, code à 9 bits) : pour les 256 grilles du corpus, celle que calcule la nouvelle interface (assets/pavane-ui.js, ficheTexte) ; la valeur attendue est recalculée ici depuis data/corpus-256.json
+    const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 'utf8')), parId = new Map(corpus.entrees.map((e) => [e.id, e]));
+    const tri = JSON.parse(readFileSync(path.join(ROOT, 'data/musique-chladni-12.json'), 'utf8')).collections.find((c) => c.id === 'tri'), cls = Buffer.from(tri.cls, 'base64');
+    const parGrille = new Map(); for (let j = 0; j < tri.n; j++) { let g = ''; for (let i = 0; i < 144; i++) g += 'MOV'[cls[j * 144 + i]]; parGrille.set(g, j); }
+    const attendus = corpus.entrees.map((e) => {
+      const f = e.familles[0], p = parId.get(e.partenaire_demi_decalage), n = e.n_site_par_famille[f];
+      return [parGrille.get(e.tricolore.join('')), `complément : hexagramme ${p.kingwen_par_famille[f]} (n° ${p.n_site_par_famille[f]}) · code ${/YANG-MUT$/.test(f) ? 1 : 0}${/YIN/.test(f) ? 1 : 0}0${n.toString(2).padStart(6, '0')}`];
+    });
+    const lus = await page.evaluate((js) => js.map((j) => window.__voirSaMusique.fiche('tri', j)), attendus.map((a) => a[0]));
+    const faux = attendus.filter((a, i) => a[0] === undefined || lus[i] !== a[1]);
+    ok(faux.length === 0, `fiche du motif : ${faux.length} des 256 grilles du corpus diffèrent de la fiche de la nouvelle interface (ex. ${faux[0] && faux[0][1]})`);
+    ok((await page.evaluate(() => window.__voirSaMusique.fiche('q4', 0))).includes('quatre axes'), 'fiche du motif : une forme à quatre axes dit qu\'elle n\'a pas de mot de six bits');
+  }
+  { // l'avertissement photosensible : déplié au premier lancement, replié et mémorisé après « J'ai compris », rouvert par son lien
+    const c2 = await ctx.browser().newContext({ viewport: { width: 1280, height: 900 } }), p2 = await c2.newPage(), ouvrirP2 = async () => { await p2.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' }); await p2.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 }); };
+    await ouvrirP2();
+    ok(await p2.$eval('#vmAvert', (e) => !e.hidden), 'avertissement : déplié au premier lancement');
+    await p2.click('#vmAvertOk');
+    ok(await p2.$eval('#vmAvert', (e) => e.hidden), 'avertissement : replié après « J\'ai compris »');
+    await ouvrirP2();
+    ok(await p2.$eval('#vmAvert', (e) => e.hidden), 'avertissement : replié aussi au lancement suivant (mémorisé)');
+    await p2.click('#vmAvertLien');
+    ok(await p2.$eval('#vmAvert', (e) => !e.hidden), 'avertissement : le lien le rouvre');
+    await c2.close();
+  }
   const cap = await page.textContent('#vmEssaiCap'), capV = await page.textContent('#vmValideCap');
   ok(/Bicolore/.test(cap) && /Tricolore/.test(capV), `aperçu au survol : légende de l'essai « ${cap} », du validé « ${capV} »`);
   await page.click('#vm-o-col-bi'); await page.waitForTimeout(300);
@@ -356,8 +381,8 @@ try {
       // au clavier : on atteint le bouton par Tab, son focus se voit, et l'ordre de tabulation suit l'écran (bouton, morceau, plein écran, plus d'options)
       let ordre = []; await pg.focus('#vmLecture'); await pg.keyboard.press('Shift+Tab'); await pg.keyboard.press('Tab'); // le focus revient sur le bouton PAR LE CLAVIER (seul cas où :focus-visible s'applique)
       ok(await pg.evaluate(() => { const b = document.getElementById('vmLecture'); return document.activeElement === b && b.matches(':focus-visible') && b.textContent.trim().length > 0 && getComputedStyle(b).outlineStyle !== 'none'; }), `${w} px : le bouton doit avoir un nom et un focus visible au clavier`);
-      ordre = []; for (let k = 0; k < 3; k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
-      ok(ordre.join() === 'vmSource,vmPleinBtn,vmPlus', `${w} px, Simple : ordre de tabulation attendu vmSource, vmPleinBtn, vmPlus (obtenu ${ordre.join()})`);
+      ordre = []; for (let k = 0; k < 4; k++) { await pg.keyboard.press('Tab'); ordre.push(await pg.evaluate(() => document.activeElement.id)); }
+      ok(ordre.join() === 'vmSource,vmAvertLien,vmPleinBtn,vmPlus', `${w} px, Simple : ordre de tabulation attendu vmSource, vmAvertLien (l'avertissement, replié après « Écouter »), vmPleinBtn, vmPlus (obtenu ${ordre.join()})`);
       ok(errs.length === 0, `${w} px, Simple : erreurs ${errs.slice(0, 2).join(' | ')}`);
       if (process.env.CAPTURE_SIMPLE) await pg.screenshot({ path: `${process.env.CAPTURE_SIMPLE}-simple-${w}.png` });
       await c.close();
