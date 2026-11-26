@@ -8,7 +8,7 @@
 import { APLAT } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { varianteSvg } from './fonds-variantes.js';
-import { fondsRetenus } from './fonds-retenus.js';
+import { fondsAffiches } from './fonds-retenus.js';
 import { groupesDe } from './fonds-groupes.js';
 import { lireEtat, ecrireEtat, fusionnerRecherche, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';
@@ -41,7 +41,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   racine.replaceChildren(el('p', { role: 'status', text: T('chargement') }));
   let corpus, proposes, definitions;
   try {
-    [corpus, proposes, definitions] = await Promise.all([json('data/corpus-256.json'), json('data/fonds/demi-periode.json').then(fondsRetenus), json('data/fonds/fonds-echange.json')]);
+    [corpus, proposes, definitions] = await Promise.all([json('data/corpus-256.json'), json('data/fonds/demi-periode.json').then(fondsAffiches), json('data/fonds/fonds-echange.json')]);
   } catch (e) { racine.replaceChildren(el('p', { role: 'alert', text: T('erreur') })); throw e; }
   const fonds = new Map([['P', APLAT], ...definitions.fonds.map((f) => [f.id, f])]);
   for (const code of proposes) if (!fonds.has(code)) throw new Error(`pavane-ui.js : le fond proposé « ${code} » n'a pas de définition`);

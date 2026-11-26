@@ -5,5 +5,10 @@
   "B2Dx",
   "B11211Dx"
  ],
+ "hors_critere": [
+  "B3x",
+  "B121x"
+ ],
+ "decision_hors_critere": "Anibal, message du 27 novembre 2026 (« celles que l'on n'a pas supprimées ») : Trois bandes (B3x) et Bande centrale (B121x), qui restent dans le code, sont de nouveau offertes dans le groupe « Bandes » des deux interfaces de Voir sa musique, marquées « hors critère » : elles ne tiennent pas la demi-période (0 / 64, mesure de data/fonds/demi-periode.json, inchangée). Elles ne sont ni dans « proposes » ni dans les exports Pinterest ni dans les codes de collection.",
  "decision": "Anibal, prompt 185 (envoi 195) — trois fonds : P (aplat, défaut), A1 = B2Dx et B11211Dx, en mode échange. Tous les autres (B2, B3, B4, B121, B2D, B4D, B11211D en rotation, et les cellules à 8 triangles A2, A3, A4, B1, B2) ne sont pas proposés ; ils restent dans le code. Pas d'autre ajout sans son accord."
 }

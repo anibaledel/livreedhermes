@@ -146,7 +146,7 @@ export const TEXTES = {
       p30: ['Croix 1·2', '{n} motifs'],
     },
     fondGroupes: { aplat: 'Aplat', triangles: 'Triangles', bandes: 'Bandes' }, // les trois groupes visibles (prompts 220 et 225) ; les codes des fonds ne s'affichent jamais
-    fondVariantes: { B3x: 'Trois bandes', B121x: 'Bande centrale', B11211Dx: 'Bandes obliques' }, // les variantes de « Bandes », quand plusieurs sont proposées
+    fondVariantes: { B3x: 'Trois bandes (hors critère)', B121x: 'Bande centrale (hors critère)', B11211Dx: 'Bandes obliques' }, // les variantes de « Bandes », quand plusieurs sont proposées
     fondAide: 'Une case porte quatre triangles ; chacun est dessiné avec le fond choisi, ou avec ses deux couleurs échangées.',
     fondSeulementBicolore: 'La variante de case ne s\'applique qu\'à la collection bicolore.',
     palettes: {
@@ -480,8 +480,8 @@ export const TEXTES = {
       "bandes": "Stripes"
     },
     "fondVariantes": {
-      "B3x": "Three stripes",
-      "B121x": "Central stripe",
+      "B3x": "Three stripes (outside the criterion)",
+      "B121x": "Central stripe (outside the criterion)",
       "B11211Dx": "Diagonal stripes"
     },
     "fondAide": "A cell carries four triangles; each is drawn with the chosen ground, or with its two colours swapped.",
@@ -885,8 +885,8 @@ export const TEXTES = {
       "bandes": "Bandas"
     },
     "fondVariantes": {
-      "B3x": "Tres bandas",
-      "B121x": "Banda central",
+      "B3x": "Tres bandas (fuera del criterio)",
+      "B121x": "Banda central (fuera del criterio)",
       "B11211Dx": "Bandas oblicuas"
     },
     "fondAide": "Una casilla lleva cuatro triángulos; cada uno se dibuja con el fondo elegido o con sus dos colores intercambiados.",
@@ -1290,8 +1290,8 @@ export const TEXTES = {
       "bandes": "แถบ"
     },
     "fondVariantes": {
-      "B3x": "สามแถบ",
-      "B121x": "แถบกลาง",
+      "B3x": "สามแถบ (นอกเกณฑ์)",
+      "B121x": "แถบกลาง (นอกเกณฑ์)",
       "B11211Dx": "แถบเฉียง"
     },
     "fondAide": "หนึ่งช่องมีสามเหลี่ยมสี่รูป แต่ละรูปวาดด้วยพื้นหลังที่เลือก หรือสลับสองสีของมัน",
@@ -1695,8 +1695,8 @@ export const TEXTES = {
       "bandes": "条纹"
     },
     "fondVariantes": {
-      "B3x": "三条纹",
-      "B121x": "中央条纹",
+      "B3x": "三条纹（不满足判据）",
+      "B121x": "中央条纹（不满足判据）",
       "B11211Dx": "斜条纹"
     },
     "fondAide": "每个格含四个三角形；每个三角形用所选背景绘制，或将其两种颜色互换。",
@@ -2100,8 +2100,8 @@ export const TEXTES = {
       "bandes": "Полосы"
     },
     "fondVariantes": {
-      "B3x": "Три полосы",
-      "B121x": "Центральная полоса",
+      "B3x": "Три полосы (вне критерия)",
+      "B121x": "Центральная полоса (вне критерия)",
       "B11211Dx": "Косые полосы"
     },
     "fondAide": "В клетке четыре треугольника; каждый рисуется выбранным фоном или с обменом двух его цветов.",
@@ -2505,8 +2505,8 @@ export const TEXTES = {
       "bandes": "Faixas"
     },
     "fondVariantes": {
-      "B3x": "Três faixas",
-      "B121x": "Faixa central",
+      "B3x": "Três faixas (fora do critério)",
+      "B121x": "Faixa central (fora do critério)",
       "B11211Dx": "Faixas oblíquas"
     },
     "fondAide": "Uma casa leva quatro triângulos; cada um é desenhado com o fundo escolhido ou com as duas cores trocadas.",
@@ -2910,8 +2910,8 @@ export const TEXTES = {
       "bandes": "पट्टियाँ"
     },
     "fondVariantes": {
-      "B3x": "तीन पट्टियाँ",
-      "B121x": "बीच की पट्टी",
+      "B3x": "तीन पट्टियाँ (मानदंड से बाहर)",
+      "B121x": "बीच की पट्टी (मानदंड से बाहर)",
       "B11211Dx": "तिरछी पट्टियाँ"
     },
     "fondAide": "एक खाने में चार त्रिभुज होते हैं; हर एक चुनी हुई पृष्ठभूमि से बनता है, या उसके दोनों रंग आपस में बदलकर।",
@@ -3315,8 +3315,8 @@ export const TEXTES = {
       "bandes": "Streifen"
     },
     "fondVariantes": {
-      "B3x": "Drei Streifen",
-      "B121x": "Mittelstreifen",
+      "B3x": "Drei Streifen (außerhalb des Kriteriums)",
+      "B121x": "Mittelstreifen (außerhalb des Kriteriums)",
       "B11211Dx": "Schräge Streifen"
     },
     "fondAide": "Ein Feld trägt vier Dreiecke; jedes wird mit dem gewählten Grund gezeichnet oder mit vertauschten Farben.",
@@ -3720,8 +3720,8 @@ export const TEXTES = {
       "bandes": "Bande"
     },
     "fondVariantes": {
-      "B3x": "Tre bande",
-      "B121x": "Banda centrale",
+      "B3x": "Tre bande (fuori criterio)",
+      "B121x": "Banda centrale (fuori criterio)",
       "B11211Dx": "Bande oblique"
     },
     "fondAide": "Una casella porta quattro triangoli; ciascuno è disegnato con il fondo scelto, oppure con i due colori scambiati.",
@@ -4125,8 +4125,8 @@ export const TEXTES = {
       "bandes": "ストライプ"
     },
     "fondVariantes": {
-      "B3x": "3本のストライプ",
-      "B121x": "中央のストライプ",
+      "B3x": "3本のストライプ（基準外）",
+      "B121x": "中央のストライプ（基準外）",
       "B11211Dx": "斜めのストライプ"
     },
     "fondAide": "1つのマスには4つの三角形があり、それぞれ選んだ背景で、または2色を入れ替えて描かれます。",

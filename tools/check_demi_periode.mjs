@@ -28,6 +28,7 @@ const lire = (f) => JSON.parse(readFileSync(path.join(ROOT, f), 'utf8'));
 const SORTIE = path.join(ROOT, 'data/fonds/demi-periode.json');
 const corpus = lire('data/corpus-256.json'), sym = lire('data/symetries-64.json'), phases = lire('data/fonds/phases-b2d-64.json').motifs, phasesDP = lire('data/fonds/phases-b2d-dp-64.json').motifs;
 const approuves = lire('data/fonds/fonds-approuves.json').approuves;
+const horsCritereApprouves = lire('data/fonds/fonds-approuves.json').hors_critere || []; // offerts dans les interfaces, marqués « hors critère » (décision d'Anibal) : ils ne tiennent pas 64 / 64
 const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
 const { collection, fonds: FONDS_MAP } = chargerFondsEtudies();
 const N = 96, DX = 0.37, DY = 0.61; // l'échantillonnage : N × N points sur la cellule de 12 × 12 cases
@@ -102,6 +103,7 @@ const doc = (fonds) => ({
   echantillon: `${N} × ${N} points, décalés de (${DX} ; ${DY}) pas`,
   approuves,
   proposes: Object.entries(fonds).filter(([c, f]) => f.exacts === f.sur && approuves.includes(c)).map(([c]) => c),
+  hors_critere: Object.entries(fonds).filter(([c, f]) => f.exacts !== f.sur && horsCritereApprouves.includes(c)).map(([c]) => c),
   fonds,
 });
 const serialiser = (fonds) => JSON.stringify(doc(fonds), null, 1) + '\n';

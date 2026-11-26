@@ -14,7 +14,7 @@ import { CONFIG } from './musique-chladni-config.js?v=8915c04b35';
 import { texte as T } from './musique-chladni-textes.js?v=f36ba6a517';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
-import { fondsRetenus } from './fonds-retenus.js';
+import { fondsAffiches } from './fonds-retenus.js';
 import { groupesDe } from './fonds-groupes.js';
 import { monterSemaine } from './musique-chladni-semaine.js?v=d8f08f70fb';
 
@@ -77,8 +77,8 @@ function chargerOrdre(o) { // 18 et 30 : à la demande, au premier choix du form
 async function assurer(c) { if (S.blocs.has(c.col)) return; const o = FMT_DE[c.col]; if (!S.jb[o]) { message(T('chargementOrdre', { n: o })); await chargerOrdre(o); message(''); } if (!S.blocs.has(c.col)) construire(c.col); }
 async function charger() {
   const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json')]);
-  // les fonds PROPOSÉS : les trois que lit aussi la nouvelle interface (data/fonds/demi-periode.json, « proposes ») ; les autres codes restent dans le moteur et les tests, jamais offerts
-  S.fondsProposes = fondsRetenus(jDemi); S.fondsDef = new Map([['P', APLAT], ...jEchange.fonds.map((f) => [f.id, f])]);
+  // les fonds PROPOSÉS : ceux que lit aussi la nouvelle interface (data/fonds/demi-periode.json, « proposes », puis « hors_critere » : Trois bandes et Bande centrale, marquées) ; les autres codes restent dans le moteur et les tests, jamais offerts
+  S.fondsProposes = fondsAffiches(jDemi); S.fondsDef = new Map([['P', APLAT], ...jEchange.fonds.map((f) => [f.id, f])]);
   S.groupes = groupesDe(S.fondsProposes, jEchange.fonds); // Aplat, Triangles, Bandes ; « Bandes » offre plusieurs variantes quand plusieurs sont proposées (prompt 225)
   for (const id of S.fondsProposes) if (!S.fondsDef.has(id)) throw new Error(T('bandeManque', { id: nomFond(id) }));
   S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12, centrale12 }; S.charges[12] = Promise.resolve();

@@ -72,12 +72,12 @@ try {
   // et trois entrées aux noms clairs, sans code. Les vraies mesures sont celles de tools/check_demi_periode.mjs.
   {
     const reel = await ctx.newPage(); await reel.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' }); await reel.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
-    ok((await reel.$$eval('#vm-g-fond .vm-o b', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes' && (await reel.$$('#vm-g-fond .vm-sous-titre')).length === 0, 'liste réelle : Aplat, Triangles, Bandes, sans sous-choix');
+    ok((await reel.$$eval('#vm-g-fond .vm-o b, #vm-g-fond .vm-sous-titre', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes,Trois bandes (hors critère),Bande centrale (hors critère),Bandes obliques' && (await reel.$$('#vm-g-fond .vm-sous-titre')).length === 1, 'liste réelle : Aplat, Triangles, Bandes avec ses trois sous-choix (deux hors critère, marqués)');
     await reel.close();
     const sim = await ctx.newPage(), erreursSim = []; sim.on('pageerror', (e) => erreursSim.push(e.message));
     await sim.route('**/data/fonds/demi-periode.json', async (r) => { const rep = await r.fetch(), j = await rep.json(); j.proposes = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx']; await r.fulfill({ response: rep, body: JSON.stringify(j) }); });
     await sim.goto(`${base}/musique-chladni.html?mode=avance`, { waitUntil: 'load' }); await sim.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
-    ok((await sim.$$eval('#vm-g-fond .vm-o b, #vm-g-fond .vm-sous-titre', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes,Trois bandes,Bande centrale,Bandes obliques', 'liste simulée : « Bandes » ouvre trois sous-choix (Trois bandes, Bande centrale, Bandes obliques)');
+    ok((await sim.$$eval('#vm-g-fond .vm-o b, #vm-g-fond .vm-sous-titre', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes,Trois bandes (hors critère),Bande centrale (hors critère),Bandes obliques', 'liste simulée : « Bandes » ouvre trois sous-choix (Trois bandes, Bande centrale, Bandes obliques)');
     ok((await sim.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B3x,B121x,B11211Dx' && (await sim.$$('#vm-g-fond .vm-o.vm-sous')).length === 3, 'liste simulée : cinq fonds, dont trois de bandes en retrait');
     ok(!/\bB\d|[BP]\d*x\b/.test(await sim.$eval('#vm-g-fond', (g) => g.innerText)), 'aucun code de fond dans le groupe');
     ok(erreursSim.length === 0, `liste simulée : aucune erreur (${erreursSim.join(' | ')})`);
@@ -98,8 +98,8 @@ try {
   ok((await page.$$('.vm-opts .vm-grp > .vm-grp-titre > button')).length === 6, 'six en-têtes attendus quand les ordres 18 et 30 sont rouverts');
   ok(!(await page.isDisabled('#vm-o-fmt-18')) && !(await page.isDisabled('#vm-o-fmt-30')), 'les ordres 18 et 30 doivent être proposés');
   ok(!demandes.some((u) => /bloc-(18|30)-structure/.test(u)), 'les ordres 18 et 30 ne doivent pas se charger avant le premier choix du format');
-  ok((await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B11211Dx', 'trois variantes de case attendues : Aplat, Triangles, Bandes (les fonds proposés, prompt 220)');
-  ok((await page.$$eval('#vm-g-fond .vm-o b', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes', 'les trois variantes portent des noms clairs, sans code visible');
+  ok((await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))).join() === 'P,B2Dx,B3x,B121x,B11211Dx', 'variantes de case attendues : Aplat, Triangles, et « Bandes » (B11211Dx proposé ; B3x et B121x hors critère, approuvées par Anibal)');
+  ok((await page.$$eval('#vm-g-fond .vm-o b, #vm-g-fond .vm-sous-titre', (o) => o.map((x) => x.textContent))).join() === 'Aplat,Triangles,Bandes,Trois bandes (hors critère),Bande centrale (hors critère),Bandes obliques', 'les variantes portent des noms clairs, sans code visible, les deux hors critère marquées');
   ok((await page.evaluate(() => window.__voirSaMusique.etat().valide.fond)) === 'P', 'le fond par défaut est Aplat');
   ok(await page.isHidden('#vm-g-fond'), 'la variante de case ne s’applique qu’au bicolore : cachée au tricolore');
 

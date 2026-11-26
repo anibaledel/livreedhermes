@@ -11,6 +11,10 @@
   "B2Dx",
   "B11211Dx"
  ],
+ "hors_critere": [
+  "B3x",
+  "B121x"
+ ],
  "fonds": {
   "P": {
    "exacts": 64,

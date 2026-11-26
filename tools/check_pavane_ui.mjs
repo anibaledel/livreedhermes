@@ -58,8 +58,8 @@ const lire = (page) => page.evaluate(() => {
 
 if (process.argv.includes('--essai')) { // une attente fausse (B3 n'est pas un fond proposé) doit être refusée
   const ctx = await nav.newContext({ viewport: { width: 1280, height: 900 } });
-  const { page } = await monter(ctx, 'fr', '?fond=B3');
-  ok((await lire(page)).etat.fond === 'B3', 'ESSAI : ?fond=B3 n\'est pas un fond proposé, cette attente fausse doit échouer');
+  const { page } = await monter(ctx, 'fr', '?fond=B4');
+  ok((await lire(page)).etat.fond === 'B4', 'ESSAI : ?fond=B4 n\'est pas un fond proposé, cette attente fausse doit échouer');
   await nav.close(); if (serveur && serveur.close) serveur.close();
   if (!echecs) { console.error('ÉCHEC --essai : une attente fausse n\'a pas été refusée'); process.exit(1); }
   console.log(`OK    --essai : une attente fausse est refusée (${echecs} écart).`); process.exit(0);
@@ -110,7 +110,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     await page.close();
     // --- l'état dans l'adresse, un mode par adresse ---
     for (const [i, m] of ['defile', 'spectre', 'entre-deux'].entries()) {
-      const r = await monter(ctx, langue, `?mode=${m}&fond=B11211Dx&corpus=64&fond=B3`);
+      const r = await monter(ctx, langue, `?mode=${m}&fond=B11211Dx&corpus=64&fond=B4`);
       const t = await lire(r.page);
       ok(t.etat.mode === m && t.etat.corpus === 64 && t.etat.fond === 'B11211Dx', `${nom} ?mode=${m} : état relu (${JSON.stringify(t.etat).slice(0, 80)})`);
       ok(t.sources === (m !== 'defile'), `${nom} ?mode=${m} : panneau des sources ${m === 'defile' ? 'caché' : 'visible'}`);
@@ -124,9 +124,9 @@ for (const [langue, noms] of Object.entries(NOMS)) {
       await r.page.close();
     }
     {
-      const r = await monter(ctx, langue, '?fond=B3&corpus=999&mode=nope');
+      const r = await monter(ctx, langue, '?fond=B4&corpus=999&mode=nope');
       const t = await lire(r.page);
-      ok(t.etat.fond === 'P' && t.etat.corpus === 128 && t.etat.mode === 'defile', `${nom} : ?fond=B3, ?corpus=999, ?mode=nope sont ignorés`);
+      ok(t.etat.fond === 'P' && t.etat.corpus === 128 && t.etat.mode === 'defile', `${nom} : ?fond=B4, ?corpus=999, ?mode=nope sont ignorés`);
       await r.page.close();
     }
     await ctx.close();
@@ -157,7 +157,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   const reel = await nav.newContext({ viewport: { width: 1280, height: 900 } });
   const r = await monter(reel, 'fr', '?fond=B11211D');
   const x = await r.page.evaluate(() => { const app = document.getElementById('app'), g = app.querySelector('select[id$=fond]'), v = app.querySelector('select[id$=fond-variante]'); return { groupes: [...g.options].map((o) => o.textContent).join(), valeur: g.value, variante: v.hidden, etat: window.__pavane.etat().fond }; });
-  ok(x.groupes === 'Aplat,Triangles,Bandes' && x.valeur === 'bandes' && x.variante && x.etat === 'B11211Dx', `liste réelle : trois groupes, pas de sous-choix (un seul fond de bandes proposé), ancien code B11211D → B11211Dx (${JSON.stringify(x)})`);
+  ok(x.groupes === 'Aplat,Triangles,Bandes' && x.valeur === 'bandes' && !x.variante && x.etat === 'B11211Dx', `liste réelle : trois groupes, sous-choix de « Bandes » visible (B11211Dx proposé, B3x et B121x hors critère), ancien code B11211D → B11211Dx (${JSON.stringify(x)})`);
   await reel.close();
   const ctx = await nav.newContext({ viewport: { width: 1280, height: 900 } });
   await ctx.route('**/data/fonds/demi-periode.json', async (route) => { const rep = await route.fetch(), j = await rep.json(); j.proposes = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx']; await route.fulfill({ response: rep, body: JSON.stringify(j) }); });
@@ -166,7 +166,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   ok((await etat(m.page)).variante === null, 'Aplat : pas de sous-choix');
   await m.page.selectOption('select[id$=-fond]', 'bandes');
   let e = await etat(m.page);
-  ok(e.fond === 'B11211Dx' && e.variante === 'Trois bandes,Bande centrale,Bandes obliques', `« Bandes » : trois sous-choix aux noms clairs, défaut B11211Dx (${JSON.stringify(e)})`);
+  ok(e.fond === 'B11211Dx' && e.variante === 'Trois bandes (hors critère),Bande centrale (hors critère),Bandes obliques', `« Bandes » : trois sous-choix aux noms clairs, les deux hors critère marqués, défaut B11211Dx (${JSON.stringify(e)})`);
   await m.page.selectOption('select[id$=fond-variante]', 'B3x');
   e = await etat(m.page); ok(e.fond === 'B3x' && /fond=B3x/.test(e.url), `sous-choix « Trois bandes » : fond B3x écrit dans l'adresse (${JSON.stringify(e)})`);
   await m.page.selectOption('select[id$=-fond]', 'triangles'); await m.page.selectOption('select[id$=-fond]', 'bandes');
