@@ -5,5 +5,6 @@
 - `corpus-64-formes-miroir.png` : les 64 formes du corpus tricolore (une par classe à translation torique près, pavage 2 × 2), regroupées par axes de miroir : 32 avec quatre axes (vertical, horizontal, les deux diagonales), 32 avec les deux diagonales. Produites depuis `data/corpus-256.json` ; voir `tools/corpus_miroir.py`.
 - `hybrides-diagonales.png` et `hybrides-axes.png` : les 624 formes obtenues en prenant les deux couches dans des familles différentes (miroir, un seul motif, 48 / 48 / 48, lisibles par la lecture binaire), hors corpus : 388 à miroirs diagonaux, 236 à miroir vertical et/ou horizontal. Voir `tools/miroir_autres_couches.py` ; la lecture binaire n'est pas encore dans cet outil.
 
+- `quatre-axes-par-socle.png` : les 288 formes rangées par type de socle (cases de la teinte fixe, par niveau) : le corpus (8 par niveau) et quatre types nouveaux.
 - `quatre-axes-288-formes.png` : les 288 formes à quatre axes (32 du corpus puis 256 nouvelles), même construction.
 - `quatre-axes-nouvelles-formes.png` : 256 formes à quatre axes de miroir hors du corpus (pavage 2 × 2), obtenues avec de nouvelles couches symétriques autour du centre de la cellule, lisibles par la lecture binaire. Voir `tools/formes_quatre_axes.py` (les 32 formes à quatre axes du corpus y sont incluses : 288 formes au total).
