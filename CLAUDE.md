@@ -26,8 +26,9 @@ recalcules, compare ta sortie à la ligne du journal déposé — toutes lignes 
 Les durées d'exécution dépendent de la machine : `cube_croisements.py` prend 45 s chez Anibal,
 10 min 17 s dans un conteneur de session.
 
-## Trois règles du projet
+## Quatre règles du projet
 
+- Aucune IA n'est coauteur : pas de `Co-Authored-By`, pas de lien de session ni de nom d'IA dans les commits, les descriptions de PR, les documents ou leurs métadonnées de révision (auteur des modifications suivies : « Relecture »).
 - Rien ne se supprime.
 - Rien ne se dépose ni ne se modifie sur Zenodo depuis ce dépôt : c'est le compte d'Anibal et son geste.
 - Un contrôle échoue, il ne corrige pas : l'écart est l'information.
