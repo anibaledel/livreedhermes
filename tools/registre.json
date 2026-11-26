@@ -1073,6 +1073,7 @@
    ],
    "utilise_par": [
     "tools/check_jeu_unifie.py",
+    "tools/corpus_miroir.py",
     "tools/fiches_unifies.py",
     "tools/verifie_signatures_512.py"
    ],
@@ -1783,6 +1784,18 @@
     "tools/check_animations_corpus.mjs",
     "tools/comparer_corpus_pages.mjs"
    ],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/corpus_miroir.py",
+   "role": "la symétrie miroir caractérise EXACTEMENT les 256 grilles du corpus tricolore (couple YANG, YANG-MUT) parmi 16 384 candidates (calcul du 26 novembre 2026, prompt de suite du 261).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
   },
