@@ -12,7 +12,7 @@ export const CONFIG = Object.freeze({
   // ses collections (la première est celle par défaut). Les ordres 18 et 30 se chargent au premier
   // choix du format, pas au chargement de la page.
   ordres: Object.freeze([
-    Object.freeze({ ordre: 12, actif: true, collections: Object.freeze(['tri', 'bi', 'ce']) }),
+    Object.freeze({ ordre: 12, actif: true, collections: Object.freeze(['tri', 'bi', 'ce', 'q4']) }), // q4 : les 256 formes à quatre axes de data/formes-quatre-axes-288.json qui ne sont pas dans le corpus (calculées au chargement)
     Object.freeze({ ordre: 18, actif: true, collections: Object.freeze(['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote', 'p18']) }),
     Object.freeze({ ordre: 30, actif: true, collections: Object.freeze(['p30']) }),
   ]),
@@ -21,7 +21,7 @@ export const CONFIG = Object.freeze({
   // la page ne lit pas ce paramètre et s'ouvre à l'ordre 12.
   ordresProposes: Object.freeze([12]),
   // Une collection désactivée ici disparaît de l'interface.
-  collections: Object.freeze({ tri: true, bi: true, ce: true, b1971128: true, b16012838: true, b3016090: true, f613: true, f18: true, fpilote: true, p18: true, p30: true }),
+  collections: Object.freeze({ tri: true, bi: true, ce: true, q4: true, b1971128: true, b16012838: true, b3016090: true, f613: true, f18: true, fpilote: true, p18: true, p30: true }),
   vues: Object.freeze({ signes: true, lignes: true, pavage: true }), // à l'ordre 12 le format bascule sur « Cellules »
   pilotage: Object.freeze({ image: true, rythme: true, chemin: true, octaves: true }), // « octaves » : option, hors du cycle de la barre d'espace ; départ : image
   pulsation: true,   // « à chaque attaque » (par défaut), « à chaque temps », « toutes les 4 pulsations »

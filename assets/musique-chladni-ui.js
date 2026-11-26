@@ -9,14 +9,14 @@
 // Aucune phrase ici (tout est dans musique-chladni-textes.js), aucun réglage de fonctionnalité
 // (tout est dans musique-chladni-config.js), aucune couleur recopiée (assets/couleurs.js).
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
-import * as M from './musique-chladni-moteur.js?v=8eb0e9a269';
-import { CONFIG } from './musique-chladni-config.js?v=8915c04b35';
-import { texte as T } from './musique-chladni-textes.js?v=f36ba6a517';
+import * as M from './musique-chladni-moteur.js?v=e42af0a64c';
+import { CONFIG } from './musique-chladni-config.js?v=a6669de28c';
+import { texte as T } from './musique-chladni-textes.js?v=0af861a10e';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
 import { fondsAffiches } from './fonds-retenus.js';
 import { groupesDe } from './fonds-groupes.js';
-import { monterSemaine } from './musique-chladni-semaine.js?v=d8f08f70fb';
+import { monterSemaine } from './musique-chladni-semaine.js?v=808b640024';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -42,6 +42,7 @@ const S = {
   mode: 'simple', enPause: false, pauseCache: false, figureFixe: MQ_CALME.matches, animer: false,
 };
 const DIR = 'data/musique-chladni/';
+const estTri = (col) => col === 'tri' || col === 'q4'; // les collections tricolores : « tri » (512 grilles du corpus) et « q4 » (256 formes à quatre axes) ; les autres sont bicolores
 const FMT_DE = {}; for (const o of CONFIG.ordres) for (const c of o.collections) FMT_DE[c] = o.ordre;
 const ordresProposes = () => CONFIG.ordres.filter((o) => CONFIG.ordresProposes.includes(o.ordre)); // l'interface ne propose que ceux-là (voir CONFIG.ordresProposes)
 const colDefaut = (fmt) => CONFIG.ordres.find((o) => o.ordre === fmt).collections.find((c) => CONFIG.collections[c]);
@@ -76,7 +77,7 @@ function chargerOrdre(o) { // 18 et 30 : à la demande, au premier choix du form
 }
 async function assurer(c) { if (S.blocs.has(c.col)) return; const o = FMT_DE[c.col]; if (!S.jb[o]) { message(T('chargementOrdre', { n: o })); await chargerOrdre(o); message(''); } if (!S.blocs.has(c.col)) construire(c.col); }
 async function charger() {
-  const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json')]);
+  const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12, jDemi, jEchange, jQ4] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`), lJson('data/fonds/demi-periode.json'), lJson('data/fonds/fonds-echange.json'), lJson('data/formes-quatre-axes-288.json')]);
   // les fonds PROPOSÉS : ceux que lit aussi la nouvelle interface (data/fonds/demi-periode.json, « proposes », puis « hors_critere » : Trois bandes et Bande centrale, marquées) ; les autres codes restent dans le moteur et les tests, jamais offerts
   S.fondsProposes = fondsAffiches(jDemi); S.fondsDef = new Map([['P', APLAT], ...jEchange.fonds.map((f) => [f.id, f])]);
   S.groupes = groupesDe(S.fondsProposes, jEchange.fonds); // Aplat, Triangles, Bandes ; « Bandes » offre plusieurs variantes quand plusieurs sont proposées (prompt 225)
@@ -85,6 +86,9 @@ async function charger() {
   const tri = M.preparerBloc(donnees, 'tri'), e = M.controlerBloc(tri); if (e.length) throw new Error(e.join(' ; '));
   S.blocs.set('tri', tri);
   for (const col of ['bi', 'ce']) construire(col);
+  // « Formes à quatre axes » : les 256 formes de data/formes-quatre-axes-288.json qui ne sont pas dans le corpus, un bloc tricolore calculé ici (spectre à trois teintes), voisins et chaîne compris
+  const q4 = M.blocDeGrilles('q4', 'q4', jQ4.formes.filter((f) => !f.corpus)), eq4 = M.controlerBloc(q4); if (eq4.length) throw new Error(eq4.join(' ; '));
+  S.blocs.set('q4', q4); S.tailles.q4 = q4.n;
   for (const o of CONFIG.ordres) for (const d of M.definirCollections(o.ordre, S.defs)) S.tailles[d.id] = d.indices.length;
   S.tailles.tri = tri.n;
 }
@@ -105,17 +109,17 @@ function etats(id) { // les deux états d'une case : le fond proposé, et le mê
 const cacheTuiles = new Map();
 function tuile(col, j, vue, fond, c, T) {
   const bl = S.blocs.get(col), pal = couleurs(c), pr = profilDe(bl), sonCle = S.figure !== 'motif' && vue !== 'pavage' ? `|${S.figure}:${pr.sonCle || ''}` : ''; // option « figure du son » : jamais en pavage
-  const cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col !== 'tri' ? fond : ''}|${paletteCle(c)}${sonCle}`;
+  const cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && !estTri(col) ? fond : ''}|${paletteCle(c)}${sonCle}`;
   let t = cacheTuiles.get(cle); if (t) { cacheTuiles.delete(cle); cacheTuiles.set(cle, t); return t; } // LRU
   const A8 = new Uint8Array(T * T);
-  if (vue === 'pavage') { if (col === 'tri') M.masqueTricolore(bl, j, T, A8); else M.masqueBicolore(bl, j, etats(fond), T, A8); }
+  if (vue === 'pavage') { if (estTri(col)) M.masqueTricolore(bl, j, T, A8); else M.masqueBicolore(bl, j, etats(fond), T, A8); }
   else if (!sonCle) M.figure(M.champ(bl, j), bl.grid, T, vue, A8);
   else { // « du son » : la somme des ondes de chaque cercle, pondérées par le vecteur du son ; « écart » : où elle diffère de la figure du motif
     M.figureDuSon(pr.sonV, bl.shells, bl.grid, T, vue, A8);
     if (S.figure === 'ecart') { const m = new Uint8Array(T * T); M.figure(M.champ(bl, j), bl.grid, T, vue, m); M.ecartDeFigures(m, A8, A8); }
   }
   t = document.createElement('canvas'); t.width = t.height = T;
-  const x = t.getContext('2d'), im = x.createImageData(T, T), d = im.data, [ink, bg, mid] = pal, tri3 = col === 'tri' && vue === 'pavage' && mid;
+  const x = t.getContext('2d'), im = x.createImageData(T, T), d = im.data, [ink, bg, mid] = pal, tri3 = estTri(col) && vue === 'pavage' && mid;
   for (let i = 0; i < T * T; i++) {
     let r, g, b; const a = A8[i];
     if (tri3) { const q = a === 255 ? ink : a === 128 ? mid : bg; [r, g, b] = q; }
@@ -144,7 +148,7 @@ class Fenetre {
     const ancienne = this.cfg; this.cfg = { ...c };
     if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs.get(c.col), this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
     else this.p.reglages(this.options());
-    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col !== 'tri' && c.view === 'pavage' ? ` · ${nomFond(c.fond)}` : '';
+    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = !estTri(c.col) && c.view === 'pavage' ? ` · ${nomFond(c.fond)}` : '';
     this.cap.textContent = T('legendeFenetre', { mode: T('modes')[c.mode][0], collection: colInfo[0], vue, fond: variante, palette: T('palettes')[c.pal][0] });
   }
   reglages() { if (this.p) this.p.reglages(this.options()); }
@@ -627,7 +631,7 @@ function rafraichir() {
   marque('mode', (k) => esel.mode === k, (k) => valCfg.mode === k); marque('fmt', (k) => esel.fmt === +k, (k) => valCfg.fmt === +k); marque('col', (k) => esel.col === k, (k) => valCfg.col === k);
   marque('view', (k) => esel.view === k, (k) => valCfg.view === k); marque('fond', (k) => esel.fond === k, (k) => valCfg.fond === k); marque('pal', (k) => esel.pal === k, (k) => valCfg.pal === k);
   for (const b of document.querySelectorAll('.vm-o[data-g="col"]')) b.hidden = Number(b.dataset.fmt) !== esel.fmt;
-  const g = $('vm-g-fond'); if (g) g.hidden = esel.col === 'tri'; // la variante de case : collections bicolores, aux trois ordres
+  const g = $('vm-g-fond'); if (g) g.hidden = estTri(esel.col); // la variante de case : collections bicolores, aux trois ordres
   $('vmPerso').hidden = esel.pal !== 'perso'; dessinerMiniatures();
 }
 function valider() { if (!bloc(esel)) return; valCfg = { ...esel }; valide.setCfg(valCfg); valide.p = M.creerPilote(bloc(valCfg), valide.options()); valide.p.copier(essaiF.p); valide.dernier = { ...essaiF.dernier }; rafraichir(); }

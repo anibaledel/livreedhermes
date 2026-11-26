@@ -159,6 +159,29 @@ export function preparerBlocStructure(jb, { id, label = id, indices }) {
   return bloc;
 }
 
+/**
+ * Un bloc tricolore calculé ICI à partir de grilles { id, tricolore: [12 lignes de V/M/O] } (les formes à quatre axes de data/formes-quatre-axes-288.json) : même forme que le bloc « tri »
+ * (cls V = 2, O = 1, M = 0), spectre normé, voisins et chaîne calculés. `spectre` : « champ » (V = +1, O = 0, M = −1 : le spectre des autres blocs) ou « trois-teintes » (la somme des
+ * puissances des indicateurs de V, de M et de O, puis la racine : le meilleur des jeux mesurés pour les formes à quatre axes, tools/couverture_son.mjs).
+ */
+export function blocDeGrilles(id, label, grilles, { spectre = 'trois-teintes', fref = 220 } = {}) {
+  const n = grilles.length, NS = NS12, cls = new Uint8Array(n * CASES), P = new Float32Array(n * NS);
+  grilles.forEach((gr, j) => {
+    const f = new Float64Array(CASES);
+    gr.tricolore.forEach((ligne, r) => [...ligne].forEach((x, c) => { const i = r * ORDRE + c; cls[j * CASES + i] = x === 'V' ? 2 : x === 'O' ? 1 : 0; f[i] = x === 'V' ? 1 : x === 'O' ? 0 : -1; }));
+    let w;
+    if (spectre === 'champ') w = spectreDuChamp(f);
+    else if (spectre === 'trois-teintes') { w = new Float64Array(NS); for (const cible of [1, -1, 0]) { const wc = spectreDuChamp(f.map((x) => (x === cible ? 1 : 0))); for (let k = 0; k < NS; k++) w[k] += wc[k] * wc[k]; } w = w.map(Math.sqrt); }
+    else throw new Error(`blocDeGrilles : spectre « ${spectre} » inconnu`);
+    const nn = Math.hypot(...w) || 1; for (let k = 0; k < NS; k++) P[j * NS + k] = w[k] / nn;
+  });
+  const bloc = { id, ordre: ORDRE, grid: ORDRE, label, n, NS, ids: grilles.map((g) => g.id), shells: SHELLS12, fref, cls, P, tri: true };
+  finaliser(bloc);
+  Object.assign(bloc, voisinsEtChaine(bloc.Pc, n, NS));
+  bloc.posChaine = new Int32Array(n); bloc.chain.forEach((j, p) => { bloc.posChaine[j] = p; });
+  return bloc;
+}
+
 /** Les collections d'un ordre, d'après les fichiers d'indices (aucune grille relue). */
 export function definirCollections(ordre, { collections1830, sym12, centrale12 }) {
   // ordre 12 : les 272 grilles lisibles se séparent en deux ensembles disjoints de 136 (deux miroirs ; symétrie centrale à 180° seule)

@@ -112,8 +112,8 @@ try {
 
   // aperçu au survol : l'essai change, le validé non
   await ouvrir('col'); await page.hover('#vm-o-col-bi'); await page.waitForTimeout(500);
-  ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden])', (o) => o.map((x) => x.dataset.k))).join() === 'tri,bi,ce', 'ordre 12 : trois collections attendues (tricolore, deux miroirs, symétrie centrale)');
-  ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden]) small', (o) => o.map((x) => x.textContent.match(/\d+/)[0]))).join() === '512,136,136', 'ordre 12 : comptes 512, 136, 136 attendus');
+  ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden])', (o) => o.map((x) => x.dataset.k))).join() === 'tri,bi,ce,q4', 'ordre 12 : quatre collections attendues (tricolore, deux miroirs, symétrie centrale, formes à quatre axes)');
+  ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden]) small', (o) => o.map((x) => x.textContent.match(/\d+/)[0]))).join() === '512,136,136,256', 'ordre 12 : comptes 512, 136, 136, 256 attendus');
   const cap = await page.textContent('#vmEssaiCap'), capV = await page.textContent('#vmValideCap');
   ok(/Bicolore/.test(cap) && /Tricolore/.test(capV), `aperçu au survol : légende de l'essai « ${cap} », du validé « ${capV} »`);
   await page.click('#vm-o-col-bi'); await page.waitForTimeout(300);

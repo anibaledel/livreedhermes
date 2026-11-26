@@ -136,6 +136,7 @@ export const TEXTES = {
       tri: ['Tricolore — motifs unifiés', '{n} motifs (grilles 12 × 12 distinctes)'],
       bi: ['Bicolore — motifs unifiés', '{n} motifs (deux miroirs, lisibles par la règle du 3 octobre)'],
       ce: ['Bicolore — symétrie centrale', '{n} motifs (symétrie centrale à 180° seule, lisibles par la règle du 3 octobre)'],
+      q4: ['Tricolore — formes à quatre axes', '{n} motifs (quatre axes de miroir : les formes de plus que le corpus)'],
       b1971128: ['Bloc 1971128', '{n} motifs'],
       b16012838: ['Bloc 16012838', '{n} motifs'],
       b3016090: ['Bloc 3016090', '{n} motifs'],
@@ -440,6 +441,10 @@ export const TEXTES = {
       "ce": [
         "Two-colour — central symmetry",
         "{n} patterns (180° central symmetry alone, readable by the rule of 3 October)"
+      ],
+      "q4": [
+        "Three-colour — four-axis forms",
+        "{n} patterns (four mirror axes: the forms beyond the corpus)"
       ],
       "b1971128": [
         "Block 1971128",
@@ -846,6 +851,10 @@ export const TEXTES = {
         "Bicolor — simetría central",
         "{n} motivos (solo simetría central de 180°, legibles por la regla del 3 de octubre)"
       ],
+      "q4": [
+        "Tricolor — formas de cuatro ejes",
+        "{n} motivos (cuatro ejes de espejo: las formas además del corpus)"
+      ],
       "b1971128": [
         "Bloque 1971128",
         "{n} motivos"
@@ -1250,6 +1259,10 @@ export const TEXTES = {
       "ce": [
         "สองสี — สมมาตรศูนย์กลาง",
         "{n} ลวดลาย (สมมาตรศูนย์กลาง 180° เพียงอย่างเดียว อ่านได้ตามกฎของวันที่ 3 ตุลาคม)"
+      ],
+      "q4": [
+        "สามสี — รูปแบบสี่แกน",
+        "{n} ลวดลาย (แกนกระจกสี่แกน: รูปแบบที่เพิ่มจากคลังหลัก)"
       ],
       "b1971128": [
         "บล็อก 1971128",
@@ -1656,6 +1669,10 @@ export const TEXTES = {
         "双色——中心对称",
         "{n} 个图案（仅 180° 中心对称，可按 10 月 3 日的规则读取）"
       ],
+      "q4": [
+        "三色 — 四轴图形",
+        "{n} 个图案（四条镜像轴：语料库之外新增的图形）"
+      ],
       "b1971128": [
         "区块 1971128",
         "{n} 个图案"
@@ -2060,6 +2077,10 @@ export const TEXTES = {
       "ce": [
         "Двухцветные — центральная симметрия",
         "{n} узоров (только центральная симметрия на 180°, читаются по правилу 3 октября)"
+      ],
+      "q4": [
+        "Трёхцветные — формы с четырьмя осями",
+        "{n} узоров (четыре оси зеркала: формы сверх корпуса)"
       ],
       "b1971128": [
         "Блок 1971128",
@@ -2466,6 +2487,10 @@ export const TEXTES = {
         "Bicolor — simetria central",
         "{n} padrões (apenas simetria central de 180°, legíveis pela regra de 3 de outubro)"
       ],
+      "q4": [
+        "Tricolor — formas de quatro eixos",
+        "{n} motivos (quatro eixos de espelho: as formas além do corpus)"
+      ],
       "b1971128": [
         "Bloco 1971128",
         "{n} padrões"
@@ -2870,6 +2895,10 @@ export const TEXTES = {
       "ce": [
         "द्विवर्णी — केंद्रीय सममिति",
         "{n} पैटर्न (केवल 180° की केंद्रीय सममिति, 3 अक्टूबर के नियम से पढ़ने योग्य)"
+      ],
+      "q4": [
+        "त्रिरंगी — चार-अक्ष रूप",
+        "{n} पैटर्न (चार दर्पण-अक्ष: संग्रह से अधिक रूप)"
       ],
       "b1971128": [
         "ब्लॉक 1971128",
@@ -3276,6 +3305,10 @@ export const TEXTES = {
         "Zweifarbig — Zentralsymmetrie",
         "{n} Muster (nur 180°-Zentralsymmetrie, lesbar nach der Regel vom 3. Oktober)"
       ],
+      "q4": [
+        "Dreifarbig — Formen mit vier Achsen",
+        "{n} Muster (vier Spiegelachsen: die Formen über das Korpus hinaus)"
+      ],
       "b1971128": [
         "Block 1971128",
         "{n} Muster"
@@ -3681,6 +3714,10 @@ export const TEXTES = {
         "Bicolore — simmetria centrale",
         "{n} motivi (solo simmetria centrale a 180°, leggibili con la regola del 3 ottobre)"
       ],
+      "q4": [
+        "Tricolore — forme a quattro assi",
+        "{n} motivi (quattro assi di specchio: le forme oltre il corpus)"
+      ],
       "b1971128": [
         "Blocco 1971128",
         "{n} motivi"
@@ -4085,6 +4122,10 @@ export const TEXTES = {
       "ce": [
         "二色 — 中心対称",
         "{n} 個の紋様（180° の中心対称のみ。10月3日の規則で読めます）"
+      ],
+      "q4": [
+        "三色 — 四軸の形",
+        "{n} 個の模様（四本の鏡映軸：コーパスに加わる形）"
       ],
       "b1971128": [
         "ブロック 1971128",
