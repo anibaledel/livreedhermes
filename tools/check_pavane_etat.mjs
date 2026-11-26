@@ -59,6 +59,10 @@ ok(DEFAUTS.source === 'micro' && DEFAUTS.morceau === 'j1' && DEFAUTS.note === 44
 ok(L('?reduit=1').etat.reduit === true && L('?reduit=0').etat.reduit === false && L('').etat.reduit === false && DEFAUTS.reduit === false, 'reduit : 1 vrai, 0 faux, absent faux');
 for (const mauvais of ['2', 'oui', '', 'true']) ok(L(`?reduit=${mauvais}`).etat.reduit === false && L(`?reduit=${mauvais}`).ignores.includes('reduit'), `reduit=${mauvais} est refusé`);
 ok(ecrireEtat({ ...DEFAUTS, reduit: true }) === '?reduit=1' && L(ecrireEtat({ ...DEFAUTS, reduit: true })).etat.reduit === true && ecrireEtat(DEFAUTS) === '', 'reduit : s\'écrit ?reduit=1 et revient identique ; le défaut s\'écrit vide');
+// les formes étendues (256 formes à quatre axes de plus, pour le spectre et l'entre-deux) : désactivées par défaut, listes fermées, écrites ?etendu=1
+ok(DEFAUTS.etendu === false && L('?etendu=1').etat.etendu === true && L('?etendu=0').etat.etendu === false, 'etendu : faux par défaut, ?etendu=1 l\'active, ?etendu=0 le coupe');
+{ const r = L('?etendu=oui'); ok(r.ignores.includes('etendu') && r.etat.etendu === false, '?etendu=oui est ignoré (le défaut s\'applique)'); }
+ok(ecrireEtat({ ...DEFAUTS, etendu: true }) === '?etendu=1' && L(ecrireEtat({ ...DEFAUTS, etendu: true })).etat.etendu === true, 'etendu : s\'écrit ?etendu=1 et revient');
 // un lien qui fixe la source ou la piste garde le dessus sur le micro par défaut ; l'aller-retour est exact
 ok(L('').etat.source === 'micro' && L('?source=morceau').etat.source === 'morceau' && L('?piste=j4').etat.source === 'morceau' && L('?piste=j4').etat.morceau === 'j4', 'micro par défaut ; ?source=morceau et ?piste=… (sans source) donnent le morceau');
 ok(L('?piste=j4&source=micro').etat.source === 'micro' && L('?source=note').etat.source === 'note', '?source= explicite garde le dessus sur ?piste=');

@@ -262,6 +262,26 @@ for (const [langue, noms] of Object.entries(NOMS)) {
   ok(await s4.page.$eval('input[id$=reduit]', (c) => c.checked && c.disabled), 'prefers-reduced-motion : la case est cochée et imposée par le système');
   await c4.close();
 }
+
+// les formes étendues : lues SEULEMENT quand l'option est active ; case reflétée par l'adresse ; aucune erreur
+{
+  const ce = await nav.newContext({ viewport: { width: 1280, height: 900 } });
+  const demandes = [];
+  const s0 = await monter(ce, 'fr', '?mode=spectre');
+  s0.page.on('request', (r) => { if (/formes-quatre-axes-288/.test(r.url())) demandes.push(r.url()); });
+  ok(await s0.page.$eval('input[id$=etendu]', (c) => !c.checked), 'formes étendues : case décochée par défaut');
+  ok(!(await s0.page.evaluate(() => performance.getEntriesByType('resource').some((e) => /formes-quatre-axes-288/.test(e.name)))), 'formes étendues : le fichier n\'est pas lu tant que l\'option est coupée');
+  await s0.page.click('input[id$=etendu]'); await s0.page.waitForTimeout(1500);
+  ok(await s0.page.evaluate(() => window.__pavane.etat().etendu === true && location.search.includes('etendu=1')), 'formes étendues : cocher la case active l\'option et l\'écrit dans l\'adresse');
+  ok(demandes.length === 1, `formes étendues : le fichier est lu une fois au moment de cocher (${demandes.length})`);
+  await s0.page.click('input[id$=etendu]'); await s0.page.waitForTimeout(500);
+  ok(await s0.page.evaluate(() => window.__pavane.etat().etendu === false && !location.search.includes('etendu')), 'formes étendues : décocher revient au corpus et efface le paramètre');
+  ok(s0.erreurs.length === 0, `formes étendues : aucune erreur (${s0.erreurs.join(' | ')})`);
+  const s1 = await monter(ce, 'fr', '?mode=entre-deux&etendu=1');
+  ok(await s1.page.$eval('input[id$=etendu]', (c) => c.checked) && await s1.page.evaluate(() => window.__pavane.etat().etendu === true), 'formes étendues : ?etendu=1 coche la case au chargement');
+  ok(s1.erreurs.length === 0, `formes étendues (?etendu=1) : aucune erreur (${s1.erreurs.join(' | ')})`);
+  await ce.close();
+}
 await nav.close();
 if (serveur && serveur.close) serveur.close();
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }

@@ -63,15 +63,24 @@ Les 256 formes nouvelles ne ferment donc pas le cube ; les 64 grilles du corpus 
 | sinus | 0,427 | 0,528 | 0,364 | 0,475 | 0,397 |
 | harmoniques et accords | 0,451 | 0,517 | 0,412 | 0,529 | 0,441 |
 | bruits, balayage, impulsions | 0,279 | 0,407 | 0,242 | 0,420 | 0,271 |
+| timbres synthétiques (voix, cordes, cloche, tambour, pluie…) | 0,407 | 0,506 | 0,369 | **0,516** | 0,406 (0,401 à 0,409) |
 
 Lecture : (a) sur les sept fichiers, le corpus actuel a un meilleur score médian de 0,44 ; avec les 256 formes à quatre axes et le spectre à trois teintes, 0,56. (b) **Les témoins montrent que ce n'est pas l'effet du nombre de motifs** : 256 grilles unifiées sans miroir ajoutées au hasard ne font pas mieux que le corpus seul (0,42 contre 0,44), tandis que les 256 formes à quatre axes gagnent 0,12. (c) Le spectre à trois teintes seul, sans nouvelles formes, est moins bon (0,39) : le corpus n'a presque rien aux cercles pairs ; c'est avec les formes nouvelles que ces cercles deviennent utiles. (d) Sur des vecteurs de son aléatoires (3 000), l'amélioration est du même ordre pour les sons à large bande ; pour des sons harmoniques (fondamentale et harmoniques aux cercles K, 4K, 9K…), la médiane du corpus est de 0,13 (quasi hasard) et monte à 0,50 avec D.
 
-*Limites.* Le repère est le score du moteur lui-même (cosinus centré sur la moyenne du jeu de motifs : les scores de jeux de tailles différentes ne sont pas strictement comparables). Seuls sept vrais fichiers sont disponibles dans le dépôt, et ce sont des notes d'un même instrument ; ce n'est pas un échantillon de musique. Aucun test d'écoute ni de préférence : une meilleure ressemblance spectrale n'est pas une meilleure image.
+*Limites.* Les « timbres synthétiques » élargissent le jeu de sons mais restent synthétiques : ce n'est pas un échantillon de vraie musique, et il reste à l'élargir avec de vrais morceaux. Le repère est le score du moteur lui-même (cosinus centré sur la moyenne du jeu de motifs : les scores de jeux de tailles différentes ne sont pas strictement comparables). Seuls sept vrais fichiers sont disponibles dans le dépôt, et ce sont des notes d'un même instrument ; ce n'est pas un échantillon de musique. Aucun test d'écoute ni de préférence : une meilleure ressemblance spectrale n'est pas une meilleure image.
 
-**4.3. Trois observations sur le moteur, à corpus constant** (pas implémentées) :
-1. Un sinus entre deux cercles (138,6, 165, 196 Hz) obtient un score de 0,12, quasi nul : les bandes sont des points de fréquence (110 √K), pas des intervalles ; une note qui tombe entre deux cercles est mal représentée, quel que soit le corpus.
-2. Un sinus à 2 000 Hz, hors de toutes les bandes (le plus haut cercle est à 933 Hz), n'est pas traité comme un silence : les fuites de la fenêtre donnent un vecteur non nul, normalisé, apparié avec un score de 0,37. Un seuil d'énergie absolue sur les bandes éviterait de montrer un motif pour un son qui n'a rien dans les bandes.
-3. Le spectre du champ ignore la moitié des cercles (4.1) : la remédiation passe par le choix du spectre (trois teintes) et par des formes qui ont de l'énergie aux cercles pairs.
+**4.3. Trois constats sur le moteur, à corpus constant.**
+1. Un sinus entre deux cercles (138,6, 165, 196 Hz) obtient un score de 0,12, quasi nul : les bandes sont des points de fréquence (110 √K), pas des intervalles ; une note qui tombe entre deux cercles est mal représentée, quel que soit le corpus. *Non corrigé* : cela demande de changer la façon dont le son est réparti sur les bandes (par exemple une largeur de bande), ce qui touche à la recette de l'appariement.
+2. Un sinus à 2 000 Hz, hors de toutes les bandes (le plus haut cercle est à 933 Hz), était normalisé et apparié comme un vrai son (score 0,37). **Corrigé** : `SEUIL_ENERGIE = 10⁻⁴` dans `assets/musique-chladni-moteur.js`. Le seuil est calibré sur des mesures : les sept fichiers ont une énergie de bandes de 2 × 10⁻³ au minimum (médiane 3 × 10⁻²), un sinus de −60 dBFS dans une bande 5 × 10⁻⁴, de −80 dBFS 5 × 10⁻⁵, un micro silencieux (−90 dBFS) 1 × 10⁻⁶ et un sinus hors bandes 2 × 10⁻⁷. Sous le seuil, le son est traité comme un silence (aucun motif apparié).
+3. Le spectre du champ ignore la moitié des cercles (4.1). **Traité par l'option « Formes étendues »** (4.4), qui emploie le spectre à trois teintes et les formes qui ont de l'énergie aux cercles pairs.
+
+**4.4. Dans l'application « Voir sa musique ».** Une option **« Formes étendues (256 de plus, à quatre axes) »** (case à cocher, adresse `?etendu=1`, désactivée par défaut, 11 langues) :
+- pour le **Spectre** et l'**Entre-deux**, le jeu d'appariement passe de 64 à 320 motifs (les 64 du corpus plus les 256 formes à quatre axes, `data/formes-quatre-axes-288.json`) avec le spectre à trois teintes, le meilleur des quatre jeux mesurés en 4.2 ;
+- le **Défilé** et le corpus actuel (256 grilles, `data/corpus-256.json`) ne changent pas ;
+- le fichier des formes n'est lu **que si l'option est active** ;
+- une forme étendue se montre elle-même (pas de négatif ni de membres), et sa fiche dit « quatre axes de miroir ; couche nouvelle, hors du jeu de plaques actuel » ;
+- l'option ne change rien à la photosensibilité (le plancher de 0,8 s et le mode « Mouvement réduit » s'appliquent comme avant).
+Tests : `tools/check_pavane_moteur.mjs` (silence, bloc étendu, parité des cercles), `tools/check_pavane_etat.mjs`, `tools/check_pavane_ui.mjs` (l'option, l'adresse, le chargement à la demande). *Non vérifié* : l'effet de l'option à l'oreille et à l'œil ; elle améliore le score du moteur, pas nécessairement l'expérience.
 
 ## 5. Hypothèses sonores (pas des résultats)
 
@@ -82,10 +91,10 @@ Ces points se testent par calcul sur les grilles ; aucun sens musical n'est attr
 ## 6. Ce qui reste à établir
 
 1. La **démonstration** du miroir hors des axes de la carte (2.2), et l'existence d'une **carte des niveaux à axes sur le centre des cases** (3.2).
-2. Un **tirage plus large des sons** pour la couverture (4.2) : de vrais morceaux, plusieurs instruments, la voix ; et un critère d'évaluation autre que le score du moteur.
+2. Un **jeu de sons réels plus large** pour la couverture (4.2) : de vrais morceaux, plusieurs instruments, la voix, enregistrés ; et un critère d'évaluation autre que le score du moteur (par exemple un test d'écoute).
 3. Les décomptes du 3.3 (échantillon) et du 3.1 (grilles distinctes, distances) dans des outils de CI.
 4. La construction **physique** des plaques des nouvelles couches n'est pas étudiée, ni leur intérêt avec l'objet : les formes nouvelles ne ferment pas le cube (3.4).
 
 ## 7. Fichiers
 
-Outils : `tools/corpus_miroir.py`, `tools/miroir_autres_couches.py`, `tools/formes_quatre_axes.py`, `tools/formes_quatre_axes_lecture.mjs`, `tools/couverture_son.mjs`. Résultats enregistrés : `formes-quatre-axes`, `formes-quatre-axes-lecture` dans `data/resultats-etablis.json`. Données : `data/couches-quatre-axes.json`, `data/formes-quatre-axes-288.json`, `data/couverture-son.json`, `data/corpus-256.json`, `data/referent_360_v3.json`. Planches : `docs/captures/corpus-64-formes-miroir.png`, `hybrides-diagonales.png`, `hybrides-axes.png`, `quatre-axes-288-formes.png`, `quatre-axes-nouvelles-formes.png`, `quatre-axes-par-socle.png`.
+Outils : `tools/corpus_miroir.py`, `tools/miroir_autres_couches.py`, `tools/formes_quatre_axes.py`, `tools/formes_quatre_axes_lecture.mjs`, `tools/couverture_son.mjs`. Application : `assets/musique-chladni-moteur.js` (SEUIL_ENERGIE), `assets/pavane-moteur.js` (blocEtendu, spectre à trois teintes), `assets/pavane-ui.js`, `assets/pavane-etat.js`, `assets/pavane-textes.js`. Résultats enregistrés : `formes-quatre-axes`, `formes-quatre-axes-lecture` dans `data/resultats-etablis.json`. Données : `data/couches-quatre-axes.json`, `data/formes-quatre-axes-288.json`, `data/couverture-son.json`, `data/corpus-256.json`, `data/referent_360_v3.json`. Planches : `docs/captures/corpus-64-formes-miroir.png`, `hybrides-diagonales.png`, `hybrides-axes.png`, `quatre-axes-288-formes.png`, `quatre-axes-nouvelles-formes.png`, `quatre-axes-par-socle.png`.

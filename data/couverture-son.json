@@ -44,6 +44,17 @@
     0.267,
     0.275
    ]
+  },
+  "timbres synthétiques (voix, cordes, cloche, tambour, pluie…)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.407,
+   "B  A + 256 formes à quatre axes, champ": 0.506,
+   "C  64 du corpus, trois teintes": 0.369,
+   "D  B avec trois teintes": 0.516,
+   "T  moyenne des 5 témoins": 0.406,
+   "T  min / max": [
+    0.401,
+    0.409
+   ]
   }
  },
  "par_son": {
@@ -368,14 +379,157 @@
   },
   "impulsions": {
    "A  64 du corpus, champ (moteur actuel)": 0.157,
-   "B  A + 256 formes à quatre axes, champ": 0.287,
+   "B  A + 256 formes à quatre axes, champ": 0.286,
    "C  64 du corpus, trois teintes": 0.151,
-   "D  B avec trois teintes": 0.519,
+   "D  B avec trois teintes": 0.52,
    "T1 64 + 256 au hasard sans miroir, trois teintes": 0.162,
    "T2 64 + 256 au hasard sans miroir, trois teintes": 0.159,
    "T3 64 + 256 au hasard sans miroir, trois teintes": 0.158,
    "T4 64 + 256 au hasard sans miroir, trois teintes": 0.189,
    "T5 64 + 256 au hasard sans miroir, trois teintes": 0.185
+  },
+  "voix « a » (220 Hz, formants 800 / 1150 / 2800)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.526,
+   "B  A + 256 formes à quatre axes, champ": 0.639,
+   "C  64 du corpus, trois teintes": 0.476,
+   "D  B avec trois teintes": 0.47,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.49,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.493,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.474,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.485,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.48
+  },
+  "voix « i » (196 Hz, formants 270 / 2300 / 3000)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.257,
+   "B  A + 256 formes à quatre axes, champ": 0.348,
+   "C  64 du corpus, trois teintes": 0.226,
+   "D  B avec trois teintes": 0.464,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.265,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.272,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.271,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.273,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.267
+  },
+  "voix « ou » (165 Hz, formants 300 / 870)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.39,
+   "B  A + 256 formes à quatre axes, champ": 0.491,
+   "C  64 du corpus, trois teintes": 0.383,
+   "D  B avec trois teintes": 0.672,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.429,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.417,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.425,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.418,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.432
+  },
+  "corde pincée 196 Hz (harmoniques décroissantes)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.298,
+   "B  A + 256 formes à quatre axes, champ": 0.332,
+   "C  64 du corpus, trois teintes": 0.261,
+   "D  B avec trois teintes": 0.471,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.298,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.303,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.304,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.305,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.297
+  },
+  "violon 330 Hz, vibrato (scie adoucie)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.326,
+   "B  A + 256 formes à quatre axes, champ": 0.438,
+   "C  64 du corpus, trois teintes": 0.299,
+   "D  B avec trois teintes": 0.5,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.407,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.333,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.353,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.377,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.404
+  },
+  "cloche FM (440 Hz, rapport 3,5)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.505,
+   "B  A + 256 formes à quatre axes, champ": 0.594,
+   "C  64 du corpus, trois teintes": 0.446,
+   "D  B avec trois teintes": 0.59,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.48,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.475,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.476,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.475,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.48
+  },
+  "scie 110 Hz": {
+   "A  64 du corpus, champ (moteur actuel)": 0.439,
+   "B  A + 256 formes à quatre axes, champ": 0.456,
+   "C  64 du corpus, trois teintes": 0.406,
+   "D  B avec trois teintes": 0.522,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.429,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.399,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.493,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.394,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.421
+  },
+  "carré 220 Hz": {
+   "A  64 du corpus, champ (moteur actuel)": 0.359,
+   "B  A + 256 formes à quatre axes, champ": 0.464,
+   "C  64 du corpus, trois teintes": 0.296,
+   "D  B avec trois teintes": 0.294,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.317,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.325,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.315,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.318,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.313
+  },
+  "tambour (bruit filtré, 4 coups par seconde)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.441,
+   "B  A + 256 formes à quatre axes, champ": 0.551,
+   "C  64 du corpus, trois teintes": 0.483,
+   "D  B avec trois teintes": 0.596,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.557,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.543,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.552,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.541,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.561
+  },
+  "progression do – fa – sol – do": {
+   "A  64 du corpus, champ (moteur actuel)": 0.571,
+   "B  A + 256 formes à quatre axes, champ": 0.634,
+   "C  64 du corpus, trois teintes": 0.524,
+   "D  B avec trois teintes": 0.623,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.536,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.572,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.541,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.585,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.537
+  },
+  "pluie (bruit passe-haut)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.385,
+   "B  A + 256 formes à quatre axes, champ": 0.55,
+   "C  64 du corpus, trois teintes": 0.345,
+   "D  B avec trois teintes": 0.382,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.344,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.343,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.333,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.347,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.337
+  },
+  "vent (bruit passe-bas lent)": {
+   "A  64 du corpus, champ (moteur actuel)": 0.227,
+   "B  A + 256 formes à quatre axes, champ": 0.349,
+   "C  64 du corpus, trois teintes": 0.179,
+   "D  B avec trois teintes": 0.462,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.225,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.22,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.23,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.229,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.234
+  },
+  "souffle de flûte 523 Hz + bruit": {
+   "A  64 du corpus, champ (moteur actuel)": 0.568,
+   "B  A + 256 formes à quatre axes, champ": 0.732,
+   "C  64 du corpus, trois teintes": 0.469,
+   "D  B avec trois teintes": 0.662,
+   "T1 64 + 256 au hasard sans miroir, trois teintes": 0.537,
+   "T2 64 + 256 au hasard sans miroir, trois teintes": 0.523,
+   "T3 64 + 256 au hasard sans miroir, trois teintes": 0.523,
+   "T4 64 + 256 au hasard sans miroir, trois teintes": 0.523,
+   "T5 64 + 256 au hasard sans miroir, trois teintes": 0.536
   }
  }
 }

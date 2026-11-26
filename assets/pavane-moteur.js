@@ -40,6 +40,7 @@ export function listeDuNiveau(corpus, niveau) {
 }
 /** Le membre de la classe du représentant `repId` à montrer : 64 le représentant ; 128 le représentant (rang 0) ou son négatif (rang 1) ; 256 les 4 membres (rang 0..3). */
 export function membreAffiche(corpus, repId, niveau, rang = 0) {
+  if (String(repId).startsWith('q4-')) return repId; // une forme à quatre axes étendue n'a ni négatif ni membres affichés : elle se montre elle-même
   const cl = corpus.niveaux['64'].find((c) => c.representant.id === repId);
   if (!cl) throw new Error(`pavane-moteur.js : « ${repId} » n'est pas un représentant`);
   if (niveau === 64) return repId;
@@ -81,17 +82,42 @@ export function creerDefile({ n, distance, graine = 1 }) {
 /** Le champ tricolore d'une entrée : V = +1, O = 0, M = −1 (celui de musique-chladni-moteur.js). */
 export const champDeLEntree = (e) => e.tricolore.flatMap((l) => [...l].map((c) => (c === 'V' ? 1 : c === 'M' ? -1 : 0)));
 /** Un bloc de spectres, de la forme que musique-chladni-moteur.js lit, pour les 64 représentants du corpus ; `ids` dans l'ordre du corpus. */
-export function blocDuCorpus64(corpus, fref = 220) {
-  const reps = corpus.niveaux['64'].map((c) => c.representant.id), par = new Map(corpus.entrees.map((e) => [e.id, e]));
-  const NS = SHELLS12.length, n = reps.length, P = new Float64Array(n * NS);
-  reps.forEach((id, j) => { const w = spectreDuChamp(champDeLEntree(par.get(id))); const nn = Math.hypot(...w) || 1; P.set(w.map((x) => x / nn), j * NS); }); // des vecteurs normés : vecteurAudio() normalise aussi le son avant de centrer
+/**
+ * Le spectre d'un champ V = +1, M = −1, O = 0 : celui du moteur actuel (`champ`) ne porte que des cercles K impairs (11 des 26 cercles pour les 64 représentants du corpus) ; le spectre « à trois teintes »
+ * (la somme des puissances des indicateurs de V, de M et de O, puis la racine) en porte aussi de pairs (docs/article-parallele-unified-patterns.md, 4.1 : 19 cercles pour les 256 formes à quatre axes).
+ */
+export function spectreDuMotif(champ, spectre = 'champ') {
+  if (spectre === 'champ') return spectreDuChamp(champ);
+  if (spectre !== 'trois-teintes') throw new Error(`pavane-moteur.js : spectre « ${spectre} » inconnu (champ ou trois-teintes)`);
+  const w = new Float64Array(SHELLS12.length);
+  for (const cible of [1, -1, 0]) { const wc = spectreDuChamp(champ.map((x) => (x === cible ? 1 : 0))); for (let k = 0; k < w.length; k++) w[k] += wc[k] * wc[k]; }
+  return w.map(Math.sqrt);
+}
+/** Un bloc (vecteurs normés puis centrés sur la moyenne du jeu, comme blocDuCorpus64) pour une liste de motifs { id, champ }. */
+export function blocDeMotifs(id, motifs, { fref = 220, spectre = 'champ' } = {}) {
+  const NS = SHELLS12.length, n = motifs.length, P = new Float64Array(n * NS);
+  motifs.forEach((m, j) => { const w = spectreDuMotif(m.champ, spectre); const nn = Math.hypot(...w) || 1; P.set(w.map((x) => x / nn), j * NS); });
   const mean = new Float64Array(NS); for (let j = 0; j < n; j++) for (let k = 0; k < NS; k++) mean[k] += P[j * NS + k] / n;
   const Pc = new Float32Array(n * NS);
   for (let j = 0; j < n; j++) {
     let s = 0; for (let k = 0; k < NS; k++) { const v = P[j * NS + k] - mean[k]; Pc[j * NS + k] = v; s += v * v; }
     s = Math.sqrt(s) || 1; for (let k = 0; k < NS; k++) Pc[j * NS + k] /= s;
   }
-  return { id: 'corpus-64', n, NS, ids: reps, shells: SHELLS12, fref, grid: 12, mean, Pc, P, profil: `${fref}|${SHELLS12.join(',')}` };
+  return { id, n, NS, ids: motifs.map((m) => m.id), shells: SHELLS12, fref, grid: 12, mean, Pc, P, profil: `${fref}|${SHELLS12.join(',')}` };
+}
+export function blocDuCorpus64(corpus, fref = 220, { spectre = 'champ' } = {}) {
+  const par = new Map(corpus.entrees.map((e) => [e.id, e]));
+  return blocDeMotifs('corpus-64', corpus.niveaux['64'].map((c) => ({ id: c.representant.id, champ: champDeLEntree(par.get(c.representant.id)) })), { fref, spectre });
+}
+/** Les formes à quatre axes de data/formes-quatre-axes-288.json qui ne sont pas dans le corpus (256) : des entrées { id, tricolore, quatreAxes } comme celles du corpus, pour l'affichage. */
+export function entreesEtendues(formes) {
+  return formes.formes.filter((f) => !f.corpus).map((f, i) => ({ id: f.id, tricolore: f.tricolore, quatre_axes: true, rang: i + 1 }));
+}
+/** Le bloc étendu : les 64 représentants du corpus puis les formes à quatre axes nouvelles, avec le spectre à trois teintes (le meilleur des quatre jeux mesurés, voir tools/couverture_son.mjs). */
+export function blocEtendu(corpus, formes, { fref = 220, spectre = 'trois-teintes' } = {}) {
+  const par = new Map(corpus.entrees.map((e) => [e.id, e]));
+  const motifs = [...corpus.niveaux['64'].map((c) => ({ id: c.representant.id, champ: champDeLEntree(par.get(c.representant.id)) })), ...entreesEtendues(formes).map((e) => ({ id: e.id, champ: champDeLEntree(e) }))];
+  return blocDeMotifs('corpus-64-etendu', motifs, { fref, spectre });
 }
 const cosinus = (bloc, j, a) => { let s = 0; for (let k = 0; k < bloc.NS; k++) s += bloc.Pc[j * bloc.NS + k] * a[k]; return s; };
 /** Les `k` motifs du bloc les plus ressemblants au vecteur de son `v` : [{ i, score }], du plus au moins ressemblant (à score égal, le plus petit indice). */

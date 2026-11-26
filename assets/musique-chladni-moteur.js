@@ -363,9 +363,15 @@ export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true, shell
   }
   return out;
 }
-/** Le vecteur de la musique, normalisé puis centré sur la moyenne du bloc, puis normalisé ; null en cas de silence. */
+/**
+ * L'énergie sous laquelle un son est TRAITÉ COMME UN SILENCE : la norme du vecteur de bandes (amplitudes linéaires, 1 = pleine échelle) — mesurée sur les sept fichiers du site (médiane 3 × 10⁻², minimum 2 × 10⁻³),
+ * sur un sinus de −60 dBFS dans une bande (5 × 10⁻⁴), de −80 dBFS (5 × 10⁻⁵), sur un micro silencieux (bruit à −90 dBFS : 1 × 10⁻⁶) et sur un sinus hors de toutes les bandes, à 2 000 Hz ou plus (2 × 10⁻⁷ : des fuites de fenêtre).
+ * Avant, le seuil était 10⁻⁹ : un son sans rien dans les bandes était normalisé et apparié comme un vrai son (score de 0,37 pour un sinus à 2 000 Hz). 10⁻⁴ (−80 dB) laisse passer toute musique audible.
+ */
+export const SEUIL_ENERGIE = 1e-4;
+/** Le vecteur de la musique, normalisé puis centré sur la moyenne du bloc, puis normalisé ; null en cas de silence (énergie sous SEUIL_ENERGIE). */
 export function vecteurAudio(v, bloc) {
-  const nn = norme(v); if (nn < 1e-9) return null;
+  const nn = norme(v); if (nn < SEUIL_ENERGIE) return null;
   const a = new Float32Array(bloc.NS); let t = 0;
   for (let k = 0; k < bloc.NS; k++) { a[k] = v[k] / nn - bloc.mean[k]; t += a[k] * a[k]; }
   t = Math.sqrt(t) || 1; for (let k = 0; k < bloc.NS; k++) a[k] /= t;

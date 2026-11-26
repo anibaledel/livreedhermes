@@ -15,7 +15,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SHELLS12, frequenceSelonLoi } from '../assets/musique-chladni-moteur.js';
+import { SHELLS12, frequenceSelonLoi, SEUIL_ENERGIE, meilleurMotif } from '../assets/musique-chladni-moteur.js';
 import * as NOM from '../assets/pavane-nom.js';
 import * as P from '../assets/pavane-moteur.js';
 
@@ -198,6 +198,28 @@ let maxDefile = 0, maxReduit = 0;
   const lent = [mesure('minuteur', 0.5, 3), mesure('pulsation', 0.5, 3)];
   maxReduit = Math.max(...lent.map((x) => x.fenetre));
   if (maxReduit > 1) ko(`défilé en mouvement réduit : jusqu'à ${maxReduit} changements en une seconde, 1 au plus attendu (tenue de 3 s)`);
+}
+
+
+// ---------- le silence, et les formes étendues (docs/article-parallele-unified-patterns.md, 4) ----------
+{
+  const bloc = P.blocDuCorpus64(corpus), NS = SHELLS12.length;
+  const vecteur = (norme) => { const v = new Float64Array(NS); v[3] = norme; v[7] = norme / 2; return v; };
+  if (meilleurMotif(vecteur(SEUIL_ENERGIE / 10), bloc).i !== -1) ko(`un son d'énergie ${SEUIL_ENERGIE / 10} (sous le seuil ${SEUIL_ENERGIE}) n'est pas traité comme un silence`);
+  if (meilleurMotif(vecteur(5e-4), bloc).i === -1) ko('un son de −60 dBFS dans une bande (norme 5e-4) est traité comme un silence');
+  if (SEUIL_ENERGIE < 1e-7 || SEUIL_ENERGIE > 1e-3) ko(`SEUIL_ENERGIE = ${SEUIL_ENERGIE} hors de l'intervalle mesuré (1e-7 à 1e-3)`);
+  const formes = JSON.parse(readFileSync(path.join(ROOT, 'data/formes-quatre-axes-288.json'), 'utf8'));
+  const nouvelles = P.entreesEtendues(formes);
+  if (nouvelles.length !== 256 || nouvelles.some((e) => e.tricolore.length !== 12 || !/^q4-\d{3}$/.test(e.id))) ko(`les formes étendues : ${nouvelles.length} entrées au lieu de 256 (12 lignes, identifiant q4-NNN)`);
+  const etendu = P.blocEtendu(corpus, formes);
+  if (etendu.n !== 320 || etendu.ids.length !== 320 || etendu.ids.slice(0, 64).join() !== bloc.ids.join()) ko(`le bloc étendu : ${etendu.n} motifs, les 64 premiers ne sont pas ceux du corpus`);
+  const sansEnergiePaire = (b, spectre) => { const w = new Float64Array(NS); for (let j = 0; j < b.n; j++) for (let k = 0; k < NS; k++) w[k] += b.P[j * NS + k]; return SHELLS12.every((K, k) => K % 2 === 1 || w[k] < 1e-9); };
+  if (!sansEnergiePaire(bloc)) ko('le spectre du champ (moteur actuel) a de l\'énergie à un cercle K pair : la parité impaire n\'est plus celle du champ V = +1, O = 0, M = −1');
+  if (sansEnergiePaire(etendu)) ko('le bloc étendu à trois teintes n\'a aucune énergie aux cercles pairs');
+  const defaut = P.blocDuCorpus64(corpus, 220, { spectre: 'champ' });
+  if (defaut.n !== bloc.n || defaut.Pc.some((x, i) => x !== bloc.Pc[i])) ko('blocDuCorpus64 avec spectre « champ » n\'est pas identique au défaut');
+  let refuse = false; try { P.spectreDuMotif(new Array(144).fill(0), 'inconnu'); } catch { refuse = true; } if (!refuse) ko('un spectre inconnu n\'est pas refusé');
+  if (P.membreAffiche(corpus, 'q4-040', 128) !== 'q4-040') ko('une forme étendue ne se montre pas elle-même');
 }
 
 if (essai) {

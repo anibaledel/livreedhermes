@@ -13,7 +13,7 @@ import { groupesDe } from './fonds-groupes.js';
 import { lireEtat, ecrireEtat, fusionnerRecherche, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';
 import { NIVEAUX_CORPUS } from './corpus-animation.js';
-import { creerDefile, creerChef, listeDuNiveau, distancesDe, blocDuCorpus64, membreAffiche } from './pavane-moteur.js';
+import { creerDefile, creerChef, listeDuNiveau, distancesDe, blocDuCorpus64, blocEtendu, entreesEtendues, membreAffiche } from './pavane-moteur.js';
 import { creerSon, frequenceDuCurseur, curseurDeFrequence } from './pavane-son.js';
 import { texte } from './pavane-textes.js';
 
@@ -49,10 +49,27 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const groupes = groupesDe(proposes, definitions.fonds), memoireGroupe = new Map(groupes.map((g) => [g.groupe, g.defaut]));
   const parId = new Map(corpus.entrees.map((e) => [e.id, e]));
   const reduitMq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false, addEventListener() {} };
-  const bloc64 = blocDuCorpus64(corpus), ids64 = listeDuNiveau(corpus, 64), distance64 = distancesDe(corpus, ids64);
+  const bloc64Base = blocDuCorpus64(corpus), ids64Base = listeDuNiveau(corpus, 64), distance64Base = distancesDe(corpus, ids64Base);
+  // Les formes étendues (256 formes à quatre axes de plus, data/formes-quatre-axes-288.json) : lues SEULEMENT quand l'option est active, pour le spectre et l'entre-deux ; le défilé et le corpus ne changent pas.
+  let bloc64 = bloc64Base, ids64 = ids64Base, distance64 = distance64Base, formesEtendues = null;
+  async function activerEtendu(actif) {
+    if (!actif) { bloc64 = bloc64Base; ids64 = ids64Base; distance64 = distance64Base; return true; }
+    try {
+      if (!formesEtendues) {
+        formesEtendues = await json('data/formes-quatre-axes-288.json');
+        const nouvelles = entreesEtendues(formesEtendues);
+        for (const e of nouvelles) parId.set(e.id, e);
+        formesEtendues.entrees = nouvelles;
+      }
+      const corpusE = { ...corpus, entrees: [...corpus.entrees, ...formesEtendues.entrees] };
+      bloc64 = blocEtendu(corpus, formesEtendues); ids64 = bloc64.ids.slice(); distance64 = distancesDe(corpusE, ids64);
+      return true;
+    } catch (e) { bloc64 = bloc64Base; ids64 = ids64Base; distance64 = distance64Base; return false; }
+  }
   const son = creerSon();
 
   let { etat } = lireEtat(recherche, proposes);
+  if (etat.etendu && !(await activerEtendu(true))) etat = { ...etat, etendu: false }; // un lien ?etendu=1 charge les formes avant le premier motif ; si elles manquent, l'option retombe
   // le micro est la source de départ (prompt 220) : jamais demandé au chargement, seulement au bouton « Activer le micro » ; refusé ou impossible, un morceau d'exemple le remplace, en le disant.
   // Un lien qui fixe la source (?source=…, ?piste=…) garde le dessus : alors, pas de repli.
   let microParDefaut = etat.source === 'micro' && !new URLSearchParams(recherche).has('source');
@@ -96,6 +113,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const personnalise = el('div', { hidden: true }, el('label', {}, el('span', { text: T('couleurFond') }), inC0), el('label', {}, el('span', { text: T('couleurFigure') }), inC1));
   const erreur = el('p', { class: 'pv-erreur', role: 'alert', hidden: true, text: T('contrasteRefus') });
   const cTrace = el('input', { type: 'checkbox', id: `${id}-trace` });
+  const cEtendu = el('input', { type: 'checkbox', id: `${id}-etendu` });
   // « Mouvement réduit » (prompt 223) : la préférence du système OU la case (clé d'adresse `reduit`) ; il impose au rythme une période d'au moins PERIODE_MIN_REDUIT_S (0,33 changement par seconde, bien sous les 3 par seconde de WCAG 2.3.1)
   const cReduit = el('input', { type: 'checkbox', id: `${id}-reduit` }), nReduit = el('small', { class: 'pv-doux', hidden: true, text: T('reduitSysteme') });
   // l'avertissement photosensible : au premier lancement (mémorisé dans localStorage, dans un try/catch : sans stockage, il revient à chaque ouverture), puis un lien près des réglages
@@ -112,7 +130,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const reglages = el('div', { class: 'pv-reglages', role: 'group', 'aria-label': T('reglages') },
     choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), selVariante, choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
-    el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert);
+    el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', { class: 'pv-etendu' }, cEtendu, el('span', { text: T('etendu') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert);
   racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), avert, modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
   racine.classList.toggle('pv-reduit', reduit);
 
@@ -130,11 +148,12 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const urlDe = (svg) => `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
   // La fiche calculée du motif (prompt 250) : son complément (le partenaire du demi-décalage : n → 63 − n, même forme) et son code à 9 bits [phase du yang | yin présent | couple | n] ; rien n'est lu hors du corpus.
   function ficheTexte(idMotif) {
+    if (parId.get(idMotif).quatre_axes) return T('ficheEtendue');
     const e = parId.get(idMotif), f = e.familles[0], p = parId.get(e.partenaire_demi_decalage), n = e.n_site_par_famille[f];
     const code = `${/YANG-MUT$/.test(f) ? 1 : 0}${/YIN/.test(f) ? 1 : 0}0${n.toString(2).padStart(6, '0')}`;
     return T('fiche', { kwc: p.kingwen_par_famille[f], nc: p.n_site_par_famille[f], code });
   }
-  function libelle(idMotif) { const e = parId.get(idMotif), f = e.familles[0]; return T('motif', { kw: e.kingwen_par_famille[f], n: e.n_site_par_famille[f] }); }
+  function libelle(idMotif) { const e = parId.get(idMotif); if (e.quatre_axes) return T('motifEtendu', { n: e.rang }); const f = e.familles[0]; return T('motif', { kw: e.kingwen_par_famille[f], n: e.n_site_par_famille[f] }); }
   function afficher(idMotif, note = '') {
     idCourant = idMotif; noteStatut = note;
     const prochaine = couches[1 - couche], actuelle = couches[couche];
@@ -208,6 +227,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     selPalette.value = etat.palette; personnalise.hidden = etat.palette !== 'perso';
     const [c0, c1] = paire(); inC0.value = c0; inC1.value = c1; dernierePaireValide = [c0, c1];
     cTrace.checked = etat.trace;
+    cEtendu.checked = etat.etendu;
     const virgule = ['fr', 'es', 'pt', 'de', 'it', 'ru'].includes(langue);
     const ry = reduit ? Math.max(etat.rythme, PERIODE_MIN_REDUIT_S) : etat.rythme; // aucun rythme plus rapide que la limite quand le mouvement est réduit
     rRythme.min = String(reduit ? PERIODE_MIN_REDUIT_S : RYTHME_MIN); rRythme.value = String(ry); nRythme.textContent = T('rythme', { s: String(ry).replace('.', virgule ? ',' : '.') });
@@ -259,6 +279,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   };
   inC0.addEventListener('change', surCouleur); inC1.addEventListener('change', surCouleur);
   cTrace.addEventListener('change', () => changer({ trace: cTrace.checked }));
+  cEtendu.addEventListener('change', async () => { const ok = await activerEtendu(cEtendu.checked); if (!ok) cEtendu.checked = false; changer({ etendu: cEtendu.checked }, { refaire: true }); });
   rRythme.addEventListener('input', () => { etat = { ...etat, rythme: Number(rRythme.value) }; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
   const reconstruireChefSeulement = () => { chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance: etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64 }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 }); };
   rDensite.addEventListener('input', () => changer({ densite: Number(rDensite.value) }));

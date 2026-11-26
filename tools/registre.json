@@ -1180,7 +1180,8 @@
    "fichier": "tools/check_pavane_moteur.mjs",
    "role": "le moteur de « Pavane — Voir sa musique » tient ses trois logiques (prompt 211, §9.1 à §9.3), sans navigateur ni micro.",
    "lit": [
-    "data/corpus-256.json"
+    "data/corpus-256.json",
+    "data/formes-quatre-axes-288.json"
    ],
    "ecrit": [],
    "appele_par": [

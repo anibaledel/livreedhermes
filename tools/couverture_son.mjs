@@ -80,13 +80,28 @@ sons['bruit blanc'] = synth(() => gauss() * 0.3);
 { let y = 0; sons['bruit brun'] = synth(() => { y = 0.995 * y + gauss() * 0.05; return y; }); }
 sons['balayage 100 → 1000 Hz'] = synth((t) => Math.sin(TP * (100 * t + (900 / 8) * t * t)));
 sons['impulsions'] = synth((t) => (Math.floor(t * 1000) % 250 === 0 ? 1 : 0));
+// timbres synthétiques variés (piste 3) : voix, cordes, cloche, scie, carré, tambour, progression d'accords, pluie, vent, souffle
+const env = (t, a, d) => (t < a ? t / a : Math.exp(-(t - a) / d));
+const formants = (f0, fm, t) => { let s = 0; for (let h = 1; h <= 30; h++) { const f = f0 * h; let g = 0; for (const [fc, bw, amp] of fm) g += amp * Math.exp(-((f - fc) ** 2) / (2 * bw * bw)); s += g * Math.sin(TP * f * t) / h; } return s; };
+sons['voix « a » (220 Hz, formants 800 / 1150 / 2800)'] = synth((t) => 0.5 * formants(220, [[800, 120, 1], [1150, 150, 0.6], [2800, 250, 0.2]], t));
+sons['voix « i » (196 Hz, formants 270 / 2300 / 3000)'] = synth((t) => 0.5 * formants(196, [[270, 80, 1], [2300, 200, 0.5], [3000, 250, 0.3]], t));
+sons['voix « ou » (165 Hz, formants 300 / 870)'] = synth((t) => 0.5 * formants(165, [[300, 80, 1], [870, 120, 0.4]], t));
+sons['corde pincée 196 Hz (harmoniques décroissantes)'] = synth((t) => { const tt = t % 1; let s = 0; for (let h = 1; h <= 10; h++) s += Math.sin(TP * 196 * h * tt) * env(tt, 0.003, 0.6 / h) / h; return s * 0.5; });
+sons['violon 330 Hz, vibrato (scie adoucie)'] = synth((t) => { const ph = 330 * t + 0.8 * Math.sin(TP * 5.5 * t) / 5.5; let s = 0; for (let h = 1; h <= 12; h++) s += Math.sin(TP * ph * h) / h; return s * 0.3; });
+sons['cloche FM (440 Hz, rapport 3,5)'] = synth((t) => { const tt = t % 2; return Math.sin(TP * 440 * tt + 4 * env(tt, 0.001, 0.8) * Math.sin(TP * 440 * 3.5 * tt)) * env(tt, 0.002, 1.0) * 0.6; });
+sons['scie 110 Hz'] = synth((t) => { let s = 0; for (let h = 1; h <= 40; h++) s += Math.sin(TP * 110 * h * t) / h; return s * 0.3; });
+sons['carré 220 Hz'] = synth((t) => { let s = 0; for (let h = 1; h <= 39; h += 2) s += Math.sin(TP * 220 * h * t) / h; return s * 0.4; });
+sons['tambour (bruit filtré, 4 coups par seconde)'] = synth((t) => { const tt = (t * 4) % 1; return gauss() * 0.4 * Math.exp(-tt * 12) + Math.sin(TP * 80 * tt) * Math.exp(-tt * 8) * 0.5; });
+sons['progression do – fa – sol – do'] = synth((t) => { const acc = [[261.6, 329.6, 392], [349.2, 440, 523.3], [392, 493.9, 587.3], [261.6, 329.6, 392]][Math.floor(t) % 4]; return acc.reduce((a, f) => a + Math.sin(TP * f * t), 0) / 3; });
+{ let y1 = 0, y2 = 0; sons['pluie (bruit passe-haut)'] = synth(() => { const w = gauss() * 0.3; const o = w - y1; y1 = w; return o * 0.5; }); sons['vent (bruit passe-bas lent)'] = synth(() => { y2 = 0.98 * y2 + gauss() * 0.02; return y2 * 3; }); }
+sons['souffle de flûte 523 Hz + bruit'] = synth((t) => Math.sin(TP * 523 * t) * 0.4 + gauss() * 0.05);
 const mediane = (a) => { const s = a.slice().sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
 const res = {};
 for (const [nom, x] of Object.entries(sons)) {
   const V = vecteurs(x); res[nom] = {};
   for (const [bn, b] of Object.entries(blocs)) { const sc = []; for (const v of V) { const a = vecteurAudio(v, b); if (!a) continue; let bs = -9; for (let j = 0; j < b.n; j++) { let s = 0; for (let k = 0; k < NS; k++) s += b.Pc[j * NS + k] * a[k]; if (s > bs) bs = s; } sc.push(bs); } res[nom][bn] = sc.length ? +mediane(sc).toFixed(3) : null; }
 }
-const groupes = { 'les sept fichiers': (k) => k.startsWith('fichier'), 'sinus': (k) => k.startsWith('sinus'), 'harmoniques et accords': (k) => /^(harmoniques|accord|quinte|octaves)/.test(k), 'bruits, balayage, impulsions': (k) => /^(bruit|balayage|impulsions)/.test(k) };
+const groupes = { 'les sept fichiers': (k) => k.startsWith('fichier'), 'sinus': (k) => k.startsWith('sinus'), 'harmoniques et accords': (k) => /^(harmoniques|accord|quinte|octaves)/.test(k), 'bruits, balayage, impulsions': (k) => /^(bruit|balayage|impulsions)/.test(k), 'timbres synthétiques (voix, cordes, cloche, tambour, pluie…)': (k) => /^(voix|corde|violon|cloche|scie|carré|tambour|progression|pluie|vent|souffle)/.test(k) };
 const moy = (a) => a.reduce((s, x) => s + x, 0) / a.length;
 const tableau = {};
 for (const [g, test] of Object.entries(groupes)) {

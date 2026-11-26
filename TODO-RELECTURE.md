@@ -1436,3 +1436,7 @@ La ligne d'état du motif affiché ajoute « complément : hexagramme … (n° �
 
 À faire relire : les clés `ju…` du dictionnaire `UI` de `360-calques.html` (fr de référence ; en, es, th faites par l'IA, th en priorité) — protocole du dé, de la pièce et des six lancers, libellés « fixe / mut », phrases du complément (« même motif, deux teintes échangées », « décalé d'une demi-période »), liens Zenodo. Noms des hexagrammes : ceux du site (`data/jeu-unifie-noms.json`, écrit par `tools/jeu_unifie_noms.mjs`). Les autres langues (zh, ru, pt, hi, de, it, ja) n'ont pas cette page.
 Le protocole A4 (`assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf`) est celui du zip 258, tel quel (français seulement).
+
+## Option « Formes étendues » de Voir sa musique (articles parallèle, 27 novembre 2026)
+
+À faire relire : dans `assets/pavane-textes.js`, les clés `etendu`, `motifEtendu` et `ficheEtendue` dans les 11 langues (faites par l'IA ; th et zh en priorité). L'option est décochée par défaut (`?etendu=1` l'active).
