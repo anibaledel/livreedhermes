@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T13:44:57Z",
+ "generated_at_utc": "2026-11-26T14:30:53Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 345,
+  "scripts": 346,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -5390,6 +5390,23 @@
      "source": "relevé d'Anibal, consigne « codes et résultats »"
     }
    ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verif_decomptes_note.py",
+   "adresse": "https://anibal-amiot.com/tools/verif_decomptes_note.py",
+   "octets": 4284,
+   "sha256": "fd1671b6253bf66410a4d48913e664b148588a5f81da066c941e8fcf5f907d95",
+   "md5": "3cd56000f10e49d5aa34cc2697d2aca8",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "ce que comptent « 512 », « 256 » et « 128 » dans la note half-shift (v7), recalculé sur data/referent_360_v3.json.",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": [],
+   "durees": [],
    "arborescence_requise": null,
    "zenodo": []
   },

@@ -1089,6 +1089,7 @@
     "tools/fiches_unifies.py",
     "tools/formes_quatre_axes.py",
     "tools/miroir_autres_couches.py",
+    "tools/verif_decomptes_note.py",
     "tools/verifie_signatures_512.py"
    ],
    "etat": "actif",
@@ -3423,6 +3424,16 @@
     "tools/verify_cadres_ordre12.py"
    ],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verif_decomptes_note.py",
+   "role": "ce que comptent « 512 », « 256 » et « 128 » dans la note half-shift (v7), recalculé sur data/referent_360_v3.json.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
