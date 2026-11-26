@@ -3792,6 +3792,27 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/zenodo_formes_quatre_axes.py",
+   "role": "prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), à déposer sur Zenodo PAR ANIBAL (rien ne se dépose depuis ce dépôt).",
+   "lit": [
+    "assets/lecture-binaire.js",
+    "data/corpus-256.json",
+    "data/couches-quatre-axes.json",
+    "data/formes-quatre-axes-288.json",
+    "data/referent_360_v3.json",
+    "tools/check_note_v6.py",
+    "tools/corpus_256.mjs",
+    "tools/corpus_miroir.py",
+    "tools/formes_quatre_axes.py",
+    "tools/formes_quatre_axes_lecture.mjs"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/zenodo_instantane.py",
    "role": "écrit data/zenodo/depots.json (la vue normalisée de l'instantané des fiches Zenodo) depuis les réponses brutes de l'API.",
    "lit": [],

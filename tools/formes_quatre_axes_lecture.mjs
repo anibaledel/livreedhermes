@@ -26,7 +26,7 @@ const parfaite = (g) => {
 // la classe à translation torique près d'une grille (lignes de lettres) : la plus petite des 144 translatées
 const classe = (rows) => { let m = null; for (let dr = 0; dr < N; dr++) for (let dc = 0; dc < N; dc++) { const k = Array.from({ length: N }, (__, r) => { const s = rows[(r + dr) % N]; return s.slice(dc) + s.slice(0, dc); }).join('/'); if (m === null || k < m) m = k; } return m; };
 const classesCorpus = new Set(corpus.map((e) => classe(e.tricolore)));
-const formes = new Map(), socles = new Set(); let parfaits = 0, grilles = 0;
+const formes = new Map(), socles = new Set(), couplesParfaits = []; let parfaits = 0, grilles = 0;
 for (const c of couples) {
   const A = c.A.map((s) => [...s]); // π : la lettre à la place de V, M, O
   const perm = { V: c.pi[0], M: c.pi[1], O: c.pi[2] };
@@ -40,7 +40,7 @@ for (const c of couples) {
     gs.push(g.map((l) => l.join('')));
   }
   if (!tout) continue;
-  parfaits++; socles.add(c.socle_par_niveau.join(','));
+  parfaits++; socles.add(c.socle_par_niveau.join(',')); couplesParfaits.push({ A: c.A, pi: c.pi, socle_par_niveau: c.socle_par_niveau });
   const distincts = new Set(gs).size;
   for (const g of gs) {
     const k = classe(g);
@@ -50,9 +50,10 @@ for (const c of couples) {
 }
 const liste = [...formes.entries()].sort((a, b) => (b[1].corpus - a[1].corpus) || a[0].localeCompare(b[0])).map(([, v], i) => ({ id: `q4-${String(i + 1).padStart(3, '0')}`, ...v }));
 const doc = {
-  _doc: "Les formes à quatre axes de miroir dont le couple de couches a ses 64 grilles parfaites à la lecture binaire (node tools/formes_quatre_axes_lecture.mjs, depuis data/couches-quatre-axes.json). « corpus » : la forme est déjà dans data/corpus-256.json. « socle_par_niveau » : les cases de la teinte fixe à chacun des six niveaux ; « grilles_distinctes_sur_64 » : le nombre de grilles différentes parmi les 64 hexagrammes du couple (32 si un trait ne change rien). Une grille par forme (classe à translation torique près).",
+  _doc: "Les formes à quatre axes de miroir dont le couple de couches a ses 64 grilles parfaites à la lecture binaire (node tools/formes_quatre_axes_lecture.mjs, depuis data/couches-quatre-axes.json). « corpus » : la forme est déjà dans data/corpus-256.json. « socle_par_niveau » : les cases de la teinte fixe à chacun des six niveaux ; « grilles_distinctes_sur_64 » : le nombre de grilles différentes parmi les 64 hexagrammes du couple (32 si un trait ne change rien). Une grille par forme (classe à translation torique près). « couples » : les 288 couples {A, B = π∘A} (A en lignes de lettres V/M/O, π la permutation des teintes) dont les 64 grilles sont parfaites ; B se déduit de A par π.",
   nombres: { couples_parfaits: parfaits, formes: liste.length, formes_du_corpus: liste.filter((f) => f.corpus).length, formes_nouvelles: liste.filter((f) => !f.corpus).length, socles: socles.size },
   formes: liste,
+  couples: couplesParfaits,
 };
 const texte = JSON.stringify(doc, null, 0).replace(/\{"id"/g, '\n{"id"') + '\n';
 const SORTIE = path.join(ROOT, 'data', 'formes-quatre-axes-288.json');

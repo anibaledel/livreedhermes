@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T13:01:18Z",
+ "generated_at_utc": "2026-11-26T13:44:37Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 344,
+  "scripts": 345,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -4030,9 +4030,9 @@
   {
    "chemin": "tools/formes_quatre_axes_lecture.mjs",
    "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_lecture.mjs",
-   "octets": 5217,
-   "sha256": "25869a07d99e1566b0c6e6869673b3e4dc99c686185586de23b5e80ab1119db7",
-   "md5": "b1f13930d36fce6649571c2263ab45e1",
+   "octets": 5522,
+   "sha256": "17312d25911a3b4e7c6cc8d001d6b2cdd21fae1b32cb7b259f0bf96f2b0bcf92",
+   "md5": "8f9a4096f109787569d4d7d5e59619d1",
    "licence_declaree": true,
    "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la lecture binaire du corpus (assets/lecture-binaire.js) appliquée aux couples de couches à quatre axes de data/couches-quatre-axes.json (tools/formes_quatre_axes.py).",
@@ -5829,6 +5829,24 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les vignettes WebP des pages de la galerie d'animations, réduites depuis l'affiche de chaque vidéo de référence (l'image extraite du MP4, data/fonds/collections-pinterest.json, champ video.affiche).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/zenodo_formes_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/zenodo_formes_quatre_axes.py",
+   "octets": 7974,
+   "sha256": "fbcd630ccede758af6dcd1701c689205656001e1676f15aede4a64b85eb4eb63",
+   "md5": "a75ee2c897098bcb1107843b3d0e5853",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), à déposer sur Zenodo PAR ANIBAL (rien ne se dépose depuis ce dépôt).",
+   "lit": [
+    "calques-360",
+    "corpus-256"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
