@@ -8,7 +8,11 @@ Les 96 cases mobiles de chaque grille se découpent en DOUZE blocs de 8 cases, i
 par famille représentante, toutes unifiées (théorème 2 de la note : seule L∘σ = L compte) et à 48 / 48 / 48 cases par teinte. Les quatre familles représentantes ({YANG}, {YANG-MUT}, {YIN,YANG}, {YIN,YANG-MUT})
 donnent 16 384 candidates, 8 192 grilles distinctes. Résultat vérifié ici : celles qui ont une vraie ligne de miroir dans le pavage (axe vertical, horizontal ou diagonale, avec une translation perpendiculaire à l'axe ;
 un glissement ne compte pas) sont EXACTEMENT les 256 grilles du corpus (data/corpus-256.json), celles où les deux blocs d'un même niveau prennent la même couche — les 64 hexagrammes de chaque famille.
-Aucune des 7 936 autres grilles distinctes n'a de miroir. Le découpage en six niveaux n'est donc pas un choix parmi d'autres : parmi les découpages en douze blocs, c'est celui que la symétrie miroir impose.
+Aucune des 7 936 autres grilles distinctes n'a de miroir.
+DÉMONSTRATION pour les miroirs centrés sur la carte : (1) pour chacune des quatre réflexions ρ de la carte, A∘ρ = A ou A∘ρ = B = π∘A ; (2) ρ échange les deux blocs de chaque niveau. Si A∘ρ = A, g∘ρ = g
+équivaut à c∘ρ = c sur les cases mobiles (c : le choix de couche, constant sur chaque bloc) ; si A∘ρ = B, g∘(ρσ) = g équivaut à c∘(ρσ) = c (σ fixe chaque bloc). Dans les deux cas le miroir exact exige, d'après (2),
+que les deux blocs de chaque niveau prennent la même couche : c'est exactement le corpus. Pour les miroirs situés ailleurs que sur les axes de la carte, la caractérisation est vérifiée par le calcul exhaustif ci-dessus
+(tous les axes du pavage sont cherchés), pas démontrée. Le découpage en six niveaux n'est donc pas un choix parmi d'autres : parmi les découpages en douze blocs, c'est celui que la symétrie miroir impose.
 
   python3 tools/corpus_miroir.py            imprime les nombres
   python3 tools/corpus_miroir.py --essai    un miroir est vu, un glissement et une grille quelconque ne comptent pas
@@ -141,6 +145,29 @@ def construire():
                         'nouvelles': sum(not e['ancien'] for e in entrees), 'formes': len({e['forme'] for e in entrees})}}
 
 
+def lemme():
+    """Les deux faits sur lesquels repose la démonstration de la caractérisation (miroirs centrés sur la carte), vérifiés sur les quatre familles représentantes :
+    (1) chacune des quatre réflexions de la carte ρ (c → 11 − c, r → 11 − r, la diagonale, l'anti-diagonale) vérifie A∘ρ = A ou A∘ρ = B (B = π∘A), jamais autre chose ;
+    (2) ρ échange les deux blocs de 8 cases de CHAQUE niveau, n'en fixe aucun et ne mélange pas les niveaux."""
+    L, FAM, _ = note.charger()
+    Lm = np.array(L)
+    refl = {'v': lambda r, c: (r, N - 1 - c), 'h': lambda r, c: (N - 1 - r, c), 'd': lambda r, c: (c, r), 'a': lambda r, c: (N - 1 - c, N - 1 - r)}
+    img = {'v': lambda g: g[:, ::-1], 'h': lambda g: g[::-1, :], 'd': lambda g: g.T, 'a': lambda g: g[::-1, ::-1].T}
+    for cle, _ in REPS:
+        A = np.array([[LET.index(x) for x in r] for r in FAM[cle]['YANG']], np.uint8)
+        B = np.array([[LET.index(x) for x in r] for r in FAM[cle]['YANG-MUT']], np.uint8)
+        blocs = blocs_mobiles(A, B)
+        bid = {p: i for i, o in enumerate(blocs) for p in o}
+        for nom, f in refl.items():
+            if not (np.array_equal(img[nom](A), A) or np.array_equal(img[nom](A), B)):
+                return False
+            for i, o in enumerate(blocs):
+                autres = {bid[f(*p)] for p in o}
+                if len(autres) != 1 or autres == {i} or Lm[blocs[autres.copy().pop()][0]] != Lm[o[0]]:
+                    return False
+    return True
+
+
 def essai():
     rng = np.random.default_rng(7)
     h = rng.integers(0, 3, (N, N // 2)).astype(np.uint8)
@@ -165,6 +192,9 @@ def main():
     ok = n['grilles'] == 256 and n['anciennes'] == 256 and n['nouvelles'] == 0 and n['formes'] == 128
     print(f"{n['candidates']} candidates ({n['distinctes']} distinctes) : {n['grilles']} ont un miroir, dont {n['anciennes']} sont dans le corpus ({n['formes']} formes) ; {n['nouvelles']} n'y sont pas.")
     if '--verifie' in sys.argv:
+        if not lemme():
+            print('ÉCART le lemme des réflexions (A∘ρ ∈ {A, B} ; ρ échange les deux blocs de chaque niveau) ne tient plus', file=sys.stderr)
+            sys.exit(1)
         if not ok:
             print('ÉCART les grilles à miroir ne sont pas exactement celles du corpus (256 grilles, 128 formes, 0 nouvelle)', file=sys.stderr)
             sys.exit(1)

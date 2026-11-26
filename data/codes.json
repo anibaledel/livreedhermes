@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T12:11:29Z",
+ "generated_at_utc": "2026-11-26T12:26:35Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3445,9 +3445,9 @@
   {
    "chemin": "tools/corpus_miroir.py",
    "adresse": "https://anibal-amiot.com/tools/corpus_miroir.py",
-   "octets": 8041,
-   "sha256": "1f6e4892fb3efac6d03e561fe05b292255ae5ee2daf40350ac7a604c48f36f6b",
-   "md5": "9879b2e23f0efdedbbcf78af126af5dd",
+   "octets": 10476,
+   "sha256": "bb830cc421107c43dca2ad42e51e86eb260b447f97c5711ef7acfff5f9abe303",
+   "md5": "5dbd24b9fd64b32cc73e911ce931451b",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la symétrie miroir caractérise EXACTEMENT les 256 grilles du corpus tricolore (couple YANG, YANG-MUT) parmi 16 384 candidates (calcul du 26 novembre 2026, prompt de suite du 261).",
