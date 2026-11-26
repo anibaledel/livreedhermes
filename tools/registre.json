@@ -1075,6 +1075,7 @@
     "tools/check_jeu_unifie.py",
     "tools/corpus_miroir.py",
     "tools/fiches_unifies.py",
+    "tools/miroir_autres_couches.py",
     "tools/verifie_signatures_512.py"
    ],
    "etat": "actif",
@@ -1795,7 +1796,9 @@
    "appele_par": [
     "check-referents.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/miroir_autres_couches.py"
+   ],
    "etat": "actif",
    "sait_echouer": true
   },
@@ -2677,6 +2680,18 @@
     "tools/derive_echelles.py"
    ],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/miroir_autres_couches.py",
+   "role": "garder le miroir sur d'autres jeux de couches (suite de tools/corpus_miroir.py).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {

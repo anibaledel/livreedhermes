@@ -74,6 +74,7 @@ jobs:
       # la symétrie miroir caractérise exactement les 256 grilles du corpus parmi 16 384 candidates à douze blocs
       - run: python3 tools/corpus_miroir.py --verifie
       - run: python3 tools/corpus_miroir.py --essai
+      - run: python3 tools/miroir_autres_couches.py --verifie
       - run: node tools/check_fiches_formes.mjs
       - run: node tools/check_fiches_formes.mjs --essai
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons
