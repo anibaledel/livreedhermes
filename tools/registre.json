@@ -607,7 +607,7 @@
     "check-referents.yml"
    ],
    "utilise_par": [],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": true
   },
   {
@@ -2153,7 +2153,7 @@
    "utilise_par": [
     "tools/check_fiches_unifies.py"
    ],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": false
   },
   {

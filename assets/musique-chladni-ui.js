@@ -9,7 +9,7 @@
 // Aucune phrase ici (tout est dans musique-chladni-textes.js), aucun réglage de fonctionnalité
 // (tout est dans musique-chladni-config.js), aucune couleur recopiée (assets/couleurs.js).
 // La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
-import * as M from './musique-chladni-moteur.js?v=3199491d0d';
+import * as M from './musique-chladni-moteur.js?v=8eb0e9a269';
 import { CONFIG } from './musique-chladni-config.js?v=8915c04b35';
 import { texte as T } from './musique-chladni-textes.js?v=f36ba6a517';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
