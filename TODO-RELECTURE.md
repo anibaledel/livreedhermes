@@ -1440,3 +1440,6 @@ Le protocole A4 (`assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf`) est celui du z
 ## Option « Formes étendues » de Voir sa musique (articles parallèle, 27 novembre 2026)
 
 À faire relire : dans `assets/pavane-textes.js`, les clés `etendu`, `motifEtendu` et `ficheEtendue` dans les 11 langues (faites par l'IA ; th et zh en priorité). L'option est décochée par défaut (`?etendu=1` l'active).
+## Prompt 260 — descriptions de l'accueil et des pages de redirection
+
+À faire relire : la `<meta name="description">` des 11 accueils (index.html et {en,es,th,zh,ru,pt,hi,de,it,ja}/index.html) — le français et l'anglais sont de référence, les neuf autres sont faites par l'IA (th et zh en priorité) ; les descriptions des pages de redirection (cymatique.html, en/cymatics, es/cimatica, th/cymatics, galerie-768/884, impression, pages, pro, pro-contenu), en français sauf les trois pages de langue.

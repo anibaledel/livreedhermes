@@ -199,7 +199,9 @@ function recoitTuiles(rel, s) {
 /* Les 512 pages motifs/*.html et fr/motifs/*.html seules — voir adopter()
    plus bas pour la même distinction sur le hreflang. */
 function estPageMotif(rel) {
-  return rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/');
+  // les pages engendrées qui posent elles-mêmes leur hreflang réciproque et reçoivent le bloc de tuiles : les motifs (scripts/generate-motif-pages.js)
+  // et les fiches des formes (scripts/generate-fiches-formes.js, prompt 250 : forms/ et fr/formes/)
+  return rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/') || rel?.startsWith('forms/') || rel?.startsWith('fr/formes/');
 }
 
 // Pages hors motifs qui reçoivent quand même le bloc de tuiles (@navtiles,

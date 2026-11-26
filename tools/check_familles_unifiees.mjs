@@ -32,7 +32,14 @@ ok(/FamillesUnifiees|uneSeuleBaseYang/.test(vue) && fe.includes('familles-unifie
 // Prompt 242 : on n'appelle pas « unifié » un mélange (yang, yin). Le tirage, la création de motifs et les 360 calques mélangent (yang, yin) (et (yang-mut, yin-mut)) : leur texte visible ne dit pas
 // « unifié » (hors navigation, qui désigne la galerie, et hors commentaires de code). Seuls la galerie tricolore, les fonds d'écran et le lexique parlent de motifs unifiés — ceux des couples (fixe, mut).
 for (const f of ['tirage-livree-hermes.html', 'creation-motifs-yi-king.html', '360-calques.html']) {
-  const lignes = readFileSync(path.join(ROOT, f), 'utf8').split('\n').filter((l) => /unifi/i.test(l) && !/nav-|navGalerie|navUnif|galerie-patterns-unifies|unified-patterns\.html|^\s*(\/\/|\*|\/\*)|<!--/.test(l)).map((l) => l.replace(/\s\/\/.*$/, '')).filter((l) => /unifi/i.test(l) && !/\bUnified Patterns\b/.test(l));
+  // 360-calques.html porte depuis le prompt 257 la section « Jeu unifié (96) » (couples fixe / mut seulement : 96 plaques, 512 grilles unifiées) : cette section, son bouton, ses textes (clés ju…) et son code sont les seuls endroits permis ;
+  // le catalogue des 360 calques (qui mélange (yang, yin)) ne dit toujours pas « unifié ».
+  let brut = readFileSync(path.join(ROOT, f), 'utf8');
+  if (f === '360-calques.html') {
+    brut = brut.replace(/<section id="jeuUnifie"[\s\S]*?<\/section>/, '').replace(/\/\* ===== Jeu unifié \(prompts 243 et 257\) : 96 plaques[\s\S]*?\n\}\)\(\);/, '');
+    brut = brut.split('\n').filter((l) => !/^\s*ju[A-Za-z]+:|#jeuUnifie|mode-unifie|id="jeuUni"|data-i18n="juUnifie"|jeuUnifie|jeu-barre|JeuUnifie|jeu-unifie/.test(l)).join('\n');
+  }
+  const lignes = brut.split('\n').filter((l) => /unifi/i.test(l) && !/nav-|navGalerie|navUnif|galerie-patterns-unifies|unified-patterns\.html|^\s*(\/\/|\*|\/\*)|<!--/.test(l)).map((l) => l.replace(/\s\/\/.*$/, '')).filter((l) => /unifi/i.test(l) && !/\bUnified Patterns\b/.test(l));
   ok(lignes.length === 0, `${f} : aucun « unifié » dans le texte visible (hors navigation et commentaires) : ${lignes.slice(0, 2).join(' | ')}`);
 }
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }
