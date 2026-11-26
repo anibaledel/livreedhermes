@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T10:19:27Z",
+ "generated_at_utc": "2026-11-26T11:40:02Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 339,
+  "scripts": 340,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3956,6 +3956,23 @@
    "lit": [
     "calques-360",
     "constructions-1024"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/formes_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes.py",
+   "octets": 6595,
+   "sha256": "470311eefa9f21f8423c0fc396923f8f599ee582082423d20b3937e773f35206",
+   "md5": "37cac217e70a3a5bed6e17ebad4b4341",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "y a-t-il plus de formes à quatre axes de miroir que les 32 du corpus ?",
+   "lit": [
+    "corpus-256"
    ],
    "ecrit": [],
    "durees": [],

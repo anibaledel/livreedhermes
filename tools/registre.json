@@ -1075,6 +1075,7 @@
     "tools/check_jeu_unifie.py",
     "tools/corpus_miroir.py",
     "tools/fiches_unifies.py",
+    "tools/formes_quatre_axes.py",
     "tools/miroir_autres_couches.py",
     "tools/verifie_signatures_512.py"
    ],
@@ -1797,6 +1798,7 @@
     "check-referents.yml"
    ],
    "utilise_par": [
+    "tools/formes_quatre_axes.py",
     "tools/miroir_autres_couches.py"
    ],
    "etat": "actif",
@@ -2164,6 +2166,18 @@
     "tools/check_galerie_unifies_texte.mjs",
     "tools/figure_demi_decalage.py"
    ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/formes_quatre_axes.py",
+   "role": "y a-t-il plus de formes à quatre axes de miroir que les 32 du corpus ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
   },
