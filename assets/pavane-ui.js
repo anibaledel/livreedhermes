@@ -8,7 +8,7 @@
 import { APLAT } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { varianteSvg } from './fonds-variantes.js';
-import { fondsAffiches } from './fonds-retenus.js';
+import { fondsAffiches } from './fonds-affiches.js';
 import { groupesDe } from './fonds-groupes.js';
 import { lireEtat, ecrireEtat, fusionnerRecherche, MODES, SOURCES, MORCEAUX, DECLENCHEURS, RYTHME_MIN, RYTHME_MAX, DENSITE_MIN, DENSITE_MAX, NOTE_MIN, NOTE_MAX } from './pavane-etat.js';
 import { PALETTES, CLES_PALETTES, paireDe, paireValide } from './pavane-couleurs.js';

@@ -9,10 +9,6 @@ export const fondsRetenus = (doc) => {
   if (!doc || !Array.isArray(doc.proposes) || !doc.proposes.length) throw new Error('fonds-retenus.js : data/fonds/demi-periode.json sans liste « proposes »');
   return Object.freeze(doc.proposes.slice());
 };
-/** Les fonds HORS CRITÈRE : approuvés par Anibal pour les deux interfaces de Voir sa musique alors qu'ils ne tiennent pas la demi-période (« hors_critere »). Jamais dans les exports ni les codes de collection. */
-export const fondsHorsCritere = (doc) => Object.freeze(Array.isArray(doc && doc.hors_critere) ? doc.hors_critere.slice() : []);
-/** Les fonds que les interfaces affichent : les proposés, puis les hors critère (que les interfaces marquent). */
-export const fondsAffiches = (doc) => Object.freeze([...new Set([...fondsRetenus(doc), ...fondsHorsCritere(doc)])]);
 /** Un code (fond seul, ou fond avec superposition) est-il offert ? Son fond de base doit être dans la liste. */
 export const codeEstPropose = (doc, fondDeBase) => fondsRetenus(doc).includes(fondDeBase);
 /** En navigateur : la liste lue depuis le site (adresse relative à ce module : assets/ → data/). */

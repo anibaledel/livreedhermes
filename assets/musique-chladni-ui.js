@@ -14,7 +14,7 @@ import { CONFIG } from './musique-chladni-config.js?v=a6669de28c';
 import { texte as T } from './musique-chladni-textes.js?v=225c863bf6';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js?v=cb5c62137d';
 import { chargerCollection, rasteriser, APLAT } from './bicolore-fonds.js?v=c2addde38c';
-import { fondsAffiches } from './fonds-retenus.js';
+import { fondsAffiches } from './fonds-affiches.js';
 import { groupesDe } from './fonds-groupes.js';
 import { monterSemaine } from './musique-chladni-semaine.js?v=23e6b9ceda';
 
