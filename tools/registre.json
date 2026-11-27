@@ -1000,6 +1000,8 @@
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
    "lit": [
     "assets/musique-chladni-ui.js",
+    "data/corpus-256.json",
+    "data/musique-chladni-12.json",
     "data/musique-chladni/semaine.json",
     "en/see-your-music",
     "es/ver-tu-musica",
@@ -1948,8 +1950,10 @@
    "utilise_par": [
     "tools/classes_translations.py",
     "tools/cube_croisements.py",
+    "tools/make_broderie.py",
     "tools/make_figures.py",
-    "tools/make_patron.py"
+    "tools/make_patron.py",
+    "tools/rotations_orientees.py"
    ],
    "etat": "ponctuel",
    "sait_echouer": false
@@ -2737,6 +2741,16 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/make_broderie.py",
+   "role": "le schéma de point de croix d'une grille et de son cube, calculé (rien n'est dessiné à la main).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/make_figures.py",
    "role": "Figures vectorielles (SVG) de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».",
    "lit": [],
@@ -2764,7 +2778,9 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/make_broderie.py"
+   ],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -3312,6 +3328,18 @@
    ],
    "utilise_par": [],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/rotations_orientees.py",
+   "role": "le cube habillé par des panneaux posés « endroit dehors » : chaque face reçoit g tournée d'un multiple de 90°, vue de l'EXTÉRIEUR, sans jamais la retourner.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/make_broderie.py"
+   ],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {

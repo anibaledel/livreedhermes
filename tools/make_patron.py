@@ -120,10 +120,12 @@ def segments_recollees(choix):
     return out
 
 
-def patron(g, ks, pi, choix, titre):
-    """Liste de primitives dessinées : ('rect', x, y, w, h, fill, stroke, sw) et ('text', x, y, s, taille, ancre, couleur)."""
-    R = ce.variantes(g)
-    faces = {f: R[ks[ce.NOMS_FACES.index(f)]] for f in ce.NOMS_FACES}
+def patron(g, ks, pi, choix, titre, faces=None):
+    """Liste de primitives dessinées : ('rect', x, y, w, h, fill, stroke, sw) et ('text', x, y, s, taille, ancre, couleur).
+    `faces` : { nom de face : grille posée sur la face, en coordonnées de carte } ; absent, c'est l'image `ks[face]` de g sous D4 (figure 5 de la note)."""
+    if faces is None:
+        R = ce.variantes(g)
+        faces = {f: R[ks[ce.NOMS_FACES.index(f)]] for f in ce.NOMS_FACES}
     prims = []
     X0, Y0 = MARGE, MARGE + 14
     defauts = []
@@ -146,7 +148,7 @@ def patron(g, ks, pi, choix, titre):
     for f, (pr, pc) in PATRON.items():       # contour et nom de chaque face
         x, y = X0 + pc * N * S, Y0 + pr * N * S
         prims.append(('rect', x, y, N * S, N * S, 'none', ENCRE, 1.4))
-        prims.append(('rect', x + N * S / 2 - 24, y + N * S / 2 - 10, 48, 20, '#fff', ENCRE, .6))
+        prims.append(('rect', x + N * S / 2 - 24, y + N * S / 2 - 10, 48, 20, '#ffffff', ENCRE, .6))
         prims.append(('text', x + N * S / 2, y + N * S / 2 + 4, f, 13, 'middle', ENCRE))
     lettres = 'ABCDEFG'
     for lettre, cotes in zip(lettres, segments_recollees(choix)):

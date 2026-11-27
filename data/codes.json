@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-26T14:40:38Z",
+ "generated_at_utc": "2026-11-27T14:13:15Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 348,
+  "scripts": 350,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2007,9 +2007,9 @@
   {
    "chemin": "tools/check_demi_periode.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_demi_periode.mjs",
-   "octets": 11494,
-   "sha256": "0c616ea13fa2c90f9a45bd9073bb9dca30f06f86df4f07376eddcc0653226d15",
-   "md5": "1adcc705e340e38aa41815d610301e5e",
+   "octets": 11825,
+   "sha256": "7428f1493e46a4d3c622fd770eb2a1ebce3bd29e8006da832b634be501c094bc",
+   "md5": "02865e7a695bc2fc12aeb026026a8081",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la DEMI-PÉRIODE des fonds (prompt 185) : décaler le rendu de 6 cases en ligne et en colonne donne le rendu aux couleurs ÉCHANGÉES.",
@@ -2633,13 +2633,14 @@
   {
    "chemin": "tools/check_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_chladni.mjs",
-   "octets": 62317,
-   "sha256": "22ff7675c41f658770584f6cf617262858731e3681ac497740b26db6c1ac1ac3",
-   "md5": "9461b1d3d9e78e51b4485e3556cb3225",
+   "octets": 65479,
+   "sha256": "16f656be9d2133b18f775f365a6732ef2310b405cedd98cc275521248a84570f",
+   "md5": "2041161c0316b3e1b4e3763443d7429e",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
    "lit": [
+    "corpus-256",
     "demi-periode"
    ],
    "ecrit": [],
@@ -2875,9 +2876,9 @@
   {
    "chemin": "tools/check_pavane_ui.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_ui.mjs",
-   "octets": 27406,
-   "sha256": "ea8b5cb8e6212b129296fba55e483cebeb2231f0bb410aaebb6b07301443e25c",
-   "md5": "09e870d13d381f446af76590be23fe15",
+   "octets": 27503,
+   "sha256": "cf7c73ee651aed43b6fd39a73347f13bf2c2c4b79553691652e5619b55c75123",
+   "md5": "5c633e3b7c30a6b9df9dac13da206efd",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
@@ -4522,6 +4523,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/make_broderie.py",
+   "adresse": "https://anibal-amiot.com/tools/make_broderie.py",
+   "octets": 10812,
+   "sha256": "2f944b2040aa3439854fd2d4dfd6d423611b9e2761ab7da204467a036825453e",
+   "md5": "eb93e2d2a6db0bf3085e083d5e949026",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: voir LICENSE",
+   "role": "le schéma de point de croix d'une grille et de son cube, calculé (rien n'est dessiné à la main).",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/make_figures.py",
    "adresse": "https://anibal-amiot.com/tools/make_figures.py",
    "octets": 9737,
@@ -4572,9 +4588,9 @@
   {
    "chemin": "tools/make_patron.py",
    "adresse": "https://anibal-amiot.com/tools/make_patron.py",
-   "octets": 10418,
-   "sha256": "ff9248261cb804edfa9d5a3d27e9a886fb276c77a06016ebff2b617e8c28311e",
-   "md5": "42fcca0dc8bc72df37a89188389aa123",
+   "octets": 10618,
+   "sha256": "6ecaf5e5753f46d5117220e19c56db9977e08cc3daa6e8eaa413ff4c6edc5e26",
+   "md5": "3a3a2037e09350d251b6f64994c182ab",
    "licence_declaree": true,
    "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
    "role": "le patron (développement à plat) du cube habillé de la figure 4, avec légende.",
@@ -5216,6 +5232,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les pages ÉCRITES À LA MAIN (ou recopiées d'une page écrite à la main) qui citent le PDF d'une langue servie par livre-medias doivent le citer à l'adresse de scripts/langues.js (MEDIAS_PDF), et nulle part ailleurs.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/rotations_orientees.py",
+   "adresse": "https://anibal-amiot.com/tools/rotations_orientees.py",
+   "octets": 5315,
+   "sha256": "96621447a9cc7dfe18a321fc35c94cbb8b9aa2a6e15b1f0837c84e90f653c421",
+   "md5": "f87bc4c0a35aa80b039a8e7a6ea43fdc",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: voir LICENSE",
+   "role": "le cube habillé par des panneaux posés « endroit dehors » : chaque face reçoit g tournée d'un multiple de 90°, vue de l'EXTÉRIEUR, sans jamais la retourner.",
    "lit": [],
    "ecrit": [],
    "durees": [],
