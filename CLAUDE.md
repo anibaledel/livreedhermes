@@ -26,6 +26,14 @@ recalcules, compare ta sortie à la ligne du journal déposé — toutes lignes 
 Les durées d'exécution dépendent de la machine : `cube_croisements.py` prend 45 s chez Anibal,
 10 min 17 s dans un conteneur de session.
 
+## Livraison d'une soumission (revue)
+
+Une livraison complète contient toujours trois choses, pas seulement la version anonymisée :
+1. la version **anonymisée** (sources LaTeX, scripts, données, figures, journaux, `SHA256SUMS.txt`, sans `__pycache__`) ;
+2. la version **signée** (nom et affiliation de l'auteur, remerciements et déclarations), identique à l'anonymisée pour le reste ;
+3. la **réponse à l'éditeur** : une lettre point par point, qui reprend chaque demande de la lettre de l'éditrice (lettre du 22 novembre, Joy Ko) et dit où et comment elle est traitée dans la nouvelle version, ou pourquoi elle ne l'est pas.
+Le PDF compilé du manuscrit est aussi attendu ; s'il n'a pas pu être compilé, la livraison le dit. Chaque pièce se livre directement à l'auteur (téléchargement), pas seulement dans le dépôt.
+
 ## Quatre règles du projet
 
 - Aucune IA n'est coauteur : pas de `Co-Authored-By`, pas de lien de session ni de nom d'IA dans les commits, les descriptions de PR, les documents ou leurs métadonnées de révision (auteur des modifications suivies : « Relecture »).
