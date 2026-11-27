@@ -113,7 +113,14 @@
       "en": "A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.",
       "licence": "CC BY 4.0",
       "licenceZenodo": "cc-by-4.0",
-      "depose_apres_instantane": true
+      "depose_apres_instantane": true,
+      "langues": [
+        "en",
+        "fr"
+      ],
+      "page": "ansate-cross-even-order-realisation",
+      "meta": "A pointwise four-class protocol for even-order magic squares: realisation theorem, strict case, colour symmetry at singly even orders, growth by a periodic antipodal support. Preprint on Zenodo, with DOI.",
+      "titreCourt": "Ansate cross: even-order realisation and colour symmetry"
     },
     {
       "section": "prepublications",
