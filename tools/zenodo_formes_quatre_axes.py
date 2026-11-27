@@ -2,7 +2,7 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 / licence commerciale sur demande : voir LICENSE
 """
-zenodo_formes_quatre_axes.py — prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), à déposer sur Zenodo PAR ANIBAL (rien ne se dépose depuis ce dépôt).
+zenodo_formes_quatre_axes.py — prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), DÉPOSÉ sur Zenodo le 27 novembre 2026, règle levée par Anibal pour ce dépôt : DOI de la version 10.5281/zenodo.24594285, DOI toutes versions 10.5281/zenodo.24594284.
 
 Contenu : LISEZMOI.md, data/ (les 288 formes, les 3 552 couples de couches à quatre axes, un CSV), svg/ (une cellule par forme), planches/ (trois planches PNG), repro/ (les scripts qui recalculent tout, avec leurs
 imports relatifs), SHA256SUMS.txt. L'archive est déterministe (ordre fixe, dates fixes) : la relancer donne le même fichier.
@@ -36,7 +36,7 @@ def lisezmoi(doc, commit):
     n = doc['nombres']
     return f"""# Les 288 formes à quatre axes de miroir — La Livrée d'Hermès, version 1.0
 
-**Auteur** : Anibal Edelberto Amiot — créé en collaboration avec Claude. **Licence** : données et images CC BY-NC 4.0 ; scripts AGPL v3 (licence commerciale sur demande).
+**Auteur** : Anibal Edelberto Amiot (ORCID 0009-0002-6414-9448). **Licence** : données et images CC BY-NC 4.0 ; scripts AGPL v3 (licence commerciale sur demande).
 **Dépôts liés** : corpus tricolore de 256 grilles, DOI 10.5281/zenodo.24396534 ; jeu complet des 360 plaques, 10.5281/zenodo.23189276 ; jeu unifié (96 plaques), 10.5281/zenodo.24508469.
 **Code et calculs** : https://github.com/anibaledel/livreedhermes (commit {commit}, `docs/article-parallele-unified-patterns.md`).
 

@@ -3878,7 +3878,7 @@
   },
   {
    "fichier": "tools/zenodo_formes_quatre_axes.py",
-   "role": "prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), à déposer sur Zenodo PAR ANIBAL (rien ne se dépose depuis ce dépôt).",
+   "role": "prépare le zip « la famille des 288 formes à quatre axes » (docs/zenodo/formes-quatre-axes-288-v1.0.zip), DÉPOSÉ sur Zenodo le 27 novembre 2026, règle levée par Anibal pour ce dépôt : DOI de la version 10.5281/zenodo.24594285, DOI toutes…",
    "lit": [
     "assets/lecture-binaire.js",
     "data/corpus-256.json",
