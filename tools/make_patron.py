@@ -127,7 +127,7 @@ def patron(g, ks, pi, choix, titre, faces=None):
         R = ce.variantes(g)
         faces = {f: R[ks[ce.NOMS_FACES.index(f)]] for f in ce.NOMS_FACES}
     prims = []
-    X0, Y0 = MARGE, MARGE + 14
+    X0, Y0 = MARGE + 6, MARGE + 20
     defauts = []
     for (i, j), paires in ce.ARETES.items():
         fi, fj = ce.NOMS_FACES[i], ce.NOMS_FACES[j]
@@ -148,19 +148,19 @@ def patron(g, ks, pi, choix, titre, faces=None):
     for f, (pr, pc) in PATRON.items():       # contour et nom de chaque face
         x, y = X0 + pc * N * S, Y0 + pr * N * S
         prims.append(('rect', x, y, N * S, N * S, 'none', ENCRE, 1.4))
-        prims.append(('rect', x + N * S / 2 - 24, y + N * S / 2 - 10, 48, 20, '#ffffff', ENCRE, .6))
-        prims.append(('text', x + N * S / 2, y + N * S / 2 + 4, f, 13, 'middle', ENCRE))
+        prims.append(('rect', x + N * S / 2 - 36, y + N * S / 2 - 15, 72, 30, '#ffffff', ENCRE, .8))
+        prims.append(('text', x + N * S / 2, y + N * S / 2 + 6, f, 19, 'middle', ENCRE))
     lettres = 'ABCDEFG'
     for lettre, cotes in zip(lettres, segments_recollees(choix)):
         for f, cote in cotes:
             pr, pc = PATRON[f]
             x, y = X0 + pc * N * S, Y0 + pr * N * S
             m = N * S / 2
-            px, py = {'N': (x + m, y - 5), 'S': (x + m, y + N * S + 13), 'O': (x - 9, y + m + 4), 'E': (x + N * S + 9, y + m + 4)}[cote]
-            prims.append(('text', px, py, lettre, 13, 'middle', ENCRE))
-    W = X0 + 4 * N * S + MARGE
-    H = Y0 + 3 * N * S + MARGE + 18
-    prims.append(('text', MARGE, 20, titre, 12, 'start', ENCRE))
+            px, py = {'N': (x + m, y - 6), 'S': (x + m, y + N * S + 19), 'O': (x - 12, y + m + 6), 'E': (x + N * S + 12, y + m + 6)}[cote]
+            prims.append(('text', px, py, lettre, 19, 'middle', ENCRE))
+    W = X0 + 4 * N * S + MARGE + 6
+    H = Y0 + 3 * N * S + MARGE + 22
+    prims.append(('text', MARGE, 22, titre, 17, 'start', ENCRE))
     return prims, W, H, len(defauts) // 2
 
 

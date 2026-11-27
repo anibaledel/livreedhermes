@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-27T14:21:14Z",
+ "generated_at_utc": "2026-11-27T14:37:58Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -4540,9 +4540,9 @@
   {
    "chemin": "tools/make_exemple.py",
    "adresse": "https://anibal-amiot.com/tools/make_exemple.py",
-   "octets": 6022,
-   "sha256": "3a10e794e465b3169bd2ab1e86a9b97754da29e27f9d37462526f25e7801325f",
-   "md5": "9047532e244afde3635ecd076297d8f0",
+   "octets": 5708,
+   "sha256": "818d8b9a7f635104580dba5838a384d6230b96587e59169c562602e35a64d159",
+   "md5": "de736c0997f93c6608439e31b002b320",
    "licence_declaree": true,
    "licence": "AGPL v3 (non-commercial) / Commercial license: voir LICENSE",
    "role": "de six cartes à une grille : l'exemple source de la note (figure « cards »).",
@@ -4605,9 +4605,9 @@
   {
    "chemin": "tools/make_patron.py",
    "adresse": "https://anibal-amiot.com/tools/make_patron.py",
-   "octets": 10618,
-   "sha256": "6ecaf5e5753f46d5117220e19c56db9977e08cc3daa6e8eaa413ff4c6edc5e26",
-   "md5": "3a3a2037e09350d251b6f64994c182ab",
+   "octets": 10628,
+   "sha256": "2c5220e1e1197bb1c02365b35b34de46008ee690e15b218576f36ea0f809b3a6",
+   "md5": "09876ed240dfb4152fe840fab61793ea",
    "licence_declaree": true,
    "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
    "role": "le patron (développement à plat) du cube habillé de la figure 4, avec légende.",

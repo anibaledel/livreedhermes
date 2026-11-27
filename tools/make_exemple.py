@@ -58,11 +58,11 @@ def main():
         ass.update(k)
     assert all(ass[(r, c)] == g[r][c] for r in range(N) for c in range(N)), 'assemblage ≠ Φ(n, A, B)'
 
-    s, gap, sg, x0 = 6.2, 9, 12, 92                                # côté d'une case, écart entre cartes, côté d'une case de g, marge gauche
+    s, gap, sg, x0 = 6.2, 9, 12, 112                                # côté d'une case, écart entre cartes, côté d'une case de g, marge gauche
     cw = N * s
-    y3 = 62; y2 = y3 + cw + 38; y1 = y2 + cw + 38
+    y3 = 30; y2 = y3 + cw + 44; y1 = y2 + cw + 44
     W = x0 + 6 * cw + 5 * gap + 18 + N * sg + 16
-    H = y1 + cw + 30
+    H = y1 + cw + 34
     chemin = os.path.join(arg.out, 'fig6-cards.pdf')
     cv = canvas.Canvas(chemin, pagesize=(W, H))
 
@@ -76,26 +76,23 @@ def main():
 
     rangees = [('A (yang)', cartes['A'], y1), ('B (yang-mut)', cartes['B'], y2), ('n = %d' % arg.n, choisies, y3)]
     for etiquette, lst, y in rangees:
-        cv.setFillColor(HexColor('#111111')); cv.setFont('Helvetica-Bold', 9); cv.drawRightString(x0 - 8, y + cw / 2 - 3, etiquette)
+        cv.setFillColor(HexColor('#111111')); cv.setFont('Helvetica-Bold', 14); cv.drawRightString(x0 - 8, y + cw / 2 - 5, etiquette)
         for i, k in enumerate(lst):
             x = x0 + i * (cw + gap)
             dessiner_carte(k, x, y, fort=etiquette.startswith('n ='))
-            cv.setFont('Helvetica', 8); cv.setFillColor(HexColor('#111111'))
+            cv.setFont('Helvetica', 13); cv.setFillColor(HexColor('#111111'))
             if etiquette.startswith('A'):
-                cv.drawCentredString(x + cw / 2, y + cw + 4, f'level {i + 1}')
+                cv.drawCentredString(x + cw / 2, y + cw + 5, f'level {i + 1}')
             if etiquette.startswith('n ='):
-                cv.drawCentredString(x + cw / 2, y - 10, f"bit {bits[i]} -> {'A' if bits[i] else 'B'}")
+                cv.drawCentredString(x + cw / 2, y - 15, f"bit {bits[i]} -> {'A' if bits[i] else 'B'}")
     # la grille obtenue
-    xg = x0 + 6 * cw + 5 * gap + 18; yg = 44
+    xg = x0 + 6 * cw + 5 * gap + 18; yg = 12
     for r in range(N):
         for c in range(N):
             cv.setFillColor(HexColor(TEINTES[g[r][c]])); cv.setStrokeColor(HexColor(TEINTES[g[r][c]])); cv.setLineWidth(.2)
             cv.rect(xg + c * sg, yg + (N - 1 - r) * sg, sg, sg, stroke=1, fill=1)
     cv.setStrokeColor(HexColor('#111111')); cv.setLineWidth(1.2); cv.rect(xg, yg, N * sg, N * sg, stroke=1, fill=0)
-    cv.setFont('Helvetica-Bold', 9); cv.setFillColor(HexColor('#111111')); cv.drawCentredString(xg + N * sg / 2, yg + N * sg + 6, f'g = Phi({arg.n}, A, B)')
-    cv.setFont('Helvetica', 7.5)
-    cv.drawString(10, 24, 'Each card holds the 24 cells of one level of a layer (8 of each tint); a layer is the union of its six cards.')
-    cv.drawString(10, 14, 'The word n picks, level by level, the card of A (bit 1) or of B (bit 0); the six chosen cards, side by side, form g.')
+    cv.setFont('Helvetica-Bold', 14); cv.setFillColor(HexColor('#111111')); cv.drawCentredString(xg + N * sg / 2, yg + N * sg + 8, f'g = Phi({arg.n}, A, B)')
     cv.save()
     print(f'écrit : {chemin} (n = {arg.n} = {arg.n:06b} ; bits des niveaux 1 à 6 : {bits} ; assemblage = Φ(n, A, B) ; chaque carte : 24 cases, 8 par teinte)')
 
