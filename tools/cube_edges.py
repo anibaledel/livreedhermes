@@ -68,10 +68,14 @@ Usage
     python tools/cube_edges.py --json rapport.json
     python tools/cube_edges.py --rotations-only   (voir la note ci-dessous)
 
-Sur --rotations-only : restreindre les habillages aux seules rotations
-ne donne plus un résultat intrinsèque, puisqu'il dépend de la convention
-de repérage des faces choisie ci-dessous. L'option existe pour vérifier
-cette dépendance, pas pour produire un résultat publiable. Le groupe
+Sur --rotations-only : chaque face est repérée VUE DE L'EXTÉRIEUR. Le repère
+(ec, er) d'une face est direct si ec × er pointe hors du cube (FACE_DIRECTE) ;
+pour une face dont le repère est indirect, l'image de g « vue de l'extérieur »
+est son miroir. L'option restreint chaque face aux 4 images de g obtenues par
+rotation vue de l'extérieur, sans image en miroir : c'est le cas d'un panneau
+brodé ou imprimé sur une seule face, qu'on tourne sans le retourner. Ce résultat
+ne dépend plus de la convention de repérage des faces ; c'est celui que la note
+cite à la section 6 (rotations seules : les mêmes 4 familles qu'avec D4). Le groupe
 diédral complet, lui, absorbe tout changement de convention.
 
 Données lues
@@ -268,19 +272,39 @@ def variantes(g, rotations_seules=False):
     return out
 
 
+def _face_directe(nom):
+    """Vrai si le repère de la face est direct vu de l'extérieur : ec × er pointe hors du cube (centre en (6, 6, 6))."""
+    O, ec, er = FACES[nom]
+    n = (ec[1] * er[2] - ec[2] * er[1], ec[2] * er[0] - ec[0] * er[2], ec[0] * er[1] - ec[1] * er[0])
+    centre = tuple(O[k] + 6 * ec[k] + 6 * er[k] - 6 for k in range(3))
+    return sum(n[k] * centre[k] for k in range(3)) > 0
+
+
+FACE_DIRECTE = {f: _face_directe(f) for f in NOMS_FACES}
+
+
+def images_par_face(g, rotations_seules=False):
+    """Pour chaque face (dans l'ordre de NOMS_FACES), les images de g qu'on peut y poser : les 8 de D4 ; ou, en rotations seules, les 4 rotations vues de l'extérieur
+    (les rotations de g si le repère de la face est direct, celles de son miroir sinon)."""
+    tous = variantes(g)
+    if not rotations_seules:
+        return [tous] * len(NOMS_FACES)
+    return [tous[:4] if FACE_DIRECTE[f] else tous[4:] for f in NOMS_FACES]
+
+
 def habillage(g, pi, rotations_seules=False):
     """Retourne un habillage satisfaisant la règle d'arête, ou None.
 
     La règle se décompose par arête : pour chaque paire de faces (i, j),
     on calcule l'ensemble des (k_i, k_j) admissibles, puis on cherche un
     choix global compatible."""
-    R = variantes(g, rotations_seules)
-    d = len(R)
+    Rf = images_par_face(g, rotations_seules)
+    d = len(Rf[0])
 
     admissibles = {}
     for (i, j), cellules in ARETES.items():
         S = {(k1, k2) for k1 in range(d) for k2 in range(d)
-             if all(R[k2][r2][c2] == pi[R[k1][r1][c1]] for (r1, c1), (r2, c2) in cellules)}
+             if all(Rf[j][k2][r2][c2] == pi[Rf[i][k1][r1][c1]] for (r1, c1), (r2, c2) in cellules)}
         admissibles[(i, j)] = S
     aretes_ok = sum(1 for S in admissibles.values() if S)
     if aretes_ok < len(admissibles):
@@ -307,7 +331,7 @@ def main():
     p = argparse.ArgumentParser(description="Vérifie la règle d'arête sur le cube.")
     p.add_argument('--json', metavar='FICHIER', help='écrit un rapport détaillé')
     p.add_argument('--rotations-only', action='store_true',
-                   help='restreint les habillages aux rotations (résultat non intrinsèque)')
+                   help='restreint les habillages aux rotations vues de l\'extérieur (panneaux à un seul endroit)')
     arg = p.parse_args()
 
     if not os.path.exists(DATA):
@@ -519,8 +543,8 @@ def main():
 
     print(f"durée totale : {time.time() - t0:.0f} s")
     if arg.rotations_only:
-        print("note : --rotations-only donne un résultat dépendant de la convention")
-        print("       de repérage des faces ; il ne figure pas dans la note.")
+        print("note : --rotations-only : chaque face reçoit une rotation de g vue de l'extérieur")
+        print("       (sans miroir), repères directs : résultat intrinsèque, cité à la section 6 de la note.")
 
     if arg.json:
         rapport = {
