@@ -1954,6 +1954,7 @@
     "tools/make_exemple.py",
     "tools/make_figures.py",
     "tools/make_patron.py",
+    "tools/make_pavage.py",
     "tools/rotations_orientees.py"
    ],
    "etat": "ponctuel",
@@ -2792,6 +2793,16 @@
    "utilise_par": [
     "tools/make_broderie.py"
    ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/make_pavage.py",
+   "role": "le pavage de la grille sur un plein rapport : la grille g = Φ(n, A, B) répétée 2 × 2, et la même grille décalée d'un demi-rapport, répétée 2 × 2.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
