@@ -20,3 +20,19 @@ Requirements: Python 3.13 (3.11 for version 3), no third-party package except `r
 2. Mettre le DOI de la v4 dans la version **signée** du manuscrit (jamais dans l'anonymisée) et dans la réponse à l'éditrice si tu veux le citer.
 3. Les licences : les scripts gardent les en-têtes du dépôt (AGPL v3, licence commerciale sur demande) ; reprendre la ligne de licence de la fiche v3.
 4. Si le manuscrit bouge encore, attendre : une v4 qui ne correspond plus au texte oblige à une v5.
+
+## La structure actuelle du dépôt (d'après `data/zenodo/`) : à décider avant de déposer
+
+Le DOI toutes versions est `10.5281/zenodo.22862110`. Sa dernière version (`10.5281/zenodo.23991050`, label « 2.20 », 5 novembre 2026) ne contient que deux fichiers : `README.md` et `unified-patterns-v2.20.zip` (181 Mo), qui est l'article compagnon « From Ansate Cross Colourings to Unified Patterns and Sound Forms » avec ses annexes, et garde les scripts du demi-décalage dans le dossier `half-shift-cube-v3/` de ce zip. La version précédente des scripts seuls est `10.5281/zenodo.23214317` (V.3.2).
+
+Comme une version n'hérite jamais des fichiers de la précédente, il y a deux façons de publier la v4 :
+1. **Nouvelle version = scripts v4 seuls** (`half-shift-cube-v4.zip` + son `README.md`) : l'article compagnon reste accessible dans la version 2.20, mais la dernière version de la fiche ne le contient plus. Le texte de la fiche doit alors le dire et renvoyer au DOI de la 2.20.
+2. **Nouvelle version = tout** : remplacer `half-shift-cube-v3/` par `half-shift-cube-v4/` dans `unified-patterns-v2.20.zip` (je n'ai pas ce zip, il n'est pas dans le dépôt) et redéposer l'ensemble avec `README.md`.
+
+Le paquet `half-shift-cube-v4.zip` convient aux deux : son dossier `half-shift-cube-v4/` est autonome et porte son propre `README.md`.
+
+## DOI toutes versions utilisés dans la version signée du manuscrit
+
+- Données et scripts de la note : `10.5281/zenodo.22862110`
+- Les 360 plaques (chapitre VIII) : `10.5281/zenodo.23189275`
+- Le traité « La Livrée d'Hermès » : `10.5281/zenodo.22722485`
