@@ -36,3 +36,7 @@ Le paquet `half-shift-cube-v4.zip` convient aux deux : son dossier `half-shift-c
 - Données et scripts de la note : `10.5281/zenodo.22862110`
 - Les 360 plaques (chapitre VIII) : `10.5281/zenodo.23189275`
 - Le traité « La Livrée d'Hermès » : `10.5281/zenodo.22722485`
+
+## Le dépôt Git garde le `cube_edges.py` déposé en V.3.2
+
+L'option `--rotations-only` corrigée (repères vus de l'extérieur) est dans le paquet Zenodo v4 et dans la soumission, **pas dans `tools/cube_edges.py` du dépôt Git** : sept résultats de `data/resultats-etablis.json` sont vérifiés « à l'octet déposé » contre ce fichier (V.3.2). Le reporter dans le dépôt est une décision à prendre avec ces sept résultats (ils citeraient alors la v4).

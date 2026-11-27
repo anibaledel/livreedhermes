@@ -1,19 +1,19 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-27T15:46:00Z",
+ "generated_at_utc": "2026-11-27T16:13:23Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
  "instantane_zenodo": {
   "fichier": "data/zenodo/depots.json",
-  "recupere_le_utc": "2026-11-06T00:16:37+00:00"
+  "recupere_le_utc": "2026-11-27T16:40:00+00:00"
  },
  "comptes": {
   "scripts": 352,
   "sans_licence_declaree": 76,
-  "deposes_meme_octet": 15,
-  "deposes_octet_different": 6,
-  "depose_absent_du_depot": 15
+  "deposes_meme_octet": 16,
+  "deposes_octet_different": 5,
+  "depose_absent_du_depot": 14
  },
  "codes": [
   {
@@ -3647,9 +3647,9 @@
   {
    "chemin": "tools/cube_edges.py",
    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
-   "octets": 28035,
-   "sha256": "cb6d5444fe97fbbbce3491913a8d98c957037f6744d0dcb23140fcc1f9fc0c5f",
-   "md5": "3754d5fe0cc6dfb5d3a1cecbdc0805e3",
+   "octets": 26641,
+   "sha256": "198fdf2f7a3e085ce42a21dbffb9f00e64993429cb06a21db973608402a4e641",
+   "md5": "b908d185f93768636a9b85ad601c061c",
    "licence_declaree": true,
    "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
    "role": "Vérification de la règle d'arête sur le cube.",
@@ -3693,7 +3693,7 @@
      "version": null,
      "fichier": "cube_edges.py",
      "md5_depose": "b908d185f93768636a9b85ad601c061c",
-     "meme_octet": false
+     "meme_octet": true
     }
    ]
   },
@@ -5996,17 +5996,6 @@
    "homonymes_aux_octets_differents": [
     "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/codes_cles.py",
     "docs/sources/2026-10-01/one-object-v8/codes_cles.py"
-   ]
-  },
-  {
-   "depot": "10.5281/zenodo.22862110",
-   "enregistrement": "22967302",
-   "version": null,
-   "fichier": "cube_edges.py",
-   "md5_depose": "b908d185f93768636a9b85ad601c061c",
-   "homonymes_aux_octets_differents": [
-    "docs/sources/2026-10-08/half-shift-cube-v3/tools/cube_edges.py",
-    "tools/cube_edges.py"
    ]
   },
   {
