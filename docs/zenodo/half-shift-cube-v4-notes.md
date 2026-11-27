@@ -1,6 +1,6 @@
 # Notes de version pour la fiche Zenodo : half-shift-cube v4
 
-**À déposer par Anibal, sur son compte : rien n'a été déposé ni modifié sur Zenodo depuis ce dépôt.** Le paquet est `docs/zenodo/half-shift-cube-v4.zip` ; ce texte est un brouillon des notes de version.
+**DÉPOSÉ le 27 novembre 2026** (règle levée par Anibal pour ce dépôt, jeton fourni par lui) : version `v4.0`, DOI de la version `10.5281/zenodo.24594128`, DOI toutes versions `10.5281/zenodo.22862110`. Fichiers : `half-shift-cube-v4.zip` et `README.md`. Les anciens fichiers de la 2.20 (`README.md`, `unified-patterns-v2.20.zip`) ne sont pas dans cette version : ils restent dans la version 2.20 (`10.5281/zenodo.23991050`). Ce texte est celui des notes de version.
 
 ## Texte proposé (anglais, pour le champ « Description » ou « Version notes »)
 
