@@ -1951,6 +1951,7 @@
     "tools/classes_translations.py",
     "tools/cube_croisements.py",
     "tools/make_broderie.py",
+    "tools/make_exemple.py",
     "tools/make_figures.py",
     "tools/make_patron.py",
     "tools/rotations_orientees.py"
@@ -2743,6 +2744,16 @@
   {
    "fichier": "tools/make_broderie.py",
    "role": "le schéma de point de croix d'une grille et de son cube, calculé (rien n'est dessiné à la main).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/make_exemple.py",
+   "role": "de six cartes à une grille : l'exemple source de la note (figure « cards »).",
    "lit": [],
    "ecrit": [],
    "appele_par": [],
