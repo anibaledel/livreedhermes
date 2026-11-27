@@ -71,12 +71,21 @@
     },
     {
       "id": "unified-patterns", "group": "Patterns, axes and level sets", "type": "software",
-      "title": "Unified Patterns — companion article, data and verification (half-shift criterion on three-colour 12 × 12 grids)",
-      "summary_en": "Companion article 'From Ansate Cross Colourings to Unified Patterns and Sound Forms' (v2.20, with supplement C1–C6 and certificates) and the data and scripts of the half-shift note submitted to the Journal of Mathematics and the Arts.",
-      "summary_fr": "Article compagnon « Des colorations des croix ansées aux motifs Unified Patterns et aux formes sonores » (v2.20, avec le complément C1–C6 et les certificats), et données et scripts de la note sur le demi-décalage soumise au Journal of Mathematics and the Arts.",
-      "version": "2.20", "date": "2026-11-05",
-      "status_en": "Half-shift note under review (Journal of Mathematics and the Arts); companion article: preprint", "status_fr": "Note du demi-décalage en évaluation (Journal of Mathematics and the Arts) ; article compagnon : prépublication",
-      "doi": "10.5281/zenodo.22862110", "version_doi": "10.5281/zenodo.23991050", "license": "AGPL-3.0 (code), CC BY 4.0 (texts)", "pending": false
+      "title": "Data and verification scripts for the half-shift criterion on three-colour 12 × 12 grids (version 4; the Unified Patterns companion article is in version 2.20)",
+      "summary_en": "Version 4.0: the data and the scripts of the half-shift note submitted to the Journal of Mathematics and the Arts, with their output and checksums. The companion article 'From Ansate Cross Colourings to Unified Patterns and Sound Forms' (v2.20, with supplement C1–C6 and certificates) remains in version 2.20 of this record (10.5281/zenodo.23991050).",
+      "summary_fr": "Version 4.0 : les données et les scripts de la note sur le demi-décalage soumise au Journal of Mathematics and the Arts, avec leurs sorties et leurs empreintes. L'article compagnon « Des colorations des croix ansées aux motifs Unified Patterns et aux formes sonores » (v2.20, avec le complément C1–C6 et les certificats) reste dans la version 2.20 de ce dépôt (10.5281/zenodo.23991050).",
+      "version": "v4.0", "date": "2026-11-27",
+      "status_en": "Half-shift note under review (Journal of Mathematics and the Arts); companion article: preprint (version 2.20)", "status_fr": "Note du demi-décalage en évaluation (Journal of Mathematics and the Arts) ; article compagnon : prépublication (version 2.20)",
+      "doi": "10.5281/zenodo.22862110", "version_doi": "10.5281/zenodo.24594128", "license": "AGPL-3.0 (code)", "pending": false
+    },
+    {
+      "id": "four-axis-288", "group": "Patterns, axes and level sets", "type": "dataset",
+      "title": "The 288 four-axis forms of three-colour 12×12 tilings — data, images and scripts",
+      "summary_en": "The family of 288 three-colour 12 × 12 tilings with four mirror axes, a single motif, 48 / 48 / 48 cells per colour, readable by the binary reading of the corpus: 32 forms of the corpus and 256 new ones; JSON and CSV data, one SVG per form, three sheets and the scripts that recompute them.",
+      "summary_fr": "La famille des 288 pavages 12 × 12 à trois couleurs qui ont quatre axes de miroir, un seul motif, 48 / 48 / 48 cases par couleur, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 nouvelles ; données JSON et CSV, une image SVG par forme, trois planches et les scripts qui les recalculent.",
+      "version": "1.0", "date": "2026-11-27",
+      "status_en": "Published", "status_fr": "Publié",
+      "doi": "10.5281/zenodo.24594284", "version_doi": "10.5281/zenodo.24594285", "license": "CC BY-NC 4.0 (data, images), AGPL-3.0 (code)", "pending": false
     },
     {
       "id": "axes-chladni", "group": "Patterns, axes and level sets", "type": "preprint",

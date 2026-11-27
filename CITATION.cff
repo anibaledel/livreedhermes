@@ -124,7 +124,17 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22862110
-    version: "2.20"
+    version: "v4.0"
+  - type: data
+    title: >-
+      The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.24594284
+    version: "1.0"
   - type: software
     title: >-
       The Ansate Cross — verification code for a self-constructing method of order-6 magic squares

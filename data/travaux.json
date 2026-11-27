@@ -277,6 +277,27 @@
     },
     {
       "section": "donnees",
+      "type": "dataset",
+      "titre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+      "research_id": "four-axis-288",
+      "premiere": "2026-11-27",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY-NC 4.0",
+      "fr": "La famille des 288 pavages 12 × 12 à trois couleurs qui ont quatre axes de miroir, un seul motif, 48 / 48 / 48 cases par couleur, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 nouvelles ; données JSON et CSV, une image SVG par forme, trois planches et les scripts qui les recalculent.",
+      "en": "The family of 288 three-colour 12 × 12 tilings with four mirror axes, a single motif, 48 / 48 / 48 cells per colour, readable by the binary reading of the corpus: 32 forms of the corpus and 256 new ones; JSON and CSV data, one SVG per form, three sheets and the scripts that recompute them.",
+      "zh": "三色 12 × 12 铺砌中具有四条镜像轴的 288 种形式：单一图案、每色 48 格，可由语料库的二进制读法读取；其中 32 种属语料库，256 种为新增；含 JSON 与 CSV 数据、每种形式一幅 SVG 图像、三张总览图及重新计算它们的脚本。",
+      "ru": "Семейство из 288 трёхцветных мозаик 12 × 12 с четырьмя осями зеркала, одним мотивом, 48 / 48 / 48 клеток каждого цвета, читаемых двоичным чтением корпуса: 32 формы корпуса и 256 новых; данные JSON и CSV, по одному SVG-изображению на форму, три листа и скрипты, которые их пересчитывают.",
+      "pt": "A família das 288 ladrilhagens 12 × 12 a três cores com quatro eixos de espelho, um único motivo, 48 / 48 / 48 casas por cor, legíveis pela leitura binária do corpus: 32 formas do corpus e 256 novas; dados JSON e CSV, uma imagem SVG por forma, três pranchas e os scripts que as recalculam.",
+      "hi": "तीन रंगों वाले 12 × 12 टाइलिंग की 288 आकृतियों का परिवार, जिनमें चार दर्पण-अक्ष हैं, एक ही रूपांकन है, प्रत्येक रंग के 48 / 48 / 48 खाने हैं और जो संग्रह के द्विआधारी पठन से पढ़ी जा सकती हैं: संग्रह की 32 आकृतियाँ और 256 नई; JSON और CSV डेटा, प्रत्येक आकृति की एक SVG छवि, तीन पट्ट और उन्हें दोबारा गिनने वाली स्क्रिप्टें।",
+      "licenceZenodo": "cc-by-nc-4.0",
+      "page": "four-axis-forms-288",
+      "meta": "The family of 288 three-colour 12×12 tilings with four mirror axes: data (JSON, CSV), one SVG per form, three sheets and the scripts. Dataset on Zenodo, with DOI.",
+      "titreCourt": "288 four-axis forms of 12×12 tilings"
+    },
+    {
+      "section": "donnees",
       "type": "software",
       "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
       "research_id": "ansate-cross-code",

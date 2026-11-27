@@ -1,6 +1,6 @@
 {
  "format_version": "zenodo-miroir-v1",
- "recupere_le_utc": "2026-11-06T00:16:37+00:00",
+ "recupere_le_utc": "2026-11-27T15:50:00+00:00",
  "source": "https://zenodo.org/api/records/<id>",
  "_doc": "Reponses brutes de l'API Zenodo (zenodo-brut/) et vue normalisee. Recupere depuis le conteneur d'Anibal, zenodo.org etant refuse a l'environnement Claude Code. Les descriptions sont le texte d'Anibal : recopiees, non reformulees.",
  "depots": [
@@ -1995,10 +1995,10 @@
   },
   {
    "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
-   "conceptDoi": "10.5281/zenodo.22862110",
-   "versionDoi_registre": "10.5281/zenodo.23991050",
+   "conceptDoi": null,
+   "versionDoi_registre": "10.5281/zenodo.24594128",
    "versionDoi_reel": "10.5281/zenodo.23991050",
-   "ecart": "aucun",
+   "ecart": "versionDoi perime",
    "id_version": 23991050,
    "titre": "Data and verification scripts for \"A Half-Shift Criterion on Three-Colour 12×12 Grids\"",
    "publication_date": "2026-11-05",
@@ -2086,6 +2086,184 @@
      "octets": 181828168,
      "checksum": "md5:61388bfa5b0278ea2720da58450a2ca4",
      "lien": "https://zenodo.org/api/records/23991050/files/unified-patterns-v2.20.zip/content"
+    }
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22862110",
+   "_doc": "Version antérieure de 10.5281/zenodo.22862110, remplacée par 10.5281/zenodo.24594128 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
+  },
+  {
+   "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
+   "conceptDoi": "10.5281/zenodo.22862110",
+   "versionDoi_registre": "10.5281/zenodo.24594128",
+   "versionDoi_reel": "10.5281/zenodo.24594128",
+   "ecart": "aucun",
+   "id_version": 24594128,
+   "titre": "Data and verification scripts for \"A Half-Shift Criterion on Three-Colour 12×12 Grids\"",
+   "publication_date": "2026-11-27",
+   "version": "v4.0",
+   "licence": "apgl-v3",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p><strong>Version 4 &mdash; the complete set, with the scripts added since version 3.</strong> This version is complete by itself: a Zenodo version does not inherit the files of the previous one, so every file is in this archive (<code>half-shift-cube-v4.zip</code>). Keep the layout when extracting (a <code>data/</code> directory beside <code>tools/</code>) and run the scripts from <code>tools/</code>. The companion article &ldquo;From Ansate Cross Colourings to Unified Patterns and Sound Forms&rdquo; is not part of this version; it remains available in version 2.20 of this record (10.5281/zenodo.23991050).</p><p>Data and verification scripts accompanying the note <em>A Half-Shift Criterion on Three-Colour 12&times;12 Grids, and Its Restriction on the Cube</em>.</p><p>Unchanged from version 3 (byte for byte): seven scripts (<code>croisements.py</code>, <code>croix_ansee.py</code>, <code>cube_croisements.py</code>, <code>make_figures.py</code>, <code>paires_croisees.py</code>, <code>selection_ordre6.py</code>, <code>verif_carre_magique.py</code>) and the three data files.</p><p>Changed: <code>cube_edges.py</code>, option <code>--rotations-only</code>. Each face is now framed seen from the outside, so that the restriction to rotations means: every face receives a rotation of the grid as seen from outside, never its mirror image (a panel that can be turned but not turned over). Version 3 rotated the faces in arbitrary frames, some seen from outside and some from inside, and the result it gave (two families) depended on that choice. With oriented frames the answer is the same as with the full dihedral group: four families, 256 grids, 128 classes modulo the half-shift.</p><p>Added: <code>rotations_orientees.py</code> (the same question recomputed independently from the geometry of the cube), <code>classes_translations.py</code> (the 512 grids modulo the half-shift and modulo all 144 translations), <code>make_patron.py</code>, <code>make_exemple.py</code>, <code>make_pavage.py</code> and <code>make_broderie.py</code> (figures: the net of the cube with lettered seams, the six cards of two layers, the grid on a full repeat, a stitch chart), the output of every script in <code>logs/</code>, the figures in <code>fig/</code> and <code>realisation/</code>, and <code>SHA256SUMS.txt</code>.</p><p>Requirements: Python 3.13 (3.11 for version 3), no third-party package except <code>reportlab</code> for the four scripts that write PDF figures. All scripts exit without error; the logs of the unchanged scripts are identical to those of version 3 apart from running times. <code>sha256sum -c SHA256SUMS.txt</code> checks the archive.</p>",
+   "description_texte": "Version 4 — the complete set, with the scripts added since version 3. This version is complete by itself: a Zenodo version does not inherit the files of the previous one, so every file is in this archive (half-shift-cube-v4.zip). Keep the layout when extracting (a data/ directory beside tools/) and run the scripts from tools/. The companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms” is not part of this version; it remains available in version 2.20 of this record (10.5281/zenodo.23991050).\n\nData and verification scripts accompanying the note A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube.\n\nUnchanged from version 3 (byte for byte): seven scripts (croisements.py, croix_ansee.py, cube_croisements.py, make_figures.py, paires_croisees.py, selection_ordre6.py, verif_carre_magique.py) and the three data files.\n\nChanged: cube_edges.py, option --rotations-only. Each face is now framed seen from the outside, so that the restriction to rotations means: every face receives a rotation of the grid as seen from outside, never its mirror image (a panel that can be turned but not turned over). Version 3 rotated the faces in arbitrary frames, some seen from outside and some from inside, and the result it gave (two families) depended on that choice. With oriented frames the answer is the same as with the full dihedral group: four families, 256 grids, 128 classes modulo the half-shift.\n\nAdded: rotations_orientees.py (the same question recomputed independently from the geometry of the cube), classes_translations.py (the 512 grids modulo the half-shift and modulo all 144 translations), make_patron.py, make_exemple.py, make_pavage.py and make_broderie.py (figures: the net of the cube with lettered seams, the six cards of two layers, the grid on a full repeat, a stitch chart), the output of every script in logs/, the figures in fig/ and realisation/, and SHA256SUMS.txt.\n\nRequirements: Python 3.13 (3.11 for version 3), no third-party package except reportlab for the four scripts that write PDF figures. All scripts exit without error; the logs of the unchanged scripts are identical to those of version 3 apart from running times. sha256sum -c SHA256SUMS.txt checks the archive.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "half-shift criterion",
+    "three-colour grids",
+    "Jacquard weaving",
+    "cube edge rule",
+    "exhaustive enumeration",
+    "verification",
+    "combinatorics",
+    "recreational mathematics",
+    "spectral invariance",
+    "certificates",
+    "isospectral patterns",
+    "iscrete cosine transform"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966839",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "isSupplementedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 2625,
+     "checksum": "md5:c15a550335013694e58415bf1ca15988",
+     "lien": "https://zenodo.org/api/records/24594128/files/README.md/content"
+    },
+    {
+     "nom": "half-shift-cube-v4.zip",
+     "octets": 203956,
+     "checksum": "md5:ab7a1282e900ec3eeb7cd6ee2faf0277",
+     "lien": "https://zenodo.org/api/records/24594128/files/half-shift-cube-v4.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "conceptDoi": "10.5281/zenodo.24594284",
+   "versionDoi_registre": "10.5281/zenodo.24594285",
+   "versionDoi_reel": "10.5281/zenodo.24594285",
+   "ecart": "aucun",
+   "id_version": 24594285,
+   "titre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "publication_date": "2026-11-27",
+   "version": "1.0",
+   "licence": "cc-by-nc-4.0",
+   "type": "Dataset",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>The family of <strong>288 three-colour 12 &times; 12 tilings with four mirror axes</strong> (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).</p><ul><li><strong>32 forms</strong> are those of the already deposited corpus that have four axes;</li><li><strong>256 forms are new</strong>: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.</li></ul><p>Only five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.</p><p><strong>Contents.</strong> <code>data/</code>: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; <code>svg/</code>: one SVG per form; <code>planches/</code>: three PNG sheets; <code>repro/</code>: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); <code>SHA256SUMS.txt</code>; <code>LISEZMOI.md</code> (in French).</p><p><strong>Limits.</strong> The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass <em>between</em> cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.</p><p><strong>Licence.</strong> Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).</p><p><em>Fran&ccedil;ais.</em> Les 288 formes de pavages 12 &times; 12 &agrave; trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir <code>LISEZMOI.md</code> dans l&rsquo;archive.</p>",
+   "description_texte": "The family of 288 three-colour 12 × 12 tilings with four mirror axes (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).\n\n32 forms are those of the already deposited corpus that have four axes;\n\n256 forms are new: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.\n\nOnly five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.\n\nContents. data/: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; svg/: one SVG per form; planches/: three PNG sheets; repro/: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); SHA256SUMS.txt; LISEZMOI.md (in French).\n\nLimits. The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass between cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.\n\nLicence. Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).\n\nFrançais. Les 288 formes de pavages 12 × 12 à trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir LISEZMOI.md dans l’archive.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "Jacquard weaving",
+    "three-colour grids",
+    "mirror symmetry",
+    "tilings",
+    "colour symmetry",
+    "binary reading",
+    "half-shift criterion",
+    "dataset"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.24396534",
+     "relation": "continues",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23189275",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.24508469",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "formes-quatre-axes-288-v1.0.zip",
+     "octets": 488093,
+     "checksum": "md5:243b4ffd984d0c3144b7a6cb1aab3101",
+     "lien": "https://zenodo.org/api/records/24594285/files/formes-quatre-axes-288-v1.0.zip/content"
     }
    ]
   }

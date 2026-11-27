@@ -22,10 +22,10 @@
 <meta name="citation_title" content="Data and verification scripts for &quot;A Half-Shift Criterion on Three-Colour 12×12 Grids&quot;">
 <meta name="citation_author" content="Amiot, Anibal Edelberto">
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0002-6414-9448">
-<meta name="citation_publication_date" content="2026/11/05">
+<meta name="citation_publication_date" content="2026/11/27">
 <meta name="citation_doi" content="10.5281/zenodo.22862110">
 <meta name="citation_publisher" content="Zenodo">
-<meta name="citation_version" content="2.20">
+<meta name="citation_version" content="v4.0">
 <meta name="citation_abstract_html_url" content="https://anibal-amiot.com/travaux/half-shift-criterion-scripts/">
 <meta name="citation_language" content="en">
 <script type="application/ld+json">
@@ -56,15 +56,15 @@
         "value": "10.5281/zenodo.22862110"
       },
       "sameAs": "https://doi.org/10.5281/zenodo.22862110",
-      "datePublished": "2026-11-05",
-      "version": "2.20",
+      "datePublished": "2026-11-27",
+      "version": "v4.0",
       "license": "https://www.gnu.org/licenses/agpl-3.0.html",
       "isPartOf": {
         "@type": "CollectionPage",
         "@id": "https://anibal-amiot.com/travaux.html",
         "name": "Travaux : dépôts horodatés, code et articles — Anibal Amiot"
       },
-      "description": "Companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms”, version 2.20, in English and French, together with its supplement C1–C6, certificates and independent audit. The data and scripts of the half-shift criterion on three-colour 12 × 12 grids are kept unchanged in half-shift-cube-v3/. Versions 2.18 and 2.19 of the article are kept. Version 2.20 extends Section 24: - the XOR-translation stabiliser of the directional corpus of 379,920 patterns at order 30 is trivial in the 55-bit option encoding; replacement graphs, a six-group threshold, a conditional four-bit action on 336 words and a partial covering by sixteen-word families (258,192 of 379,920 words); the structural origin of the factor sixteen remains open; - whole-diamond balance at source orders 18, 30 and 42, and the partition of the order-18 balanced corpus into 858 families of 256 patterns; - a listening experiment on a family of 256 at order 18, a computed sonification and not a physical measurement. New proof folders (preuves/) hold the scripts, data and reports for the eighth setting across the 858 families, the exact invariance of one spectral shell in 32 families at order 18, its compensated analogue at order 30 and a transfer to order 42. The statistics over the 858 families describe the chosen pairing of positions. The finite counts are counts within the stated domains (second cross, J covering, group I, three-cell-block code). They do not classify all patterns or all magic squares. Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0."
+      "description": "Version 4 — the complete set, with the scripts added since version 3. This version is complete by itself: a Zenodo version does not inherit the files of the previous one, so every file is in this archive (half-shift-cube-v4.zip). Keep the layout when extracting (a data/ directory beside tools/) and run the scripts from tools/. The companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms” is not part of this version; it remains available in version 2.20 of this record (10.5281/zenodo.23991050). Data and verification scripts accompanying the note A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube. Unchanged from version 3 (byte for byte): seven scripts (croisements.py, croix_ansee.py, cube_croisements.py, make_figures.py, paires_croisees.py, selection_ordre6.py, verif_carre_magique.py) and the three data files. Changed: cube_edges.py, option --rotations-only. Each face is now framed seen from the outside, so that the restriction to rotations means: every face receives a rotation of the grid as seen from outside, never its mirror image (a panel that can be turned but not turned over). Version 3 rotated the faces in arbitrary frames, some seen from outside and some from inside, and the result it gave (two families) depended on that choice. With oriented frames the answer is the same as with the full dihedral group: four families, 256 grids, 128 classes modulo the half-shift. Added: rotations_orientees.py (the same question recomputed independently from the geometry of the cube), classes_translations.py (the 512 grids modulo the half-shift and modulo all 144 translations), make_patron.py, make_exemple.py, make_pavage.py and make_broderie.py (figures: the net of the cube with lettered seams, the six cards of two layers, the grid on a full repeat, a stitch chart), the output of every script in logs/, the figures in fig/ and realisation/, and SHA256SUMS.txt. Requirements: Python 3.13 (3.11 for version 3), no third-party package except reportlab for the four scripts that write PDF figures. All scripts exit without error; the logs of the unchanged scripts are identical to those of version 3 apart from running times. sha256sum -c SHA256SUMS.txt checks the archive."
     }
   ]
 }
@@ -190,20 +190,21 @@
       <dl class="travail-meta">
         <dt>Auteur</dt><dd>Amiot, Anibal Edelberto (<a href="https://orcid.org/0009-0002-6414-9448">ORCID 0009-0002-6414-9448</a>)</dd>
         <dt>Type</dt><dd>Code et données</dd>
-        <dt>Date</dt><dd>5 novembre 2026</dd>
-        <dt>Version</dt><dd>2.20</dd>
+        <dt>Date</dt><dd>27 novembre 2026</dd>
+        <dt>Version</dt><dd>v4.0</dd>
         <dt>Licence</dt><dd><a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a> <span class="travail-zenodo">(fiche Zenodo : <code>apgl-v3</code>)</span></dd>
-        <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.22862110">10.5281/zenodo.22862110</a> (toutes versions, à citer) · <a href="https://doi.org/10.5281/zenodo.23991050">DOI de cette version</a></dd>
+        <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.22862110">10.5281/zenodo.22862110</a> (toutes versions, à citer) · <a href="https://doi.org/10.5281/zenodo.24594128">DOI de cette version</a></dd>
       </dl>
       <h2>Résumé</h2>
       <div class="travail-resume" lang="en">
-<p>Companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms”, version 2.20, in English and French, together with its supplement C1–C6, certificates and independent audit. The data and scripts of the half-shift criterion on three-colour 12 × 12 grids are kept unchanged in half-shift-cube-v3/. Versions 2.18 and 2.19 of the article are kept.</p>
-<p>Version 2.20 extends Section 24: - the XOR-translation stabiliser of the directional corpus of 379,920 patterns at order 30 is trivial in the 55-bit option encoding; replacement graphs, a six-group threshold, a conditional four-bit action on 336 words and a partial covering by sixteen-word families (258,192 of 379,920 words); the structural origin of the factor sixteen remains open; - whole-diamond balance at source orders 18, 30 and 42, and the partition of the order-18 balanced corpus into 858 families of 256 patterns; - a listening experiment on a family of 256 at order 18, a computed sonification and not a physical measurement.</p>
-<p>New proof folders (preuves/) hold the scripts, data and reports for the eighth setting across the 858 families, the exact invariance of one spectral shell in 32 families at order 18, its compensated analogue at order 30 and a transfer to order 42. The statistics over the 858 families describe the chosen pairing of positions.</p>
-<p>The finite counts are counts within the stated domains (second cross, J covering, group I, three-cell-block code). They do not classify all patterns or all magic squares.</p>
-<p>Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0.</p>
+<p>Version 4 — the complete set, with the scripts added since version 3. This version is complete by itself: a Zenodo version does not inherit the files of the previous one, so every file is in this archive (half-shift-cube-v4.zip). Keep the layout when extracting (a data/ directory beside tools/) and run the scripts from tools/. The companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms” is not part of this version; it remains available in version 2.20 of this record (10.5281/zenodo.23991050).</p>
+<p>Data and verification scripts accompanying the note A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube.</p>
+<p>Unchanged from version 3 (byte for byte): seven scripts (croisements.py, croix_ansee.py, cube_croisements.py, make_figures.py, paires_croisees.py, selection_ordre6.py, verif_carre_magique.py) and the three data files.</p>
+<p>Changed: cube_edges.py, option --rotations-only. Each face is now framed seen from the outside, so that the restriction to rotations means: every face receives a rotation of the grid as seen from outside, never its mirror image (a panel that can be turned but not turned over). Version 3 rotated the faces in arbitrary frames, some seen from outside and some from inside, and the result it gave (two families) depended on that choice. With oriented frames the answer is the same as with the full dihedral group: four families, 256 grids, 128 classes modulo the half-shift.</p>
+<p>Added: rotations_orientees.py (the same question recomputed independently from the geometry of the cube), classes_translations.py (the 512 grids modulo the half-shift and modulo all 144 translations), make_patron.py, make_exemple.py, make_pavage.py and make_broderie.py (figures: the net of the cube with lettered seams, the six cards of two layers, the grid on a full repeat, a stitch chart), the output of every script in logs/, the figures in fig/ and realisation/, and SHA256SUMS.txt.</p>
+<p>Requirements: Python 3.13 (3.11 for version 3), no third-party package except reportlab for the four scripts that write PDF figures. All scripts exit without error; the logs of the unchanged scripts are identical to those of version 3 apart from running times. sha256sum -c SHA256SUMS.txt checks the archive.</p>
       </div>
-      <p class="travail-source">Texte de la fiche Zenodo, recopié tel quel (texte brut), relevé le 2026-11-06.</p>
+      <p class="travail-source">Texte de la fiche Zenodo, recopié tel quel (texte brut), relevé le 2026-11-27.</p>
       <p><a href="https://anibal-amiot.com/travaux.html">Tous les travaux</a></p>
     </div>
   </div>
