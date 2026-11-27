@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-11-26T12:11:30Z",
+ "generated_at_utc": "2026-11-27T16:03:56Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -445,8 +445,8 @@
    "adresse": "https://anibal-amiot.com/data/fonds/demi-periode.json",
    "chemin": "data/fonds/demi-periode.json",
    "media_type": "application/json",
-   "octets": 7720,
-   "sha256": "dff8030897c648db5e7c320e0b30e7d764552539957ba0a8a431783e77b7995d",
+   "octets": 7762,
+   "sha256": "b77ededcef14b99bcba8e9d7870e4147da5760aa7bc42efebdc5bdd0463e6023",
    "version": {
     "format_version": null,
     "generated_at_utc": null,
@@ -474,6 +474,7 @@
     "echantillon",
     "approuves",
     "proposes",
+    "hors_critere",
     "fonds"
    ]
   }
