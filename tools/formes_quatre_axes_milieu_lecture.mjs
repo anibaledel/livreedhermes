@@ -11,6 +11,7 @@
 //   node tools/formes_quatre_axes_milieu_lecture.mjs            imprime les nombres
 //   node tools/formes_quatre_axes_milieu_lecture.mjs --verifie  échoue si un nombre diffère de data/resultats-etablis.json
 //   node tools/formes_quatre_axes_milieu_lecture.mjs --essai    une grille faussée et un nombre faussé sont refusés
+//   node tools/formes_quatre_axes_milieu_lecture.mjs --lectures écrit sur la sortie standard, pour chaque grille parfaite, {pi, g, bits} : la lecture binaire (144 cases × 4 bits N, E, S, O)
 //   node tools/formes_quatre_axes_milieu_lecture.mjs --drapeaux écrit sur la sortie standard {entre: [0|1…], milieu: [0|1…]} dans l'ordre de tools/formes_quatre_axes_enum.py --json
 import fs from 'node:fs';
 import path from 'node:path';
@@ -80,6 +81,7 @@ if (arg === '--essai') {
   const d = enumeration();
   const fl = drapeaux(d);
   if (arg === '--drapeaux') process.stdout.write(JSON.stringify(fl));
+  else if (arg === '--lectures') process.stdout.write(JSON.stringify(Object.fromEntries(Object.keys(d).map((k) => [k, d[k].filter((_, i) => fl[k][i]).map((e) => ({ pi: e.pi, g: e.g, bits: binaire(e.g.map((r) => [...r]), 'x').bits.join('') }))]))));
   else {
     const o = nombres(d, fl);
     if (arg === '--verifie') {
