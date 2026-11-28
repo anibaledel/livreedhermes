@@ -9,7 +9,7 @@ import { NIVEAUX_CORPUS, NIVEAU_DEFAUT } from './corpus-animation.js';
 import { codeActuel } from './fonds-groupes.js';
 
 export const MODES = Object.freeze(['defile', 'spectre', 'entre-deux']);
-export const MODE_DEFAUT = 'defile';
+export const MODE_DEFAUT = 'spectre'; // prompt 273 : le mode de départ de l'ancienne version, « Image — le son définit l'image » (le motif dont le spectre ressemble le plus à celui de la musique)
 export const FOND_DEFAUT = 'P';
 export const RYTHME_MIN = 0.5, RYTHME_MAX = 30, RYTHME_DEFAUT = 8;
 export const DENSITE_MIN = 4, DENSITE_MAX = 32, DENSITE_DEFAUT = 4;
@@ -31,6 +31,7 @@ export function lireEtat(search, proposes) {
   const refuse = (k) => { if (k) ignores.push(k); };
   let [k, v] = lu('mode');
   if (k) { if (MODES.includes(v)) etat.mode = v; else refuse(k); }
+  else if (['brythme', 'bdensite', 'declencheur'].some((c) => q.has(c))) etat.mode = 'defile'; // un ancien lien (fonds d'écran) ou un lien du défilé sans « mode » : il voulait le défilé, que le mode de départ n'est plus
   [k, v] = lu('fond');
   if (k) { const c = Array.isArray(proposes) ? codeActuel(v, proposes) : null; if (c) etat.fond = c; else refuse(k); } // un ancien code de rotation (B3, B121, B11211D…) pointe vers sa version « x », si elle est proposée
   [k, v] = lu('corpus');

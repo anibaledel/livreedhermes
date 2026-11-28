@@ -181,12 +181,15 @@ export function creerEntreDeux({ bloc, distance, k = NOMBRE_ENTRE_DEUX, depart =
  *   spectre    { bloc }
  *   entre-deux { bloc, distance, periodeS }
  */
-export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_MINUTEUR_S, graine = 1, liste = null, bloc = null, distance = null, sansRepliApres = 4, tenueMinS = 0 }) {
+export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_MINUTEUR_S, graine = 1, liste = null, bloc = null, distance = null, sansRepliApres = 4, tenueMinS = 0, reglages = {} }) {
+  // `reglages` (prompt 273, « Plus d'options ») : seuil (écarts-types, 0,45), intervalle (s, 0,45), lissageS (constante de temps, LISSAGE_S), pente, loi, c — les réglages de l'analyse du son de l'ancienne version ; absents : ceux d'avant.
+  const { seuil = 0.45, intervalle = 0.45, lissageS = LISSAGE_S, pente = true, loi, c } = reglages;
+  const optionsBandes = { pente, ...(loi ? { loi } : {}), ...(c ? { c } : {}) };
   if (!MODES.includes(mode)) throw new Error(`pavane-moteur.js : mode « ${mode} » inconnu`);
   const defile = mode === 'defile' ? creerDefile({ n: liste.n, distance: liste.distance, graine }) : null;
   const entre = mode === 'entre-deux' ? creerEntreDeux({ bloc, distance }) : null;
   const tenueS = Math.max(tenueMinS, TENUE_MIN_S); // le plancher de 0,8 s vaut toujours ; « Mouvement réduit » monte à 3 s
-  const detecteur = creerDetecteurAttaques(), suivi = creerSuiviPulsation(), lisseur = creerLisseur(LISSAGE_S);
+  const detecteur = creerDetecteurAttaques({ sigma: seuil, intervalleMin: intervalle }), suivi = creerSuiviPulsation(), lisseur = creerLisseur(lissageS);
   let derniere = null, tChange = null, tDebut = null, sansPulsationDepuis = null, courant = -1, regulier = false, bpm = null;
   const sortie = (changer, i, repli = false) => ({ changer, i, repli, bpm, regulier });
   const minuteurEchu = (t) => tChange === null || t - tChange >= periodeS;
@@ -208,7 +211,7 @@ export function creerChef({ mode, declencheur = 'minuteur', periodeS = PERIODE_M
         if ((!declenche || tenue) && courant !== -1) return sortie(false, courant);
         const p = defile.suivant(); courant = p.i; tChange = t; return sortie(true, courant);
       }
-      const v = db ? lisseur.pousser(bandesDuSon(db, sampleRate), t) : lisseur.valeur;
+      const v = db ? lisseur.pousser(bandesDuSon(db, sampleRate, optionsBandes), t) : lisseur.valeur;
       if (mode === 'spectre') {
         if (!v) return sortie(false, courant);
         const m = choisirParSpectre(v, bloc, courant);

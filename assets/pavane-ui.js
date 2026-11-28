@@ -16,6 +16,7 @@ import { NIVEAUX_CORPUS } from './corpus-animation.js';
 import { creerDefile, creerChef, listeDuNiveau, distancesDe, blocDuCorpus64, blocEtendu, entreesEtendues, membreAffiche } from './pavane-moteur.js';
 import { creerSon, frequenceDuCurseur, curseurDeFrequence } from './pavane-son.js';
 import { texte } from './pavane-textes.js';
+import { lireRendu, lireOptions, ecrireRenduEtOptions, reglagesDuChef, svgFigure, creerPanneauOptions, texteRendu, OPT_DEFAUTS } from './pavane-rendu.js'; // prompt 273 : les rendus Signes et Lignes nodales, et « Plus d'options »
 
 const RACINE = new URL('../', import.meta.url);
 const PERIODE_MIN_REDUIT_S = 3; // « réduire les changements rapides » : jamais un motif plus court que 3 s
@@ -69,6 +70,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const son = creerSon();
 
   let { etat } = lireEtat(recherche, proposes);
+  let rendu = lireRendu(recherche), opts = lireOptions(recherche); // prompt 273 : « signes » (le rendu de départ de l'ancienne version), « lignes » ou « cases » (les fonds) ; les réglages de « Plus d'options »
   if (etat.etendu && !(await activerEtendu(true))) etat = { ...etat, etendu: false }; // un lien ?etendu=1 charge les formes avant le premier motif ; si elles manquent, l'option retombe
   // le micro est la source de départ (prompt 220) : jamais demandé au chargement, seulement au bouton « Activer le micro » ; refusé ou impossible, un morceau d'exemple le remplace, en le disant.
   // Un lien qui fixe la source (?source=…, ?piste=…) garde le dessus : alors, pas de repli.
@@ -104,7 +106,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const couches = [el('div', { class: 'pv-couche' }), el('div', { class: 'pv-couche' })];
   const scene = el('div', { class: 'pv-scene', role: 'img', 'aria-label': T('scene'), tabindex: '0' }, ...couches);
   const statut = el('p', { class: 'pv-etat', role: 'status', 'aria-live': 'polite' });
-  const selFond = el('select', { id: `${id}-fond` }, ...groupes.map((g) => el('option', { value: g.groupe, text: T(`fond_${g.groupe}`) })));
+  const selFond = el('select', { id: `${id}-fond` }, el('option', { value: 'signes', text: texteRendu(langue, 'rendu_signes') }), el('option', { value: 'lignes', text: texteRendu(langue, 'rendu_lignes') }), ...groupes.map((g) => el('option', { value: g.groupe, text: T(`fond_${g.groupe}`) })));
+  const panneauOptions = creerPanneauOptions({ langue, id, o: opts, surChangement: (o) => { opts = o; ecrireAdresse(); reconstruireChefSeulement(); armer(); }, surRemiseAZero: () => { opts = { ...OPT_DEFAUTS }; ecrireAdresse(); reconstruireChefSeulement(); armer(); } });
   const selVariante = el('select', { id: `${id}-fond-variante`, hidden: true });
   const radiosCorpus = NIVEAUX_CORPUS.map((n) => ({ n, radio: el('input', { type: 'radio', name: `${id}-corpus`, value: String(n) }) }));
   const choixCorpus = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('corpus') }), ...radiosCorpus.map(({ n, radio }) => el('label', {}, radio, el('span', { text: T(`corpus${n}`) }))));
@@ -128,20 +131,23 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   const bPause = el('button', { type: 'button' }), bPlein = el('button', { type: 'button', text: T('pleinEcran') });
   const bImage = el('button', { type: 'button', text: T('enregImage') }), bVideo = el('button', { type: 'button', text: T('enregVideo') });
   const reglages = el('div', { class: 'pv-reglages', role: 'group', 'aria-label': T('reglages') },
-    choixDecl, el('label', {}, el('span', { text: T('fond') }), selFond), selVariante, choixCorpus,
+    choixDecl, el('label', {}, el('span', { text: texteRendu(langue, 'renduTitre') }), selFond), selVariante, choixCorpus,
     el('label', {}, el('span', { text: T('palette') }), selPalette), personnalise, erreur,
-    el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', { class: 'pv-etendu' }, cEtendu, el('span', { text: T('etendu') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert);
+    el('label', {}, cTrace, el('span', { text: T('trace') })), el('label', { class: 'pv-etendu' }, cEtendu, el('span', { text: T('etendu') })), el('label', {}, cReduit, el('span', { text: T('reduitCase') }), nReduit), lRythme, lDensite, el('div', { class: 'pv-actions' }, bPause, bPlein, bImage, bVideo), bAvert, panneauOptions.bouton, panneauOptions.panneau);
   racine.replaceChildren(el('h2', { class: 'pv-titre' }, T('titreApp')), avert, modes, sources, el('div', { class: 'pv-corps' }, el('div', {}, scene, statut), reglages), el('p', { class: 'pv-flash', text: T('flash') }));
   racine.classList.toggle('pv-reduit', reduit);
 
   // ---------- le rendu ----------
   const paire = () => paireDe(etat.palette, etat.c0, etat.c1) || [...PALETTES['creme-encre']];
   function svgDe(idMotif, taille = 480) {
-    const cle = [idMotif, etat.fond, paire().join(), etat.trace, taille].join('|');
+    const cle = [idMotif, rendu, etat.fond, paire().join(), etat.trace, taille].join('|');
     if (!cache.has(cle)) {
       if (cache.size > 40) cache.delete(cache.keys().next().value);
-      const cases = lectureBinaire(parId.get(idMotif).tricolore, idMotif).cases;
-      cache.set(cle, varianteSvg(cases, paire(), fonds.get(etat.fond), { size: taille, prefixe: `${id}-`, trace: etat.trace }));
+      if (rendu !== 'cases') cache.set(cle, svgFigure(parId.get(idMotif).tricolore, rendu, paire(), { size: taille })); // Signes ou Lignes nodales : la figure du motif lui-même (prompt 273)
+      else {
+        const cases = lectureBinaire(parId.get(idMotif).tricolore, idMotif).cases;
+        cache.set(cle, varianteSvg(cases, paire(), fonds.get(etat.fond), { size: taille, prefixe: `${id}-`, trace: etat.trace }));
+      }
     }
     return cache.get(cle);
   }
@@ -181,7 +187,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     ids = etat.mode === 'defile' ? listeDuNiveau(corpus, etat.corpus) : ids64;
     const distance = etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64;
     defile = creerDefile({ n: ids.length, distance, graine: 1 });
-    chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 });
+    chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0, reglages: reglagesDuChef(opts) });
     if (etat.mode === 'defile') afficher(ids[defile.suivant().i]); else afficher(ids64[0]);
     armer();
   }
@@ -206,7 +212,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   }
 
   // ---------- l'état ----------
-  function ecrireAdresse() { if (historique) history.replaceState(null, '', `${location.pathname}${historique === 'fusion' ? fusionnerRecherche(location.search, etat) : ecrireEtat(etat)}${location.hash}`); }
+  function ecrireAdresse() { if (historique) history.replaceState(null, '', `${location.pathname}${ecrireRenduEtOptions(historique === 'fusion' ? fusionnerRecherche(location.search, etat) : ecrireEtat(etat), rendu, opts)}${location.hash}`); }
   function refleter() {
     for (const r of radiosMode) r.radio.checked = r.m === etat.mode;
     const audio = etat.mode !== 'defile' || etat.declencheur === 'pulsation';
@@ -220,7 +226,8 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     for (const { d, radio } of radiosDecl) radio.checked = d === etat.declencheur;
     choixDecl.hidden = etat.mode !== 'defile';
     const gAct = groupes.find((g) => g.codes.includes(etat.fond)); memoireGroupe.set(gAct.groupe, etat.fond);
-    selFond.value = gAct.groupe; selVariante.hidden = gAct.codes.length < 2;
+    selFond.value = rendu !== 'cases' ? rendu : gAct.groupe; selVariante.hidden = rendu !== 'cases' || gAct.codes.length < 2; cTrace.disabled = rendu !== 'cases'; // le tracé rouge est celui des cases
+    panneauOptions.maj(opts);
     if (gAct.codes.length > 1) { selVariante.setAttribute('aria-label', T(`fond_${gAct.groupe}`)); selVariante.replaceChildren(...gAct.codes.map((c) => el('option', { value: c, text: T(`fondV_${c}`) }))); selVariante.value = etat.fond; }
     for (const { n, radio } of radiosCorpus) radio.checked = n === etat.corpus;
     choixCorpus.hidden = etat.mode !== 'defile';
@@ -267,7 +274,10 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     }
   });
   rNote.addEventListener('input', () => { const hz = Math.min(NOTE_MAX, Math.max(NOTE_MIN, frequenceDuCurseur(Number(rNote.value)))); etat = { ...etat, note: hz }; ecrireAdresse(); nNote.textContent = T('frequence', { hz }); if (son.actif === 'note') son.changerNote(hz); });
-  selFond.addEventListener('change', () => changer({ fond: memoireGroupe.get(selFond.value) }));
+  selFond.addEventListener('change', () => {
+    if (selFond.value === 'signes' || selFond.value === 'lignes') { rendu = selFond.value; changer({}); } // les rendus de l'ancienne version (prompt 273)
+    else { rendu = 'cases'; changer({ fond: memoireGroupe.get(selFond.value) }); }
+  });
   selVariante.addEventListener('change', () => changer({ fond: selVariante.value }));
   for (const { n, radio } of radiosCorpus) radio.addEventListener('change', () => radio.checked && changer({ corpus: n }, { refaire: true }));
   selPalette.addEventListener('change', () => {
@@ -281,7 +291,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   cTrace.addEventListener('change', () => changer({ trace: cTrace.checked }));
   cEtendu.addEventListener('change', async () => { const ok = await activerEtendu(cEtendu.checked); if (!ok) cEtendu.checked = false; changer({ etendu: cEtendu.checked }, { refaire: true }); });
   rRythme.addEventListener('input', () => { etat = { ...etat, rythme: Number(rRythme.value) }; ecrireAdresse(); refleter(); reconstruireChefSeulement(); armer(); });
-  const reconstruireChefSeulement = () => { chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance: etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64 }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0 }); };
+  const reconstruireChefSeulement = () => { chef = creerChef({ mode: etat.mode, declencheur: etat.declencheur, periodeS: etat.rythme, graine: 1, liste: { n: ids.length, distance: etat.mode === 'defile' ? distancesDe(corpus, ids) : distance64 }, bloc: bloc64, distance: distance64, tenueMinS: reduit ? PERIODE_MIN_REDUIT_S : 0, reglages: reglagesDuChef(opts) }); };
   rDensite.addEventListener('input', () => changer({ densite: Number(rDensite.value) }));
   const basculerPause = () => { if (attenteAck) return; enPause = !enPause; refleter(); armer(); if (idCourant) afficher(idCourant, noteStatut); };
   bPause.addEventListener('click', basculerPause);
