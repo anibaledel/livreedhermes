@@ -1,6 +1,6 @@
 {
  "format_version": "zenodo-miroir-v1",
- "recupere_le_utc": "2026-11-28T14:24:37+00:00",
+ "recupere_le_utc": "2026-11-28T16:40:48+00:00",
  "source": "https://zenodo.org/api/records/<id>",
  "_doc": "Reponses brutes de l'API Zenodo (zenodo-brut/) et vue normalisee. Recupere depuis le conteneur d'Anibal, zenodo.org etant refuse a l'environnement Claude Code. Les descriptions sont le texte d'Anibal : recopiees, non reformulees.",
  "depots": [
@@ -1958,10 +1958,10 @@
   },
   {
    "titre_registre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
-   "conceptDoi": "10.5281/zenodo.22965031",
-   "versionDoi_registre": "10.5281/zenodo.23990857",
+   "conceptDoi": null,
+   "versionDoi_registre": "10.5281/zenodo.24631961",
    "versionDoi_reel": "10.5281/zenodo.23990857",
-   "ecart": "aucun",
+   "ecart": "versionDoi perime",
    "id_version": 23990857,
    "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
    "publication_date": "2026-11-05",
@@ -2058,7 +2058,9 @@
      "checksum": "md5:950971b6bcbd9738898160352c0d8500",
      "lien": "https://zenodo.org/api/records/23990857/files/axes-chladni-v2.15.zip/content"
     }
-   ]
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22965031",
+   "_doc": "Version antérieure de 10.5281/zenodo.22965031, remplacée par 10.5281/zenodo.24631961 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
    "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
@@ -2515,6 +2517,120 @@
      "octets": 488242,
      "checksum": "md5:d4894826ed40602e7e39c9b6e8b51ebe",
      "lien": "https://zenodo.org/api/records/24629689/files/formes-quatre-axes-288-v1.2.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "conceptDoi": "10.5281/zenodo.22965031",
+   "versionDoi_registre": "10.5281/zenodo.24631961",
+   "versionDoi_reel": "10.5281/zenodo.24631961",
+   "ecart": "aucun",
+   "id_version": 24631961,
+   "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "publication_date": "2026-11-28",
+   "version": "2.16",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>Two companion notes on a Jacquard axis grammar. The original axis notes are kept in axes-notes-originales/. The expanded Chladni note, version 2.16, is titled &ldquo;From a Jacquard Axis Grammar to Eigenmodes: Chebyshev Cycles, Cyclotomic Condensation, and a Complete Period-N Spectral Classification&rdquo;. Versions 2.15 and 2.14 are kept in manuscrit-v2.15/ and manuscrit-v2.14/.</p>\n<p>Version 2.16 adds Section 4.28, a discrete study of four-mirror tilings, and retains the continuous nodal classification and the results of version 2.15. The section compares two placements of the mirror axes on periodic 12&times;12 three-colour grids. After applying the binary reading and identifying torus translations, the two placements yield 288 and 3,200 forms; together the 3,488 forms attain 17 of the 27 possible dominant Fourier peak positions. The underlying 6,976 grids decompose into 20 affine cubes of orbit-pair inversions. Grouping the mobile units gives 109 families of 64 grids, of which 100 have mirrors through cell centres. Each family admits a six-trait code: changing one trait exchanges two tints on exactly 16 cells, and complementing all six traits implements the half-shift. Requiring six balanced levels of 24 cells selects 672 forms, comprising 32 historical forms and 640 cell-centred forms. All 640 cell-centred forms have (6,6) as their sole dominant Fourier peak class. These spectra describe periodic colour grids; the continuous nodal results concern square eigenfunctions under the stated boundary conditions.</p>\n<p>The spectral counts concern finite corpora. The sonifications of version 2.15 are computations, not physical measurements. Spectral injectivity beyond side twelve and any measurement on a plate remain open. The record includes editable sources, code, data and verification logs.</p>\n<p>Licence: texts and figures under CC BY 4.0; code under AGPL v3; the data files of supplement-quatre-axes/ under CC BY-NC 4.0 (as the 288-form deposit).</p>\n<p><strong>Author.</strong> Anibal Edelberto Amiot &mdash; ORCID 0009-0002-6414-9448 &mdash; Wikidata Q141191562 &mdash; <a href=\"https://anibal-amiot.com/\">anibal-amiot.com</a>. Page on the author's site: <a href=\"https://anibal-amiot.com/travaux/axes-and-level-sets/\">https://anibal-amiot.com/travaux/axes-and-level-sets/</a>.</p>",
+   "description_texte": "Two companion notes on a Jacquard axis grammar. The original axis notes are kept in axes-notes-originales/. The expanded Chladni note, version 2.16, is titled “From a Jacquard Axis Grammar to Eigenmodes: Chebyshev Cycles, Cyclotomic Condensation, and a Complete Period-N Spectral Classification”. Versions 2.15 and 2.14 are kept in manuscrit-v2.15/ and manuscrit-v2.14/.\n\nVersion 2.16 adds Section 4.28, a discrete study of four-mirror tilings, and retains the continuous nodal classification and the results of version 2.15. The section compares two placements of the mirror axes on periodic 12×12 three-colour grids. After applying the binary reading and identifying torus translations, the two placements yield 288 and 3,200 forms; together the 3,488 forms attain 17 of the 27 possible dominant Fourier peak positions. The underlying 6,976 grids decompose into 20 affine cubes of orbit-pair inversions. Grouping the mobile units gives 109 families of 64 grids, of which 100 have mirrors through cell centres. Each family admits a six-trait code: changing one trait exchanges two tints on exactly 16 cells, and complementing all six traits implements the half-shift. Requiring six balanced levels of 24 cells selects 672 forms, comprising 32 historical forms and 640 cell-centred forms. All 640 cell-centred forms have (6,6) as their sole dominant Fourier peak class. These spectra describe periodic colour grids; the continuous nodal results concern square eigenfunctions under the stated boundary conditions.\n\nThe spectral counts concern finite corpora. The sonifications of version 2.15 are computations, not physical measurements. Spectral injectivity beyond side twelve and any measurement on a plate remain open. The record includes editable sources, code, data and verification logs.\n\nLicence: texts and figures under CC BY 4.0; code under AGPL v3; the data files of supplement-quatre-axes/ under CC BY-NC 4.0 (as the 288-form deposit).\n\nAuthor. Anibal Edelberto Amiot — ORCID 0009-0002-6414-9448 — Wikidata Q141191562 — anibal-amiot.com. Page on the author's site: https://anibal-amiot.com/travaux/axes-and-level-sets/.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "Chladni figures",
+    "plate eigenmodes",
+    "nodal lines",
+    "level sets",
+    "binary parity",
+    "linear codes over GF(2)",
+    "pattern grammar",
+    "Jacquard weaving",
+    "finite geometry",
+    "combinatorial design",
+    "period-N classification",
+    "divisor function",
+    "Chebyshev dynamics",
+    "nodal sign patterns",
+    "axis grammar",
+    "spectral information",
+    "four-mirror tilings",
+    "affine cubes",
+    "discrete Fourier spectrum",
+    "periodic colour grids"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22862111",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866062",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "references",
+     "resource_type": "publication-softwaredocumentation",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isSupplementedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://anibal-amiot.com/travaux/axes-and-level-sets/",
+     "relation": "isDocumentedBy",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.24594284",
+     "relation": "isSupplementedBy",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 3108,
+     "checksum": "md5:1703ab1021dcdfdfd1decd4b68dffe83",
+     "lien": "https://zenodo.org/api/records/24631961/files/README.md/content"
+    },
+    {
+     "nom": "axes-chladni-v2.16.zip",
+     "octets": 155127289,
+     "checksum": "md5:8c2da4bf36eecd5301b8a45f8f84fcb5",
+     "lien": "https://zenodo.org/api/records/24631961/files/axes-chladni-v2.16.zip/content"
     }
    ]
   }
