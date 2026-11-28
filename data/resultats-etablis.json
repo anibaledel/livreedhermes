@@ -4370,12 +4370,23 @@
       "id": "formes-quatre-axes-grammaire-six-niveaux",
       "intitule": "Quels cubes à quatre axes portent la grammaire à six niveaux : 1 cube entre les cases (720 cartes sur 720) et 5 cubes sur le milieu des cases (2 160 cartes sur 50 400 chacun) ; 672 formes, dont 640 hors des 288",
       "enonce": {
-        "texte": "Un cube porte la grammaire de §4.16 s'il existe une carte de six niveaux (six ensembles de 24 cases, unions d'orbites des quatre axes, invariants par σ) où chaque niveau contient exactement 16 cases mobiles (cases des unités) et 8 cases de la teinte fixe ; les six niveaux sont alors les six traits du codage. Entre les cases : 5 cubes ; le cube du support historique (8, 8, 8, 8, 8, 8) : 720 cartes sur 720 ; les 4 autres : 0 sur 720. Sur le milieu des cases : 15 cubes ; 5 cubes (U = 8) : 2 160 cartes sur 50 400 chacun ; 10 cubes (U = 9) : 0. Pour ces 6 cubes, avec une carte qui satisfait le critère (trois essayées par cube) et B = π∘A, les 64 grilles Φ(n, A, B) de chaque grille parfaite A du cube sont toutes parfaites, restent dans le cube et couvrent ses grilles (1 280 sur 1 280 sur le milieu des cases, 64 sur 64 entre les cases) ; le mot complémentaire donne la grille décalée de (6, 6). Formes concernées : 32 (historiques) + 640 (5 cubes × 128) = 672 ; recoupement des 640 avec les 288 : 0. Pic dominant des 640 formes : (6, 6) seul, pour les 640 ; centroïdes de 4,46 à 6,70 ; 624 spectres distincts. Aucun numéro d'hexagramme n'est attaché aux niveaux.",
+        "texte": "Un cube porte la grammaire de §4.16 s'il existe une carte de six niveaux (six ensembles de 24 cases, unions d'orbites des quatre axes, invariants par σ) où chaque niveau contient exactement 16 cases mobiles (cases des unités) et 8 cases de la teinte fixe ; les six niveaux sont alors les six traits du codage. Entre les cases : 5 cubes ; le cube du support historique (8, 8, 8, 8, 8, 8) : 720 cartes sur 720 ; les 4 autres : 0 sur 720. Sur le milieu des cases : 15 cubes ; 5 cubes (U = 8) : 2 160 cartes sur 50 400 chacun ; 10 cubes (U = 9) : 0. Pour ces 6 cubes, avec une carte qui satisfait le critère (trois essayées par cube) et B = π∘A, les 64 grilles Φ(n, A, B) de chaque grille parfaite A du cube sont toutes parfaites, restent dans le cube et couvrent ses grilles (1 280 sur 1 280 sur le milieu des cases, 64 sur 64 entre les cases) ; le mot complémentaire donne la grille décalée de (6, 6). Formes concernées : 32 (historiques) + 640 (5 cubes × 128) = 672 ; recoupement des 640 avec les 288 : 0. Pic dominant des 640 formes : (6, 6) seul, pour les 640 ; centroïdes de 4,46 à 6,70 ; 624 spectres distincts. Cartes partagées sur le milieu des cases (50 400 cartes, 5 supports compatibles) : 5 592 conviennent à exactement un support, 2 136 à exactement deux, 312 à exactement trois, 42 360 à aucun ; 8 040 à au moins un, et au plus trois supports sur cinq partagent une même carte ; contrôle 5 592 + 2 × 2 136 + 3 × 312 = 10 800 = 5 × 2 160. Aucun numéro d'hexagramme n'est attaché aux niveaux.",
         "langue": "fr",
-        "source": "prompt 281 (calcul indépendant d'Anibal, recalculé ici sans reprendre ses nombres) ; tools/grammaire_six_niveaux_quatre_axes.py"
+        "source": "prompts 281 et 283 (calcul indépendant d'Anibal, recalculé ici sans reprendre ses nombres) ; tools/grammaire_six_niveaux_quatre_axes.py"
       },
       "valeur": {
         "entre": {
+          "partage": {
+            "supports_compatibles": 1,
+            "exactement_un": 720,
+            "exactement_deux": 0,
+            "exactement_trois": 0,
+            "aucun": 0,
+            "plus_de_trois": 0,
+            "au_moins_un": 720,
+            "somme_ponderee": 720,
+            "cartes_par_support_total": 720
+          },
           "cubes": 5,
           "cartes": 720,
           "cartes_par_cube": {
@@ -4392,6 +4403,17 @@
           "cartes_essayees": 3
         },
         "milieu": {
+          "partage": {
+            "supports_compatibles": 5,
+            "exactement_un": 5592,
+            "exactement_deux": 2136,
+            "exactement_trois": 312,
+            "aucun": 42360,
+            "plus_de_trois": 0,
+            "au_moins_un": 8040,
+            "somme_ponderee": 10800,
+            "cartes_par_support_total": 10800
+          },
           "cubes": 15,
           "cartes": 50400,
           "cartes_par_cube": {
@@ -4446,13 +4468,14 @@
             "OK    grammaire à six niveaux entre les cases : 1 cube satisfait le critère ; 64 grilles couvertes sur 64 ; 4096 grilles Φ(n, A, B) parfaites et 4096 dans le cube sur 4096 (trois cartes essayées par cube : 3) ; complément = décalage (6, 6) : 1 cube sur 1.",
             "OK    grammaire à six niveaux sur le milieu des cases : 15 cubes, 50400 cartes possibles ; nombre de cartes qui satisfont le critère (16 cases mobiles et 8 du socle par niveau), cubes par nombre : {\"2160\": 5, \"0\": 10}.",
             "OK    grammaire à six niveaux sur le milieu des cases : 5 cubes satisfont le critère ; 1280 grilles couvertes sur 1280 ; 81920 grilles Φ(n, A, B) parfaites et 81920 dans le cube sur 81920 (trois cartes essayées par cube : 15) ; complément = décalage (6, 6) : 5 cubes sur 5.",
+            "OK    cartes partagées entre les 5 supports compatibles (sur le milieu des cases, 50400 cartes) : 5592 conviennent à exactement un support, 2136 à exactement deux, 312 à exactement trois, 0 à plus de trois, 42360 à aucun ; 8040 à au moins un ; contrôle : 5592 + 2 × 2136 + 3 × 312 = 10800 = 5 × 2160.",
             "OK    formes concernées : 32 entre les cases + 640 sur le milieu des cases = 672 ; recoupement des 640 avec les 288 : 0.",
             "OK    spectre des 640 formes du milieu des cases : pic dominant (6, 6) seul pour 640, centroïde de 4,46 à 6,70, 624 spectres distincts, 1 ensemble de pics."
           ]
         }
       ],
       "statut": "verifie_ci",
-      "note": "Suite de formes-quatre-axes-codage-six-traits. Les nombres sont ceux que le prompt 281 attendait : aucun écart. Le critère ne cite pas le corpus historique : le cube « historique » est celui que le critère retient entre les cases. Aucun sens n'est attribué aux motifs. Les 3 200 formes sur le milieu des cases ne sont pas engendrées par la carte des six niveaux actuelle. Aucun journal déposé sur Zenodo."
+      "note": "Suite de formes-quatre-axes-codage-six-traits. Les nombres sont ceux que les prompts 281 et 283 attendaient : aucun écart. Le critère ne cite pas le corpus historique : le cube « historique » est celui que le critère retient entre les cases. Aucun sens n'est attribué aux motifs. Les 3 200 formes sur le milieu des cases ne sont pas engendrées par la carte des six niveaux actuelle. Aucun journal déposé sur Zenodo."
     }
   ]
 }
