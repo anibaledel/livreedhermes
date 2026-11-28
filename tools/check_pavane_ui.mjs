@@ -23,7 +23,7 @@ BASE = BASE.replace(/\/$/, '');
 const AXE = path.join(ROOT, 'node_modules/axe-core/axe.min.js');
 const axe = existsSync(AXE) ? readFileSync(AXE, 'utf8') : null;
 const proposes = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/demi-periode.json'), 'utf8')).proposes;
-const NOMS = { fr: ['Défilé', 'Spectre', 'Entre-deux'], ja: ['パレード', 'スペクトル', '中間'], th: ['ขบวน', 'สเปกตรัม', 'ระหว่างกลาง'] };
+const NOMS = { fr: ['Défilé', 'Image', 'Entre-deux'], ja: ['パレード', 'スペクトル', '中間'], th: ['ขบวน', 'สเปกตรัม', 'ระหว่างกลาง'] };
 const nav = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 let echecs = 0, controles = 0;
 const ko = (m) => { echecs++; console.error(`ÉCHEC ${m}`); };
@@ -37,7 +37,9 @@ const choisirFond = async (page, code) => {
   if (g.codes.length > 1) await page.selectOption('.pv-reglages select[id$=fond-variante]', code);
 };
 // `acquitte` : l'avertissement photosensible est déjà lu (localStorage) — sinon l'animation reste en pause (prompt 226) ; les tests de l'avertissement passent false
-async function monter(ctx, langue, recherche, acquitte = true) {
+// `brut` : l'adresse telle quelle (le départ de l'application) ; sinon, sans « mode », le défilé est demandé (le mode de départ est « Image » depuis le prompt 273, et les scénarios d'avant parlent du défilé)
+async function monter(ctx, langue, recherche, acquitte = true, brut = false) {
+  if (!brut && !/[?&]mode=/.test(recherche)) recherche = `${recherche ? `${recherche}&` : '?'}mode=defile`;
   const page = await ctx.newPage(), erreurs = [];
   if (acquitte) await page.addInitScript(() => { try { localStorage.setItem('pv-avertissement-lu', '1'); } catch { /* sans stockage */ } });
   page.on('pageerror', (e) => erreurs.push(`exception : ${e.message}`));
@@ -64,12 +66,50 @@ if (process.argv.includes('--essai')) { // une attente fausse (B3 n'est pas un f
   if (!echecs) { console.error('ÉCHEC --essai : une attente fausse n\'a pas été refusée'); process.exit(1); }
   console.log(`OK    --essai : une attente fausse est refusée (${echecs} écart).`); process.exit(0);
 }
+// --- le départ de l'ancienne version, rétabli (prompt 273) : mode « Image » (= Spectre), rendu « Signes », couleurs crème ; « Plus d'options » fermé ; les rendus Signes et Lignes nodales ---
+for (const [largeur, hauteur] of [[390, 844], [1280, 900]]) {
+  const nom = `273, ${largeur} px`;
+  const ctx = await nav.newContext({ viewport: { width: largeur, height: hauteur } });
+  let { page, erreurs } = await monter(ctx, 'fr', '', true, true);
+  let s = await lire(page);
+  ok(s.etat.mode === 'spectre' && s.etat.palette === 'creme-encre', `${nom} : au départ, le mode « Image » (spectre) et les couleurs crème`);
+  ok(await page.$eval('.pv-reglages select[id$=fond]', (x) => x.value) === 'signes', `${nom} : au départ, le rendu « Signes »`);
+  ok(s.fond > 200 && /image%20|%3Cimage/.test(await page.$eval('.pv-couche.visible', (c) => c.style.backgroundImage)), `${nom} : la scène montre la figure (une image incorporée), pas des cases`);
+  ok(s.search === '', `${nom} : l'adresse de départ est vide (${s.search})`);
+  ok(await page.$eval('.pv-options', (x) => x.hidden) === true && await page.$eval('.pv-reglages button[aria-controls$=options]', (x) => x.getAttribute('aria-expanded')) === 'false', `${nom} : « Plus d'options » est fermé au départ`);
+  const visibles = await page.$$eval('.pv-options input, .pv-options select', (l) => l.filter((x) => x.offsetParent !== null).length);
+  ok(visibles === 0, `${nom} : aucun réglage avancé visible tant que le bouton n'est pas ouvert (${visibles})`);
+  await page.click('.pv-reglages button[aria-controls$=options]');
+  ok(await page.$eval('.pv-options', (x) => !x.hidden) && (await page.$$eval('.pv-options input, .pv-options select', (l) => l.length)) === 7, `${nom} : le bouton ouvre les sept réglages (sensibilité, intervalle, lissage, pente, calme, loi, c)`);
+  await page.$eval('.pv-options input[id$=o-seuil]', (x) => { x.value = '0.3'; x.dispatchEvent(new Event('input', { bubbles: true })); });
+  await page.selectOption('.pv-options select[id$=o-loi]', 'plaque');
+  s = await lire(page);
+  ok(/sensibilite=0\.3/.test(s.search) && /loi=plaque/.test(s.search), `${nom} : un réglage change l'adresse (${s.search})`);
+  ok(await page.$eval('.pv-options input[id$=o-c]', (x) => !x.disabled), `${nom} : « c » ne sert qu'à la loi de la plaque`);
+  await page.click('.pv-options button');
+  s = await lire(page);
+  ok(s.search === '' && await page.$eval('.pv-options input[id$=o-seuil]', (x) => x.value) === '0.45', `${nom} : la remise à zéro rend les réglages (${s.search})`);
+  await page.selectOption('.pv-reglages select[id$=fond]', 'lignes');
+  const lignes = await page.$eval('.pv-couche.visible', (c) => c.style.backgroundImage.length);
+  s = await lire(page);
+  ok(/rendu=lignes/.test(s.search) && lignes > 200, `${nom} : « Lignes nodales » : adresse ${s.search}`);
+  await page.selectOption('.pv-reglages select[id$=fond]', 'aplat');
+  s = await lire(page);
+  ok(/rendu=cases/.test(s.search) && !/%3Cimage/.test(await page.$eval('.pv-couche.visible', (c) => c.style.backgroundImage)), `${nom} : « Aplat » rend les cases (${s.search})`);
+  ok(erreurs.length === 0, `${nom} : aucune erreur (${erreurs.join(' | ')})`);
+  await page.close();
+  // un ancien lien du défilé (sans mode) garde le défilé ; un rendu ou un réglage hors liste est ignoré
+  ({ page } = await monter(ctx, 'fr', '?brythme=2&rendu=zzz&sensibilite=9', true, true));
+  s = await lire(page);
+  ok(s.etat.mode === 'defile' && await page.$eval('.pv-reglages select[id$=fond]', (x) => x.value) === 'signes' && await page.$eval('.pv-options input[id$=o-seuil]', (x) => x.value) === '0.45', `${nom} : un ancien lien du défilé garde le défilé ; rendu et réglage hors liste ignorés`);
+  await ctx.close();
+}
 for (const [langue, noms] of Object.entries(NOMS)) {
   for (const [largeur, hauteur] of [[390, 844], [1280, 900]]) {
     const nom = `${langue}, ${largeur} px`;
     const ctx = await nav.newContext({ viewport: { width: largeur, height: hauteur } });
     // --- le défilé (défaut) ---
-    let { page, erreurs } = await monter(ctx, langue, '');
+    let { page, erreurs } = await monter(ctx, langue, ''); // le défilé : `monter` le demande par l'adresse, le mode de départ étant « Image » (prompt 273)
     let s = await lire(page);
     ok(s.etat.mode === 'defile' && s.etat.corpus === 128 && s.etat.fond === 'P', `${nom} : défaut défilé, 128, P`);
     ok(s.motif && s.fond > 200, `${nom} : la scène montre un motif`);
@@ -78,7 +118,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     ok(radios.map((r) => r.nom).join() === noms.join(), `${nom} : trois modes nommés dans la langue (${radios.map((r) => r.nom).join(' · ')})`);
     ok(radios.every((r) => r.decrit), `${nom} : chaque mode a sa phrase, liée au choix`);
     const fondsOfferts = await page.$$eval('.pv-reglages select[id$=fond] option', (o) => o.map((x) => x.value));
-    ok(fondsOfferts.join() === GROUPES.map((g) => g.groupe).join() && GROUPES.flatMap((g) => g.codes).join() === proposes.join(), `${nom} : groupes offerts (${fondsOfferts.join(', ')}) = les fonds proposés (${proposes.join(', ')}), regroupés`);
+    ok(fondsOfferts.join() === ['signes', 'lignes', ...GROUPES.map((g) => g.groupe)].join() && GROUPES.flatMap((g) => g.codes).join() === proposes.join(), `${nom} : rendus et groupes offerts (${fondsOfferts.join(', ')}) = Signes, Lignes nodales et les fonds proposés (${proposes.join(', ')}), regroupés`);
     ok(await page.$eval('.pv-choix input[name$=corpus]:checked', (x) => x.value) === '128', `${nom} : 128 coché par défaut`);
     // le défilé avance au minuteur ; Espace le fige
     await page.$eval('.pv-reglages input[id$=rythme]', (x) => { x.value = '0.5'; x.dispatchEvent(new Event('input', { bubbles: true })); }); // un curseur : on pose la valeur et on l'annonce
@@ -126,7 +166,7 @@ for (const [langue, noms] of Object.entries(NOMS)) {
     {
       const r = await monter(ctx, langue, '?fond=B4&corpus=999&mode=nope');
       const t = await lire(r.page);
-      ok(t.etat.fond === 'P' && t.etat.corpus === 128 && t.etat.mode === 'defile', `${nom} : ?fond=B4, ?corpus=999, ?mode=nope sont ignorés`);
+      ok(t.etat.fond === 'P' && t.etat.corpus === 128 && t.etat.mode === 'spectre', `${nom} : ?fond=B4, ?corpus=999, ?mode=nope sont ignorés`);
       await r.page.close();
     }
     await ctx.close();
@@ -155,9 +195,9 @@ for (const [langue, noms] of Object.entries(NOMS)) {
 // (route) qui propose aussi B3x et B121x, pour éprouver l'interface ; les vraies mesures et la vraie liste sont celles de tools/check_demi_periode.mjs (B3x et B121x ne tiennent pas 64 / 64 : ils ne sont pas proposés).
 {
   const reel = await nav.newContext({ viewport: { width: 1280, height: 900 } });
-  const r = await monter(reel, 'fr', '?fond=B11211D');
+  const r = await monter(reel, 'fr', '?fond=B11211D&rendu=cases');
   const x = await r.page.evaluate(() => { const app = document.getElementById('app'), g = app.querySelector('select[id$=fond]'), v = app.querySelector('select[id$=fond-variante]'); return { groupes: [...g.options].map((o) => o.textContent).join(), valeur: g.value, variante: v.hidden, etat: window.__pavane.etat().fond }; });
-  ok(x.groupes === 'Aplat,Triangles,Bandes' && x.valeur === 'bandes' && !x.variante && x.etat === 'B11211Dx', `liste réelle : trois groupes, sous-choix de « Bandes » visible (B11211Dx proposé, B3x et B121x hors critère), ancien code B11211D → B11211Dx (${JSON.stringify(x)})`);
+  ok(x.groupes === 'Signes,Lignes nodales,Aplat,Triangles,Bandes' && x.valeur === 'bandes' && !x.variante && x.etat === 'B11211Dx', `liste réelle : trois groupes, sous-choix de « Bandes » visible (B11211Dx proposé, B3x et B121x hors critère), ancien code B11211D → B11211Dx (${JSON.stringify(x)})`);
   await reel.close();
   const ctx = await nav.newContext({ viewport: { width: 1280, height: 900 } });
   await ctx.route('**/data/fonds/demi-periode.json', async (route) => { const rep = await route.fetch(), j = await rep.json(); j.proposes = ['P', 'B2Dx', 'B3x', 'B121x', 'B11211Dx']; await route.fulfill({ response: rep, body: JSON.stringify(j) }); });
