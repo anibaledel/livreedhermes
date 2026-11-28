@@ -1443,3 +1443,7 @@ Le protocole A4 (`assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf`) est celui du z
 ## Prompt 260 — descriptions de l'accueil et des pages de redirection
 
 À faire relire : la `<meta name="description">` des 11 accueils (index.html et {en,es,th,zh,ru,pt,hi,de,it,ja}/index.html) — le français et l'anglais sont de référence, les neuf autres sont faites par l'IA (th et zh en priorité) ; les descriptions des pages de redirection (cymatique.html, en/cymatics, es/cimatica, th/cymatics, galerie-768/884, impression, pages, pro, pro-contenu), en français sauf les trois pages de langue.
+
+## Prompt 273 — Voir sa musique, nouvelle interface : rendus Signes et Lignes nodales, « Plus d'options »
+
+`assets/pavane-rendu.js` : 22 libellés (le titre « Rendu », les rendus Signes / Lignes nodales / Cases, « Plus d'options » / « Moins d'options », les sept réglages de l'analyse du son et leurs aides, la remise à zéro) en français et en anglais, de la main de CC. **Les neuf autres langues retombent sur le français** : à traduire puis à relire (thaï et japonais d'abord). Dans `assets/pavane-textes.js`, les libellés du mode « Spectre » deviennent « Image » (clés `spectre` et `spectreP`, français et anglais seulement ; les neuf autres langues gardent « Spectre » : à aligner).
