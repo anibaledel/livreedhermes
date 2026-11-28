@@ -24,6 +24,7 @@ import { lectureBinaire } from '../assets/lecture-binaire.js';
 import { Variante } from '../assets/fonds-variantes.js';
 import { APLAT } from '../assets/bicolore-fonds.js';
 import { chargerFondsEtudies } from './lib_fonds_etudies.mjs';
+import { masqueDuMotif } from '../assets/pavane-rendu.js'; // prompt 277 : les rendus Signes et Lignes nodales
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const corpus = JSON.parse(readFileSync(path.join(ROOT, 'data/corpus-256.json'), 'utf8'));
@@ -57,8 +58,8 @@ const SIGNAUX = {
 };
 const MODES = [['Défilé (minuteur 0,5 s, tenu à 0,8 s)', 'defile', 'minuteur'], ['Défilé (pulsation)', 'defile', 'pulsation'], ['Spectre', 'spectre', 'minuteur'], ['Entre-deux', 'entre-deux', 'minuteur']];
 /** Les changements [{ t, i }] d'un mode sur un signal. */
-function changements(mode, declencheur, gen, tenueMinS) {
-  const c = P.creerChef({ mode, declencheur, periodeS: 0.5, tenueMinS, bloc, distance: dRep, liste: { n: 64, distance: dRep }, graine: 1 }), out = [];
+function changements(mode, declencheur, gen, tenueMinS, reglages = {}) {
+  const c = P.creerChef({ mode, declencheur, periodeS: 0.5, tenueMinS, bloc, distance: dRep, liste: { n: 64, distance: dRep }, graine: 1, reglages }), out = [];
   for (let f = 0; f < IPS * DUREE; f++) { const r = c.image({ db: gen(f), sampleRate: SR, t: f / IPS }); if (r.changer && r.i >= 0) out.push({ t: f / IPS, i: r.i }); }
   if (!out.length) out.push({ t: 0, i: 0 });
   return out;
@@ -79,12 +80,12 @@ function carte(fond, i) {
 }
 const FONDU_S = 0.8;
 /** La luminance de chaque point image par image : deux couches dont l'opacité suit sa cible (fondu linéaire de FONDU_S, aucun fondu si fondu = 0) ; la couche du dessus est la plus récente. */
-function luminances(chgts, fond, [l0, l1], fondu) {
+function luminances(chgts, fond, [l0, l1], fondu, carteDe = (i) => carte(fond, i)) {
   const T = IPS * DUREE, series = Array.from({ length: N * N }, () => new Float32Array(T));
-  const op = [1, 0], cartesCouches = [carte(fond, chgts[0].i), carte(fond, chgts[0].i)]; let couche = 0, k = 1;
+  const op = [1, 0], cartesCouches = [carteDe(chgts[0].i), carteDe(chgts[0].i)]; let couche = 0, k = 1;
   const pas = fondu ? 1 / (fondu * IPS) : 1;
   for (let f = 0; f < T; f++) {
-    while (k < chgts.length && chgts[k].t * IPS <= f) { const autre = 1 - couche; cartesCouches[autre] = carte(fond, chgts[k].i); couche = autre; k++; }
+    while (k < chgts.length && chgts[k].t * IPS <= f) { const autre = 1 - couche; cartesCouches[autre] = carteDe(chgts[k].i); couche = autre; k++; }
     for (let c = 0; c < 2; c++) op[c] = c === couche ? Math.min(1, op[c] + pas) : Math.max(0, op[c] - pas);
     const haut = couche, bas = 1 - couche;
     for (let p = 0; p < N * N; p++) {
@@ -147,6 +148,58 @@ for (const [nom, mode, decl] of MODES) {
 }
 console.log('Mode                         | mouvement réduit | changements/s | flashs/s (champ) | écart min. | pire cas');
 for (const l of lignes) console.log(`${l.nom.padEnd(28)} | ${l.tenue ? 'oui' : 'non'}              | ${String(l.maxChg).padStart(13)} | ${String(l.maxFlash).padStart(16)} | ${(l.ecartMin === Infinity ? '—' : l.ecartMin.toFixed(2) + ' s').padStart(10)} | ${l.pire}${l.tenue ? '' : ` ; flash : ${l.pireFlash}`}`);
+
+// ---------- prompt 277 : les rendus Signes et Lignes nodales, le lissage de départ de l'ancienne version (0,06 s) ET 1,5 s, la sensibilité maximale, sur de la musique rapide ----------
+// La musique d'essai de l'ancienne version (assets/pavane-son.js : jouerEssai) simulée en spectre : une note toutes les 260 ms (triangle : harmoniques impaires en 1/k², et la note × √2,3), accords de la page test, enveloppe exponentielle de 0,9 s et 0,6 s.
+function spectreEssai(f) {
+  const t = f / IPS, pas = Math.floor(t / 0.26), db = new Float32Array(NB), r = P.alea(70 + f);
+  for (let i = 0; i < NB; i++) db[i] = -90 + (r() - 0.5) * 4;
+  const accords = [[0, 4, 7, 12], [5, 9, 12, 17], [7, 11, 14, 19], [2, 5, 9, 14]], ajoute = (hz, a) => { const c = Math.round(hz / BW); if (c > 0 && c < NB && hz < SR / 2 * 0.9) db[c] = Math.max(db[c], 20 * Math.log10(a + 1e-6) + 10); };
+  for (let q = Math.max(0, pas - 3); q <= pas; q++) {
+    const age = t - q * 0.26, c = accords[Math.floor(q / 4) % 4], n = c[q % 4], f0 = 220 * Math.pow(2, (n + (q % 3) * 12) / 12);
+    const env = (g, dur) => (age < 0 || age > dur ? 0 : g * Math.pow(0.0005 / g, age / dur));
+    for (let k = 1; k <= 9; k += 2) ajoute(f0 * k, env(0.18, 0.9) / (k * k));
+    ajoute(f0 * Math.sqrt(2.3), env(0.05, 0.6));
+  }
+  return db;
+}
+const SIGNAUX_RAPIDES = { ...SIGNAUX, "musique d'essai": spectreEssai };
+const carteFigure = new Map();
+const carteDeRendu = (vue) => (i) => {
+  const cle = `${vue}|${i}`; if (carteFigure.has(cle)) return carteFigure.get(cle);
+  const T = 240, A = masqueDuMotif(parId.get(bloc.ids[i]).tricolore, vue, T), c = new Uint8Array(N * N);
+  for (let a = 0; a < N; a++) for (let b = 0; b < N; b++) c[a * N + b] = A[Math.floor((a + DX) * T / N) * T + Math.floor((b + DY) * T / N)] === 255 ? 1 : 0;
+  carteFigure.set(cle, c); return c;
+};
+const LISSAGES = [['0,06 s (ancienne version)', 0.06], ['1,5 s', 1.5]];
+const SENSIBILITE_MAX = { seuil: 0.15, intervalle: 0.2, pente: true }; // le seuil et l'intervalle aux bornes de « Plus d'options » : le détecteur le plus nerveux
+const lignes2 = [];
+for (const [vue, nomVue] of [['signes', 'Signes'], ['lignes', 'Lignes nodales']]) {
+  for (const [nomL, lissageS] of LISSAGES) {
+    for (const [nom, mode, decl] of MODES) {
+      for (const tenue of [0, 3]) {
+        let maxChg = 0, pire = '', maxFlash = 0, maxOpp = 0, ecartMin = Infinity, pireFlash = '';
+        for (const [sig, gen] of Object.entries(SIGNAUX_RAPIDES)) {
+          const c = changements(mode, decl, gen, tenue, { ...SENSIBILITE_MAX, lissageS }), n = fenetreMax(c.map((x) => x.t));
+          if (n > maxChg) { maxChg = n; pire = sig; }
+          for (let q = 1; q < c.length; q++) ecartMin = Math.min(ecartMin, c[q].t - c[q - 1].t);
+          for (const pal of ['noir et blanc (personnalisé, cas le plus contrasté)', 'creme-encre']) {
+            const r = flashs(luminances(c, 'P', palettes[pal], tenue ? 0 : FONDU_S, carteDeRendu(vue)));
+            if (!pireFlash || r.flashs > maxFlash || (r.flashs === maxFlash && r.opposes > maxOpp)) { maxFlash = r.flashs; maxOpp = r.opposes; pireFlash = `${sig}, ${pal}`; }
+          }
+        }
+        lignes2.push({ nomVue, nomL, nom, tenue, maxChg, pire, maxFlash, maxOpp, ecartMin, pireFlash });
+        const etiquette = `${nomVue}, lissage ${nomL}, ${nom}${tenue ? ', mouvement réduit' : ''}`;
+        if (tenue) {
+          ok(maxChg <= 1 && ecartMin >= 3 - 1e-9, `${etiquette} : au plus 1 changement par 3 s (mesuré ${maxChg}, écart minimal ${ecartMin.toFixed(2)} s)`);
+          ok(maxFlash === 0, `${etiquette} : aucun flash (${maxFlash})`);
+        } else ok(maxChg <= 2 && maxFlash <= 2 && ecartMin >= 0.8 - 1e-6, `${etiquette} : ${maxChg} changements et ${maxFlash} flashs par seconde, écart minimal ${ecartMin.toFixed(2)} s (pire cas : ${pire})`);
+      }
+    }
+  }
+}
+console.log('\nRendu           | lissage                  | Mode                         | réduit | chg/s | flashs/s | écart min. | pire cas');
+for (const l of lignes2) console.log(`${l.nomVue.padEnd(15)} | ${l.nomL.padEnd(24)} | ${l.nom.padEnd(28)} | ${l.tenue ? 'oui' : 'non'}    | ${String(l.maxChg).padStart(5)} | ${String(l.maxFlash).padStart(8)} | ${(l.ecartMin === Infinity ? '—' : l.ecartMin.toFixed(2) + ' s').padStart(10)} | ${l.pire}`);
 if (depassent.length) console.log(`DÉPASSE (3 par seconde, décision d'Anibal en attente) : ${depassent.join(' ; ')}`);
 if (essai) {
   // un moteur sans plancher ni marge doit être vu : le Spectre au pire cas (tenueMinS = 0 ne suffit plus, le plancher est dans le moteur) — on fausse la mesure en prenant la fenêtre de 0,02 s au lieu de 0,5 s
@@ -156,5 +209,5 @@ if (essai) {
   console.error('ÉCHEC --essai : le Spectre au pire cas change trop vite'); process.exit(1);
 }
 if (echecs) { console.error(`\n${echecs} défaut(s) sur ${controles} contrôles.`); process.exit(1); }
-console.log(`OK    photosensibilité : ${controles} contrôles — les quatre cas ≤ 2 changements et ≤ 2 flashs par seconde (plancher de 0,8 s) ; en mouvement réduit : 1 changement au plus par 3 s, aucun flash${depassent.length ? ` ; ${depassent.length} cas au-dessus de 3 par seconde, rapportés` : ''}.`);
+console.log(`OK    photosensibilité : ${controles} contrôles — les quatre cas (fond Aplat, Triangles, Bandes ; puis Signes et Lignes nodales à 0,06 s et 1,5 s de lissage, sensibilité maximale, musique d'essai comprise) ≤ 2 changements et ≤ 2 flashs par seconde (plancher de 0,8 s) ; en mouvement réduit : 1 changement au plus par 3 s, aucun flash${depassent.length ? ` ; ${depassent.length} cas au-dessus de 3 par seconde, rapportés` : ''}.`);
 process.exit(0);

@@ -91,16 +91,17 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   });
   const modes = el('fieldset', { class: 'pv-modes' }, el('legend', { text: T('modes') }), ...radiosMode.map((r) => r.boite));
   // les sources du son
-  const radiosSource = SOURCES.map((sr) => ({ sr, radio: el('input', { type: 'radio', name: `${id}-source`, value: sr }) }));
-  const choixSource = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('sources') }), ...radiosSource.map(({ sr, radio }) => el('label', {}, radio, el('span', { text: T(`src${sr[0].toUpperCase()}${sr.slice(1)}`) }))));
+  const radiosSource = SOURCES.filter((sr) => sr !== 'essai' || typeof son.jouerEssai === 'function').map((sr) => ({ sr, radio: el('input', { type: 'radio', name: `${id}-source`, value: sr }) }));
+  const choixSource = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('sources') }), ...radiosSource.map(({ sr, radio }) => el('label', {}, radio, el('span', { text: sr === 'essai' ? texteRendu(langue, 'srcEssai') : T(`src${sr[0].toUpperCase()}${sr.slice(1)}`) }))));
   const selMorceau = el('select', { id: `${id}-morceau`, 'aria-label': T('srcMorceau') }, ...MORCEAUX.map((m, i) => el('option', { value: m, text: T('morceauN', { n: i + 1 }) })));
   const inFichier = el('input', { type: 'file', accept: 'audio/*', id: `${id}-fichier`, 'aria-label': T('choisirFichier') });
   const bMicro = el('button', { type: 'button', text: T('activerMicro') });
+  const bEssai = el('button', { type: 'button', hidden: true, text: texteRendu(langue, 'essaiProposer') }); // proposé après un refus du micro ; la musique d'essai n'est jamais lancée d'office (prompt 277)
   const rNote = el('input', { type: 'range', min: '0', max: '1000', step: '1', id: `${id}-note`, 'aria-label': T('srcNote') }), nNote = el('span'), lNote = el('label', {}, nNote, rNote);
   const bJouer = el('button', { type: 'button' });
   const mention = el('p', { class: 'pv-mention', hidden: true, text: T('mentionIA') });
   const erreurSon = el('p', { class: 'pv-erreur', role: 'alert', hidden: true });
-  const sources = el('div', { class: 'pv-sources', id: `${id}-sources`, hidden: true }, choixSource, el('div', { class: 'pv-source-reglage' }, selMorceau, inFichier, bMicro, lNote, bJouer), mention, erreurSon);
+  const sources = el('div', { class: 'pv-sources', id: `${id}-sources`, hidden: true }, choixSource, el('div', { class: 'pv-source-reglage' }, selMorceau, inFichier, bMicro, bEssai, lNote, bJouer), mention, erreurSon);
   const radiosDecl = DECLENCHEURS.map((d) => ({ d, radio: el('input', { type: 'radio', name: `${id}-decl`, value: d }) }));
   const choixDecl = el('fieldset', { class: 'pv-choix' }, el('legend', { text: T('declencheur') }), ...radiosDecl.map(({ d, radio }) => el('label', {}, radio, el('span', { text: T(d === 'minuteur' ? 'declMinuteur' : 'declPulsation') }))));
   const couches = [el('div', { class: 'pv-couche' }), el('div', { class: 'pv-couche' })];
@@ -245,7 +246,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     racine.classList.toggle('pv-reduit', reduit);
   }
   const changer = (partie, { refaire = false } = {}) => { etat = { ...etat, ...partie }; ecrireAdresse(); refleter(); if (refaire) reconstruire(); else if (idCourant) afficher(idCourant, noteStatut); else reconstruire(); };
-  const messageSon = (cle) => { erreurSon.hidden = !cle; erreurSon.textContent = cle ? T(cle) : ''; };
+  const messageSon = (cle) => { erreurSon.hidden = !cle; erreurSon.textContent = cle ? (cle.startsWith('micro') && cle !== 'microRepli' && cle !== 'erreurMicro' ? texteRendu(langue, cle) : T(cle)) : ''; bEssai.hidden = true; };
 
   for (const { m, radio } of radiosMode) radio.addEventListener('change', () => radio.checked && changer({ mode: m }, { refaire: true }));
   for (const { d, radio } of radiosDecl) radio.addEventListener('change', () => radio.checked && changer({ declencheur: d }, { refaire: true }));
@@ -253,7 +254,7 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
   async function lancer() {
     acquitter(); messageSon(null);
     try {
-      if (etat.source === 'morceau') await son.jouerMorceau(etat.morceau); else if (etat.source === 'note') await son.jouerNote(etat.note);
+      if (etat.source === 'morceau') await son.jouerMorceau(etat.morceau); else if (etat.source === 'note') await son.jouerNote(etat.note); else if (etat.source === 'essai') await son.jouerEssai();
       refleter(); armer(); dire();
     } catch { messageSon('erreurFichier'); }
   }
@@ -264,15 +265,17 @@ export async function monterPavane(racine, { langue = 'fr', recherche = location
     acquitter(); messageSon(null);
     try { await son.jouerFichier(f); refleter(); armer(); dire(); } catch { messageSon('erreurFichier'); }
   });
+  // Le micro est la source de départ ; il ne se demande qu'au geste « Activer le micro ». Refusé, absent ou inutilisable : UNE ligne dit pourquoi et propose la musique d'essai (bouton), qui ne démarre jamais d'office (prompt 277).
   bMicro.addEventListener('click', async () => {
     acquitter(); messageSon(null);
     try { await son.activerMicro(); refleter(); armer(); dire(); }
-    catch {
-      if (!microParDefaut) return messageSon('erreurMicro');
-      microParDefaut = false; changer({ source: 'morceau' }); await lancer(); // le morceau d'exemple prend la place, et on le dit (sans bloquer : l'interface reste utilisable)
-      if (son.actif === 'morceau') messageSon('microRepli');
+    catch (e) {
+      microParDefaut = false;
+      messageSon(e && e.name === 'NotAllowedError' ? 'microRefuse' : e && (e.name === 'NotFoundError' || e.name === 'OverconstrainedError') ? 'microAbsent' : 'microIndispo');
+      bEssai.hidden = typeof son.jouerEssai !== 'function';
     }
   });
+  bEssai.addEventListener('click', async () => { changer({ source: 'essai' }); await lancer(); });
   rNote.addEventListener('input', () => { const hz = Math.min(NOTE_MAX, Math.max(NOTE_MIN, frequenceDuCurseur(Number(rNote.value)))); etat = { ...etat, note: hz }; ecrireAdresse(); nNote.textContent = T('frequence', { hz }); if (son.actif === 'note') son.changerNote(hz); });
   selFond.addEventListener('change', () => {
     if (selFond.value === 'signes' || selFond.value === 'lignes') { rendu = selFond.value; changer({}); } // les rendus de l'ancienne version (prompt 273)

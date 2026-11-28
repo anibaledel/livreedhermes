@@ -12,8 +12,9 @@ export const RENDU_DEFAUT = 'signes'; // le rendu de départ de l'ancienne versi
 export const TUILE = 240; // points par côté de la figure d'un motif (une période de 12 cases)
 
 // ---------- les réglages de l'analyse du son (ceux de l'ancien « Plus d'options ») ----------
-export const OPT_DEFAUTS = Object.freeze({ seuil: 0.45, intervalle: 0.45, lissage: 1.5, pente: true, calme: false, loi: 'racine', c: 31.85 });
-export const OPT_BORNES = Object.freeze({ seuil: [0.15, 1, 0.05], intervalle: [0.2, 1, 0.05], lissage: [0.05, 3, 0.05], c: [10, 100, 0.05] });
+// Le lissage de départ est celui de l'ancienne version (prompt 277) : 0,45 de nouveau spectre par image de 33 ms, soit une constante de temps de 0,0557 s (arrondie à 0,06 s) ; l'interface d'avant (prompt 273) partait sur 1,5 s.
+export const OPT_DEFAUTS = Object.freeze({ seuil: 0.45, intervalle: 0.45, lissage: 0.06, pente: true, calme: false, loi: 'racine', c: 31.85 });
+export const OPT_BORNES = Object.freeze({ seuil: [0.15, 1, 0.05], intervalle: [0.2, 1, 0.05], lissage: [0.05, 3, 0.01], c: [10, 100, 0.05] });
 export const LOIS = Object.freeze(['racine', 'plaque']);
 const CLES = Object.freeze({ seuil: 'sensibilite', intervalle: 'intervalle', lissage: 'lissage', pente: 'pente', calme: 'calme', loi: 'loi', c: 'c' });
 
@@ -77,6 +78,10 @@ const TEXTES = {
     pente: 'Compenser la pente des graves', calme: 'Mode calme (intervalle ×3)',
     loiTitre: 'Loi de fréquence', loi_racine: 'Racine (échelle compressée pour l\'oreille)', loi_plaque: 'Plaque (f = c·K, loi de la plaque réelle)', loiC: 'c de la loi de la plaque (Hz)',
     remiseAZero: 'Remettre les réglages à zéro',
+    srcEssai: 'Musique d\'essai', essaiProposer: 'Essayer avec la musique d\'essai',
+    microRefuse: 'Le micro est refusé : autorisez-le dans le navigateur, ou essayez avec la musique d\'essai.',
+    microAbsent: 'Aucun micro n\'est disponible sur cet appareil : essayez avec la musique d\'essai.',
+    microIndispo: 'Le micro n\'est pas utilisable pour le moment : essayez avec la musique d\'essai.',
   },
   en: {
     renduTitre: 'Rendering', rendu_signes: 'Signs', rendu_lignes: 'Nodal lines', rendu_cases: 'Cells',
@@ -87,6 +92,10 @@ const TEXTES = {
     pente: 'Compensate the bass slope', calme: 'Calm mode (interval ×3)',
     loiTitre: 'Frequency law', loi_racine: 'Root (compressed scale for the ear)', loi_plaque: 'Plate (f = c·K, real plate law)', loiC: 'c of the plate law (Hz)',
     remiseAZero: 'Reset the settings',
+    srcEssai: 'Test music', essaiProposer: 'Try the test music',
+    microRefuse: 'The microphone was refused: allow it in the browser, or try the test music.',
+    microAbsent: 'No microphone is available on this device: try the test music.',
+    microIndispo: 'The microphone cannot be used right now: try the test music.',
   },
 };
 export const texteRendu = (langue, cle) => { const t = (TEXTES[langue] && TEXTES[langue][cle]) ?? TEXTES.fr[cle]; if (t === undefined) throw new Error(`pavane-rendu.js : clé « ${cle} » inconnue`); return t; };

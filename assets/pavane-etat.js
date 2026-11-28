@@ -14,7 +14,7 @@ export const FOND_DEFAUT = 'P';
 export const RYTHME_MIN = 0.5, RYTHME_MAX = 30, RYTHME_DEFAUT = 8;
 export const DENSITE_MIN = 4, DENSITE_MAX = 32, DENSITE_DEFAUT = 4;
 // les sources du son (bloc 2) : le morceau fourni (un des 7 de assets/musiques-chladni/), un fichier, le micro, une note pure ; le déclencheur du défilé : le minuteur ou la pulsation du son
-export const SOURCES = Object.freeze(['morceau', 'fichier', 'micro', 'note']);
+export const SOURCES = Object.freeze(['morceau', 'fichier', 'micro', 'note', 'essai']); // « essai » (prompt 277) : la musique d'essai de l'ancienne version ; jamais la source de départ (le micro l'est)
 export const MORCEAUX = Object.freeze(['j1', 'j2', 'j3', 'j4', 'j5', 'j6', 'j7']);
 export const DECLENCHEURS = Object.freeze(['minuteur', 'pulsation']);
 export const NOTE_MIN = 110, NOTE_MAX = 1760, NOTE_DEFAUT = 440;
