@@ -143,17 +143,19 @@ def produits(P, cubes):
                                 triples += 1
                                 dans += (a ^ b ^ c) in S
         res[nom] = (triples, dans)
-    # la première grille d'un cube, TOUTES les autres du même cube et la première d'un autre cube : a ⊕ b ⊕ c = c ⊕ (a ⊕ b), c décalée d'un vecteur de la partie linéaire du premier cube
+    # la première grille d'un cube et TOUTES les autres du même cube, avec TOUTES les grilles d'un autre cube (exhaustif) : a ⊕ b ⊕ c = c ⊕ (a ⊕ b), c décalée d'un vecteur de la partie linéaire du premier cube
     mel = mel_dans = 0
-    tete = [P[sorted(L)[0]][1] for _, L in cl]
-    for i, (_, L) in enumerate(cl):
-        tous = sorted(L)
-        for g in tous[1:]:          # toutes les autres grilles du cube i
-            for j in range(len(cl)):
-                if j == i:
-                    continue
-                mel += 1
-                mel_dans += (tete[i] ^ P[g][1] ^ tete[j]) in S
+    vecs = [[P[g][1] for g in sorted(L)] for _, L in cl]
+    for i in range(len(cl)):
+        tete = vecs[i][0]
+        W = [tete ^ v for v in vecs[i][1:]]       # les différences a ⊕ b de deux grilles différentes du cube i (a = la première)
+        for j in range(len(cl)):
+            if j == i:
+                continue
+            for c in vecs[j]:
+                for w in W:
+                    mel += 1
+                    mel_dans += (w ^ c) in S
     return {'melange': mel, 'melange_dans': mel_dans, 'paires': pairs, 'paires_xor_dans': xor, 'paires_xnor_dans': xnor, 'triples_bases': res['bases'][0], 'triples_bases_dans': res['bases'][1], 'triples_extremes': res['extremes'][0], 'triples_extremes_dans': res['extremes'][1]}
 
 
@@ -190,7 +192,7 @@ def lignes(o):
         if 'orbites_referent' in x:
             out.append('OK    orbites avec la carte du référent : ' + ', '.join(f'{n} de {s} grilles' for s, n in x['orbites_referent'].items()) + '.')
         out.append(f'OK    loi sur les niveaux {titre} : la lecture binaire est affine sur l\'hypercube des unités dans {x["cubes_affines"]} cubes sur {x["cubes"]}.')
-        out.append(f'OK    produits {titre} : {x["paires"]} paires de lectures, XOR dans l\'ensemble pour {x["paires_xor_dans"]}, XNOR pour {x["paires_xnor_dans"]} ; a ⊕ b ⊕ c de trois cubes distincts : {x["triples_bases_dans"]} sur {x["triples_bases"]} pour les bases, {x["triples_extremes_dans"]} sur {x["triples_extremes"]} avec la première et la dernière grille de chaque cube, dans l\'ensemble ; avec deux grilles différentes d\'un même cube (la première et chacune des autres) et la première d\'un autre cube : {x["melange_dans"]} sur {x["melange"]}.')
+        out.append(f'OK    produits {titre} : {x["paires"]} paires de lectures, XOR dans l\'ensemble pour {x["paires_xor_dans"]}, XNOR pour {x["paires_xnor_dans"]} ; a ⊕ b ⊕ c de trois cubes distincts : {x["triples_bases_dans"]} sur {x["triples_bases"]} pour les bases, {x["triples_extremes_dans"]} sur {x["triples_extremes"]} avec la première et la dernière grille de chaque cube, dans l\'ensemble ; avec deux grilles différentes d\'un même cube (la première et chacune des autres) et une grille quelconque d\'un autre cube : {x["melange_dans"]} sur {x["melange"]}.')
     return out
 
 
