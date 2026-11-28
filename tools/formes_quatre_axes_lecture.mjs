@@ -41,7 +41,7 @@ for (const c of couples) {
   }
   if (!tout) continue;
   parfaits++; socles.add(c.socle_par_niveau.join(',')); couplesParfaits.push({ A: c.A, pi: c.pi, socle_par_niveau: c.socle_par_niveau });
-  const distincts = new Set(gs).size;
+  const distincts = new Set(gs.map((a) => a.join('/'))).size;
   for (const g of gs) {
     const k = classe(g);
     if (!formes.has(k)) { grilles++; formes.set(k, { corpus: classesCorpus.has(k), socle_par_niveau: c.socle_par_niveau, grilles_distinctes_sur_64: distincts, tricolore: g }); }

@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 43,
+    "verifie_ci": 44,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -4041,6 +4041,96 @@
       ],
       "statut": "verifie_ci",
       "note": "Calculé depuis data/couches-quatre-axes.json (tools/formes_quatre_axes.py --ecrire) et assets/lecture-binaire.js ; le script échoue si data/formes-quatre-axes-288.json diffère (--verifie). Aucun journal déposé sur Zenodo."
+    },
+    {
+      "id": "formes-quatre-axes-milieu",
+      "intitule": "Les formes à quatre axes, axes entre les cases et sur le milieu des cases : 76 992 grilles, 3 488 formes à la lecture binaire (288 + 3 200), couverture spectrale",
+      "enonce": {
+        "texte": "Parmi les grilles 12 × 12 à trois teintes, 48 / 48 / 48, un seul motif (g∘σ = π∘g, σ = (6, 6)) et quatre axes de miroir : 7 104 ont leurs axes entre les cases (ce sont les 7 104 couches de data/couches-quatre-axes.json) et 69 888 les ont sur le milieu des cases, soit 76 992 grilles, deux par forme à translation torique près (38 496 formes). La lecture binaire du dépôt (assets/lecture-binaire.js) en garde 576 grilles = 288 formes entre les cases et 6 400 grilles = 3 200 formes sur le milieu des cases, 3 488 en tout. Couverture spectrale : 288 formes entre les cases (pics dominants en 12 positions sur 27, 285 spectres distincts, centroïde 2,71 / 4,11 / 5,33 : minimum, médiane, maximum), 3 200 formes sur le milieu des cases (16 positions, 3 144 spectres, centroïde 3,15 / 5,36 / 6,70, dont 1 664 formes avec le seul pic dominant en (6, 6) et 836 en (4, 4)), réunion 3 488 formes (17 positions, 3 429 spectres, centroïde 2,71 / 5,28 / 6,70). Les 3 200 formes sur le milieu des cases ne sont pas engendrées par la carte des six niveaux actuelle ; leur fermeture sur le cube n'a pas été testée.",
+        "langue": "fr",
+        "source": "calcul du 28 novembre 2026 (prompt 271, jeu de fichiers 269 d'Anibal) ; tools/formes_quatre_axes_enum.py, tools/formes_quatre_axes_milieu_lecture.mjs, tools/couverture_quatre_axes.py"
+      },
+      "valeur": {
+        "enumeration": {
+          "grilles_entre_les_cases": 7104,
+          "grilles_milieu_des_cases": 69888,
+          "grilles_total": 76992,
+          "formes_a_translation_pres": 38496,
+          "grilles_par_forme": 2
+        },
+        "lecture": {
+          "grilles_entre_les_cases": 576,
+          "formes_entre_les_cases": 288,
+          "grilles_milieu_des_cases": 6400,
+          "formes_milieu_des_cases": 3200
+        },
+        "couverture": {
+          "entre": {
+            "formes": 288,
+            "positions": 12,
+            "ensembles_de_pics": 12,
+            "spectres": 285,
+            "centroide": [
+              2.71,
+              4.11,
+              5.33
+            ]
+          },
+          "milieu": {
+            "formes": 3200,
+            "positions": 16,
+            "ensembles_de_pics": 21,
+            "spectres": 3144,
+            "centroide": [
+              3.15,
+              5.36,
+              6.7
+            ],
+            "pic_seul_6_6": 1664,
+            "pic_seul_4_4": 836
+          },
+          "reunion": {
+            "formes": 3488,
+            "positions": 17,
+            "ensembles_de_pics": 24,
+            "spectres": 3429,
+            "centroide": [
+              2.71,
+              5.28,
+              6.7
+            ]
+          }
+        }
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360",
+        "corpus-256"
+      ],
+      "donnees": [
+        "data/couches-quatre-axes.json",
+        "data/formes-quatre-axes-288.json"
+      ],
+      "script": {
+        "chemin": "tools/couverture_quatre_axes.py",
+        "adresse": "https://anibal-amiot.com/tools/couverture_quatre_axes.py",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    les 288 formes de data/formes-quatre-axes-288.json : 48 / 48 / 48, un seul motif, quatre axes, loi de parité ; ce sont les formes que la lecture binaire donne entre les cases.",
+            "OK    couverture entre les cases : 288 formes, 12 positions de pic sur 27, 12 ensembles de pics, 285 spectres distincts, centroïde 2,71 / 4,11 / 5,33.",
+            "OK    couverture sur le milieu des cases : 3200 formes, 16 positions de pic sur 27, 21 ensembles de pics, 3144 spectres distincts, centroïde 3,15 / 5,36 / 6,70.",
+            "OK    couverture réunion : 3488 formes, 17 positions de pic sur 27, 24 ensembles de pics, 3429 spectres distincts, centroïde 2,71 / 5,28 / 6,70.",
+            "OK    sur le milieu des cases : 1664 formes avec le seul pic dominant en (6, 6), 836 en (4, 4).",
+            "OK    positions de pic atteintes seulement sur le milieu des cases : (1, 6), (3, 4), (3, 6), (5, 6), (6, 6)."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Trois outils en chaîne : tools/formes_quatre_axes_enum.py (l'énumération), tools/formes_quatre_axes_milieu_lecture.mjs (la lecture binaire de assets/lecture-binaire.js, non modifiée), tools/couverture_quatre_axes.py (les formes, leurs spectres ; le script cité, qui lance les deux autres). Chacun a --verifie et --essai ; les nombres attendus sont lus ici, dans « valeur ». Les 3 200 formes sur le milieu des cases ne sont pas engendrées par la carte des six niveaux actuelle et leur fermeture sur le cube n'a pas été testée. Le centroïde est Σ P(k)|k| / Σ P(k) (P : la somme des puissances de Fourier des trois indicatrices de teinte, k ≠ 0). Aucun journal déposé sur Zenodo."
     }
   ]
 }

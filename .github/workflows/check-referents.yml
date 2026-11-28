@@ -77,6 +77,13 @@ jobs:
       - run: python3 tools/miroir_autres_couches.py --verifie
       - run: python3 tools/formes_quatre_axes.py --verifie
       - run: node tools/formes_quatre_axes_lecture.mjs --verifie
+      # prompt 271 : les formes à quatre axes, axes entre les cases et sur le milieu des cases (76 992 grilles, 3 488 formes à la lecture binaire, couverture spectrale) ; nombres lus dans data/resultats-etablis.json
+      - run: python3 tools/formes_quatre_axes_enum.py --verifie
+      - run: python3 tools/formes_quatre_axes_enum.py --essai
+      - run: node tools/formes_quatre_axes_milieu_lecture.mjs --verifie
+      - run: node tools/formes_quatre_axes_milieu_lecture.mjs --essai
+      - run: python3 tools/couverture_quatre_axes.py --verifie
+      - run: python3 tools/couverture_quatre_axes.py --essai
       - run: node tools/check_fiches_formes.mjs
       - run: node tools/check_fiches_formes.mjs --essai
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons

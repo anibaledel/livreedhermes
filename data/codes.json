@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T10:22:48Z",
+ "generated_at_utc": "2026-11-28T12:31:54Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T10:30:00+00:00"
  },
  "comptes": {
-  "scripts": 352,
+  "scripts": 355,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3521,6 +3521,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/couverture_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/couverture_quatre_axes.py",
+   "octets": 10926,
+   "sha256": "177aeeaed3aa6f679fdd2e5cb679aa0a3b03127f4937fd8c23d742d7e900997e",
+   "md5": "37b479c6852503322d344130519b7fb6",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la couverture spectrale des formes à quatre axes à la lecture binaire (prompt 271) : les 288 formes entre les cases, les 3 200 formes sur le milieu des cases, leur réunion (3 488).",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/couverture_son.mjs",
    "adresse": "https://anibal-amiot.com/tools/couverture_son.mjs",
    "octets": 13707,
@@ -4044,11 +4061,28 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/formes_quatre_axes_enum.py",
+   "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_enum.py",
+   "octets": 11020,
+   "sha256": "d0712820c0fbe698e171bb72365bd6f5e62dc3b03beefe4d02ddd711cd47408e",
+   "md5": "6a981940e145d017605abd7af86493e1",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "toutes les grilles 12 × 12 à trois teintes qui ont QUATRE axes de miroir, un seul motif (g∘σ = π∘g, σ = (6, 6)) et 48 / 48 / 48 cases (prompt 271).",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/formes_quatre_axes_lecture.mjs",
    "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_lecture.mjs",
-   "octets": 5522,
-   "sha256": "17312d25911a3b4e7c6cc8d001d6b2cdd21fae1b32cb7b259f0bf96f2b0bcf92",
-   "md5": "8f9a4096f109787569d4d7d5e59619d1",
+   "octets": 5546,
+   "sha256": "8e096811a2b88227192f9432ecb6692a560b54cd3919642c4502329c1bec990b",
+   "md5": "2647fc4511d7b1e20dd25c1f9752f095",
    "licence_declaree": true,
    "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la lecture binaire du corpus (assets/lecture-binaire.js) appliquée aux couples de couches à quatre axes de data/couches-quatre-axes.json (tools/formes_quatre_axes.py).",
@@ -4057,6 +4091,23 @@
     "corpus-256"
    ],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/formes_quatre_axes_milieu_lecture.mjs",
+   "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_milieu_lecture.mjs",
+   "octets": 6197,
+   "sha256": "774cd4d837415aa7ee29c63f50a35696fd6c62c9c6caea059b86ea31c8d15d0e",
+   "md5": "eae0310e0d792ff06be69cde3be65452",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la lecture binaire du corpus (assets/lecture-binaire.js, non modifiée) appliquée à TOUTES les grilles à quatre axes que tools/formes_quatre_axes_enum.py énumère (7 104 entre les cases, 69 888 sur le milieu des cases) : prompt 271.",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []
