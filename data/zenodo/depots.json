@@ -1,6 +1,6 @@
 {
  "format_version": "zenodo-miroir-v1",
- "recupere_le_utc": "2026-11-28T10:30:00+00:00",
+ "recupere_le_utc": "2026-11-28T14:24:37+00:00",
  "source": "https://zenodo.org/api/records/<id>",
  "_doc": "Reponses brutes de l'API Zenodo (zenodo-brut/) et vue normalisee. Recupere depuis le conteneur d'Anibal, zenodo.org etant refuse a l'environnement Claude Code. Les descriptions sont le texte d'Anibal : recopiees, non reformulees.",
  "depots": [
@@ -2261,10 +2261,10 @@
   },
   {
    "titre_registre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
-   "conceptDoi": "10.5281/zenodo.24594284",
-   "versionDoi_registre": "10.5281/zenodo.24594285",
+   "conceptDoi": null,
+   "versionDoi_registre": "10.5281/zenodo.24629689",
    "versionDoi_reel": "10.5281/zenodo.24594285",
-   "ecart": "aucun",
+   "ecart": "versionDoi perime",
    "id_version": 24594285,
    "titre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
    "publication_date": "2026-11-27",
@@ -2341,6 +2341,180 @@
      "octets": 488093,
      "checksum": "md5:243b4ffd984d0c3144b7a6cb1aab3101",
      "lien": "https://zenodo.org/api/records/24594285/files/formes-quatre-axes-288-v1.0.zip/content"
+    }
+   ],
+   "version_anterieure_de": "10.5281/zenodo.24594284",
+   "_doc": "Version antérieure de 10.5281/zenodo.24594284, remplacée par 10.5281/zenodo.24629689 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
+  },
+  {
+   "titre_registre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "conceptDoi": null,
+   "versionDoi_registre": "10.5281/zenodo.24629689",
+   "versionDoi_reel": "10.5281/zenodo.24629593",
+   "ecart": "versionDoi perime",
+   "id_version": 24629593,
+   "titre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "publication_date": "2026-11-28",
+   "version": "1.1",
+   "licence": "cc-by-nc-4.0",
+   "type": "Dataset",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>The family of <strong>288 three-colour 12 &times; 12 tilings with four mirror axes</strong> (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).</p><ul><li><strong>32 forms</strong> are those of the already deposited corpus that have four axes;</li><li><strong>256 forms are new</strong>: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.</li></ul><p>Only five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.</p><p><strong>Contents.</strong> <code>data/</code>: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; <code>svg/</code>: one SVG per form; <code>planches/</code>: three PNG sheets; <code>repro/</code>: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); <code>SHA256SUMS.txt</code>; <code>LISEZMOI.md</code> (in French).</p><p><strong>Limits.</strong> The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass <em>between</em> cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.</p><p><strong>Licence.</strong> Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).</p><p><em>Fran&ccedil;ais.</em> Les 288 formes de pavages 12 &times; 12 &agrave; trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir <code>LISEZMOI.md</code> dans l&rsquo;archive.</p>\n<p><strong>Author.</strong> Anibal Edelberto Amiot &mdash; ORCID 0009-0002-6414-9448 &mdash; Wikidata Q141191562 &mdash; <a href=\"https://anibal-amiot.com/\">anibal-amiot.com</a>.</p>\n<p>Page on the author's site: <a href=\"https://anibal-amiot.com/travaux/four-axis-forms-288/\">https://anibal-amiot.com/travaux/four-axis-forms-288/</a>.</p>\n<p><strong>Version 1.1 / version 1.1.</strong> Correction of the field <code>grilles_distinctes_sur_64</code> for the socle types B, C and D (32 instead of 64; 64 for the corpus and type A). Nothing else changes: same grids, same pairs, same images. &mdash; Correction du champ <code>grilles_distinctes_sur_64</code> pour les bases B, C et D (32 au lieu de 64).</p>",
+   "description_texte": "The family of 288 three-colour 12 × 12 tilings with four mirror axes (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).\n\n32 forms are those of the already deposited corpus that have four axes;\n\n256 forms are new: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.\n\nOnly five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.\n\nContents. data/: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; svg/: one SVG per form; planches/: three PNG sheets; repro/: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); SHA256SUMS.txt; LISEZMOI.md (in French).\n\nLimits. The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass between cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.\n\nLicence. Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).\n\nFrançais. Les 288 formes de pavages 12 × 12 à trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir LISEZMOI.md dans l’archive.\n\nAuthor. Anibal Edelberto Amiot — ORCID 0009-0002-6414-9448 — Wikidata Q141191562 — anibal-amiot.com.\n\nPage on the author's site: https://anibal-amiot.com/travaux/four-axis-forms-288/.\n\nVersion 1.1 / version 1.1. Correction of the field grilles_distinctes_sur_64 for the socle types B, C and D (32 instead of 64; 64 for the corpus and type A). Nothing else changes: same grids, same pairs, same images. — Correction du champ grilles_distinctes_sur_64 pour les bases B, C et D (32 au lieu de 64).",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "Jacquard weaving",
+    "three-colour grids",
+    "mirror symmetry",
+    "tilings",
+    "colour symmetry",
+    "binary reading",
+    "half-shift criterion",
+    "dataset"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.24396534",
+     "relation": "continues",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23189275",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.24508469",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://anibal-amiot.com/travaux/four-axis-forms-288/",
+     "relation": "isDocumentedBy",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "formes-quatre-axes-288-v1.1.zip",
+     "octets": 488169,
+     "checksum": "md5:351bea3609b75e4c0734bf5944633738",
+     "lien": "https://zenodo.org/api/records/24629593/files/formes-quatre-axes-288-v1.1.zip/content"
+    }
+   ],
+   "version_anterieure_de": "10.5281/zenodo.24594284",
+   "_doc": "Version antérieure de 10.5281/zenodo.24594284, remplacée par 10.5281/zenodo.24629689 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
+  },
+  {
+   "titre_registre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "conceptDoi": "10.5281/zenodo.24594284",
+   "versionDoi_registre": "10.5281/zenodo.24629689",
+   "versionDoi_reel": "10.5281/zenodo.24629689",
+   "ecart": "aucun",
+   "id_version": 24629689,
+   "titre": "The 288 four-axis forms of three-colour 12×12 tilings — La Livrée d'Hermès (data, images and scripts)",
+   "publication_date": "2026-11-28",
+   "version": "1.2",
+   "licence": "cc-by-nc-4.0",
+   "type": "Dataset",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>The family of <strong>288 three-colour 12 &times; 12 tilings with four mirror axes</strong> (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).</p><ul><li><strong>32 forms</strong> are those of the already deposited corpus that have four axes;</li><li><strong>256 forms are new</strong>: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.</li></ul><p>Only five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.</p><p><strong>Contents.</strong> <code>data/</code>: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; <code>svg/</code>: one SVG per form; <code>planches/</code>: three PNG sheets; <code>repro/</code>: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); <code>SHA256SUMS.txt</code>; <code>LISEZMOI.md</code> (in French).</p><p><strong>Limits.</strong> The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass <em>between</em> cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.</p><p><strong>Licence.</strong> Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).</p><p><em>Fran&ccedil;ais.</em> Les 288 formes de pavages 12 &times; 12 &agrave; trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir <code>LISEZMOI.md</code> dans l&rsquo;archive.</p>\n<p><strong>Author.</strong> Anibal Edelberto Amiot &mdash; ORCID 0009-0002-6414-9448 &mdash; Wikidata Q141191562 &mdash; <a href=\"https://anibal-amiot.com/\">anibal-amiot.com</a>.</p>\n<p>Page on the author's site: <a href=\"https://anibal-amiot.com/travaux/four-axis-forms-288/\">https://anibal-amiot.com/travaux/four-axis-forms-288/</a>.</p>\n<p><strong>Version 1.1 / version 1.1.</strong> Correction of the field <code>grilles_distinctes_sur_64</code> for the socle types B, C and D (32 instead of 64; 64 for the corpus and type A). Nothing else changes: same grids, same pairs, same images. &mdash; Correction du champ <code>grilles_distinctes_sur_64</code> pour les bases B, C et D (32 au lieu de 64).</p>\n<p><strong>Version 1.2 / version 1.2.</strong> Correction of the reproduction script of the archive (<code>repro/tools/formes_quatre_axes_lecture.mjs</code>, one line), which wrote 64 for the socle types B, C and D; it now finds the data file of version 1.1 and 1.2 exactly. Nothing else changes: same data, grids, pairs and images. &mdash; Correction du script de reproduction de l'archive, qui &eacute;crivait 64 pour les bases B, C et D.</p>",
+   "description_texte": "The family of 288 three-colour 12 × 12 tilings with four mirror axes (vertical, horizontal and the two diagonals), a single motif in the tiling (the half-period shift, six cells in each direction, exchanges two tints), 48 / 48 / 48 cells per tint, and readable by the binary reading of the corpus (72 dark / 72 light cells, the reading being inverted by the shift). Each form is given by one representative grid (a form is a class modulo torus translation).\n\n32 forms are those of the already deposited corpus that have four axes;\n\n256 forms are new: they are built from new layers, symmetric about the centre of the cell, which are not among the 360 plates of the complete set.\n\nOnly five fixed-tint bases (socles) pass the binary reading: the corpus type (8 fixed cells at each of the six levels, 32 forms) and four types A to D (64 forms each) with unequal weights, in which one level changes nothing for types B, C and D.\n\nContents. data/: the 288 forms (JSON and CSV) and the 3,552 four-axis layer couples among which these 288 are the ones perfect for the binary reading; svg/: one SVG per form; planches/: three PNG sheets; repro/: the scripts that recompute everything (to be run from a copy of the repository, with the same relative paths); SHA256SUMS.txt; LISEZMOI.md (in French).\n\nLimits. The 256 new forms do not close the cube (they fall outside the classification of the companion note on the half-shift criterion); the plates of their layers have not been studied. Only the forms whose axes pass between cells are reached with the six-level map of the system; 3,200 further perfect four-axis forms (axes through cell centres) exist and need another map. No meaning is attributed to the patterns.\n\nLicence. Data and images: CC BY-NC 4.0. Scripts: AGPL v3 (commercial licence on request).\n\nFrançais. Les 288 formes de pavages 12 × 12 à trois teintes qui ont quatre axes de miroir, un seul motif au pavage, 48 / 48 / 48 cases par teinte, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 formes nouvelles. Voir LISEZMOI.md dans l’archive.\n\nAuthor. Anibal Edelberto Amiot — ORCID 0009-0002-6414-9448 — Wikidata Q141191562 — anibal-amiot.com.\n\nPage on the author's site: https://anibal-amiot.com/travaux/four-axis-forms-288/.\n\nVersion 1.1 / version 1.1. Correction of the field grilles_distinctes_sur_64 for the socle types B, C and D (32 instead of 64; 64 for the corpus and type A). Nothing else changes: same grids, same pairs, same images. — Correction du champ grilles_distinctes_sur_64 pour les bases B, C et D (32 au lieu de 64).\n\nVersion 1.2 / version 1.2. Correction of the reproduction script of the archive (repro/tools/formes_quatre_axes_lecture.mjs, one line), which wrote 64 for the socle types B, C and D; it now finds the data file of version 1.1 and 1.2 exactly. Nothing else changes: same data, grids, pairs and images. — Correction du script de reproduction de l'archive, qui écrivait 64 pour les bases B, C et D.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "Jacquard weaving",
+    "three-colour grids",
+    "mirror symmetry",
+    "tilings",
+    "colour symmetry",
+    "binary reading",
+    "half-shift criterion",
+    "dataset"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.24396534",
+     "relation": "continues",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23189275",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.24508469",
+     "relation": "references",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://anibal-amiot.com/travaux/four-axis-forms-288/",
+     "relation": "isDocumentedBy",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "formes-quatre-axes-288-v1.2.zip",
+     "octets": 488242,
+     "checksum": "md5:d4894826ed40602e7e39c9b6e8b51ebe",
+     "lien": "https://zenodo.org/api/records/24629689/files/formes-quatre-axes-288-v1.2.zip/content"
     }
    ]
   }

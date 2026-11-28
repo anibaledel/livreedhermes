@@ -83,9 +83,9 @@
       "title": "The 288 four-axis forms of three-colour 12×12 tilings — data, images and scripts",
       "summary_en": "The family of 288 three-colour 12 × 12 tilings with four mirror axes, a single motif, 48 / 48 / 48 cells per colour, readable by the binary reading of the corpus: 32 forms of the corpus and 256 new ones; JSON and CSV data, one SVG per form, three sheets and the scripts that recompute them.",
       "summary_fr": "La famille des 288 pavages 12 × 12 à trois couleurs qui ont quatre axes de miroir, un seul motif, 48 / 48 / 48 cases par couleur, lisibles par la lecture binaire du corpus : 32 formes du corpus et 256 nouvelles ; données JSON et CSV, une image SVG par forme, trois planches et les scripts qui les recalculent.",
-      "version": "1.0", "date": "2026-11-27",
+      "version": "1.2", "date": "2026-11-28",
       "status_en": "Published", "status_fr": "Publié",
-      "doi": "10.5281/zenodo.24594284", "version_doi": "10.5281/zenodo.24594285", "license": "CC BY-NC 4.0 (data, images), AGPL-3.0 (code)", "pending": false
+      "doi": "10.5281/zenodo.24594284", "version_doi": "10.5281/zenodo.24629689", "license": "CC BY-NC 4.0 (data, images), AGPL-3.0 (code)", "pending": false
     },
     {
       "id": "axes-chladni", "group": "Patterns, axes and level sets", "type": "preprint",

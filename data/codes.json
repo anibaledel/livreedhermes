@@ -1,15 +1,15 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T14:18:28Z",
+ "generated_at_utc": "2026-11-28T14:25:36Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
  "instantane_zenodo": {
   "fichier": "data/zenodo/depots.json",
-  "recupere_le_utc": "2026-11-28T10:30:00+00:00"
+  "recupere_le_utc": "2026-11-28T14:24:37+00:00"
  },
  "comptes": {
-  "scripts": 364,
+  "scripts": 365,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -6154,6 +6154,24 @@
    "role": "la version 1.1 du lot « les 288 formes à quatre axes » (prompt 285) : la v1.0 déposée (DOI 10.5281/zenodo.24594285) portait grilles_distinctes_sur_64 = 64 pour les 288 formes ; la bonne valeur est 32 pour les 192 formes des socles B, C e…",
    "lit": [
     "calques-360"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/zenodo_formes_quatre_axes_v12.py",
+   "adresse": "https://anibal-amiot.com/tools/zenodo_formes_quatre_axes_v12.py",
+   "octets": 8242,
+   "sha256": "34303d12b0b8a6bf3c549e59d00cf2cda9b9674dcc277878a28dc491e0cb5b28",
+   "md5": "384b9d51daf8234ff3ca4f6f0b9f51e3",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la version 1.2 du lot « les 288 formes à quatre axes » (prompt 286), à partir de la v1.1 (tools/zenodo_formes_quatre_axes_v11.py) : le script de reproduction de l'archive, repro/tools/formes_quatre_axes_lecture.mjs, était resté à l'octet…",
+   "lit": [
+    "calques-360",
+    "corpus-256"
    ],
    "ecrit": null,
    "durees": [],
