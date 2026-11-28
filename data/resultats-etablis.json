@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 44,
+    "verifie_ci": 45,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -4131,6 +4131,70 @@
       ],
       "statut": "verifie_ci",
       "note": "Trois outils en chaîne : tools/formes_quatre_axes_enum.py (l'énumération), tools/formes_quatre_axes_milieu_lecture.mjs (la lecture binaire de assets/lecture-binaire.js, non modifiée), tools/couverture_quatre_axes.py (les formes, leurs spectres ; le script cité, qui lance les deux autres). Chacun a --verifie et --essai ; les nombres attendus sont lus ici, dans « valeur ». Les 3 200 formes sur le milieu des cases ne sont pas engendrées par la carte des six niveaux actuelle et leur fermeture sur le cube n'a pas été testée. Le centroïde est Σ P(k)|k| / Σ P(k) (P : la somme des puissances de Fourier des trois indicatrices de teinte, k ≠ 0). Aucun journal déposé sur Zenodo."
+    },
+    {
+      "id": "formes-quatre-axes-fermeture-cube",
+      "intitule": "Les 3 200 formes à quatre axes sur le milieu des cases se ferment sur un cube : 6 400 grilles parfaites, toutes fermées sous toutes les bascules d'unités, 15 socles, 50 400 cartes de six niveaux possibles",
+      "enonce": {
+        "texte": "Pour chacune des 6 400 grilles parfaites à quatre axes sur le milieu des cases (3 200 formes), les 2^U grilles obtenues en basculant un ensemble quelconque d'unités (paires d'orbites {O, σ(O)} de teinte non fixe ; U = 8 pour 1 280 grilles, U = 9 pour 5 120) sont toutes parfaites à la lecture binaire du dépôt ; elles forment 15 cubes (5 de 256 grilles, 10 de 512), un par socle. Le cube se ferme donc sur toute carte de six niveaux de 24 cases, unions d'orbites des quatre axes et invariantes par σ : il y en a 50 400 ; pour 200 d'entre elles tirées au hasard et un couple chacune, les 64 grilles Φ(n, A, B) sont toutes parfaites (12 800 grilles). Contrôle entre les cases : 576 grilles parfaites sur 576 fermées, 5 socles, 720 cartes possibles dont la carte du référent. Aucune de ces 50 400 cartes n'est dans les données du dépôt : les autres propriétés de la carte actuelle (règle du bord, niveaux centraux) ne sont pas imposées.",
+        "langue": "fr",
+        "source": "calcul du 28 novembre 2026 (échange avec Anibal) ; tools/fermeture_quatre_axes_cube.py"
+      },
+      "valeur": {
+        "entre": {
+          "grilles_parfaites": 576,
+          "grilles_fermees": 576,
+          "unites": {
+            "6": 64,
+            "7": 512
+          },
+          "socles": 5,
+          "cartes": 720,
+          "echantillon_grilles": 12800,
+          "echantillon_hors": 0,
+          "carte_du_referent": true
+        },
+        "milieu": {
+          "grilles_parfaites": 6400,
+          "grilles_fermees": 6400,
+          "unites": {
+            "8": 1280,
+            "9": 5120
+          },
+          "socles": 15,
+          "cartes": 50400,
+          "echantillon_grilles": 12800,
+          "echantillon_hors": 0,
+          "carte_du_referent": null
+        }
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360",
+        "corpus-256"
+      ],
+      "donnees": [
+        "data/couches-quatre-axes.json",
+        "data/referent_360_v3.json"
+      ],
+      "script": {
+        "chemin": "tools/fermeture_quatre_axes_cube.py",
+        "adresse": "https://anibal-amiot.com/tools/fermeture_quatre_axes_cube.py",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    cube entre les cases (contrôle) : 576 grilles parfaites sur 576 fermées sous toutes les bascules d'unités (unités par grille : 6 pour 64, 7 pour 512), 5 socles, 720 cartes de six niveaux possibles.",
+            "OK    cube sur le milieu des cases : 6400 grilles parfaites sur 6400 fermées sous toutes les bascules d'unités (unités par grille : 8 pour 1280, 9 pour 5120), 15 socles, 50400 cartes de six niveaux possibles.",
+            "OK    sur le milieu des cases : 200 cartes tirées, un couple chacune : 12800 grilles Φ(n, A, B) testées, 0 hors des grilles parfaites.",
+            "OK    entre les cases : la carte du référent est l'une des 720 cartes possibles : oui."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Suite de formes-quatre-axes-milieu. Lecture binaire : tools/formes_quatre_axes_milieu_lecture.mjs (assets/lecture-binaire.js, non modifiée). Ce que ce résultat ne dit pas : qu'une de ces 50 400 cartes soit la bonne, ou qu'elle ait les propriétés de la carte actuelle autres que celles listées ; la question de l'article (§3.2) « existe-t-il une telle carte ? » reçoit ici sa réponse pour ces propriétés seulement. Aucun journal déposé sur Zenodo."
     }
   ]
 }
