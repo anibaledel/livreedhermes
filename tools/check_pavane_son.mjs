@@ -107,22 +107,28 @@ for (const largeur of [1280, 390]) {
   ok(m.erreurs.length === 0 && erreurs.length === 0, `fichier et micro sans erreur (${[...m.erreurs, ...erreurs].join(' | ')})`);
   await m.ctx.close();
 }
-// --- le micro est la source de départ (prompt 220) : sélectionné, jamais demandé au chargement ; refusé, un morceau d'exemple le remplace, dit clairement ---
+// --- le micro est la source de départ (prompt 220), la musique d'essai ne l'est jamais (prompt 277) : micro sélectionné, jamais demandé au chargement ; refusé ou absent, UNE ligne dit pourquoi et propose la musique d'essai, qui ne démarre pas d'office ---
 {
-  const compte = (page) => page.evaluate(() => { window.__gum = 0; navigator.mediaDevices.getUserMedia = () => { window.__gum++; return Promise.reject(Object.assign(new Error('refusé'), { name: 'NotAllowedError' })); }; });
+  const compte = (page, nom = 'NotAllowedError') => page.evaluate((nom) => { window.__gum = 0; navigator.mediaDevices.getUserMedia = () => { window.__gum++; return Promise.reject(Object.assign(new Error('refusé'), { name: nom })); }; }, nom);
   const d = await monter(1280, '?mode=spectre');
   ok(await d.page.$eval('.pv-choix input[value="micro"]', (r) => r.checked), 'la source de départ est le micro');
+  ok(await d.page.$eval('.pv-choix input[value="essai"]', (r) => !r.checked), 'la musique d\'essai n\'est pas la source de départ');
   await compte(d.page); await d.page.waitForTimeout(800);
-  ok(await d.page.evaluate(() => window.__gum) === 0 && await d.page.evaluate(() => window.__p.sonActif()) === null, 'le micro n\'est pas demandé au chargement');
-  await d.page.click('.pv-source-reglage button:not([hidden])'); await d.page.waitForTimeout(1500);
+  ok(await d.page.evaluate(() => window.__gum) === 0 && await d.page.evaluate(() => window.__p.sonActif()) === null, 'le micro n\'est pas demandé au chargement, aucun son avant le geste');
+  await d.page.click('.pv-source-reglage button:not([hidden])'); await d.page.waitForTimeout(1200);
   ok(await d.page.evaluate(() => window.__gum) === 1, 'le micro est demandé au bouton');
-  ok(await attendreSon(d.page, 'morceau') && await d.page.$eval('.pv-choix input[value="morceau"]', (r) => r.checked), 'micro refusé : le morceau d\'exemple joue et la source affichée est le morceau');
-  ok(await d.page.$eval('.pv-sources .pv-erreur', (e) => !e.hidden && /exemple/.test(e.textContent)), 'micro refusé : le message dit qu\'un morceau d\'exemple le remplace');
-  ok(await d.page.evaluate(() => window.__p.etat().source) === 'morceau', 'l\'état suit : source morceau');
+  ok(await d.page.evaluate(() => window.__p.sonActif()) === null && await d.page.evaluate(() => window.__p.etat().source) === 'micro', 'micro refusé : aucun son ne démarre d\'office, la source reste le micro');
+  const msg = await d.page.$eval('.pv-sources .pv-erreur', (e) => ({ visible: !e.hidden, texte: e.textContent }));
+  ok(msg.visible && /refusé/.test(msg.texte) && /essai/.test(msg.texte) && !/\n/.test(msg.texte.trim()), `micro refusé : une ligne dit pourquoi et propose la musique d'essai (${msg.texte})`);
+  const bEssai = d.page.locator('.pv-source-reglage button', { hasText: 'musique d\'essai' });
+  ok(await bEssai.isVisible(), 'micro refusé : le bouton de la musique d\'essai est proposé');
+  await bEssai.click(); ok(await attendreSon(d.page, 'essai') && await d.page.$eval('.pv-choix input[value="essai"]', (r) => r.checked), 'au bouton, la musique d\'essai joue et la source affichée est l\'essai');
+  await d.page.waitForTimeout(2500); ok(REPS.has(await motif(d.page)) || !!(await motif(d.page)), 'la musique d\'essai fait choisir un motif');
+  ok(await d.page.evaluate(() => window.__p.etat().source) === 'essai', 'l\'état suit : source essai');
   await d.page.evaluate(() => window.__p.arreter()); await d.ctx.close();
-  const e = await monter(1280, '?mode=spectre&source=micro'); await compte(e.page);
+  const e = await monter(1280, '?mode=spectre&source=micro'); await compte(e.page, 'NotFoundError');
   await e.page.click('.pv-source-reglage button:not([hidden])'); await e.page.waitForTimeout(800);
-  ok(await e.page.evaluate(() => window.__p.sonActif()) === null && await e.page.$eval('.pv-sources .pv-erreur', (x) => !x.hidden && !/exemple/.test(x.textContent)), 'un lien ?source=micro refusé : pas de repli, le message d\'avant');
+  ok(await e.page.evaluate(() => window.__p.sonActif()) === null && await e.page.$eval('.pv-sources .pv-erreur', (x) => !x.hidden && /Aucun micro/.test(x.textContent)), 'aucun micro : le message le dit, sans son');
   await e.ctx.close();
   const l = await monter(1280, '?mode=spectre&piste=j4');
   ok(await l.page.$eval('.pv-choix input[value="morceau"]', (r) => r.checked), '?piste=j4 sans source : le morceau garde le dessus sur le micro par défaut');
