@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T13:49:45Z",
+ "generated_at_utc": "2026-11-28T14:18:28Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T10:30:00+00:00"
  },
  "comptes": {
-  "scripts": 363,
+  "scripts": 364,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -6139,6 +6139,23 @@
     "corpus-256"
    ],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/zenodo_formes_quatre_axes_v11.py",
+   "adresse": "https://anibal-amiot.com/tools/zenodo_formes_quatre_axes_v11.py",
+   "octets": 8150,
+   "sha256": "f111ef7a139b7d46f0c3a8d650218833d75548e6885cc475bb883d02ddda4f19",
+   "md5": "c88d504ff643f5db985e3a22ee2835b8",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la version 1.1 du lot « les 288 formes à quatre axes » (prompt 285) : la v1.0 déposée (DOI 10.5281/zenodo.24594285) portait grilles_distinctes_sur_64 = 64 pour les 288 formes ; la bonne valeur est 32 pour les 192 formes des socles B, C e…",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []
