@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T12:31:54Z",
+ "generated_at_utc": "2026-11-28T12:57:51Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T10:30:00+00:00"
  },
  "comptes": {
-  "scripts": 355,
+  "scripts": 357,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3946,6 +3946,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/fermeture_quatre_axes_cube.py",
+   "adresse": "https://anibal-amiot.com/tools/fermeture_quatre_axes_cube.py",
+   "octets": 11907,
+   "sha256": "12fdb603d97f2c5868cc47323e756da5020930f4710b825f8478ab2816fb003e",
+   "md5": "99465475f6f4e69c22551168954f29e9",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "les 3 200 formes à quatre axes sur le milieu des cases se ferment-elles sur un cube, comme les 288 entre les cases ?",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/fibres.py",
    "adresse": "https://anibal-amiot.com/tools/fibres.py",
    "octets": 6415,
@@ -4098,9 +4115,9 @@
   {
    "chemin": "tools/formes_quatre_axes_milieu_lecture.mjs",
    "adresse": "https://anibal-amiot.com/tools/formes_quatre_axes_milieu_lecture.mjs",
-   "octets": 6197,
-   "sha256": "774cd4d837415aa7ee29c63f50a35696fd6c62c9c6caea059b86ea31c8d15d0e",
-   "md5": "eae0310e0d792ff06be69cde3be65452",
+   "octets": 6639,
+   "sha256": "9abbb6d12dd554e68096db3f0dd94ebbc40cb01c52751c531a4f8b62d11fb793",
+   "md5": "fa487b2eef2ebf055035800ab23e1cfa",
    "licence_declaree": true,
    "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la lecture binaire du corpus (assets/lecture-binaire.js, non modifiée) appliquée à TOUTES les grilles à quatre axes que tools/formes_quatre_axes_enum.py énumère (7 104 entre les cases, 69 888 sur le milieu des cases) : prompt 271.",
@@ -4756,6 +4773,23 @@
    "role": "Recette de l'auteur, copiée telle quelle (n° 91, extraite de tri/render8.py, lignes 70-93) : la référence que tools/verify_musique_chladni.mjs compare au moteur assets/musique-chladni-moteur.js.",
    "lit": [],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/orbites_produits_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/orbites_produits_quatre_axes.py",
+   "octets": 11434,
+   "sha256": "10b1cf1d97f3d09077b85d8faad258b91f8cfebb53c6b92fee7ccb27425650d6",
+   "md5": "49dabe6e39c448e1978500afe2428f10",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "les orbites, la loi sur les niveaux et les produits des formes à quatre axes à la lecture binaire (28 novembre 2026, suite de tools/fermeture_quatre_axes_cube.py).",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []

@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 45,
+    "verifie_ci": 46,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -4195,6 +4195,87 @@
       ],
       "statut": "verifie_ci",
       "note": "Suite de formes-quatre-axes-milieu. Lecture binaire : tools/formes_quatre_axes_milieu_lecture.mjs (assets/lecture-binaire.js, non modifiée). Ce que ce résultat ne dit pas : qu'une de ces 50 400 cartes soit la bonne, ou qu'elle ait les propriétés de la carte actuelle autres que celles listées ; la question de l'article (§3.2) « existe-t-il une telle carte ? » reçoit ici sa réponse pour ces propriétés seulement. Aucun journal déposé sur Zenodo."
+    },
+    {
+      "id": "formes-quatre-axes-orbites-produits",
+      "intitule": "Les formes à quatre axes à la lecture binaire : orbites des bascules de niveaux, loi affine sur les niveaux, produits (576 grilles entre les cases, 6 400 sur le milieu des cases)",
+      "enonce": {
+        "texte": "Orbites : le groupe des bascules de niveaux (Z/2)^6 d'une carte de six niveaux a, sur les grilles parfaites, des orbites de 2^k grilles (k = niveaux portant une unité du cube). Avec la carte du référent, entre les cases : 12 orbites de 32 grilles et 3 de 64 (pas 9 de 64) ; sur 720 cartes entre les cases, aucune n'a toutes ses orbites de 64 grilles ; sur le milieu des cases, 138 cartes sur 50 400 seulement ont toutes leurs orbites de 64 grilles (100 orbites de 64), les autres en ont de 32 ou moins : la division 6 400 / 64 = 100 n'est pas une propriété de l'ensemble mais de ces 138 cartes. Loi sur les niveaux : dans chacun des 5 cubes entre les cases et des 15 cubes du milieu des cases, la lecture binaire (144 cases × 4 bits) est affine sur l'hypercube des unités, donc affine en n pour toute carte : la même loi sur les six niveaux agit sur les formes entre les cases (dont les 32 du corpus) et sur celles du milieu des cases. Produits : ni le XOR ni le XNOR de deux lectures n'est la lecture d'une forme de l'ensemble (aucune des paires, dans les deux ensembles) ; a ⊕ b ⊕ c reste dans l'ensemble pour les bases et pour les extrêmes de trois cubes distincts, mais pas en général : pour deux grilles différentes d'un même cube et une grille quelconque d'un autre, 33 392 triples sur 259 840 entre les cases et 2 165 248 sur 37 921 280 sur le milieu des cases. L'ensemble est une réunion de cubes affines, pas un espace fermé par le produit ; la fermeture est celle de chaque cube.",
+        "langue": "fr",
+        "source": "calcul du 28 novembre 2026 (échange avec Anibal) ; tools/orbites_produits_quatre_axes.py"
+      },
+      "valeur": {
+        "entre": {
+          "grilles": 576,
+          "cubes": 5,
+          "cartes": 720,
+          "cartes_toutes_orbites_64": 0,
+          "orbites_sous_64_min": 4,
+          "orbites_sous_64_max": 16,
+          "orbites_referent": {
+            "32": 12,
+            "64": 3
+          },
+          "cubes_affines": 5,
+          "melange": 259840,
+          "melange_dans": 33392,
+          "paires": 133386,
+          "paires_xor_dans": 0,
+          "paires_xnor_dans": 0,
+          "triples_bases": 60,
+          "triples_bases_dans": 60,
+          "triples_extremes": 480,
+          "triples_extremes_dans": 480
+        },
+        "milieu": {
+          "grilles": 6400,
+          "cubes": 15,
+          "cartes": 50400,
+          "cartes_toutes_orbites_64": 138,
+          "orbites_sous_64_min": 0,
+          "orbites_sous_64_max": 248,
+          "cubes_affines": 15,
+          "melange": 37921280,
+          "melange_dans": 2165248,
+          "paires": 16259253,
+          "paires_xor_dans": 0,
+          "paires_xnor_dans": 0,
+          "triples_bases": 2730,
+          "triples_bases_dans": 2730,
+          "triples_extremes": 21840,
+          "triples_extremes_dans": 21840
+        }
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360",
+        "corpus-256"
+      ],
+      "donnees": [
+        "data/couches-quatre-axes.json",
+        "data/referent_360_v3.json"
+      ],
+      "script": {
+        "chemin": "tools/orbites_produits_quatre_axes.py",
+        "adresse": "https://anibal-amiot.com/tools/orbites_produits_quatre_axes.py",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    orbites entre les cases (contrôle) : 576 grilles en 5 cubes ; sur 720 cartes de six niveaux, 0 ont toutes leurs orbites de 64 grilles, le nombre d'orbites de moins de 64 grilles va de 4 à 16.",
+            "OK    orbites avec la carte du référent : 12 de 32 grilles, 3 de 64 grilles.",
+            "OK    loi sur les niveaux entre les cases (contrôle) : la lecture binaire est affine sur l'hypercube des unités dans 5 cubes sur 5.",
+            "OK    produits entre les cases (contrôle) : 133386 paires de lectures, XOR dans l'ensemble pour 0, XNOR pour 0 ; a ⊕ b ⊕ c de trois cubes distincts : 60 sur 60 pour les bases, 480 sur 480 avec la première et la dernière grille de chaque cube, dans l'ensemble ; avec deux grilles différentes d'un même cube (la première et chacune des autres) et une grille quelconque d'un autre cube : 33392 sur 259840.",
+            "OK    orbites sur le milieu des cases : 6400 grilles en 15 cubes ; sur 50400 cartes de six niveaux, 138 ont toutes leurs orbites de 64 grilles, le nombre d'orbites de moins de 64 grilles va de 0 à 248.",
+            "OK    loi sur les niveaux sur le milieu des cases : la lecture binaire est affine sur l'hypercube des unités dans 15 cubes sur 15.",
+            "OK    produits sur le milieu des cases : 16259253 paires de lectures, XOR dans l'ensemble pour 0, XNOR pour 0 ; a ⊕ b ⊕ c de trois cubes distincts : 2730 sur 2730 pour les bases, 21840 sur 21840 avec la première et la dernière grille de chaque cube, dans l'ensemble ; avec deux grilles différentes d'un même cube (la première et chacune des autres) et une grille quelconque d'un autre cube : 2165248 sur 37921280."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Suite de formes-quatre-axes-fermeture-cube. Le « produit » est défini ici sur la lecture binaire (XOR et XNOR des 576 bits) ; aucune autre définition du produit de deux formes n'est dans les données du dépôt. Les orbites sont celles des bascules de niveaux pour une carte donnée ; le groupe des isométries du tore qui conservent les axes ne donne que le décalage σ (orbites de deux grilles), qui est la bascule des six niveaux. Aucun journal déposé sur Zenodo."
     }
   ]
 }
