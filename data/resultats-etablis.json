@@ -4,7 +4,7 @@
   "statuts": {
     "verifie_journal_depose": 13,
     "verifie_journal_local": 27,
-    "verifie_ci": 46,
+    "verifie_ci": 47,
     "releve_journal_depose": 0,
     "affirme": 2
   },
@@ -4276,6 +4276,95 @@
       ],
       "statut": "verifie_ci",
       "note": "Suite de formes-quatre-axes-fermeture-cube. Le « produit » est défini ici sur la lecture binaire (XOR et XNOR des 576 bits) ; aucune autre définition du produit de deux formes n'est dans les données du dépôt. Les orbites sont celles des bascules de niveaux pour une carte donnée ; le groupe des isométries du tore qui conservent les axes ne donne que le décalage σ (orbites de deux grilles), qui est la bascule des six niveaux. Aucun journal déposé sur Zenodo."
+    },
+    {
+      "id": "formes-quatre-axes-codage-six-traits",
+      "intitule": "Codage à six traits des cubes à quatre axes : 20 cubes, 109 familles de 64 grilles (9 entre les cases, 100 sur le milieu des cases), soit 109 familles de 32 formes",
+      "enonce": {
+        "texte": "Sur les 6 976 grilles parfaites à quatre axes, chaque cube (5 entre les cases, 15 sur le milieu des cases) se compose d'unités (paires d'orbites {O, σO} dont la teinte n'est pas la teinte fixe) de 8 ou 16 cases ; en gardant les unités de 16 cases et en appariant celles de 8 cases, on obtient six blocs disjoints de 16 cases par cube. Entre les cases : 4 cubes de profil (8×2, 16×5), 128 grilles, 2 familles de 64 grilles chacun ; 1 cube de profil (16×6), 64 grilles, 1 famille ; 9 familles, 576 grilles. Sur le milieu des cases : 10 cubes de profil (8×6, 16×3), 512 grilles, 8 familles chacun ; 5 cubes de profil (8×4, 16×4), 256 grilles, 4 familles chacun ; 100 familles, 6 400 grilles. Total : 109 familles de 64 grilles, soit 109 familles de 32 formes (288 = 9 × 32, 3 200 = 100 × 32). Basculer les six blocs est le demi-décalage (6, 6) pour les 20 cubes (6 976 grilles sur 6 976) ; deux mots qui diffèrent de d traits donnent deux grilles à 16 d cases d'écart (219 744 paires de mots sur 219 744) ; le nombre de familles ne dépend pas de l'appariement des unités de 8 cases (trois appariements essayés). Aucun numéro d'hexagramme n'est attaché aux traits.",
+        "langue": "fr",
+        "source": "prompt 276 (calcul indépendant d'Anibal, recalculé ici sans reprendre ses nombres) ; tools/codage_six_traits_quatre_axes.py"
+      },
+      "valeur": {
+        "entre": {
+          "profils": {
+            "8×2, 16×5": {
+              "cubes": 4,
+              "grilles": 128,
+              "familles": 2
+            },
+            "16×6": {
+              "cubes": 1,
+              "grilles": 64,
+              "familles": 1
+            }
+          },
+          "familles": 9,
+          "grilles": 576
+        },
+        "milieu": {
+          "profils": {
+            "8×4, 16×4": {
+              "cubes": 5,
+              "grilles": 256,
+              "familles": 4
+            },
+            "8×6, 16×3": {
+              "cubes": 10,
+              "grilles": 512,
+              "familles": 8
+            }
+          },
+          "familles": 100,
+          "grilles": 6400
+        },
+        "total": {
+          "familles": 109,
+          "grilles": 6976,
+          "formes_par_famille": 32
+        },
+        "controles": {
+          "cubes": 20,
+          "demi_decalage_cubes": 20,
+          "demi_decalage_grilles": 6976,
+          "distances_paires": 219744,
+          "distances_bonnes": 219744,
+          "appariements_stables": 20
+        }
+      },
+      "conditionnel": false,
+      "referents": [
+        "calques-360",
+        "corpus-256"
+      ],
+      "donnees": [
+        "data/couches-quatre-axes.json",
+        "data/referent_360_v3.json"
+      ],
+      "script": {
+        "chemin": "tools/codage_six_traits_quatre_axes.py",
+        "adresse": "https://anibal-amiot.com/tools/codage_six_traits_quatre_axes.py",
+        "depose": null
+      },
+      "preuves": [
+        {
+          "ci": ".github/workflows/check-referents.yml",
+          "lignes": [
+            "OK    codage à six traits entre les cases : 4 cubes de profil (8×2, 16×5), 128 grilles, 2 familles de 64 grilles chacun.",
+            "OK    codage à six traits entre les cases : 1 cube de profil (16×6), 64 grilles, 1 famille de 64 grilles chacun.",
+            "OK    codage à six traits entre les cases : 9 familles, 576 grilles.",
+            "OK    codage à six traits sur le milieu des cases : 5 cubes de profil (8×4, 16×4), 256 grilles, 4 familles de 64 grilles chacun.",
+            "OK    codage à six traits sur le milieu des cases : 10 cubes de profil (8×6, 16×3), 512 grilles, 8 familles de 64 grilles chacun.",
+            "OK    codage à six traits sur le milieu des cases : 100 familles, 6400 grilles.",
+            "OK    codage à six traits, total : 109 familles de 64 grilles, soit 109 familles de 32 formes (9 × 32 = 288 formes entre les cases, 100 × 32 = 3200 sur le milieu des cases).",
+            "OK    basculer les six blocs = le décalage (6, 6) : vrai pour 20 cubes sur 20, 6976 grilles sur 6976.",
+            "OK    deux mots qui diffèrent de d traits donnent deux grilles à 16 d cases d'écart : 219744 paires de mots sur 219744 (tous les mots, tous les cubes).",
+            "OK    le nombre de familles ne dépend pas de l'appariement (consécutif, inverse, moitiés) : 20 cubes sur 20."
+          ]
+        }
+      ],
+      "statut": "verifie_ci",
+      "note": "Suite de formes-quatre-axes-orbites-produits. L'appariement des unités de 8 cases est déterministe (rangées par leur plus petite case, la première avec la deuxième, etc.) ; consécutif, inverse et moitiés donnent les mêmes nombres de familles. Les nombres sont ceux que le prompt 276 attendait : aucun écart. Aucun sens n'est attribué aux motifs ; les 3 200 formes ne sont pas engendrées par la carte des six niveaux actuelle. Aucun journal déposé sur Zenodo."
     }
   ]
 }

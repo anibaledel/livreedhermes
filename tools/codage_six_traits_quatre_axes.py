@@ -177,7 +177,7 @@ def lignes(o):
     out = []
     for nom, titre in (('entre', 'entre les cases'), ('milieu', 'sur le milieu des cases')):
         for p, x in o[nom]['profils'].items():
-            out.append(f'OK    codage à six traits {titre} : {x["cubes"]} cubes de profil ({p}), {x["grilles"]} grilles, {x["familles"]} familles de 64 grilles chacun.')
+            out.append(f'OK    codage à six traits {titre} : {x["cubes"]} cube{"s" if x["cubes"] > 1 else ""} de profil ({p}), {x["grilles"]} grilles, {x["familles"]} famille{"s" if x["familles"] > 1 else ""} de 64 grilles chacun.')
         out.append(f'OK    codage à six traits {titre} : {o[nom]["familles"]} familles, {o[nom]["grilles"]} grilles.')
     t, c = o['total'], o['controles']
     out.append(f'OK    codage à six traits, total : {t["familles"]} familles de 64 grilles, soit {t["familles"]} familles de {t["formes_par_famille"]} formes ({o["entre"]["familles"]} × {t["formes_par_famille"]} = {o["entre"]["familles"] * t["formes_par_famille"]} formes entre les cases, {o["milieu"]["familles"]} × {t["formes_par_famille"]} = {o["milieu"]["familles"] * t["formes_par_famille"]} sur le milieu des cases).')

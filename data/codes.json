@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T12:57:51Z",
+ "generated_at_utc": "2026-11-28T13:18:50Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T10:30:00+00:00"
  },
  "comptes": {
-  "scripts": 357,
+  "scripts": 360,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1791,6 +1791,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/captures_prompt_273.mjs",
+   "adresse": "https://anibal-amiot.com/tools/captures_prompt_273.mjs",
+   "octets": 2523,
+   "sha256": "e00c08913639ed3a91954f767fa6767351539d3d2a5799e3634c0475638b021a",
+   "md5": "58bab2e69592c6117341072d30f5f949",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "les captures téléphone (390 px) et ordinateur (1280 px) de la nouvelle interface (Pavane) : le départ, Lignes nodales, Aplat (cases), « Plus d'options » ouvert.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/cellule_c16.py",
    "adresse": "https://anibal-amiot.com/tools/cellule_c16.py",
    "octets": 8857,
@@ -2876,9 +2891,9 @@
   {
    "chemin": "tools/check_pavane_ui.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_ui.mjs",
-   "octets": 27503,
-   "sha256": "cf7c73ee651aed43b6fd39a73347f13bf2c2c4b79553691652e5619b55c75123",
-   "md5": "5c633e3b7c30a6b9df9dac13da206efd",
+   "octets": 31821,
+   "sha256": "c586d955773d319ebe3e74b1e409a0997f8d73172100c6a1ed7c670103d6b488",
+   "md5": "859c512824a2988cb6e4c887f18a66d3",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'interface de « Pavane — Voir sa musique », premier bloc (prompt 211 §2, §4, §9.4 et §9.5), en navigateur : une page par mode, à 390 et à 1280 px, en français, japonais et thaï.",
@@ -3324,6 +3339,21 @@
    "role": "ce que comptent « 512 », « 256 » et « 128 » dans la note half-shift, avec les seules fonctions de cube_edges.py.",
    "lit": [],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/codage_six_traits_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/codage_six_traits_quatre_axes.py",
+   "octets": 12967,
+   "sha256": "16cc476cab8f743f6724ec6f6ace0a60b61c976370e44476104ebc84301ae26b",
+   "md5": "738b793b5ed874e69d280eada30040bd",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "le codage à six traits des cubes des formes à quatre axes (prompt 276, suite de tools/fermeture_quatre_axes_cube.py et tools/orbites_produits_quatre_axes.py).",
+   "lit": [],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []
@@ -5291,6 +5321,23 @@
    "role": "rendu SVG autonome d'une famille au format C16 (voir cellule_c16.py), pour vérification visuelle.",
    "lit": [],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/rendus_demi_periode.mjs",
+   "adresse": "https://anibal-amiot.com/tools/rendus_demi_periode.mjs",
+   "octets": 3676,
+   "sha256": "1ae2b14664fe170ed64048d3f12e70098797998c7e4a78b143a3e647e38a1eda",
+   "md5": "23638c49fab862cabf3cfc212263019b",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "la règle de la demi-période pour les rendus rétablis de l'interface (prompt 273) : « Signes » et « Lignes nodales » (assets/pavane-rendu.js, figure de assets/musique-chladni-moteur.js).",
+   "lit": [
+    "corpus-256"
+   ],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []

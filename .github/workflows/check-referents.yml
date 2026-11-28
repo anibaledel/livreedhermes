@@ -89,6 +89,8 @@ jobs:
       - run: python3 tools/fermeture_quatre_axes_cube.py --essai
       - run: python3 tools/orbites_produits_quatre_axes.py --verifie
       - run: python3 tools/orbites_produits_quatre_axes.py --essai
+      - run: python3 tools/codage_six_traits_quatre_axes.py --verifie
+      - run: python3 tools/codage_six_traits_quatre_axes.py --essai
       - run: node tools/check_fiches_formes.mjs
       - run: node tools/check_fiches_formes.mjs --essai
       - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons
