@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T13:18:50Z",
+ "generated_at_utc": "2026-11-28T13:42:01Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T10:30:00+00:00"
  },
  "comptes": {
-  "scripts": 360,
+  "scripts": 363,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1806,6 +1806,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/captures_prompt_277.mjs",
+   "adresse": "https://anibal-amiot.com/tools/captures_prompt_277.mjs",
+   "octets": 2798,
+   "sha256": "31677de1e74c7a8544145506472e1a041454de59be11640f2a16b0be843e5a26",
+   "md5": "f04dc2da4399afb27896028600863646",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "le départ sur le micro de la nouvelle interface (Pavane), téléphone (390 px) et ordinateur (1280 px) : l'écran de départ (aucun son), le micro absent (message d'une ligne et proposition de la musique d'essai), la musique d'essai en Signe…",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/cellule_c16.py",
    "adresse": "https://anibal-amiot.com/tools/cellule_c16.py",
    "octets": 8857,
@@ -2856,9 +2871,9 @@
   {
    "chemin": "tools/check_pavane_photosensible.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_photosensible.mjs",
-   "octets": 13589,
-   "sha256": "99876083aa04107a4361792f2ca2214b050726342b897b4626ff2680195062ec",
-   "md5": "c2302af0a7d59e30553f36e64727b4de",
+   "octets": 18177,
+   "sha256": "48713915f2650c23d3b1a946c6e4c114f4b3e4a07d0172b370c99ce53f5fb81c",
+   "md5": "5969f6846991f364415a590a70548e5f",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "la photosensibilité de « Voir sa musique » dans ses trois modes (prompt 226, suite du 223), sans navigateur ni micro.",
@@ -2874,9 +2889,9 @@
   {
    "chemin": "tools/check_pavane_son.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_pavane_son.mjs",
-   "octets": 12467,
-   "sha256": "d6c07b33d40d1d51f96e77c4a74f3b98fd532b8229c49787b522d3422a17cad0",
-   "md5": "9789f1473f7cd822c33ef8cd588eb1b0",
+   "octets": 13429,
+   "sha256": "6ae9877cffb799aeadfbf2205d7b2d444f3f219cd092d78aa02916b1d42567f6",
+   "md5": "3691cd1ae7db11389024d201c20bee11",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les sources du son et l'enregistrement de « Pavane — Voir sa musique » (prompt 211 §2, §9.4 : audio simulé, pas de micro réel), en navigateur.",
@@ -3353,6 +3368,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
    "role": "le codage à six traits des cubes des formes à quatre axes (prompt 276, suite de tools/fermeture_quatre_axes_cube.py et tools/orbites_produits_quatre_axes.py).",
    "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/comparaison_depart_ancien_nouveau.mjs",
+   "adresse": "https://anibal-amiot.com/tools/comparaison_depart_ancien_nouveau.mjs",
+   "octets": 6291,
+   "sha256": "f0a40aab5c58628dfcbccd422248a7a27586ef338be1777c2dd7ba253233f654",
+   "md5": "a2db685efb2060d3703e5e3b863fd72d",
+   "licence_declaree": true,
+   "licence": "© Anibal Edelberto Amiot 2026 — La Livrée d'Hermès — AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "l'ancien départ de « Voir sa musique » (assets/musique-chladni-moteur.js : creerPilote, mode « image », lissage de 0,45 par image de 33 ms, hystérésis 0,07, tenue de 8 images) et le nouveau (assets/pavane-moteur.js : creerChef, mode « sp…",
+   "lit": [
+    "corpus-256"
+   ],
    "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
@@ -4344,6 +4376,23 @@
    "role": "existe-t-il un étiquetage magique à quatre classes d'ordre n lorsque n n'est pas multiple de 6 ?",
    "lit": [],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/grammaire_six_niveaux_quatre_axes.py",
+   "adresse": "https://anibal-amiot.com/tools/grammaire_six_niveaux_quatre_axes.py",
+   "octets": 11416,
+   "sha256": "77517c580040eb9add8c6f0c93d557149a89543f7c9a1cceffdb860e51a414f0",
+   "md5": "e70a175333df37ef3516aa3a91573387",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "quels cubes portent la grammaire à six niveaux (prompt 281, suite de tools/codage_six_traits_quatre_axes.py).",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []

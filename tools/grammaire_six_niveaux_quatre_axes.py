@@ -152,10 +152,10 @@ def lignes(o):
     for nom, titre in (('entre', 'entre les cases'), ('milieu', 'sur le milieu des cases')):
         x = o[nom]
         out.append(f'OK    grammaire à six niveaux {titre} : {x["cubes"]} cubes, {x["cartes"]} cartes possibles ; nombre de cartes qui satisfont le critère (16 cases mobiles et 8 du socle par niveau), cubes par nombre : {json.dumps(x["cartes_par_cube"], ensure_ascii=False)}.')
-        out.append(f'OK    grammaire à six niveaux {titre} : {x["cubes_satisfaisants"]} cubes satisfont le critère ; {x["grilles_couvertes"]} grilles couvertes sur {x["grilles_des_cubes"]} ; {x["phi_parfaits"]} grilles Φ(n, A, B) parfaites et {x["phi_dans_le_cube"]} dans le cube sur {x["phi"]} (trois cartes essayées par cube : {x["cartes_essayees"]}) ; complément = décalage (6, 6) : {x["complement_decalage_cubes"]} cubes sur {x["cubes_satisfaisants"]}.')
+        out.append(f'OK    grammaire à six niveaux {titre} : {x["cubes_satisfaisants"]} cube{"s" if x["cubes_satisfaisants"] > 1 else ""} {'satisfont' if x['cubes_satisfaisants'] > 1 else 'satisfait'} le critère ; {x["grilles_couvertes"]} grilles couvertes sur {x["grilles_des_cubes"]} ; {x["phi_parfaits"]} grilles Φ(n, A, B) parfaites et {x["phi_dans_le_cube"]} dans le cube sur {x["phi"]} (trois cartes essayées par cube : {x["cartes_essayees"]}) ; complément = décalage (6, 6) : {x["complement_decalage_cubes"]} cube{"s" if x["complement_decalage_cubes"] > 1 else ""} sur {x["cubes_satisfaisants"]}.')
     f, s = o['formes'], o['spectre_milieu']
     out.append(f'OK    formes concernées : {f["historiques"]} entre les cases + {f["milieu"]} sur le milieu des cases = {f["total"]} ; recoupement des {f["milieu"]} avec les 288 : {f["recoupement_des_milieu_avec_les_288"]}.')
-    out.append(f'OK    spectre des {f["milieu"]} formes du milieu des cases : pic dominant (6, 6) seul pour {s["pic_6_6_seul"]}, centroïde de {s["centroide_min_max"][0]:.2f} à {s["centroide_min_max"][1]:.2f}, {s["spectres_distincts"]} spectres distincts, {s["ensembles_de_pics"]} ensemble de pics.')
+    out.append(f'OK    spectre des {f["milieu"]} formes du milieu des cases : pic dominant (6, 6) seul pour {s["pic_6_6_seul"]}, centroïde de {str(round(s["centroide_min_max"][0], 2)).replace('.', ',')} à {format(s["centroide_min_max"][1], '.2f').replace('.', ',')}, {s["spectres_distincts"]} spectres distincts, {s["ensembles_de_pics"]} ensemble de pics.')
     return out
 
 
