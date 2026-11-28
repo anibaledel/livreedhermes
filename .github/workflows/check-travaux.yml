@@ -31,3 +31,6 @@ jobs:
       # le registre dit-il ce que Zenodo enregistre ? (instantané data/zenodo/, récupéré hors CI)
       - run: node tools/check_zenodo_registre.mjs
       - run: node tools/check_zenodo_registre.mjs --essai
+      # l'instantané reconnaît une version antérieure reprise de la base (clé texte contre clé entière corrigée), et celui du jour est identique à son dossier daté
+      - run: python3 tools/check_zenodo_instantane.py
+      - run: python3 tools/check_zenodo_instantane.py --essai

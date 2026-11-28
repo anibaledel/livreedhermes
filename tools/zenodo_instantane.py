@@ -181,9 +181,12 @@ def construire(dossier, registre, base, recupere_le, jour):
 
     # la dernière version de chaque fiche « toutes versions » : le plus grand identifiant connu (dossier + base)
     plus_recent = {}
+    # les clés de plus_recent sont des ENTIERS : conceptrecid est une chaîne dans les fiches de l'API (« 24594284 »), et les entrées de la base sont lues en entiers (int(conceptDoi sans préfixe)) ;
+    # avec une clé texte d'un côté et entière de l'autre, une entrée reprise de la base (sa fiche n'est pas dans le dossier) n'était jamais reconnue comme version antérieure (prompt 293, à part)
     for i, rec in fiches.items():
         if rec.get('conceptrecid'):
-            plus_recent[rec['conceptrecid']] = max(plus_recent.get(rec['conceptrecid'], 0), i)
+            c = int(rec['conceptrecid'])
+            plus_recent[c] = max(plus_recent.get(c, 0), i)
     for e in base_entrees:
         if e.get('id_version') and e.get('conceptDoi'):
             c = int(str(e['conceptDoi']).replace(PREFIXE, ''))
@@ -197,11 +200,11 @@ def construire(dossier, registre, base, recupere_le, jour):
             sys.exit(f"zenodo_instantane.py : la fiche {i} n'a pas la forme de l'API « records » (doi, metadata.description) ; "
                      "une fiche collée à la main sous une autre forme doit porter une note `releve` dans depots.json, qui la fige")
         e = entree(rec, reg_par_doi)
-        if rec.get('conceptrecid') and i < plus_recent.get(rec['conceptrecid'], i):
+        if rec.get('conceptrecid') and i < plus_recent.get(int(rec['conceptrecid']), i):
             concept = rec.get('conceptdoi') or (PREFIXE + str(rec['conceptrecid']))
             e['conceptDoi'] = None
             e['version_anterieure_de'] = concept
-            e['_doc'] = f"Version antérieure de {concept}, remplacée par {PREFIXE}{plus_recent[rec['conceptrecid']]} : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
+            e['_doc'] = f"Version antérieure de {concept}, remplacée par {PREFIXE}{plus_recent[int(rec['conceptrecid'])]} : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
         nouvelles[i] = e
 
     sortie, vus = [], set()

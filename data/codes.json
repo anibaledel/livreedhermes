@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-28T16:40:52Z",
+ "generated_at_utc": "2026-11-28T16:42:38Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-28T16:40:48+00:00"
  },
  "comptes": {
-  "scripts": 365,
+  "scripts": 366,
   "sans_licence_declaree": 76,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3329,6 +3329,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_zenodo_instantane.py",
+   "adresse": "https://anibal-amiot.com/tools/check_zenodo_instantane.py",
+   "octets": 5550,
+   "sha256": "020c60fd3af0a820a813abef58ca048fbe0935b3756e352bfc6cf0a1fc374aa3",
+   "md5": "aa2f24fa351dfebc16f253da3b60a5a7",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : voir LICENSE",
+   "role": "tools/zenodo_instantane.py reconnaît-il une version antérieure reprise de l'instantané précédent ?",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_zenodo_registre.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_zenodo_registre.mjs",
    "octets": 7732,
@@ -6181,9 +6196,9 @@
   {
    "chemin": "tools/zenodo_instantane.py",
    "adresse": "https://anibal-amiot.com/tools/zenodo_instantane.py",
-   "octets": 14345,
-   "sha256": "e19526f5fa75a58fd98d2319686cfa64a335a7f62726bab2d744f6efd10541c9",
-   "md5": "abe61020907e64ebb614192a4f661a23",
+   "octets": 14767,
+   "sha256": "29c30c879468c516bd081625548e28ce7f0aae2120859f9cde1b1dfb4bbee5eb",
+   "md5": "6e93bbf9ab177f3fa76bec95b3a80481",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "écrit data/zenodo/depots.json (la vue normalisée de l'instantané des fiches Zenodo) depuis les réponses brutes de l'API.",
