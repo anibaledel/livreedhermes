@@ -16,7 +16,7 @@ Nombres attendus : lus dans data/resultats-etablis.json (résultat « formes-qua
 
   python3 tools/grammaire_six_niveaux_quatre_axes.py            imprime les nombres
   python3 tools/grammaire_six_niveaux_quatre_axes.py --verifie  échoue si un nombre diffère de data/resultats-etablis.json
-  python3 tools/grammaire_six_niveaux_quatre_axes.py --essai    un nombre faussé, une carte à niveau de 15 cases mobiles et une grille retirée du cube sont refusés
+  python3 tools/grammaire_six_niveaux_quatre_axes.py --essai    un nombre faussé, un nombre du partage des cartes faussé, une carte à niveau de 15 cases mobiles et une grille retirée du cube sont refusés
 """
 import copy
 import json
@@ -105,11 +105,14 @@ def calcule():
         P = L[nom]
         cubes, unites = op.cubes_de(P, orb, sg)
         cs = sorted(ferm.cartes(ferm.elements(orb, sg)), key=cle_carte)
-        par_cube = {}
+        par_cube, supports = {}, {}
         constr = {'cubes_satisfaisants': 0, 'grilles_des_cubes': 0, 'grilles_couvertes': 0, 'phi': 0, 'phi_parfaits': 0, 'phi_dans_le_cube': 0, 'complement_decalage_cubes': 0, 'cartes_essayees': 0}
         for key in sorted(cubes):
-            sat = [c for c in cs if niveaux_16_8(comptes_niveaux(c, orb, unites[key]))]
+            sat_i = [i for i, c in enumerate(cs) if niveaux_16_8(comptes_niveaux(c, orb, unites[key]))]
+            sat = [cs[i] for i in sat_i]
             par_cube[key] = len(sat)
+            if sat_i:
+                supports[key] = set(sat_i)
             if not sat:
                 continue
             constr['cubes_satisfaisants'] += 1
@@ -122,7 +125,11 @@ def calcule():
                     raise ValueError('les trois cartes ne donnent pas les mêmes nombres')
             for rows in cubes[key]:
                 grilles_sat.setdefault(nom, []).append(rows)
-        out[nom] = {'cubes': len(cubes), 'cartes': len(cs), 'cartes_par_cube': {str(k): v for k, v in sorted(Counter(par_cube.values()).items(), reverse=True)}, **constr}
+        # les cartes PARTAGÉES entre supports (prompt 283) : pour chaque carte, combien des supports compatibles (les cubes qui ont des cartes satisfaisantes) la satisfont
+        nb = Counter(sum(i in ens for ens in supports.values()) for i in range(len(cs)))
+        partage = {'supports_compatibles': len(supports), 'exactement_un': nb.get(1, 0), 'exactement_deux': nb.get(2, 0), 'exactement_trois': nb.get(3, 0), 'aucun': nb.get(0, 0), 'plus_de_trois': sum(v for k, v in nb.items() if k > 3),
+                   'au_moins_un': sum(v for k, v in nb.items() if k >= 1), 'somme_ponderee': sum(k * v for k, v in nb.items()), 'cartes_par_support_total': sum(len(e) for e in supports.values())}
+        out[nom] = {'partage': partage, 'cubes': len(cubes), 'cartes': len(cs), 'cartes_par_cube': {str(k): v for k, v in sorted(Counter(par_cube.values()).items(), reverse=True)}, **constr}
         if nom == 'entre':
             cl288 = {couv.canon(couv.arr(r)) for r in P}
     # formes concernées, recoupement, spectre
@@ -153,6 +160,8 @@ def lignes(o):
         x = o[nom]
         out.append(f'OK    grammaire à six niveaux {titre} : {x["cubes"]} cubes, {x["cartes"]} cartes possibles ; nombre de cartes qui satisfont le critère (16 cases mobiles et 8 du socle par niveau), cubes par nombre : {json.dumps(x["cartes_par_cube"], ensure_ascii=False)}.')
         out.append(f'OK    grammaire à six niveaux {titre} : {x["cubes_satisfaisants"]} cube{"s" if x["cubes_satisfaisants"] > 1 else ""} {'satisfont' if x['cubes_satisfaisants'] > 1 else 'satisfait'} le critère ; {x["grilles_couvertes"]} grilles couvertes sur {x["grilles_des_cubes"]} ; {x["phi_parfaits"]} grilles Φ(n, A, B) parfaites et {x["phi_dans_le_cube"]} dans le cube sur {x["phi"]} (trois cartes essayées par cube : {x["cartes_essayees"]}) ; complément = décalage (6, 6) : {x["complement_decalage_cubes"]} cube{"s" if x["complement_decalage_cubes"] > 1 else ""} sur {x["cubes_satisfaisants"]}.')
+    p = o['milieu']['partage']
+    out.append(f'OK    cartes partagées entre les {p["supports_compatibles"]} supports compatibles (sur le milieu des cases, {o["milieu"]["cartes"]} cartes) : {p["exactement_un"]} conviennent à exactement un support, {p["exactement_deux"]} à exactement deux, {p["exactement_trois"]} à exactement trois, {p["plus_de_trois"]} à plus de trois, {p["aucun"]} à aucun ; {p["au_moins_un"]} à au moins un ; contrôle : {p["exactement_un"]} + 2 × {p["exactement_deux"]} + 3 × {p["exactement_trois"]} = {p["somme_ponderee"]} = {p["supports_compatibles"]} × {p["cartes_par_support_total"] // max(1, p["supports_compatibles"])}.')
     f, s = o['formes'], o['spectre_milieu']
     out.append(f'OK    formes concernées : {f["historiques"]} entre les cases + {f["milieu"]} sur le milieu des cases = {f["total"]} ; recoupement des {f["milieu"]} avec les 288 : {f["recoupement_des_milieu_avec_les_288"]}.')
     out.append(f'OK    spectre des {f["milieu"]} formes du milieu des cases : pic dominant (6, 6) seul pour {s["pic_6_6_seul"]}, centroïde de {str(round(s["centroide_min_max"][0], 2)).replace('.', ',')} à {format(s["centroide_min_max"][1], '.2f').replace('.', ',')}, {s["spectres_distincts"]} spectres distincts, {s["ensembles_de_pics"]} ensemble de pics.')
@@ -165,6 +174,9 @@ def essai(o, att):
     f = copy.deepcopy(att); f['milieu']['cubes_satisfaisants'] += 1
     if not ecarts(o, f):
         sys.exit('ÉCHEC --essai : un nombre faussé est passé.')
+    f = copy.deepcopy(att); f['milieu']['partage']['exactement_deux'] += 1
+    if not ecarts(o, f):
+        sys.exit('ÉCHEC --essai : un nombre du partage des cartes faussé est passé.')
     # une carte à niveaux de 16 + 8 faussée : un niveau à 15 cases mobiles et 9 du socle
     faux = [(16, 8)] * 5 + [(15, 9)]
     if niveaux_16_8(faux) or not niveaux_16_8([(16, 8)] * 6):
@@ -182,7 +194,7 @@ def essai(o, att):
             if dedans == nphi and couvert == ng:
                 sys.exit('ÉCHEC --essai : une grille retirée du cube n\'a pas été vue.')
             break
-    print('OK    --essai : un nombre faussé, une carte à niveau de 15 cases mobiles et une grille retirée du cube sont refusés (3 sur 3).')
+    print('OK    --essai : un nombre faussé, un nombre du partage des cartes faussé, une carte à niveau de 15 cases mobiles et une grille retirée du cube sont refusés (4 sur 4).')
 
 
 if __name__ == '__main__':
