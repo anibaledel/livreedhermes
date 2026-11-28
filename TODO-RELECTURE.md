@@ -1447,3 +1447,7 @@ Le protocole A4 (`assets/jeu-unifie/Protocole-jeu-unifie-A4.pdf`) est celui du z
 ## Prompt 273 — Voir sa musique, nouvelle interface : rendus Signes et Lignes nodales, « Plus d'options »
 
 `assets/pavane-rendu.js` : 22 libellés (le titre « Rendu », les rendus Signes / Lignes nodales / Cases, « Plus d'options » / « Moins d'options », les sept réglages de l'analyse du son et leurs aides, la remise à zéro) en français et en anglais, de la main de CC. **Les neuf autres langues retombent sur le français** : à traduire puis à relire (thaï et japonais d'abord). Dans `assets/pavane-textes.js`, les libellés du mode « Spectre » deviennent « Image » (clés `spectre` et `spectreP`, français et anglais seulement ; les neuf autres langues gardent « Spectre » : à aligner).
+
+## Prompt 277 — Voir sa musique, nouvelle interface : départ sur le micro et musique d'essai
+
+`assets/pavane-rendu.js` : 5 libellés de plus en français et en anglais, de la main de CC (`srcEssai`, `essaiProposer`, `microRefuse`, `microAbsent`, `microIndispo`) : « Musique d'essai », « Essayer avec la musique d'essai », et les trois messages d'une ligne qui disent pourquoi le micro ne marche pas. **Les neuf autres langues retombent sur le français** : à traduire puis à relire (thaï et japonais d'abord). Le message `microRepli` (« un morceau d'exemple joue à la place ») n'est plus affiché : le repli automatique est retiré.
